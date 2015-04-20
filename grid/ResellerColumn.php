@@ -7,8 +7,6 @@
 
 namespace hipanel\modules\client\grid;
 
-use hipanel\widgets\Combo2;
-
 class ResellerColumn extends ClientColumn
 {
     public $attribute     = 'seller_id';
