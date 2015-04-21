@@ -9,6 +9,4 @@ namespace hipanel\modules\client;
 
 class Module extends \hipanel\base\Module
 {
-    public $controllerNamespace = 'hipanel\modules\client\controllers';
-    public $defaultRoute = 'client/index';
 }
