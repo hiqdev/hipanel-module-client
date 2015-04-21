@@ -27,7 +27,7 @@ class Client extends \hipanel\base\Model {
     }
 
     public function attributeLabels () {
-        return $this->margeAttributeLabels([]);
+        return $this->mergeAttributeLabels([]);
     }
 
 }
