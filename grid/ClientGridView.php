@@ -17,6 +17,7 @@ use hipanel\grid\EditableColumn;
 use hipanel\widgets\ArraySpoiler;
 use Yii;
 use yii\helpers\Html;
+use hipanel\grid\ActionColumn;
 
 class ClientGridView extends BoxedGridView
 {
@@ -66,6 +67,16 @@ class ClientGridView extends BoxedGridView
                 'label'                 => 'Registered',
                 'filter'                => false,
                 'contentOptions'        => ['class' => 'text-nowrap'],
+            ],
+            'action' => [
+                'class' => ActionColumn::className(),
+                'template' => '{view} {block} {delete} {update}', // {state}
+                'header' => Yii::t('app', 'Actions'),
+                'buttons' => [
+                    'block' => function ($url, $model, $key) {
+                        return Html::a('Close', ['block', 'id' => $model->id]);
+                    },
+                ],
             ],
         ];
     }

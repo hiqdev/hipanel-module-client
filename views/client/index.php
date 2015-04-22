@@ -23,5 +23,6 @@ $this->params['subtitle']       = Yii::$app->request->queryParams ? 'filtered li
         'type', 'state',
         'balance', 'credit',
         'create_time',
+        'action'
     ],
 ]) ?>
