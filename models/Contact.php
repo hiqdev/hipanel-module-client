@@ -46,6 +46,11 @@ class Contact extends \hipanel\base\Model
             'passport_no'           => Yii::t('app', 'Passport number'),
             'passport_by'           => Yii::t('app', 'Passport by'),
             'passport_date'         => Yii::t('app', 'Passport date'),
+            'icq'                   => 'ICQ',
+            'voice_phone'           => Yii::t('app', 'Phone'),
+            'fax_phone'             => Yii::t('app', 'Fax'),
+            'country_name'          => Yii::t('app', 'Country'),
+            'abuse_email'           => Yii::t('app', 'Abuse email'),
         ]);
     }
 

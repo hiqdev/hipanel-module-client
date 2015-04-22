@@ -69,11 +69,8 @@ FlagIconCssAsset::register($this);
                     'columns'       => [
                         'email', 'abuse_email', 'skype', 'icq', 'jabber', 'voice_phone', 'fax',
                         'country', 'province', 'postal_code', 'city', 'street',
-
-//                        'passport_no',
-//                        'passport_date',
-//                        'passport_by',
-//                        'organization',
+                        /// RU/SU
+                        'passport_no', 'passport_date', 'passport_by', 'organization',
                     ]
                 ]) ?>
                 <?php $box->endBody(); ?>
