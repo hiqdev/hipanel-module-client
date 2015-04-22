@@ -6,6 +6,7 @@
  */
 
 namespace hipanel\modules\client\models;
+use Yii;
 
 class Client extends \hipanel\base\Model {
 
@@ -14,8 +15,10 @@ class Client extends \hipanel\base\Model {
     public function rules()
     {
         return [
-            [[ 'id', 'credit', 'balance', 'seller_id', 'state_id', 'type_id', 'state_id', 'tariff_id', 'profile_id'],   'integer'],
+            [[ 'id', 'seller_id', 'state_id', 'type_id', 'tariff_id', 'profile_id'],                                    'integer'],
             [[ 'login', 'seller', 'state', 'type', 'tariff', 'profile'],                                                'safe'],
+            [[ 'state_label', 'type_label' ],                                                                           'safe'],
+            [[ 'balance', 'credit'],                                                                                    'number'],
             [[ 'count', 'confirm_url', 'language', 'comment', 'name', 'contact'], 'safe'],
             [[ 'create_time', 'update_time'], 'date'],
             [[ 'email'], 'email'],
@@ -27,7 +30,10 @@ class Client extends \hipanel\base\Model {
     }
 
     public function attributeLabels () {
-        return $this->mergeAttributeLabels([]);
+        return $this->mergeAttributeLabels([
+            'create_time'   => Yii::t('app', 'Register'),
+            'update_time'   => Yii::t('app', 'Last update'),
+        ]);
     }
 
 }
