@@ -9,6 +9,8 @@ use frontend\assets\FlagIconCssAsset;
 use hipanel\widgets\Box;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use hipanel\modules\client\grid\ContactGridView;
+use hipanel\modules\client\models\Contact;
 
 $this->title = \yii\helpers\Inflector::titleize($model->name, true);
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Clients'), 'url' => ['index']];
@@ -16,7 +18,6 @@ $this->params['breadcrumbs'][] = $this->title;
 FlagIconCssAsset::register($this);
 //\yii\helpers\VarDumper::dump($model, 10, true);
 ?>
-
 <div class="row">
     <div class="col-md-3">
         <?php Box::begin(); ?>
@@ -63,35 +64,16 @@ FlagIconCssAsset::register($this);
                 <?= Html::a(Yii::t('app', 'Change contact information'), '#', ['class' => 'btn btn-default btn-xs']); ?>
                 <?php $box->endTools(); ?>
                 <?php $box->beginBody(); ?>
-                <?= DetailView::widget([
-                    'model' => $model->contact,
-                    'attributes' => [
-                        //
-                        [
-                            'attribute' => 'country_name',
-                            'format' => 'raw',
-                            'value' => Html::tag('span', '', ['class' => 'flag-icon flag-icon-' . $model->contact['country']]) . '&nbsp;&nbsp;' . $model->contact['country_name'],
-                        ],
-                        'country_name',
-                        'province',
-                        'province_name',
-                        'postal_code',
-                        'city',
-                        'street1',
-                        'street2',
-                        'street3',
-                        //
-                        'passport_no',
-                        'passport_date',
-                        'passport_by',
-                        'organization',
-                        //
-                        'voice_phone',
-                        'email',
-                        'abuse_email',
-                        'skype',
-                        'jabber',
-                        'icq',
+                <?= ContactGridView::detailView([
+                    'model'         => new Contact($model->contact),
+                    'columns'       => [
+                        'email', 'abuse_email', 'skype', 'icq', 'jabber', 'voice_phone', 'fax',
+                        'country', 'province', 'postal_code', 'city', 'street',
+
+//                        'passport_no',
+//                        'passport_date',
+//                        'passport_by',
+//                        'organization',
                     ]
                 ]) ?>
                 <?php $box->endBody(); ?>
