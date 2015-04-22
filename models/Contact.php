@@ -9,48 +9,44 @@ namespace hipanel\modules\client\models;
 
 use Yii;
 
-class Contact extends \hiqdev\hiar\ActiveRecord
+class Contact extends \hipanel\base\Model
 {
     /**
      * @return array the list of attributes for this record
      */
-    public function attributes()
-    {
-        return [
-            'id',
-            'client_id', 'seller_id',
-            'client', 'seller',
-            'type', 'state',
-            'create_time', 'update_time',
-            'email', 'name', 'type_label'
-        ];
-    }
+
+    use \hipanel\base\ModelTrait;
 
     public function rules()
     {
         return [
-            [[ 'id', 'credit', ], 'integer', 'on' => 'setcredit' ],
-            [[ 'id', 'type', 'comment', ], 'safe', 'on' => 'setblock' ],
-            [[ 'id', 'language', ], 'safe', 'on' => 'setlanguage' ],
-            [[ 'id', 'seller_id',], 'integer', 'on' => 'setseller' ],
+            [[ 'id', 'obj_id', 'client_id', 'seller_id' ],                  'integer'],
+            [[ 'type_id', 'state_id' ],                                     'integer'],
+            [[ 'create_time', 'update_time', 'created_date', 'updated_date' ], 'date'],
+            [[ 'client', 'seller', 'state', 'type' ],                       'safe'],
+            [[ 'email', 'abuse_email' ],                                    'email'],
+            [[ 'country', 'country_name', 'province', 'province_name' ],    'safe'],
+            [[ 'postal_code' ],                                             'safe'],
+            [[ 'city', 'street1', 'street2', 'street3' ],                   'safe'],
+            [[ 'voice_phone', 'fax_phone' ],                                'safe'],
+            [[ 'icq', 'skype', 'jabber' ],                                  'safe'],
+            [[ 'roid', 'epp_id', 'remoteid' ],                              'safe'],
+            [[ 'name', 'first_name', 'last_name' ],                         'safe'],
+            [[ 'birth_date', 'passport_date' ],                             'date'],
+            [[ 'passport_no', 'passport_by', 'organization', 'password' ],  'safe' ],
+            [[ 'remote'] , 'safe'],
+            [[ 'email_confirmed' ],                                         'boolean' ],
         ];
     }
 
     public function attributeLabels () {
-        return [
-            'id'                    => Yii::t('app', 'ID'),
-            'seller_id'             => Yii::t('app', 'Reseller ID'),
-            'client_id'             => Yii::t('app', 'Client ID'),
-            'seller'                => Yii::t('app', 'Reseller'),
-            'client'                => Yii::t('app', 'Client'),
-            'type'                  => Yii::t('app', 'Type'),
-            'type_label'            => Yii::t('app', 'Type'),
-            'state'                 => Yii::t('app', 'State'),
+        return $this->mergeAttributeLabels([
             'create_time'           => Yii::t('app', 'Create time'),
             'update_time'           => Yii::t('app', 'Update time'),
-            'label'                 => Yii::t('app', 'Label'),
-            'descr'                 => Yii::t('app', 'Description'),
-        ];
+            'passport_no'           => Yii::t('app', 'Passport number'),
+            'passport_by'           => Yii::t('app', 'Passport by'),
+            'passport_date'         => Yii::t('app', 'Passport date'),
+        ]);
     }
 
 }
