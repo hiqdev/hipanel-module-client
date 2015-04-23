@@ -12,6 +12,7 @@ use hipanel\modules\client\widgets\Type as ClientType;
 use hipanel\grid\BoxedGridView;
 use hipanel\grid\RefColumn;
 use hipanel\grid\MainColumn;
+use hipanel\grid\CurrencyColumn;
 use hipanel\grid\SwitchColumn;
 use hipanel\grid\EditableColumn;
 use hipanel\widgets\ArraySpoiler;
@@ -47,15 +48,13 @@ class ClientGridView extends BoxedGridView
                 }
             ],
             'balance'       => [
-                'attribute'             => 'balance',
-                'format'                => 'html',
+                'class'                 => CurrencyColumn::className(),
+                'compare'               => 'credit',
                 'filter'                => false,
-                'value'                 => function ($model) {
-                    return HTML::tag('span', $model->balance, [ 'class' => 'label label-' . ($model->balance < 0 ? ($model->balance + $model->credit < 0 ? 'danger' : 'warning') : 'info')]);
-                },
+                'attribute'             => 'balance',
             ],
             'credit'        => [
-                'class' => EditableColumn::className(),
+                'class'                 => EditableColumn::className(),
                 'attribute'             => 'credit',
                 'filter'                => false,
                 'popover'               => Yii::t('app','Make any notes for your convenience'),

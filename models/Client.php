@@ -19,7 +19,7 @@ class Client extends \hipanel\base\Model {
             [[ 'login', 'seller', 'state', 'type', 'tariff', 'profile'],                                                'safe'],
             [[ 'state_label', 'type_label' ],                                                                           'safe'],
             [[ 'balance', 'credit'],                                                                                    'number'],
-            [[ 'count', 'confirm_url', 'language', 'comment', 'name', 'contact'], 'safe'],
+            [[ 'count', 'confirm_url', 'language', 'comment', 'name', 'contact', 'currency'], 'safe'],
             [[ 'create_time', 'update_time'], 'date'],
             [[ 'email'], 'email'],
             [[ 'id', 'credit', ],           'required', 'on' => 'set-credit' ],
