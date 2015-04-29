@@ -12,7 +12,7 @@ use yii\widgets\DetailView;
 use hipanel\modules\client\grid\ContactGridView;
 use hipanel\modules\client\models\Contact;
 
-$this->title = \yii\helpers\Inflector::titleize($model->name, true);
+$this->title                   = \yii\helpers\Inflector::titleize($model->name, true);
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Clients'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 FlagIconCssAsset::register($this);
@@ -29,25 +29,26 @@ FlagIconCssAsset::register($this);
             <br>
             <span class="profile-user-role"><?= $model->type; ?></span
         </p>
+
         <div class="profile-usermenu">
             <ul class="nav">
                 <li>
-                    <?= Html::a('<i class="ion-unlocked"></i>'.Yii::t('app', 'Change your password'), '#'); ?>
+                    <?= Html::a('<i class="ion-unlocked"></i>' . Yii::t('app', 'Change your password'), '#'); ?>
                 </li>
                 <li>
-                    <?= Html::a('<i class="ion-network"></i>'.Yii::t('app', 'Changing the IP address restrictions'), '#'); ?>
+                    <?= Html::a('<i class="ion-network"></i>' . Yii::t('app', 'Changing the IP address restrictions'), '#'); ?>
                 </li>
                 <li>
-                    <?= Html::a('<i class="ion-lock-combination"></i>'.Yii::t('app', 'Pincode'), '#'); ?>
+                    <?= Html::a('<i class="ion-lock-combination"></i>' . Yii::t('app', 'Pincode'), '#'); ?>
                 </li>
                 <li>
-                    <?= Html::a('<i class="ion-at"></i>'.Yii::t('app', 'Mailings'), '#'); ?>
+                    <?= Html::a('<i class="ion-at"></i>' . Yii::t('app', 'Mailings'), '#'); ?>
                 </li>
                 <li>
-                    <?= Html::a('<i class="ion-compose"></i>'.Yii::t('app', 'Change login'), '#'); ?>
+                    <?= Html::a('<i class="ion-compose"></i>' . Yii::t('app', 'Change login'), '#'); ?>
                 </li>
                 <li>
-                    <?= Html::a('<i class="ion-wrench"></i>'.Yii::t('app', 'Change type'), '#'); ?>
+                    <?= Html::a('<i class="ion-wrench"></i>' . Yii::t('app', 'Change type'), '#'); ?>
                 </li>
             </ul>
         </div>
@@ -65,12 +66,25 @@ FlagIconCssAsset::register($this);
                 <?php $box->endTools(); ?>
                 <?php $box->beginBody(); ?>
                 <?= ContactGridView::detailView([
-                    'model'         => new Contact($model->contact),
-                    'columns'       => [
-                        'email', 'abuse_email', 'skype', 'icq', 'jabber', 'voice_phone', 'fax',
-                        'country', 'province', 'postal_code', 'city', 'street',
+                    'model'   => new Contact($model->contact),
+                    'columns' => [
+                        'email',
+                        'abuse_email',
+                        'skype',
+                        'icq',
+                        'jabber',
+                        'voice_phone',
+                        'fax',
+                        'country',
+                        'province',
+                        'postal_code',
+                        'city',
+                        'street',
                         /// RU/SU
-                        'passport_no', 'passport_date', 'passport_by', 'organization',
+                        'passport_no',
+                        'passport_date',
+                        'passport_by',
+                        'organization',
                     ]
                 ]) ?>
                 <?php $box->endBody(); ?>
@@ -78,16 +92,19 @@ FlagIconCssAsset::register($this);
                 <?php $box::end(); ?>
             </div>
             <div class="col-md-6">
+                <?php
+                $box = Box::begin(['renderBody' => false]);
 
-                <?php $box = Box::begin(['renderBody' => false]); ?>
-                <?php $box->beginHeader(); ?>
-                <?= $box->renderTitle(Yii::t('app', 'Billing information'), '47 items'); ?>
-                <?php $box->beginTools(); ?>
-                <?= Html::a(Yii::t('app', 'Recharge account'), '#', ['class' => 'btn btn-default btn-xs']); ?>
-                <?php $box->endTools(); ?>
-                <?php $box->beginBody(); ?>
-                <?= DetailView::widget([
-                    'model' => $model,
+                $box->beginHeader();
+                echo $box->renderTitle(Yii::t('app', 'Billing information'), '47 items');
+                $box->beginTools();
+                echo Html::a(Yii::t('app', 'Recharge account'), '#', ['class' => 'btn btn-default btn-xs']);
+                $box->endTools();
+                $box->endHeader();
+
+                $box->beginBody();
+                echo DetailView::widget([
+                    'model'      => $model,
                     'attributes' => [
                         'state',
                         'balance',
@@ -95,10 +112,9 @@ FlagIconCssAsset::register($this);
                         'tariff',
                         'type',
                     ]
-                ]) ?>
-                <?php $box->endBody(); ?>
-                <?php $box->endHeader(); ?>
-                <?php $box::end(); ?>
+                ]);
+                $box->endBody();
+                $box::end(); ?>
             </div>
         </div>
     </div>

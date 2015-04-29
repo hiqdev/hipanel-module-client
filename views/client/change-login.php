@@ -30,7 +30,7 @@ $widgetIndexConfig = [
         [
             'label'     => Yii::t('app', 'Client'),
             'format'    => 'raw',
-            'value'     => function ($data) {
+            'value'     => function ($model) {
                 return HTML::input("hidden", "ids[{$data->id}][Client][id]", $data->id, ['readonly' => 'readonly']) .  HTML::tag('span', $data->login);
             }
         ],

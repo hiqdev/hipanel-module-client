@@ -38,7 +38,7 @@ class Client extends Combo2Config
     /** @inheritdoc */
     public function getFilter () {
         return ArrayHelper::merge(parent::getFilter(), [
-            'type' => ['format' => $this->clientType],
+            'type'  => ['format' => $this->clientType],
             'order' => ['format' => ['loginlike' => 'desc']],
         ]);
     }

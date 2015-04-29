@@ -22,7 +22,8 @@ class ClientColumn extends DataColumn
 
     public $clientType;
 
-    public function init () {
+    public function init()
+    {
         parent::init();
         if (is_null($this->visible)) {
             $this->visible = \Yii::$app->user->identity->type != 'client';
@@ -45,7 +46,8 @@ class ClientColumn extends DataColumn
         };
     }
 
-    public function getDataCellValue ($model, $key, $index) {
+    public function getDataCellValue($model, $key, $index)
+    {
         return Html::a($model->{$this->nameAttribute}, ['/client/client/view', 'id' => $model->{$this->attribute}]);
     }
 }

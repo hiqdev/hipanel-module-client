@@ -2,7 +2,9 @@
 
 namespace hipanel\modules\client\controllers;
 
-class ContactController extends \hipanel\base\CrudController {
+use hipanel\base\CrudController;
+
+class ContactController extends CrudController {
 
     public function actionCopy () {
     }
