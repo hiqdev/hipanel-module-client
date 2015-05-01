@@ -12,12 +12,12 @@ use hipanel\helpers\ArrayHelper;
 use yii\web\JsExpression;
 
 /**
- * Class Reseller
+ * Class Seller
  */
-class Reseller extends Client
+class Seller extends Client
 {
     /** @inheritdoc */
-    public $type = 'reseller';
+    public $type = 'client/seller';
 
     /** @inheritdoc */
     public $clientType = 'reseller';

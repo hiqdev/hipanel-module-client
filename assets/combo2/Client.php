@@ -16,10 +16,10 @@ use hipanel\helpers\ArrayHelper;
 class Client extends Combo2Config
 {
     /** @inheritdoc */
-    public $type = 'client';
+    public $type = 'client/client';
 
     /** @inheritdoc */
-    public $_primaryFilter = 'login_like';
+    public $name = 'login';
 
     /** @inheritdoc */
     public $url = '/client/client/search';
@@ -32,6 +32,8 @@ class Client extends Combo2Config
 
     /**
      * @var string the type of client
+     * Used by [[getFilter]] to generate filter
+     * @see getFilter()
      */
     public $clientType;
 
