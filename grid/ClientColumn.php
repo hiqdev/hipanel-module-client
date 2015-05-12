@@ -38,7 +38,7 @@ class ClientColumn extends DataColumn
             }
             if (!$this->filter) {
                 $this->filter = Combo2::widget([
-                    'type'                => 'client',
+                    'type'                => Client::className(),
                     'attribute'           => $this->attribute,
                     'model'               => $this->grid->filterModel,
                     'formElementSelector' => 'td',
