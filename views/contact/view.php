@@ -1,10 +1,14 @@
 <?php
+
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
-$this->title = $data['name'];
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Clients'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->title    = $data['name'];
+$this->subtitle = Yii::t('app', 'contact detailed information');
+$this->breadcrumbs->setItems([
+    ['label' => 'Contacts', 'url' => ['index']],
+    $this->title,
+]);
 
 ?>
 <div class="event-view">
@@ -32,7 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'state',
         [
             'label' => Yii::t('app', 'Language'),
-            'value' => $model->contact['language'],
+            'value' => $model->language,
         ]
     ],
 ]) ?>
