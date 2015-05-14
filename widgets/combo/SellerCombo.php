@@ -5,16 +5,14 @@
  * @copyright Copyright (c) 2015 HiQDev
  */
 
-namespace hipanel\modules\client\assets\combo2;
+namespace hipanel\modules\client\widgets\combo;
 
-use hipanel\widgets\Combo2Config;
-use hipanel\helpers\ArrayHelper;
 use yii\web\JsExpression;
 
 /**
  * Class Seller
  */
-class Seller extends Client
+class Seller extends ClientCombo
 {
     /** @inheritdoc */
     public $type = 'client/seller';

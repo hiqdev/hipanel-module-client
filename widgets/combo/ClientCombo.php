@@ -5,15 +5,15 @@
  * @copyright Copyright (c) 2015 HiQDev
  */
 
-namespace hipanel\modules\client\assets\combo2;
+namespace hipanel\modules\client\widgets\combo;
 
-use hipanel\widgets\Combo2Config;
+use hipanel\widgets\Combo;
 use hipanel\helpers\ArrayHelper;
 
 /**
  * Class Client
  */
-class Client extends Combo2Config
+class ClientCombo extends Combo
 {
     /** @inheritdoc */
     public $type = 'client/client';
