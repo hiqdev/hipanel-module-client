@@ -8,7 +8,7 @@
 namespace hipanel\modules\client\grid;
 
 use hipanel\grid\DataColumn;
-use hipanel\modules\client\widgets\combo2\ClientCombo;
+use hipanel\modules\client\widgets\combo\ClientCombo;
 use yii\helpers\Html;
 
 
@@ -21,7 +21,7 @@ class ClientColumn extends DataColumn
     public $format = 'html';
 
     /**
-     * @var string the combo2 type. Available: `client` or `seller`
+     * @var string the combo type. Available: `client` or `seller`
      */
     public $clientType;
 
