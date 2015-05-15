@@ -14,8 +14,10 @@ use yii\bootstrap\ActiveForm;
 $this->title = Yii::t('app', 'Create {modelClass}', [
     'modelClass' => 'Article',
 ]);
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'News and articles'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->breadcrumbs->setItems([
+    ['label' => 'News and articles', 'url' => ['index']],
+    $this->title,
+]);
 ?>
 <div class="ticket-create">
     <?= $this->render('_form', ['model' => $model]); ?>

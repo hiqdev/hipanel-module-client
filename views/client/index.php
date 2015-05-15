@@ -7,9 +7,11 @@
 
 use hipanel\modules\client\grid\ClientGridView;
 
-$this->title                    = Yii::t('app', 'Clients');
-$this->params['breadcrumbs'][]  = $this->title;
-$this->params['subtitle']       = Yii::$app->request->queryParams ? 'filtered list' : 'full list';
+$this->title    = Yii::t('app', 'Clients');
+$this->subtitle = Yii::$app->request->queryParams ? 'filtered list' : 'full list';
+$this->breadcrumbs->setItems([
+    $this->title
+]);
 
 ?>
 

@@ -12,12 +12,17 @@ use hipanel\grid\BoxedGridView;
 
 use Yii;
 use yii\helpers\Html;
+use hipanel\grid\MainColumn;
 
 class ContactGridView extends BoxedGridView
 {
     static public function defaultColumns()
     {
         return [
+            'name' => [
+                'class'                 => MainColumn::className(),
+                'filterAttribute'       => 'name_like',
+            ],
             'country'       => [
                 'attribute' => 'country_name',
                 'format'    => 'html',

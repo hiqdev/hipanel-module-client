@@ -9,7 +9,10 @@ use hipanel\grid\GridView;
 use yii\helpers\Html;
 
 $this->title = Yii::t('app', 'News and articles');
-$this->params['breadcrumbs'][] = $this->title;
+$this->breadcrumbs->setItems([
+    $this->title,
+]);
+
 ?>
 
 <?php // echo $this->render('_search', ['model' => $searchModel]); ?>

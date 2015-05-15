@@ -5,18 +5,24 @@
  * @copyright Copyright (c) 2015 HiQDev
  */
 
+use Yii;
 use frontend\assets\FlagIconCssAsset;
 use hipanel\widgets\Box;
 use yii\helpers\Html;
+use yii\helpers\Inflector;
 use yii\widgets\DetailView;
 use hipanel\modules\client\grid\ContactGridView;
 use hipanel\modules\client\models\Contact;
 
-$this->title                   = \yii\helpers\Inflector::titleize($model->name, true);
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Clients'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->title    = Inflector::titleize($model->name, true);
+$this->subtitle = Yii::t('app', 'client detailed information');
+$this->breadcrumbs->setItems([
+    ['label' => 'Clients', 'url' => ['index']],
+    $this->title,
+]);
+
 FlagIconCssAsset::register($this);
-//\yii\helpers\VarDumper::dump($model, 10, true);
+
 ?>
 <div class="row">
     <div class="col-md-3">
