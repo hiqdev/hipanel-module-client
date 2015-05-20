@@ -15,7 +15,9 @@ use yii\web\JsExpression;
 use yii\widgets\Pjax;
 
 $this->title = 'Set language';
-$this->params['breadcrumbs'][] = $this->title;
+$this->breadcrumbs->setItems([
+    $this->title
+]);
 
 echo Html::beginForm( [ 'set-credit' ], "POST" );
 

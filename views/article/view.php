@@ -4,8 +4,10 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 $this->title = Html::encode($model->article_name); // $model->article_name
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Articles'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->breadcrumbs->setItems([
+    ['label' => 'News and articles', 'url' => ['index']],
+    $this->title,
+]);
 // \yii\helpers\VarDumper::dump($model, 10, true);
 ?>
 <div class="event-view">

@@ -15,7 +15,10 @@ use yii\web\JsExpression;
 use yii\widgets\Pjax;
 
 $this->title = 'Set seller';
-$this->params['breadcrumbs'][] = $this->title;
+$this->breadcrumbs->setItems([
+    ['label' => 'Client', 'url' => ['index']],
+    $this->title,
+]);
 
 echo Html::beginForm( [ 'set-credit' ], "POST" );
 

@@ -8,8 +8,7 @@
 namespace hipanel\modules\client\grid;
 
 use hipanel\grid\DataColumn;
-use hipanel\modules\client\assets\combo2\Client;
-use hipanel\widgets\Combo2;
+use hipanel\modules\client\widgets\combo\ClientCombo;
 use yii\helpers\Html;
 
 
@@ -22,7 +21,7 @@ class ClientColumn extends DataColumn
     public $format = 'html';
 
     /**
-     * @var string the combo2 type. Available: `client` or `seller`
+     * @var string the combo type. Available: `client` or `seller`
      */
     public $clientType;
 
@@ -37,14 +36,11 @@ class ClientColumn extends DataColumn
                 $this->filterInputOptions['id'] = $this->attribute;
             }
             if (!$this->filter) {
-                $this->filter = Combo2::widget([
-                    'type'                => 'client',
+                $this->filter = ClientCombo::widget([
                     'attribute'           => $this->attribute,
                     'model'               => $this->grid->filterModel,
                     'formElementSelector' => 'td',
-                    'options'             => [
-                        'clientType' => $this->clientType
-                    ]
+                    'clientType'          => $this->clientType
                 ]);
             };
         };
