@@ -10,50 +10,27 @@ namespace hipanel\modules\client\models;
 use Yii;
 use hipanel\models\Ref;
 
-class Article extends \hiqdev\hiar\ActiveRecord
+class Article extends \hipanel\base\Model
 {
 
-    public function getArticleExtraFields() {
-        $extraField = [
-            'html_title',
-            'html_keywords',
-            'html_description',
-            'title',
-            'short_text',
-            'text',
+    use \hipanel\base\ModelTrait;
+
+    public function rules()
+    {
+        return [
+            [[ 'is_published', 'type', 'post_date', 'data', 'texts', ],                             'safe'],
+            [[ 'id', 'client_id', 'type_id'],                                                       'integer' ],
+            [[ 'article_name', 'type', 'data', 'texts', 'client', 'name', 'realm'],                 'safe' ],
+            [[ 'html_title', 'html_keywords', 'html_description', 'title', 'short_text', 'text' ],  'safe' ],
+            [[ 'is_published', 'is_common'],                                                        'boolean' ],
+            [[ 'post_date' ],                                                                       'date' ],
+            [[ 'name', 'type' ],                                                                    'required' ],
         ];
-        $lngs = self::getApiLangs();
-        foreach ($extraField as $field) {
-            foreach ( $lngs as $l) {
-                $ar[] = $field.'_'.$l->gl_key;
-            }
-        }
-        return $ar;
     }
 
     /**
      * @return array the list of attributes for this record
      */
-    public function attributes()
-    {
-
-        return [
-            'id',
-            'article_name',
-            'post_date',
-            'data',
-            // create
-            'name',
-            'type',
-            'texts',
-            'client',
-            'client_id',
-            'is_common',
-            'realm',
-            'is_published',
-
-        ];
-    }
 
     public static function getApiLangs($select=null) {
         if ($select!==null)
@@ -62,42 +39,6 @@ class Article extends \hiqdev\hiar\ActiveRecord
             return Ref::find()->where(['gtype'=>'type,lang'])->getList();
 
     }
-
-    public function rules()
-    {
-        return [
-            [[
-                'name',
-                'type',
-            ],'required'],
-            [[
-                'is_published',
-                'type',
-                'post_date',
-                'data',
-                'texts',
-            ],'safe'],
-        ];
-    }
-
-//    public function fields()
-//    {
-//        return [
-//            'lang_id',
-//            'html_title',
-//            'html_keywords',
-//            'title',
-//            'short_text',
-//            'text',
-//            'name',
-//            'label',
-//        ];
-//    }
-//
-//    public function extraFields()
-//    {
-//        return ['data'];
-//    }
 
     public function rest()
     {
@@ -110,10 +51,10 @@ class Article extends \hiqdev\hiar\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('app', 'ID'),
-            'article_name' => Yii::t('app', 'Article Name'),
-            'post_date' => Yii::t('app', 'Post Date'),
-            'data' => Yii::t('app', 'Data'),
+            'id'            => Yii::t('app', 'ID'),
+            'article_name'  => Yii::t('app', 'Article Name'),
+            'post_date'     => Yii::t('app', 'Post Date'),
+            'data'          => Yii::t('app', 'Data'),
         ];
     }
 }

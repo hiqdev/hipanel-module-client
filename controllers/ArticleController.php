@@ -8,12 +8,11 @@
 namespace hipanel\modules\client\controllers;
 
 use Yii;
-use hipanel\modules\client\models\Article;
+use yii\web\Response;
 
-class ArticleController extends DefaultController {
+class ArticleController extends \hipanel\base\CrudController
+{
 
-    protected $class    = 'Article';
-    protected $path     = '\app\modules\client\models';
 
     public function beforeAction ($action) {
         if (isset($_POST['Article']['data'])) {
@@ -21,16 +20,5 @@ class ArticleController extends DefaultController {
             unset($_POST['Article']['data']);
         }
         return parent::beforeAction($action);
-    }
-
-    public function actionCreate () {
-        $model = new Article;
-        if ( $model->load(Yii::$app->request->post()) && $model->save() ) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
-        }
     }
 }

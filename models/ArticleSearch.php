@@ -7,58 +7,18 @@
 
 namespace hipanel\modules\client\models;
 
-use Yii;
-use yii\base\Model;
-use yii\data\ActiveDataProvider;
+use hipanel\helpers\ArrayHelper;
+use hipanel\base\SearchModelTrait;
 
-
-/**
- * GallerySearch represents the model behind the search form about `app\models\Gallery`.
- */
-class ArticleSearch extends \hipanel\modules\client\models\Article
+class ArticleSearch extends Article
 {
-
-    public function rules()
-    {
-        return [
-            [['id'], 'integer'],
-            // [['article_name','post_date'],'safe'],
-        ];
+    use SearchModelTrait {
+        searchAttributes as defaultSearchAttributes;
     }
 
-    /**
-     * @inheritdoc
-     */
-    public function scenarios()
-    {
-        // bypass scenarios() implementation in the parent class
-        return Model::scenarios();
-    }
-
-    /**
-     * Creates data provider instance with search query applied
-     *
-     * @param array $params
-     *
-     * @return ActiveDataProvider
-     */
-    public function search($params)
-    {
-        $query = Article::find()->where(['with_data'=>1]);
-
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
+    public function searchAttributes() {
+        return ArrayHelper::merge($this->defaultSearchAttributes(), [
+            'client_like',
         ]);
-        $query->andFilterWhere(['like', 'article_name', $this->article_name]);
-        if (!($this->load($params) && $this->validate())) {
-            return $dataProvider;
-        }
-
-        $query->andFilterWhere([
-            'ids' => $this->id,
-        ]);
-        // $query->andFilterWhere(['like', 'subject', $this->title]);
-
-        return $dataProvider;
     }
 }
