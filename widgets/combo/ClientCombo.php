@@ -7,7 +7,7 @@
 
 namespace hipanel\modules\client\widgets\combo;
 
-use hipanel\widgets\Combo;
+use hiqdev\combo\Combo;
 use hipanel\helpers\ArrayHelper;
 
 /**
