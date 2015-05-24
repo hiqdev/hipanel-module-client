@@ -6,7 +6,7 @@
  */
 
 use Yii;
-use frontend\assets\FlagIconCssAsset;
+use hiqdev\assets\flagiconcss\FlagIconCssAsset;
 use hipanel\widgets\Box;
 use yii\helpers\Html;
 use yii\helpers\Inflector;

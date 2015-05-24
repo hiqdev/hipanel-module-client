@@ -7,7 +7,6 @@
 
 namespace hipanel\modules\client\grid;
 
-use frontend\assets\FlagIconCssAsset;
 use hipanel\grid\BoxedGridView;
 
 use Yii;
