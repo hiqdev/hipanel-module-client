@@ -7,7 +7,7 @@
 
 namespace hipanel\modules\client\grid;
 
-class ResellerColumn extends ClientColumn
+class SellerColumn extends ClientColumn
 {
     public $attribute     = 'seller_id';
     public $nameAttribute = 'seller';
