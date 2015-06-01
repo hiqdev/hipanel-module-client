@@ -1,27 +1,24 @@
-# yii console command
-/yii
+# hidev parent config
+/.hidev/parent
 
-# composer vendor dir
+# runtime dir
+/runtime
+
+# vendor dir
 /vendor
 
-# composer itself and lock file
-composer.phar
+# composer lock file
 composer.lock
 
-# phpunit itself and local config
-phpunit.phar
-/phpunit.xml
-
-# IDE project files
+# IDE & OS files
+.*.swp
 .idea
 nbproject
 .buildpath
 .project
 .settings
-
-# windows thumbnail cache
 Thumbs.db
-
-# Mac DS_Store Files
 .DS_Store
+
+# Added by HiDev
 
