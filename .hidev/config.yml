@@ -1,21 +1,11 @@
-parentConfig:
-    github:         hiqdev/hidev-config
-
 package:
     name:           hipanel-module-client
     namespace:      hipanel\modules\client
     label:          HiPanel ClientModule
     title:          Client Plugin for HiPanel
     type:           yii2-extension
-    features:       yii2, extension
-    license:        BSD-3-Clause
-    forum:          https://forum.hiqdev.com/hipanel
-    language:       PHP
     keywords:       client, hipanel, plugin
     year:           2014
 
-composer.json:
-    require:
-        yiisoft/yii2:                       '~2.0'
-        hiqdev/yii2-asset-flag-icon-css:    '~0.7'
-
+require:
+    hiqdev/hidev-config-php:    "*@dev"
