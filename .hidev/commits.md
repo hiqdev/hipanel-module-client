@@ -3,6 +3,9 @@ hiqdev/hipanel-module-client commits history
 
 ## 0.0.1 Under development
 
+- moved to src
+    - 7e688f4 2015-07-17 moved to src (sol@hiqdev.com)
+    - 41561fa 2015-07-17 BROKEN, in process (sol@hiqdev.com)
 - hideved
     - 044bf73 2015-06-01 hideved (sol@hiqdev.com)
     - 3c7f6bc 2015-05-29 ResellerColumn ~> SellerColumn (d.naumenko.a@gmail.com)
