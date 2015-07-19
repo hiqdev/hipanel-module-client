@@ -1,17 +1,21 @@
 <?php
-/**
- * @link    http://hiqdev.com/hipanel-module-client
- * @license http://hiqdev.com/hipanel-module-client/license
- * @copyright Copyright (c) 2015 HiQDev
+
+/*
+ * Client Plugin for HiPanel
+ *
+ * @link      https://github.com/hiqdev/hipanel-module-client
+ * @package   hipanel-module-client
+ * @license   BSD-3-Clause
+ * @copyright Copyright (c) 2014-2015, HiQDev (https://hiqdev.com/)
  */
 
 namespace hipanel\modules\client\widgets\combo;
 
-use hiqdev\combo\Combo;
 use hipanel\helpers\ArrayHelper;
+use hiqdev\combo\Combo;
 
 /**
- * Class Client
+ * Class Client.
  */
 class ClientCombo extends Combo
 {
@@ -32,13 +36,15 @@ class ClientCombo extends Combo
 
     /**
      * @var string the type of client
-     * Used by [[getFilter]] to generate filter
+     *             Used by [[getFilter]] to generate filter
+     *
      * @see getFilter()
      */
     public $clientType;
 
     /** @inheritdoc */
-    public function getFilter () {
+    public function getFilter()
+    {
         return ArrayHelper::merge(parent::getFilter(), [
             'type'  => ['format' => $this->clientType],
             'order' => ['format' => ['loginlike' => 'desc']],

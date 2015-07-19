@@ -1,15 +1,19 @@
 <?php
-/**
- * @link    http://hiqdev.com/hipanel-module-client
- * @license http://hiqdev.com/hipanel-module-client/license
- * @copyright Copyright (c) 2015 HiQDev
+
+/*
+ * Client Plugin for HiPanel
+ *
+ * @link      https://github.com/hiqdev/hipanel-module-client
+ * @package   hipanel-module-client
+ * @license   BSD-3-Clause
+ * @copyright Copyright (c) 2014-2015, HiQDev (https://hiqdev.com/)
  */
 
-use hipanel\models\Ref;
 use hipanel\base\Re;
-use yii\helpers\Html;
-use yii\helpers\ArrayHelper;
+use hipanel\models\Ref;
 use yii\bootstrap\ActiveForm;
+use yii\helpers\ArrayHelper;
+use yii\helpers\Html;
 
 $langs = ArrayHelper::map(hipanel\modules\client\models\Article::getApiLangs(), 'gl_key', 'gl_value');
 $this->registerJs("$(function () {\$('#lang_tab a:first').tab('show');});", yii\web\View::POS_END, 'lng-tabpanel-options');
@@ -17,15 +21,15 @@ $modelReflacion = new \ReflectionClass(get_class($model));
 \yii\helpers\VarDumper::dump($model, 10, true);
 ?>
 
-<? $form = ActiveForm::begin() ?>
+<?php $form = ActiveForm::begin() ?>
     <?= $form->field($model, 'is_published')->widget(kartik\widgets\SwitchInput::className()); ?>
 
     <?= $form->field($model, 'name'); ?>
-    <?= $form->field($model, 'post_date')->widget(kartik\widgets\DatePicker::className(),[
+    <?= $form->field($model, 'post_date')->widget(kartik\widgets\DatePicker::className(), [
     'value' => date('d-M-Y', strtotime('+2 days')),
     ]); ?>
 
-    <?= $form->field($model, 'type')->dropDownList(ArrayHelper::map(Ref::find()->where(['gtype'=>'type,article'])->getList(false), 'gl_key', function($l){
+    <?= $form->field($model, 'type')->dropDownList(ArrayHelper::map(Ref::find()->where(['gtype' => 'type,article'])->getList(false), 'gl_key', function ($l) {
          return ucfirst(Re::l($l->gl_value));
     })); ?>
 
@@ -33,11 +37,11 @@ $modelReflacion = new \ReflectionClass(get_class($model));
 
         <!-- Nav tabs -->
         <ul id="lang_tab" class="nav nav-tabs" role="tablist">
-            <? foreach ($langs as $code=>$label) : ?>
-                <?=Html::beginTag('li',['role'=>'presentation'])?>
-                    <?=Html::a(Re::l($label),'#'.$code,['role'=>'tab','data-toggle'=>'tab']);?>
+            <?php foreach ($langs as $code => $label) : ?>
+                <?=Html::beginTag('li', ['role' => 'presentation'])?>
+                    <?=Html::a(Re::l($label), '#' . $code, ['role' => 'tab', 'data-toggle' => 'tab']);?>
                 <?=Html::endTag('li')?>
-            <? endforeach; ?>
+            <?php endforeach; ?>
         </ul>
 
         <!-- Tab panes -->
@@ -53,15 +57,15 @@ $modelReflacion = new \ReflectionClass(get_class($model));
                 <?=Html::endTag('div')?>
             <? endforeach; */?>
 
-            <? foreach ( [2867298=>"ru",2867299=>"en"] as $id=>$lng ) : ?>
-                <?=Html::beginTag('div',['id'=>$lng,'role'=>'tabpanel','class'=>'tab-pane'])?>
+            <?php foreach ([2867298 => 'ru', 2867299 => 'en'] as $id => $lng) : ?>
+                <?=Html::beginTag('div', ['id' => $lng, 'role' => 'tabpanel', 'class' => 'tab-pane'])?>
                     <?= $form->field($model, "data[$id][html_title]")->label('Html Title'); ?>
                     <?= $form->field($model, "data[$id][html_keywords]")->label('Html Keywords'); ?>
                     <?= $form->field($model, "data[$id][title]")->label('Article Title'); ?>
-                    <?= $form->field($model, "data[$id][short_text]")->textarea(['rows'=>6])->label('Short Text'); ?>
-                    <?= $form->field($model, "data[$id][text]")->textarea(['rows'=>9])->label('Long Text'); ?>
+                    <?= $form->field($model, "data[$id][short_text]")->textarea(['rows' => 6])->label('Short Text'); ?>
+                    <?= $form->field($model, "data[$id][text]")->textarea(['rows' => 9])->label('Long Text'); ?>
                 <?=Html::endTag('div')?>
-            <? endforeach; ?>
+            <?php endforeach; ?>
         </div>
 
     </div>
@@ -70,4 +74,4 @@ $modelReflacion = new \ReflectionClass(get_class($model));
         <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-primary']) ?>
     </div>
 
-<? $form::end(); ?>
+<?php $form::end(); ?>

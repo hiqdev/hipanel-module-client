@@ -1,20 +1,23 @@
 <?php
-/**
- * @link    http://hiqdev.com/hipanel-module-client
- * @license http://hiqdev.com/hipanel-module-client/license
- * @copyright Copyright (c) 2015 HiQDev
+
+/*
+ * Client Plugin for HiPanel
+ *
+ * @link      https://github.com/hiqdev/hipanel-module-client
+ * @package   hipanel-module-client
+ * @license   BSD-3-Clause
+ * @copyright Copyright (c) 2014-2015, HiQDev (https://hiqdev.com/)
  */
 
 namespace hipanel\modules\client;
 
 class SidebarMenu extends \hipanel\base\Menu
 {
-
     protected $_addTo = 'sidebar';
 
     protected $_where = [
-        'after'     => ['dashboard', 'header'],
-        'before'    => ['finance', 'tickets', 'domains', 'servers', 'hosting'],
+        'after'  => ['dashboard', 'header'],
+        'before' => ['finance', 'tickets', 'domains', 'servers', 'hosting'],
     ];
 
     protected $_items = [
@@ -46,5 +49,4 @@ class SidebarMenu extends \hipanel\base\Menu
             ],
         ],
     ];
-
 }

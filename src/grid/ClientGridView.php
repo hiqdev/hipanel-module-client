@@ -1,59 +1,60 @@
 <?php
-/**
- * @link    http://hiqdev.com/hipanel-module-domain
- * @license http://hiqdev.com/hipanel-module-domain/license
- * @copyright Copyright (c) 2015 HiQDev
+
+/*
+ * Client Plugin for HiPanel
+ *
+ * @link      https://github.com/hiqdev/hipanel-module-client
+ * @package   hipanel-module-client
+ * @license   BSD-3-Clause
+ * @copyright Copyright (c) 2014-2015, HiQDev (https://hiqdev.com/)
  */
 
 namespace hipanel\modules\client\grid;
 
+use hipanel\grid\ActionColumn;
+use hipanel\grid\BoxedGridView;
+use hipanel\grid\CurrencyColumn;
+use hipanel\grid\EditableColumn;
+use hipanel\grid\RefColumn;
 use hipanel\modules\client\widgets\State as ClientState;
 use hipanel\modules\client\widgets\Type as ClientType;
-use hipanel\grid\BoxedGridView;
-use hipanel\grid\RefColumn;
-use hipanel\grid\MainColumn;
-use hipanel\grid\CurrencyColumn;
-use hipanel\grid\SwitchColumn;
-use hipanel\grid\EditableColumn;
-use hipanel\widgets\ArraySpoiler;
 use Yii;
 use yii\helpers\Html;
-use hipanel\grid\ActionColumn;
 
 class ClientGridView extends BoxedGridView
 {
-    static public function defaultColumns()
+    public static function defaultColumns()
     {
         return [
-            'id'          => [
+            'id' => [
                 'class'         => ClientColumn::className(),
                 'attribute'     => 'id',
                 'nameAttribute' => 'login',
                 'label'         => 'Client',
             ],
-            'state'       => [
+            'state' => [
                 'class'  => RefColumn::className(),
                 'format' => 'raw',
                 'gtype'  => 'state,client',
                 'value'  => function ($model) {
                     return ClientState::widget(compact('model'));
-                }
+                },
             ],
-            'type'        => [
+            'type' => [
                 'class'  => RefColumn::className(),
                 'format' => 'raw',
                 'gtype'  => 'type,client',
                 'value'  => function ($model) {
                     return ClientType::widget(compact('model'));
-                }
+                },
             ],
-            'balance'     => [
+            'balance' => [
                 'class'     => CurrencyColumn::className(),
                 'compare'   => 'credit',
                 'filter'    => false,
                 'attribute' => 'balance',
             ],
-            'credit'      => [
+            'credit' => [
                 'class'     => EditableColumn::className(),
                 'attribute' => 'credit',
                 'filter'    => false,
@@ -67,7 +68,7 @@ class ClientGridView extends BoxedGridView
                 'filter'         => false,
                 'contentOptions' => ['class' => 'text-nowrap'],
             ],
-            'action'      => [
+            'action' => [
                 'class'    => ActionColumn::className(),
                 'template' => '{view} {block} {delete} {update}', // {state}
                 'header'   => Yii::t('app', 'Actions'),

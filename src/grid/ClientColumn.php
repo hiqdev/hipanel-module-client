@@ -1,8 +1,12 @@
 <?php
-/**
- * @link    http://hiqdev.com/hipanel-module-client
- * @license http://hiqdev.com/hipanel-module-client/license
- * @copyright Copyright (c) 2015 HiQDev
+
+/*
+ * Client Plugin for HiPanel
+ *
+ * @link      https://github.com/hiqdev/hipanel-module-client
+ * @package   hipanel-module-client
+ * @license   BSD-3-Clause
+ * @copyright Copyright (c) 2014-2015, HiQDev (https://hiqdev.com/)
  */
 
 namespace hipanel\modules\client\grid;
@@ -10,7 +14,6 @@ namespace hipanel\modules\client\grid;
 use hipanel\grid\DataColumn;
 use hipanel\modules\client\widgets\combo\ClientCombo;
 use yii\helpers\Html;
-
 
 class ClientColumn extends DataColumn
 {
@@ -29,7 +32,7 @@ class ClientColumn extends DataColumn
     {
         parent::init();
         if (is_null($this->visible)) {
-            $this->visible = \Yii::$app->user->identity->type != 'client';
+            $this->visible = \Yii::$app->user->identity->type !== 'client';
         };
         if (!empty($this->grid->filterModel)) {
             if (!$this->filterInputOptions['id']) {
@@ -40,7 +43,7 @@ class ClientColumn extends DataColumn
                     'attribute'           => $this->attribute,
                     'model'               => $this->grid->filterModel,
                     'formElementSelector' => 'td',
-                    'clientType'          => $this->clientType
+                    'clientType'          => $this->clientType,
                 ]);
             };
         };

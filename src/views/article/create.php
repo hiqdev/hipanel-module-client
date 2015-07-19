@@ -1,12 +1,13 @@
 <?php
-/**
- * @link    http://hiqdev.com/hipanel-module-client
- * @license http://hiqdev.com/hipanel-module-client/license
- * @copyright Copyright (c) 2015 HiQDev
- */
 
-use yii\helpers\Html;
-use yii\bootstrap\ActiveForm;
+/*
+ * Client Plugin for HiPanel
+ *
+ * @link      https://github.com/hiqdev/hipanel-module-client
+ * @package   hipanel-module-client
+ * @license   BSD-3-Clause
+ * @copyright Copyright (c) 2014-2015, HiQDev (https://hiqdev.com/)
+ */
 
 /* @var $this yii\web\View */
 /* @var $model hipanel\modules\ticket\models\Ticket */

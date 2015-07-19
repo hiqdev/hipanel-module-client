@@ -1,18 +1,13 @@
 <?php
-/**
- * @link    http://hiqdev.com/hipanel-module-client
- * @license http://hiqdev.com/hipanel-module-client/license
- * @copyright Copyright (c) 2015 HiQDev
- */
 
-use Yii;
-use hiqdev\assets\flagiconcss\FlagIconCssAsset;
+use hipanel\modules\client\grid\ContactGridView;
+use hipanel\modules\client\models\Contact;
 use hipanel\widgets\Box;
+use hiqdev\assets\flagiconcss\FlagIconCssAsset;
+use Yii;
 use yii\helpers\Html;
 use yii\helpers\Inflector;
 use yii\widgets\DetailView;
-use hipanel\modules\client\grid\ContactGridView;
-use hipanel\modules\client\models\Contact;
 
 $this->title    = Inflector::titleize($model->name, true);
 $this->subtitle = Yii::t('app', 'client detailed information');
@@ -91,7 +86,7 @@ FlagIconCssAsset::register($this);
                         'passport_date',
                         'passport_by',
                         'organization',
-                    ]
+                    ],
                 ]) ?>
                 <?php $box->endBody(); ?>
                 <?php $box->endHeader(); ?>
@@ -117,7 +112,7 @@ FlagIconCssAsset::register($this);
                         'credit',
                         'tariff',
                         'type',
-                    ]
+                    ],
                 ]);
                 $box->endBody();
                 $box::end(); ?>

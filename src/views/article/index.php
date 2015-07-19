@@ -1,9 +1,4 @@
 <?php
-/**
- * @link    http://hiqdev.com/hipanel-module-client
- * @license http://hiqdev.com/hipanel-module-client/license
- * @copyright Copyright (c) 2015 HiQDev
- */
 
 use hipanel\grid\GridView;
 use yii\helpers\Html;
@@ -23,18 +18,18 @@ $this->breadcrumbs->setItems([
     ]), ['create'], ['class' => 'btn btn-success']) ?>
 </p>
 
-<?=GridView::widget([
+<?= GridView::widget([
     'dataProvider' => $dataProvider,
-    'filterModel' => $searchModel,
-    'columns' => [
+    'filterModel'  => $searchModel,
+    'columns'      => [
         // ['class' => 'yii\grid\SerialColumn'],
         ['class' => 'hipanel\grid\CheckboxColumn'],
         'id',
         'article_name',
         [
-            'attribute'=>'post_date',
-            'format'=>['date','yyyy-mm-dd'],
+            'attribute' => 'post_date',
+            'format'    => ['date', 'yyyy-mm-dd'],
         ],
         ['class' => 'yii\grid\ActionColumn'],
     ],
-]);?>
+]) ?>

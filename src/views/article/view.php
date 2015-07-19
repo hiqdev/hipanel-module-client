@@ -16,24 +16,24 @@ $this->breadcrumbs->setItems([
         <?= Html::a(Yii::t('app', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a(Yii::t('app', 'Delete'), ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
-            'data' => [
+            'data'  => [
                 'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
-                'method' => 'post',
+                'method'  => 'post',
             ],
         ]) ?>
     </p>
 
     <?= DetailView::widget([
-        'model' => $model,
+        'model'      => $model,
         'attributes' => [
             'id',
             'article_name',
             [
-                'attribute'=>'data',
+                'attribute' => 'data',
             ],
             [
-                'attribute'=>'post_date',
-                'format'=>['date','yyyy-mm-dd'],
+                'attribute' => 'post_date',
+                'format'    => ['date', 'yyyy-mm-dd'],
             ],
         ],
     ]) ?>
