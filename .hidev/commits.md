@@ -3,7 +3,8 @@ hiqdev/hipanel-module-client commits history
 
 ## 0.0.1 Under development
 
-- moved to src
+- moved to src and php-cs-fixed
+    - e0980e4 2015-07-19 php-cs-fixed (sol@hiqdev.com)
     - 7e688f4 2015-07-17 moved to src (sol@hiqdev.com)
     - 41561fa 2015-07-17 BROKEN, in process (sol@hiqdev.com)
 - hideved
