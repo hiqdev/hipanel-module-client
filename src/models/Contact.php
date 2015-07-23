@@ -64,10 +64,13 @@ class Contact extends \hipanel\base\Model
     public function attributeLabels()
     {
         return $this->mergeAttributeLabels([
-            'create_time' => Yii::t('app', 'Create time'),
-            'update_time' => Yii::t('app', 'Update time'),
-            'passport_no' => Yii::t('app', 'Passport number'),
-            'passport_by' => Yii::t('app', 'Passport by'),
+            'first_name'    => Yii::t('app', 'First name'),
+            'last_name'     => Yii::t('app', 'Last name'),
+            'postal_code'   => Yii::t('app', 'Postal code'),
+            'create_time'   => Yii::t('app', 'Create time'),
+            'update_time'   => Yii::t('app', 'Update time'),
+            'passport_no'   => Yii::t('app', 'Passport number'),
+            'passport_by'   => Yii::t('app', 'Passport by'),
             'passport_date' => Yii::t('app', 'Passport date'),
             'icq' => 'ICQ',
             'voice_phone' => Yii::t('app', 'Phone'),
