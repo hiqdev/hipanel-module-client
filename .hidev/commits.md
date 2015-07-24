@@ -3,6 +3,10 @@ hiqdev/hipanel-module-client commits history
 
 ## 0.0.1 Under development
 
+- Changed details pages for clients and contacts
+    - f7eea1d 2015-07-24 php-cs-fixed (sol@hiqdev.com)
+    - 9345268 2015-07-24 improving detail pages for clients and contacts (sol@hiqdev.com)
+    - b14a663 2015-07-23 * contact details page (sol@hiqdev.com)
 - moved to src and php-cs-fixed
     - e0980e4 2015-07-19 php-cs-fixed (sol@hiqdev.com)
     - 7e688f4 2015-07-17 moved to src (sol@hiqdev.com)
