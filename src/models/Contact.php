@@ -36,14 +36,15 @@ class Contact extends \hipanel\base\Model
             [['voice_phone', 'fax_phone'], 'safe'],
             [['icq', 'skype', 'jabber'], 'safe'],
             [['roid', 'epp_id', 'remoteid', 'other_messenger'], 'safe'],
-            [['name', 'first_name', 'last_name', 'voice_phone_extension'], 'safe'],
+            [['name', 'first_name', 'last_name', 'voice_phone_extension'], 'string'],
             [['birth_date', 'passport_date'], 'date'],
             [['passport_no', 'passport_by', 'organization', 'password'], 'safe'],
             [['remote'], 'safe'],
             [['email_confirmed'], 'boolean'],
-
+            [['voice_phone', 'fax_phone'], 'match', 'pattern' => '/^[+]?[()0-9 .-]{3,20}$/', 'message' => Yii::t('app', 'This field must contains phone number in international format.')],
             [['first_name', 'last_name', 'email', 'street1', 'city', 'country', 'postal_code', 'postal_code', 'voice_phone'], 'required', 'on' => ['create', 'update']],
 
+            [['isresident'], 'boolean', 'trueValue' => true, 'falseValue' => false],
             [[
                 // Для регистрации доменов в зоне RU в качестве физического лица
                 'birth_date',
@@ -56,7 +57,6 @@ class Contact extends \hipanel\base\Model
                 'director_name',
                 'inn',
                 'kpp',
-                'isresident',
             ], 'safe'],
         ];
     }
