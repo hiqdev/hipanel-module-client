@@ -23,12 +23,9 @@ $this->breadcrumbs->setItems([
     'dataProvider' => $dataProvider,
     'filterModel'  => $searchModel,
     'columns'      => [
-        'checkbox',
-        'id', 'seller_id',
-        'email', 'name',
+        'id', 'name', 'seller_id',
         'type', 'state',
         'balance', 'credit',
-        'create_time',
-        'action',
+        'action', 'checkbox',
     ],
 ]) ?>

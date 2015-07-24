@@ -33,26 +33,6 @@ class ContactGridView extends BoxedGridView
                         ['class' => 'flag-icon flag-icon-' . $model->country]) . '&nbsp;&nbsp;' . $model->country_name;
                 },
             ],
-            'province' => [
-                'attribute' => 'province',
-                'format'    => 'html',
-                'value'     => function ($model) {
-                    return $model->province ?: '';
-                },
-            ],
-            'province_name' => [
-                'attribute' => 'province',
-                'format'    => 'html',
-                'value'     => function ($model) {
-                    return $model->province ?: '';
-                },
-            ],
-            'postal_code' => [
-                'attribute' => 'postal_code',
-            ],
-            'city' => [
-                'attribute' => 'city',
-            ],
             'street' => [
                 'format' => 'html',
                 'value'  => function ($model) {
@@ -88,81 +68,14 @@ class ContactGridView extends BoxedGridView
                     return Html::tag('span', $model->street3, ['class' => 'bold']);
                 },
             ],
-            'voice_phone' => [
+            'phone' => [
                 'attribute' => 'voice_phone',
             ],
             'fax' => [
                 'attribute' => 'fax_phone',
-                'format'    => 'html',
-                'value'     => function ($model) {
-                    return $model->fax_phone ?: '';
-                },
-            ],
-            'fax_phone' => [
-                'attribute' => 'fax_phone',
-                'format'    => 'html',
-                'value'     => function ($model) {
-                    return $model->fax_phone ?: '';
-                },
-            ],
-            'email' => [
-                'attribute' => 'email',
-            ],
-            'abuse_email' => [
-                'attribute' => 'abuse_email',
-                'format'    => 'html',
-                'value'     => function ($model) {
-                    return $model->abuse_email ?: '';
-                },
-            ],
-            'skype' => [
-                'attribute' => 'skype',
-                'format'    => 'html',
-                'value'     => function ($model) {
-                    return $model->skype ?: '';
-                },
-            ],
-            'jabber' => [
-                'attribute' => 'jabber',
-                'format'    => 'html',
-                'value'     => function ($model) {
-                    return $model->jabber ?: '';
-                },
-            ],
-            'icq' => [
-                'attribute' => 'icq',
-                'format'    => 'html',
-                'value'     => function ($model) {
-                    return $model->icq ?: '';
-                },
-            ],
-            'passport_no' => [
-                'attribute' => 'passport_no',
-                'format'    => 'html',
-                'value'     => function ($model) {
-                    return $model->passport_no ?: '';
-                },
             ],
             'passport_date' => [
-                'attribute' => 'passport_date',
-                'format'    => 'html',
-                'value'     => function ($model) {
-                    return $model->passport_date ?: '';
-                },
-            ],
-            'passport_by' => [
-                'attribute' => 'passport_by',
-                'format'    => 'html',
-                'value'     => function ($model) {
-                    return $model->passport_by ?: '';
-                },
-            ],
-            'organization' => [
-                'attribute' => 'organization',
-                'format'    => 'html',
-                'value'     => function ($model) {
-                    return $model->organization ?: '';
-                },
+                'format'    => 'date',
             ],
             'action' => [
                 'class'    => 'yii\grid\ActionColumn',
