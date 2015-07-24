@@ -1,14 +1,14 @@
 <?php
 
-use hipanel\widgets\Box;
 use hipanel\modules\client\grid\ContactGridView;
+use hipanel\widgets\Box;
 use hiqdev\assets\flagiconcss\FlagIconCssAsset;
 use yii\helpers\Html;
 use yii\helpers\Inflector;
 use yii\widgets\DetailView;
 
 $this->title    = Inflector::titleize($model->name, true);
-$this->subtitle = Yii::t('app', 'contact detailed information') . ' #'.$model->id;
+$this->subtitle = Yii::t('app', 'contact detailed information') . ' #' . $model->id;
 $this->breadcrumbs->setItems([
     ['label' => 'Contacts', 'url' => ['index']],
     $this->title,

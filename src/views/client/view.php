@@ -7,10 +7,9 @@ use hipanel\widgets\Box;
 use hiqdev\assets\flagiconcss\FlagIconCssAsset;
 use Yii;
 use yii\helpers\Html;
-use yii\helpers\Inflector;
 
 $this->title    = $model->login;
-$this->subtitle = Yii::t('app', 'client detailed information') . ' #'.$model->id;
+$this->subtitle = Yii::t('app', 'client detailed information') . ' #' . $model->id;
 $this->breadcrumbs->setItems([
     ['label' => 'Clients', 'url' => ['index']],
     $this->title,
@@ -73,10 +72,10 @@ FlagIconCssAsset::register($this);
                     <?= ClientGridView::detailView([
                         'model'   => $model,
                         'columns' => [
-                            'seller_id','name',
-                            'type','state',
+                            'seller_id', 'name',
+                            'type', 'state',
                             'create_time',
-                            'balance','credit',
+                            'balance', 'credit',
                             'tariff',
                         ],
                     ]) ?>
@@ -86,7 +85,7 @@ FlagIconCssAsset::register($this);
             <div class="col-md-6">
             <?php $box = Box::begin(['renderBody' => false]); ?>
                 <?php $box->beginHeader(); ?>
-                    <?= $box->renderTitle(Yii::t('app', 'Contact information'), Html::a('details', ['/client/contact/view','id'=>$model->id])); ?>
+                    <?= $box->renderTitle(Yii::t('app', 'Contact information'), Html::a('details', ['/client/contact/view', 'id' => $model->id])); ?>
                     <?php $box->beginTools(); ?>
                         <?= Html::a(Yii::t('app', 'Change contact information'), '#', ['class' => 'btn btn-default btn-xs']); ?>
                     <?php $box->endTools(); ?>

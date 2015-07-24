@@ -26,6 +26,6 @@ $this->breadcrumbs->setItems([
         'id', 'name', 'seller_id',
         'type', 'state',
         'balance', 'credit',
-        'action','checkbox',
+        'action', 'checkbox',
     ],
 ]) ?>

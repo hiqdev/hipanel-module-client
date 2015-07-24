@@ -14,10 +14,10 @@ namespace hipanel\modules\client\grid;
 use hipanel\grid\ActionColumn;
 use hipanel\grid\BoxedGridView;
 use hipanel\grid\CurrencyColumn;
-use hiqdev\xeditable\grid\XEditableColumn;
 use hipanel\grid\RefColumn;
 use hipanel\modules\client\widgets\State as ClientState;
 use hipanel\modules\client\widgets\Type as ClientType;
+use hiqdev\xeditable\grid\XEditableColumn;
 use Yii;
 use yii\helpers\Html;
 
@@ -55,11 +55,11 @@ class ClientGridView extends BoxedGridView
                 'attribute' => 'balance',
             ],
             'credit' => [
-                'class'     => XEditableColumn::className(),
-                'visible'   => true, /// show for managers only
-                'attribute' => 'credit',
-                'filter'    => false,
-                'format'    => ['currency', 'USD'],
+                'class'         => XEditableColumn::className(),
+                'visible'       => true, /// show for managers only
+                'attribute'     => 'credit',
+                'filter'        => false,
+                'format'        => ['currency', 'USD'],
                 'pluginOptions' => [
                     'url' => 'set-credit',
                 ],
