@@ -100,13 +100,13 @@ FlagIconCssAsset::register($this);
                             'skype',
                             'icq',
                             'jabber',
-                            'voice_phone',
-                            'fax_phone',
-                            'country',
+                            'phone',
+                            'fax',
+                            'street',
+                            'city',
                             'province',
                             'postal_code',
-                            'city',
-                            'street',
+                            'country',
                         ],
                     ]) ?>
                 <?php $box->endBody(); ?>
