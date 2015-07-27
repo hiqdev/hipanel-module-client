@@ -69,10 +69,10 @@ class ContactGridView extends BoxedGridView
                 },
             ],
             'phone' => [
-                'attribute' => 'voice_phone',
+                'attribute' => 'phone',
             ],
             'fax' => [
-                'attribute' => 'fax_phone',
+                'attribute' => 'fax',
             ],
             'passport_date' => [
                 'format'    => 'date',
