@@ -68,12 +68,6 @@ class ContactGridView extends BoxedGridView
                     return Html::tag('span', $model->street3, ['class' => 'bold']);
                 },
             ],
-            'phone' => [
-                'attribute' => 'phone',
-            ],
-            'fax' => [
-                'attribute' => 'fax',
-            ],
             'passport_date' => [
                 'format'    => 'date',
             ],

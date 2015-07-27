@@ -82,8 +82,8 @@ JS
         ]); ?>
         <?= $form->field($model, 'province'); ?>
         <?= $form->field($model, 'postal_code'); ?>
-        <?= $form->field($model, 'phone'); ?>
-        <?= $form->field($model, 'fax'); ?>
+        <?= $form->field($model, 'voice_phone'); ?>
+        <?= $form->field($model, 'fax_phone'); ?>
         <?php Box::end() ?>
     </div>
     <!-- /.col-md-6 -->
