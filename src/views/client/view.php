@@ -25,7 +25,7 @@ FlagIconCssAsset::register($this);
             <?= $this->render('//layouts/gravatar', ['email' => $model->email, 'size' => 120]); ?>
         </div>
         <p class="text-center">
-            <span class="profile-user-name"><?= $this->title ?></span>
+            <span class="profile-user-name"><?= $model->login . ' / ' . $model->seller ?></span>
             <br>
             <span class="profile-user-role"><?= $model->type ?></span>
         </p>
@@ -77,6 +77,7 @@ FlagIconCssAsset::register($this);
                             'create_time',
                             'balance', 'credit',
                             'tariff',
+                            'tickets', 'servers', 'domains', 'contacts',
                         ],
                     ]) ?>
                 <?php $box->endBody() ?>

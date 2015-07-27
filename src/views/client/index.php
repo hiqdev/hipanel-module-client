@@ -23,7 +23,7 @@ $this->breadcrumbs->setItems([
     'dataProvider' => $dataProvider,
     'filterModel'  => $searchModel,
     'columns'      => [
-        'id', 'name', 'seller_id',
+        'login', 'name', 'seller_id',
         'type', 'state',
         'balance', 'credit',
         'action', 'checkbox',
