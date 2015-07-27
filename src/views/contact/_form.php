@@ -11,23 +11,35 @@ use yii\web\View;
 $this->registerCss('legend { font-size: 15px; }');
 $this->registerJs(<<<JS
 jQuery('#fiz_domain input').change(function() {
-    jQuery('#jur_domain').prop('disabled', this.value == "" ? false : true);
+    var disable = false;
+    jQuery('#fiz_domain input').each(function(i, e) {
+        var elem = jQuery(e);
+        if (elem.prop('type') == 'text' && elem.val() != '') {
+            disable = true;
+        }
+    });
+    jQuery('#jur_domain').prop('disabled', disable);
 });
 jQuery('#jur_domain input').change(function() {
-    var val = this.value;
-    jQuery('#fiz_domain').prop('disabled', val == "" ? false : true);
+    var disable = false;
+    jQuery('#jur_domain input').each(function(i, e) {
+        var elem = jQuery(e);
+        if ((elem.prop('type') == 'checkbox' && elem.is(':checked')) || (elem.prop('type') == 'text' && elem.val() != '')) {
+            disable = true;
+        }
+    });
     jQuery('#contact-passport_date, #contact-birth_date').each(function(i, e) {
         var elem = jQuery(e);
         var opts = elem.data('krajee-datepicker');
-        if (val != "") {
+        if (disable) {
             elem.parent().kvDatepicker('remove');
             elem.parent().addClass('disabled');
         } else {
             elem.parent().kvDatepicker(opts);
             elem.parent().removeClass('disabled');
         }
-
     });
+    jQuery('#fiz_domain').prop('disabled', disable);
 });
 JS
 , View::POS_READY);
@@ -69,9 +81,8 @@ JS
         ]); ?>
         <?= $form->field($model, 'province'); ?>
         <?= $form->field($model, 'postal_code'); ?>
-        <?= $form->field($model, 'voice_phone'); ?>
-        <?= $form->field($model, 'voice_phone_extension'); ?>
-        <?= $form->field($model, 'fax_phone'); ?>
+        <?= $form->field($model, 'phone'); ?>
+        <?= $form->field($model, 'fax'); ?>
         <?php Box::end() ?>
     </div>
     <!-- /.col-md-6 -->
