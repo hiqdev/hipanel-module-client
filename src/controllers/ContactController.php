@@ -12,6 +12,7 @@
 namespace hipanel\modules\client\controllers;
 
 use hipanel\base\CrudController;
+use hipanel\modules\client\models\Client;
 use hipanel\modules\client\models\Contact;
 use Yii;
 use yii\web\HttpException;
@@ -51,11 +52,17 @@ class ContactController extends CrudController
         $model = $this->findModel($id);
         $countries = $this->getRefs('country_code');
         if (Yii::$app->request->isPost) {
-            \yii\helpers\VarDumper::dump($_POST, 10, true);die();
+            $model->load(Yii::$app->request->post());
+            if ($model->validate() && $model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            } else
+                throw new HttpException($model->getFirstError());
         }
-        return $this->render('create', [
+        $askPincode = Client::perform('HasPincode');
+        return $this->render('update', [
             'model' => $model,
-            'countries' => $countries
+            'countries' => $countries,
+            'askPincode' => $askPincode,
         ]);
     }
 

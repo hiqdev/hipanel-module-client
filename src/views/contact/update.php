@@ -5,7 +5,5 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Name Server'), 'url'
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
-<?php \hipanel\widgets\Box::begin() ?>
-<?= $this->render('_form', ['models' => $models]); ?>
-<?php \hipanel\widgets\Box::end() ?>
+<?= $this->render('_form', ['model' => $model, 'countries' => $countries, 'askPincode' => $askPincode]); ?>
 

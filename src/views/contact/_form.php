@@ -8,6 +8,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\web\View;
 
+\yii\helpers\VarDumper::dump($askPincode, 10, true);
 $this->registerCss('legend { font-size: 15px; }');
 $this->registerJs(<<<JS
 jQuery('#fiz_domain input').change(function() {
