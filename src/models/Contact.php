@@ -33,7 +33,7 @@ class Contact extends \hipanel\base\Model
             [['country', 'country_name', 'province', 'province_name'], 'safe'],
             [['postal_code'], 'safe'],
             [['city', 'street1', 'street2', 'street3'], 'safe'],
-            [['phone', 'fax'], 'safe'],
+            [['voice_phone', 'fax_phone'], 'safe'],
             [['icq', 'skype', 'jabber'], 'safe'],
             [['roid', 'epp_id', 'remoteid', 'other_messenger'], 'safe'],
             [['name', 'first_name', 'last_name'], 'string'],
@@ -41,8 +41,8 @@ class Contact extends \hipanel\base\Model
             [['passport_no', 'passport_by', 'organization', 'password'], 'safe'],
             [['remote'], 'safe'],
             [['email_confirmed'], 'boolean'],
-            [['phone', 'fax'], 'match', 'pattern' => '/^[+]?[()0-9 .-]{3,20}$/', 'message' => Yii::t('app', 'This field must contains phone number in international format.')],
-            [['first_name', 'last_name', 'email', 'street1', 'city', 'country', 'postal_code', 'postal_code', 'phone'], 'required', 'on' => ['create', 'update']],
+            [['voice_phone', 'fax_phone'], 'match', 'pattern' => '/^[+]?[()0-9 .-]{3,20}$/', 'message' => Yii::t('app', 'This field must contains phone number in international format.')],
+            [['first_name', 'last_name', 'email', 'street1', 'city', 'country', 'postal_code', 'postal_code', 'voice_phone'], 'required', 'on' => ['create', 'update']],
 
             [['isresident'], 'boolean', 'trueValue' => true, 'falseValue' => false],
             [[
@@ -72,12 +72,12 @@ class Contact extends \hipanel\base\Model
             'passport_no'   => Yii::t('app', 'Passport number'),
             'passport_by'   => Yii::t('app', 'Passport by'),
             'passport_date' => Yii::t('app', 'Passport date'),
-            'icq' => 'ICQ',
-            'phone' => Yii::t('app', 'Phone'),
-            'fax' => Yii::t('app', 'Fax'),
-            'country_name' => Yii::t('app', 'Country'),
-            'abuse_email' => Yii::t('app', 'Abuse email'),
-            'isresident' => Yii::t('app', 'RF resident'),
+            'icq'           => 'ICQ',
+            'voice_phone'   => Yii::t('app', 'Phone'),
+            'fax_phone'     => Yii::t('app', 'Fax'),
+            'country_name'  => Yii::t('app', 'Country'),
+            'abuse_email'   => Yii::t('app', 'Abuse email'),
+            'isresident'    => Yii::t('app', 'RF resident'),
         ]);
     }
 }
