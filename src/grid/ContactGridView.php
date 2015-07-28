@@ -36,15 +36,7 @@ class ContactGridView extends BoxedGridView
             'street' => [
                 'format' => 'html',
                 'value'  => function ($model) {
-                    $html = Html::tag('span', $model->street1, ['class' => 'bold']);
-                    if ($model->street2) {
-                        $html .= Html::tag('span', $model->street2);
-                    }
-                    if ($model->street3) {
-                        $html .= Html::tag('span', $model->street3);
-                    }
-
-                    return $html;
+                    return $model->street1 . $model->street2 . $model->street3;
                 },
             ],
             'street1' => [
@@ -67,6 +59,23 @@ class ContactGridView extends BoxedGridView
                 'value'     => function ($model) {
                     return Html::tag('span', $model->street3, ['class' => 'bold']);
                 },
+            ],
+            'other' => [
+                'value'     => function ($model) {
+                    return $model->other_messenger;
+                },
+            ],
+            'messengers' => [
+                'format' => 'html',
+                'value' => function ($model) {
+                    foreach (['skype' => 'Skype', 'icq' => 'ICQ', 'jabber' => 'Jabber'] as $k => $label) {
+                        $res[] = $model->{$k} ? "<b>$label:</b>&nbsp;" . $model->{$k} : '';
+                    }
+                    return implode('<br>',$res);
+                },
+            ],
+            'birth_date' => [
+                'format'    => 'date',
             ],
             'passport_date' => [
                 'format'    => 'date',

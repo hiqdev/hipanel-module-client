@@ -37,7 +37,7 @@ class Client extends \hipanel\base\Model
     public function attributeLabels()
     {
         return $this->mergeAttributeLabels([
-            'create_time' => Yii::t('app', 'Register'),
+            'create_time' => Yii::t('app', 'Registered'),
             'update_time' => Yii::t('app', 'Last update'),
         ]);
     }

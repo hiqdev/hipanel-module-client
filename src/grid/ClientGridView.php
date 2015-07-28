@@ -21,6 +21,9 @@ use hipanel\modules\ticket\controllers\TicketController;
 use hipanel\modules\server\controllers\ServerController;
 use hipanel\modules\domain\controllers\DomainController;
 use hipanel\modules\client\controllers\ContactController;
+use hipanel\modules\hosting\controllers\AccountController;
+use hipanel\modules\hosting\controllers\HdomainController;
+use hipanel\modules\hosting\controllers\DbController;
 use hiqdev\xeditable\grid\XEditableColumn;
 use Yii;
 use yii\helpers\Html;
@@ -77,12 +80,34 @@ class ClientGridView extends BoxedGridView
                     'url' => 'set-credit',
                 ],
             ],
-            'create_time' => [
+            'create_date' => [
                 'attribute'      => 'create_time',
                 'format'         => 'date',
-                'label'          => 'Registered',
                 'filter'         => false,
                 'contentOptions' => ['class' => 'text-nowrap'],
+            ],
+            'create_time' => [
+                'attribute'      => 'create_time',
+                'format'         => 'datetime',
+                'filter'         => false,
+            ],
+            'update_date' => [
+                'attribute'      => 'update_time',
+                'format'         => 'date',
+                'filter'         => false,
+                'contentOptions' => ['class' => 'text-nowrap'],
+            ],
+            'update_time' => [
+                'attribute'      => 'update_time',
+                'format'         => 'datetime',
+                'filter'         => false,
+            ],
+            'last_seen' => [
+                'attribute'      => 'last_seen',
+                'format'         => 'date',
+                'filter'         => false,
+                'contentOptions' => ['class' => 'text-nowrap'],
+                'value'          => '',
             ],
             'tickets' => [
                 'format' => 'html',
@@ -114,6 +139,21 @@ class ClientGridView extends BoxedGridView
                     $num = $model->count['contacts'];
                     $url = ContactController::getSearchUrl(['client_id' => $model->id]);
                     return $num ? Html::a($num . ' ' . Yii::t('app', 'contacts'), $url) : '';
+                }
+            ],
+            'hosting' => [
+                'format' => 'html',
+                'value' => function ($model) {
+                    $num = $model->count['accounts'];
+                    $url = AccountController::getSearchUrl(['client_id' => $model->id]);
+                    $res .= $num ? Html::a($num . ' ' . Yii::t('app', 'accounts'), $url) : '';
+                    $num = $model->count['hdomains'];
+                    $url = HdomainController::getSearchUrl(['client_id' => $model->id]);
+                    $res .= $num ? Html::a($num . ' ' . Yii::t('app', 'domains'), $url) : '';
+                    $num = $model->count['dbs'];
+                    $url = DbController::getSearchUrl(['client_id' => $model->id]);
+                    $res .= $num ? Html::a($num . ' ' . Yii::t('app', 'databases'), $url) : '';
+                    return $res;
                 }
             ],
             'action' => [

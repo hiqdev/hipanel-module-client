@@ -27,6 +27,16 @@ class ContactController extends CrudController
         ];
     }
 
+    public function actionView($id)
+    {
+        $model = $this->findModel([
+            'id'            => $id,
+            'with_counters' => 1,
+        ]);
+
+        return $this->render('view', ['model' => $model]);
+    }
+
     public function actionCreate()
     {
         $model = new Contact();

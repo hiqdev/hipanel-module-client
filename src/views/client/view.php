@@ -18,8 +18,6 @@ $this->breadcrumbs->setItems([
 
 FlagIconCssAsset::register($this);
 
-$changeContactUrl = ContactController::getActionUrl('update', ['id' => $model->id])
-
 ?>
 <div class="row">
     <div class="col-md-3">
@@ -48,7 +46,7 @@ $changeContactUrl = ContactController::getActionUrl('update', ['id' => $model->i
                     <?= Html::a('<i class="ion-at"></i>' . Yii::t('app', 'Mailing lists settings'), '#'); ?>
                 </li>
                 <li>
-                    <?= Html::a('<i class="ion-compose"></i>' . Yii::t('app', 'Change contact information'), $changeContactUrl); ?>
+                    <?= Html::a('<i class="ion-compose"></i>' . Yii::t('app', 'Change contact information'), ContactController::getActionUrl('update', $model->id)) ?>
                 </li>
                 <li>
                     <?= Html::a('<i class="fa fa-globe"></i>' . Yii::t('app', 'Domain settings'), '#'); ?>
@@ -66,9 +64,9 @@ $changeContactUrl = ContactController::getActionUrl('update', ['id' => $model->i
             <div class="col-md-6">
             <?php $box = Box::begin(['renderBody' => false]) ?>
                 <?php $box->beginHeader() ?>
-                    <?= $box->renderTitle(Yii::t('app', 'Billing information'), '47 items') ?>
+                    <?= $box->renderTitle(Yii::t('app', 'Client information'), '&nbsp;') ?>
                     <?php $box->beginTools() ?>
-                        <?= Html::a(Yii::t('app', 'Recharge account'), '#', ['class' => 'btn btn-default btn-xs']) ?>
+                        <? /* Html::a(Yii::t('app', 'Recharge account'), '#', ['class' => 'btn btn-default btn-xs']) */ ?>
                     <?php $box->endTools() ?>
                 <?php $box->endHeader() ?>
                 <?php $box->beginBody() ?>
@@ -77,10 +75,10 @@ $changeContactUrl = ContactController::getActionUrl('update', ['id' => $model->i
                         'columns' => [
                             'seller_id', 'name',
                             'type', 'state',
-                            'create_time',
                             'balance', 'credit',
+                            'create_time', 'update_time',
                             'tariff',
-                            'tickets', 'servers', 'domains', 'contacts',
+                            'tickets', 'servers', 'domains', 'contacts', 'hosting',
                         ],
                     ]) ?>
                 <?php $box->endBody() ?>
@@ -89,9 +87,9 @@ $changeContactUrl = ContactController::getActionUrl('update', ['id' => $model->i
             <div class="col-md-6">
             <?php $box = Box::begin(['renderBody' => false]); ?>
                 <?php $box->beginHeader(); ?>
-                    <?= $box->renderTitle(Yii::t('app', 'Contact information'), Html::a('details', ['/client/contact/view', 'id' => $model->id])); ?>
+                    <?= $box->renderTitle(Yii::t('app', 'Contact information'), Html::a('details', ContactController::getActionUrl('view', $model->id))); ?>
                     <?php $box->beginTools(); ?>
-                        <?= Html::a(Yii::t('app', 'Change contact information'), $changeContactUrl, ['class' => 'btn btn-default btn-xs']); ?>
+                        <?= Html::a(Yii::t('app', 'Change contact information'), ContactController::getActionUrl('update', $model->id), ['class' => 'btn btn-default btn-xs']); ?>
                     <?php $box->endTools(); ?>
                 <?php $box->endHeader(); ?>
                 <?php $box->beginBody(); ?>

@@ -41,6 +41,7 @@ class Contact extends \hipanel\base\Model
             [['passport_no', 'passport_by', 'organization', 'password'], 'safe'],
             [['remote'], 'safe'],
             [['email_confirmed'], 'boolean'],
+            [['used_count'], 'integer'],
             [['voice_phone', 'fax_phone'], 'match', 'pattern' => '/^[+]?[()0-9 .-]{3,20}$/', 'message' => Yii::t('app', 'This field must contains phone number in international format.')],
             [['first_name', 'last_name', 'email', 'street1', 'city', 'country', 'postal_code', 'postal_code', 'voice_phone'], 'required', 'on' => ['create', 'update']],
 
@@ -72,7 +73,9 @@ class Contact extends \hipanel\base\Model
             'passport_no'   => Yii::t('app', 'Passport number'),
             'passport_by'   => Yii::t('app', 'Passport by'),
             'passport_date' => Yii::t('app', 'Passport date'),
+            'birth_date'    => Yii::t('app', 'Birth date'),
             'icq'           => 'ICQ',
+            'other_messenger' => Yii::t('app', 'Other messenger'),
             'voice_phone'   => Yii::t('app', 'Phone'),
             'fax_phone'     => Yii::t('app', 'Fax'),
             'country_name'  => Yii::t('app', 'Country'),
