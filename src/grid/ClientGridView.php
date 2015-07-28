@@ -163,7 +163,7 @@ class ClientGridView extends BoxedGridView
             ],
             'action' => [
                 'class'    => ActionColumn::className(),
-                'template' => '{view} {block} {delete} {update}', // {state}
+                'template' => '{view} {block} {delete}', // {state}
                 'header'   => Yii::t('app', 'Actions'),
                 'buttons'  => [
                     'block' => function ($url, $model, $key) {
