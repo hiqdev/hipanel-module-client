@@ -87,8 +87,9 @@ FlagIconCssAsset::register($this);
             <div class="col-md-6">
             <?php $box = Box::begin(['renderBody' => false]); ?>
                 <?php $box->beginHeader(); ?>
-                    <?= $box->renderTitle(Yii::t('app', 'Contact information'), Html::a('details', ContactController::getActionUrl('view', $model->id))); ?>
+                    <?= $box->renderTitle(Yii::t('app', 'Contact information'), ''); ?>
                     <?php $box->beginTools(); ?>
+                        <?= Html::a(Yii::t('app', 'Details'),                    ContactController::getActionUrl('view', $model->id), ['class' => 'btn btn-default btn-xs']); ?>
                         <?= Html::a(Yii::t('app', 'Change contact information'), ContactController::getActionUrl('update', $model->id), ['class' => 'btn btn-default btn-xs']); ?>
                     <?php $box->endTools(); ?>
                 <?php $box->endHeader(); ?>
