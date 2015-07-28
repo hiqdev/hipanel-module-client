@@ -66,7 +66,7 @@ FlagIconCssAsset::register($this);
                 <?php $box->beginHeader() ?>
                     <?= $box->renderTitle(Yii::t('app', 'Client information'), '&nbsp;') ?>
                     <?php $box->beginTools() ?>
-                        <? /* Html::a(Yii::t('app', 'Recharge account'), '#', ['class' => 'btn btn-default btn-xs']) */ ?>
+                        <?php /* Html::a(Yii::t('app', 'Recharge account'), '#', ['class' => 'btn btn-default btn-xs']) */ ?>
                     <?php $box->endTools() ?>
                 <?php $box->endHeader() ?>
                 <?php $box->beginBody() ?>

@@ -61,24 +61,25 @@ class ContactGridView extends BoxedGridView
                 },
             ],
             'other' => [
-                'value'     => function ($model) {
+                'value' => function ($model) {
                     return $model->other_messenger;
                 },
             ],
             'messengers' => [
                 'format' => 'html',
-                'value' => function ($model) {
+                'value'  => function ($model) {
                     foreach (['skype' => 'Skype', 'icq' => 'ICQ', 'jabber' => 'Jabber'] as $k => $label) {
                         $res[] = $model->{$k} ? "<b>$label:</b>&nbsp;" . $model->{$k} : '';
                     }
-                    return implode('<br>',$res);
+
+                    return implode('<br>', $res);
                 },
             ],
             'birth_date' => [
-                'format'    => 'date',
+                'format' => 'date',
             ],
             'passport_date' => [
-                'format'    => 'date',
+                'format' => 'date',
             ],
             'action' => [
                 'class'    => 'yii\grid\ActionColumn',

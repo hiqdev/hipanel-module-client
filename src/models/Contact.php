@@ -65,22 +65,22 @@ class Contact extends \hipanel\base\Model
     public function attributeLabels()
     {
         return $this->mergeAttributeLabels([
-            'first_name'    => Yii::t('app', 'First name'),
-            'last_name'     => Yii::t('app', 'Last name'),
-            'postal_code'   => Yii::t('app', 'Postal code'),
-            'create_time'   => Yii::t('app', 'Create time'),
-            'update_time'   => Yii::t('app', 'Update time'),
-            'passport_no'   => Yii::t('app', 'Passport number'),
-            'passport_by'   => Yii::t('app', 'Passport by'),
-            'passport_date' => Yii::t('app', 'Passport date'),
-            'birth_date'    => Yii::t('app', 'Birth date'),
-            'icq'           => 'ICQ',
+            'first_name'      => Yii::t('app', 'First name'),
+            'last_name'       => Yii::t('app', 'Last name'),
+            'postal_code'     => Yii::t('app', 'Postal code'),
+            'create_time'     => Yii::t('app', 'Create time'),
+            'update_time'     => Yii::t('app', 'Update time'),
+            'passport_no'     => Yii::t('app', 'Passport number'),
+            'passport_by'     => Yii::t('app', 'Passport by'),
+            'passport_date'   => Yii::t('app', 'Passport date'),
+            'birth_date'      => Yii::t('app', 'Birth date'),
+            'icq'             => 'ICQ',
             'other_messenger' => Yii::t('app', 'Other messenger'),
-            'voice_phone'   => Yii::t('app', 'Phone'),
-            'fax_phone'     => Yii::t('app', 'Fax'),
-            'country_name'  => Yii::t('app', 'Country'),
-            'abuse_email'   => Yii::t('app', 'Abuse email'),
-            'isresident'    => Yii::t('app', 'RF resident'),
+            'voice_phone'     => Yii::t('app', 'Phone'),
+            'fax_phone'       => Yii::t('app', 'Fax'),
+            'country_name'    => Yii::t('app', 'Country'),
+            'abuse_email'     => Yii::t('app', 'Abuse email'),
+            'isresident'      => Yii::t('app', 'RF resident'),
         ]);
     }
 }

@@ -1,8 +1,8 @@
 <?php
 
 use hipanel\modules\client\controllers\ContactController;
-use hipanel\modules\domain\controllers\DomainController;
 use hipanel\modules\client\grid\ContactGridView;
+use hipanel\modules\domain\controllers\DomainController;
 use hipanel\widgets\Box;
 use hiqdev\assets\flagiconcss\FlagIconCssAsset;
 use yii\helpers\Html;
@@ -88,7 +88,7 @@ FlagIconCssAsset::register($this);
                     <?php $box->endBody(); ?>
                 <?php $box::end(); ?>
                 <?php $box = Box::begin(['renderBody' => false, 'options' => [
-                    'class' => 'collapsed-box'
+                    'class'                           => 'collapsed-box',
                 ]]) ?>
                     <?php $box->beginHeader(); ?>
                         <?= $box->renderTitle(Yii::t('app', 'Additional information')); ?>

@@ -44,28 +44,31 @@ class ContactController extends CrudController
         $countries = $this->getRefs('country_code');
 
         if (Yii::$app->request->isPost) {
-            if ($model->load(Yii::$app->request->post()) && $model->save())
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
                 return $this->redirect(['view', 'id' => $model->id]);
-            else
+            } else {
                 throw new HttpException($model->getFirstError());
+            }
         }
 
         return $this->render('create', [
-            'model' => $model,
-            'countries' => $countries
+            'model'     => $model,
+            'countries' => $countries,
         ]);
     }
 
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
+        $model     = $this->findModel($id);
         $countries = $this->getRefs('country_code');
         if (Yii::$app->request->isPost) {
-            \yii\helpers\VarDumper::dump($_POST, 10, true);die();
+            \yii\helpers\VarDumper::dump($_POST, 10, true);
+            die();
         }
+
         return $this->render('create', [
-            'model' => $model,
-            'countries' => $countries
+            'model'     => $model,
+            'countries' => $countries,
         ]);
     }
 

@@ -1,5 +1,5 @@
 <?php
-$this->title = Yii::t('app', 'Create Contact');
+$this->title                   = Yii::t('app', 'Create Contact');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Contact'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

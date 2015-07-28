@@ -15,15 +15,15 @@ use hipanel\grid\ActionColumn;
 use hipanel\grid\BoxedGridView;
 use hipanel\grid\CurrencyColumn;
 use hipanel\grid\RefColumn;
+use hipanel\modules\client\controllers\ContactController;
 use hipanel\modules\client\widgets\State as ClientState;
 use hipanel\modules\client\widgets\Type as ClientType;
-use hipanel\modules\ticket\controllers\TicketController;
-use hipanel\modules\server\controllers\ServerController;
 use hipanel\modules\domain\controllers\DomainController;
-use hipanel\modules\client\controllers\ContactController;
 use hipanel\modules\hosting\controllers\AccountController;
-use hipanel\modules\hosting\controllers\HdomainController;
 use hipanel\modules\hosting\controllers\DbController;
+use hipanel\modules\hosting\controllers\HdomainController;
+use hipanel\modules\server\controllers\ServerController;
+use hipanel\modules\ticket\controllers\TicketController;
 use hiqdev\xeditable\grid\XEditableColumn;
 use Yii;
 use yii\helpers\Html;
@@ -40,13 +40,13 @@ class ClientGridView extends BoxedGridView
                 'label'         => 'Client',
             ],
             'login' => [
-                'attribute'     => 'login',
+                'attribute'       => 'login',
                 'filterAttribute' => 'login_like',
-                'label'         => 'Client',
-                'format'        => 'html',
-                'value'         => function ($model) {
+                'label'           => 'Client',
+                'format'          => 'html',
+                'value'           => function ($model) {
                     return Html::a($model->login, ['/client/client/view', 'id' => $model->id]);
-                }
+                },
             ],
             'state' => [
                 'class'  => RefColumn::className(),
@@ -87,9 +87,9 @@ class ClientGridView extends BoxedGridView
                 'contentOptions' => ['class' => 'text-nowrap'],
             ],
             'create_time' => [
-                'attribute'      => 'create_time',
-                'format'         => 'datetime',
-                'filter'         => false,
+                'attribute' => 'create_time',
+                'format'    => 'datetime',
+                'filter'    => false,
             ],
             'update_date' => [
                 'attribute'      => 'update_time',
@@ -98,9 +98,9 @@ class ClientGridView extends BoxedGridView
                 'contentOptions' => ['class' => 'text-nowrap'],
             ],
             'update_time' => [
-                'attribute'      => 'update_time',
-                'format'         => 'datetime',
-                'filter'         => false,
+                'attribute' => 'update_time',
+                'format'    => 'datetime',
+                'filter'    => false,
             ],
             'last_seen' => [
                 'attribute'      => 'last_seen',
@@ -114,36 +114,40 @@ class ClientGridView extends BoxedGridView
                 'value'  => function ($model) {
                     $num = $model->count['tickets'];
                     $url = TicketController::getSearchUrl(['client_id' => $model->id]);
+
                     return $num ? Html::a($num . ' ' . Yii::t('app', 'tickets'), $url) : '';
-                }
+                },
             ],
             'servers' => [
                 'format' => 'html',
-                'value' => function ($model) {
+                'value'  => function ($model) {
                     $num = $model->count['servers'];
                     $url = ServerController::getSearchUrl(['client_id' => $model->id]);
+
                     return $num ? Html::a($num . ' ' . Yii::t('app', 'servers'), $url) : '';
-                }
+                },
             ],
             'domains' => [
                 'format' => 'html',
-                'value' => function ($model) {
+                'value'  => function ($model) {
                     $num = $model->count['domains'];
                     $url = DomainController::getSearchUrl(['client_id' => $model->id]);
+
                     return $num ? Html::a($num . ' ' . Yii::t('app', 'domains'), $url) : '';
-                }
+                },
             ],
             'contacts' => [
                 'format' => 'html',
-                'value' => function ($model) {
+                'value'  => function ($model) {
                     $num = $model->count['contacts'];
                     $url = ContactController::getSearchUrl(['client_id' => $model->id]);
+
                     return $num ? Html::a($num . ' ' . Yii::t('app', 'contacts'), $url) : '';
-                }
+                },
             ],
             'hosting' => [
                 'format' => 'html',
-                'value' => function ($model) {
+                'value'  => function ($model) {
                     $num = $model->count['accounts'];
                     $url = AccountController::getSearchUrl(['client_id' => $model->id]);
                     $res .= $num ? Html::a($num . ' ' . Yii::t('app', 'accounts'), $url) : '';
@@ -153,8 +157,9 @@ class ClientGridView extends BoxedGridView
                     $num = $model->count['dbs'];
                     $url = DbController::getSearchUrl(['client_id' => $model->id]);
                     $res .= $num ? Html::a($num . ' ' . Yii::t('app', 'databases'), $url) : '';
+
                     return $res;
-                }
+                },
             ],
             'action' => [
                 'class'    => ActionColumn::className(),
