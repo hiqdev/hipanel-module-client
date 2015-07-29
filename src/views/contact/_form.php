@@ -1,5 +1,4 @@
 <?php
-use hipanel\modules\client\widgets\combo\CountryCombo;
 use hipanel\widgets\Box;
 use hiqdev\combo\StaticCombo;
 use kartik\widgets\DatePicker;
@@ -193,4 +192,3 @@ JS
 <!-- /.row -->
 
 <?php ActiveForm::end(); ?>
-

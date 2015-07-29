@@ -18,6 +18,7 @@ use Yii;
 use yii\base\Exception;
 use yii\web\HttpException;
 use yii\web\MethodNotAllowedHttpException;
+use yii\widgets\ActiveForm;
 
 class ContactController extends CrudController
 {
@@ -55,12 +56,14 @@ class ContactController extends CrudController
         $model->setScenario('update');
         if (Yii::$app->request->isPost) {
             $model->load(Yii::$app->request->post());
-            \yii\helpers\VarDumper::dump($model, 10, true);die();
             if ($model->validate()) {
                 try {
                     $model->save();
                 } catch (Exception $e) {
-                    \yii\helpers\VarDumper::dump($e, 10, true);die();
+                    Yii::$app->session->addFlash('error', [
+                        'text' => $e->getMessage() . '<br>' . ucfirst($e->errorInfo)
+                    ]);
+                    return $this->refresh();
                 }
                 return $this->redirect(['view', 'id' => $model->id]);
             } else
