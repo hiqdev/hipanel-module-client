@@ -5,6 +5,7 @@ use hipanel\modules\client\grid\ContactGridView;
 use hipanel\widgets\ActionBox;
 use yii\helpers\Html;
 use yii\helpers\Url;
+use yii\widgets\ActiveForm;
 
 $this->title    = Yii::t('app', 'Contact');
 $this->subtitle = Yii::$app->request->queryParams ? 'filtered list' : 'full list';
@@ -13,7 +14,7 @@ $this->breadcrumbs->setItems([
 ]);
 ?>
 
-<?= Html::beginForm('', '') ?>
+<?= Html::beginForm(); ?>
 
 <?php $box = ActionBox::begin(['bulk' => true, 'options' => ['class' => 'box-info']]) ?>
 <?php $box->beginActions(); ?>
@@ -23,7 +24,7 @@ $this->breadcrumbs->setItems([
 <?php $box->endActions(); ?>
 <?php $box->beginBulkActions(); ?>
 
-    <?= Html::a(Yii::t('app', 'Delete'), ['delete'], ['class' => 'btn btn-danger', 'formmethod' => 'POST', 'formaction' => Url::to('delete')]) ?>
+    <?= Html::submitButton(Yii::t('app', 'Delete'), ['class' => 'btn btn-danger', 'formmethod' => 'POST', 'formaction' => Url::to('delete')]) ?>
 
 <?php $box->endBulkActions(); ?>
 <?php $box::end(); ?>
@@ -65,16 +66,18 @@ $this->breadcrumbs->setItems([
             'format' => 'raw',
         ],
         'actions' => [
-            'class'    => ActionColumn::className(),
-            'template' => '{view} {update} {delete}', // {state}
-            'header'   => Yii::t('app', 'Actions'),
-            'buttons'  => [
-                'block' => function ($url, $model, $key) {
-                    return Html::a('Close', ['block', 'id' => $model->id]);
-                },
+            'class' => ActionColumn::className(),
+            'template' => '{view} {update} {copy} {delete',
+            'header' => Yii::t('app', 'Actions'),
+            'buttons' => [
+                'copy' => function ($url, $model, $key) {
+                    return Html::a(Yii::t('yii', 'Copy'), $url);
+                }
             ],
+
         ],
         'checkbox',
     ],
 ]); ?>
-<?= Html::endForm() ?>
+
+<?= Html::endForm(); ?>

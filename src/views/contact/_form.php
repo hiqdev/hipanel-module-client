@@ -3,8 +3,10 @@ use hipanel\widgets\Box;
 use hiqdev\combo\StaticCombo;
 use kartik\widgets\DatePicker;
 use yii\bootstrap\ActiveForm;
+use yii\bootstrap\Modal;
 use yii\helpers\Html;
 use yii\helpers\Url;
+use yii\web\JsExpression;
 use yii\web\View;
 
 $this->registerCss('legend { font-size: 15px; }');
@@ -42,19 +44,63 @@ jQuery('#jur_domain input').change(function() {
 });
 JS
 , View::POS_READY);
-
 ?>
 
+<?php if ($askPincode['pincode_enabled']) : ?>
+    <?php $this->registerJs(<<<JS
+    jQuery('#contact-form').on('beforeSubmit', function(event, attributes, messages, deferreds) {
+        event.preventDefault();
+        var show = true;
+        for (var attr in attributes) {
+            if (attributes[attr].length == 0) {
+                show = false;
+                return;
+            }
+        }
+        if (show) {
+            jQuery('#askpincode-modal').modal('show');
+        }
+        return false;
+    });
+    jQuery('#modal-ask-pincode-button').on('click', function(e) {
+        var pincode = jQuery('#modal-pincode').val();
+        jQuery('#contact-pincode').val(pincode);
+        document.getElementById("contact-form").submit();
+    });
+JS
+    ); ?>
+    <?php Modal::begin([
+        'id' => 'askpincode-modal',
+        'size' => Modal::SIZE_SMALL,
+        'header' => '<h4 class="modal-title">' . Yii::t('app', 'Enter pincode') . '</h4>',
+        'clientEvents' => [
+            'show.bs.modal' => new JsExpression("function() {document.getElementById('modal-pincode').value = '';}")
+        ],
+        'footer' => Html::submitButton(Yii::t('app', 'Submit'), [
+            'id' => 'modal-ask-pincode-button',
+            'class' => 'btn btn-default btn-loading',
+            'data-loading-text' => Yii::t('app', 'Loading') . '...',
+            'data-loading-icon' => 'glyphicon glyphicon-refresh',
+        ]),
+    ]); ?>
+        <?= Html::textInput('modal-pincode', null, ['id' => 'modal-pincode', 'class' => 'form-control', 'placeholder' => Yii::t('app', 'Type pincode here...')]); ?>
+    <?php Modal::end(); ?>
+<?php endif; ?>
+
 <?php $form = ActiveForm::begin([
-    'id'                     => 'dynamic-form',
+    'id' => 'contact-form',
+    'action' => $this->context->action->id == 'copy' ? Url::toRoute('create') : '',
     'enableClientValidation' => true,
     'validateOnBlur'         => true,
     'enableAjaxValidation'   => true,
     'layout'                 => 'horizontal',
     'validationUrl'          => Url::toRoute(['validate-form', 'scenario' => $model->scenario]),
 ]) ?>
+<?php if ($askPincode['pincode_enabled']) : ?>
 
+<?php endif; ?>
 <div class="row">
+    <?= Html::activeHiddenInput($model, 'pincode'); ?>
 
     <div class="col-md-12">
         <?php Box::begin(); ?>
@@ -82,6 +128,7 @@ JS
         <?= $form->field($model, 'postal_code'); ?>
         <?= $form->field($model, 'voice_phone'); ?>
         <?= $form->field($model, 'fax_phone'); ?>
+
         <?php Box::end() ?>
     </div>
     <!-- /.col-md-6 -->
@@ -146,4 +193,3 @@ JS
 <!-- /.row -->
 
 <?php ActiveForm::end(); ?>
-

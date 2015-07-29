@@ -1,11 +1,10 @@
 <?php
 
-$this->title                   = Yii::t('app', 'Update');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Name Server'), 'url' => ['index']];
+$this->title = Yii::t('app', 'Update');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Contact'), 'url' => ['index']];
+
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
-<?php \hipanel\widgets\Box::begin() ?>
-<?= $this->render('_form', ['models' => $models]); ?>
-<?php \hipanel\widgets\Box::end() ?>
+<?= $this->render('_form', ['model' => $model, 'countries' => $countries, 'askPincode' => $askPincode]); ?>
 
