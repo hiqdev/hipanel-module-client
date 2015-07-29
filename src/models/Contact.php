@@ -44,6 +44,8 @@ class Contact extends \hipanel\base\Model
             [['voice_phone', 'fax_phone'], 'match', 'pattern' => '/^[+]?[()0-9 .-]{3,20}$/', 'message' => Yii::t('app', 'This field must contains phone number in international format.')],
             [['first_name', 'last_name', 'email', 'street1', 'city', 'country', 'postal_code', 'postal_code', 'voice_phone'], 'required', 'on' => ['create', 'update']],
 
+            [['pincode'], 'safe', 'on' => ['update']],
+
             [['isresident'], 'boolean', 'trueValue' => true, 'falseValue' => false],
             [[
                 // Для регистрации доменов в зоне RU в качестве физического лица

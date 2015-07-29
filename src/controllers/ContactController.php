@@ -15,7 +15,9 @@ use hipanel\base\CrudController;
 use hipanel\modules\client\models\Client;
 use hipanel\modules\client\models\Contact;
 use Yii;
+use yii\base\Exception;
 use yii\web\HttpException;
+use yii\web\MethodNotAllowedHttpException;
 
 class ContactController extends CrudController
 {
@@ -50,14 +52,22 @@ class ContactController extends CrudController
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $countries = $this->getRefs('country_code');
+        $model->setScenario('update');
         if (Yii::$app->request->isPost) {
             $model->load(Yii::$app->request->post());
-            if ($model->validate() && $model->save()) {
+            \yii\helpers\VarDumper::dump($model, 10, true);die();
+            if ($model->validate()) {
+                try {
+                    $model->save();
+                } catch (Exception $e) {
+                    \yii\helpers\VarDumper::dump($e, 10, true);die();
+                }
                 return $this->redirect(['view', 'id' => $model->id]);
             } else
                 throw new HttpException($model->getFirstError());
         }
+
+        $countries = $this->getRefs('country_code');
         $askPincode = Client::perform('HasPincode');
         return $this->render('update', [
             'model' => $model,
@@ -68,5 +78,22 @@ class ContactController extends CrudController
 
     public function actionCopy()
     {
+    }
+
+    public function actionDelete()
+    {
+        $request = Yii::$app->request;
+        if ($request->isPost) {
+            $condition = $request->get('id') ? : $request->post('selection');
+            if (!empty($condition)) {
+                $models = $this->findModels($condition);
+                foreach ($models as $model) {
+                    $model->delete();
+                }
+            }
+            return $this->redirect('index');
+        } else {
+            throw new MethodNotAllowedHttpException(Yii::t('app', 'Method not allowed'));
+        }
     }
 }
