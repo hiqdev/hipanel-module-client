@@ -89,8 +89,18 @@ class ContactController extends CrudController
         ]);
     }
 
-    public function actionCopy()
+    public function actionCopy($id)
     {
+        $model = new Contact();
+        $model->setScenario('create');
+        $data = $this->findModel($id)->attributes;
+        $model->load($data, '');
+        $countries = $this->getRefs('country_code');
+
+        return $this->render('create', [
+            'model'     => $model,
+            'countries' => $countries,
+        ]);
     }
 
     public function actionDelete()

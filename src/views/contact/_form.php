@@ -89,6 +89,7 @@ JS
 
 <?php $form = ActiveForm::begin([
     'id' => 'contact-form',
+    'action' => $this->context->action->id == 'copy' ? Url::toRoute('create') : '',
     'enableClientValidation' => true,
     'validateOnBlur'         => true,
     'enableAjaxValidation'   => true,
