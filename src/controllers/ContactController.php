@@ -31,6 +31,16 @@ class ContactController extends CrudController
         ];
     }
 
+    public function actionView($id)
+    {
+        $model = $this->findModel([
+            'id'            => $id,
+            'with_counters' => 1,
+        ]);
+
+        return $this->render('view', ['model' => $model]);
+    }
+
     public function actionCreate()
     {
         $model = new Contact();
@@ -38,15 +48,16 @@ class ContactController extends CrudController
         $countries = $this->getRefs('country_code');
 
         if (Yii::$app->request->isPost) {
-            if ($model->load(Yii::$app->request->post()) && $model->save())
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
                 return $this->redirect(['view', 'id' => $model->id]);
-            else
+            } else {
                 throw new HttpException($model->getFirstError());
+            }
         }
 
         return $this->render('create', [
-            'model' => $model,
-            'countries' => $countries
+            'model'     => $model,
+            'countries' => $countries,
         ]);
     }
 
@@ -69,7 +80,6 @@ class ContactController extends CrudController
             } else
                 throw new HttpException($model->getFirstError());
         }
-
         $countries = $this->getRefs('country_code');
         $askPincode = Client::perform('HasPincode');
         return $this->render('update', [

@@ -28,9 +28,11 @@ class ClientController extends \hipanel\base\CrudController
     {
         $model = $this->findModel([
             'id'                  => $id,
+            'with_tickets_count'  => 1,
             'with_domains_count'  => 1,
             'with_servers_count'  => 1,
             'with_contacts_count' => 1,
+            'with_last_seen'      => 1,
             'with_contact'        => 1,
         ]);
 

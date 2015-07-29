@@ -1,6 +1,8 @@
 <?php
 
+use hipanel\modules\client\controllers\ContactController;
 use hipanel\modules\client\grid\ContactGridView;
+use hipanel\modules\domain\controllers\DomainController;
 use hipanel\widgets\Box;
 use hiqdev\assets\flagiconcss\FlagIconCssAsset;
 use yii\helpers\Html;
@@ -33,10 +35,10 @@ FlagIconCssAsset::register($this);
         <div class="profile-usermenu">
             <ul class="nav">
                 <li>
-                    <?= Html::a('<i class="ion-wrench"></i>' . Yii::t('app', 'Change contact information'), '#') ?>
+                    <?= Html::a('<i class="ion-wrench"></i>' . Yii::t('app', 'Change contact information'), ContactController::getActionUrl('update', $model->id)) ?>
                 </li>
                 <li>
-                    <?= Html::a('<i class="fa fa-globe"></i>' . Yii::t('app', 'Used for domains: ') . Html::tag('b', 3), '#') ?>
+                    <?= Html::a('<i class="fa fa-globe"></i>' . Yii::t('app', 'Used for domains: ') . Html::tag('b', $model->used_count), DomainController::getSearchUrl(['client_id' => $model->client_id])) ?>
                 </li>
             </ul>
         </div>
@@ -50,7 +52,7 @@ FlagIconCssAsset::register($this);
                     <?php $box->beginHeader(); ?>
                         <?= $box->renderTitle(Yii::t('app', 'Contact information')); ?>
                         <?php $box->beginTools(); ?>
-                            <?= Html::a(Yii::t('app', 'Change contact information'), '#', ['class' => 'btn btn-default btn-xs']); ?>
+                            <?= Html::a(Yii::t('app', 'Change contact information'), ContactController::getActionUrl('update', $model->id), ['class' => 'btn btn-default btn-xs']); ?>
                         <?php $box->endTools(); ?>
                     <?php $box->endHeader(); ?>
                     <?php $box->beginBody(); ?>
@@ -60,14 +62,10 @@ FlagIconCssAsset::register($this);
                                 'seller_id',
                                 'client_id',
                                 ['attribute' => 'name'],
-                                'email',
-                                'abuse_email',
-                                'voice_phone',
-                                'fax_phone',
-                                'skype',
-                                'icq',
-                                'jabber',
-                                'country',
+                                'birth_date',
+                                'email', 'abuse_email',
+                                'voice_phone', 'fax_phone',
+                                'messengers', 'other',
                             ],
                         ]) ?>
                     <?php $box->endBody(); ?>
@@ -82,13 +80,27 @@ FlagIconCssAsset::register($this);
                         <?= ContactGridView::detailView([
                             'model'   => $model,
                             'columns' => [
-                                'first_name',
-                                'last_name',
-                                'street',
-                                'city',
-                                'province',
-                                'postal_code',
-                                'country',
+                                'first_name', 'last_name',
+                                'organization',
+                                'street', 'city', 'province', 'postal_code', 'country',
+                            ],
+                        ]) ?>
+                    <?php $box->endBody(); ?>
+                <?php $box::end(); ?>
+                <?php $box = Box::begin(['renderBody' => false, 'options' => [
+                    'class'                           => 'collapsed-box',
+                ]]) ?>
+                    <?php $box->beginHeader(); ?>
+                        <?= $box->renderTitle(Yii::t('app', 'Additional information')); ?>
+                        <div class="box-tools pull-right">
+                            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
+                        </div>
+                    <?php $box->endHeader(); ?>
+                    <?php $box->beginBody(); ?>
+                        <?= ContactGridView::detailView([
+                            'model'   => $model,
+                            'columns' => [
+                                'passport_date', 'passport_no', 'passport_by',
                             ],
                         ]) ?>
                     <?php $box->endBody(); ?>

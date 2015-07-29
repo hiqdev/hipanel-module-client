@@ -4,6 +4,19 @@ hiqdev/hipanel-module-client commits history
 ## 0.0.1 Under development
 
 - Changed details pages for clients and contacts
+    - 358655b 2015-07-28 proper contact details link made as tools button at client details (sol@hiqdev.com)
+    - 680aa45 2015-07-28 php-cs-fixed (sol@hiqdev.com)
+    - 7da0576 2015-07-28 improved client and contact details pages (sol@hiqdev.com)
+    - d6e660f 2015-07-28 + change contact url (sol@hiqdev.com)
+    - 7e9f556 2015-07-28 - looking junk assets/combo2/Manager.php (sol@hiqdev.com)
+    - c36c243 2015-07-27 + tickets/server/domains/contacts links at client details (sol@hiqdev.com)
+    - 9130083 2015-07-27 WE KEEP BACK voice_phone, fax_phone (sol@hiqdev.com)
+    - 48fbad4 2015-07-27 Fields voice_phone end fax_phone changed (andreyklochok@gmail.com)
+    - 7b54782 2015-07-27 Additional fields disable fix (andreyklochok@gmail.com)
+    - 14bb9cc 2015-07-24 Work (andreyklochok@gmail.com)
+    - 51d8477 2015-07-24 improved details pages for contacts and clients (sol@hiqdev.com)
+    - cfaaaa4 2015-07-23 Confilct rsolve (andreyklochok@gmail.com)
+    - f488397 2015-07-23 Add addtional field in rule (andreyklochok@gmail.com)
     - f7eea1d 2015-07-24 php-cs-fixed (sol@hiqdev.com)
     - 9345268 2015-07-24 improving detail pages for clients and contacts (sol@hiqdev.com)
     - b14a663 2015-07-23 * contact details page (sol@hiqdev.com)

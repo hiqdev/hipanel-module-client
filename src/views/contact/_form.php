@@ -90,10 +90,10 @@ JS
 <?php $form = ActiveForm::begin([
     'id' => 'contact-form',
     'enableClientValidation' => true,
-    'validateOnBlur' => true,
-    'enableAjaxValidation' => true,
-    'layout' => 'horizontal',
-    'validationUrl' => Url::toRoute(['validate-form', 'scenario' => $model->scenario]),
+    'validateOnBlur'         => true,
+    'enableAjaxValidation'   => true,
+    'layout'                 => 'horizontal',
+    'validationUrl'          => Url::toRoute(['validate-form', 'scenario' => $model->scenario]),
 ]) ?>
 <?php if ($askPincode['pincode_enabled']) : ?>
 
@@ -120,8 +120,8 @@ JS
         <?= $form->field($model, 'street3'); ?>
         <?= $form->field($model, 'city'); ?>
         <?= $form->field($model, 'country')->widget(StaticCombo::classname(), [
-            'data' => $countries,
-            'hasId' => true
+            'data'  => $countries,
+            'hasId' => true,
         ]); ?>
         <?= $form->field($model, 'province'); ?>
         <?= $form->field($model, 'postal_code'); ?>
@@ -142,7 +142,7 @@ JS
     <!-- /.col-md-6 -->
     <div class="col-md-6">
         <?php $box = Box::begin(['renderBody' => false, 'options' => [
-            'class' => 'collapsed-box'
+            'class'                           => 'collapsed-box',
         ]]) ?>
         <?php $box->beginHeader(); ?>
         <h3 class="box-title"><?= Yii::t('app', 'Additional fields') ?></h3>
@@ -156,23 +156,23 @@ JS
         <fieldset id="fiz_domain">
             <legend><?= Yii::t('app', 'Для регистрации доменов в зоне RU в качестве физического лица') ?></legend>
             <?= $form->field($model, 'birth_date')->widget(DatePicker::className(), [
-                'removeButton' => false,
+                'removeButton'  => false,
                 'pluginOptions' => [
-                    'format' => 'dd.mm.yyyy',
-                    'autoclose'=>true,
-                    'clearBtn' => true,
+                    'format'    => 'dd.mm.yyyy',
+                    'autoclose' => true,
+                    'clearBtn'  => true,
                 ],
-                'options' => ['readonly' => 'readonly', 'class' => 'datepicker']
+                'options' => ['readonly' => 'readonly', 'class' => 'datepicker'],
             ]); ?>
             <?= $form->field($model, 'passport_no'); ?>
             <?= $form->field($model, 'passport_date')->widget(DatePicker::className(), [
-                'removeButton' => false,
+                'removeButton'  => false,
                 'pluginOptions' => [
-                    'format' => 'dd.mm.yyyy',
-                    'autoclose'=>true,
-                    'clearBtn' => true,
+                    'format'    => 'dd.mm.yyyy',
+                    'autoclose' => true,
+                    'clearBtn'  => true,
                 ],
-                'options' => ['readonly' => 'readonly', 'class' => 'datepicker']
+                'options' => ['readonly' => 'readonly', 'class' => 'datepicker'],
             ]);  ?>
             <?= $form->field($model, 'passport_by'); ?>
         </fieldset>

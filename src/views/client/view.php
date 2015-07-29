@@ -1,5 +1,6 @@
 <?php
 
+use hipanel\modules\client\controllers\ContactController;
 use hipanel\modules\client\grid\ClientGridView;
 use hipanel\modules\client\grid\ContactGridView;
 use hipanel\modules\client\models\Contact;
@@ -25,7 +26,7 @@ FlagIconCssAsset::register($this);
             <?= $this->render('//layouts/gravatar', ['email' => $model->email, 'size' => 120]); ?>
         </div>
         <p class="text-center">
-            <span class="profile-user-name"><?= $this->title ?></span>
+            <span class="profile-user-name"><?= $model->login . ' / ' . $model->seller ?></span>
             <br>
             <span class="profile-user-role"><?= $model->type ?></span>
         </p>
@@ -45,7 +46,7 @@ FlagIconCssAsset::register($this);
                     <?= Html::a('<i class="ion-at"></i>' . Yii::t('app', 'Mailing lists settings'), '#'); ?>
                 </li>
                 <li>
-                    <?= Html::a('<i class="ion-compose"></i>' . Yii::t('app', 'Change contact information'), '#'); ?>
+                    <?= Html::a('<i class="ion-compose"></i>' . Yii::t('app', 'Change contact information'), ContactController::getActionUrl('update', $model->id)) ?>
                 </li>
                 <li>
                     <?= Html::a('<i class="fa fa-globe"></i>' . Yii::t('app', 'Domain settings'), '#'); ?>
@@ -63,9 +64,9 @@ FlagIconCssAsset::register($this);
             <div class="col-md-6">
             <?php $box = Box::begin(['renderBody' => false]) ?>
                 <?php $box->beginHeader() ?>
-                    <?= $box->renderTitle(Yii::t('app', 'Billing information'), '47 items') ?>
+                    <?= $box->renderTitle(Yii::t('app', 'Client information'), '&nbsp;') ?>
                     <?php $box->beginTools() ?>
-                        <?= Html::a(Yii::t('app', 'Recharge account'), '#', ['class' => 'btn btn-default btn-xs']) ?>
+                        <?php /* Html::a(Yii::t('app', 'Recharge account'), '#', ['class' => 'btn btn-default btn-xs']) */ ?>
                     <?php $box->endTools() ?>
                 <?php $box->endHeader() ?>
                 <?php $box->beginBody() ?>
@@ -74,9 +75,10 @@ FlagIconCssAsset::register($this);
                         'columns' => [
                             'seller_id', 'name',
                             'type', 'state',
-                            'create_time',
                             'balance', 'credit',
+                            'create_time', 'update_time',
                             'tariff',
+                            'tickets', 'servers', 'domains', 'contacts', 'hosting',
                         ],
                     ]) ?>
                 <?php $box->endBody() ?>
@@ -85,9 +87,10 @@ FlagIconCssAsset::register($this);
             <div class="col-md-6">
             <?php $box = Box::begin(['renderBody' => false]); ?>
                 <?php $box->beginHeader(); ?>
-                    <?= $box->renderTitle(Yii::t('app', 'Contact information'), Html::a('details', ['/client/contact/view', 'id' => $model->id])); ?>
+                    <?= $box->renderTitle(Yii::t('app', 'Contact information'), ''); ?>
                     <?php $box->beginTools(); ?>
-                        <?= Html::a(Yii::t('app', 'Change contact information'), '#', ['class' => 'btn btn-default btn-xs']); ?>
+                        <?= Html::a(Yii::t('app', 'Details'),                    ContactController::getActionUrl('view', $model->id), ['class' => 'btn btn-default btn-xs']); ?>
+                        <?= Html::a(Yii::t('app', 'Change contact information'), ContactController::getActionUrl('update', $model->id), ['class' => 'btn btn-default btn-xs']); ?>
                     <?php $box->endTools(); ?>
                 <?php $box->endHeader(); ?>
                 <?php $box->beginBody(); ?>
