@@ -16,6 +16,16 @@ use yii\web\Response;
 
 class ClientController extends \hipanel\base\CrudController
 {
+    public function actions()
+    {
+        return [
+            'set-credit' => [
+                'class'     => 'hipanel\actions\SmartUpdateAction',
+                'success'   => Yii::t('app', 'Credit changed'),
+            ],
+        ];
+    }
+
     /// TODO: implement
     public function actionCheckLogin($login)
     {

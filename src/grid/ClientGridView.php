@@ -77,7 +77,8 @@ class ClientGridView extends BoxedGridView
                 'filter'        => false,
                 'format'        => ['currency', 'USD'],
                 'pluginOptions' => [
-                    'url' => 'set-credit',
+                    'url'   => 'set-credit',
+                    'title' => Yii::t('app','Set credit'),
                 ],
             ],
             'create_date' => [
