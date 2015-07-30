@@ -67,11 +67,11 @@ $this->breadcrumbs->setItems([
         ],
         'actions' => [
             'class' => ActionColumn::className(),
-            'template' => '{view} {update} {copy} {delete',
+            'template' => '{view} {update} {copy} {delete}',
             'header' => Yii::t('app', 'Actions'),
             'buttons' => [
                 'copy' => function ($url, $model, $key) {
-                    return Html::a(Yii::t('yii', 'Copy'), $url);
+                    return Html::a('<i class="fa fa-copy"></i>' . Yii::t('yii', 'Copy'), $url);
                 }
             ],
 
