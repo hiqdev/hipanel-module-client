@@ -71,7 +71,7 @@ $this->breadcrumbs->setItems([
             'header' => Yii::t('app', 'Actions'),
             'buttons' => [
                 'copy' => function ($url, $model, $key) {
-                    return Html::a(Yii::t('yii', 'Copy'), $url);
+                    return Html::a('<i class="fa fa-copy"></i>' . Yii::t('yii', 'Copy'), $url);
                 }
             ],
 
