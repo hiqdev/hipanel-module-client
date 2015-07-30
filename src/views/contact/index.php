@@ -67,7 +67,7 @@ $this->breadcrumbs->setItems([
         ],
         'actions' => [
             'class' => ActionColumn::className(),
-            'template' => '{view} {update} {copy} {delete',
+            'template' => '{view} {update} {copy} {delete}',
             'header' => Yii::t('app', 'Actions'),
             'buttons' => [
                 'copy' => function ($url, $model, $key) {

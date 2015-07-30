@@ -71,8 +71,8 @@ class ClientGridView extends BoxedGridView
                 'attribute' => 'balance',
             ],
             'credit' => [
-                'class'         => XEditableColumn::className(),
-                'visible'       => true, /// show for managers only
+                'class'         => 'hiqdev\xeditable\grid\XEditableColumn',
+                'visible'       => true, /// TODO: show for managers only
                 'attribute'     => 'credit',
                 'filter'        => false,
                 'format'        => ['currency', 'USD'],
