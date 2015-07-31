@@ -23,7 +23,8 @@ class ClientSearch extends Client
     public function searchAttributes()
     {
         return ArrayHelper::merge($this->defaultSearchAttributes(), [
-            'client_like',
+            'client_like', 'seller_like',
+            'created_from', 'created_till',
         ]);
     }
 }
