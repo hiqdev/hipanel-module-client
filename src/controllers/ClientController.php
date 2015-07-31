@@ -19,6 +19,23 @@ class ClientController extends \hipanel\base\CrudController
     public function actions()
     {
         return [
+            'index' => [
+                'class' => 'hipanel\actions\IndexAction',
+            ],
+            'view' => [
+                'class'       => 'hipanel\actions\ViewAction',
+                'findOptions' => [
+                    'with_tickets_count'  => 1,
+                    'with_domains_count'  => 1,
+                    'with_servers_count'  => 1,
+                    'with_contacts_count' => 1,
+                    'with_last_seen'      => 1,
+                    'with_contact'        => 1,
+                ],
+            ],
+            'validate-form' => [
+                'class' => 'hipanel\actions\ValidateFormAction',
+            ],
             'set-credit' => [
                 'class'     => 'hipanel\actions\SmartUpdateAction',
                 'success'   => Yii::t('app', 'Credit changed'),
@@ -32,20 +49,5 @@ class ClientController extends \hipanel\base\CrudController
         Yii::$app->response->format = Response::FORMAT_JSON;
 
         return $out;
-    }
-
-    public function actionView($id)
-    {
-        $model = $this->findModel([
-            'id'                  => $id,
-            'with_tickets_count'  => 1,
-            'with_domains_count'  => 1,
-            'with_servers_count'  => 1,
-            'with_contacts_count' => 1,
-            'with_last_seen'      => 1,
-            'with_contact'        => 1,
-        ]);
-
-        return $this->render('view', ['model' => $model]);
     }
 }
