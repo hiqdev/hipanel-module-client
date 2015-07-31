@@ -74,10 +74,11 @@ $this->breadcrumbs->setItems([
         'dataProvider' => $dataProvider,
         'filterModel'  => $model,
         'columns'      => [
+            'checkbox',
             'login', 'name', 'seller_id',
             'type', 'state',
             'balance', 'credit',
-            'action', 'checkbox',
+            'action',
         ],
     ]) ?>
 
