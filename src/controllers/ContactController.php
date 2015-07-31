@@ -26,7 +26,7 @@ class ContactController extends CrudController
     {
         return [
             'validate-form' => [
-                'class' => 'hipanel\actions\FormValidateAction',
+                'class' => 'hipanel\actions\ValidateFormAction',
             ],
         ];
     }
