@@ -31,40 +31,10 @@ $this->breadcrumbs->setItems([
 
 <?= ContactGridView::widget([
     'dataProvider' => $dataProvider,
-    'filterModel'  => $searchModel,
+    'filterModel'  => $model,
     'columns'      => [
-        'name',
-        [
-            'attribute' => 'client_id',
-            'value'     => function ($model) {
-                return Html::a($model->client, ['/client/client/view', 'id' => $model->client_id]);
-            },
-            'filter' => \hipanel\modules\client\widgets\combo\ClientCombo::widget([
-                'attribute'           => 'client_id',
-                'model'               => $searchModel,
-                'formElementSelector' => 'td',
-                'inputOptions'        => [
-                    'id' => 'client_id',
-                ],
-            ]),
-            'format' => 'raw',
-        ],
-        'email',
-        [
-            'attribute' => 'seller_id',
-            'value'     => function ($model) {
-                return Html::a($model->seller, ['/client/client/view', 'id' => $model->seller_id]);
-            },
-            'filter' => \hipanel\modules\client\widgets\combo\SellerCombo::widget([
-                'attribute'           => 'seller_id',
-                'model'               => $searchModel,
-                'formElementSelector' => 'td',
-                'inputOptions'        => [
-                    'id' => 'seller_id',
-                ],
-            ]),
-            'format' => 'raw',
-        ],
+        'checkbox', 'name', 'email',
+        'client_id', 'seller_id',
         'actions' => [
             'class' => ActionColumn::className(),
             'template' => '{view} {update} {copy} {delete}',
@@ -76,7 +46,6 @@ $this->breadcrumbs->setItems([
             ],
 
         ],
-        'checkbox',
     ],
 ]); ?>
 

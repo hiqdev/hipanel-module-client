@@ -25,20 +25,17 @@ class ContactController extends CrudController
     public function actions()
     {
         return [
+            'index' => [
+                'class' => 'hipanel\actions\IndexAction',
+            ],
+            'view' => [
+                'class'       => 'hipanel\actions\ViewAction',
+                'findOptions' => ['with_counters' => 1],
+            ],
             'validate-form' => [
                 'class' => 'hipanel\actions\ValidateFormAction',
             ],
         ];
-    }
-
-    public function actionView($id)
-    {
-        $model = $this->findModel([
-            'id'            => $id,
-            'with_counters' => 1,
-        ]);
-
-        return $this->render('view', ['model' => $model]);
     }
 
     public function actionCreate()
