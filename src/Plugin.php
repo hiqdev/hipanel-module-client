@@ -14,6 +14,10 @@ namespace hipanel\modules\client;
 class Plugin extends \hiqdev\pluginmanager\Plugin
 {
     protected $_items = [
+        'aliases' => [
+            '@client'  => '/client/client',
+            '@contact' => '/client/contact',
+        ],
         'menus' => [
             [
                 'class' => 'hipanel\modules\client\SidebarMenu',
