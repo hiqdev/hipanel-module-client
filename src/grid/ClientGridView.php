@@ -15,15 +15,9 @@ use hipanel\grid\ActionColumn;
 use hipanel\grid\BoxedGridView;
 use hipanel\grid\CurrencyColumn;
 use hipanel\grid\RefColumn;
-use hipanel\modules\client\controllers\ContactController;
+use hipanel\helpers\Url;
 use hipanel\modules\client\widgets\State as ClientState;
 use hipanel\modules\client\widgets\Type as ClientType;
-use hipanel\modules\domain\controllers\DomainController;
-use hipanel\modules\hosting\controllers\AccountController;
-use hipanel\modules\hosting\controllers\DbController;
-use hipanel\modules\hosting\controllers\HdomainController;
-use hipanel\modules\server\controllers\ServerController;
-use hipanel\modules\ticket\controllers\TicketController;
 use hiqdev\xeditable\grid\XEditableColumn;
 use Yii;
 use yii\helpers\Html;
@@ -114,7 +108,7 @@ class ClientGridView extends BoxedGridView
                 'format' => 'html',
                 'value'  => function ($model) {
                     $num = $model->count['tickets'];
-                    $url = TicketController::getSearchUrl(['client_id' => $model->id]);
+                    $url = Url::toSearch('ticket', ['client_id' => $model->id]);
 
                     return $num ? Html::a($num . ' ' . Yii::t('app', 'tickets'), $url) : '';
                 },
@@ -123,7 +117,7 @@ class ClientGridView extends BoxedGridView
                 'format' => 'html',
                 'value'  => function ($model) {
                     $num = $model->count['servers'];
-                    $url = ServerController::getSearchUrl(['client_id' => $model->id]);
+                    $url = Url::toSearch('server', ['client_id' => $model->id]);
 
                     return $num ? Html::a($num . ' ' . Yii::t('app', 'servers'), $url) : '';
                 },
@@ -132,7 +126,7 @@ class ClientGridView extends BoxedGridView
                 'format' => 'html',
                 'value'  => function ($model) {
                     $num = $model->count['domains'];
-                    $url = DomainController::getSearchUrl(['client_id' => $model->id]);
+                    $url = Url::toSearch('domain', ['client_id' => $model->id]);
 
                     return $num ? Html::a($num . ' ' . Yii::t('app', 'domains'), $url) : '';
                 },
@@ -141,7 +135,7 @@ class ClientGridView extends BoxedGridView
                 'format' => 'html',
                 'value'  => function ($model) {
                     $num = $model->count['contacts'];
-                    $url = ContactController::getSearchUrl(['client_id' => $model->id]);
+                    $url = Url::toSearch('contact', ['client_id' => $model->id]);
 
                     return $num ? Html::a($num . ' ' . Yii::t('app', 'contacts'), $url) : '';
                 },
@@ -150,13 +144,13 @@ class ClientGridView extends BoxedGridView
                 'format' => 'html',
                 'value'  => function ($model) {
                     $num = $model->count['accounts'];
-                    $url = AccountController::getSearchUrl(['client_id' => $model->id]);
+                    $url = Url::toSearch('account', ['client_id' => $model->id]);
                     $res .= $num ? Html::a($num . ' ' . Yii::t('app', 'accounts'), $url) : '';
                     $num = $model->count['hdomains'];
-                    $url = HdomainController::getSearchUrl(['client_id' => $model->id]);
+                    $url = Url::toSearch('hdomain', ['client_id' => $model->id]);
                     $res .= $num ? Html::a($num . ' ' . Yii::t('app', 'domains'), $url) : '';
                     $num = $model->count['dbs'];
-                    $url = DbController::getSearchUrl(['client_id' => $model->id]);
+                    $url = Url::toSearch('db', ['client_id' => $model->id]);
                     $res .= $num ? Html::a($num . ' ' . Yii::t('app', 'databases'), $url) : '';
 
                     return $res;
