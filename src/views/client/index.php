@@ -10,12 +10,9 @@
  */
 
 use hipanel\modules\client\grid\ClientGridView;
-use hipanel\modules\client\models\Client;
 use hipanel\widgets\ActionBox;
-use hipanel\widgets\BulkButtons;
 use hipanel\widgets\Pjax;
 use yii\bootstrap\ButtonDropdown;
-use yii\helpers\Html;
 
 $this->title    = Yii::t('app', 'Clients');
 $this->subtitle = Yii::$app->request->queryParams ? 'filtered list' : 'full list';
