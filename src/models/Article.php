@@ -49,7 +49,7 @@ class Article extends \hipanel\base\Model
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function attributeLabels()
     {

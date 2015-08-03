@@ -14,8 +14,8 @@ use hipanel\modules\client\models\Client;
 use hipanel\widgets\ActionBox;
 use hipanel\widgets\BulkButtons;
 use hipanel\widgets\Pjax;
-use yii\helpers\Html;
 use yii\bootstrap\ButtonDropdown;
+use yii\helpers\Html;
 
 $this->title    = Yii::t('app', 'Clients');
 $this->subtitle = Yii::$app->request->queryParams ? 'filtered list' : 'full list';
@@ -81,4 +81,4 @@ $this->breadcrumbs->setItems([
         ],
     ]) ?>
 
-<? Pjax::end() ?>
+<?php Pjax::end() ?>

@@ -13,7 +13,7 @@ namespace hipanel\modules\client\widgets;
 
 class State extends \hipanel\widgets\Type
 {
-    /** @inheritdoc */
+    /** {@inheritdoc} */
     public $model         = [];
     public $values        = [];
     public $defaultValues = [

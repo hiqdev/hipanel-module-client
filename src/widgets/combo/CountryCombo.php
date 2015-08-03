@@ -19,19 +19,19 @@ use hiqdev\combo\Combo;
  */
 class CountryCombo extends Combo
 {
-    /** @inheritdoc */
+    /** {@inheritdoc} */
     public $type = 'client/client';
 
-    /** @inheritdoc */
+    /** {@inheritdoc} */
     public $name = 'login';
 
-    /** @inheritdoc */
+    /** {@inheritdoc} */
     public $url = '/client/client/search';
 
-    /** @inheritdoc */
+    /** {@inheritdoc} */
     public $_return = ['id'];
 
-    /** @inheritdoc */
+    /** {@inheritdoc} */
     public $_rename = ['text' => 'login'];
 
     /**
@@ -42,7 +42,7 @@ class CountryCombo extends Combo
      */
     public $clientType;
 
-    /** @inheritdoc */
+    /** {@inheritdoc} */
     public function getFilter()
     {
         return ArrayHelper::merge(parent::getFilter(), [

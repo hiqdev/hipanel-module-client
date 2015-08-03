@@ -57,7 +57,7 @@ FlagIconCssAsset::register($this);
                     <?php $box->endHeader(); ?>
                     <?php $box->beginBody(); ?>
                         <?= ContactGridView::detailView([
-                            'boxed' => false,
+                            'boxed'   => false,
                             'model'   => $model,
                             'columns' => [
                                 'seller_id',
@@ -79,7 +79,7 @@ FlagIconCssAsset::register($this);
                     <?php $box->endHeader(); ?>
                     <?php $box->beginBody(); ?>
                         <?= ContactGridView::detailView([
-                            'boxed' => false,
+                            'boxed'   => false,
                             'model'   => $model,
                             'columns' => [
                                 'first_name', 'last_name',
@@ -100,7 +100,7 @@ FlagIconCssAsset::register($this);
                     <?php $box->endHeader(); ?>
                     <?php $box->beginBody(); ?>
                         <?= ContactGridView::detailView([
-                            'boxed' => false,
+                            'boxed'   => false,
                             'model'   => $model,
                             'columns' => [
                                 'passport_date', 'passport_no', 'passport_by',

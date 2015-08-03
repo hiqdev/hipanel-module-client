@@ -22,12 +22,12 @@ use yii\helpers\Html;
 
     <div class="col-md-4">
         <?= $form->field('state')->widget(StaticCombo::classname(), [
-            'data' => $state_data,
-            'hasId' => true,
+            'data'          => $state_data,
+            'hasId'         => true,
             'pluginOptions' => [
                 'select2Options' => [
                     'multiple' => true,
-                ]
+                ],
             ],
         ]) ?>
         <div class="form-group">
@@ -39,8 +39,8 @@ use yii\helpers\Html;
                 'attribute2'    => 'created_till',
                 'pluginOptions' => [
                     'autoclose' => true,
-                    'format'    => 'dd-mm-yyyy'
-                ]
+                    'format'    => 'dd-mm-yyyy',
+                ],
             ]) ?>
         </div>
     </div>

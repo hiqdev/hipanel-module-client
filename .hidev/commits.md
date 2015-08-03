@@ -3,6 +3,27 @@ hiqdev/hipanel-module-client commits history
 
 ## 0.0.1 Under development
 
+- Changed advanced search and action box
+    - 201980d 2015-08-03 php-cs-fixed (sol@hiqdev.com)
+    - 02b6a0a 2015-08-03 improved index and search with new features of ActionBox (sol@hiqdev.com)
+    - 1984329 2015-08-03 Remote bulk button for index page (andreyklochok@gmail.com)
+    - f279ccd 2015-08-03 Add Advanced Search to contact module (andreyklochok@gmail.com)
+    - 9395aae 2015-08-02 used Url::toSearch (sol@hiqdev.com)
+    - 7dd84b0 2015-08-02 * Plugin: + aliases (sol@hiqdev.com)
+- Changed actions to SmartActions
+    - 1b02f96 2015-07-31 + index & view smart actions (sol@hiqdev.com)
+    - 6bfe493 2015-07-31 used Index & ViewAction (sol@hiqdev.com)
+    - b54696a 2015-07-31 used ValidateFormAction (sol@hiqdev.com)
+    - 9995065 2015-07-31 checkbox moved left (sol@hiqdev.com)
+    - ef44b4d 2015-07-31 + Advanced search (sol@hiqdev.com)
+    - cf8ba7c 2015-07-30 Style and typo fixes (d.naumenko.a@gmail.com)
+    - d9a1f3e 2015-07-30 Icons in action and boxed (andreyklochok@gmail.com)
+    - 27bb115 2015-07-29 + set credit xeditable (sol@hiqdev.com)
+    - 02189a1 2015-07-29 Add copy functionality to Contact part (andreyklochok@gmail.com)
+    - 71132ea 2015-07-29 Merge conflict (andreyklochok@gmail.com)
+    - 85f25f9 2015-07-29 Update action for contact (andreyklochok@gmail.com)
+    - 1e14a53 2015-07-29 Enter pincode modal in contact update (andreyklochok@gmail.com)
+    - dc3cce2 2015-07-27 Pincode ask (andreyklochok@gmail.com)
 - Changed details pages for clients and contacts
     - 358655b 2015-07-28 proper contact details link made as tools button at client details (sol@hiqdev.com)
     - 680aa45 2015-07-28 php-cs-fixed (sol@hiqdev.com)

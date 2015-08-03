@@ -37,8 +37,8 @@ class ClientController extends \hipanel\base\CrudController
                 'class' => 'hipanel\actions\ValidateFormAction',
             ],
             'set-credit' => [
-                'class'     => 'hipanel\actions\SmartUpdateAction',
-                'success'   => Yii::t('app', 'Credit changed'),
+                'class'   => 'hipanel\actions\SmartUpdateAction',
+                'success' => Yii::t('app', 'Credit changed'),
             ],
         ];
     }

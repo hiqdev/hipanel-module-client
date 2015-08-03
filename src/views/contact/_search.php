@@ -1,7 +1,7 @@
 <?php
 
-use hipanel\modules\client\widgets\combo\SellerCombo;
 use hipanel\modules\client\widgets\combo\ClientCombo;
+use hipanel\modules\client\widgets\combo\SellerCombo;
 
 ?>
 

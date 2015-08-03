@@ -18,7 +18,6 @@ use hipanel\grid\RefColumn;
 use hipanel\helpers\Url;
 use hipanel\modules\client\widgets\State as ClientState;
 use hipanel\modules\client\widgets\Type as ClientType;
-use hiqdev\xeditable\grid\XEditableColumn;
 use Yii;
 use yii\helpers\Html;
 
@@ -72,7 +71,7 @@ class ClientGridView extends BoxedGridView
                 'format'        => ['currency', 'USD'],
                 'pluginOptions' => [
                     'url'   => 'set-credit',
-                    'title' => Yii::t('app','Set credit'),
+                    'title' => Yii::t('app', 'Set credit'),
                 ],
             ],
             'create_date' => [
