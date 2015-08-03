@@ -14,43 +14,38 @@ $this->breadcrumbs->setItems([
 ]);
 ?>
 
-
-<?php $box = ActionBox::begin(['bulk' => true, 'options' => ['class' => 'box-info']]) ?>
-<?php $box->beginActions(); ?>
-    <?= Html::a(Yii::t('app', 'Create {modelClass}', ['modelClass' => Yii::t('app', 'Contact')]), ['create'], ['class' => 'btn btn-primary']) ?>&nbsp;
-    <?= Html::a(Yii::t('app', 'Advanced search'), '#', ['class' => 'btn btn-default search-button']) ?>
-<?php $box->endActions(); ?>
-<?php $box->beginBulkActions(); ?>
-    <?= BulkButtons::widget([
-        'model' => $model,
+<?php $box = ActionBox::begin(['model' => $model, 'bulk' => true, 'options' => ['class' => 'box-info']]) ?>
+    <?php $box->beginActions() ?>
+        <?= $box->renderCreateButton(Yii::t('app', 'Create contact')) ?>
+        &nbsp;
+        <?= $box->renderSearchButton() ?>
+    <?php $box->endActions() ?>
+    <?= $box->renderBulkActions([
         'items' => [
-            Html::submitButton(Yii::t('app', 'Delete'), ['class' => 'btn btn-danger', 'formmethod' => 'POST', 'formaction' => Url::to('delete'), 'form' => 'contact-bulk'])
+            $box->renderDeleteButton(),
         ],
     ]) ?>
-<?php $box->endBulkActions(); ?>
-<?= $this->render('_search', compact('model')) ?>
-<?php $box::end(); ?>
+    <?= $box->renderSearchForm() ?>
+<?php $box::end() ?>
 
-<?= Html::beginForm('' , '', ['id' => 'contact-bulk']); ?>
+<?php $box->beginBulkForm() ?>
+    <?= ContactGridView::widget([
+        'dataProvider' => $dataProvider,
+        'filterModel'  => $model,
+        'columns'      => [
+            'checkbox', 'name', 'email',
+            'client_id', 'seller_id',
+            'actions' => [
+                'class' => ActionColumn::className(),
+                'template' => '{view} {update} {copy} {delete}',
+                'header' => Yii::t('app', 'Actions'),
+                'buttons' => [
+                    'copy' => function ($url, $model, $key) {
+                        return Html::a('<i class="fa fa-copy"></i>' . Yii::t('yii', 'Copy'), $url);
+                    }
+                ],
 
-<?= ContactGridView::widget([
-    'dataProvider' => $dataProvider,
-    'filterModel'  => $model,
-    'columns'      => [
-        'checkbox', 'name', 'email',
-        'client_id', 'seller_id',
-        'actions' => [
-            'class' => ActionColumn::className(),
-            'template' => '{view} {update} {copy} {delete}',
-            'header' => Yii::t('app', 'Actions'),
-            'buttons' => [
-                'copy' => function ($url, $model, $key) {
-                    return Html::a('<i class="fa fa-copy"></i>' . Yii::t('yii', 'Copy'), $url);
-                }
             ],
-
         ],
-    ],
-]); ?>
-
-<?= Html::endForm(); ?>
+    ]); ?>
+<?= $box::endBulkForm() ?>
