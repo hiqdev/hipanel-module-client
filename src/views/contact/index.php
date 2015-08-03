@@ -47,5 +47,5 @@ $this->breadcrumbs->setItems([
 
             ],
         ],
-    ]); ?>
-<?= $box::endBulkForm() ?>
+    ]) ?>
+<?php $box::endBulkForm() ?>
