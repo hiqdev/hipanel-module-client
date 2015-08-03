@@ -70,15 +70,15 @@ JS
 JS
     ); ?>
     <?php Modal::begin([
-        'id' => 'askpincode-modal',
-        'size' => Modal::SIZE_SMALL,
-        'header' => '<h4 class="modal-title">' . Yii::t('app', 'Enter pincode') . '</h4>',
+        'id'           => 'askpincode-modal',
+        'size'         => Modal::SIZE_SMALL,
+        'header'       => '<h4 class="modal-title">' . Yii::t('app', 'Enter pincode') . '</h4>',
         'clientEvents' => [
-            'show.bs.modal' => new JsExpression("function() {document.getElementById('modal-pincode').value = '';}")
+            'show.bs.modal' => new JsExpression("function() {document.getElementById('modal-pincode').value = '';}"),
         ],
-        'footer' => Html::submitButton(Yii::t('app', 'Submit'), [
-            'id' => 'modal-ask-pincode-button',
-            'class' => 'btn btn-default btn-loading',
+        'footer'                => Html::submitButton(Yii::t('app', 'Submit'), [
+            'id'                => 'modal-ask-pincode-button',
+            'class'             => 'btn btn-default btn-loading',
             'data-loading-text' => Yii::t('app', 'Loading') . '...',
             'data-loading-icon' => 'glyphicon glyphicon-refresh',
         ]),
@@ -88,8 +88,8 @@ JS
 <?php endif; ?>
 
 <?php $form = ActiveForm::begin([
-    'id' => 'contact-form',
-    'action' => $this->context->action->id == 'copy' ? Url::toRoute('create') : '',
+    'id'                     => 'contact-form',
+    'action'                 => $this->context->action->id === 'copy' ? Url::toRoute('create') : '',
     'enableClientValidation' => true,
     'validateOnBlur'         => true,
     'enableAjaxValidation'   => true,

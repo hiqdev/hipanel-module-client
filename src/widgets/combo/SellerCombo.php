@@ -16,12 +16,18 @@ namespace hipanel\modules\client\widgets\combo;
  */
 class SellerCombo extends ClientCombo
 {
-    /** @inheritdoc */
+    /**
+     * {@inheritdoc}
+     */
     public $type = 'client/seller';
 
-    /** @inheritdoc */
+    /**
+     * {@inheritdoc}
+     */
     public $clientType = 'reseller';
 
-    /** @inheritdoc */
+    /**
+     * {@inheritdoc}
+     */
     public $primaryFilter = 'client_like';
 }

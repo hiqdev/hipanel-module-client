@@ -17,12 +17,12 @@ namespace hipanel\modules\client\validators;
 class LoginValidator extends \yii\validators\RegularExpressionValidator
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public $pattern = '/^[a-z][a-z0-9_]{2,31}$/';
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function init()
     {

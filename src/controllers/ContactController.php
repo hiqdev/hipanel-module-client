@@ -18,7 +18,6 @@ use Yii;
 use yii\base\Exception;
 use yii\web\HttpException;
 use yii\web\MethodNotAllowedHttpException;
-use yii\widgets\ActiveForm;
 
 class ContactController extends CrudController
 {
@@ -69,19 +68,23 @@ class ContactController extends CrudController
                     $model->save();
                 } catch (Exception $e) {
                     Yii::$app->session->addFlash('error', [
-                        'text' => $e->getMessage() . '<br>' . ucfirst($e->errorInfo)
+                        'text' => $e->getMessage() . '<br>' . ucfirst($e->errorInfo),
                     ]);
+
                     return $this->refresh();
                 }
+
                 return $this->redirect(['view', 'id' => $model->id]);
-            } else
+            } else {
                 throw new HttpException($model->getFirstError());
+            }
         }
-        $countries = $this->getRefs('country_code');
+        $countries  = $this->getRefs('country_code');
         $askPincode = Client::perform('HasPincode');
+
         return $this->render('update', [
-            'model' => $model,
-            'countries' => $countries,
+            'model'      => $model,
+            'countries'  => $countries,
             'askPincode' => $askPincode,
         ]);
     }
@@ -102,16 +105,18 @@ class ContactController extends CrudController
 
     public function actionDelete()
     {
-        \yii\helpers\VarDumper::dump($_REQUEST, 10, true);die();
+        \yii\helpers\VarDumper::dump($_REQUEST, 10, true);
+        die();
         $request = Yii::$app->request;
         if ($request->isPost) {
-            $condition = $request->get('id') ? : $request->post('selection');
+            $condition = $request->get('id') ?: $request->post('selection');
             if (!empty($condition)) {
                 $models = $this->findModels($condition);
                 foreach ($models as $model) {
                     $model->delete();
                 }
             }
+
             return $this->redirect('index');
         } else {
             throw new MethodNotAllowedHttpException(Yii::t('app', 'Method not allowed'));

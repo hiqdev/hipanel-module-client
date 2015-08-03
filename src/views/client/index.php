@@ -14,8 +14,8 @@ use hipanel\modules\client\models\Client;
 use hipanel\widgets\ActionBox;
 use hipanel\widgets\BulkButtons;
 use hipanel\widgets\Pjax;
-use yii\helpers\Html;
 use yii\bootstrap\ButtonDropdown;
+use yii\helpers\Html;
 
 $this->title    = Yii::t('app', 'Clients');
 $this->subtitle = Yii::$app->request->queryParams ? 'filtered list' : 'full list';
@@ -25,7 +25,7 @@ $this->breadcrumbs->setItems([
 
 ?>
 
-<? Pjax::begin(array_merge(Yii::$app->params['pjax'], ['enablePushState' => true])) ?>
+<?php Pjax::begin(array_merge(Yii::$app->params['pjax'], ['enablePushState' => true])) ?>
 
     <?php $box = ActionBox::begin(['bulk' => true, 'options' => ['class' => 'box-info']]) ?>
         <?php $box->beginActions() ?>
@@ -33,30 +33,30 @@ $this->breadcrumbs->setItems([
         <?php $box->endActions() ?>
         <?php $box->beginBulkActions() ?>
             <?= BulkButtons::widget([
-                'model' => new Client,
+                'model' => new Client(),
                 'items' => [
                     ButtonDropdown::widget([
-                        'label' => Yii::t('app', 'Block'),
+                        'label'    => Yii::t('app', 'Block'),
                         'dropdown' => [
                             'items' => [
                                 [
-                                    'label' => Yii::t('app', 'Enable block'),
-                                    'url' => '#',
+                                    'label'       => Yii::t('app', 'Enable block'),
+                                    'url'         => '#',
                                     'linkOptions' => [
-                                        'class' => 'bulk-action',
+                                        'class'          => 'bulk-action',
                                         'data-attribute' => 'whois_protected',
-                                        'data-value' => '1',
-                                        'data-url' => 'set-whois-protect'
+                                        'data-value'     => '1',
+                                        'data-url'       => 'set-whois-protect',
                                     ],
                                 ],
                                 [
-                                    'label' => Yii::t('app', 'Disable block'),
-                                    'url' => '#',
+                                    'label'       => Yii::t('app', 'Disable block'),
+                                    'url'         => '#',
                                     'linkOptions' => [
-                                        'class' => 'bulk-action',
+                                        'class'          => 'bulk-action',
                                         'data-attribute' => 'whois_protected',
-                                        'data-value' => '0',
-                                        'data-url' => 'set-whois-protect'
+                                        'data-value'     => '0',
+                                        'data-url'       => 'set-whois-protect',
                                     ],
                                 ],
                             ],
@@ -82,4 +82,4 @@ $this->breadcrumbs->setItems([
         ],
     ]) ?>
 
-<? Pjax::end() ?>
+<?php Pjax::end() ?>
