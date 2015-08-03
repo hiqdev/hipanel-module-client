@@ -26,45 +26,44 @@ $this->breadcrumbs->setItems([
 ?>
 
 <? Pjax::begin(array_merge(Yii::$app->params['pjax'], ['enablePushState' => true])) ?>
-
-    <?php $box = ActionBox::begin(['bulk' => true, 'options' => ['class' => 'box-info']]) ?>
+    <?php $box = ActionBox::begin(['model' => $model, 'bulk' => true, 'options' => ['class' => 'box-info']]) ?>
         <?php $box->beginActions() ?>
-            <?= Html::a(Yii::t('app', 'Advanced search'), '#', ['class' => 'btn btn-info search-button']) ?>
+            <?= $box->renderCreateButton(Yii::t('app', 'Create client')) ?>
+            &nbsp;
+            <?= $box->renderSearchButton() ?>
         <?php $box->endActions() ?>
-        <?php $box->beginBulkActions() ?>
-            <?= BulkButtons::widget([
-                'model' => new Client,
-                'items' => [
-                    ButtonDropdown::widget([
-                        'label' => Yii::t('app', 'Block'),
-                        'dropdown' => [
-                            'items' => [
-                                [
-                                    'label' => Yii::t('app', 'Enable block'),
-                                    'url' => '#',
-                                    'linkOptions' => [
-                                        'class' => 'bulk-action',
-                                        'data-attribute' => 'whois_protected',
-                                        'data-value' => '1',
-                                        'data-url' => 'set-whois-protect'
-                                    ],
+        <?= $box->renderBulkActions([
+            'items' => [
+                ButtonDropdown::widget([
+                    'label' => Yii::t('app', 'Block'),
+                    'dropdown' => [
+                        'items' => [
+                            [
+                                'label' => Yii::t('app', 'Enable block'),
+                                'url' => '#',
+                                'linkOptions' => [
+                                    'class' => 'bulk-action',
+                                    'data-attribute' => 'whois_protected',
+                                    'data-value' => '1',
+                                    'data-url' => 'set-whois-protect'
                                 ],
-                                [
-                                    'label' => Yii::t('app', 'Disable block'),
-                                    'url' => '#',
-                                    'linkOptions' => [
-                                        'class' => 'bulk-action',
-                                        'data-attribute' => 'whois_protected',
-                                        'data-value' => '0',
-                                        'data-url' => 'set-whois-protect'
-                                    ],
+                            ],
+                            [
+                                'label' => Yii::t('app', 'Disable block'),
+                                'url' => '#',
+                                'linkOptions' => [
+                                    'class' => 'bulk-action',
+                                    'data-attribute' => 'whois_protected',
+                                    'data-value' => '0',
+                                    'data-url' => 'set-whois-protect'
                                 ],
                             ],
                         ],
-                    ]),
-                ],
+                    ],
+                ]),
+            ],
             ]) ?>
-            &nbsp;
+
         <?php $box->endBulkActions() ?>
         <?= $this->render('_search', compact('model')) ?>
     <?php $box::end() ?>

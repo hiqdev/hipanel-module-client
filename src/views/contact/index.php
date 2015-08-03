@@ -3,9 +3,7 @@
 use hipanel\grid\ActionColumn;
 use hipanel\modules\client\grid\ContactGridView;
 use hipanel\widgets\ActionBox;
-use hipanel\widgets\BulkButtons;
 use yii\helpers\Html;
-use yii\helpers\Url;
 
 $this->title    = Yii::t('app', 'Contact');
 $this->subtitle = Yii::$app->request->queryParams ? 'filtered list' : 'full list';

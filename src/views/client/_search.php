@@ -45,10 +45,4 @@ use yii\helpers\Html;
         </div>
     </div>
 
-    <div class="col-md-12">
-        <?= Html::submitButton(Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>
-    &nbsp;
-        <?= Html::a(Yii::t('app', 'Clear'), 'index', ['class' => 'btn btn-default']) ?>
-    </div>
-
 <?php $form::end() ?>
