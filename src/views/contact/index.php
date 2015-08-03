@@ -3,9 +3,9 @@
 use hipanel\grid\ActionColumn;
 use hipanel\modules\client\grid\ContactGridView;
 use hipanel\widgets\ActionBox;
+use hipanel\widgets\BulkButtons;
 use yii\helpers\Html;
 use yii\helpers\Url;
-use yii\widgets\ActiveForm;
 
 $this->title    = Yii::t('app', 'Contact');
 $this->subtitle = Yii::$app->request->queryParams ? 'filtered list' : 'full list';
@@ -14,7 +14,6 @@ $this->breadcrumbs->setItems([
 ]);
 ?>
 
-<?= Html::beginForm(); ?>
 
 <?php $box = ActionBox::begin(['bulk' => true, 'options' => ['class' => 'box-info']]) ?>
 <?php $box->beginActions(); ?>
@@ -22,10 +21,17 @@ $this->breadcrumbs->setItems([
     <?= Html::a(Yii::t('app', 'Advanced search'), '#', ['class' => 'btn btn-default search-button']) ?>
 <?php $box->endActions(); ?>
 <?php $box->beginBulkActions(); ?>
-    <?= Html::submitButton(Yii::t('app', 'Delete'), ['class' => 'btn btn-danger', 'formmethod' => 'POST', 'formaction' => Url::to('delete')]) ?>
+    <?= BulkButtons::widget([
+        'model' => $model,
+        'items' => [
+            Html::submitButton(Yii::t('app', 'Delete'), ['class' => 'btn btn-danger', 'formmethod' => 'POST', 'formaction' => Url::to('delete'), 'form' => 'contact-bulk'])
+        ],
+    ]) ?>
 <?php $box->endBulkActions(); ?>
-    <?= $this->render('_search', compact('model')) ?>
+<?= $this->render('_search', compact('model')) ?>
 <?php $box::end(); ?>
+
+<?= Html::beginForm('' , '', ['id' => 'contact-bulk']); ?>
 
 <?= ContactGridView::widget([
     'dataProvider' => $dataProvider,

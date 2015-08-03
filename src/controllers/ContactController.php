@@ -102,6 +102,7 @@ class ContactController extends CrudController
 
     public function actionDelete()
     {
+        \yii\helpers\VarDumper::dump($_REQUEST, 10, true);die();
         $request = Yii::$app->request;
         if ($request->isPost) {
             $condition = $request->get('id') ? : $request->post('selection');

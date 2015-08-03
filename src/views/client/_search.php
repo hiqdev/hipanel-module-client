@@ -4,7 +4,6 @@ use hipanel\modules\client\widgets\combo\ClientCombo;
 use hipanel\widgets\AdvancedSearch;
 use hiqdev\combo\StaticCombo;
 use kartik\widgets\DatePicker;
-use yii\helpers\Url;
 use yii\helpers\Html;
 
 ?>
