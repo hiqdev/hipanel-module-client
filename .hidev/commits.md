@@ -4,6 +4,7 @@ hiqdev/hipanel-module-client commits history
 ## 0.0.1 Under development
 
 - Changed advanced search and action box
+    - 201980d 2015-08-03 php-cs-fixed (sol@hiqdev.com)
     - 02b6a0a 2015-08-03 improved index and search with new features of ActionBox (sol@hiqdev.com)
     - 1984329 2015-08-03 Remote bulk button for index page (andreyklochok@gmail.com)
     - f279ccd 2015-08-03 Add Advanced Search to contact module (andreyklochok@gmail.com)
