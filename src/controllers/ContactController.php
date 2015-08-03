@@ -102,7 +102,6 @@ class ContactController extends CrudController
 
     public function actionDelete()
     {
-        \yii\helpers\VarDumper::dump($_REQUEST, 10, true);die();
         $request = Yii::$app->request;
         if ($request->isPost) {
             $condition = $request->get('id') ? : $request->post('selection');
@@ -114,7 +113,7 @@ class ContactController extends CrudController
             }
             return $this->redirect('index');
         } else {
-            throw new MethodNotAllowedHttpException(Yii::t('app', 'Method not allowed'));
+            throw new MethodNotAllowedHttpException(Yii::t('app', 'Method not allowed. POST is required'));
         }
     }
 }
