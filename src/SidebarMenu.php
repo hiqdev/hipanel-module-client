@@ -11,7 +11,9 @@
 
 namespace hipanel\modules\client;
 
-class SidebarMenu extends \hipanel\base\Menu
+use Yii;
+
+class SidebarMenu extends \hiqdev\menumanager\Menu
 {
     protected $_addTo = 'sidebar';
 
@@ -22,10 +24,11 @@ class SidebarMenu extends \hipanel\base\Menu
 
     protected $_items = [
         'clients' => [
-            'label' => 'Clients',
-            'url'   => ['/client/client/index'],
-            'icon'  => 'fa-group',
-            'items' => [
+            'label'   => 'Clients',
+            'url'     => ['/client/client/index'],
+            'icon'    => 'fa-group',
+        //  'visible' => function () { return Yii::$app->user->can('support'); },
+            'items'   => [
                 'clients' => [
                     'label' => 'Clients list',
                     'url'   => ['/client/client/index'],
