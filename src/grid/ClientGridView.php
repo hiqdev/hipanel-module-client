@@ -74,6 +74,15 @@ class ClientGridView extends BoxedGridView
                     'title' => Yii::t('app', 'Set credit'),
                 ],
             ],
+            'country' => [
+                'attribute' => 'contact',
+                'label'     => Yii::t('app', 'Country'),
+                'format'    => 'html',
+                'value'     => function ($model) {
+                    return Html::tag('span', '', ['class' => 'flag-icon flag-icon-' . $model->contact['country']]) .
+                        '&nbsp;&nbsp;' . $model->contact['country_name'];
+                },
+            ],
             'create_date' => [
                 'attribute'      => 'create_time',
                 'format'         => 'date',

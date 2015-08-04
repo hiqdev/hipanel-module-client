@@ -1,13 +1,14 @@
 <?php
 
+use hipanel\helpers\Url;
 use hipanel\modules\client\controllers\ContactController;
 use hipanel\modules\client\grid\ContactGridView;
 use hipanel\modules\domain\controllers\DomainController;
 use hipanel\widgets\Box;
+use hipanel\widgets\ClientSellerLink;
 use hiqdev\assets\flagiconcss\FlagIconCssAsset;
 use yii\helpers\Html;
 use yii\helpers\Inflector;
-use yii\widgets\DetailView;
 
 $this->title    = Inflector::titleize($model->name, true);
 $this->subtitle = Yii::t('app', 'contact detailed information') . ' #' . $model->id;
@@ -29,16 +30,16 @@ FlagIconCssAsset::register($this);
         <p class="text-center">
             <span class="profile-user-role"><?= $this->title ?></span>
             <br>
-            <span class="profile-user-name"><?= $model->seller . ' / ' . $model->client; ?></span>
+            <span class="profile-user-name"><?= ClientSellerLink::widget(compact('model')) ?></span>
         </p>
 
         <div class="profile-usermenu">
             <ul class="nav">
                 <li>
-                    <?= Html::a('<i class="ion-wrench"></i>' . Yii::t('app', 'Change contact information'), ContactController::getActionUrl('update', $model->id)) ?>
+                    <?= Html::a('<i class="ion-wrench"></i>' . Yii::t('app', 'Change contact information'), ['contact', 'id' => $model->id]) ?>
                 </li>
                 <li>
-                    <?= Html::a('<i class="fa fa-globe"></i>' . Yii::t('app', 'Used for domains: ') . Html::tag('b', $model->used_count), DomainController::getSearchUrl(['client_id' => $model->client_id])) ?>
+                    <?= Html::a('<i class="fa fa-globe"></i>' . Yii::t('app', 'Used for domains: ') . Html::tag('b', $model->used_count), Url::toSearch('domain', ['client_id' => $model->client_id])) ?>
                 </li>
             </ul>
         </div>
@@ -52,7 +53,7 @@ FlagIconCssAsset::register($this);
                     <?php $box->beginHeader(); ?>
                         <?= $box->renderTitle(Yii::t('app', 'Contact information')); ?>
                         <?php $box->beginTools(); ?>
-                            <?= Html::a(Yii::t('app', 'Change contact information'), ContactController::getActionUrl('update', $model->id), ['class' => 'btn btn-default btn-xs']); ?>
+                            <?= Html::a(Yii::t('app', 'Change contact information'), ['update', 'id' => $model->id], ['class' => 'btn btn-default btn-xs']); ?>
                         <?php $box->endTools(); ?>
                     <?php $box->endHeader(); ?>
                     <?php $box->beginBody(); ?>

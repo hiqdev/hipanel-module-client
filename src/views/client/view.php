@@ -71,6 +71,7 @@ FlagIconCssAsset::register($this);
                 <?php $box->endHeader() ?>
                 <?php $box->beginBody() ?>
                     <?= ClientGridView::detailView([
+                        'boxed'   => false,
                         'model'   => $model,
                         'columns' => [
                             'seller_id', 'name',
@@ -95,6 +96,7 @@ FlagIconCssAsset::register($this);
                 <?php $box->endHeader(); ?>
                 <?php $box->beginBody(); ?>
                     <?= ContactGridView::detailView([
+                        'boxed'   => false,
                         'model'   => new Contact($model->contact),
                         'columns' => [
                             'first_name', 'last_name',
