@@ -13,6 +13,7 @@ namespace hipanel\modules\client\grid;
 
 use hipanel\grid\DataColumn;
 use hipanel\modules\client\widgets\combo\ClientCombo;
+use Yii;
 use yii\helpers\Html;
 
 class ClientColumn extends DataColumn
@@ -31,9 +32,7 @@ class ClientColumn extends DataColumn
     public function init()
     {
         parent::init();
-        if (is_null($this->visible)) {
-            $this->visible = \Yii::$app->user->identity->type !== 'client';
-        };
+        $this->visible = Yii::$app->user->can('support');
         if (!empty($this->grid->filterModel)) {
             if (!$this->filterInputOptions['id']) {
                 $this->filterInputOptions['id'] = $this->attribute;
@@ -45,12 +44,12 @@ class ClientColumn extends DataColumn
                     'formElementSelector' => 'td',
                     'clientType'          => $this->clientType,
                 ]);
-            };
-        };
+            }
+        }
     }
 
     public function getDataCellValue($model, $key, $index)
     {
-        return Html::a($model->{$this->nameAttribute}, ['/client/client/view', 'id' => $model->{$this->attribute}]);
+        return Html::a($model->{$this->nameAttribute}, ['@client/view', 'id' => $model->{$this->attribute}]);
     }
 }
