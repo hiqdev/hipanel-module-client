@@ -100,18 +100,9 @@ FlagIconCssAsset::register($this);
                         'model'   => new Contact($model->contact),
                         'columns' => [
                             'first_name', 'last_name',
-                            'email',
-                            'abuse_email',
-                            'skype',
-                            'icq',
-                            'jabber',
-                            'voice_phone',
-                            'fax_phone',
-                            'street',
-                            'city',
-                            'province',
-                            'postal_code',
-                            'country',
+                            'email', 'abuse_email', 'messengers',
+                            'voice_phone', 'fax_phone',
+                            'street', 'city', 'province', 'postal_code', 'country',
                         ],
                     ]) ?>
                 <?php $box->endBody(); ?>
