@@ -59,13 +59,12 @@ $this->breadcrumbs->setItems([
                     ],
                 ]),
             ],
-            ]) ?>
+        ]) ?>
 
-        <?php $box->endBulkActions() ?>
-        <?= $this->render('_search', compact('model')) ?>
+        <?= $box->renderSearchForm(compact('state_data')) ?>
     <?php $box::end() ?>
 
-
+<?php $box->beginBulkForm() ?>
     <?= ClientGridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel'  => $model,
@@ -77,5 +76,5 @@ $this->breadcrumbs->setItems([
             'action',
         ],
     ]) ?>
-
+<?php $box::endBulkForm() ?>
 <?php Pjax::end() ?>
