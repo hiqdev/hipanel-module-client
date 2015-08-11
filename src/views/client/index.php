@@ -23,11 +23,23 @@ $this->breadcrumbs->setItems([
 ?>
 
 <? Pjax::begin(array_merge(Yii::$app->params['pjax'], ['enablePushState' => true])) ?>
-    <?php $box = ActionBox::begin(['model' => $model, 'bulk' => true, 'options' => ['class' => 'box-info']]) ?>
+    <?php $box = ActionBox::begin(['model' => $model, 'dataProvider' => $dataProvider]) ?>
         <?php $box->beginActions() ?>
             <?= $box->renderCreateButton(Yii::t('app', 'Create client')) ?>
             &nbsp;
             <?= $box->renderSearchButton() ?>
+            &nbsp;
+            <?= $box->renderSorter([
+                'attributes' => [
+                    'seller',
+                    'name',
+                    'balance',
+                    'credit',
+                    'tariff',
+                    'type',
+                    'create_time',
+                ],
+            ]) ?>
         <?php $box->endActions() ?>
         <?= $box->renderBulkActions([
             'items' => [

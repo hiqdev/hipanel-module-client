@@ -20,17 +20,17 @@ class Client extends \hipanel\base\Model
     public function rules()
     {
         return [
-            [['id', 'seller_id', 'state_id', 'type_id', 'tariff_id', 'profile_id'],                                    'integer'],
-            [['login', 'seller', 'state', 'type', 'tariff', 'profile'],                                                'safe'],
-            [['state_label', 'type_label'],                                                                           'safe'],
-            [['balance', 'credit'],                                                                                    'number'],
+            [['id', 'seller_id', 'state_id', 'type_id', 'tariff_id', 'profile_id'], 'integer'],
+            [['login', 'seller', 'state', 'type', 'tariff', 'profile'], 'safe'],
+            [['state_label', 'type_label'], 'safe'],
+            [['balance', 'credit'], 'number'],
             [['count', 'confirm_url', 'language', 'comment', 'name', 'contact', 'currency'], 'safe'],
             [['create_time', 'update_time'], 'date'],
             [['email'], 'email'],
-            [['id', 'credit'],           'required', 'on' => 'set-credit'],
-            [['id', 'type', 'comment'],  'required', 'on' => 'set-block'],
-            [['id', 'language'],         'required', 'on' => 'set-language'],
-            [['id', 'seller_id'],         'required', 'on' => 'set-seller'],
+            [['id', 'credit'], 'required', 'on' => 'set-credit'],
+            [['id', 'type', 'comment'], 'required', 'on' => 'set-block'],
+            [['id', 'language'], 'required', 'on' => 'set-language'],
+            [['id', 'seller_id'], 'required', 'on' => 'set-seller'],
         ];
     }
 
