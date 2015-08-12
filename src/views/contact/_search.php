@@ -6,7 +6,7 @@ use hipanel\modules\client\widgets\combo\SellerCombo;
 ?>
 
 <div class="col-md-6">
-    <?= $search->field('client_name') ?>
+    <?= $search->field('name') ?>
     <?= $search->field('email') ?>
 </div>
 

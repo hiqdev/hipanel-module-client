@@ -20,7 +20,8 @@ $this->breadcrumbs->setItems([
             'attributes' => [
                 'email',
                 'name',
-                'client_name',
+                'client',
+                'seller',
             ],
         ]) ?>
         <?= $box->renderPerPage() ?>
