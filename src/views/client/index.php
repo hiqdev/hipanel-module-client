@@ -13,6 +13,7 @@ use hipanel\modules\client\grid\ClientGridView;
 use hipanel\widgets\ActionBox;
 use hipanel\widgets\Pjax;
 use yii\bootstrap\ButtonDropdown;
+use yii\bootstrap\ButtonGroup;
 
 $this->title    = Yii::t('app', 'Clients');
 $this->subtitle = Yii::$app->request->queryParams ? 'filtered list' : 'full list';
@@ -26,9 +27,7 @@ $this->breadcrumbs->setItems([
     <?php $box = ActionBox::begin(['model' => $model, 'dataProvider' => $dataProvider]) ?>
         <?php $box->beginActions() ?>
             <?= $box->renderCreateButton(Yii::t('app', 'Create client')) ?>
-            &nbsp;
             <?= $box->renderSearchButton() ?>
-            &nbsp;
             <?= $box->renderSorter([
                 'attributes' => [
                     'seller',
@@ -40,39 +39,23 @@ $this->breadcrumbs->setItems([
                     'create_time',
                 ],
             ]) ?>
+        <?= $box->renderPerPage() ?>
         <?php $box->endActions() ?>
-        <?= $box->renderBulkActions([
-            'items' => [
-                ButtonDropdown::widget([
-                    'label' => Yii::t('app', 'Block'),
-                    'dropdown' => [
-                        'items' => [
-                            [
-                                'label' => Yii::t('app', 'Enable block'),
-                                'url' => '#',
-                                'linkOptions' => [
-                                    'class' => 'bulk-action',
-                                    'data-attribute' => 'whois_protected',
-                                    'data-value' => '1',
-                                    'data-url' => 'set-whois-protect'
-                                ],
-                            ],
-                            [
-                                'label' => Yii::t('app', 'Disable block'),
-                                'url' => '#',
-                                'linkOptions' => [
-                                    'class' => 'bulk-action',
-                                    'data-attribute' => 'whois_protected',
-                                    'data-value' => '0',
-                                    'data-url' => 'set-whois-protect'
-                                ],
-                            ],
-                        ],
-                    ],
-                ]),
-            ],
-        ]) ?>
-
+        <?php $box->beginBulkActions() ?>
+            <div class="btn-group">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <?= Yii::t('app', 'Block') ?> <span class="caret"></span>
+                </button>
+                <div class="dropdown-menu dropdown-content pull-right">
+                    <?= ButtonGroup::widget([
+                        'buttons' => [
+                            $box->renderBulkButton(Yii::t('app', 'Enable'), ''),
+                            $box->renderBulkButton(Yii::t('app', 'Disable'), ''),
+                        ]
+                    ]); ?>
+                </div>
+            </div>
+        <?php $box->endBulkActions() ?>
         <?= $box->renderSearchForm(compact('state_data')) ?>
     <?php $box::end() ?>
 
