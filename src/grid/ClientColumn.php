@@ -18,6 +18,8 @@ use yii\helpers\Html;
 
 class ClientColumn extends DataColumn
 {
+    public $idAttribute = 'client_id';
+
     public $attribute = 'client_id';
 
     public $nameAttribute = 'client';
@@ -48,8 +50,8 @@ class ClientColumn extends DataColumn
         }
     }
 
-    public function getDataCellValue($model, $key, $index)
+    public function getDataCellValue($model, $key, $index, $column)
     {
-        return Html::a($model->{$this->nameAttribute}, ['@client/view', 'id' => $model->{$this->attribute}]);
+        return Html::a($model->{$this->nameAttribute}, ['@client/view', 'id' => $model->{$this->idAttribute}]);
     }
 }

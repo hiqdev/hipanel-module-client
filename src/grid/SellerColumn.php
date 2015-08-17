@@ -14,6 +14,7 @@ namespace hipanel\modules\client\grid;
 class SellerColumn extends ClientColumn
 {
     public $attribute     = 'seller_id';
+    public $idAttribute   = 'seller_id';
     public $nameAttribute = 'seller';
     public $clientType    = 'reseller';
 }
