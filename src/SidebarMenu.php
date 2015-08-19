@@ -52,4 +52,13 @@ class SidebarMenu extends \hiqdev\menumanager\Menu
             ],
         ],
     ];
+
+    public function init()
+    {
+        parent::init();
+        /// XXX quick fix to be redone with 'visible'
+        if (!Yii::$app->user->can('support')) {
+            unset($this->_items['clients']);
+        }
+    }
 }
