@@ -29,5 +29,5 @@ class SellerCombo extends ClientCombo
     /**
      * {@inheritdoc}
      */
-    public $primaryFilter = 'client_like';
+    public $primaryFilter = 'login_like';
 }
