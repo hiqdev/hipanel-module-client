@@ -3,7 +3,9 @@ hiqdev/hipanel-module-client commits history
 
 ## 0.0.1 Under development
 
+- Fixed: hidden client menu from users
     - 67a77ce 2015-08-19 Fixed: hidden client menu from users (sol@hiqdev.com)
+- Fixed filters, sorter and pager
     - 56cb0c4 2015-08-17 Add idAttribute (andreyklochok@gmail.com)
     - 6614464 2015-08-12 Check Contacts (andreyklochok@gmail.com)
     - 5699e4d 2015-08-12 Add sorter and per page to Client and Contact (andreyklochok@gmail.com)
