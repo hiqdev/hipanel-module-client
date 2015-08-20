@@ -3,5 +3,29 @@ Client Plugin for HiPanel
 
 Client Plugin for HiPanel
 
-For more info see wiki:
-https://github.com/hiqdev/hipanel-module-client/wiki
+[![Latest Stable Version](https://poser.pugx.org/hiqdev/hipanel-module-client/v/stable.png)](https://packagist.org/packages/hiqdev/hipanel-module-client)
+[![Total Downloads](https://poser.pugx.org/hiqdev/hipanel-module-client/downloads.png)](https://packagist.org/packages/hiqdev/hipanel-module-client)
+
+## Installation
+
+The preferred way to install this yii2-extension is through [composer](http://getcomposer.org/download/).
+
+Either run
+
+```
+php composer.phar require "hiqdev/hipanel-module-client"
+```
+
+or add
+
+```json
+"hiqdev/hipanel-module-client": "*"
+```
+
+to the require section of your composer.json.
+
+## Licence
+
+[BSD-3-Clause](http://choosealicense.com/licenses/bsd-3-clause)
+
+Copyright © 2014-2015, HiQDev (https://hiqdev.com/)

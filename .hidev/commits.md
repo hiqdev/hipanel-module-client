@@ -3,6 +3,19 @@ hiqdev/hipanel-module-client commits history
 
 ## 0.0.1 Under development
 
+    - 67a77ce 2015-08-19 Fixed: hidden client menu from users (sol@hiqdev.com)
+    - 56cb0c4 2015-08-17 Add idAttribute (andreyklochok@gmail.com)
+    - 6614464 2015-08-12 Check Contacts (andreyklochok@gmail.com)
+    - 5699e4d 2015-08-12 Add sorter and per page to Client and Contact (andreyklochok@gmail.com)
+    - 0d836a7 2015-08-11 Add sordeter (andreyklochok@gmail.com)
+    - fc943f1 2015-08-05 Refactoring. Action Box (andreyklochok@gmail.com)
+    - eae1605 2015-08-04 failed add visible (sol@hiqdev.com)
+    - 121c1b9 2015-08-04 * ClientColumn: fixed visible with user->can('support') (sol@hiqdev.com)
+    - c1bf269 2015-08-04 improved details page for client and contact (sol@hiqdev.com)
+    - c375c48 2015-08-03 Remove unuse uses (andreyklochok@gmail.com)
+    - a8d94a0 2015-08-03 Fix conflict (andreyklochok@gmail.com)
+    - 889d7b4 2015-08-03 AdvancedSearch to index (andreyklochok@gmail.com)
+    - e9fe09b 2015-08-03 Remove dump from delete action (andreyklochok@gmail.com)
 - Changed advanced search and action box
     - 201980d 2015-08-03 php-cs-fixed (sol@hiqdev.com)
     - 02b6a0a 2015-08-03 improved index and search with new features of ActionBox (sol@hiqdev.com)
