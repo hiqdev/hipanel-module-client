@@ -30,22 +30,22 @@ class SidebarMenu extends \hiqdev\menumanager\Menu
         //  'visible' => function () { return Yii::$app->user->can('support'); },
             'items'   => [
                 'clients' => [
-                    'label' => 'Clients list',
+                    'label' => 'Clients',
                     'url'   => ['/client/client/index'],
                     'icon'  => 'fa-circle-o',
                 ],
-                'mailing' => [
-                    'label' => 'Mailing',
-                    'url'   => ['/client/mailing/index'],
-                    'icon'  => 'fa-circle-o',
-                ],
+//                'mailing' => [
+//                    'label' => 'Mailing',
+//                    'url'   => ['/client/mailing/index'],
+//                    'icon'  => 'fa-circle-o',
+//                ],
                 'articles' => [
                     'label' => 'News and articles',
                     'url'   => ['/client/article/index'],
                     'icon'  => 'fa-circle-o',
                 ],
                 'contacts' => [
-                    'label' => 'Contact list',
+                    'label' => 'Contacts',
                     'url'   => ['/client/contact/index'],
                     'icon'  => 'fa-circle-o',
                 ],
