@@ -35,6 +35,11 @@ class ClientColumn extends DataColumn
     {
         parent::init();
         $this->visible = Yii::$app->user->can('support');
+        if ($this->value === null) {
+            $this->value = function ($model) {
+                return Html::a($model->{$this->nameAttribute}, ['@client/view', 'id' => $model->{$this->idAttribute}]);
+            };
+        }
         if (!empty($this->grid->filterModel)) {
             if (!$this->filterInputOptions['id']) {
                 $this->filterInputOptions['id'] = $this->attribute;
@@ -48,10 +53,5 @@ class ClientColumn extends DataColumn
                 ]);
             }
         }
-    }
-
-    public function getDataCellValue($model, $key, $index, $column)
-    {
-        return Html::a($model->{$this->nameAttribute}, ['@client/view', 'id' => $model->{$this->idAttribute}]);
     }
 }
