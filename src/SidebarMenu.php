@@ -32,22 +32,18 @@ class SidebarMenu extends \hiqdev\menumanager\Menu
                 'clients' => [
                     'label' => 'Clients',
                     'url'   => ['/client/client/index'],
-                    'icon'  => 'fa-circle-o',
                 ],
 //                'mailing' => [
 //                    'label' => 'Mailing',
 //                    'url'   => ['/client/mailing/index'],
-//                    'icon'  => 'fa-circle-o',
 //                ],
                 'articles' => [
                     'label' => 'News and articles',
                     'url'   => ['/client/article/index'],
-                    'icon'  => 'fa-circle-o',
                 ],
                 'contacts' => [
                     'label' => 'Contacts',
                     'url'   => ['/client/contact/index'],
-                    'icon'  => 'fa-circle-o',
                 ],
             ],
         ],
