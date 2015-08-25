@@ -68,6 +68,7 @@ class ContactGridView extends BoxedGridView
             'messengers' => [
                 'format' => 'html',
                 'value'  => function ($model) {
+                    $res = [];
                     foreach (['skype' => 'Skype', 'icq' => 'ICQ', 'jabber' => 'Jabber'] as $k => $label) {
                         if ($model->{$k}) {
                             $res[] = "<b>$label:</b>&nbsp;" . $model->{$k};

@@ -36,7 +36,7 @@ FlagIconCssAsset::register($this);
         <div class="profile-usermenu">
             <ul class="nav">
                 <li>
-                    <?= Html::a('<i class="ion-wrench"></i>' . Yii::t('app', 'Change contact information'), ['contact', 'id' => $model->id]) ?>
+                    <?= Html::a('<i class="ion-wrench"></i>' . Yii::t('app', 'Change contact information'), ['update', 'id' => $model->id]) ?>
                 </li>
                 <li>
                     <?= Html::a('<i class="fa fa-globe"></i>' . Yii::t('app', 'Used for domains: ') . Html::tag('b', $model->used_count), Url::toSearch('domain', ['client_id' => $model->client_id])) ?>
