@@ -3,6 +3,12 @@ hiqdev/hipanel-module-client commits history
 
 ## 0.0.1 Under development
 
+- Fixed ClientColumn default value, filtering and visibility
+    - 6a2d838 2015-08-25 fixed disabling visibility (sol@hiqdev.com)
+    - 2f8a949 2015-08-21 Default value (andreyklochok@gmail.com)
+    - d89a49b 2015-08-20 Changed SellerCombo filtering attribute (silverfire@advancedhosters.com)
+- Fixed article index page
+    - 599fe50 2015-08-20 Reconstruct index page of Article (andreyklochok@gmail.com)
 - Fixed: hidden client menu from users
     - 67a77ce 2015-08-19 Fixed: hidden client menu from users (sol@hiqdev.com)
 - Fixed filters, sorter and pager

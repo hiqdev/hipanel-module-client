@@ -3,6 +3,8 @@ hiqdev/hipanel-module-client changelog
 
 ## 0.0.1 Under development
 
+- Fixed ClientColumn default value, filtering and visibility
+- Fixed article index page
 - Fixed: hidden client menu from users
 - Fixed filters, sorter and pager
 - Changed advanced search and action box
