@@ -31,10 +31,16 @@ class ClientColumn extends DataColumn
      */
     public $clientType;
 
+    /**
+     * Sets visibility and default behaviour for value and filter when visible.
+     */
     public function init()
     {
         parent::init();
         $this->visible = Yii::$app->user->can('support');
+        if (!$this->visible) {
+            return;
+        }
         if ($this->value === null) {
             $this->value = function ($model) {
                 return Html::a($model->{$this->nameAttribute}, ['@client/view', 'id' => $model->{$this->idAttribute}]);
