@@ -23,7 +23,14 @@ FlagIconCssAsset::register($this);
 
 <div class="row">
     <div class="col-md-3">
-        <?php Box::begin(); ?>
+        <?php Box::begin([
+            'options' => [
+                'class' => 'box-solid',
+            ],
+            'bodyOptions' => [
+                'class' => 'no-padding'
+            ]
+        ]); ?>
         <div class="profile-user-img text-center">
             <?= $this->render('//layouts/gravatar', ['email' => $model->email, 'size' => 120]); ?>
         </div>

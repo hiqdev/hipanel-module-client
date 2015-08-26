@@ -37,10 +37,10 @@ class SidebarMenu extends \hiqdev\menumanager\Menu
 //                    'label' => 'Mailing',
 //                    'url'   => ['/client/mailing/index'],
 //                ],
-                'articles' => [
-                    'label' => 'News and articles',
-                    'url'   => ['/client/article/index'],
-                ],
+//                'articles' => [
+//                    'label' => 'News and articles',
+//                    'url'   => ['/client/article/index'],
+//                ],
                 'contacts' => [
                     'label' => 'Contacts',
                     'url'   => ['/client/contact/index'],
