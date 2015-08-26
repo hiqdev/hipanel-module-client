@@ -19,7 +19,7 @@ use yii\helpers\Html;
 
     <div class="col-md-4">
         <?= $search->field('state')->widget(StaticCombo::classname(), [
-            'data'          => $state_data,
+            'data'          => $states,
             'hasId'         => true,
             'pluginOptions' => [
                 'select2Options' => [

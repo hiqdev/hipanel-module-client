@@ -11,6 +11,7 @@
 
 namespace hipanel\modules\client\controllers;
 
+use hipanel\models\Ref;
 use Yii;
 use yii\web\Response;
 
@@ -21,6 +22,11 @@ class ClientController extends \hipanel\base\CrudController
         return [
             'index' => [
                 'class' => 'hipanel\actions\IndexAction',
+                'data' => function ($action) {
+                    return [
+                        'states' => $action->controller->getStates(),
+                    ];
+                }
             ],
             'create' => [
                 'class' => 'hipanel\actions\SmartCreateAction',
@@ -54,6 +60,11 @@ class ClientController extends \hipanel\base\CrudController
                 'success' => Yii::t('app', 'Credit changed'),
             ],
         ];
+    }
+
+    public function getStates()
+    {
+        return Ref::getList('state,client');
     }
 
     /// TODO: implement

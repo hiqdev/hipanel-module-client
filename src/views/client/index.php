@@ -20,7 +20,6 @@ $this->subtitle = Yii::$app->request->queryParams ? 'filtered list' : 'full list
 $this->breadcrumbs->setItems([
     $this->title,
 ]);
-
 ?>
 
 <? Pjax::begin(array_merge(Yii::$app->params['pjax'], ['enablePushState' => true])) ?>
@@ -58,7 +57,7 @@ $this->breadcrumbs->setItems([
             </div>
         <? } ?>
         <?php $box->endBulkActions() ?>
-        <?= $box->renderSearchForm(compact('state_data')) ?>
+        <?= $box->renderSearchForm(compact('states')) ?>
     <?php $box::end() ?>
 
 <?php $box->beginBulkForm() ?>
