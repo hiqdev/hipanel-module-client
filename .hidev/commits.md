@@ -3,6 +3,8 @@ hiqdev/hipanel-module-client commits history
 
 ## 0.0.1 Under development
 
+- Added client create functionality
+    - 517243d 2015-08-26 Add Create functionality (andreyklochok@gmail.com)
 - Fixed client/seller sorting with sortAttribute
     - 723fa0f 2015-08-26 used sortAttribute for client/seller sorting (sol@hiqdev.com)
 - Fixed PHP warnings
