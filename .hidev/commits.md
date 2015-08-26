@@ -3,6 +3,8 @@ hiqdev/hipanel-module-client commits history
 
 ## 0.0.1 Under development
 
+- Fixed client/seller sorting with sortAttribute
+    - 723fa0f 2015-08-26 used sortAttribute for client/seller sorting (sol@hiqdev.com)
 - Fixed PHP warnings
     - b4c204a 2015-08-26 fixed PHP warnings (sol@hiqdev.com)
 - Fixed name filtering at clients
