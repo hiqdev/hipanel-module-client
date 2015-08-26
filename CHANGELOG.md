@@ -3,6 +3,8 @@ hiqdev/hipanel-module-client changelog
 
 ## 0.0.1 Under development
 
+- Added client create functionality
+- Fixed client/seller sorting with sortAttribute
 - Fixed PHP warnings
 - Fixed name filtering at clients
 - Added confirming fields to contact model

@@ -41,6 +41,10 @@ class ClientColumn extends DataColumn
         if (!$this->visible) {
             return;
         }
+
+        if (!$this->sortAttribute) {
+            $this->sortAttribute = $this->nameAttribute;
+        }
         if ($this->value === null) {
             $this->value = function ($model) {
                 return Html::a($model->{$this->nameAttribute}, ['@client/view', 'id' => $model->{$this->idAttribute}]);
