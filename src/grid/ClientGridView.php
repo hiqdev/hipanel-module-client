@@ -38,8 +38,11 @@ class ClientGridView extends BoxedGridView
                 'label'           => 'Client',
                 'format'          => 'html',
                 'value'           => function ($model) {
-                    return Html::a($model->login, ['/client/client/view', 'id' => $model->id]);
+                    return Html::a($model->login, ['@client/view', 'id' => $model->id]);
                 },
+            ],
+            'name' => [
+                'filterAttribute' => 'name_like',
             ],
             'state' => [
                 'class'  => RefColumn::className(),

@@ -3,6 +3,9 @@ hiqdev/hipanel-module-client changelog
 
 ## 0.0.1 Under development
 
+- Fixed PHP warnings
+- Fixed name filtering at clients
+- Added confirming fields to contact model
 - Fixed access control, hidden unallowed actions
 - Fixed ClientColumn default value, filtering and visibility
 - Fixed article index page
