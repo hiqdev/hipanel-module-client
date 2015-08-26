@@ -6,7 +6,6 @@ use hipanel\modules\client\grid\ContactGridView;
 use hipanel\modules\client\models\Contact;
 use hipanel\widgets\Box;
 use hiqdev\assets\flagiconcss\FlagIconCssAsset;
-use Yii;
 use yii\helpers\Html;
 
 $this->title    = $model->login;
