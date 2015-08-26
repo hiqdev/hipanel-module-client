@@ -6,9 +6,10 @@ use kartik\widgets\DatePicker;
 use yii\helpers\Html;
 
 ?>
+
     <div class="col-md-4">
         <?= $search->field('client_like') ?>
-        <?= $search->field('name') ?>
+        <?= $search->field('name_like')->label(Yii::t('app', 'Name')) ?>
     </div>
 
     <div class="col-md-4">
@@ -40,4 +41,3 @@ use yii\helpers\Html;
             ]) ?>
         </div>
     </div>
-
