@@ -63,9 +63,8 @@ class ClientGridView extends BoxedGridView
                 'filter'    => false,
                 'attribute' => 'balance',
             ],
-            'credit' => [
+            'credit' => Yii::$app->user->can('manage') ? [
                 'class'         => 'hiqdev\xeditable\grid\XEditableColumn',
-                'visible'       => true, /// TODO: show for managers only
                 'attribute'     => 'credit',
                 'filter'        => false,
                 'format'        => ['currency', 'USD'],
@@ -73,6 +72,8 @@ class ClientGridView extends BoxedGridView
                     'url'   => 'set-credit',
                     'title' => Yii::t('app', 'Set credit'),
                 ],
+            ] : [
+                'class' => CurrencyColumn::className(),
             ],
             'country' => [
                 'attribute' => 'contact',
@@ -166,11 +167,11 @@ class ClientGridView extends BoxedGridView
             ],
             'action' => [
                 'class'    => ActionColumn::className(),
-                'template' => '{view} {block} {delete}', // {state}
+                'template' => Yii::$app->user->can('manage') ? '{view} {block} {delete}' : '{view}',
                 'header'   => Yii::t('app', 'Actions'),
                 'buttons'  => [
                     'block' => function ($url, $model, $key) {
-                        return Html::a('Close', ['block', 'id' => $model->id]);
+                        return Html::a('<i class="fa fa-ban"></i>' . Yii::t('app','Block'), ['block', 'id' => $model->id]);
                     },
                 ],
             ],
