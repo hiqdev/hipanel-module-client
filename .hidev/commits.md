@@ -3,6 +3,10 @@ hiqdev/hipanel-module-client commits history
 
 ## 0.0.1 Under development
 
+- Fixed name filtering at clients
+    - 30e7b61 2015-08-26 fixed name filtering (sol@hiqdev.com)
+- Added confirming fields to contact model
+    - 29a7fa6 2015-08-26 + contact fields for confirm/ed (sol@hiqdev.com)
 - Fixed access control, hidden unallowed actions
     - 0594724 2015-08-26 fixed access control (sol@hiqdev.com)
     - 430f5bd 2015-08-25 Some bugs is fixed (andreyklochok@gmail.com)
