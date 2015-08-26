@@ -3,6 +3,8 @@ hiqdev/hipanel-module-client commits history
 
 ## 0.0.1 Under development
 
+- Fixed PHP warnings
+    - b4c204a 2015-08-26 fixed PHP warnings (sol@hiqdev.com)
 - Fixed name filtering at clients
     - 6e6b05f 2015-08-26 Some fixes (andreyklochok@gmail.com)
     - 30e7b61 2015-08-26 fixed name filtering (sol@hiqdev.com)
