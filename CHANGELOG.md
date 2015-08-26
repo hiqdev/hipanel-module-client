@@ -3,6 +3,7 @@ hiqdev/hipanel-module-client changelog
 
 ## 0.0.1 Under development
 
+- Fixed access control, hidden unallowed actions
 - Fixed ClientColumn default value, filtering and visibility
 - Fixed article index page
 - Fixed: hidden client menu from users
