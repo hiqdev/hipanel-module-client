@@ -31,6 +31,8 @@ class Client extends \hipanel\base\Model
             [['id', 'type', 'comment'], 'required', 'on' => 'set-block'],
             [['id', 'language'], 'required', 'on' => 'set-language'],
             [['id', 'seller_id'], 'required', 'on' => 'set-seller'],
+
+            [['password', 'client', 'seller_id', 'email'], 'required', 'on' => ['create', 'update']],
         ];
     }
 
