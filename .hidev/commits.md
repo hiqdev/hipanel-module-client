@@ -3,6 +3,10 @@ hiqdev/hipanel-module-client commits history
 
 ## 0.0.1 Under development
 
+- Fixed access control, hidden unallowed actions
+    - 0594724 2015-08-26 fixed access control (sol@hiqdev.com)
+    - 430f5bd 2015-08-25 Some bugs is fixed (andreyklochok@gmail.com)
+    - 4c625d3 2015-08-25 Fix icons (andreyklochok@gmail.com)
 - Fixed ClientColumn default value, filtering and visibility
     - 6a2d838 2015-08-25 fixed disabling visibility (sol@hiqdev.com)
     - 2f8a949 2015-08-21 Default value (andreyklochok@gmail.com)

@@ -42,6 +42,7 @@ $this->breadcrumbs->setItems([
         <?= $box->renderPerPage() ?>
         <?php $box->endActions() ?>
         <?php $box->beginBulkActions() ?>
+        <? if (Yii::$app->user->can('manage')) { ?>
             <div class="btn-group">
                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <?= Yii::t('app', 'Block') ?> <span class="caret"></span>
@@ -55,6 +56,7 @@ $this->breadcrumbs->setItems([
                     ]); ?>
                 </div>
             </div>
+        <? } ?>
         <?php $box->endBulkActions() ?>
         <?= $box->renderSearchForm(compact('state_data')) ?>
     <?php $box::end() ?>
