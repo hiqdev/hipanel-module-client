@@ -9,7 +9,7 @@ use hiqdev\assets\flagiconcss\FlagIconCssAsset;
 use yii\helpers\Html;
 
 $this->title    = $model->login;
-$this->subtitle = Yii::t('app', 'client detailed information') . ' #' . $model->id;
+$this->subtitle = Yii::t('app', 'client profile') . ' #' . $model->id;
 $this->breadcrumbs->setItems([
     ['label' => 'Clients', 'url' => ['index']],
     $this->title,
