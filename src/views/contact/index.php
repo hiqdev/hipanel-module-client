@@ -6,7 +6,7 @@ use hipanel\widgets\ActionBox;
 use yii\helpers\Html;
 
 $this->title    = Yii::t('app', 'Contact');
-$this->subtitle = Yii::$app->request->queryParams ? 'filtered list' : 'full list';
+$this->subtitle = array_filter(Yii::$app->request->get($model->formName(), [])) ? 'filtered list' : 'full list';
 $this->breadcrumbs->setItems([
     $this->title,
 ]);

@@ -16,7 +16,7 @@ use yii\bootstrap\ButtonDropdown;
 use yii\bootstrap\ButtonGroup;
 
 $this->title    = Yii::t('app', 'Clients');
-$this->subtitle = Yii::$app->request->queryParams ? 'filtered list' : 'full list';
+$this->subtitle = array_filter(Yii::$app->request->get($model->formName(), [])) ? 'filtered list' : 'full list';
 $this->breadcrumbs->setItems([
     $this->title,
 ]);
