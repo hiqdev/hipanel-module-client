@@ -26,13 +26,13 @@ class Client extends \hipanel\base\Model
             [['balance', 'credit'], 'number'],
             [['count', 'confirm_url', 'language', 'comment', 'name', 'contact', 'currency'], 'safe'],
             [['create_time', 'update_time'], 'date'],
-            [['email'], 'email'],
             [['id', 'credit'], 'required', 'on' => 'set-credit'],
             [['id', 'type', 'comment'], 'required', 'on' => 'set-block'],
             [['id', 'language'], 'required', 'on' => 'set-language'],
             [['id', 'seller_id'], 'required', 'on' => 'set-seller'],
 
             [['password', 'client', 'seller_id', 'email'], 'required', 'on' => ['create', 'update']],
+            [['email'], 'email', 'on' => ['create', 'update']],
         ];
     }
 
