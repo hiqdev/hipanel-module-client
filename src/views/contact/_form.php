@@ -186,7 +186,7 @@ JS
             <?= $form->field($model, 'isresident')->checkbox(); ?>
         </fieldset>
         <?php $box->endBody() ?>
-        <?php $box::end() ?>
+        <?php $box->end() ?>
     </div>
     <!-- /.col-md-6 -->
 </div>

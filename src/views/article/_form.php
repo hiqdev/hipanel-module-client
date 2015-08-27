@@ -74,4 +74,4 @@ $modelReflacion = new \ReflectionClass(get_class($model));
         <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-primary']) ?>
     </div>
 
-<?php $form::end(); ?>
+<?php $form->end(); ?>

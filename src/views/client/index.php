@@ -58,7 +58,7 @@ $this->breadcrumbs->setItems([
         <? } ?>
         <?php $box->endBulkActions() ?>
         <?= $box->renderSearchForm(compact('states')) ?>
-    <?php $box::end() ?>
+    <?php $box->end() ?>
 
 <?php $box->beginBulkForm() ?>
     <?= ClientGridView::widget([
@@ -72,5 +72,5 @@ $this->breadcrumbs->setItems([
             'action',
         ],
     ]) ?>
-<?php $box::endBulkForm() ?>
+<?php $box->endBulkForm() ?>
 <?php Pjax::end() ?>

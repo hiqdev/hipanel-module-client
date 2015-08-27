@@ -28,7 +28,7 @@ $this->breadcrumbs->setItems([
             <?= $box->renderPerPage() ?>
         <?php $box->endActions() ?>
         <?= $box->renderSearchForm() ?>
-    <?php $box::end() ?>
+    <?php $box->end() ?>
     <?php $box->beginBulkForm() ?>
     <?= ArticleGridView::widget([
         'dataProvider' => $dataProvider,
@@ -63,5 +63,5 @@ $this->breadcrumbs->setItems([
             ],
         ],
     ]) ?>
-    <?php $box::endBulkForm() ?>
+    <?php $box->endBulkForm() ?>
 <?php Pjax::end() ?>

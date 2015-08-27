@@ -78,7 +78,7 @@ FlagIconCssAsset::register($this);
                             ],
                         ]) ?>
                     <?php $box->endBody(); ?>
-                <?php $box::end(); ?>
+                <?php $box->end(); ?>
             </div>
             <div class="col-md-6">
                 <?php $box = Box::begin(['renderBody' => false]); ?>
@@ -96,7 +96,7 @@ FlagIconCssAsset::register($this);
                             ],
                         ]) ?>
                     <?php $box->endBody(); ?>
-                <?php $box::end(); ?>
+                <?php $box->end(); ?>
                 <?php $box = Box::begin(['renderBody' => false, 'options' => [
                     'class'                           => 'collapsed-box',
                 ]]) ?>
@@ -115,7 +115,7 @@ FlagIconCssAsset::register($this);
                             ],
                         ]) ?>
                     <?php $box->endBody(); ?>
-                <?php $box::end(); ?>
+                <?php $box->end(); ?>
             </div>
         </div>
     </div>

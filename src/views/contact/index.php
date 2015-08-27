@@ -32,7 +32,7 @@ $this->breadcrumbs->setItems([
         ],
     ]) ?>
     <?= $box->renderSearchForm() ?>
-<?php $box::end() ?>
+<?php $box->end() ?>
 
 <?php $box->beginBulkForm() ?>
     <?= ContactGridView::widget([
@@ -54,4 +54,4 @@ $this->breadcrumbs->setItems([
             ],
         ],
     ]) ?>
-<?php $box::endBulkForm() ?>
+<?php $box->endBulkForm() ?>

@@ -23,4 +23,4 @@ $form = ActiveForm::begin([
 <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-default']) ?>
     &nbsp;
 <?= Html::button(Yii::t('app', 'Cancel'), ['class' => 'btn btn-default', 'onclick' => 'history.go(-1)']) ?>
-<?php $form::end() ?>
+<?php $form->end() ?>
