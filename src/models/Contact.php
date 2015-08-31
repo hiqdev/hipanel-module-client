@@ -64,7 +64,8 @@ class Contact extends \hipanel\base\Model
             [['email_confirmed', 'voice_phone_confirmed', 'fax_phone_confirmed'],   'boolean', 'trueValue' => true, 'falseValue' => false],
             [['name_confirm_level', 'address_confirm_level'],                       'safe'],
             [['voice_phone_confirm_date', 'fax_phone_confirm_date', 'email_confirm_date', 'address_confirm_date'], 'safe'],
-            [['name_confirm_date'],                                                 'safe']
+            [['name_confirm_date'],                                                 'safe'],
+            [['files'],                                                             'safe'], /// TODO
         ];
     }
 
