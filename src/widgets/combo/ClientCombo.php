@@ -26,7 +26,7 @@ class ClientCombo extends Combo
     public $name = 'login';
 
     /** {@inheritdoc} */
-    public $url = '/client/client/search';
+    public $url = '/client/client/';
 
     /** {@inheritdoc} */
     public $_return = ['id'];
