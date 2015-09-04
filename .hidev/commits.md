@@ -3,6 +3,15 @@ hiqdev/hipanel-module-client commits history
 
 ## 0.0.1 Under development
 
+- Fixed: many minor
+    - 0e008ed 2015-09-04 + check for domain module available (sol@hiqdev.com)
+    - 6d78e53 2015-09-01 ClientCombo - changed search url (d.naumenko.a@gmail.com)
+    - ada64ec 2015-08-31 + rule Contact::files (sol@hiqdev.com)
+    - 1730333 2015-08-27 ClientCombo - changed filter type to type_in Removed CountryCombo (d.naumenko.a@gmail.com)
+    - 0765436 2015-08-27 Fixed breadcrumbs subtitle (d.naumenko.a@gmail.com)
+    - d7e387c 2015-08-27 Email (andreyklochok@gmail.com)
+    - 7292109 2015-08-27 Fixed deprecated method calling syntax (d.naumenko.a@gmail.com)
+    - 3da8a11 2015-08-26 Add filter by states (andreyklochok@gmail.com)
 - Added client create functionality
     - 517243d 2015-08-26 Add Create functionality (andreyklochok@gmail.com)
 - Fixed client/seller sorting with sortAttribute
