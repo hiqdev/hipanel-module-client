@@ -19,9 +19,7 @@ class Plugin extends \hiqdev\pluginmanager\Plugin
             '@contact' => '/client/contact',
         ],
         'menus' => [
-            [
-                'class' => 'hipanel\modules\client\SidebarMenu',
-            ],
+            'sidebar' => 'hipanel\modules\client\SidebarMenu',
         ],
         'modules' => [
             'client' => [
