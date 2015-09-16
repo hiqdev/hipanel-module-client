@@ -45,9 +45,11 @@ FlagIconCssAsset::register($this);
                 <li>
                     <?= Html::a('<i class="ion-wrench"></i>' . Yii::t('app', 'Change contact information'), ['update', 'id' => $model->id]) ?>
                 </li>
+            <?php if (Yii::getAlias('@domain', false)) { ?>
                 <li>
                     <?= Html::a('<i class="fa fa-globe"></i>' . Yii::t('app', 'Used for domains: ') . Html::tag('b', $model->used_count), Url::toSearch('domain', ['client_id' => $model->client_id])) ?>
                 </li>
+            <?php } ?>
             </ul>
         </div>
         <?php Box::end(); ?>
