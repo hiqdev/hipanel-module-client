@@ -3,9 +3,9 @@ hiqdev/hipanel-module-client commits history
 
 ## 0.0.1 Under development
 
-- Fixed sidebar menu
+- Fixed minor issues
     - d691efe 2015-09-14 redone sidebar menu with Yii::t, Menu::items() and proper visible (sol@hiqdev.com)
-- Fixed: many minor
+    - 616ce3d 2015-09-16 minor fix (sol@hiqdev.com)
     - 0e008ed 2015-09-04 + check for domain module available (sol@hiqdev.com)
     - 6d78e53 2015-09-01 ClientCombo - changed search url (d.naumenko.a@gmail.com)
     - ada64ec 2015-08-31 + rule Contact::files (sol@hiqdev.com)
