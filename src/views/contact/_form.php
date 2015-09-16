@@ -155,7 +155,7 @@ JS
         <?php $box->endHeader(); ?>
         <?php $box->beginBody() ?>
         <fieldset id="fiz_domain">
-            <legend><?= Yii::t('app', 'Для регистрации доменов в зоне RU в качестве физического лица') ?></legend>
+            <legend><?= Yii::t('app', 'For domain registration in RU and SU zones as physical entity') ?></legend>
             <?= $form->field($model, 'birth_date')->widget(DatePicker::className(), [
                 'removeButton'  => false,
                 'pluginOptions' => [
@@ -178,7 +178,7 @@ JS
             <?= $form->field($model, 'passport_by'); ?>
         </fieldset>
         <fieldset id="jur_domain">
-            <legend><?= Yii::t('app', 'Для регистрации доменов в зоне RU в качестве юридического лица') ?></legend>
+            <legend><?= Yii::t('app', 'For domain registration in RU and SU zones as legal entity') ?></legend>
             <?= $form->field($model, 'organization_ru'); ?>
             <?= $form->field($model, 'director_name'); ?>
             <?= $form->field($model, 'inn'); ?>
