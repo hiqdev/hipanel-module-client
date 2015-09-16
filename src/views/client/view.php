@@ -1,6 +1,5 @@
 <?php
 
-use hipanel\modules\client\controllers\ContactController;
 use hipanel\modules\client\grid\ClientGridView;
 use hipanel\modules\client\grid\ContactGridView;
 use hipanel\modules\client\models\Contact;
@@ -52,7 +51,7 @@ FlagIconCssAsset::register($this);
                     <?= Html::a('<i class="ion-at"></i>' . Yii::t('app', 'Mailing lists settings'), '#'); ?>
                 </li>
                 <li>
-                    <?= Html::a('<i class="ion-compose"></i>' . Yii::t('app', 'Change contact information'), ContactController::getActionUrl('update', $model->id)) ?>
+                    <?= Html::a('<i class="ion-compose"></i>' . Yii::t('app', 'Change contact information'), ['@contact/update', 'id' => $model->id]) ?>
                 </li>
                 <li>
                     <?= Html::a('<i class="fa fa-globe"></i>' . Yii::t('app', 'Domain settings'), '#'); ?>
@@ -96,8 +95,8 @@ FlagIconCssAsset::register($this);
                 <?php $box->beginHeader(); ?>
                     <?= $box->renderTitle(Yii::t('app', 'Contact information'), ''); ?>
                     <?php $box->beginTools(); ?>
-                        <?= Html::a(Yii::t('app', 'Details'),                    ContactController::getActionUrl('view', $model->id), ['class' => 'btn btn-default btn-xs']); ?>
-                        <?= Html::a(Yii::t('app', 'Change contact information'), ContactController::getActionUrl('update', $model->id), ['class' => 'btn btn-default btn-xs']); ?>
+                        <?= Html::a(Yii::t('app', 'Details'), ['@contact/view',   'id' => $model->id], ['class' => 'btn btn-default btn-xs']) ?>
+                        <?= Html::a(Yii::t('app', 'Change'),  ['@contact/update', 'id' => $model->id], ['class' => 'btn btn-default btn-xs']) ?>
                     <?php $box->endTools(); ?>
                 <?php $box->endHeader(); ?>
                 <?php $box->beginBody(); ?>
