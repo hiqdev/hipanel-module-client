@@ -4,6 +4,8 @@ hiqdev/hipanel-module-client commits history
 ## 0.0.1 Under development
 
 - Fixed minor issues
+    - 891b82c 2015-09-16 simplified contact action url building (sol@hiqdev.com)
+    - 1ec27c1 2015-09-16 * change language (bladeroot@gmail.com)
     - d691efe 2015-09-14 redone sidebar menu with Yii::t, Menu::items() and proper visible (sol@hiqdev.com)
     - 616ce3d 2015-09-16 minor fix (sol@hiqdev.com)
     - 0e008ed 2015-09-04 + check for domain module available (sol@hiqdev.com)
