@@ -11,9 +11,9 @@ use yii\helpers\Html;
 use yii\helpers\Inflector;
 
 $this->title    = Inflector::titleize($model->name, true);
-$this->subtitle = Yii::t('app', 'contact detailed information') . ' #' . $model->id;
+$this->subtitle = Yii::t('app', 'Contact detailed information') . ' #' . $model->id;
 $this->breadcrumbs->setItems([
-    ['label' => 'Contacts', 'url' => ['index']],
+    ['label' => Yii::t('app', 'Contacts'), 'url' => ['index']],
     $this->title,
 ]);
 
@@ -114,6 +114,7 @@ FlagIconCssAsset::register($this);
                             'model'   => $model,
                             'columns' => [
                                 'passport_date', 'passport_no', 'passport_by',
+                                'organization_ru', 'inn', 'kpp', 'director_name', 'isresident',
                             ],
                         ]) ?>
                     <?php $box->endBody(); ?>

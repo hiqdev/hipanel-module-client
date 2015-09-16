@@ -118,6 +118,7 @@ class ClientGridView extends BoxedGridView
             ],
             'tickets' => [
                 'format' => 'html',
+                'label'     => Yii::t('app', 'Tickets'),
                 'value'  => function ($model) {
                     $num = $model->count['tickets'];
                     $url = Url::toSearch('ticket', ['client_id' => $model->id]);
@@ -127,6 +128,7 @@ class ClientGridView extends BoxedGridView
             ],
             'servers' => [
                 'format' => 'html',
+                'label'     => Yii::t('app', 'Servers'),
                 'value'  => function ($model) {
                     $num = $model->count['servers'];
                     $url = Url::toSearch('server', ['client_id' => $model->id]);
@@ -136,6 +138,7 @@ class ClientGridView extends BoxedGridView
             ],
             'domains' => [
                 'format' => 'html',
+                'label'     => Yii::t('app', 'Domains'),
                 'value'  => function ($model) {
                     $num = $model->count['domains'];
                     $url = Url::toSearch('domain', ['client_id' => $model->id]);
@@ -145,6 +148,7 @@ class ClientGridView extends BoxedGridView
             ],
             'contacts' => [
                 'format' => 'html',
+                'label'     => Yii::t('app', 'Contacts'),
                 'value'  => function ($model) {
                     $num = $model->count['contacts'];
                     $url = Url::toSearch('contact', ['client_id' => $model->id]);
@@ -154,6 +158,7 @@ class ClientGridView extends BoxedGridView
             ],
             'hosting' => [
                 'format' => 'html',
+                'label'     => Yii::t('app', 'Hosting'),
                 'value'  => function ($model) {
                     $num = $model->count['accounts'];
                     $url = Url::toSearch('account', ['client_id' => $model->id]);

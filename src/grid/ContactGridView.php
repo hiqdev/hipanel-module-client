@@ -34,6 +34,7 @@ class ContactGridView extends BoxedGridView
                 },
             ],
             'street' => [
+                'label'  => Yii::t('app', 'Street'),
                 'format' => 'html',
                 'value'  => function ($model) {
                     return $model->street1 . $model->street2 . $model->street3;
@@ -61,12 +62,11 @@ class ContactGridView extends BoxedGridView
                 },
             ],
             'other' => [
-                'value' => function ($model) {
-                    return $model->other_messenger;
-                },
+                'attribute' => 'other_messenger',
             ],
             'messengers' => [
                 'format' => 'html',
+                'label'  => Yii::t('app', 'Messengers'),
                 'value'  => function ($model) {
                     $res = [];
                     foreach (['skype' => 'Skype', 'icq' => 'ICQ', 'jabber' => 'Jabber'] as $k => $label) {

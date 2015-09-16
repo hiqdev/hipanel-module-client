@@ -88,6 +88,13 @@ class Contact extends \hipanel\base\Model
             'country_name'    => Yii::t('app', 'Country'),
             'abuse_email'     => Yii::t('app', 'Abuse email'),
             'isresident'      => Yii::t('app', 'RF resident'),
+            'street1'         => Yii::t('app', 'Street'),
+            'street2'         => Yii::t('app', 'Street'),
+            'street3'         => Yii::t('app', 'Street'),
+            'inn'             => Yii::t('app', 'Taxpayer identification number'),
+            'kpp'             => Yii::t('app', 'Code of reason for registration'),
+            'organization_ru' => Yii::t('app', 'Organization (Russian title)'),
+            'director_name'   => Yii::t('app', 'Director\'s fool name'),
         ]);
     }
 }
