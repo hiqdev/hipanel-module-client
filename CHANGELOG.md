@@ -3,6 +3,7 @@ hiqdev/hipanel-module-client changelog
 
 ## 0.0.1 Under development
 
+- Fixed sidebar menu
 - Fixed: many minor
 - Added client create functionality
 - Fixed client/seller sorting with sortAttribute

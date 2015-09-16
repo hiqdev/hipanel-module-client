@@ -5,6 +5,7 @@ Client Plugin for HiPanel
 
 [![Latest Stable Version](https://poser.pugx.org/hiqdev/hipanel-module-client/v/stable.png)](https://packagist.org/packages/hiqdev/hipanel-module-client)
 [![Total Downloads](https://poser.pugx.org/hiqdev/hipanel-module-client/downloads.png)](https://packagist.org/packages/hiqdev/hipanel-module-client)
+[![Dependency Status](https://www.versioneye.com/php/hiqdev:hipanel-module-client/dev-master/badge.svg)](https://www.versioneye.com/php/hiqdev:hipanel-module-client/dev-master)
 
 ## Installation
 
