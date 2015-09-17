@@ -53,11 +53,11 @@ class Article extends \hipanel\base\Model
      */
     public function attributeLabels()
     {
-        return [
+        return $this->mergeAttributeLabels([
             'id'           => Yii::t('app', 'ID'),
             'article_name' => Yii::t('app', 'Article Name'),
             'post_date'    => Yii::t('app', 'Post Date'),
             'data'         => Yii::t('app', 'Data'),
-        ];
+        ]);
     }
 }
