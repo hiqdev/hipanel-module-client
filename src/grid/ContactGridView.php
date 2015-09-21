@@ -13,6 +13,7 @@ namespace hipanel\modules\client\grid;
 
 use hipanel\grid\BoxedGridView;
 use hipanel\grid\MainColumn;
+use hipanel\grid\ActionColumn;
 use Yii;
 use yii\helpers\Html;
 
@@ -84,12 +85,25 @@ class ContactGridView extends BoxedGridView
             'passport_date' => [
                 'format' => 'date',
             ],
-            'action' => [
-                'class'    => 'yii\grid\ActionColumn',
+            'actions' => [
+                'class'    => ActionColumn::className(),
                 'template' => '{view} {update} {delete} {copy}',
+                'header'   => Yii::t('app', 'Actions'),
                 'buttons'  => [
-                    'copy' => function ($url, $model, $key) {
-                        return Html::a('<span class="glyphicon glyphicon-copy"></span>', ['view', 'id' => $model['id']]);
+                    'copy'  => function ($url, $model, $key) {
+                        return Html::a('<span class="fa fa-copy"></span>' . Yii::t('app', 'Copy'), $url);
+                    },
+                    'delete'=> function ($url, $model, $key) {
+                        return $model->id != $model->client_id
+                            ? Html::a('<span class="fa fa-trash-o"></span>' . Yii::t('yii', 'Delete'), $url, [
+                                'title'        => Yii::t('yii', 'Delete'),
+                                'aria-label'   => Yii::t('yii', 'Delete'),
+                                'data' => [
+                                    'confirm' => Yii::t('app', 'Are you sure you want to delete contact {name}?', ['name' => $model->name]),
+                                    'method'  => 'post',
+                                    'data-pjax' => '0',
+                                ],
+                            ]) : '';
                     },
                 ],
             ],

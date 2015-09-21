@@ -41,17 +41,7 @@ $this->breadcrumbs->setItems([
         'columns'      => [
             'checkbox', 'name', 'email',
             'client_id', 'seller_id',
-            'actions' => [
-                'class'    => ActionColumn::className(),
-                'template' => '{view} {update} {copy} {delete}',
-                'header'   => Yii::t('app', 'Actions'),
-                'buttons'  => [
-                    'copy' => function ($url, $model, $key) {
-                        return Html::a('<i class="fa fa-copy"></i>' . Yii::t('app', 'Copy'), $url);
-                    },
-                ],
-
-            ],
+            'actions',
         ],
     ]) ?>
 <?php $box->endBulkForm() ?>
