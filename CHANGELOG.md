@@ -3,7 +3,9 @@ hiqdev/hipanel-module-client changelog
 
 ## 0.0.1 Under development
 
-- Fixed minor issues
+- Added link from client balance to bills
+- Fixed client actions column
+- Fixed translation and minor issues
 - Added client create functionality
 - Fixed client/seller sorting with sortAttribute
 - Fixed PHP warnings

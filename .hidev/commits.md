@@ -3,7 +3,14 @@ hiqdev/hipanel-module-client commits history
 
 ## 0.0.1 Under development
 
-- Fixed minor issues
+- Added link from client balance to bills
+    - fb6ec6f 2015-09-22 + urlCallback for balance column for link to client bills (sol@hiqdev.com)
+- Fixed client actions column
+    - 4beab1c 2015-09-21 * change view to get columns from grid; change action column in grid: default clients contact could not be deleted (bladeroot@gmail.com)
+- Fixed translation and minor issues
+    - 73ec523 2015-09-21 got rid of Re::l (sol@hiqdev.com)
+    - 84367d6 2015-09-17 * improve language pack; - remove unnessary lines (bladeroot@gmail.com)
+    - 876ddbd 2015-09-16 * improve language pack (bladeroot@gmail.com)
     - 891b82c 2015-09-16 simplified contact action url building (sol@hiqdev.com)
     - 1ec27c1 2015-09-16 * change language (bladeroot@gmail.com)
     - d691efe 2015-09-14 redone sidebar menu with Yii::t, Menu::items() and proper visible (sol@hiqdev.com)
