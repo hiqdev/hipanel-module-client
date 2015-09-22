@@ -15,6 +15,7 @@ use hipanel\grid\ActionColumn;
 use hipanel\grid\BoxedGridView;
 use hipanel\grid\CurrencyColumn;
 use hipanel\grid\RefColumn;
+use hipanel\modules\finance\controllers\BillController;
 use hipanel\helpers\Url;
 use hipanel\modules\client\widgets\State as ClientState;
 use hipanel\modules\client\widgets\Type as ClientType;
@@ -61,10 +62,11 @@ class ClientGridView extends BoxedGridView
                 },
             ],
             'balance' => [
-                'class'     => CurrencyColumn::className(),
-                'compare'   => 'credit',
-                'filter'    => false,
-                'attribute' => 'balance',
+                'class'       => CurrencyColumn::className(),
+                'compare'     => 'credit',
+                'filter'      => false,
+                'attribute'   => 'balance',
+                'urlCallback' => function ($model) { return BillController::getSearchUrl(['client' => $model->login]); },
             ],
             'credit' => Yii::$app->user->can('manage') ? [
                 'class'         => 'hiqdev\xeditable\grid\XEditableColumn',
