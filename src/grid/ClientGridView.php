@@ -20,6 +20,7 @@ use hipanel\modules\client\widgets\State as ClientState;
 use hipanel\modules\client\widgets\Type as ClientType;
 use Yii;
 use yii\helpers\Html;
+use hipanel\modules\client\models\Client;
 
 class ClientGridView extends BoxedGridView
 {
@@ -30,12 +31,11 @@ class ClientGridView extends BoxedGridView
                 'class'         => ClientColumn::className(),
                 'attribute'     => 'id',
                 'nameAttribute' => 'login',
-                'label'         => 'Client',
+                'label'         => Yii::t('app', 'Client'),
             ],
             'login' => [
                 'attribute'       => 'login',
                 'filterAttribute' => 'login_like',
-                'label'           => 'Client',
                 'format'          => 'html',
                 'value'           => function ($model) {
                     return Html::a($model->login, ['@client/view', 'id' => $model->id]);
@@ -175,11 +175,28 @@ class ClientGridView extends BoxedGridView
             ],
             'action' => [
                 'class'    => ActionColumn::className(),
-                'template' => Yii::$app->user->can('manage') ? '{view} {block} {delete}' : '{view}',
+                'template' => Yii::$app->user->can('support') ? '{view} {enable-block} {disable-block} {delete}' : '{view}',
                 'header'   => Yii::t('app', 'Actions'),
                 'buttons'  => [
-                    'block' => function ($url, $model, $key) {
-                        return Html::a('<i class="fa fa-ban"></i>' . Yii::t('app','Block'), ['block', 'id' => $model->id]);
+                    'enable-block'  => function ($url, $model, $key) {
+                        return (!Client::canBeSelf($model) && ($model->state!='blocked'))
+                            ? Html::a('<i class="fa fa-ban"></i>' . Yii::t('app','Enable block'), ['enable-block', 'id' => $model->id]) : '';
+                    },
+                    'disable-block' => function ($url, $model, $key) {
+                        return (!Client::canBeSelf($model) && ($model->state=='blocked'))
+                            ? Html::a('<i class="fa fa-ban"></i>' . Yii::t('app','Disable block'), ['disable-block','id' => $model->id]) : '';
+                    },
+                    'delete'        => function ($url, $model, $key) {
+                        return !Client::canBeSelf($model)
+                            ? Html::a('<i class="fa fa-trash-o"></i>' . Yii::t('app','Delete'), $url, [
+                                    'title'     => Yii::t('app','Delete'),
+                                    'aria-label'=> Yii::t('app','Delete'),
+                                    'data'      => [
+                                        'confirm'   => Yii::t('app', 'Are you sure you want to delete client {client}?', ['client' => $model->login]),
+                                        'method'    => 'post',
+                                        'data-pjax' => '0',
+                                    ],
+                              ]) : '';
                     },
                 ],
             ],

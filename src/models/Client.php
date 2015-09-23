@@ -45,4 +45,8 @@ class Client extends \hipanel\base\Model
             'update_time' => Yii::t('app', 'Last update'),
         ]);
     }
+
+    public static function canBeSelf ($model) {
+        return Yii::$app->user->is($model->id) || (!Yii::$app->user->can('resell') && Yii::$app->user->can('support') && Yii::$app->user->identity->seller_id== $model->id);
+    }
 }

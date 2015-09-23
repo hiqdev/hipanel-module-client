@@ -14,6 +14,11 @@ use hipanel\widgets\ActionBox;
 use hipanel\widgets\Pjax;
 use yii\bootstrap\ButtonDropdown;
 use yii\bootstrap\ButtonGroup;
+use yii\bootstrap\Modal;
+use yii\helpers\Html;
+use yii\widgets\ActiveForm;
+use yii\helpers\Url;
+use hipanel\models\Ref;
 
 $this->title    = Yii::t('app', 'Clients');
 $this->subtitle = array_filter(Yii::$app->request->get($model->formName(), [])) ? 'filtered list' : 'full list';
@@ -41,7 +46,7 @@ $this->breadcrumbs->setItems([
         <?= $box->renderPerPage() ?>
         <?php $box->endActions() ?>
         <?php $box->beginBulkActions() ?>
-        <? if (Yii::$app->user->can('manage')) { ?>
+        <? if (Yii::$app->user->can('support')) { ?>
             <div class="btn-group">
                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <?= Yii::t('app', 'Block') ?> <span class="caret"></span>
@@ -73,4 +78,24 @@ $this->breadcrumbs->setItems([
         ],
     ]) ?>
 <?php $box->endBulkForm() ?>
+
 <?php Pjax::end() ?>
+<?php
+Modal::begin([
+    'class'     => 'bs-example-modal-sm',
+    'header'    => Yii::t('app', 'Enable/Disable block'),
+    'id'        => 'block-unblock-client',
+]);
+
+$form = ActiveForm::begin([
+    'id'        => 'block-unblock-form',
+    'options'   => ['class' => 'form-horizontal'],
+    'action'    => Url::toRoute('@client/set-block'),
+]);
+
+echo $form->field($model, 'id')->hiddenInput()->label(false);
+echo $form->field($model, 'type')->dropDownList(Ref::getList('type,block'))->label(Yii::t('app', 'Block reason'));
+echo $form->field($model, 'comment')->label(Yii::t('app', 'Comment'));
+ActiveForm::end();
+
+Modal::end();
