@@ -3,9 +3,9 @@ hiqdev/hipanel-module-client commits history
 
 ## 0.0.1 Under development
 
-- Added link from client balance to bills
+- Fixed client index page: improved look
+    - 4528100 2015-09-23 improved client index page look (sol@hiqdev.com)
     - fb6ec6f 2015-09-22 + urlCallback for balance column for link to client bills (sol@hiqdev.com)
-- Fixed client actions column
     - 4beab1c 2015-09-21 * change view to get columns from grid; change action column in grid: default clients contact could not be deleted (bladeroot@gmail.com)
 - Fixed translation and minor issues
     - 73ec523 2015-09-21 got rid of Re::l (sol@hiqdev.com)
