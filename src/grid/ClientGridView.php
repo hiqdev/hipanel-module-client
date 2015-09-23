@@ -66,7 +66,7 @@ class ClientGridView extends BoxedGridView
                 'compare'        => 'credit',
                 'filter'         => false,
                 'attribute'      => 'balance',
-                'urlCallback'    => function ($model) { return BillController::getSearchUrl(['client' => $model->login]); },
+                'urlCallback'    => function ($model) { return BillController::getSearchUrl(['client_id' => $model->id]); },
                 'headerOptions'  => ['class' => 'text-right'],
                 'contentOptions' => ['class' => 'text-right text-bold'],
             ],
