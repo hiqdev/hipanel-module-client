@@ -87,7 +87,7 @@ class ContactGridView extends BoxedGridView
             ],
             'actions' => [
                 'class'    => ActionColumn::className(),
-                'template' => '{view} {update} {delete} {copy}',
+                'template' => '{view} {update} {copy} {delete}',
                 'header'   => Yii::t('app', 'Actions'),
                 'buttons'  => [
                     'copy'  => function ($url, $model, $key) {
@@ -99,7 +99,7 @@ class ContactGridView extends BoxedGridView
                                 'title'        => Yii::t('yii', 'Delete'),
                                 'aria-label'   => Yii::t('yii', 'Delete'),
                                 'data' => [
-                                    'confirm' => Yii::t('app', 'Are you sure you want to delete contact {name}?', ['name' => $model->name]),
+                                    'confirm' => Yii::t('app', 'Are you sure you want to delete client {client} contact {contact}?', ['contact' => $model->name, 'client' => $model->client]),
                                     'method'  => 'post',
                                     'data-pjax' => '0',
                                 ],

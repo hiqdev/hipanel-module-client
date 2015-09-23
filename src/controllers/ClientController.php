@@ -40,6 +40,14 @@ class ClientController extends \hipanel\base\CrudController
                 'class' => 'hipanel\actions\SmartPerformAction',
                 'success' => Yii::t('app', 'Client is deleted'),
             ],
+            'enable-block' => [
+                'class'         => 'hipanel\actions\SmartPerformAction',
+                'success'       => Yii::t('app', 'Client is blocked'),
+            ],
+            'disable-block'=> [
+                'class'         => 'hipanel\actions\SmartPerformAction',
+                'success'       => Yii::t('app', 'Client is unblocked'),
+            ],
             'view' => [
                 'class' => 'hipanel\actions\ViewAction',
                 'findOptions' => [
@@ -67,11 +75,4 @@ class ClientController extends \hipanel\base\CrudController
         return Ref::getList('state,client');
     }
 
-    /// TODO: implement
-//    public function actionCheckLogin($login)
-//    {
-//        Yii::$app->response->format = Response::FORMAT_JSON;
-//
-//        return $out;
-//    }
 }
