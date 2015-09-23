@@ -4,6 +4,7 @@ hiqdev/hipanel-module-client commits history
 ## 0.0.1 Under development
 
 - Fixed client index page: improved look
+    - d59538b 2015-09-23 fixed link to client bills (sol@hiqdev.com)
     - 622ef79 2015-09-23 + new functions and actions (bladeroot@gmail.com)
     - 4528100 2015-09-23 improved client index page look (sol@hiqdev.com)
     - fb6ec6f 2015-09-22 + urlCallback for balance column for link to client bills (sol@hiqdev.com)
