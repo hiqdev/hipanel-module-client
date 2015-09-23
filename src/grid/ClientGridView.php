@@ -31,12 +31,12 @@ class ClientGridView extends BoxedGridView
                 'class'         => ClientColumn::className(),
                 'attribute'     => 'id',
                 'nameAttribute' => 'login',
-                'label'         => 'Client',
+                'label'         => Yii::t('app', 'Client'),
             ],
             'login' => [
                 'attribute'       => 'login',
                 'filterAttribute' => 'login_like',
-                'label'           => 'Client',
+                'label'           => Yii::t('app', 'Client'),
                 'format'          => 'html',
                 'value'           => function ($model) {
                     return Html::a($model->login, ['@client/view', 'id' => $model->id]);
@@ -62,11 +62,13 @@ class ClientGridView extends BoxedGridView
                 },
             ],
             'balance' => [
-                'class'       => CurrencyColumn::className(),
-                'compare'     => 'credit',
-                'filter'      => false,
-                'attribute'   => 'balance',
-                'urlCallback' => function ($model) { return BillController::getSearchUrl(['client' => $model->login]); },
+                'class'          => CurrencyColumn::className(),
+                'compare'        => 'credit',
+                'filter'         => false,
+                'attribute'      => 'balance',
+                'urlCallback'    => function ($model) { return BillController::getSearchUrl(['client' => $model->login]); },
+                'headerOptions'  => ['class' => 'text-right'],
+                'contentOptions' => ['class' => 'text-right text-bold'],
             ],
             'credit' => Yii::$app->user->can('manage') ? [
                 'class'         => 'hiqdev\xeditable\grid\XEditableColumn',
