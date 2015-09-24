@@ -30,7 +30,7 @@ $modalButton = ModalButton::begin([
     ]
 ]); ?>
 
-<?php echo $modalButton->form->field($model, 'type')->dropDownList(ClientController::getBlockReasons()); ?>
+<?php echo $modalButton->form->field($model, 'type')->dropDownList($reasons); ?>
 <?php echo $modalButton->form->field($model, 'comment'); ?>
 
 <?php $modalButton->end(); ?>
