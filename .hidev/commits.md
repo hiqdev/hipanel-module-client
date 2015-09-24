@@ -6,6 +6,7 @@ hiqdev/hipanel-module-client commits history
 - Added client blocking
     - b2c4417 2015-09-24 + blocking from BladeRoot (sol@hiqdev.com)
 - Fixed client grid: improved look
+    - ce5f4b8 2015-09-24 improved State widget (sol@hiqdev.com)
     - 623cf9b 2015-09-24 fixed credit and currency columns (sol@hiqdev.com)
     - d59538b 2015-09-23 fixed link to client bills (sol@hiqdev.com)
     - 622ef79 2015-09-23 + new functions and actions (bladeroot@gmail.com)
