@@ -80,22 +80,3 @@ $this->breadcrumbs->setItems([
 <?php $box->endBulkForm() ?>
 
 <?php Pjax::end() ?>
-<?php
-Modal::begin([
-    'class'     => 'bs-example-modal-sm',
-    'header'    => Yii::t('app', 'Enable/Disable block'),
-    'id'        => 'block-unblock-client',
-]);
-
-$form = ActiveForm::begin([
-    'id'        => 'block-unblock-form',
-    'options'   => ['class' => 'form-horizontal'],
-    'action'    => Url::toRoute('@client/set-block'),
-]);
-
-echo $form->field($model, 'id')->hiddenInput()->label(false);
-echo $form->field($model, 'type')->dropDownList(Ref::getList('type,block'))->label(Yii::t('app', 'Block reason'));
-echo $form->field($model, 'comment')->label(Yii::t('app', 'Comment'));
-ActiveForm::end();
-
-Modal::end();

@@ -37,9 +37,15 @@ class ClientGridView extends BoxedGridView
             'login' => [
                 'attribute'       => 'login',
                 'filterAttribute' => 'login_like',
-                'format'          => 'html',
+                'format'          => 'raw',
                 'value'           => function ($model) {
-                    return Html::a($model->login, ['@client/view', 'id' => $model->id]);
+                    $showButtom = false;
+                    $res = '';
+                    if (!Client::canBeSelf($model) && Yii::$app->user->can('support')) {
+                        $showButtom = false;
+                        $res = Yii::$app->controller->renderPartial('_block', compact(['model', 'showButtom']));
+                    }
+                    return $res . Html::a($model->login, ['@client/view', 'id' => $model->id]);
                 },
             ],
             'name' => [
@@ -176,17 +182,27 @@ class ClientGridView extends BoxedGridView
                 },
             ],
             'action' => [
-                'class'    => ActionColumn::className(),
-                'template' => Yii::$app->user->can('support') ? '{view} {enable-block} {disable-block} {delete}' : '{view}',
-                'header'   => Yii::t('app', 'Actions'),
-                'buttons'  => [
+                'class'     => ActionColumn::className(),
+                'template'  => Yii::$app->user->can('support') ? '{view} {enable-block} {disable-block} {delete}' : '{view}',
+                'header'    => Yii::t('app', 'Actions'),
+                'buttons'   => [
                     'enable-block'  => function ($url, $model, $key) {
-                        return (!Client::canBeSelf($model) && ($model->state!='blocked'))
-                            ? Html::a('<i class="fa fa-ban"></i>' . Yii::t('app','Enable block'), ['enable-block', 'id' => $model->id]) : '';
+                        if (!Client::canBeSelf($model) && ($model->state!='blocked')) {
+                            return Html::a('<i class="fa fa-lock"></i>' . Yii::t('app', 'Enable block'), '#', [
+                                    'data-toggle'   => "modal",
+                                    'data-target'   => "#modal_{$model->id}_enable-block",
+                                    'position'      => "1",
+                            ]);
+                        }
                     },
                     'disable-block' => function ($url, $model, $key) {
-                        return (!Client::canBeSelf($model) && ($model->state=='blocked'))
-                            ? Html::a('<i class="fa fa-ban"></i>' . Yii::t('app','Disable block'), ['disable-block','id' => $model->id]) : '';
+                        if (!Client::canBeSelf($model) && ($model->state=='blocked')) {
+                            return Html::a('<i class="fa fa-unlock"></i>' . Yii::t('app', 'Disable block'), '#', [
+                                        'data-toggle'   => "modal",
+                                        'data-target'   => "#modal_{$model->id}_disable-block",
+                                        'position'      => "1",
+                            ]);
+                        }
                     },
                     'delete'        => function ($url, $model, $key) {
                         return !Client::canBeSelf($model)
