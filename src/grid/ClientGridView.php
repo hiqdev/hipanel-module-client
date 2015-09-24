@@ -68,11 +68,13 @@ class ClientGridView extends BoxedGridView
                 },
             ],
             'balance' => [
-                'class'       => CurrencyColumn::className(),
-                'compare'     => 'credit',
-                'filter'      => false,
-                'attribute'   => 'balance',
-                'urlCallback' => function ($model) { return BillController::getSearchUrl(['client' => $model->login]); },
+                'class'          => CurrencyColumn::className(),
+                'compare'        => 'credit',
+                'filter'         => false,
+                'attribute'      => 'balance',
+                'urlCallback'    => function ($model) { return BillController::getSearchUrl(['client_id' => $model->id]); },
+                'headerOptions'  => ['class' => 'text-right'],
+                'contentOptions' => ['class' => 'text-right text-bold'],
             ],
             'credit' => Yii::$app->user->can('manage') ? [
                 'class'         => 'hiqdev\xeditable\grid\XEditableColumn',
