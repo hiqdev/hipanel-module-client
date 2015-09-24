@@ -18,8 +18,7 @@ class SidebarMenu extends \hiqdev\menumanager\Menu
     protected $_addTo = 'sidebar';
 
     protected $_where = [
-        'after'  => ['dashboard', 'header'],
-        'before' => ['finance', 'tickets', 'domains', 'servers', 'hosting'],
+        'after'  => ['dashboard'],
     ];
 
     public function items()
