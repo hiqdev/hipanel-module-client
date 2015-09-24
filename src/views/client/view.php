@@ -6,6 +6,8 @@ use hipanel\modules\client\models\Contact;
 use hipanel\widgets\Box;
 use hiqdev\assets\flagiconcss\FlagIconCssAsset;
 use yii\helpers\Html;
+use hipanel\modules\client\models\Client;
+use hipanel\widgets\Block;
 
 $this->title    = $model->login;
 $this->subtitle = Yii::t('app', 'Client detailed information') . ' #' . $model->id;
@@ -59,6 +61,18 @@ FlagIconCssAsset::register($this);
                 <li>
                     <?= Html::a('<i class="fa fa-ticket"></i>' . Yii::t('app', 'Ticket settings'), '#'); ?>
                 </li>
+                <?php if (!Client::canBeSelf($model) && Yii::$app->user->can('support')) { ?>
+                    <li>
+                        <?= Block::widget([
+                            'model'     => $model,
+                            'action'    => $model->state == 'blocked' ? 'disable' : 'enable',
+                            'header'    => Yii::t('app', 'Confirm {state, plural, =0{block} other{unblock}} client {client}', [
+                                    'client'    => $model->login,
+                                    'state'     => $model->state == 'blocked'
+                            ]),
+                        ]); ?>
+                    </li>
+                <?php } ?>
             </ul>
         </div>
         <?php Box::end(); ?>

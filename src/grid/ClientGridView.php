@@ -22,6 +22,7 @@ use hipanel\modules\client\widgets\Type as ClientType;
 use Yii;
 use yii\helpers\Html;
 use hipanel\modules\client\models\Client;
+use hipanel\widgets\Block;
 
 class ClientGridView extends BoxedGridView
 {
@@ -39,12 +40,17 @@ class ClientGridView extends BoxedGridView
                 'filterAttribute' => 'login_like',
                 'format'          => 'raw',
                 'value'           => function ($model) {
-                    $showButtom = false;
                     $res = '';
                     if (!Client::canBeSelf($model) && Yii::$app->user->can('support')) {
-                        $showButtom = false;
-                        $reasons = Yii::$app->controller->getBlockReasons();
-                        $res = Yii::$app->controller->renderPartial('_block', compact(['model', 'showButtom', 'reasons']));
+                        $res = Block::widget([
+                            'model'     => $model,
+                            'button'    => '',
+                            'action'    => $model->state == 'blocked' ? 'disable' : 'enable',
+                            'header'    => Yii::t('app', 'Confirm {state, plural, =0{block} other{unblock}} client {client}', [
+                                    'client'    => $model->login,
+                                    'state'     => $model->state == 'blocked'
+                            ]),
+                        ]);
                     }
                     return $res . Html::a($model->login, ['@client/view', 'id' => $model->id]);
                 },
