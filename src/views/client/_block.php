@@ -2,9 +2,8 @@
 use hipanel\helpers\Url;
 use yii\helpers\Html;
 use hipanel\widgets\ModalButton;
-use hipanel\modules\client\controllers\ClientController;
-?>
-<?php
+use Yii;
+
 $modalButton = ModalButton::begin([
     'model'     => $model,
     'scenario'  => $model->state == 'blocked' ? 'disable-block' : 'enable-block',
@@ -28,10 +27,10 @@ $modalButton = ModalButton::begin([
             'class'                 => $model->state == 'blocked' ? 'btn btn-info' : 'btn btn-danger',
         ]
     ]
-]); ?>
+]);
 
-<?php echo $modalButton->form->field($model, 'type')->dropDownList(ClientController::getBlockReasons()); ?>
-<?php echo $modalButton->form->field($model, 'comment'); ?>
+echo $modalButton->form->field($model, 'type')->dropDownList(Yii::$app->controller->getBlockReasons());
+echo $modalButton->form->field($model, 'comment');
 
-<?php $modalButton->end(); ?>
+$modalButton->end();
 
