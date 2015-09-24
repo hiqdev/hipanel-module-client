@@ -11,13 +11,13 @@
 
 namespace hipanel\modules\client\widgets;
 
-class State extends \hipanel\widgets\State
+class State extends \hipanel\widgets\Type
 {
     /** {@inheritdoc} */
     public $model         = [];
     public $values        = [];
     public $defaultValues = [
-        'muted'   => ['ok', 'active'],
+        'none'    => ['ok', 'active'],
         'danger'  => ['blocked', 'wiped'],
         'deleted' => ['deleted', 'real_deleted'],
         'warning' => [],

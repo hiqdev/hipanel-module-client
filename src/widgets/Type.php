@@ -17,7 +17,7 @@ class Type extends \hipanel\widgets\Type
     public $model         = [];
     public $values        = [];
     public $defaultValues = [
-        'info'    => ['client'],
+        'none'    => ['client'],
         'danger'  => ['reseller', 'owner'],
         'warning' => ['admin', 'manager'],
     ];

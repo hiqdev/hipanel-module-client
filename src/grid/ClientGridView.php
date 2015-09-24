@@ -43,7 +43,8 @@ class ClientGridView extends BoxedGridView
                     $res = '';
                     if (!Client::canBeSelf($model) && Yii::$app->user->can('support')) {
                         $showButtom = false;
-                        $res = Yii::$app->controller->renderPartial('_block', compact(['model', 'showButtom']));
+                        $reasons = Yii::$app->controller->getBlockReasons();
+                        $res = Yii::$app->controller->renderPartial('_block', compact(['model', 'showButtom', 'reasons']));
                     }
                     return $res . Html::a($model->login, ['@client/view', 'id' => $model->id]);
                 },
@@ -73,20 +74,21 @@ class ClientGridView extends BoxedGridView
                 'filter'         => false,
                 'attribute'      => 'balance',
                 'urlCallback'    => function ($model) { return BillController::getSearchUrl(['client_id' => $model->id]); },
-                'headerOptions'  => ['class' => 'text-right'],
                 'contentOptions' => ['class' => 'text-right text-bold'],
             ],
-            'credit' => Yii::$app->user->can('manage') ? [
-                'class'         => 'hiqdev\xeditable\grid\XEditableColumn',
-                'attribute'     => 'credit',
-                'filter'        => false,
-                'format'        => ['currency', 'USD'],
-                'pluginOptions' => [
+            'credit' => Yii::$app->user->can('manage') || 1 ? [
+                'class'          => 'hiqdev\xeditable\grid\XEditableColumn',
+                'attribute'      => 'credit',
+                'filter'         => false,
+                'format'         => ['currency', 'USD'],
+                'contentOptions' => ['class' => 'text-right'],
+                'pluginOptions'  => [
                     'url'   => 'set-credit',
                     'title' => Yii::t('app', 'Set credit'),
                 ],
             ] : [
-                'class' => CurrencyColumn::className(),
+                'class'          => CurrencyColumn::className(),
+                'contentOptions' => ['class' => 'text-right'],
             ],
             'country' => [
                 'attribute' => 'contact',

@@ -31,6 +31,5 @@ $modalButton = ModalButton::begin([
 
 echo $modalButton->form->field($model, 'type')->dropDownList(Yii::$app->controller->getBlockReasons());
 echo $modalButton->form->field($model, 'comment');
-
 $modalButton->end();
 
