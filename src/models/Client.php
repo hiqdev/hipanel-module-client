@@ -11,6 +11,8 @@
 
 namespace hipanel\modules\client\models;
 
+use hipanel\helpers\StringHelper;
+use hipanel\validators\IpValidator;
 use Yii;
 
 class Client extends \hipanel\base\Model
@@ -44,7 +46,6 @@ class Client extends \hipanel\base\Model
             [['autorenewal', 'whois_protected'], 'boolean', 'on' => 'domain-settings'],
 
             // Mailings
-            // Mailings
             [[
                 'notify_important_actions',
                 'domain_registration',
@@ -52,6 +53,21 @@ class Client extends \hipanel\base\Model
                 'newsletters',
                 'commercial',
             ], 'boolean', 'on' => ['mailing-settings']],
+
+            // IP address restrictions
+            [['allowed_ips', 'sshftp_ips'], 'filter', 'filter' => function($value) {
+                if (!is_array($value)) {
+                    return (mb_strlen($value) > 0 ) ? StringHelper::mexplode($value) : true;
+                } else {
+                    return $value;
+                }
+            }, 'on' => ['ip-restrictions']],
+            [['allowed_ips', 'sshftp_ips'], 'each', 'rule' => [IpValidator::className()], 'on' => ['ip-restrictions']],
+
+            // Change password
+            [['cpassword', 'password', 'repassword'], 'required', 'on' => ['change-password']],
+            [['repassword'], 'compare', 'compareAttribute' => 'password', 'on' => ['change-password']],
+
         ];
     }
 
@@ -65,6 +81,13 @@ class Client extends \hipanel\base\Model
 
             'ticket_emails' => Yii::t('app', 'Email for tickets'),
             'send_message_text' => Yii::t('app', 'Send message text'),
+
+            'allowed_ips' => Yii::t('app', 'Allowed IPs for panel login'),
+            'sshftp_ips' => Yii::t('app', 'Default allowed IPs for SSH/FTP accounts'),
+
+            'cpassword' => Yii::t('app', 'Current password'),
+            'password' => Yii::t('app', 'New password'),
+            'repassword' => Yii::t('app', 'Confirm password'),
         ]);
     }
 
