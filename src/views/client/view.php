@@ -67,8 +67,8 @@ FlagIconCssAsset::register($this);
                             'model'     => $model,
                             'action'    => $model->state == 'blocked' ? 'disable' : 'enable',
                             'header'    => Yii::t('app', 'Confirm {state, plural, =0{block} other{unblock}} client {client}', [
-                                    'client'    => $model->login,
-                                    'state'     => $model->state == 'blocked'
+                                'client'    => $model->login,
+                                'state'     => $model->state == 'blocked'
                             ]),
                         ]); ?>
                     </li>
