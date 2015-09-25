@@ -18,6 +18,8 @@ $this->breadcrumbs->setItems([
 
 FlagIconCssAsset::register($this);
 
+$this->registerCss('legend {font-size: 16px;}');
+
 ?>
 <div class="row">
     <div class="col-md-3">
@@ -41,25 +43,25 @@ FlagIconCssAsset::register($this);
         <div class="profile-usermenu">
             <ul class="nav">
                 <li>
-                    <?= Html::a('<i class="ion-unlocked"></i>' . Yii::t('app', 'Change your password'), '#'); ?>
+                    <?= $this->render('_changePasswordModal', ['model' => $model]); ?>
                 </li>
                 <li>
-                    <?= Html::a('<i class="ion-lock-combination"></i>' . Yii::t('app', 'Pincode settings'), '#'); ?>
+                    <?= $this->render('_pincodeModal', ['model' => $model]); ?>
                 </li>
                 <li>
-                    <?= Html::a('<i class="ion-network"></i>' . Yii::t('app', 'Setup IP address restrictions'), '#'); ?>
+                    <?= $this->render('_ipRestrictionsModal', ['model' => $model]); ?>
                 </li>
                 <li>
-                    <?= Html::a('<i class="ion-at"></i>' . Yii::t('app', 'Mailing lists settings'), '#'); ?>
+                    <?= $this->render('_mailingsModal', ['model' => $model]); ?>
                 </li>
                 <li>
                     <?= Html::a('<i class="ion-compose"></i>' . Yii::t('app', 'Change contact information'), ['@contact/update', 'id' => $model->id]) ?>
                 </li>
                 <li>
-                    <?= Html::a('<i class="fa fa-globe"></i>' . Yii::t('app', 'Domain settings'), '#'); ?>
+                    <?= $this->render('_domainSettingsModal', ['model' => $model]); ?>
                 </li>
                 <li>
-                    <?= Html::a('<i class="fa fa-ticket"></i>' . Yii::t('app', 'Ticket settings'), '#'); ?>
+                    <?= $this->render('_ticketSettingsModal', ['model' => $model]); ?>
                 </li>
                 <?php if (!Client::canBeSelf($model) && Yii::$app->user->can('support')) { ?>
                     <li>

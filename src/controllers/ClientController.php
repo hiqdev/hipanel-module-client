@@ -66,7 +66,7 @@ class ClientController extends \hipanel\base\CrudController
             'set-credit' => [
                 'class' => 'hipanel\actions\SmartUpdateAction',
                 'success' => Yii::t('app', 'Credit changed'),
-            ],
+            ]
         ];
     }
 
@@ -75,4 +75,11 @@ class ClientController extends \hipanel\base\CrudController
         return Ref::getList('state,client');
     }
 
+//    public function actionTicketSettings()
+//    {
+//        \hipanel\modules\client\models\Client::perform('SetClassValues', ['class' => 'client,ticket_settings', 'values' => [
+//            'ticket_emails'     => $this->ticket_emails,
+//            'send_message_text' => $this->send_message_text,
+//        ]]);
+//    }
 }
