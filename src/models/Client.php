@@ -31,6 +31,9 @@ class Client extends \hipanel\base\Model
             [['id', 'language'], 'required', 'on' => 'set-language'],
             [['id', 'seller_id'], 'required', 'on' => 'set-seller'],
 
+            [['password', 'client', 'seller_id', 'email'], 'required', 'on' => ['create', 'update']],
+            [['email'], 'email', 'on' => ['create', 'update']],
+
             // Ticket settings
             [['ticket_emails'], 'string', 'max' => 128, 'on' => 'ticket-settings'],
             [['ticket_emails'], 'email', 'on' => 'ticket-settings'],
@@ -41,9 +44,14 @@ class Client extends \hipanel\base\Model
             [['autorenewal', 'whois_protected'], 'boolean', 'on' => 'domain-settings'],
 
             // Mailings
-
-            [['password', 'client', 'seller_id', 'email'], 'required', 'on' => ['create', 'update']],
-            [['email'], 'email', 'on' => ['create', 'update']],
+            // Mailings
+            [[
+                'notify_important_actions',
+                'domain_registration',
+                'send_expires_when_autorenewed',
+                'newsletters',
+                'commercial',
+            ], 'boolean', 'on' => ['mailing-settings']],
         ];
     }
 
@@ -54,10 +62,14 @@ class Client extends \hipanel\base\Model
             'seller_like' => Yii::t('app', 'Reseller'),
             'create_time' => Yii::t('app', 'Registered'),
             'update_time' => Yii::t('app', 'Last update'),
+
+            'ticket_emails' => Yii::t('app', 'Email for tickets'),
+            'send_message_text' => Yii::t('app', 'Send message text'),
         ]);
     }
 
-    public static function canBeSelf ($model) {
-        return Yii::$app->user->is($model->id) || (!Yii::$app->user->can('resell') && Yii::$app->user->can('support') && Yii::$app->user->identity->seller_id== $model->id);
+    public static function canBeSelf($model)
+    {
+        return Yii::$app->user->is($model->id) || (!Yii::$app->user->can('resell') && Yii::$app->user->can('support') && Yii::$app->user->identity->seller_id == $model->id);
     }
 }
