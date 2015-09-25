@@ -31,6 +31,12 @@ class Client extends \hipanel\base\Model
             [['id', 'language'], 'required', 'on' => 'set-language'],
             [['id', 'seller_id'], 'required', 'on' => 'set-seller'],
 
+            // Ticket settings
+//            [['ticket_emails', 'send_message_text'], 'safe', 'on' => 'ticket-settings'],
+            [['ticket_emails'], 'string', 'max' => 128, 'on' => 'ticket-settings'],
+            [['ticket_emails'], 'email', 'on' => 'ticket-settings'],
+            [['send_message_text'], 'boolean', 'on' => 'ticket-settings'],
+
             [['password', 'client', 'seller_id', 'email'], 'required', 'on' => ['create', 'update']],
             [['email'], 'email', 'on' => ['create', 'update']],
         ];

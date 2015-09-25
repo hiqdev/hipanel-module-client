@@ -59,7 +59,7 @@ FlagIconCssAsset::register($this);
                     <?= Html::a('<i class="fa fa-globe"></i>' . Yii::t('app', 'Domain settings'), '#'); ?>
                 </li>
                 <li>
-                    <?= Html::a('<i class="fa fa-ticket"></i>' . Yii::t('app', 'Ticket settings'), '#'); ?>
+                    <?= $this->render('_ticketSettingsModal', ['model' => $model]); ?>
                 </li>
                 <?php if (!Client::canBeSelf($model) && Yii::$app->user->can('support')) { ?>
                     <li>
