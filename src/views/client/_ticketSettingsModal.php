@@ -12,7 +12,7 @@ $model->scenario = 'ticket-settings';
 
 <?php Modal::begin([
     'id' => $model->scenario . '_id',
-    'size' => Modal::SIZE_LARGE,
+    'size' => Modal::SIZE_DEFAULT,
     'header' => Html::tag('h4', Yii::t('app', 'Ticket settings'), ['class' => 'modal-title']),
     'toggleButton' => [
         'tag' => 'a',
