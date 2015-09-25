@@ -21,5 +21,23 @@ $model->scenario = 'change-password';
         'class' => 'clickable',
     ],
 ]); ?>
-    Comming soon...
+<?php Pjax::begin(array_merge(Yii::$app->params['pjax'], ['enablePushState' => false])); ?>
+
+<?php $form = ActiveForm::begin([
+    'action' => Url::to('@client/mailing-settings'),
+    'options' => ['data-pjax' => '1'],
+    'enableClientValidation' => true,
+    'validateOnBlur' => true,
+    'enableAjaxValidation' => true,
+    'validationUrl' => Url::toRoute(['validate-form', 'scenario' => $model->scenario]),
+]); ?>
+
+<?= $form->field($model, 'login')->textInput(['readonly' => 'readonly']); ?>
+<?= $form->field($model, 'cpassword')->passwordInput(); ?>
+<?= $form->field($model, 'password')->widget(\hipanel\widgets\PasswordInput::className()); ?>
+<?= $form->field($model, 'repassword'); ?>
+
+<?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-default']) ?>
+<?php $form::end(); ?>
+<?php Pjax::end() ?>
 <?php Modal::end(); ?>
