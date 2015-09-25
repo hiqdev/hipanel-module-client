@@ -18,6 +18,8 @@ $this->breadcrumbs->setItems([
 
 FlagIconCssAsset::register($this);
 
+$this->registerCss('legend {font-size: 16px;}');
+
 ?>
 <div class="row">
     <div class="col-md-3">
