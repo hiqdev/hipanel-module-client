@@ -13,7 +13,7 @@ $model->scenario = 'ip-restrictions-settings';
 
 <?php Modal::begin([
     'id' => $model->scenario . '_id',
-    'size' => Modal::SIZE_LARGE,
+    'size' => Modal::SIZE_DEFAULT,
     'header' => Html::tag('h4', Yii::t('app', 'Setup IP address restrictions'), ['class' => 'modal-title']),
     'toggleButton' => [
         'tag' => 'a',
