@@ -11,12 +11,13 @@ $model->scenario = 'ticket-settings';
 ?>
 
 <?php Modal::begin([
-    'id' => 'ns-modal',
+    'id' => $model->scenario . '_id',
     'size' => Modal::SIZE_LARGE,
     'header' => Html::tag('h4', Yii::t('app', 'Ticket settings'), ['class' => 'modal-title']),
     'toggleButton' => [
         'tag' => 'a',
         'label' => '<i class="fa fa-ticket"></i>' . Yii::t('app', 'Ticket settings'),
+        'class' => 'clickable',
     ],
 ]); ?>
 
@@ -44,9 +45,7 @@ $form = ActiveForm::begin([
 </p>
 
 <?= $form->field($model, 'send_message_text')->checkbox(); ?>
-<?= Html::submitButton(Yii::t('app', 'Save {modelClass}', [
-    'modelClass' => 'Ticket Settings',
-]), ['class' => 'btn btn-default']) ?>
+<?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-default']) ?>
 
 <?php $form::end(); ?>
 <?php Pjax::end() ?>

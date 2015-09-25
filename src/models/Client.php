@@ -32,10 +32,15 @@ class Client extends \hipanel\base\Model
             [['id', 'seller_id'], 'required', 'on' => 'set-seller'],
 
             // Ticket settings
-//            [['ticket_emails', 'send_message_text'], 'safe', 'on' => 'ticket-settings'],
             [['ticket_emails'], 'string', 'max' => 128, 'on' => 'ticket-settings'],
             [['ticket_emails'], 'email', 'on' => 'ticket-settings'],
             [['send_message_text'], 'boolean', 'on' => 'ticket-settings'],
+
+            // Domain settings
+            [['nss'], 'string', 'max' => 256, 'on' => 'domain-settings'],
+            [['autorenewal', 'whois_protected'], 'boolean', 'on' => 'domain-settings'],
+
+            // Mailings
 
             [['password', 'client', 'seller_id', 'email'], 'required', 'on' => ['create', 'update']],
             [['email'], 'email', 'on' => ['create', 'update']],
