@@ -12,6 +12,7 @@
 namespace hipanel\modules\client\controllers;
 
 use hipanel\models\Ref;
+use hipanel\modules\client\models\Client;
 use Yii;
 use yii\web\Response;
 
@@ -59,6 +60,11 @@ class ClientController extends \hipanel\base\CrudController
                     'with_last_seen'      => 1,
                     'with_contact'        => 1,
                 ],
+                'data' => function ($action) {
+                    return [
+                        'ticketSettings' => $action->controller->getTicketSettings(),
+                    ];
+                }
             ],
             'validate-form' => [
                 'class' => 'hipanel\actions\ValidateFormAction',
@@ -66,7 +72,7 @@ class ClientController extends \hipanel\base\CrudController
             'set-credit' => [
                 'class' => 'hipanel\actions\SmartUpdateAction',
                 'success' => Yii::t('app', 'Credit changed'),
-            ]
+            ],
         ];
     }
 
@@ -75,11 +81,22 @@ class ClientController extends \hipanel\base\CrudController
         return Ref::getList('state,client');
     }
 
-//    public function actionTicketSettings()
-//    {
-//        \hipanel\modules\client\models\Client::perform('SetClassValues', ['class' => 'client,ticket_settings', 'values' => [
-//            'ticket_emails'     => $this->ticket_emails,
-//            'send_message_text' => $this->send_message_text,
-//        ]]);
-//    }
+    public function getTicketSettings()
+    {
+        return Client::perform('GetClassValues', ['class' => 'client,ticket_settings']);
+    }
+
+    public function actionTicketSettings()
+    {
+        $model = new Client;
+        $model->scenario = 'ticket-settings';
+        $model->load(Yii::$app->request->post());
+
+        $model::perform('SetClassValues', ['class' => 'client,ticket_settings', 'values' => [
+            'ticket_emails'     => $model->ticket_emails,
+            'send_message_text' => $model->send_message_text,
+        ]]);
+
+        return true;
+    }
 }

@@ -88,6 +88,9 @@ class Client extends \hipanel\base\Model
             'cpassword' => Yii::t('app', 'Current password'),
             'password' => Yii::t('app', 'New password'),
             'repassword' => Yii::t('app', 'Confirm password'),
+
+            'ticket_emails' => Yii::t('app', 'Email for tickets'),
+            'send_message_text' => Yii::t('app', 'Send message text'),
         ]);
     }
 
