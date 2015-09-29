@@ -54,13 +54,20 @@ $this->registerCss('legend {font-size: 16px;}');
                     <?= $this->render('_pincodeModal', ['model' => $model]); ?>
                 </li>
                 <li>
-                    <?= $this->render('_ipRestrictionsModal', ['model' => $model]); ?>
+                    <?= Modal::widget([
+                        'header' => Html::tag('h4', Yii::t('app', 'Setup IP address restrictions'), ['class' => 'modal-title']),
+                        'scenario' => 'ip-restrictions',
+                        'toggleButton' => [
+                            'tag' => 'a',
+                            'label' => '<i class="ion-network"></i>' . Yii::t('app', 'Setup IP address restrictions'),
+                            'class' => 'clickable',
+                        ],
+                    ]); ?>
                 </li>
                 <li>
                     <?= Modal::widget([
                         'header' => Html::tag('h4', Yii::t('app', 'Mailing settings'), ['class' => 'modal-title']),
                         'scenario' => 'mailing-settings',
-                        'modalFormId' => 'mailing-settings-form',
                         'toggleButton' => [
                             'tag' => 'a',
                             'label' => '<i class="fa fa-ticket"></i>' . Yii::t('app', 'Mailing settings'),
@@ -73,12 +80,20 @@ $this->registerCss('legend {font-size: 16px;}');
                 </li>
                 <li>
                     <?= $this->render('_domainSettingsModal', ['model' => $model]); ?>
+                    <?= Modal::widget([
+                        'header' => Html::tag('h4', Yii::t('app', 'Ticket settings'), ['class' => 'modal-title']),
+                        'scenario' => 'domain-settings',
+                        'toggleButton' => [
+                            'tag' => 'a',
+                            'label' => '<i class="fa fa-ticket"></i>' . Yii::t('app', 'Ticket settings'),
+                            'class' => 'clickable',
+                        ],
+                    ]); ?>
                 </li>
                 <li>
                     <?= Modal::widget([
                         'header' => Html::tag('h4', Yii::t('app', 'Ticket settings'), ['class' => 'modal-title']),
                         'scenario' => 'ticket-settings',
-                        'modalFormId' => 'ticket-settings-form',
                         'toggleButton' => [
                             'tag' => 'a',
                             'label' => '<i class="fa fa-ticket"></i>' . Yii::t('app', 'Ticket settings'),

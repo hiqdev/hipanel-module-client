@@ -6,7 +6,6 @@ use yii\helpers\Url;
 
 ?>
 <?php $form = ActiveForm::begin([
-    'action' => Url::to('@client/mailing-settings'),
     'options' => [
         'id' => 'mailing-settings-form',
     ],

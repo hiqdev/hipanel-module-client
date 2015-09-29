@@ -49,10 +49,6 @@ class ClientController extends \hipanel\base\CrudController
                 'class' => 'hipanel\actions\SmartPerformAction',
                 'success' => Yii::t('app', 'Client is unblocked'),
             ],
-//            'ticket-settings' => [
-//                'class' => 'hipanel\actions\SmartPerformAction',
-//                'success' => Yii::t('app', 'Client ticket settings changed successfully'),
-//            ],
             'view' => [
                 'class' => 'hipanel\actions\ViewAction',
                 'findOptions' => [
@@ -87,10 +83,10 @@ class ClientController extends \hipanel\base\CrudController
         $request = Yii::$app->request;
 
         if ($request->isAjax && $model->load(Yii::$app->request->post())) {
-            $model::perform('SetClassValues', ['class' => 'client,ticket_settings', 'values' => [
-                'ticket_emails' => $model->ticket_emails,
-                'send_message_text' => $model->send_message_text,
-            ]]);
+            $model::perform('SetClassValues', [
+                'class' => 'client,ticket_settings',
+                'values' => $model->dirtyAttributes,
+            ]);
             Yii::$app->end();
         }
         $model->setAttributes(Client::perform('GetClassValues', ['class' => 'client,ticket_settings']));
@@ -105,17 +101,32 @@ class ClientController extends \hipanel\base\CrudController
         $request = Yii::$app->request;
 
         if ($request->isAjax && $model->load(Yii::$app->request->post())) {
-            $model->perform('SetClassValues', ['class' => 'client,mailing', 'values' => [
-                'notify_important_actions' => $model->notify_important_actions,
-                'domain_registration' => $model->domain_registration,
-                'send_expires_when_autorenewed' => $model->send_expires_when_autorenewed,
-                'newsletters' => $model->newsletters,
-                'commercial' => $model->commercial,
-            ]]);
+            $model->perform('SetClassValues', [
+                'class' => 'client,mailing',
+                'values' => $model->dirtyAttributes
+            ]);
             Yii::$app->end();
         }
         $model->setAttributes($model->perform('GetClassValues', ['class' => 'client,mailing']));
 
         return $this->renderAjax('_mailingSettingsModal', ['model' => $model]);
+    }
+
+    public function actionIpRestrictions()
+    {
+        $model = new Client;
+        $model->scenario = 'ip-restrictions';
+        $request = Yii::$app->request;
+
+        if ($request->isAjax && $model->load(Yii::$app->request->post())) {
+            $model->perform('SetClassValues', [
+                'class' => 'client,access',
+                'values' => $model->dirtyAttributes
+            ]);
+            Yii::$app->end();
+        }
+        $model->setAttributes($model->perform('GetClassValues', ['class' => 'client,access']));
+
+        return $this->renderAjax('_ipRestrictionsModal', ['model' => $model]);
     }
 }
