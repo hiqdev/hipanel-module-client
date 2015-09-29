@@ -1,25 +1,56 @@
 <?php
 
-use hipanel\widgets\Pjax;
-use kartik\form\ActiveForm;
-use yii\bootstrap\Modal;
+use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 use yii\helpers\Url;
-use yii\web\JsExpression;
-
-$model->scenario = 'domain-settings';
 
 ?>
 
-<?php Modal::begin([
-    'id' => $model->scenario . '_id',
-    'size' => Modal::SIZE_DEFAULT,
-    'header' => Html::tag('h4', Yii::t('app', 'Domain settings'), ['class' => 'modal-title']),
-    'toggleButton' => [
-        'tag' => 'a',
-        'label' => '<i class="fa fa-globe"></i>' . Yii::t('app', 'Domain settings'),
-        'class' => 'clickable',
+<?php $form = ActiveForm::begin([
+    'options' => [
+        'id' => $model->scenario . '-form',
     ],
+    'enableClientValidation' => true,
+    'validateOnBlur' => true,
+    'enableAjaxValidation' => true,
+    'validationUrl' => Url::toRoute(['validate-form', 'scenario' => $model->scenario]),
 ]); ?>
-Comming soon...
-<?php Modal::end(); ?>
+
+<p><?= Yii::t('app', 'The settings will be automatically applied to all new registered domains.'); ?></p>
+
+<div class="row">
+    <div class="col-md-6"><?= $form->field($model, 'autorenewal')->checkbox(); ?></div>
+    <!-- /.col-md-6 -->
+    <div class="col-md-6"><?= $form->field($model, 'whois_protected')->checkbox(); ?></div>
+    <!-- /.col-md-6 -->
+</div>
+<!-- /.row -->
+
+<?= $form->field($model, 'nss'); ?>
+
+<fieldset>
+    <legend><?= Yii::t('app', 'Default contacts') ?>:</legend>
+
+    <div class="row">
+        <div class="col-md-6">
+            <?= $form->field($model, 'registrant')->dropDownList([]); ?>
+        </div>
+        <!-- /.col-md-6 -->
+        <div class="col-md-6">
+            <?= $form->field($model, 'admin')->dropDownList([]); ?>
+        </div>
+        <!-- /.col-md-6 -->
+        <div class="col-md-6">
+            <?= $form->field($model, 'tech')->dropDownList([]); ?>
+        </div>
+        <!-- /.col-md-6 -->
+        <div class="col-md-6">
+            <?= $form->field($model, 'billing')->dropDownList([]); ?>
+        </div>
+        <!-- /.col-md-6 -->
+    </div>
+    <!-- /.row -->
+</fieldset>
+
+<?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-default']) ?>
+<?php $form->end(); ?>

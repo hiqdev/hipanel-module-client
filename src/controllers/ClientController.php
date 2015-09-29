@@ -13,6 +13,7 @@ namespace hipanel\modules\client\controllers;
 
 use hipanel\models\Ref;
 use hipanel\modules\client\models\Client;
+use hipanel\modules\domain\models\Domain;
 use Yii;
 use yii\web\Response;
 
@@ -128,5 +129,39 @@ class ClientController extends \hipanel\base\CrudController
         $model->setAttributes($model->perform('GetClassValues', ['class' => 'client,access']));
 
         return $this->renderAjax('_ipRestrictionsModal', ['model' => $model]);
+    }
+
+    public function actionDomainSettings()
+    {
+        $model = new Client;
+        $model->scenario = 'domain-settings';
+        $request = Yii::$app->request;
+
+        if ($request->isAjax && $model->load(Yii::$app->request->post())) {
+            $model->perform('SetClassValues', [
+                'class' => 'client,domain_defaults',
+                'values' => $model->dirtyAttributes
+            ]);
+            Yii::$app->end();
+        }
+        $model->setAttributes($model->perform('GetClassValues', ['class' => 'client,domain_defaults']));
+
+        return $this->renderAjax('_domainSettingsModal', ['model' => $model]);
+    }
+
+    public function actionChangePassword($id = null)
+    {
+        $request = Yii::$app->request;
+        $model = $id ? $this->findModel($id) : new Client;
+        $model->scenario = 'change-password';
+        if ($request->isAjax && $model->load(Yii::$app->request->post())) {
+            $model->perform('changePassword', [
+                'class' => 'client,domain_defaults',
+                'values' => $model->dirtyAttributes
+            ]);
+            Yii::$app->end();
+        }
+
+        return $this->renderAjax('_changePasswordModal', ['model' => $model]);
     }
 }

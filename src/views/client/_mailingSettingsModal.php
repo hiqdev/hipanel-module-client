@@ -7,7 +7,7 @@ use yii\helpers\Url;
 ?>
 <?php $form = ActiveForm::begin([
     'options' => [
-        'id' => 'mailing-settings-form',
+        'id' => $model->scenario . '-form',
     ],
     'enableClientValidation' => true,
     'validateOnBlur' => true,
