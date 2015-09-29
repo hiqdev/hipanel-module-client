@@ -88,11 +88,9 @@ class ClientController extends \hipanel\base\CrudController
                 'ticket_emails' => $model->ticket_emails,
                 'send_message_text' => $model->send_message_text,
             ]]);
-        } elseif ($request->isAjax) {
-            $model->setAttributes(Client::perform('GetClassValues', ['class' => 'client,ticket_settings']));
-
-            return $this->renderPartial('_ticketSettingsModal', ['model' => $model]);
         }
-        Yii::$app->end();
+        $model->setAttributes(Client::perform('GetClassValues', ['class' => 'client,ticket_settings']));
+
+        return $this->renderPartial('_ticketSettingsModal', ['model' => $model]);
     }
 }
