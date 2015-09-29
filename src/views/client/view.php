@@ -57,7 +57,16 @@ $this->registerCss('legend {font-size: 16px;}');
                     <?= $this->render('_ipRestrictionsModal', ['model' => $model]); ?>
                 </li>
                 <li>
-                    <?= $this->render('_mailingsModal', ['model' => $model]); ?>
+                    <?= Modal::widget([
+                        'header' => Html::tag('h4', Yii::t('app', 'Mailing settings'), ['class' => 'modal-title']),
+                        'scenario' => 'mailing-settings',
+                        'modalFormId' => 'mailing-settings-form',
+                        'toggleButton' => [
+                            'tag' => 'a',
+                            'label' => '<i class="fa fa-ticket"></i>' . Yii::t('app', 'Mailing settings'),
+                            'class' => 'clickable',
+                        ],
+                    ]); ?>
                 </li>
                 <li>
                     <?= Html::a('<i class="ion-compose"></i>' . Yii::t('app', 'Change contact information'), ['@contact/update', 'id' => $model->id]) ?>

@@ -1,32 +1,15 @@
 <?php
 
-use hipanel\widgets\Pjax;
-use kartik\form\ActiveForm;
-use yii\bootstrap\Modal;
+use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 use yii\helpers\Url;
-use yii\web\JsExpression;
-
-$model->scenario = 'mailing-settings';
 
 ?>
-
-<?php Modal::begin([
-    'id' => $model->scenario . '_id',
-    'size' => Modal::SIZE_DEFAULT,
-    'header' => Html::tag('h4', Yii::t('app', 'Mailing settings'), ['class' => 'modal-title']),
-    'toggleButton' => [
-        'tag' => 'a',
-        'label' => '<i class="ion-at"></i>' . Yii::t('app', 'Mailing settings'),
-        'class' => 'clickable',
-    ],
-]); ?>
-
-<?php Pjax::begin(array_merge(Yii::$app->params['pjax'], ['enablePushState' => false])); ?>
-
 <?php $form = ActiveForm::begin([
     'action' => Url::to('@client/mailing-settings'),
-    'options' => ['data-pjax' => '1'],
+    'options' => [
+        'id' => 'mailing-settings-form',
+    ],
     'enableClientValidation' => true,
     'validateOnBlur' => true,
     'enableAjaxValidation' => true,
@@ -55,5 +38,3 @@ $model->scenario = 'mailing-settings';
 <!-- /.row -->
 <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-default']) ?>
 <?php $form::end(); ?>
-<?php Pjax::end() ?>
-<?php Modal::end(); ?>

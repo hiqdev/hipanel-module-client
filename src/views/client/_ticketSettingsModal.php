@@ -9,7 +9,6 @@ use yii\helpers\Url;
 <?php $form = ActiveForm::begin([
     'action' => Url::to('@client/ticket-settings'),
     'options' => [
-        'data-pjax' => '1',
         'id' => 'ticket-settings-form',
     ],
     'enableClientValidation' => true,

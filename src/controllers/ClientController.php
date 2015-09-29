@@ -96,6 +96,26 @@ class ClientController extends \hipanel\base\CrudController
         $model->setAttributes(Client::perform('GetClassValues', ['class' => 'client,ticket_settings']));
 
         return $this->renderAjax('_ticketSettingsModal', ['model' => $model]);
+    }
 
+    public function actionMailingSettings()
+    {
+        $model = new Client;
+        $model->scenario = 'mailing-settings';
+        $request = Yii::$app->request;
+
+        if ($request->isAjax && $model->load(Yii::$app->request->post())) {
+            $model->perform('SetClassValues', ['class' => 'client,mailing', 'values' => [
+                'notify_important_actions' => $model->notify_important_actions,
+                'domain_registration' => $model->domain_registration,
+                'send_expires_when_autorenewed' => $model->send_expires_when_autorenewed,
+                'newsletters' => $model->newsletters,
+                'commercial' => $model->commercial,
+            ]]);
+            Yii::$app->end();
+        }
+        $model->setAttributes($model->perform('GetClassValues', ['class' => 'client,mailing']));
+
+        return $this->renderAjax('_mailingSettingsModal', ['model' => $model]);
     }
 }
