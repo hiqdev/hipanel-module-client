@@ -49,6 +49,10 @@ class ClientController extends \hipanel\base\CrudController
                 'class' => 'hipanel\actions\SmartPerformAction',
                 'success' => Yii::t('app', 'Client is unblocked'),
             ],
+//            'ticket-settings' => [
+//                'class' => 'hipanel\actions\SmartPerformAction',
+//                'success' => Yii::t('app', 'Client ticket settings changed successfully'),
+//            ],
             'view' => [
                 'class' => 'hipanel\actions\ViewAction',
                 'findOptions' => [
@@ -92,5 +96,6 @@ class ClientController extends \hipanel\base\CrudController
         $model->setAttributes(Client::perform('GetClassValues', ['class' => 'client,ticket_settings']));
 
         return $this->renderAjax('_ticketSettingsModal', ['model' => $model]);
+
     }
 }

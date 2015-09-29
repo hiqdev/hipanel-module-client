@@ -5,6 +5,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 
 ?>
+
 <?php $form = ActiveForm::begin([
     'action' => Url::to('@client/ticket-settings'),
     'options' => [
