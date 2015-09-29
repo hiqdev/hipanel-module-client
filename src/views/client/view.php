@@ -67,6 +67,7 @@ $this->registerCss('legend {font-size: 16px;}');
                     <?= Modal::widget([
                         'header' => Html::tag('h4', Yii::t('app', 'Ticket settings'), ['class' => 'modal-title']),
                         'scenario' => 'ticket-settings',
+                        'modalFormId' => 'ticket-settings-form',
                         'toggleButton' => [
                             'tag' => 'a',
                             'label' => '<i class="fa fa-ticket"></i>' . Yii::t('app', 'Ticket settings'),

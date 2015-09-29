@@ -1,16 +1,16 @@
 <?php
 
-use hipanel\widgets\Pjax;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
 ?>
-<?php Pjax::begin(array_merge(Yii::$app->params['pjax'], ['enablePushState' => false])); ?>
-
 <?php $form = ActiveForm::begin([
     'action' => Url::to('@client/ticket-settings'),
-    'options' => ['data-pjax' => '1'],
+    'options' => [
+        'data-pjax' => '1',
+        'id' => 'ticket-settings-form',
+    ],
     'enableClientValidation' => true,
     'validateOnBlur' => true,
     'enableAjaxValidation' => true,
@@ -33,4 +33,3 @@ the notification is used for editing the main e-mail'); ?></p>
 
 <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-default']) ?>
 <?php $form->end(); ?>
-<?php Pjax::end() ?>
