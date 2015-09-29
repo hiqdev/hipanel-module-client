@@ -4,6 +4,7 @@ use hipanel\modules\client\grid\ClientGridView;
 use hipanel\modules\client\grid\ContactGridView;
 use hipanel\modules\client\models\Contact;
 use hipanel\widgets\Box;
+use hipanel\widgets\ModalButton;
 use hiqdev\assets\flagiconcss\FlagIconCssAsset;
 use hipanel\widgets\Modal;
 use yii\helpers\Html;
@@ -11,6 +12,7 @@ use hipanel\modules\client\models\Client;
 use hipanel\widgets\Block;
 use yii\helpers\Url;
 use yii\web\JsExpression;
+use yii\widgets\Pjax;
 
 $this->title = $model->login;
 $this->subtitle = Yii::t('app', 'Client detailed information') . ' #' . $model->id;
@@ -64,7 +66,7 @@ $this->registerCss('legend {font-size: 16px;}');
                     <?= $this->render('_domainSettingsModal', ['model' => $model]); ?>
                 </li>
                 <li>
-                    <?= Modal::widget([
+                    <?php /* echo Modal::widget([
                         'header' => Html::tag('h4', Yii::t('app', 'Ticket settings'), ['class' => 'modal-title']),
                         'scenario' => 'ticket-settings',
                         'toggleButton' => [
@@ -72,26 +74,24 @@ $this->registerCss('legend {font-size: 16px;}');
                             'label' => '<i class="fa fa-ticket"></i>' . Yii::t('app', 'Ticket settings'),
                             'class' => 'clickable',
                         ],
-                    ]); ?>
-                    <?php /*
+                    ]); */ ?>
                     <?php //= $this->render('_ticketSettingsModal', ['model' => $model]); ?>
+                    <?php Pjax::begin(array_merge(Yii::$app->params['pjax'], ['enablePushState' => false])); ?>
                     <?php $modalButton = ModalButton::begin([
                         'model' => $model,
                         'scenario' => 'ticket-settings',
-                        'submit' => ModalButton::SUBMIT_AJAX,
+                        'submit' => ModalButton::SUBMIT_PJAX,
                         'button' => [
-                            'position' => ModalButton::BUTTON_IN_MODAL,
+                            'position' => ModalButton::BUTTON_OUTSIDE,
                             'tag' => 'a',
                             'label' => '<i class="fa fa-ticket"></i>' . Yii::t('app', 'Ticket settings'),
                             'class' => 'clickable',
                         ],
                         'form' => [
                             'enableAjaxValidation' => true,
-                            'enableClientValidation' => true,
                             'validationUrl' => Url::toRoute(['validate-form', 'scenario' => 'ticket-settings']),
                         ],
                         'modal' => [
-                            'id' => 'ticket-settings' . '_id',
                             'size' => Modal::SIZE_DEFAULT,
                             'header' => Html::tag('h4', Yii::t('app', 'Ticket settings'), ['class' => 'modal-title']),
                             'footer' => [
@@ -101,11 +101,16 @@ $this->registerCss('legend {font-size: 16px;}');
                             ]
                         ],
                     ]); ?>
-                    <?php $model->setAttributes($ticketSettings) ?>
-                    <?= $this->render('_ticketSettingsModal', ['model' => $model, 'form' => $modalButton->form]); ?>
+                    <p><?= Yii::t('app', 'This section allows you to manage the settings on mail alerts'); ?></p>
+
+                    <p><?= Yii::t('app', 'In this field you can specify to receive email notifications of ticket. By default, the notification is used for editing the main e-mail'); ?></p>
+                    <?= $modalButton->form->field($model, 'ticket_emails'); ?>
+
+                    <p><?= Yii::t('app', 'If you check in the mail notification will include the text of the new message in the ticket. By default, the mail comes only acknowledgment of receipt of the ticket and a link to the ticket. WARNING! The text can include confidential information and data access'); ?></p>
+                    <?= $modalButton->form->field($model, 'send_message_text')->checkbox(); ?>
 
                     <?php $modalButton->end(); ?>
-                    */ ?>
+                    <?php Pjax::end() ?>
                 </li>
                 <?php if (!Client::canBeSelf($model) && Yii::$app->user->can('support')) { ?>
                     <li>
