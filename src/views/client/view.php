@@ -4,13 +4,13 @@ use hipanel\modules\client\grid\ClientGridView;
 use hipanel\modules\client\grid\ContactGridView;
 use hipanel\modules\client\models\Contact;
 use hipanel\widgets\Box;
-use hipanel\widgets\ModalButton;
 use hiqdev\assets\flagiconcss\FlagIconCssAsset;
-use yii\bootstrap\Modal;
+use hipanel\widgets\Modal;
 use yii\helpers\Html;
 use hipanel\modules\client\models\Client;
 use hipanel\widgets\Block;
 use yii\helpers\Url;
+use yii\web\JsExpression;
 
 $this->title = $model->login;
 $this->subtitle = Yii::t('app', 'Client detailed information') . ' #' . $model->id;
@@ -64,6 +64,16 @@ $this->registerCss('legend {font-size: 16px;}');
                     <?= $this->render('_domainSettingsModal', ['model' => $model]); ?>
                 </li>
                 <li>
+                    <?= Modal::widget([
+                        'header' => Html::tag('h4', Yii::t('app', 'Ticket settings'), ['class' => 'modal-title']),
+                        'scenario' => 'ticket-settings',
+                        'toggleButton' => [
+                            'tag' => 'a',
+                            'label' => '<i class="fa fa-ticket"></i>' . Yii::t('app', 'Ticket settings'),
+                            'class' => 'clickable',
+                        ],
+                    ]); ?>
+                    <?php /*
                     <?php //= $this->render('_ticketSettingsModal', ['model' => $model]); ?>
                     <?php $modalButton = ModalButton::begin([
                         'model' => $model,
@@ -95,6 +105,7 @@ $this->registerCss('legend {font-size: 16px;}');
                     <?= $this->render('_ticketSettingsModal', ['model' => $model, 'form' => $modalButton->form]); ?>
 
                     <?php $modalButton->end(); ?>
+                    */ ?>
                 </li>
                 <?php if (!Client::canBeSelf($model) && Yii::$app->user->can('support')) { ?>
                     <li>
