@@ -12,6 +12,7 @@
 namespace hipanel\modules\client\models;
 
 use hipanel\helpers\StringHelper;
+use hipanel\modules\domain\validators\DomainValidator;
 use hipanel\validators\IpValidator;
 use Yii;
 
@@ -43,8 +44,12 @@ class Client extends \hipanel\base\Model
             [['send_message_text'],                         'boolean',  'on' => 'ticket-settings'],
 
             // Domain settings
-            [['nss'],                                       'string',   'max' => 256, 'on' => 'domain-settings'],
-            [['autorenewal', 'whois_protected'],            'boolean',  'on' => 'domain-settings'],
+            [['nss'], 'filter', 'filter' => function($value) {
+                return (mb_strlen($value) > 0 ) ? StringHelper::mexplode($value) : [];
+            }, 'on' => 'domain-settings'],
+            [['nss'], 'each', 'rule' => [DomainValidator::className()], 'on' => 'domain-settings'],
+            [['autorenewal', 'whois_protected'], 'boolean', 'on' => 'domain-settings'],
+            [['registrant', 'admin', 'tech', 'billing'], 'safe', 'on' => 'domain-settings'],
 
             // Mailings
             [[
@@ -69,6 +74,7 @@ class Client extends \hipanel\base\Model
             [['cpassword', 'password', 'repassword'], 'required', 'on' => ['change-password']],
             [['repassword'], 'compare', 'compareAttribute' => 'password', 'on' => ['change-password']],
 
+            // Pincode
         ];
     }
 
@@ -89,6 +95,15 @@ class Client extends \hipanel\base\Model
             'cpassword' => Yii::t('app', 'Current password'),
             'password' => Yii::t('app', 'New password'),
             'repassword' => Yii::t('app', 'Confirm password'),
+
+            // Domain settings
+            'autorenewal' => Yii::t('app', 'Autorenewal'),
+            'nss' => Yii::t('app', 'Nameservers'),
+            'whois_protected' => Yii::t('app', 'WHOIS protect'),
+            'registrant' => Yii::t('app', 'Registrant contact'),
+            'admin' => Yii::t('app', 'Admin contact'),
+            'tech' => Yii::t('app', 'Tech contact'),
+            'billing' => Yii::t('app', 'Billing contact'),
         ]);
     }
 
