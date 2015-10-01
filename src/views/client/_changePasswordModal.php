@@ -14,16 +14,18 @@ $model->scenario = 'change-password';
     'options' => [
         'id' => $model->scenario . '-form',
     ],
-    'enableClientValidation' => true,
-    'validateOnBlur' => true,
     'enableAjaxValidation' => true,
     'validationUrl' => Url::toRoute(['validate-form', 'scenario' => $model->scenario]),
 ]); ?>
 
-<?= $form->field($model, 'login')->textInput(['readonly' => 'readonly']); ?>
-<?= $form->field($model, 'cpassword')->passwordInput(); ?>
-<?= $form->field($model, 'password')->widget(PasswordInput::className()); ?>
-<?= $form->field($model, 'repassword'); ?>
+<?= $form->field($model, "[$model->id]id")->hiddenInput(); ?>
+
+<?= $form->field($model, "[$model->id]login")->textInput(['readonly' => 'readonly']); ?>
+<?= $form->field($model, "[$model->id]old_password")->passwordInput(); ?>
+<?= $form->field($model, "[$model->id]new_password")->widget(PasswordInput::className(), [
+    'id' => $model->id . '_change-password-modal'
+]); ?>
+<?= $form->field($model, "[$model->id]confirm_password"); ?>
 
 <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-default']) ?>
 <?php $form::end(); ?>

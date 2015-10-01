@@ -155,10 +155,7 @@ class ClientController extends \hipanel\base\CrudController
         $model = $id ? $this->findModel($id) : new Client;
         $model->scenario = 'change-password';
         if ($request->isAjax && $model->load(Yii::$app->request->post())) {
-            $model->perform('changePassword', [
-                'class' => 'client,domain_defaults',
-                'values' => $model->dirtyAttributes
-            ]);
+            $model->perform('SetPaasword', $model->dirtyAttributes);
             Yii::$app->end();
         }
 

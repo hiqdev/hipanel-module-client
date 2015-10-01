@@ -179,3 +179,5 @@ $this->registerCss('legend {font-size: 16px;}');
         </div>
     </div>
 </div>
+
+<?php \yii\widgets\ActiveFormAsset::register($this) ?>

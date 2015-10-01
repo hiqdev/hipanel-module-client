@@ -71,8 +71,14 @@ class Client extends \hipanel\base\Model
             [['allowed_ips', 'sshftp_ips'], 'each', 'rule' => [IpValidator::className()], 'on' => ['ip-restrictions']],
 
             // Change password
-            [['cpassword', 'password', 'repassword'], 'required', 'on' => ['change-password']],
-            [['repassword'], 'compare', 'compareAttribute' => 'password', 'on' => ['change-password']],
+            [['old_password', 'new_password', 'confirm_password'], 'required', 'on' => ['change-password']],
+            [['old_password'], function ($attribute, $params) {
+                $response = $this->perform('CheckPassword', [$attribute => $this->$attribute, 'login' => $this->login]);
+                if ($response['check'] != 'ok') {
+                    $this->addError($attribute, 'The password is incorrect.');
+                }
+            }, 'on' => ['change-password']],
+            [['confirm_password'], 'compare', 'compareAttribute' => 'new_password', 'on' => ['change-password']],
 
             // Pincode
         ];
@@ -92,9 +98,9 @@ class Client extends \hipanel\base\Model
             'allowed_ips' => Yii::t('app', 'Allowed IPs for panel login'),
             'sshftp_ips' => Yii::t('app', 'Default allowed IPs for SSH/FTP accounts'),
 
-            'cpassword' => Yii::t('app', 'Current password'),
-            'password' => Yii::t('app', 'New password'),
-            'repassword' => Yii::t('app', 'Confirm password'),
+            'old_password' => Yii::t('app', 'Current password'),
+            'new_password' => Yii::t('app', 'New password'),
+            'confirm_password' => Yii::t('app', 'Confirm password'),
 
             // Domain settings
             'autorenewal' => Yii::t('app', 'Autorenewal'),
