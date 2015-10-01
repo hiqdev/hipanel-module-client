@@ -6,8 +6,6 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\web\JsExpression;
 
-$model->scenario = 'change-password';
-
 ?>
 
 <?php $form = ActiveForm::begin([
@@ -18,7 +16,7 @@ $model->scenario = 'change-password';
     'validationUrl' => Url::toRoute(['validate-form', 'scenario' => $model->scenario]),
 ]); ?>
 
-<?= $form->field($model, "[$model->id]id")->hiddenInput(); ?>
+<?= Html::activeHiddenInput($model, "[$model->id]id"); ?>
 
 <?= $form->field($model, "[$model->id]login")->textInput(['readonly' => 'readonly']); ?>
 <?= $form->field($model, "[$model->id]old_password")->passwordInput(); ?>

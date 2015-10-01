@@ -13,6 +13,7 @@ namespace hipanel\modules\client\controllers;
 
 use hipanel\models\Ref;
 use hipanel\modules\client\models\Client;
+use hipanel\modules\client\models\Contact;
 use hipanel\modules\domain\models\Domain;
 use Yii;
 use yii\web\Response;
@@ -77,83 +78,90 @@ class ClientController extends \hipanel\base\CrudController
         return Ref::getList('state,client');
     }
 
-    public function actionTicketSettings()
+    public function actionTicketSettings($id)
     {
-        $model = new Client;
+        $model = $this->findModel($id);
         $model->scenario = 'ticket-settings';
         $request = Yii::$app->request;
 
         if ($request->isAjax && $model->load(Yii::$app->request->post())) {
             $model::perform('SetClassValues', [
+                'id' => $id,
                 'class' => 'client,ticket_settings',
                 'values' => $model->dirtyAttributes,
             ]);
             Yii::$app->end();
         }
-        $model->setAttributes(Client::perform('GetClassValues', ['class' => 'client,ticket_settings']));
+        $model->setAttributes(Client::perform('GetClassValues', ['id' => $id, 'class' => 'client,ticket_settings']));
 
         return $this->renderAjax('_ticketSettingsModal', ['model' => $model]);
     }
 
-    public function actionMailingSettings()
+    public function actionMailingSettings($id)
     {
-        $model = new Client;
+        $model = $this->findModel($id);
         $model->scenario = 'mailing-settings';
         $request = Yii::$app->request;
 
         if ($request->isAjax && $model->load(Yii::$app->request->post())) {
             $model->perform('SetClassValues', [
+                'id' => $id,
                 'class' => 'client,mailing',
                 'values' => $model->dirtyAttributes
             ]);
             Yii::$app->end();
         }
-        $model->setAttributes($model->perform('GetClassValues', ['class' => 'client,mailing']));
+        $model->setAttributes($model->perform('GetClassValues', ['id' => $id, 'class' => 'client,mailing']));
 
         return $this->renderAjax('_mailingSettingsModal', ['model' => $model]);
     }
 
-    public function actionIpRestrictions()
+    public function actionIpRestrictions($id)
     {
-        $model = new Client;
+        $model = $this->findModel($id);
         $model->scenario = 'ip-restrictions';
         $request = Yii::$app->request;
 
         if ($request->isAjax && $model->load(Yii::$app->request->post())) {
             $model->perform('SetClassValues', [
+                'id' => $id,
                 'class' => 'client,access',
                 'values' => $model->dirtyAttributes
             ]);
             Yii::$app->end();
         }
-        $model->setAttributes($model->perform('GetClassValues', ['class' => 'client,access']));
+        $model->setAttributes($model->perform('GetClassValues', ['id' => $id, 'class' => 'client,access']));
 
         return $this->renderAjax('_ipRestrictionsModal', ['model' => $model]);
     }
 
-    public function actionDomainSettings()
+    public function actionDomainSettings($id)
     {
-        $model = new Client;
+        $model = $this->findModel($id);
         $model->scenario = 'domain-settings';
         $request = Yii::$app->request;
 
+        $contacts = Contact::perform('GetList', ['limit' => '500'], true);
+
         if ($request->isAjax && $model->load(Yii::$app->request->post())) {
             $model->perform('SetClassValues', [
+                'id' => $id,
                 'class' => 'client,domain_defaults',
                 'values' => $model->dirtyAttributes
             ]);
             Yii::$app->end();
         }
-        $model->setAttributes($model->perform('GetClassValues', ['class' => 'client,domain_defaults']));
+        $model->setAttributes($model->perform('GetClassValues', ['id' => $id, 'class' => 'client,domain_defaults']));
 
-        return $this->renderAjax('_domainSettingsModal', ['model' => $model]);
+        return $this->renderAjax('_domainSettingsModal', ['model' => $model, 'contacts' => $contacts]);
     }
 
-    public function actionChangePassword($id = null)
+    public function actionChangePassword($id)
     {
-        $request = Yii::$app->request;
-        $model = $id ? $this->findModel($id) : new Client;
+        $model = $this->findModel($id);
         $model->scenario = 'change-password';
+        $request = Yii::$app->request;
+
         if ($request->isAjax && $model->load(Yii::$app->request->post())) {
             $model->perform('SetPaasword', $model->dirtyAttributes);
             Yii::$app->end();

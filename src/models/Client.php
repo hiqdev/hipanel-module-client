@@ -71,14 +71,14 @@ class Client extends \hipanel\base\Model
             [['allowed_ips', 'sshftp_ips'], 'each', 'rule' => [IpValidator::className()], 'on' => ['ip-restrictions']],
 
             // Change password
-            [['old_password', 'new_password', 'confirm_password'], 'required', 'on' => ['change-password']],
+            [['login', 'old_password', 'new_password', 'confirm_password'], 'required', 'on' => ['change-password']],
             [['old_password'], function ($attribute, $params) {
                 $response = $this->perform('CheckPassword', [$attribute => $this->$attribute, 'login' => $this->login]);
                 if ($response['check'] != 'ok') {
                     $this->addError($attribute, 'The password is incorrect.');
                 }
             }, 'on' => ['change-password']],
-            [['confirm_password'], 'compare', 'compareAttribute' => 'new_password', 'on' => ['change-password']],
+            [['confirm_password'], 'compare', 'compareAttribute' => 'new_password', 'enableClientValidation' => false, 'on' => ['change-password']],
 
             // Pincode
         ];

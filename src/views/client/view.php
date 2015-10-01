@@ -48,7 +48,6 @@ $this->registerCss('legend {font-size: 16px;}');
         <div class="profile-usermenu">
             <ul class="nav">
                 <li>
-                    <?php //= $this->render('_changePasswordModal', ['model' => $model]); ?>
                     <?= Modal::widget([
                         'header' => Html::tag('h4', Yii::t('app', 'Change password'), ['class' => 'modal-title']),
                         'scenario' => 'change-password',
@@ -67,6 +66,7 @@ $this->registerCss('legend {font-size: 16px;}');
                     <?= Modal::widget([
                         'header' => Html::tag('h4', Yii::t('app', 'Setup IP address restrictions'), ['class' => 'modal-title']),
                         'scenario' => 'ip-restrictions',
+                        'actionUrl' => ['ip-restrictions', 'id' => $model->id],
                         'toggleButton' => [
                             'tag' => 'a',
                             'label' => '<i class="ion-network"></i>' . Yii::t('app', 'Setup IP address restrictions'),
@@ -78,6 +78,7 @@ $this->registerCss('legend {font-size: 16px;}');
                     <?= Modal::widget([
                         'header' => Html::tag('h4', Yii::t('app', 'Mailing settings'), ['class' => 'modal-title']),
                         'scenario' => 'mailing-settings',
+                        'actionUrl' => ['mailing-settings', 'id' => $model->id],
                         'toggleButton' => [
                             'tag' => 'a',
                             'label' => '<i class="fa fa-ticket"></i>' . Yii::t('app', 'Mailing settings'),
@@ -92,6 +93,7 @@ $this->registerCss('legend {font-size: 16px;}');
                     <?= Modal::widget([
                         'header' => Html::tag('h4', Yii::t('app', 'Domain settings'), ['class' => 'modal-title']),
                         'scenario' => 'domain-settings',
+                        'actionUrl' => ['domain-settings', 'id' => $model->id],
                         'toggleButton' => [
                             'tag' => 'a',
                             'label' => '<i class="fa fa-globe"></i>' . Yii::t('app', 'Domain settings'),
@@ -103,6 +105,7 @@ $this->registerCss('legend {font-size: 16px;}');
                     <?= Modal::widget([
                         'header' => Html::tag('h4', Yii::t('app', 'Ticket settings'), ['class' => 'modal-title']),
                         'scenario' => 'ticket-settings',
+                        'actionUrl' => ['ticket-settings', 'id' => $model->id],
                         'toggleButton' => [
                             'tag' => 'a',
                             'label' => '<i class="fa fa-ticket"></i>' . Yii::t('app', 'Ticket settings'),
@@ -179,5 +182,3 @@ $this->registerCss('legend {font-size: 16px;}');
         </div>
     </div>
 </div>
-
-<?php \yii\widgets\ActiveFormAsset::register($this) ?>

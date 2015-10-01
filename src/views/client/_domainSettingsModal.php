@@ -3,7 +3,6 @@
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 use yii\helpers\Url;
-
 ?>
 
 <?php $form = ActiveForm::begin([
@@ -33,19 +32,19 @@ use yii\helpers\Url;
 
     <div class="row">
         <div class="col-md-6">
-            <?= $form->field($model, 'registrant')->dropDownList([]); ?>
+            <?= $form->field($model, 'registrant')->dropDownList($contacts, []); ?>
         </div>
         <!-- /.col-md-6 -->
         <div class="col-md-6">
-            <?= $form->field($model, 'admin')->dropDownList([]); ?>
+            <?= $form->field($model, 'admin')->dropDownList($contacts, []); ?>
         </div>
         <!-- /.col-md-6 -->
         <div class="col-md-6">
-            <?= $form->field($model, 'tech')->dropDownList([]); ?>
+            <?= $form->field($model, 'tech')->dropDownList($contacts, []); ?>
         </div>
         <!-- /.col-md-6 -->
         <div class="col-md-6">
-            <?= $form->field($model, 'billing')->dropDownList([]); ?>
+            <?= $form->field($model, 'billing')->dropDownList($contacts, []); ?>
         </div>
         <!-- /.col-md-6 -->
     </div>
