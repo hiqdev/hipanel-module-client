@@ -89,7 +89,7 @@ JS
 
 <?php $form = ActiveForm::begin([
     'id'                     => 'contact-form',
-    'action'                 => $this->context->action->id === 'copy' ? Url::toRoute('create') : '',
+    'action'                 => $model->scenario === 'copy' ? Url::toRoute('create') : '',
     'enableClientValidation' => true,
     'validateOnBlur'         => true,
     'enableAjaxValidation'   => true,
@@ -100,7 +100,7 @@ JS
 
 <?php endif; ?>
 <div class="row">
-    <?= Html::activeHiddenInput($model, 'pincode'); ?>
+    <?= $form->field($model, 'pincode')->hiddenInput()->label(false); ?>
 
     <div class="col-md-12">
         <?php Box::begin(); ?>
@@ -111,6 +111,9 @@ JS
 
     <div class="col-md-6">
         <?php Box::begin(['title' => Yii::t('app', 'Contacts details')]) ?>
+        <?php if ($model->scenario === 'update') : ?>
+            <?= $form->field($model, 'id')->hiddenInput()->label(false); ?>
+        <?php endif; ?>
         <?= $form->field($model, 'first_name'); ?>
         <?= $form->field($model, 'last_name'); ?>
         <?= $form->field($model, 'email'); ?>
@@ -159,7 +162,7 @@ JS
             <?= $form->field($model, 'birth_date')->widget(DatePicker::className(), [
                 'removeButton'  => false,
                 'pluginOptions' => [
-                    'format'    => 'dd.mm.yyyy',
+                    'format'    => 'yyyy-mm-dd',
                     'autoclose' => true,
                     'clearBtn'  => true,
                 ],
@@ -168,8 +171,9 @@ JS
             <?= $form->field($model, 'passport_no'); ?>
             <?= $form->field($model, 'passport_date')->widget(DatePicker::className(), [
                 'removeButton'  => false,
+                'options'       => ['placeholder' => Yii::t('app', 'Select date'), ],
                 'pluginOptions' => [
-                    'format'    => 'dd.mm.yyyy',
+                    'format'    => 'yyyy-mm-dd',
                     'autoclose' => true,
                     'clearBtn'  => true,
                 ],

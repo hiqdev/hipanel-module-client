@@ -24,23 +24,23 @@ class Contact extends \hipanel\base\Model
     public function rules()
     {
         return [
-            [['id', 'obj_id', 'client_id', 'seller_id'], 'safe'],
-            [['type_id', 'state_id'], 'safe'],
-            [['client_name'], 'safe'],
-            [['create_time', 'update_time', 'created_date', 'updated_date'], 'safe'],
-            [['client', 'seller', 'state', 'type'], 'safe'],
-            [['email', 'abuse_email'], 'email'],
-            [['country', 'country_name', 'province', 'province_name'], 'safe'],
-            [['postal_code'], 'safe'],
-            [['city', 'street1', 'street2', 'street3'], 'safe'],
-            [['voice_phone', 'fax_phone'], 'safe'],
-            [['icq', 'skype', 'jabber'], 'safe'],
-            [['roid', 'epp_id', 'remoteid', 'other_messenger'], 'safe'],
-            [['name', 'first_name', 'last_name'], 'string'],
-            [['birth_date', 'passport_date'], 'date'],
-            [['passport_no', 'passport_by', 'organization', 'password'], 'safe'],
-            [['remote'], 'safe'],
-            [['email_confirmed'], 'boolean'],
+            [['id', 'obj_id', 'client_id', 'seller_id'],                        'integer'],
+            [['type_id', 'state_id'],                                           'integer'],
+            [['client_name'],                                                   'safe'],
+            [['create_time', 'update_time', 'created_date', 'updated_date'],    'date'],
+            [['client', 'seller', 'state', 'type'],                             'safe'],
+            [['email', 'abuse_email'],                                          'email'],
+            [['country', 'country_name', 'province', 'province_name'],          'safe'],
+            [['postal_code'],                                                   'safe'],
+            [['city', 'street1', 'street2', 'street3'],                         'safe'],
+            [['voice_phone', 'fax_phone'],                                      'safe'],
+            [['icq', 'skype', 'jabber'],                                        'safe'],
+            [['roid', 'epp_id', 'remoteid', 'other_messenger'],                 'safe'],
+            [['name', 'first_name', 'last_name'],                               'string'],
+            [['birth_date', 'passport_date'],                                   'safe'],
+            [['passport_no', 'passport_by', 'organization', 'password'],        'safe'],
+            [['remote'],                                                        'safe'],
+            [['email_confirmed'],                                               'boolean'],
             [['used_count'], 'integer'],
             [['voice_phone', 'fax_phone'], 'match', 'pattern' => '/^[+]?[()0-9 .-]{3,20}$/', 'message' => Yii::t('app', 'This field must contains phone number in international format.')],
             [['first_name', 'last_name', 'email', 'street1', 'city', 'country', 'postal_code', 'postal_code', 'voice_phone'], 'required', 'on' => ['create', 'update']],
@@ -48,11 +48,10 @@ class Contact extends \hipanel\base\Model
             [['pincode'], 'safe', 'on' => ['update']],
 
             [['isresident'], 'boolean', 'trueValue' => true, 'falseValue' => false],
+            [['birth_date', 'passport_date'],   'safe', 'on' => ['update', 'create']],
             [[
                 // Для регистрации доменов в зоне RU в качестве физического лица
-                'birth_date',
                 'passport_no',
-                'passport_date',
                 'passport_by',
 
                 // Для регистрации доменов в зоне RU в качестве юридического лица
@@ -66,6 +65,7 @@ class Contact extends \hipanel\base\Model
             [['voice_phone_confirm_date', 'fax_phone_confirm_date', 'email_confirm_date', 'address_confirm_date'], 'safe'],
             [['name_confirm_date'],                                                 'safe'],
             [['files'],                                                             'safe'], /// TODO
+            [['id'],                                                                'required', 'on' => ['delete', 'update']],
         ];
     }
 

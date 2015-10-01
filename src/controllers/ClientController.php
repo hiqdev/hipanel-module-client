@@ -37,7 +37,7 @@ class ClientController extends \hipanel\base\CrudController
                 'success'   => Yii::t('app', 'Client is updated'),
             ],
             'delete' => [
-                'class' => 'hipanel\actions\SmartPerformAction',
+                'class' => 'hipanel\actions\SmartDeleteAction',
                 'success' => Yii::t('app', 'Client is deleted'),
             ],
             'enable-block' => [

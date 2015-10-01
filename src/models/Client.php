@@ -22,28 +22,29 @@ class Client extends \hipanel\base\Model
     public function rules()
     {
         return [
-            [['id', 'seller_id', 'state_id', 'type_id', 'tariff_id', 'profile_id'], 'integer'],
-            [['login', 'seller', 'state', 'type', 'tariff', 'profile'], 'safe'],
-            [['state_label', 'type_label'], 'safe'],
-            [['balance', 'credit'], 'number'],
-            [['count', 'confirm_url', 'language', 'comment', 'name', 'contact', 'currency'], 'safe'],
-            [['create_time', 'update_time'], 'date'],
-            [['id', 'credit'], 'required', 'on' => 'set-credit'],
-            [['id', 'type', 'comment'], 'required', 'on' => ['set-block', 'enable-block', 'disable-block']],
-            [['id', 'language'], 'required', 'on' => 'set-language'],
-            [['id', 'seller_id'], 'required', 'on' => 'set-seller'],
+            [['id', 'seller_id', 'state_id', 'type_id', 'tariff_id', 'profile_id'],             'integer'],
+            [['login', 'seller', 'state', 'type', 'tariff', 'profile'],                         'safe'],
+            [['state_label', 'type_label'],                                                     'safe'],
+            [['balance', 'credit'],                                                             'number'],
+            [['count', 'confirm_url', 'language', 'comment', 'name', 'contact', 'currency'],    'safe'],
+            [['create_time', 'update_time'],                                                    'date'],
 
-            [['password', 'client', 'seller_id', 'email'], 'required', 'on' => ['create', 'update']],
-            [['email'], 'email', 'on' => ['create', 'update']],
+            [['id', 'credit'],                              'required', 'on' => 'set-credit'],
+            [['id', 'type', 'comment'],                     'required', 'on' => ['set-block', 'enable-block', 'disable-block']],
+            [['id', 'language'],                            'required', 'on' => 'set-language'],
+            [['id', 'seller_id'],                           'required', 'on' => 'set-seller'],
+
+            [['password', 'client', 'seller_id', 'email'],  'required', 'on' => ['create', 'update']],
+            [['email'],                                     'email',    'on' => ['create', 'update']],
 
             // Ticket settings
-            [['ticket_emails'], 'string', 'max' => 128, 'on' => 'ticket-settings'],
-            [['ticket_emails'], 'email', 'on' => 'ticket-settings'],
-            [['send_message_text'], 'boolean', 'on' => 'ticket-settings'],
+            [['ticket_emails'],                             'string',   'max' => 128, 'on' => 'ticket-settings'],
+            [['ticket_emails'],                             'email',    'on' => 'ticket-settings'],
+            [['send_message_text'],                         'boolean',  'on' => 'ticket-settings'],
 
             // Domain settings
-            [['nss'], 'string', 'max' => 256, 'on' => 'domain-settings'],
-            [['autorenewal', 'whois_protected'], 'boolean', 'on' => 'domain-settings'],
+            [['nss'],                                       'string',   'max' => 256, 'on' => 'domain-settings'],
+            [['autorenewal', 'whois_protected'],            'boolean',  'on' => 'domain-settings'],
 
             // Mailings
             [[
