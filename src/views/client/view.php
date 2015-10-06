@@ -58,6 +58,17 @@ $this->registerCss('legend {font-size: 16px;}');
                             'class' => 'clickable',
                         ],
                     ]); ?>
+                    <?= SettingsModal::widget([
+                        'title' 
+                        'header' => Html::tag('h4', Yii::t('app', 'Change password'), ['class' => 'modal-title']),
+                        'scenario' => 'change-password',
+                        'actionUrl' => ['change-password', 'id' => $model->id],
+                        'toggleButton' => [
+                            'tag' => 'a',
+                            'label' => '<i class="ion-unlocked"></i>' . Yii::t('app', 'Change password'),
+                            'class' => 'clickable',
+                        ],
+                    ]); ?>
                 </li>
                 <li>
                     <?= $this->render('_pincodeModal', ['model' => $model]); ?>
@@ -89,31 +100,35 @@ $this->registerCss('legend {font-size: 16px;}');
                 <li>
                     <?= Html::a('<i class="ion-compose"></i>' . Yii::t('app', 'Change contact information'), ['@contact/update', 'id' => $model->id]) ?>
                 </li>
-                <li>
-                    <?= Modal::widget([
-                        'header' => Html::tag('h4', Yii::t('app', 'Domain settings'), ['class' => 'modal-title']),
-                        'scenario' => 'domain-settings',
-                        'actionUrl' => ['domain-settings', 'id' => $model->id],
-                        'toggleButton' => [
-                            'tag' => 'a',
-                            'label' => '<i class="fa fa-globe"></i>' . Yii::t('app', 'Domain settings'),
-                            'class' => 'clickable',
-                        ],
-                    ]); ?>
-                </li>
-                <li>
-                    <?= Modal::widget([
-                        'header' => Html::tag('h4', Yii::t('app', 'Ticket settings'), ['class' => 'modal-title']),
-                        'scenario' => 'ticket-settings',
-                        'actionUrl' => ['ticket-settings', 'id' => $model->id],
-                        'toggleButton' => [
-                            'tag' => 'a',
-                            'label' => '<i class="fa fa-ticket"></i>' . Yii::t('app', 'Ticket settings'),
-                            'class' => 'clickable',
-                        ],
-                    ]); ?>
-                </li>
-                <?php if (!Client::canBeSelf($model) && Yii::$app->user->can('support')) { ?>
+                <?php if (Yii::getAlias('@domain', false)) { ?>
+                    <li>
+                        <?= Modal::widget([
+                            'header' => Html::tag('h4', Yii::t('app', 'Domain settings'), ['class' => 'modal-title']),
+                            'scenario' => 'domain-settings',
+                            'actionUrl' => ['domain-settings', 'id' => $model->id],
+                            'toggleButton' => [
+                                'tag' => 'a',
+                                'label' => '<i class="fa fa-globe"></i>' . Yii::t('app', 'Domain settings'),
+                                'class' => 'clickable',
+                            ],
+                        ]) ?>
+                    </li>
+                <?php } ?>
+                <?php if (Yii::getAlias('@ticket', false)) { ?>
+                    <li>
+                        <?= Modal::widget([
+                            'header' => Html::tag('h4', Yii::t('app', 'Ticket settings'), ['class' => 'modal-title']),
+                            'scenario' => 'ticket-settings',
+                            'actionUrl' => ['ticket-settings', 'id' => $model->id],
+                            'toggleButton' => [
+                                'tag' => 'a',
+                                'label' => '<i class="fa fa-ticket"></i>' . Yii::t('app', 'Ticket settings'),
+                                'class' => 'clickable',
+                            ],
+                        ]) ?>
+                    </li>
+                <?php } ?>
+                <?php if (Yii::$app->user->can('support') && Yii::$app->user->not($model->id)) { ?>
                     <li>
                         <?= Block::widget([
                             'model'     => $model,
