@@ -3,6 +3,37 @@ hiqdev/hipanel-module-client commits history
 
 ## 0.0.1 Under development
 
+- Added client settings modal forms
+    - 915e1ce 2015-10-01 Fix loading modal forms (andreyklochok@gmail.com)
+    - df3e881 2015-10-01 Add change password validation (andreyklochok@gmail.com)
+    - 6a22a00 2015-10-01 x merge: fix conflicts (bladeroot@gmail.com)
+    - f29402e 2015-10-01 x fix actions; * improve code, refactoring (bladeroot@gmail.com)
+    - 2f65a4c 2015-09-29 Numerios changes (andreyklochok@gmail.com)
+    - 13da8d0 2015-09-29 Add ipRestrictions settings change (andreyklochok@gmail.com)
+    - 9816a65 2015-09-29 Add mailing settings saved functionality (andreyklochok@gmail.com)
+    - f6174b3 2015-09-29 Fix. Remove useless code (andreyklochok@gmail.com)
+    - 0f4d5d0 2015-09-29 Merge conflict resolve (andreyklochok@gmail.com)
+    - 112dba2 2015-09-29 Add ticket settings functionality (andreyklochok@gmail.com)
+    - 47775a1 2015-09-29 Ticket Mail settings on client/view - try (d.naumenko.a@gmail.com)
+    - 742bc15 2015-09-29 Remove yii end (andreyklochok@gmail.com)
+    - 473a0ba 2015-09-29 Some changes in Modal forms (andreyklochok@gmail.com)
+    - 8180a5f 2015-09-28 Merge conflict resolve\ (andreyklochok@gmail.com)
+    - 3820a03 2015-09-28 Work with modal setting forms (andreyklochok@gmail.com)
+    - 17525d5 2015-09-25 ClientGridView->credit now uses RemoteXeditable (d.naumenko.a@gmail.com)
+    - 38388e2 2015-09-25 Fix css. Get a smaller the lagend tag (andreyklochok@gmail.com)
+    - 38605a4 2015-09-25 Change modal form size (andreyklochok@gmail.com)
+    - 297e27c 2015-09-25 Add ipRestriction form (andreyklochok@gmail.com)
+    - 99d2275 2015-09-25 Add ChangePassword form (andreyklochok@gmail.com)
+    - e7fe872 2015-09-25 Add validation rules to settings modal forms (andreyklochok@gmail.com)
+    - c6c60e5 2015-09-25 Add mailing form (andreyklochok@gmail.com)
+    - 912158f 2015-09-25 Add more suitable size to modal forms (andreyklochok@gmail.com)
+    - 8e2de9c 2015-09-25 Add initial modal forms to maing settings functionality (andreyklochok@gmail.com)
+    - f19763c 2015-09-25 Add initial settings management to client page (andreyklochok@gmail.com)
+    - da35b3b 2015-09-24 * move modal window block to widget (bladeroot@gmail.com)
+    - d9f1dc1 2015-09-24 x merge (bladeroot@gmail.com)
+    - f6b0a38 2015-09-24 x fixes: use not static funxtion; add scenario (bladeroot@gmail.com)
+- Fixed SidebarMenu
+    - a2c26f2 2015-09-24 * SidebarMenu 'where' to be straight after dashboard (sol@hiqdev.com)
 - Added client blocking
     - b2c4417 2015-09-24 + blocking from BladeRoot (sol@hiqdev.com)
 - Fixed client grid: improved look
@@ -15,6 +46,7 @@ hiqdev/hipanel-module-client commits history
     - fb6ec6f 2015-09-22 + urlCallback for balance column for link to client bills (sol@hiqdev.com)
     - 4beab1c 2015-09-21 * change view to get columns from grid; change action column in grid: default clients contact could not be deleted (bladeroot@gmail.com)
 - Fixed translation and minor issues
+    - c69b56b 2015-10-06 moved DomainValidator to hipanel-core (sol@hiqdev.com)
     - 73ec523 2015-09-21 got rid of Re::l (sol@hiqdev.com)
     - 84367d6 2015-09-17 * improve language pack; - remove unnessary lines (bladeroot@gmail.com)
     - 876ddbd 2015-09-16 * improve language pack (bladeroot@gmail.com)

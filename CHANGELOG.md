@@ -3,6 +3,8 @@ hiqdev/hipanel-module-client changelog
 
 ## 0.0.1 Under development
 
+- Added client settings modal forms
+- Fixed SidebarMenu
 - Added client blocking
 - Fixed client grid: improved look
 - Fixed translation and minor issues
