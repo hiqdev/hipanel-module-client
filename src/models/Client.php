@@ -12,7 +12,7 @@
 namespace hipanel\modules\client\models;
 
 use hipanel\helpers\StringHelper;
-use hipanel\modules\domain\validators\DomainValidator;
+use hipanel\validators\DomainValidator;
 use hipanel\validators\IpValidator;
 use Yii;
 
