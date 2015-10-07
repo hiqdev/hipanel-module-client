@@ -160,7 +160,7 @@ $this->registerCss('legend {font-size: 16px;}');
                     'boxed' => false,
                     'model' => new Contact($model->contact),
                     'columns' => [
-                        'first_name', 'last_name',
+                        'first_name', 'last_name', 'organization',
                         'email', 'abuse_email', 'messengers',
                         'voice_phone', 'fax_phone',
                         'street', 'city', 'province', 'postal_code', 'country',
