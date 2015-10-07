@@ -88,7 +88,7 @@ $this->registerCss('legend {font-size: 16px;}');
                         <?= SettingsModal::widget([
                             'model'    => $model,
                             'title'    => Yii::t('app', 'Domain settings'),
-                            'icon'     => 'fa-globe',
+                            'icon'     => 'fa-globe fa-fw',
                             'scenario' => 'domain-settings',
                         ]) ?>
                     </li>
