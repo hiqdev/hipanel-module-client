@@ -1,21 +1,23 @@
 <?php
 
+use hipanel\modules\client\models\Client;
+use hipanel\widgets\BlockModalButton;
 use hiqdev\assets\flagiconcss\FlagIconCssAsset;
 use hipanel\modules\client\grid\ClientGridView;
 use hipanel\modules\client\grid\ContactGridView;
-use hipanel\modules\client\models\Client;
 use hipanel\modules\client\models\Contact;
 use hipanel\modules\finance\models\Purse;
 use hipanel\modules\finance\grid\PurseGridView;
 use hipanel\widgets\Box;
-use hipanel\widgets\ModalButton;
-use hipanel\widgets\Block;
 use hipanel\widgets\SettingsModal;
 use hipanel\helpers\FontIcon;
 use yii\helpers\Html;
-use yii\helpers\Url;
-use yii\web\JsExpression;
-use yii\widgets\Pjax;
+
+
+/**
+ * @var $model Client
+ */
+
 
 $this->title = $model->login;
 $this->subtitle = Yii::t('app', 'Client detailed information') . ' #' . $model->id;
@@ -107,13 +109,17 @@ $this->registerCss('legend {font-size: 16px;}');
                 <?php } ?>
                 <?php if (Yii::$app->user->can('support') && Yii::$app->user->not($model->id)) { ?>
                     <li>
-                        <?= Block::widget([
+                        <?= BlockModalButton::widget([
                             'model'     => $model,
-                            'action'    => $model->state == 'blocked' ? 'disable' : 'enable',
-                            'header'    => Yii::t('app', 'Confirm {state, plural, =0{block} other{unblock}} client {client}', [
-                                'client'    => $model->login,
-                                'state'     => $model->state == 'blocked'
-                            ]),
+                            'action'    => $model->state === $model::STATE_BLOCKED ? BlockModalButton::ACTION_DISABLE : BlockModalButton::ACTION_ENABLE,
+                            'header'    => [
+                                BlockModalButton::ACTION_ENABLE => [
+                                    'label' => Yii::t('app', 'Are you sure you want to block client {login}', ['login' => $model->login])
+                                ],
+                                BlockModalButton::ACTION_DISABLE => [
+                                    'label' => Yii::t('app', 'Are you sure you want to unblock client {login}', ['login' => $model->login])
+                                ]
+                            ]
                         ]); ?>
                     </li>
                 <?php } ?>

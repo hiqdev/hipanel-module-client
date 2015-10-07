@@ -11,7 +11,6 @@
 
 use hipanel\grid\GridView;
 use yii\helpers\Html;
-use yii\helpers\Url;
 use yii\widgets\Pjax;
 
 $this->title = Yii::t('app', ucfirst($action)) . ' ' . Yii::t('app', 'block');
@@ -44,7 +43,7 @@ $widgetIndexConfig = [
             },
         ],
         [
-            'label'  => Yii::t('app', 'block reason'),
+            'label'  => Yii::t('app', 'Block reason'),
             'format' => 'raw',
             'value'  => function ($data) {
                 return Html::dropDownList("ids[{$data->id}][Client][type]", '', \hipanel\models\Ref::getList('type,block', true), ['promt' => Yii::t('app', 'Select block reason')]);
