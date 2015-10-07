@@ -1,15 +1,16 @@
 <?php
 
+use hiqdev\assets\flagiconcss\FlagIconCssAsset;
 use hipanel\modules\client\grid\ClientGridView;
 use hipanel\modules\client\grid\ContactGridView;
+use hipanel\modules\client\models\Client;
 use hipanel\modules\client\models\Contact;
 use hipanel\widgets\Box;
 use hipanel\widgets\ModalButton;
-use hiqdev\assets\flagiconcss\FlagIconCssAsset;
-use hipanel\widgets\Modal;
-use yii\helpers\Html;
-use hipanel\modules\client\models\Client;
 use hipanel\widgets\Block;
+use hipanel\widgets\SettingsModal;
+use hipanel\helpers\FontIcon;
+use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\web\JsExpression;
 use yii\widgets\Pjax;
@@ -48,83 +49,57 @@ $this->registerCss('legend {font-size: 16px;}');
         <div class="profile-usermenu">
             <ul class="nav">
                 <li>
-                    <?= Modal::widget([
-                        'header' => Html::tag('h4', Yii::t('app', 'Change password'), ['class' => 'modal-title']),
-                        'scenario' => 'change-password',
-                        'actionUrl' => ['change-password', 'id' => $model->id],
-                        'toggleButton' => [
-                            'tag' => 'a',
-                            'label' => '<i class="ion-unlocked"></i>' . Yii::t('app', 'Change password'),
-                            'class' => 'clickable',
-                        ],
-                    ]); ?>
                     <?= SettingsModal::widget([
-                        'title' 
-                        'header' => Html::tag('h4', Yii::t('app', 'Change password'), ['class' => 'modal-title']),
+                        'model'    => $model,
+                        'title'    => Yii::t('app', 'Change password'),
+                        'icon'     => 'fa-unlock-alt fa-fw',
                         'scenario' => 'change-password',
-                        'actionUrl' => ['change-password', 'id' => $model->id],
-                        'toggleButton' => [
-                            'tag' => 'a',
-                            'label' => '<i class="ion-unlocked"></i>' . Yii::t('app', 'Change password'),
-                            'class' => 'clickable',
-                        ],
-                    ]); ?>
+                    ]) ?>
                 </li>
                 <li>
-                    <?= $this->render('_pincodeModal', ['model' => $model]); ?>
+                    <?= SettingsModal::widget([
+                        'model'    => $model,
+                        'title'    => Yii::t('app', 'Pincode settings'),
+                        'icon'     => 'fa-puzzle-piece fa-fw',
+                        'scenario' => 'pincode-settings',
+                    ]) ?>
                 </li>
                 <li>
-                    <?= Modal::widget([
-                        'header' => Html::tag('h4', Yii::t('app', 'Setup IP address restrictions'), ['class' => 'modal-title']),
+                    <?= SettingsModal::widget([
+                        'model'    => $model,
+                        'title'    => Yii::t('app', 'IP address restrictions'),
+                        'icon'     => 'fa-arrows-alt fa-fw',
                         'scenario' => 'ip-restrictions',
-                        'actionUrl' => ['ip-restrictions', 'id' => $model->id],
-                        'toggleButton' => [
-                            'tag' => 'a',
-                            'label' => '<i class="ion-network"></i>' . Yii::t('app', 'Setup IP address restrictions'),
-                            'class' => 'clickable',
-                        ],
-                    ]); ?>
+                    ]) ?>
                 </li>
                 <li>
-                    <?= Modal::widget([
-                        'header' => Html::tag('h4', Yii::t('app', 'Mailing settings'), ['class' => 'modal-title']),
+                    <?= SettingsModal::widget([
+                        'model'    => $model,
+                        'title'    => Yii::t('app', 'Mailing settings'),
+                        'icon'     => 'fa-envelope fa-fw',
                         'scenario' => 'mailing-settings',
-                        'actionUrl' => ['mailing-settings', 'id' => $model->id],
-                        'toggleButton' => [
-                            'tag' => 'a',
-                            'label' => '<i class="fa fa-ticket"></i>' . Yii::t('app', 'Mailing settings'),
-                            'class' => 'clickable',
-                        ],
-                    ]); ?>
+                    ]) ?>
                 </li>
                 <li>
-                    <?= Html::a('<i class="ion-compose"></i>' . Yii::t('app', 'Change contact information'), ['@contact/update', 'id' => $model->id]) ?>
+                    <?= Html::a(FontIcon::i('fa-edit fa-fw') . Yii::t('app', 'Change contact information'), ['@contact/update', 'id' => $model->id]) ?>
                 </li>
                 <?php if (Yii::getAlias('@domain', false)) { ?>
                     <li>
-                        <?= Modal::widget([
-                            'header' => Html::tag('h4', Yii::t('app', 'Domain settings'), ['class' => 'modal-title']),
+                        <?= SettingsModal::widget([
+                            'model'    => $model,
+                            'title'    => Yii::t('app', 'Domain settings'),
+                            'icon'     => 'fa-globe',
                             'scenario' => 'domain-settings',
-                            'actionUrl' => ['domain-settings', 'id' => $model->id],
-                            'toggleButton' => [
-                                'tag' => 'a',
-                                'label' => '<i class="fa fa-globe"></i>' . Yii::t('app', 'Domain settings'),
-                                'class' => 'clickable',
-                            ],
                         ]) ?>
                     </li>
                 <?php } ?>
                 <?php if (Yii::getAlias('@ticket', false)) { ?>
                     <li>
-                        <?= Modal::widget([
-                            'header' => Html::tag('h4', Yii::t('app', 'Ticket settings'), ['class' => 'modal-title']),
+                        <?= SettingsModal::widget([
+                            'model'    => $model,
+                            'title'    => Yii::t('app', 'Ticket settings'),
+                            'icon'     => 'fa-ticket fa-fw',
                             'scenario' => 'ticket-settings',
-                            'actionUrl' => ['ticket-settings', 'id' => $model->id],
-                            'toggleButton' => [
-                                'tag' => 'a',
-                                'label' => '<i class="fa fa-ticket"></i>' . Yii::t('app', 'Ticket settings'),
-                                'class' => 'clickable',
-                            ],
                         ]) ?>
                     </li>
                 <?php } ?>
