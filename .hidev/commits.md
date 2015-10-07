@@ -4,6 +4,8 @@ hiqdev/hipanel-module-client commits history
 ## 0.0.1 Under development
 
 - Added client settings modal forms
+    - 94a0fc3 2015-10-07 used SettingsModal widget for client settings (sol@hiqdev.com)
+    - 1e81c65 2015-10-06 NOT FINISHED redoing Modal (sol@hiqdev.com)
     - 915e1ce 2015-10-01 Fix loading modal forms (andreyklochok@gmail.com)
     - df3e881 2015-10-01 Add change password validation (andreyklochok@gmail.com)
     - 6a22a00 2015-10-01 x merge: fix conflicts (bladeroot@gmail.com)
