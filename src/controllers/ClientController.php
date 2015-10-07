@@ -45,11 +45,13 @@ class ClientController extends \hipanel\base\CrudController
             ],
             'enable-block' => [
                 'class' => 'hipanel\actions\SmartPerformAction',
-                'success' => Yii::t('app', 'Client is blocked'),
+                'success' => 'Client was blocked successfully',
+                'error' => 'Error during the client account blocking',
             ],
             'disable-block' => [
                 'class' => 'hipanel\actions\SmartPerformAction',
-                'success' => Yii::t('app', 'Client is unblocked'),
+                'success' => 'Client was unblocked successfully',
+                'error' => 'Error during the client account unblocking',
             ],
             'view' => [
                 'class' => 'hipanel\actions\ViewAction',
