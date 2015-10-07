@@ -15,16 +15,14 @@ use hipanel\grid\ActionColumn;
 use hipanel\grid\BoxedGridView;
 use hipanel\grid\CurrencyColumn;
 use hipanel\grid\RefColumn;
-use hipanel\modules\finance\controllers\BillController;
 use hipanel\helpers\Url;
+use hipanel\widgets\Block;
 use hipanel\modules\client\widgets\State as ClientState;
 use hipanel\modules\client\widgets\Type as ClientType;
-use hiqdev\xeditable\assets\RemoteFormatXEditableAsset;
-use hiqdev\xeditable\widgets\RemoteFormatXEditable;
+use hipanel\modules\client\models\Client;
+use hipanel\modules\finance\grid\CreditColumn;
 use Yii;
 use yii\helpers\Html;
-use hipanel\modules\client\models\Client;
-use hipanel\widgets\Block;
 
 class ClientGridView extends BoxedGridView
 {
@@ -77,39 +75,9 @@ class ClientGridView extends BoxedGridView
                 },
             ],
             'balance' => [
-                'class'          => CurrencyColumn::className(),
-                'compare'        => 'credit',
-                'filter'         => false,
-                'attribute'      => 'balance',
-                'urlCallback'    => function ($model) { return BillController::getSearchUrl(['client_id' => $model->id]); },
-                'contentOptions' => ['class' => 'text-right text-bold'],
+                'class' => 'hipanel\modules\finance\grid\BalanceColumn',
             ],
-            'credit' => Yii::$app->user->can('manage') ? [
-                'class'          => 'hiqdev\xeditable\grid\XEditableColumn',
-                'filter'         => false,
-                'contentOptions' => ['class' => 'text-right'],
-                'widgetOptions' => [
-                    'class' => RemoteFormatXEditable::className(),
-                    'linkOptions' => [
-                        'data-currency' => 'usd'
-                    ],
-                ],
-                'pluginOptions'  => [
-                    'type'  => 'remoteformat',
-                    'url'   => 'set-credit',
-                    'title' => Yii::t('app', 'Set credit'),
-                    'ajaxUrl' => Url::to('/format/currency'),
-                    'data-display-value' => function ($column, $options) {
-                        return Yii::$app->formatter->format(array_shift($column->pluginOptions['value']), ['currency', 'USD']);
-                    },
-                    'ajaxDataOptions' => [
-                        'currency' => 'currency'
-                    ],
-                ]
-            ] : [
-                'class'          => CurrencyColumn::className(),
-                'contentOptions' => ['class' => 'text-right'],
-            ],
+            'credit' => CreditColumn::resolveConfig(),
             'country' => [
                 'attribute' => 'contact',
                 'label'     => Yii::t('app', 'Country'),

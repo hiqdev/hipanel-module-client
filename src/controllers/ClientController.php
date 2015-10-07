@@ -54,13 +54,8 @@ class ClientController extends \hipanel\base\CrudController
             'view' => [
                 'class' => 'hipanel\actions\ViewAction',
                 'findOptions' => [
-                    'with_tickets_count' => 1,
+                    'select'             => '*,contact,purses,last_seen,tickets_count,servers_count,hosting_count,contacts_count',
                     'with_domains_count' => Yii::getAlias('@domain', false) ? 1 : 0,
-                    'with_servers_count' => 1,
-                    'with_hosting_count' => 1,
-                    'with_contacts_count' => 1,
-                    'with_last_seen' => 1,
-                    'with_contact' => 1,
                 ],
             ],
             'validate-form' => [

@@ -37,6 +37,7 @@ class Client extends \hipanel\base\Model
             [['login', 'seller', 'state', 'type', 'tariff', 'profile'],                         'safe'],
             [['state_label', 'type_label'],                                                     'safe'],
             [['balance', 'credit'],                                                             'number'],
+            [['purses'],                                                                        'safe'],
             [['count', 'confirm_url', 'language', 'comment', 'name', 'contact', 'currency'],    'safe'],
             [['create_time', 'update_time'],                                                    'date'],
 

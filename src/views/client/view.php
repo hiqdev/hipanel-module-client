@@ -5,6 +5,8 @@ use hipanel\modules\client\grid\ClientGridView;
 use hipanel\modules\client\grid\ContactGridView;
 use hipanel\modules\client\models\Client;
 use hipanel\modules\client\models\Contact;
+use hipanel\modules\finance\models\Purse;
+use hipanel\modules\finance\grid\PurseGridView;
 use hipanel\widgets\Box;
 use hipanel\widgets\ModalButton;
 use hipanel\widgets\Block;
@@ -52,7 +54,7 @@ $this->registerCss('legend {font-size: 16px;}');
                     <?= SettingsModal::widget([
                         'model'    => $model,
                         'title'    => Yii::t('app', 'Change password'),
-                        'icon'     => 'fa-unlock-alt fa-fw',
+                        'icon'     => 'fa-key fa-flip-horizontal fa-fw',
                         'scenario' => 'change-password',
                     ]) ?>
                 </li>
@@ -124,49 +126,74 @@ $this->registerCss('legend {font-size: 16px;}');
         <div class="row">
             <div class="col-md-6">
                 <?php $box = Box::begin(['renderBody' => false]) ?>
-                <?php $box->beginHeader() ?>
-                <?= $box->renderTitle(Yii::t('app', 'Client information'), '&nbsp;') ?>
-                <?php $box->beginTools() ?>
-                <?php /* Html::a(Yii::t('app', 'Recharge account'), '#', ['class' => 'btn btn-default btn-xs']) */ ?>
-                <?php $box->endTools() ?>
-                <?php $box->endHeader() ?>
-                <?php $box->beginBody() ?>
-                <?= ClientGridView::detailView([
-                    'boxed' => false,
-                    'model' => $model,
-                    'columns' => [
-                        'seller_id', 'name',
-                        'type', 'state',
-                        'balance', 'credit',
-                        'create_time', 'update_time',
-                        'tariff',
-                        'tickets', 'servers', 'domains', 'contacts', 'hosting',
-                    ],
-                ]) ?>
-                <?php $box->endBody() ?>
+                    <?php $box->beginHeader() ?>
+                        <?= $box->renderTitle(Yii::t('app', 'Client information'), '&nbsp;') ?>
+                        <?php $box->beginTools() ?>
+                        <?php $box->endTools() ?>
+                    <?php $box->endHeader() ?>
+                    <?php $box->beginBody() ?>
+                        <?= ClientGridView::detailView([
+                            'boxed' => false,
+                            'model' => $model,
+                            'columns' => [
+                                'seller_id', 'name',
+                                'type', 'state',
+                                'create_time', 'update_time',
+                                'tariff',
+                                'tickets', 'servers', 'domains', 'contacts', 'hosting',
+                            ],
+                        ]) ?>
+                    <?php $box->endBody() ?>
                 <?php $box->end() ?>
+                <?php foreach ($model->purses as $purse) { ?>
+                    <?php if ($purse['balance']===null) {
+                        continue;
+                    } ?>
+                    <?php $box = Box::begin(['renderBody' => false]) ?>
+                        <?php $box->beginHeader() ?>
+                            <?= $box->renderTitle(Yii::t('app', '<b>{currency}</b> account', ['currency' => strtoupper($purse['currency'])]), '&nbsp;') ?>
+                            <?php $box->beginTools() ?>
+                                <?php if (Yii::$app->user->can('support')) { ?>
+                                    <?= Html::a(Yii::t('app', 'Generate invoice'), ['@purse/generate-invoice', 'id' => $purse['id']], ['class' => 'btn btn-default btn-xs']) ?>
+                                <?php } else { ?>
+                                    <?= Html::a(Yii::t('app', 'Recharge account'), '#', ['class' => 'btn btn-default btn-xs']) ?>
+                                <?php } ?>
+                            <?php $box->endTools() ?>
+                        <?php $box->endHeader() ?>
+                        <?php $box->beginBody() ?>
+                            <?= PurseGridView::detailView([
+                                'boxed' => false,
+                                'model' => new Purse($purse),
+                                'columns' => $purse['currency']=='usd'
+                                    ? ['balance', 'credit', 'invoices']
+                                    : ['balance', 'invoices']
+                                ,
+                            ]) ?>
+                        <?php $box->endBody() ?>
+                    <?php $box->end() ?>
+                <?php } ?>
             </div>
             <div class="col-md-6">
                 <?php $box = Box::begin(['renderBody' => false]); ?>
-                <?php $box->beginHeader(); ?>
-                <?= $box->renderTitle(Yii::t('app', 'Contact information'), ''); ?>
-                <?php $box->beginTools(); ?>
-                <?= Html::a(Yii::t('app', 'Details'), ['@contact/view', 'id' => $model->id], ['class' => 'btn btn-default btn-xs']) ?>
-                <?= Html::a(Yii::t('app', 'Change'), ['@contact/update', 'id' => $model->id], ['class' => 'btn btn-default btn-xs']) ?>
-                <?php $box->endTools(); ?>
-                <?php $box->endHeader(); ?>
-                <?php $box->beginBody(); ?>
-                <?= ContactGridView::detailView([
-                    'boxed' => false,
-                    'model' => new Contact($model->contact),
-                    'columns' => [
-                        'first_name', 'last_name', 'organization',
-                        'email', 'abuse_email', 'messengers',
-                        'voice_phone', 'fax_phone',
-                        'street', 'city', 'province', 'postal_code', 'country',
-                    ],
-                ]) ?>
-                <?php $box->endBody(); ?>
+                    <?php $box->beginHeader(); ?>
+                        <?= $box->renderTitle(Yii::t('app', 'Contact information'), ''); ?>
+                        <?php $box->beginTools(); ?>
+                            <?= Html::a(Yii::t('app', 'Details'), ['@contact/view', 'id' => $model->id], ['class' => 'btn btn-default btn-xs']) ?>
+                            <?= Html::a(Yii::t('app', 'Change'), ['@contact/update', 'id' => $model->id], ['class' => 'btn btn-default btn-xs']) ?>
+                        <?php $box->endTools(); ?>
+                    <?php $box->endHeader(); ?>
+                    <?php $box->beginBody(); ?>
+                        <?= ContactGridView::detailView([
+                            'boxed' => false,
+                            'model' => new Contact($model->contact),
+                            'columns' => [
+                                'first_name', 'last_name', 'organization',
+                                'email', 'abuse_email', 'messengers',
+                                'voice_phone', 'fax_phone',
+                                'street', 'city', 'province', 'postal_code', 'country',
+                            ],
+                        ]) ?>
+                    <?php $box->endBody(); ?>
                 <?php $box->end(); ?>
             </div>
         </div>
