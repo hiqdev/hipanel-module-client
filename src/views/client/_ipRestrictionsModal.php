@@ -8,8 +8,8 @@ use yii\helpers\Url;
 
 <div class="callout callout-default">
     <?= Yii::t('app', 'Enter comma separated list of IP-addresses or subnets.') ?><br>
-    <?= Yii::t('app', 'Example') ?>: 88.208.52.222, 213.174.0.0/16<br>
-    <?= Yii::t('app', 'Your current IP address is') ?> 88.208.49.170<br>
+    <?= Yii::t('app', 'Example') ?>: 88.208.52.222, 213.174.0.0/16<br><br>
+    <?= Yii::t('app', 'Your current IP address is') ?> <?= Yii::$app->request->getUserIp() ?><br>
 </div>
 
 <?php $form = ActiveForm::begin([
