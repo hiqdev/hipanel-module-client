@@ -20,6 +20,16 @@ class Client extends \hipanel\base\Model
 {
     use \hipanel\base\ModelTrait;
 
+    const TYPE_SELLER = 'seller';
+    const TYPE_ADMIN = 'admin';
+    const TYPE_MANAGER = 'manager';
+    const TYPE_CLIENT = 'client';
+    const TYPE_OWNER = 'owner';
+
+    const STATE_OK = 'ok';
+    const STATE_DELETED = 'deleted';
+    const STATE_BLOCKED = 'blocked';
+
     public function rules()
     {
         return [
