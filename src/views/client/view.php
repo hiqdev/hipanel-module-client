@@ -145,7 +145,6 @@ $this->registerCss('legend {font-size: 16px;}');
                                 'seller_id', 'name',
                                 'type', 'state',
                                 'create_time', 'update_time',
-                                'tariff',
                                 'tickets', 'servers', 'domains', 'contacts', 'hosting',
                             ],
                         ]) ?>
