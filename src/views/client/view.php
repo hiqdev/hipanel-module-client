@@ -109,18 +109,7 @@ $this->registerCss('legend {font-size: 16px;}');
                 <?php } ?>
                 <?php if (Yii::$app->user->can('support') && Yii::$app->user->not($model->id)) { ?>
                     <li>
-                        <?= BlockModalButton::widget([
-                            'model'     => $model,
-                            'action'    => $model->state === $model::STATE_BLOCKED ? BlockModalButton::ACTION_DISABLE : BlockModalButton::ACTION_ENABLE,
-                            'header'    => [
-                                BlockModalButton::ACTION_ENABLE => [
-                                    'label' => Yii::t('app', 'Are you sure you want to block client {login}', ['login' => $model->login])
-                                ],
-                                BlockModalButton::ACTION_DISABLE => [
-                                    'label' => Yii::t('app', 'Are you sure you want to unblock client {login}', ['login' => $model->login])
-                                ]
-                            ]
-                        ]); ?>
+                        <?= BlockModalButton::widget(compact('model')) ?>
                     </li>
                 <?php } ?>
             </ul>
