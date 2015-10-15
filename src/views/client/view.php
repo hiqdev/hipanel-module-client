@@ -59,14 +59,16 @@ $this->registerCss('legend {font-size: 16px;}');
                         'scenario' => 'change-password',
                     ]) ?>
                 </li>
-                <li>
-                    <?= SettingsModal::widget([
-                        'model'    => $model,
-                        'title'    => Yii::t('app', 'Pincode settings'),
-                        'icon'     => 'fa-puzzle-piece fa-fw',
-                        'scenario' => 'pincode-settings',
-                    ]) ?>
-                </li>
+                <?php if (Yii::$app->user->id == $model->id) { ?>
+                    <li>
+                        <?= SettingsModal::widget([
+                            'model'    => $model,
+                            'title'    => Yii::t('app', 'Pincode settings'),
+                            'icon'     => 'fa-puzzle-piece fa-fw',
+                            'scenario' => 'pincode-settings',
+                        ]) ?>
+                    </li>
+                <?php } ?>
                 <li>
                     <?= SettingsModal::widget([
                         'model'    => $model,
