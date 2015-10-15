@@ -3,6 +3,7 @@ hiqdev/hipanel-module-client changelog
 
 ## 0.0.1 Under development
 
+- Added ticket option new_messages_first
 - Added monthly invoices displaying and managing
 - Added client settings modal forms
 - Fixed SidebarMenu

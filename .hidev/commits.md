@@ -3,6 +3,8 @@ hiqdev/hipanel-module-client commits history
 
 ## 0.0.1 Under development
 
+- Added ticket option new_messages_first
+    - 85132ec 2015-10-15 Added ticket option new_messages_first (d.naumenko.a@gmail.com)
 - Added monthly invoices displaying and managing
     - 9473985 2015-10-15 finished monthly invoices displaying and managing (sol@hiqdev.com)
     - c43d3ca 2015-10-08 simplified use of BlockModalButton (sol@hiqdev.com)
