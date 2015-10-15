@@ -52,7 +52,7 @@ class Client extends \hipanel\base\Model
             // Ticket settings
             [['ticket_emails'],                             'string',   'max' => 128, 'on' => 'ticket-settings'],
             [['ticket_emails'],                             'email',    'on' => 'ticket-settings'],
-            [['send_message_text'],                         'boolean',  'on' => 'ticket-settings'],
+            [['send_message_text', 'new_messages_first'],   'boolean',  'on' => 'ticket-settings'],
 
             // Domain settings
             [['nss'], 'filter', 'filter' => function($value) {
@@ -89,6 +89,7 @@ class Client extends \hipanel\base\Model
                     $this->addError($attribute, 'The password is incorrect.');
                 }
             }, 'on' => ['change-password']],
+            // Client validation disabled due the Yii2 bug: https://github.com/yiisoft/yii2/issues/9811
             [['confirm_password'], 'compare', 'compareAttribute' => 'new_password', 'enableClientValidation' => false, 'on' => ['change-password']],
 
             // Pincode
