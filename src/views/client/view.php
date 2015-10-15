@@ -2,6 +2,7 @@
 
 use hipanel\modules\client\models\Client;
 use hipanel\widgets\BlockModalButton;
+use hipanel\widgets\ModalButton;
 use hiqdev\assets\flagiconcss\FlagIconCssAsset;
 use hipanel\modules\client\grid\ClientGridView;
 use hipanel\modules\client\grid\ContactGridView;
@@ -13,11 +14,9 @@ use hipanel\widgets\SettingsModal;
 use hipanel\helpers\FontIcon;
 use yii\helpers\Html;
 
-
 /**
  * @var $model Client
  */
-
 
 $this->title = $model->login;
 $this->subtitle = Yii::t('app', 'Client detailed information') . ' #' . $model->id;
@@ -143,12 +142,29 @@ $this->registerCss('legend {font-size: 16px;}');
                     <?php if ($purse['balance']===null) {
                         continue;
                     } ?>
+                    <?php $purse = new Purse($purse) ?>
                     <?php $box = Box::begin(['renderBody' => false]) ?>
                         <?php $box->beginHeader() ?>
-                            <?= $box->renderTitle(Yii::t('app', '<b>{currency}</b> account', ['currency' => strtoupper($purse['currency'])]), '&nbsp;') ?>
+                            <?= $box->renderTitle(Yii::t('app', '<b>{currency}</b> account', ['currency' => strtoupper($purse->currency)]), '&nbsp;') ?>
                             <?php $box->beginTools() ?>
                                 <?php if (Yii::$app->user->can('support')) { ?>
-                                    <?= Html::a(Yii::t('app', 'Generate invoice'), ['@purse/generate-invoice', 'id' => $purse['id']], ['class' => 'btn btn-default btn-xs']) ?>
+                                    <?= Html::a(Yii::t('app', 'See new invoice'), ['@purse/generate-invoice', 'id' => $purse->id], ['class' => 'btn btn-default btn-xs']) ?>
+                                    <?= ModalButton::widget([
+                                        'model'    => $purse,
+                                        'form'     => ['action' => ['@purse/update-monthly-invoice']],
+                                        'button'   => ['label' => Yii::t('app', 'Update invoice'), 'class' => 'btn btn-default btn-xs'],
+                                        'body'     => Yii::t('app', 'Are you sure you want to update invoice?') . '<br>' .
+                                                      Yii::t('app', 'Current invoice will be substituted with newer version!'),
+                                        'modal'    => [
+                                            'header'        => Html::tag('h4', Yii::t('app', 'Confirm invoice updating')),
+                                            'headerOptions' => ['class' => 'label-warning'],
+                                            'footer'        => [
+                                                'label' => Yii::t('app', 'Update'),
+                                                'class' => 'btn btn-warning',
+                                                'data-loading-text' => Yii::t('app', 'Updating...'),
+                                            ],
+                                        ],
+                                    ]) ?>
                                 <?php } else { ?>
                                     <?= Html::a(Yii::t('app', 'Recharge account'), '#', ['class' => 'btn btn-default btn-xs']) ?>
                                 <?php } ?>
@@ -157,8 +173,8 @@ $this->registerCss('legend {font-size: 16px;}');
                         <?php $box->beginBody() ?>
                             <?= PurseGridView::detailView([
                                 'boxed' => false,
-                                'model' => new Purse($purse),
-                                'columns' => $purse['currency']=='usd'
+                                'model' => $purse,
+                                'columns' => $purse->currency=='usd'
                                     ? ['balance', 'credit', 'invoices']
                                     : ['balance', 'invoices']
                                 ,
