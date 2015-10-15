@@ -3,7 +3,15 @@ hiqdev/hipanel-module-client commits history
 
 ## 0.0.1 Under development
 
+- Added monthly invoices displaying and managing
+    - 9473985 2015-10-15 finished monthly invoices displaying and managing (sol@hiqdev.com)
+    - c43d3ca 2015-10-08 simplified use of BlockModalButton (sol@hiqdev.com)
+    - bfb23f7 2015-10-07 + adding purses info and invoices (sol@hiqdev.com)
+    - 6d6d5f0 2015-10-07 Client (un)blocking reimplemented with BlockModalButton (d.naumenko.a@gmail.com)
+    - bfa4efb 2015-10-07 Added state and type constangs to the Client model (d.naumenko.a@gmail.com)
+    - 4edfb36 2015-10-07 + display organization in client details (sol@hiqdev.com)
 - Added client settings modal forms
+    - 824a9b7 2015-10-07 fixed showing current user ip at _ipRestrictionsModal (sol@hiqdev.com)
     - 94a0fc3 2015-10-07 used SettingsModal widget for client settings (sol@hiqdev.com)
     - 1e81c65 2015-10-06 NOT FINISHED redoing Modal (sol@hiqdev.com)
     - 915e1ce 2015-10-01 Fix loading modal forms (andreyklochok@gmail.com)
