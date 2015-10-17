@@ -84,7 +84,7 @@ class Contact extends \hipanel\base\Model
             'inn'             => Yii::t('app', 'Taxpayer identification number'),
             'kpp'             => Yii::t('app', 'Code of reason for registration'),
             'organization_ru' => Yii::t('app', 'Organization (Russian title)'),
-            'director_name'   => Yii::t('app', 'Director\'s fool name'),
+            'director_name'   => Yii::t('app', 'Director\'s full name'),
         ]);
     }
 }
