@@ -1,16 +1,18 @@
 <?php
 
+use hipanel\modules\client\widgets\combo\ContactCombo;
+use hiqdev\combo\StaticCombo;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 use yii\helpers\Url;
+
+
 ?>
 
 <?php $form = ActiveForm::begin([
     'options' => [
         'id' => $model->scenario . '-form',
     ],
-    'enableClientValidation' => true,
-    'validateOnBlur' => true,
     'enableAjaxValidation' => true,
     'validationUrl' => Url::toRoute(['validate-form', 'scenario' => $model->scenario]),
 ]); ?>
@@ -31,22 +33,12 @@ use yii\helpers\Url;
     <legend><?= Yii::t('app', 'Default contacts') ?>:</legend>
 
     <div class="row">
-        <div class="col-md-6">
-            <?= $form->field($model, 'registrant')->dropDownList($contacts, []); ?>
-        </div>
-        <!-- /.col-md-6 -->
-        <div class="col-md-6">
-            <?= $form->field($model, 'admin')->dropDownList($contacts, []); ?>
-        </div>
-        <!-- /.col-md-6 -->
-        <div class="col-md-6">
-            <?= $form->field($model, 'tech')->dropDownList($contacts, []); ?>
-        </div>
-        <!-- /.col-md-6 -->
-        <div class="col-md-6">
-            <?= $form->field($model, 'billing')->dropDownList($contacts, []); ?>
-        </div>
-        <!-- /.col-md-6 -->
+        <?php foreach (['registrant', 'admin', 'tech', 'billing'] as $item) : ?>
+            <div class="col-md-6">
+            <?= $form->field($model, $item)->widget(ContactCombo::classname(), ['hasId' => true]); ?>
+            </div>
+            <!-- /.col-md-6 -->
+        <?php endforeach; ?>
     </div>
     <!-- /.row -->
 </fieldset>

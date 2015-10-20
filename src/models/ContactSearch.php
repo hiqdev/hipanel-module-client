@@ -10,11 +10,15 @@
  */
 
 namespace hipanel\modules\client\models;
+use hipanel\base\SearchModelTrait;
+use yii\helpers\ArrayHelper;
 
 /**
  * GallerySearch represents the model behind the search form about `app\models\Gallery`.
  */
 class ContactSearch extends Contact
 {
-    use \hipanel\base\SearchModelTrait;
+    use SearchModelTrait {
+        searchAttributes as defaultSearchAttributes;
+    }
 }

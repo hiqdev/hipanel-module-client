@@ -138,8 +138,6 @@ class ClientController extends \hipanel\base\CrudController
         $model->scenario = 'domain-settings';
         $request = Yii::$app->request;
 
-        $contacts = Contact::perform('GetList', ['limit' => '500'], true);
-
         if ($request->isAjax && $model->load(Yii::$app->request->post())) {
             $model->perform('SetClassValues', [
                 'id' => $id,
@@ -150,7 +148,7 @@ class ClientController extends \hipanel\base\CrudController
         }
         $model->setAttributes($model->perform('GetClassValues', ['id' => $id, 'class' => 'client,domain_defaults']));
 
-        return $this->renderAjax('_domainSettingsModal', ['model' => $model, 'contacts' => $contacts]);
+        return $this->renderAjax('_domainSettingsModal', ['model' => $model]);
     }
 
     public function actionChangePassword($id)

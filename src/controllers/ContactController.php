@@ -27,6 +27,9 @@ class ContactController extends CrudController
             'index'         => [
                 'class' => 'hipanel\actions\IndexAction',
             ],
+            'search'         => [
+                'class' => 'hipanel\actions\SearchAction',
+            ],
             'view'          => [
                 'class'         => 'hipanel\actions\ViewAction',
                 'findOptions'   => ['with_counters' => 1],
