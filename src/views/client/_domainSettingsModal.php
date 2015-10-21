@@ -20,14 +20,14 @@ use yii\helpers\Url;
 <p><?= Yii::t('app', 'The settings will be automatically applied to all new registered domains.'); ?></p>
 
 <div class="row">
-    <div class="col-md-6"><?= $form->field($model, 'autorenewal')->checkbox(); ?></div>
+    <div class="col-md-6"><?= $form->field($model, "[$model->id]autorenewal")->checkbox(); ?></div>
     <!-- /.col-md-6 -->
-    <div class="col-md-6"><?= $form->field($model, 'whois_protected')->checkbox(); ?></div>
+    <div class="col-md-6"><?= $form->field($model, "[$model->id]whois_protected")->checkbox(); ?></div>
     <!-- /.col-md-6 -->
 </div>
 <!-- /.row -->
 
-<?= $form->field($model, 'nss'); ?>
+<?= $form->field($model, "[$model->id]nss"); ?>
 
 <fieldset>
     <legend><?= Yii::t('app', 'Default contacts') ?>:</legend>
@@ -35,7 +35,7 @@ use yii\helpers\Url;
     <div class="row">
         <?php foreach (['registrant', 'admin', 'tech', 'billing'] as $item) : ?>
             <div class="col-md-6">
-            <?= $form->field($model, $item)->widget(ContactCombo::classname(), ['hasId' => true]); ?>
+            <?= $form->field($model, "[$model->id]$item")->widget(ContactCombo::classname(), ['hasId' => true]); ?>
             </div>
             <!-- /.col-md-6 -->
         <?php endforeach; ?>

@@ -158,7 +158,8 @@ class ClientController extends \hipanel\base\CrudController
         $model->scenario = 'domain-settings';
         $request = Yii::$app->request;
 
-        if ($request->isAjax && $model->load(Yii::$app->request->post())) {
+        if ($request->isAjax && Yii::$app->request->isPost) {
+            $model = (new Collection(['model' => $model]))->load()->first;
             $model->perform('SetClassValues', [
                 'id' => $id,
                 'class' => 'client,domain_defaults',
