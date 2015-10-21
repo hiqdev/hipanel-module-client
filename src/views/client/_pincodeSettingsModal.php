@@ -16,6 +16,14 @@ use yii\helpers\Url;
 <?= Html::activeHiddenInput($model, "[$model->id]id"); ?>
 <?= Html::activeHiddenInput($model, "[$model->id]pincode_enabled"); ?>
 <?php if ($model->pincode_enabled) : ?>
+    <?php
+    $this->registerJs(<<<JS
+    jQuery('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+        jQuery('#' + e.relatedTarget.getAttribute('href').substr(1)).find('input:text').val(''); //e.target
+    });
+JS
+    );
+    ?>
     <div class="row">
         <div class="col-md-12">
             <div class="nav-tabs-custom">
