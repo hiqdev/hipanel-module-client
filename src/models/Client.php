@@ -79,8 +79,8 @@ class Client extends \hipanel\base\Model
                 } else {
                     return $value;
                 }
-            }, 'on' => ['ip-restrictions']],
-            [['allowed_ips', 'sshftp_ips'], 'each', 'rule' => [IpValidator::className()], 'on' => ['ip-restrictions']],
+            }, 'skipOnEmpty' => true, 'on' => ['ip-restrictions']],
+            [['allowed_ips', 'sshftp_ips'], 'each', 'rule' => [IpValidator::className()], 'skipOnEmpty' => true, 'on' => ['ip-restrictions']],
 
             // Change password
             [['login', 'old_password', 'new_password', 'confirm_password'], 'required', 'on' => ['change-password']],

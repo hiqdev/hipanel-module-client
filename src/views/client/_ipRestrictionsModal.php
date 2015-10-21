@@ -16,14 +16,12 @@ use yii\helpers\Url;
     'options' => [
         'id' => $model->scenario . '-form',
     ],
-    'enableClientValidation' => true,
-    'validateOnBlur' => true,
     'enableAjaxValidation' => true,
     'validationUrl' => Url::toRoute(['validate-form', 'scenario' => $model->scenario]),
 ]); ?>
-
-<?= $form->field($model, 'allowed_ips'); ?>
-<?= $form->field($model, 'sshftp_ips')->hint(Yii::t('app', "All of accounts in the hosting panel will use following permit IP addresses list by default.
+<?= Html::activeHiddenInput($model, "[$model->id]id"); ?>
+<?= $form->field($model, "[$model->id]allowed_ips"); ?>
+<?= $form->field($model, "[$model->id]sshftp_ips")->hint(Yii::t('app', "All of accounts in the hosting panel will use following permit IP addresses list by default.
 You can reassign permitted IP addresses for each account individually in it's settings.")); ?>
 
 <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-default']) ?>
