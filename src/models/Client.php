@@ -118,6 +118,14 @@ class Client extends \hipanel\base\Model
                     $this->addError($attribute, Yii::t('app', 'Wrong pincode'));
                 }
             }, 'on' => ['pincode-settings']],
+
+            [['answer'], function ($attribute, $params) {
+                try {
+                    $response = $this->perform('CheckPincode', [$attribute => $this->$attribute, 'id' => $this->id]);
+                } catch (Exception $e) {
+                    $this->addError($attribute, Yii::t('app', 'Wrong answer'));
+                }
+            }, 'on' => ['pincode-settings']],
         ];
     }
 
