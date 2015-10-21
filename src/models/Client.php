@@ -11,6 +11,7 @@
 
 namespace hipanel\modules\client\models;
 
+use Exception;
 use hipanel\helpers\StringHelper;
 use hipanel\validators\DomainValidator;
 use hipanel\validators\IpValidator;
@@ -93,6 +94,30 @@ class Client extends \hipanel\base\Model
             [['confirm_password'], 'compare', 'compareAttribute' => 'new_password', 'enableClientValidation' => false, 'on' => ['change-password']],
 
             // Pincode
+            [['enable', 'disable', 'pincode_enabled'], 'boolean', 'on' => ['pincode-settings']],
+            [['question', 'answer'], 'string', 'on' => ['pincode-settings']],
+
+            // If pincode disabled
+            [['pincode', 'answer', 'question'], 'required', 'enableClientValidation' => false, 'when' => function($model) {
+                return $model->pincode_enabled == false;
+            }, 'on' => ['pincode-settings']],
+
+            // If pincode enabled
+            [['pincode'], 'required', 'when' => function($model) {
+                return (mb_strlen($model->answer) > 0 && $model->pincode_enabled == true) ? false : true;
+            }, 'enableClientValidation' => false, 'message' => Yii::t('app', 'Fill the Pincode or answer to the question.'), 'on' => ['pincode-settings']],
+
+            [['answer'], 'required', 'when' => function($model) {
+                return (mb_strlen($model->pincode) > 0 && $model->pincode_enabled == true) ? false : true;
+            }, 'enableClientValidation' => false, 'message' => Yii::t('app', 'Fill the Answer or enter the Pincode.'), 'on' => ['pincode-settings']],
+
+            [['pincode'], function ($attribute, $params) {
+                try {
+                    $response = $this->perform('CheckPincode', [$attribute => $this->$attribute, 'id' => $this->id]);
+                } catch (Exception $e) {
+                    $this->addError($attribute, Yii::t('app', 'Wrong pincode'));
+                }
+            }, 'on' => ['pincode-settings']],
         ];
     }
 
@@ -122,11 +147,32 @@ class Client extends \hipanel\base\Model
             'admin' => Yii::t('app', 'Admin contact'),
             'tech' => Yii::t('app', 'Tech contact'),
             'billing' => Yii::t('app', 'Billing contact'),
+
+            // Pincode
+            'pincode' => Yii::t('app', 'Enter pincode'),
+            'question' => Yii::t('app', 'Choose question'),
+            'answer' => Yii::t('app', 'Answer'),
         ]);
     }
 
     public static function canBeSelf($model)
     {
         return Yii::$app->user->is($model->id) || (!Yii::$app->user->can('resell') && Yii::$app->user->can('support') && Yii::$app->user->identity->seller_id == $model->id);
+    }
+
+    public static function makeTranslateQuestionList(array $questionList)
+    {
+        $translation = [
+            'q1' => Yii::t('app', 'What was your nickname when you were a child?'),
+            'q2' => Yii::t('app', 'What was the name of your best childhood friend?'),
+            'q3' => Yii::t('app', 'What is the month and the year of birth of your oldest relative? (e.g. January, 1900)'),
+            'q4' => Yii::t('app', 'What is your grandmother’s maiden name?'),
+            'q5' => Yii::t('app', 'What is the patronymic of your oldest relative?'),
+        ];
+        $result = [];
+        foreach ($questionList as $k => $v) {
+            $result[$translation[$k]] = $translation[$k];
+        }
+        return $result;
     }
 }

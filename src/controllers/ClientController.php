@@ -15,6 +15,7 @@ use hipanel\models\Ref;
 use hipanel\modules\client\models\Client;
 use hipanel\modules\client\models\Contact;
 use hipanel\modules\domain\models\Domain;
+use hiqdev\hiart\Collection;
 use Yii;
 use yii\web\Response;
 
@@ -73,6 +74,24 @@ class ClientController extends \hipanel\base\CrudController
     public function getStates()
     {
         return Ref::getList('state,client');
+    }
+
+    public function actionPincodeSettings($id)
+    {
+        $model = $this->findModel($id);
+        $model->scenario = 'pincode-settings';
+        $request = Yii::$app->request;
+
+        if ($request->isAjax && Yii::$app->request->isPost) {
+            $model = (new Collection(['model' => $model]))->load()->first;
+            $model::perform($model->pincode_enabled ? 'DisablePincode' : 'EnablePincode', $model->dirtyAttributes);
+            Yii::$app->end();
+        }
+        $model->setAttributes(Client::perform('HasPincode', ['id' => $id]));
+        $apiData = Ref::getList('type,question');
+        $questionList = array_merge(Client::makeTranslateQuestionList($apiData), ['own' => Yii::t('app', 'Own question')]);
+
+        return $this->renderAjax('_pincodeSettingsModal', ['model' => $model, 'questionList' => $questionList]);
     }
 
     public function actionTicketSettings($id)
