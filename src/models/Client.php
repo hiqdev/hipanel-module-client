@@ -13,6 +13,7 @@ namespace hipanel\modules\client\models;
 
 use Exception;
 use hipanel\helpers\StringHelper;
+use hipanel\modules\domain\models\Domain;
 use hipanel\validators\DomainValidator;
 use hipanel\validators\IpValidator;
 use Yii;
@@ -161,6 +162,14 @@ class Client extends \hipanel\base\Model
             'question' => Yii::t('app', 'Choose question'),
             'answer' => Yii::t('app', 'Answer'),
         ]);
+    }
+
+    public function getTicketSettings() {
+        return $this->hasOne(ClientTicketSettings::className(), ['id', 'id']);
+    }
+
+    public function getDomains() {
+        return $this->hasMany(Domain::className(), ['client_id' => 'id']);
     }
 
     public static function canBeSelf($model)

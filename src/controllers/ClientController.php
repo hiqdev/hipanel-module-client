@@ -13,11 +13,8 @@ namespace hipanel\modules\client\controllers;
 
 use hipanel\models\Ref;
 use hipanel\modules\client\models\Client;
-use hipanel\modules\client\models\Contact;
-use hipanel\modules\domain\models\Domain;
 use hiqdev\hiart\Collection;
 use Yii;
-use yii\web\Response;
 
 class ClientController extends \hipanel\base\CrudController
 {
