@@ -3,8 +3,34 @@ hiqdev/hipanel-module-client commits history
 
 ## 0.0.1 Under development
 
-- Added ticket option new_messages_first
+- Added ClientTicketSettings, PincodeSettings
+    - 48edc3a 2015-10-23  * Added ClientTicketSettings model (d.naumenko.a@gmail.com)
+    - a69fec5 2015-10-21 Add Pincode settings functionality (andreyklochok@gmail.com)
+    - 1e73530 2015-10-20 Add ContactCombo, change html select to cobmo in domainSettingsModal (andreyklochok@gmail.com)
     - 85132ec 2015-10-15 Added ticket option new_messages_first (d.naumenko.a@gmail.com)
+- Fixed validations
+    - 92426d9 2015-10-21 Fix validation in domailSettings (andreyklochok@gmail.com)
+    - e0b2230 2015-10-21 Fix IpRestriction validation; (andreyklochok@gmail.com)
+    - 9ea9ea7 2015-10-21 Add autoclear all text fields on related tab (andreyklochok@gmail.com)
+    - 935cd6c 2015-10-21 Add answer validation (andreyklochok@gmail.com)
+- Fixed translation and minor issues
+    - 2cf1bc4 2015-10-17 Contact model - changed fool typo (d.naumenko.a@gmail.com)
+    - c69b56b 2015-10-06 moved DomainValidator to hipanel-core (sol@hiqdev.com)
+    - 73ec523 2015-09-21 got rid of Re::l (sol@hiqdev.com)
+    - 84367d6 2015-09-17 * improve language pack; - remove unnessary lines (bladeroot@gmail.com)
+    - 876ddbd 2015-09-16 * improve language pack (bladeroot@gmail.com)
+    - 891b82c 2015-09-16 simplified contact action url building (sol@hiqdev.com)
+    - 1ec27c1 2015-09-16 * change language (bladeroot@gmail.com)
+    - d691efe 2015-09-14 redone sidebar menu with Yii::t, Menu::items() and proper visible (sol@hiqdev.com)
+    - 616ce3d 2015-09-16 minor fix (sol@hiqdev.com)
+    - 0e008ed 2015-09-04 + check for domain module available (sol@hiqdev.com)
+    - 6d78e53 2015-09-01 ClientCombo - changed search url (d.naumenko.a@gmail.com)
+    - ada64ec 2015-08-31 + rule Contact::files (sol@hiqdev.com)
+    - 1730333 2015-08-27 ClientCombo - changed filter type to type_in Removed CountryCombo (d.naumenko.a@gmail.com)
+    - 0765436 2015-08-27 Fixed breadcrumbs subtitle (d.naumenko.a@gmail.com)
+    - d7e387c 2015-08-27 Email (andreyklochok@gmail.com)
+    - 7292109 2015-08-27 Fixed deprecated method calling syntax (d.naumenko.a@gmail.com)
+    - 3da8a11 2015-08-26 Add filter by states (andreyklochok@gmail.com)
 - Added monthly invoices displaying and managing
     - 9473985 2015-10-15 finished monthly invoices displaying and managing (sol@hiqdev.com)
     - c43d3ca 2015-10-08 simplified use of BlockModalButton (sol@hiqdev.com)
@@ -57,23 +83,6 @@ hiqdev/hipanel-module-client commits history
     - 4528100 2015-09-23 improved client index page look (sol@hiqdev.com)
     - fb6ec6f 2015-09-22 + urlCallback for balance column for link to client bills (sol@hiqdev.com)
     - 4beab1c 2015-09-21 * change view to get columns from grid; change action column in grid: default clients contact could not be deleted (bladeroot@gmail.com)
-- Fixed translation and minor issues
-    - c69b56b 2015-10-06 moved DomainValidator to hipanel-core (sol@hiqdev.com)
-    - 73ec523 2015-09-21 got rid of Re::l (sol@hiqdev.com)
-    - 84367d6 2015-09-17 * improve language pack; - remove unnessary lines (bladeroot@gmail.com)
-    - 876ddbd 2015-09-16 * improve language pack (bladeroot@gmail.com)
-    - 891b82c 2015-09-16 simplified contact action url building (sol@hiqdev.com)
-    - 1ec27c1 2015-09-16 * change language (bladeroot@gmail.com)
-    - d691efe 2015-09-14 redone sidebar menu with Yii::t, Menu::items() and proper visible (sol@hiqdev.com)
-    - 616ce3d 2015-09-16 minor fix (sol@hiqdev.com)
-    - 0e008ed 2015-09-04 + check for domain module available (sol@hiqdev.com)
-    - 6d78e53 2015-09-01 ClientCombo - changed search url (d.naumenko.a@gmail.com)
-    - ada64ec 2015-08-31 + rule Contact::files (sol@hiqdev.com)
-    - 1730333 2015-08-27 ClientCombo - changed filter type to type_in Removed CountryCombo (d.naumenko.a@gmail.com)
-    - 0765436 2015-08-27 Fixed breadcrumbs subtitle (d.naumenko.a@gmail.com)
-    - d7e387c 2015-08-27 Email (andreyklochok@gmail.com)
-    - 7292109 2015-08-27 Fixed deprecated method calling syntax (d.naumenko.a@gmail.com)
-    - 3da8a11 2015-08-26 Add filter by states (andreyklochok@gmail.com)
 - Added client create functionality
     - 517243d 2015-08-26 Add Create functionality (andreyklochok@gmail.com)
 - Fixed client/seller sorting with sortAttribute

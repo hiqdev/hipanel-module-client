@@ -3,13 +3,14 @@ hiqdev/hipanel-module-client changelog
 
 ## 0.0.1 Under development
 
-- Added ticket option new_messages_first
+- Added ClientTicketSettings, PincodeSettings
+- Fixed validations
+- Fixed translation and minor issues
 - Added monthly invoices displaying and managing
 - Added client settings modal forms
 - Fixed SidebarMenu
 - Added client blocking
 - Fixed client grid: improved look
-- Fixed translation and minor issues
 - Added client create functionality
 - Fixed client/seller sorting with sortAttribute
 - Fixed PHP warnings
