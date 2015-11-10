@@ -9,7 +9,8 @@ use yii\helpers\Url;
 use yii\web\JsExpression;
 use yii\web\View;
 
-$this->registerCss('legend { font-size: 15px; }');
+$this->registerCss('legend { font-size: 15px; };');
+$this->registerCss('.form-group.required { color: orange; };');
 $this->registerJs(<<<JS
 jQuery('#fiz_domain input').change(function() {
     var disable = false;
@@ -114,22 +115,22 @@ JS
         <?php if ($model->scenario === 'update') : ?>
             <?= $form->field($model, 'id')->hiddenInput()->label(false); ?>
         <?php endif; ?>
-        <?= $form->field($model, 'first_name'); ?>
-        <?= $form->field($model, 'last_name'); ?>
-        <?= $form->field($model, 'email'); ?>
+        <?= $form->field($model, 'first_name')->label(Yii::t('app', 'First name') . " *"); ?>
+        <?= $form->field($model, 'last_name')->label(Yii::t('app', 'Last name') . " *"); ?>
+        <?= $form->field($model, 'email')->label(Yii::t('app', 'Email') . " *"); ?>
         <?= $form->field($model, 'abuse_email'); ?>
         <?= $form->field($model, 'organization'); ?>
-        <?= $form->field($model, 'street1'); ?>
+        <?= $form->field($model, 'street1')->label(Yii::t('app', 'Street') . " *"); ?>
         <?= $form->field($model, 'street2'); ?>
         <?= $form->field($model, 'street3'); ?>
-        <?= $form->field($model, 'city'); ?>
+        <?= $form->field($model, 'city')->label(Yii::t('app', 'City') . " *"); ?>
         <?= $form->field($model, 'country')->widget(StaticCombo::classname(), [
             'data'  => $countries,
             'hasId' => true,
-        ]); ?>
+        ])->label(Yii::t('app', 'Country') . " *"); ?>
         <?= $form->field($model, 'province'); ?>
-        <?= $form->field($model, 'postal_code'); ?>
-        <?= $form->field($model, 'voice_phone'); ?>
+        <?= $form->field($model, 'postal_code')->label(Yii::t('app', 'Postal code') . " *"); ?>
+        <?= $form->field($model, 'voice_phone')->label(Yii::t('app', 'Phone') . " *"); ?>
         <?= $form->field($model, 'fax_phone'); ?>
 
         <?php Box::end() ?>
