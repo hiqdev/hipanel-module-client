@@ -3,9 +3,9 @@ hiqdev/hipanel-module-client changelog
 
 ## 0.0.1 Under development
 
+- Fixed minor issues and translation
 - Added ClientTicketSettings, PincodeSettings
 - Fixed validations
-- Fixed translation and minor issues
 - Added monthly invoices displaying and managing
 - Added client settings modal forms
 - Fixed SidebarMenu

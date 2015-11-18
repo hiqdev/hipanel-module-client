@@ -3,17 +3,8 @@ hiqdev/hipanel-module-client commits history
 
 ## 0.0.1 Under development
 
-- Added ClientTicketSettings, PincodeSettings
-    - 48edc3a 2015-10-23  * Added ClientTicketSettings model (d.naumenko.a@gmail.com)
-    - a69fec5 2015-10-21 Add Pincode settings functionality (andreyklochok@gmail.com)
-    - 1e73530 2015-10-20 Add ContactCombo, change html select to cobmo in domainSettingsModal (andreyklochok@gmail.com)
-    - 85132ec 2015-10-15 Added ticket option `new_messages_first` (d.naumenko.a@gmail.com)
-- Fixed validations
-    - 92426d9 2015-10-21 Fix validation in domailSettings (andreyklochok@gmail.com)
-    - e0b2230 2015-10-21 Fix IpRestriction validation; (andreyklochok@gmail.com)
-    - 9ea9ea7 2015-10-21 Add autoclear all text fields on related tab (andreyklochok@gmail.com)
-    - 935cd6c 2015-10-21 Add answer validation (andreyklochok@gmail.com)
-- Fixed translation and minor issues
+- Fixed minor issues and translation
+    - 9e45474 2015-11-18 improved package description (sol@hiqdev.com)
     - 0b9d86c 2015-11-12 Fixed wrong changes in 38a51276 (d.naumenko.a@gmail.com)
     - 01a6463 2015-11-10 Added * for required fields in contact form (bladeroot@gmail.com)
     - 2cf1bc4 2015-10-17 Contact model - changed fool typo (d.naumenko.a@gmail.com)
@@ -33,6 +24,16 @@ hiqdev/hipanel-module-client commits history
     - d7e387c 2015-08-27 Email (andreyklochok@gmail.com)
     - 7292109 2015-08-27 Fixed deprecated method calling syntax (d.naumenko.a@gmail.com)
     - 3da8a11 2015-08-26 Add filter by states (andreyklochok@gmail.com)
+- Added ClientTicketSettings, PincodeSettings
+    - 48edc3a 2015-10-23  * Added ClientTicketSettings model (d.naumenko.a@gmail.com)
+    - a69fec5 2015-10-21 Add Pincode settings functionality (andreyklochok@gmail.com)
+    - 1e73530 2015-10-20 Add ContactCombo, change html select to cobmo in domainSettingsModal (andreyklochok@gmail.com)
+    - 85132ec 2015-10-15 Added ticket option `new_messages_first` (d.naumenko.a@gmail.com)
+- Fixed validations
+    - 92426d9 2015-10-21 Fix validation in domailSettings (andreyklochok@gmail.com)
+    - e0b2230 2015-10-21 Fix IpRestriction validation; (andreyklochok@gmail.com)
+    - 9ea9ea7 2015-10-21 Add autoclear all text fields on related tab (andreyklochok@gmail.com)
+    - 935cd6c 2015-10-21 Add answer validation (andreyklochok@gmail.com)
 - Added monthly invoices displaying and managing
     - 9473985 2015-10-15 finished monthly invoices displaying and managing (sol@hiqdev.com)
     - c43d3ca 2015-10-08 simplified use of BlockModalButton (sol@hiqdev.com)
