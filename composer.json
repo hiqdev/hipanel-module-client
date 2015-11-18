@@ -1,7 +1,7 @@
 {
     "name": "hiqdev/hipanel-module-client",
     "type": "yii2-extension",
-    "description": "Client Plugin for HiPanel",
+    "description": "Client module for HiPanel",
     "keywords": [
         "client",
         "hipanel",

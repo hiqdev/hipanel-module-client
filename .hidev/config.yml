@@ -1,12 +1,17 @@
 package:
     name:           hipanel-module-client
     namespace:      hipanel\modules\client
-    label:          HiPanel ClientModule
-    title:          Client Plugin for HiPanel
+    headline:       HiPanel Client Module
+    title:          Client module for HiPanel
     type:           yii2-extension
     keywords:       client, hipanel, plugin
     year:           2014
+    description:    |
+        [![Logo](https://raw.githubusercontent.com/hiqdev/hipanel-core/master/docs/logo.png)](https://hipanel.com/)
+
+        [HiPanel](http://hipanel.com) is next generation control panel for hosting, domains and more.
+        This package provides client management for HiPanel.
 
 require:
-    hiqdev/hidev-config:        "*"
-    hiqdev/hidev-config-php:    "*"
+    hiqdev/hidev-hiqdev: "*"
+    hiqdev/hidev-php:    "*"
