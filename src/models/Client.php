@@ -15,7 +15,6 @@ use Exception;
 use hipanel\helpers\StringHelper;
 use hipanel\modules\domain\models\Domain;
 use hipanel\validators\DomainValidator;
-use hipanel\validators\IpValidator;
 use Yii;
 
 class Client extends \hipanel\base\Model
@@ -81,7 +80,7 @@ class Client extends \hipanel\base\Model
                     return $value;
                 }
             }, 'skipOnEmpty' => true, 'on' => ['ip-restrictions']],
-            [['allowed_ips', 'sshftp_ips'], 'each', 'rule' => [IpValidator::className()], 'skipOnEmpty' => true, 'on' => ['ip-restrictions']],
+            [['allowed_ips', 'sshftp_ips'], 'each', 'rule' => ['ip'], 'on' => ['ip-restrictions']],
 
             // Change password
             [['login', 'old_password', 'new_password', 'confirm_password'], 'required', 'on' => ['change-password']],

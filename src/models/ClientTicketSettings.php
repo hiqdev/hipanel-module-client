@@ -13,7 +13,6 @@ namespace hipanel\modules\client\models;
 
 use hipanel\helpers\StringHelper;
 use hipanel\validators\DomainValidator;
-use hipanel\validators\IpValidator;
 use Yii;
 
 class ClientTicketSettings extends \hipanel\base\Model
