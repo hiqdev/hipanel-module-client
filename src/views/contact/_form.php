@@ -82,7 +82,7 @@ JS
             'data-loading-icon' => 'glyphicon glyphicon-refresh',
         ]),
     ]); ?>
-        <?= Html::textInput('modal-pincode', null, ['id' => 'modal-pincode', 'class' => 'form-control', 'placeholder' => Yii::t('app', 'Type pincode here...')]); ?>
+        <?= Html::textInput('modal-pincode', null, ['id' => 'modal-pincode', 'class' => 'form-control', 'placeholder' => Yii::t('app', 'Type pincode here') . '...']); ?>
     <?php Modal::end(); ?>
 <?php endif; ?>
 
@@ -95,15 +95,15 @@ JS
     'layout'                 => 'horizontal',
     'validationUrl'          => Url::toRoute(['validate-form', 'scenario' => $model->scenario]),
 ]) ?>
-<?php if ($askPincode['pincode_enabled']) : ?>
 
-<?php endif; ?>
 <div class="row">
-    <?= $form->field($model, 'pincode')->hiddenInput()->label(false); ?>
+
+    <?= Html::activeHiddenInput($model, 'pincode'); ?>
 
     <div class="col-md-12">
         <?php Box::begin(); ?>
-        <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-default']); ?>
+            <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']); ?>
+            <?= Html::submitButton(Yii::t('app', 'Cancel'), ['class' => 'btn btn-default', 'onclick' => 'window.history.back();']); ?>
         <?php Box::end(); ?>
     </div>
     <!-- /.com-md-12 -->
