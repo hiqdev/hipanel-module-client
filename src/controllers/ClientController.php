@@ -11,6 +11,13 @@
 
 namespace hipanel\modules\client\controllers;
 
+use hipanel\actions\IndexAction;
+use hipanel\actions\SmartCreateAction;
+use hipanel\actions\SmartDeleteAction;
+use hipanel\actions\SmartPerformAction;
+use hipanel\actions\SmartUpdateAction;
+use hipanel\actions\ValidateFormAction;
+use hipanel\actions\ViewAction;
 use hipanel\models\Ref;
 use hipanel\modules\client\models\Client;
 use hiqdev\hiart\Collection;
@@ -22,7 +29,7 @@ class ClientController extends \hipanel\base\CrudController
     {
         return [
             'index' => [
-                'class' => 'hipanel\actions\IndexAction',
+                'class' => IndexAction::class,
                 'data' => function ($action) {
                     return [
                         'states' => $action->controller->getStates(),
@@ -30,39 +37,39 @@ class ClientController extends \hipanel\base\CrudController
                 },
             ],
             'create' => [
-                'class' => 'hipanel\actions\SmartCreateAction',
+                'class' => SmartCreateAction::class,
                 'success' => Yii::t('app', 'Client is created'),
             ],
             'update' => [
-                'class' => 'hipanel\actions\SmartUpdateAction',
+                'class' => SmartUpdateAction::class,
                 'success' => Yii::t('app', 'Client is updated'),
             ],
             'delete' => [
-                'class' => 'hipanel\actions\SmartDeleteAction',
+                'class' => SmartDeleteAction::class,
                 'success' => Yii::t('app', 'Client is deleted'),
             ],
             'enable-block' => [
-                'class' => 'hipanel\actions\SmartPerformAction',
+                'class' => SmartPerformAction::class,
                 'success' => 'Client was blocked successfully',
                 'error' => 'Error during the client account blocking',
             ],
             'disable-block' => [
-                'class' => 'hipanel\actions\SmartPerformAction',
+                'class' => SmartPerformAction::class,
                 'success' => 'Client was unblocked successfully',
                 'error' => 'Error during the client account unblocking',
             ],
             'view' => [
-                'class' => 'hipanel\actions\ViewAction',
+                'class' => ViewAction::class,
                 'findOptions' => [
                     'select'             => '*,contact,purses,last_seen,tickets_count,servers_count,hosting_count,contacts_count',
                     'with_domains_count' => Yii::getAlias('@domain', false) ? 1 : 0,
                 ],
             ],
             'validate-form' => [
-                'class' => 'hipanel\actions\ValidateFormAction',
+                'class' => ValidateFormAction::class,
             ],
             'set-credit' => [
-                'class' => 'hipanel\actions\SmartUpdateAction',
+                'class' => SmartUpdateAction::class,
                 'success' => Yii::t('app', 'Credit changed'),
             ],
         ];

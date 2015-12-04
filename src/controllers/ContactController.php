@@ -11,13 +11,16 @@
 
 namespace hipanel\modules\client\controllers;
 
+use hipanel\actions\IndexAction;
+use hipanel\actions\SearchAction;
+use hipanel\actions\SmartCreateAction;
+use hipanel\actions\SmartDeleteAction;
+use hipanel\actions\SmartUpdateAction;
+use hipanel\actions\ValidateFormAction;
+use hipanel\actions\ViewAction;
 use hipanel\base\CrudController;
 use hipanel\modules\client\models\Client;
-use hipanel\modules\client\models\Contact;
 use Yii;
-use yii\base\Exception;
-use yii\web\HttpException;
-use yii\web\MethodNotAllowedHttpException;
 
 class ContactController extends CrudController
 {
@@ -25,20 +28,20 @@ class ContactController extends CrudController
     {
         return [
             'index'         => [
-                'class' => 'hipanel\actions\IndexAction',
+                'class' => IndexAction::class,
             ],
             'search'         => [
-                'class' => 'hipanel\actions\SearchAction',
+                'class' => SearchAction::class,
             ],
             'view'          => [
-                'class'         => 'hipanel\actions\ViewAction',
+                'class'         => ViewAction::class,
                 'findOptions'   => ['with_counters' => 1],
             ],
             'validate-form' => [
-                'class'         => 'hipanel\actions\ValidateFormAction',
+                'class'         => ValidateFormAction::class,
             ],
             'create'        => [
-                'class'         => 'hipanel\actions\SmartCreateAction',
+                'class'         => SmartCreateAction::class,
                 'scenario'      => 'create',
                 'data'          => function ($action) {
                     return [
@@ -49,11 +52,11 @@ class ContactController extends CrudController
                 'success'       => Yii::t('app', 'Contact was created'),
             ],
             'delete'        => [
-                'class'         => 'hipanel\actions\SmartDeleteAction',
+                'class'         => SmartDeleteAction::class,
                 'success' => Yii::t('app', 'Contact was deleted'),
             ],
             'update'        => [
-                'class'         => 'hipanel\actions\SmartUpdateAction',
+                'class'         => SmartUpdateAction::class,
                 'scenario'      => 'update',
                 'success' => Yii::t('app', 'Contact was updated'),
                 'data'          => function ($action) {
@@ -65,7 +68,7 @@ class ContactController extends CrudController
                 },
             ],
             'copy'          => [
-                'class'         => 'hipanel\actions\SmartUpdateAction',
+                'class'         => SmartUpdateAction::class,
                 'scenario'      => 'create',
                 'data'          => function ($action) {
                     return [
