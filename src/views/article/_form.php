@@ -25,7 +25,7 @@ $modelReflacion = new \ReflectionClass(get_class($model));
 
     <?= $form->field($model, 'name'); ?>
     <?= $form->field($model, 'post_date')->widget(kartik\widgets\DatePicker::className(), [
-    'value' => date('d-M-Y', strtotime('+2 days')),
+        'value' => date('d-M-Y', strtotime('+2 days')),
     ]); ?>
 
     <?= $form->field($model, 'type')->dropDownList(ArrayHelper::map(Ref::find()->where(['gtype' => 'type,article'])->getList(false), 'gl_key', function ($l) {
@@ -45,7 +45,7 @@ $modelReflacion = new \ReflectionClass(get_class($model));
 
         <!-- Tab panes -->
         <div class="tab-content">
-            <?/* foreach ($langs as $code=>$label) : ?>
+            <?php /*foreach ($langs as $code=>$label) : ?>
                 <?=Html::beginTag('div',['id'=>$code,'role'=>'tabpanel','class'=>'tab-pane'])?>
                     <?= $form->field($model, "html_title_$code"); ?>
                     <?= $form->field($model, "html_keywords_$code"); ?>
@@ -54,7 +54,7 @@ $modelReflacion = new \ReflectionClass(get_class($model));
                     <?= $form->field($model, "short_text_$code")->textarea(['row'=>6]); ?>
                     <?= $form->field($model, "text_$code")->textarea(['row'=>9]); ?>
                 <?=Html::endTag('div')?>
-            <? endforeach; */?>
+            <?php endforeach; */?>
 
             <?php foreach ([2867298 => 'ru', 2867299 => 'en'] as $id => $lng) : ?>
                 <?=Html::beginTag('div', ['id' => $lng, 'role' => 'tabpanel', 'class' => 'tab-pane'])?>

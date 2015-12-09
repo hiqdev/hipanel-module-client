@@ -14,7 +14,7 @@ $this->breadcrumbs->setItems([
 
 ?>
 
-<? Pjax::begin(array_merge(Yii::$app->params['pjax'], ['enablePushState' => true])) ?>
+<?php Pjax::begin(array_merge(Yii::$app->params['pjax'], ['enablePushState' => true])) ?>
     <?php $box = ActionBox::begin(['model' => $model, 'dataProvider' => $dataProvider]) ?>
         <?php $box->beginActions() ?>
             <?= $box->renderCreateButton(Yii::t('app', 'Create client')) ?>

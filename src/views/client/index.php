@@ -27,7 +27,7 @@ $this->breadcrumbs->setItems([
 ]);
 ?>
 
-<? Pjax::begin(array_merge(Yii::$app->params['pjax'], ['enablePushState' => true])) ?>
+<?php Pjax::begin(array_merge(Yii::$app->params['pjax'], ['enablePushState' => true])) ?>
     <?php $box = ActionBox::begin(['model' => $model, 'dataProvider' => $dataProvider]) ?>
         <?php $box->beginActions() ?>
             <?= $box->renderCreateButton(Yii::t('app', 'Create client')) ?>
@@ -46,7 +46,7 @@ $this->breadcrumbs->setItems([
         <?= $box->renderPerPage() ?>
         <?php $box->endActions() ?>
         <?php $box->beginBulkActions() ?>
-        <? if (Yii::$app->user->can('support')) { ?>
+        <?php if (Yii::$app->user->can('support')) { ?>
             <div class="btn-group">
                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <?= Yii::t('app', 'Block') ?> <span class="caret"></span>
@@ -60,7 +60,7 @@ $this->breadcrumbs->setItems([
                     ]); ?>
                 </div>
             </div>
-        <? } ?>
+        <?php } ?>
         <?php $box->endBulkActions() ?>
         <?= $box->renderSearchForm(compact('states')) ?>
     <?php $box->end() ?>
