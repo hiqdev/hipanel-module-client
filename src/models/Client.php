@@ -85,9 +85,9 @@ class Client extends \hipanel\base\Model
             // Change password
             [['login', 'old_password', 'new_password', 'confirm_password'], 'required', 'on' => ['change-password']],
             [['old_password'], function ($attribute, $params) {
-                $response = $this->perform('CheckPassword', [$attribute => $this->$attribute, 'login' => $this->login]);
-                if ($response['check'] != 'ok') {
-                    $this->addError($attribute, 'The password is incorrect.');
+                $response = $this->perform('CheckPassword', ['password' => $this->{$attribute}, 'login' => $this->login]);
+                if (!$response['matches']) {
+                    $this->addError($attribute, Yii::t('hipanel/client', 'The password is incorrect'));
                 }
             }, 'on' => ['change-password']],
             // Client validation disabled due the Yii2 bug: https://github.com/yiisoft/yii2/issues/9811
@@ -190,5 +190,12 @@ class Client extends \hipanel\base\Model
             $result[$translation[$k]] = $translation[$k];
         }
         return $result;
+    }
+
+    public function scenarioCommands()
+    {
+        return [
+            'change-password' => 'set-password'
+        ];
     }
 }

@@ -12,6 +12,9 @@
 namespace hipanel\modules\client\controllers;
 
 use hipanel\actions\IndexAction;
+use hipanel\actions\RenderAction;
+use hipanel\actions\RenderAjaxAction;
+use hipanel\actions\RenderJsonAction;
 use hipanel\actions\SmartCreateAction;
 use hipanel\actions\SmartDeleteAction;
 use hipanel\actions\SmartPerformAction;
@@ -58,10 +61,23 @@ class ClientController extends \hipanel\base\CrudController
                 'success' => 'Client was unblocked successfully',
                 'error' => 'Error during the client account unblocking',
             ],
+            'change-password' => [
+                'class' => SmartUpdateAction::class,
+                'view' => '_changePasswordModal',
+                'POST' => [
+                    'save' => true,
+                    'success' => [
+                        'class' => RenderJsonAction::class,
+                        'return' => function ($action) {
+                            return ['success' => !$action->collection->hasErrors()];
+                        }
+                    ]
+                ]
+            ],
             'view' => [
                 'class' => ViewAction::class,
                 'findOptions' => [
-                    'select'             => '*,contact,purses,last_seen,tickets_count,servers_count,hosting_count,contacts_count',
+                    'select' => '*,contact,purses,last_seen,tickets_count,servers_count,hosting_count,contacts_count',
                     'with_domains_count' => Yii::getAlias('@domain', false) ? 1 : 0,
                 ],
             ],
@@ -93,7 +109,8 @@ class ClientController extends \hipanel\base\CrudController
         }
         $model->setAttributes(Client::perform('HasPincode', ['id' => $id]));
         $apiData = Ref::getList('type,question');
-        $questionList = array_merge(Client::makeTranslateQuestionList($apiData), ['own' => Yii::t('app', 'Own question')]);
+        $questionList = array_merge(Client::makeTranslateQuestionList($apiData),
+            ['own' => Yii::t('app', 'Own question')]);
 
         return $this->renderAjax('_pincodeSettingsModal', ['model' => $model, 'questionList' => $questionList]);
     }
@@ -174,19 +191,5 @@ class ClientController extends \hipanel\base\CrudController
         $model->setAttributes($model->perform('GetClassValues', ['id' => $id, 'class' => 'client,domain_defaults']));
 
         return $this->renderAjax('_domainSettingsModal', ['model' => $model]);
-    }
-
-    public function actionChangePassword($id)
-    {
-        $model = $this->findModel($id);
-        $model->scenario = 'change-password';
-        $request = Yii::$app->request;
-
-        if ($request->isAjax && $model->load(Yii::$app->request->post())) {
-            $model->perform('SetPaasword', $model->dirtyAttributes);
-            Yii::$app->end();
-        }
-
-        return $this->renderAjax('_changePasswordModal', ['model' => $model]);
     }
 }
