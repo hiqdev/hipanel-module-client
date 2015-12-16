@@ -23,7 +23,7 @@ use yii\web\JsExpression;
 <?= $form->field($model, "[$model->id]new_password")->widget(PasswordInput::className(), [
     'id' => $model->id . '_change-password-modal'
 ]); ?>
-<?= $form->field($model, "[$model->id]confirm_password"); ?>
+<?= $form->field($model, "[$model->id]confirm_password")->passwordInput(); ?>
 
 <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-default']) ?>
 <?php $form::end(); ?>
