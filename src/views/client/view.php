@@ -47,11 +47,16 @@ $this->registerCss('legend {font-size: 16px;}');
             <span class="profile-user-name"><?= $model->login . ' / ' . $model->seller ?></span>
             <br>
             <span class="profile-user-role"><?= $model->type ?></span><br>
-            <small class="text-muted"><?= Html::a(Yii::t('app', 'Change your avatar at Gravatar.com'), 'http://gravatar.com', ['target' => '_blank']) ?></small>
         </p>
 
         <div class="profile-usermenu">
             <ul class="nav">
+                <li>
+                    <a href="http://gravatar.com" target="_blank">
+                        <i><img src="http://www.gravatar.com/avatar/00000000000000000000000000000000/?s=17" /></i>
+                        <?= Yii::t('app', 'You can change your avatar at Gravatar.com')?>
+                    </a>
+                </li>
                 <li>
                     <?= SettingsModal::widget([
                         'model'    => $model,
