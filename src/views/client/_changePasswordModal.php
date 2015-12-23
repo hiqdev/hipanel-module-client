@@ -25,5 +25,6 @@ use yii\web\JsExpression;
 ]); ?>
 <?= $form->field($model, "[$model->id]confirm_password")->passwordInput(); ?>
 
-<?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-default']) ?>
+<hr>
+<?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
 <?php $form::end(); ?>

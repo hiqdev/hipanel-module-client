@@ -42,6 +42,6 @@ use yii\helpers\Url;
     </div>
     <!-- /.row -->
 </fieldset>
-
-<?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-default']) ?>
+<hr>
+<?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
 <?php $form->end(); ?>

@@ -24,5 +24,6 @@ use yii\helpers\Url;
 <?= $form->field($model, "[$model->id]sshftp_ips")->hint(Yii::t('app', "All of accounts in the hosting panel will use following permit IP addresses list by default.
 You can reassign permitted IP addresses for each account individually in it's settings.")); ?>
 
-<?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-default']) ?>
+<hr>
+<?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
 <?php $form::end(); ?>

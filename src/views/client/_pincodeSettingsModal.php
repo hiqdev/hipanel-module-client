@@ -26,17 +26,23 @@ JS
     ?>
     <div class="row">
         <div class="col-md-12">
-            <div class="nav-tabs-custom">
+            <div class="">
                 <?= Tabs::widget([
                     'items' => [
                         [
                             'label' => Yii::t('app', 'Disable pincode'),
                             'content' => $form->field($model, "[$model->id]pincode"),
-                            'active' => true
+                            'active' => true,
+                            'options' => [
+                                'class' => 'md-mt-10'
+                            ]
                         ],
                         [
                             'label' => Yii::t('app', 'Forgot pincode?'),
                             'content' => $form->field($model, "[$model->id]answer")->label($model->question),
+                            'options' => [
+                                'class' => 'md-mt-10'
+                            ]
                         ],
                     ],
                 ]); ?>
@@ -76,5 +82,6 @@ JS
     </div>
 <?php endif; ?>
 <!-- /.row -->
-<?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-default']) ?>
+<hr>
+<?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
 <?php $form::end(); ?>
