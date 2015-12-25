@@ -66,6 +66,9 @@ class Contact extends \hipanel\base\Model
             [['name_confirm_date'],                                                 'safe'],
             [['files'],                                                             'safe'], /// TODO
             [['id'],                                                                'required', 'on' => ['delete', 'update']],
+
+            // Change contact
+            [['domainId', 'contactType', 'domainName'], 'safe', 'on' => ['create', 'change-contact']],
         ];
     }
 

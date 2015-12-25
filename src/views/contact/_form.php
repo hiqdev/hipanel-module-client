@@ -42,7 +42,7 @@ jQuery('#jur_domain input').change(function() {
     jQuery('#fiz_domain').prop('disabled', disable);
 });
 JS
-, View::POS_READY);
+    , View::POS_READY);
 ?>
 
 <?php if ($askPincode['pincode_enabled']) : ?>
@@ -69,32 +69,43 @@ JS
 JS
     ); ?>
     <?php Modal::begin([
-        'id'           => 'askpincode-modal',
-        'size'         => Modal::SIZE_SMALL,
-        'header'       => '<h4 class="modal-title">' . Yii::t('app', 'Enter pincode') . '</h4>',
+        'id' => 'askpincode-modal',
+        'size' => Modal::SIZE_SMALL,
+        'header' => '<h4 class="modal-title">' . Yii::t('app', 'Enter pincode') . '</h4>',
         'clientEvents' => [
             'show.bs.modal' => new JsExpression("function() {document.getElementById('modal-pincode').value = '';}"),
         ],
-        'footer'                => Html::submitButton(Yii::t('app', 'Submit'), [
-            'id'                => 'modal-ask-pincode-button',
-            'class'             => 'btn btn-default btn-loading',
+        'footer' => Html::submitButton(Yii::t('app', 'Submit'), [
+            'id' => 'modal-ask-pincode-button',
+            'class' => 'btn btn-default btn-loading',
             'data-loading-text' => Yii::t('app', 'Loading') . '...',
             'data-loading-icon' => 'glyphicon glyphicon-refresh',
         ]),
     ]); ?>
-        <?= Html::textInput('modal-pincode', null, ['id' => 'modal-pincode', 'class' => 'form-control', 'placeholder' => Yii::t('app', 'Type pincode here') . '...']); ?>
+    <?= Html::textInput('modal-pincode', null, ['id' => 'modal-pincode', 'class' => 'form-control', 'placeholder' => Yii::t('app', 'Type pincode here') . '...']); ?>
     <?php Modal::end(); ?>
 <?php endif; ?>
 
 <?php $form = ActiveForm::begin([
-    'id'                     => 'contact-form',
-    'action'                 => $model->scenario === 'copy' ? Url::toRoute('create') : '',
+    'id' => 'contact-form',
+    'action' => $model->scenario === 'copy' ? Url::toRoute('create') : $model->scenario,
     'enableClientValidation' => true,
-    'validateOnBlur'         => true,
-    'enableAjaxValidation'   => true,
-    'layout'                 => 'horizontal',
-    'validationUrl'          => Url::toRoute(['validate-form', 'scenario' => $model->scenario]),
+    'validateOnBlur' => true,
+    'enableAjaxValidation' => true,
+    'layout' => 'horizontal',
+    'validationUrl' => Url::toRoute(['validate-form', 'scenario' => $model->scenario]),
 ]) ?>
+
+<?php
+// If contact change
+if ($model->scenario == 'change-contact') {
+    print Html::activeHiddenInput($model, 'domainId', ['value' => $domainId]);
+    print Html::activeHiddenInput($model, 'domainName', ['value' => $domainName]);
+    print Html::activeHiddenInput($model, 'contactType', ['value' => $contactType]);
+}
+
+?>
+
 
 <div class="row">
 
@@ -102,8 +113,12 @@ JS
 
     <div class="col-md-12">
         <?php Box::begin(); ?>
+        <?php if ($model->scenario == 'update') : ?>
             <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']); ?>
-            <?= Html::submitButton(Yii::t('app', 'Cancel'), ['class' => 'btn btn-default', 'onclick' => 'window.history.back();']); ?>
+        <?php else : ?>
+            <?= Html::submitButton(Yii::t('app', 'Create contact'), ['class' => 'btn btn-success']); ?>
+        <?php endif; ?>
+        <?= Html::submitButton(Yii::t('app', 'Cancel'), ['class' => 'btn btn-default', 'onclick' => 'window.history.back();']); ?>
         <?php Box::end(); ?>
     </div>
     <!-- /.com-md-12 -->
@@ -123,7 +138,7 @@ JS
         <?= $form->field($model, 'street3'); ?>
         <?= $form->field($model, 'city'); ?>
         <?= $form->field($model, 'country')->widget(StaticCombo::classname(), [
-            'data'  => $countries,
+            'data' => $countries,
             'hasId' => true,
         ]); ?>
         <?= $form->field($model, 'province'); ?>
@@ -145,7 +160,7 @@ JS
     <!-- /.col-md-6 -->
     <div class="col-md-6">
         <?php $box = Box::begin(['renderBody' => false, 'options' => [
-            'class'                           => 'collapsed-box',
+            'class' => 'collapsed-box',
         ]]) ?>
         <?php $box->beginHeader(); ?>
         <h3 class="box-title"><?= Yii::t('app', 'Additional fields') ?></h3>
@@ -157,39 +172,41 @@ JS
         <?php $box->endHeader(); ?>
         <?php $box->beginBody() ?>
         <fieldset id="fiz_domain">
-            <div class="well well-sm"><?= Yii::t('app', 'For domain registration in RU and SU zones as physical entity') ?></div>
+            <div
+                class="well well-sm"><?= Yii::t('app', 'For domain registration in RU and SU zones as physical entity') ?></div>
             <?= $form->field($model, 'birth_date')->widget(DatePicker::className(), [
-                'removeButton'  => false,
+                'removeButton' => false,
                 'pluginOptions' => [
-                    'format'    => 'yyyy-mm-dd', // TODO: get format from user settings
+                    'format' => 'yyyy-mm-dd', // TODO: get format from user settings
                     'autoclose' => true,
-                    'clearBtn'  => true,
+                    'clearBtn' => true,
                 ],
                 'options' => [
                     'readonly' => 'readonly',
                     'class' => 'datepicker',
-                    'placeholder' => Yii::t('app', 'Select date')
+                    'placeholder' => Yii::t('app', 'Select date'),
                 ],
             ]); ?>
             <?= $form->field($model, 'passport_no'); ?>
             <?= $form->field($model, 'passport_date')->widget(DatePicker::className(), [
-                'removeButton'  => false,
+                'removeButton' => false,
                 'pluginOptions' => [
-                    'format'    => 'yyyy-mm-dd',  // TODO: get format from user settings
+                    'format' => 'yyyy-mm-dd',  // TODO: get format from user settings
                     'autoclose' => true,
-                    'clearBtn'  => true,
+                    'clearBtn' => true,
                 ],
                 'options' => [
                     'readonly' => 'readonly',
                     'class' => 'datepicker',
-                    'placeholder' => Yii::t('app', 'Select date')
+                    'placeholder' => Yii::t('app', 'Select date'),
                 ],
-            ]);  ?>
+            ]); ?>
             <?= $form->field($model, 'passport_by'); ?>
         </fieldset>
         <hr>
         <fieldset id="jur_domain">
-            <div class="well well-sm"><?= Yii::t('app', 'For domain registration in RU and SU zones as legal entity') ?></div>
+            <div
+                class="well well-sm"><?= Yii::t('app', 'For domain registration in RU and SU zones as legal entity') ?></div>
             <?= $form->field($model, 'organization_ru'); ?>
             <?= $form->field($model, 'director_name'); ?>
             <?= $form->field($model, 'inn'); ?>
