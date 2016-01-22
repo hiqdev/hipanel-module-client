@@ -15,6 +15,7 @@ use hipanel\actions\IndexAction;
 use hipanel\actions\RenderAction;
 use hipanel\actions\RenderAjaxAction;
 use hipanel\actions\RenderJsonAction;
+use hipanel\actions\SearchAction;
 use hipanel\actions\SmartCreateAction;
 use hipanel\actions\SmartDeleteAction;
 use hipanel\actions\SmartPerformAction;
@@ -38,6 +39,15 @@ class ClientController extends \hipanel\base\CrudController
                         'states' => $action->controller->getStates(),
                     ];
                 },
+                'filterStorageMap' => [
+                    'login_like' => 'client.client.login_like',
+                    'state' => 'client.client.state',
+                    'type' => 'client.client.type',
+                    'seller' => 'client.client.seller',
+                ]
+            ],
+            'search' => [
+                'class' => SearchAction::class
             ],
             'create' => [
                 'class' => SmartCreateAction::class,
