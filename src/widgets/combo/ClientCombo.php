@@ -26,7 +26,7 @@ class ClientCombo extends Combo
     public $name = 'login';
 
     /** {@inheritdoc} */
-    public $url = '/client/client/search';
+    public $url = '/client/client/index';
 
     /** {@inheritdoc} */
     public $_return = ['id'];
@@ -48,6 +48,7 @@ class ClientCombo extends Combo
         return ArrayHelper::merge(parent::getFilter(), [
             'type_in'  => ['format' => $this->clientType],
             'order' => ['format' => ['loginlike' => 'desc']],
+            'limit' => ['format' => '50']
         ]);
     }
 }
