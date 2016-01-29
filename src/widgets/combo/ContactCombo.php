@@ -27,7 +27,7 @@ class ContactCombo extends Combo
     public $name = 'name';
 
     /** {@inheritdoc} */
-    public $url = '/client/contact/search';
+    public $url = '/client/contact/index';
 
     /** {@inheritdoc} */
     public $_return = ['id', 'name', 'email'];
