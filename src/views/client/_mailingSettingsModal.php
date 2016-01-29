@@ -21,7 +21,6 @@ use yii\helpers\Url;
             <legend><?= Yii::t('app', 'System notifications'); ?></legend>
             <?= $form->field($model, 'notify_important_actions')->checkbox(); ?>
             <?= $form->field($model, 'domain_registration')->checkbox(); ?>
-            <?= $form->field($model, 'send_expires_when_autorenewed')->checkbox(); ?>
         </fieldset>
     </div>
     <!-- /.col-md-6 -->
@@ -36,5 +35,6 @@ use yii\helpers\Url;
 </div>
 <!-- /.row -->
 <hr>
-<?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
+<?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?> &nbsp;
+<?= Html::button(Yii::t('app', 'Cancel'), ['class' => 'btn btn-default', 'data-dismiss' => 'modal']) ?>
 <?php $form::end(); ?>

@@ -67,7 +67,6 @@ class Client extends \hipanel\base\Model
             [[
                 'notify_important_actions',
                 'domain_registration',
-                'send_expires_when_autorenewed',
                 'newsletters',
                 'commercial',
             ], 'boolean', 'on' => ['mailing-settings']],
@@ -147,9 +146,15 @@ class Client extends \hipanel\base\Model
             'new_password' => Yii::t('app', 'New password'),
             'confirm_password' => Yii::t('app', 'Confirm password'),
 
+            // Mailing settings
+            'notify_important_actions'      => Yii::t('app', 'Notify important actions'),
+            'domain_registration'           => Yii::t('app', 'Domain registration'),
+            'newsletters'                   => Yii::t('app', 'Newsletters'),
+            'commercial'                    => Yii::t('app', 'Commercial'),
+
             // Domain settings
             'autorenewal' => Yii::t('app', 'Autorenewal'),
-            'nss' => Yii::t('app', 'Nameservers'),
+            'nss' => Yii::t('app', 'Name servers'),
             'whois_protected' => Yii::t('app', 'WHOIS protect'),
             'registrant' => Yii::t('app', 'Registrant contact'),
             'admin' => Yii::t('app', 'Admin contact'),

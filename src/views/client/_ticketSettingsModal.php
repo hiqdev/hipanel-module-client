@@ -20,5 +20,6 @@ use yii\helpers\Url;
 <?= $form->field($model, 'send_message_text')->checkbox()->hint(Yii::t('app', 'When checked, mail notification includes the text of the new message. By default, the mail has only the acknowledgment of the response and a link to the ticket. Be careful, the text can include confidential information.')); ?>
 <?= $form->field($model, 'new_messages_first')->checkbox()->hint(Yii::t('app', 'When checked, new answers in the ticket will be displayed first.')); ?>
 <hr>
-<?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
+<?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?> &nbsp;
+<?= Html::button(Yii::t('app', 'Cancel'), ['class' => 'btn btn-default', 'data-dismiss' => 'modal']) ?>
 <?php $form->end(); ?>
