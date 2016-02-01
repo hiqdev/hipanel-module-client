@@ -43,7 +43,9 @@ class Client extends \hipanel\base\Model
             [['create_time', 'update_time'],                                                    'date'],
 
             [['id', 'credit'],                              'required', 'on' => 'set-credit'],
-            [['id', 'type', 'comment'],                     'required', 'on' => ['set-block', 'enable-block', 'disable-block']],
+            [['id', 'type', 'comment'],                     'required', 'on' => ['set-block', 'enable-block']],
+            [['id'],                                        'required', 'on' => ['disable-block']],
+            [['comment'],                                   'safe',     'on' => ['disable-block']],
             [['id', 'language'],                            'required', 'on' => 'set-language'],
             [['id', 'seller_id'],                           'required', 'on' => 'set-seller'],
 

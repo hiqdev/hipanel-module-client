@@ -12,6 +12,8 @@
 namespace hipanel\modules\client\controllers;
 
 use hipanel\actions\IndexAction;
+use hipanel\actions\PrepareBulkAction;
+use hipanel\actions\RedirectAction;
 use hipanel\actions\RenderAction;
 use hipanel\actions\RenderAjaxAction;
 use hipanel\actions\RenderJsonAction;
@@ -26,6 +28,7 @@ use hipanel\models\Ref;
 use hipanel\modules\client\models\Client;
 use hiqdev\hiart\Collection;
 use Yii;
+use yii\base\Event;
 
 class ClientController extends \hipanel\base\CrudController
 {
@@ -97,6 +100,70 @@ class ClientController extends \hipanel\base\CrudController
             'set-credit' => [
                 'class' => SmartUpdateAction::class,
                 'success' => Yii::t('app', 'Credit changed'),
+            ],
+            'bulk-enable-block' => [
+                'class' => SmartUpdateAction::class,
+                'scenario' => 'enable-block',
+                'success' => Yii::t('hipanel/client', 'Clients were blocked successfully'),
+                'error' => Yii::t('hipanel/client', 'Error during the clients blocking'),
+                'POST html' => [
+                    'save'    => true,
+                    'success' => [
+                        'class' => RedirectAction::class,
+                    ],
+                ],
+                'on beforeSave' => function (Event $event) {
+                    /** @var \hipanel\actions\Action $action */
+                    $action = $event->sender;
+                    $type = Yii::$app->request->post('type');
+                    $comment = Yii::$app->request->post('comment');
+                    if (!empty($type)) {
+                        foreach ($action->collection->models as $model) {
+                            $model->setAttributes([
+                                'type' => $type,
+                                'comment' => $comment
+                            ]);
+
+                        }
+                    }
+                },
+            ],
+            'bulk-enable-block-modal' => [
+                'class' => PrepareBulkAction::class,
+                'scenario' => 'enable-block',
+                'view' => '_bulkEnableBlock',
+                'data' => function ($action, $data) {
+                    return array_merge($data, [
+                        'blockReasons' => $this->getBlockReasons()
+                    ]);
+                }
+            ],
+            'bulk-disable-block' => [
+                'class' => SmartUpdateAction::class,
+                'scenario' => 'disable-block',
+                'success' => Yii::t('hipanel/client', 'Clients were unblocked successfully'),
+                'error' => Yii::t('hipanel/client', 'Error during the clients unblocking'),
+                'POST html' => [
+                    'save'    => true,
+                    'success' => [
+                        'class' => RedirectAction::class,
+                    ],
+                ],
+                'on beforeSave' => function (Event $event) {
+                    /** @var \hipanel\actions\Action $action */
+                    $action = $event->sender;
+                    $comment = Yii::$app->request->post('comment');
+                    if (!empty($type)) {
+                        foreach ($action->collection->models as $model) {
+                            $model->setAttribute('comment', $comment);
+                        }
+                    }
+                },
+            ],
+            'bulk-disable-block-modal' => [
+                'class' => PrepareBulkAction::class,
+                'scenario' => 'disable-block',
+                'view' => '_bulkDisableBlock',
             ],
         ];
     }
