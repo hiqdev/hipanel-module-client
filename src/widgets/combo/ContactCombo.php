@@ -1,12 +1,12 @@
 <?php
 
 /*
- * Client Plugin for HiPanel
+ * Client module for HiPanel
  *
  * @link      https://github.com/hiqdev/hipanel-module-client
  * @package   hipanel-module-client
  * @license   BSD-3-Clause
- * @copyright Copyright (c) 2014-2015, HiQDev (https://hiqdev.com/)
+ * @copyright Copyright (c) 2015-2016, HiQDev (http://hiqdev.com/)
  */
 
 namespace hipanel\modules\client\widgets\combo;
@@ -32,15 +32,15 @@ class ContactCombo extends Combo
     /** {@inheritdoc} */
     public $_return = ['id', 'name', 'email'];
 
-    /** @inheritdoc */
+    /** {@inheritdoc} */
     public function getPluginOptions($options = [])
     {
         return parent::getPluginOptions([
             'select2Options' => [
                 'formatResult' => new JsExpression("function (data) {
                     return data.name + '<br><span class=\"text-muted\">' + data.email + '</span>';
-                }")
-            ]
+                }"),
+            ],
         ]);
     }
 

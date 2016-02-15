@@ -1,9 +1,7 @@
 <?php
 
-use hipanel\grid\ActionColumn;
 use hipanel\modules\client\grid\ContactGridView;
 use hipanel\widgets\ActionBox;
-use yii\helpers\Html;
 
 $this->title    = Yii::t('app', 'Contact');
 $this->subtitle = array_filter(Yii::$app->request->get($model->formName(), [])) ? 'filtered list' : 'full list';

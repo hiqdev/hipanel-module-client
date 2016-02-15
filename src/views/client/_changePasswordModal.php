@@ -4,7 +4,6 @@ use hipanel\widgets\PasswordInput;
 use kartik\form\ActiveForm;
 use yii\helpers\Html;
 use yii\helpers\Url;
-use yii\web\JsExpression;
 
 ?>
 
@@ -21,7 +20,7 @@ use yii\web\JsExpression;
 <?= $form->field($model, "[$model->id]login")->textInput(['readonly' => 'readonly']); ?>
 <?= $form->field($model, "[$model->id]old_password")->passwordInput(); ?>
 <?= $form->field($model, "[$model->id]new_password")->widget(PasswordInput::className(), [
-    'id' => $model->id . '_change-password-modal'
+    'id' => $model->id . '_change-password-modal',
 ]); ?>
 <?= $form->field($model, "[$model->id]confirm_password")->passwordInput(); ?>
 

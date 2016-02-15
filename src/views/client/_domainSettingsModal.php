@@ -1,11 +1,9 @@
 <?php
 
 use hipanel\modules\client\widgets\combo\ContactCombo;
-use hiqdev\combo\StaticCombo;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 use yii\helpers\Url;
-
 
 ?>
 

@@ -38,7 +38,7 @@ $this->breadcrumbs->setItems([
             'post_date',
             'is_published' => [
                 'value' => function ($model) {
-                    return $model->is_published == 't' ?
+                    return $model->is_published === 't' ?
                         Html::tag('span', Yii::t('app', 'Published'), ['class' => 'label label-success']) :
                         Html::tag('span', Yii::t('app', 'Unpublished'), ['class' => 'label label-warning']);
                 },

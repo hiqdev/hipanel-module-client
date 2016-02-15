@@ -34,15 +34,15 @@ JS
                             'content' => $form->field($model, "[$model->id]pincode"),
                             'active' => true,
                             'options' => [
-                                'class' => 'md-mt-10'
-                            ]
+                                'class' => 'md-mt-10',
+                            ],
                         ],
                         [
                             'label' => Yii::t('app', 'Forgot pincode?'),
                             'content' => $form->field($model, "[$model->id]answer")->label($model->question),
                             'options' => [
-                                'class' => 'md-mt-10'
-                            ]
+                                'class' => 'md-mt-10',
+                            ],
                         ],
                     ],
                 ]); ?>
@@ -80,7 +80,7 @@ JS
         </div>
         <!-- /.col-md-12 -->
     </div>
-<?php endif; ?>
+<?php endif ?>
 <!-- /.row -->
 <hr>
 <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?> &nbsp;

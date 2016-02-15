@@ -1,9 +1,7 @@
 <?php
 
 use hipanel\helpers\Url;
-use hipanel\modules\client\controllers\ContactController;
 use hipanel\modules\client\grid\ContactGridView;
-use hipanel\modules\domain\controllers\DomainController;
 use hipanel\widgets\Box;
 use hipanel\widgets\ClientSellerLink;
 use hiqdev\assets\flagiconcss\FlagIconCssAsset;
@@ -28,8 +26,8 @@ FlagIconCssAsset::register($this);
                 'class' => 'box-solid',
             ],
             'bodyOptions' => [
-                'class' => 'no-padding'
-            ]
+                'class' => 'no-padding',
+            ],
         ]); ?>
         <div class="profile-user-img text-center">
             <?= $this->render('//layouts/gravatar', ['email' => $model->email, 'size' => 120]); ?>
@@ -45,14 +43,14 @@ FlagIconCssAsset::register($this);
                 <li>
                     <?= Html::a('<i class="fa fa-edit"></i>' . Yii::t('app', 'Change contact information'), ['update', 'id' => $model->id]) ?>
                 </li>
-            <?php if (Yii::getAlias('@domain', false)) { ?>
+            <?php if (Yii::getAlias('@domain', false)) : ?>
                 <li>
                     <?= Html::a('<i class="fa fa-globe"></i>' . Yii::t('app', 'Used for domains: ') . Html::tag('b', $model->used_count), Url::toSearch('domain', ['client_id' => $model->client_id])) ?>
                 </li>
-            <?php } ?>
+            <?php endif ?>
             </ul>
         </div>
-        <?php Box::end(); ?>
+        <?php Box::end() ?>
     </div>
 
     <div class="col-md-9">

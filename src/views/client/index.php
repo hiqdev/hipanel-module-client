@@ -13,14 +13,10 @@ use hipanel\modules\client\grid\ClientGridView;
 use hipanel\widgets\ActionBox;
 use hipanel\widgets\AjaxModal;
 use hipanel\widgets\Pjax;
-use yii\bootstrap\ButtonDropdown;
-use yii\bootstrap\ButtonGroup;
 use yii\bootstrap\Dropdown;
 use yii\bootstrap\Modal;
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
 use yii\helpers\Url;
-use hipanel\models\Ref;
 
 $this->title    = Yii::t('app', 'Clients');
 $this->subtitle = array_filter(Yii::$app->request->get($model->formName(), [])) ? 'filtered list' : 'full list';
@@ -73,7 +69,7 @@ $this->breadcrumbs->setItems([
                         <?= AjaxModal::widget([
                             'id' => 'bulk-enable-block-modal',
                             'bulkPage' => true,
-                            'header'=> Html::tag('h4', Yii::t('hipanel/client', 'Block clients'), ['class' => 'modal-title']),
+                            'header' => Html::tag('h4', Yii::t('hipanel/client', 'Block clients'), ['class' => 'modal-title']),
                             'scenario' => 'bulk-enable-block',
                             'actionUrl' => ['bulk-enable-block-modal'],
                             'size' => Modal::SIZE_LARGE,
@@ -83,7 +79,7 @@ $this->breadcrumbs->setItems([
                         <?= AjaxModal::widget([
                             'id' => 'bulk-disable-block-modal',
                             'bulkPage' => true,
-                            'header'=> Html::tag('h4', Yii::t('hipanel/hosting', 'Unblock clients'), ['class' => 'modal-title']),
+                            'header' => Html::tag('h4', Yii::t('hipanel/hosting', 'Unblock clients'), ['class' => 'modal-title']),
                             'scenario' => 'bulk-disable-block',
                             'actionUrl' => ['bulk-disable-block-modal'],
                             'size' => Modal::SIZE_LARGE,

@@ -20,7 +20,7 @@ use yii\helpers\Html;
                 'formatter' => function ($model) {
                     return $model->login;
                 },
-                'delimiter' => ',&nbsp; '
+                'delimiter' => ',&nbsp; ',
             ]); ?>
         </div>
     </div>
@@ -34,13 +34,13 @@ use yii\helpers\Html;
             <div class="col-sm-6">
                 <?= $form->field($model, 'type')->dropDownList($blockReasons, [
                     'id' => 'client-block-type',
-                    'name' => 'type'
+                    'name' => 'type',
                 ]); ?>
             </div>
             <div class="col-sm-6">
                 <?= $form->field($model, 'comment')->textInput([
                     'id' => 'client-block-comment',
-                    'name' => 'comment'
+                    'name' => 'comment',
                 ]); ?>
             </div>
     </div>

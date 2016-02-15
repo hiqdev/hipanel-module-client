@@ -1,19 +1,19 @@
 <?php
 
 /*
- * Client Plugin for HiPanel
+ * Client module for HiPanel
  *
  * @link      https://github.com/hiqdev/hipanel-module-client
  * @package   hipanel-module-client
  * @license   BSD-3-Clause
- * @copyright Copyright (c) 2014-2015, HiQDev (https://hiqdev.com/)
+ * @copyright Copyright (c) 2015-2016, HiQDev (http://hiqdev.com/)
  */
 
 namespace hipanel\modules\client\grid;
 
+use hipanel\grid\ActionColumn;
 use hipanel\grid\BoxedGridView;
 use hipanel\grid\MainColumn;
-use hipanel\grid\ActionColumn;
 use Yii;
 use yii\helpers\Html;
 
@@ -32,8 +32,7 @@ class ContactGridView extends BoxedGridView
                     if ($model->email_new) {
                         $confirm =
                             '<br><b class="text-warning">' . Yii::t('hipanel/client', 'change not confirmed') . '</b>' .
-                            '<br><span class="text-muted">' . $model->email_new . '</span>'
-                        ;
+                            '<br><span class="text-muted">' . $model->email_new . '</span>';
                     }
                     return $model->email . $confirm;
                 },
@@ -105,8 +104,8 @@ class ContactGridView extends BoxedGridView
                     'copy'  => function ($url, $model, $key) {
                         return Html::a('<span class="fa fa-copy"></span>' . Yii::t('app', 'Copy'), $url);
                     },
-                    'delete'=> function ($url, $model, $key) {
-                        return $model->id != $model->client_id
+                    'delete' => function ($url, $model, $key) {
+                        return $model->id !== $model->client_id
                             ? Html::a('<span class="fa fa-trash-o"></span>' . Yii::t('yii', 'Delete'), $url, [
                                 'title'        => Yii::t('yii', 'Delete'),
                                 'aria-label'   => Yii::t('yii', 'Delete'),

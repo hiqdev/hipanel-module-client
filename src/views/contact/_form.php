@@ -98,10 +98,10 @@ JS
 
 <?php
 // If contact change
-if ($model->scenario == 'change-contact') {
-    print Html::activeHiddenInput($model, 'domainId', ['value' => $domainId]);
-    print Html::activeHiddenInput($model, 'domainName', ['value' => $domainName]);
-    print Html::activeHiddenInput($model, 'contactType', ['value' => $contactType]);
+if ($model->scenario === 'change-contact') {
+    echo Html::activeHiddenInput($model, 'domainId', ['value' => $domainId]);
+    echo Html::activeHiddenInput($model, 'domainName', ['value' => $domainName]);
+    echo Html::activeHiddenInput($model, 'contactType', ['value' => $contactType]);
 }
 
 ?>
@@ -113,7 +113,7 @@ if ($model->scenario == 'change-contact') {
 
     <div class="col-md-12">
         <?php Box::begin(); ?>
-        <?php if ($model->scenario == 'update') : ?>
+        <?php if ($model->scenario === 'update') : ?>
             <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']); ?>
         <?php else : ?>
             <?= Html::submitButton(Yii::t('app', 'Create contact'), ['class' => 'btn btn-success']); ?>

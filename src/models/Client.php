@@ -1,12 +1,12 @@
 <?php
 
 /*
- * Client Plugin for HiPanel
+ * Client module for HiPanel
  *
  * @link      https://github.com/hiqdev/hipanel-module-client
  * @package   hipanel-module-client
  * @license   BSD-3-Clause
- * @copyright Copyright (c) 2014-2015, HiQDev (https://hiqdev.com/)
+ * @copyright Copyright (c) 2015-2016, HiQDev (http://hiqdev.com/)
  */
 
 namespace hipanel\modules\client\models;
@@ -58,8 +58,8 @@ class Client extends \hipanel\base\Model
             [['send_message_text', 'new_messages_first'],   'boolean',  'on' => 'ticket-settings'],
 
             // Domain settings
-            [['nss'], 'filter', 'filter' => function($value) {
-                return (mb_strlen($value) > 0 ) ? StringHelper::mexplode($value) : [];
+            [['nss'], 'filter', 'filter' => function ($value) {
+                return (mb_strlen($value) > 0) ? StringHelper::mexplode($value) : [];
             }, 'on' => 'domain-settings'],
             [['nss'], 'each', 'rule' => [DomainValidator::className()], 'on' => 'domain-settings'],
             [['autorenewal', 'whois_protected'], 'boolean', 'on' => 'domain-settings'],
@@ -74,9 +74,9 @@ class Client extends \hipanel\base\Model
             ], 'boolean', 'on' => ['mailing-settings']],
 
             // IP address restrictions
-            [['allowed_ips', 'sshftp_ips'], 'filter', 'filter' => function($value) {
+            [['allowed_ips', 'sshftp_ips'], 'filter', 'filter' => function ($value) {
                 if (!is_array($value)) {
-                    return (mb_strlen($value) > 0 ) ? StringHelper::mexplode($value) : true;
+                    return (mb_strlen($value) > 0) ? StringHelper::mexplode($value) : true;
                 } else {
                     return $value;
                 }
@@ -99,17 +99,17 @@ class Client extends \hipanel\base\Model
             [['question', 'answer'], 'string', 'on' => ['pincode-settings']],
 
             // If pincode disabled
-            [['pincode', 'answer', 'question'], 'required', 'enableClientValidation' => false, 'when' => function($model) {
-                return $model->pincode_enabled == false;
+            [['pincode', 'answer', 'question'], 'required', 'enableClientValidation' => false, 'when' => function ($model) {
+                return $model->pincode_enabled === false;
             }, 'on' => ['pincode-settings']],
 
             // If pincode enabled
-            [['pincode'], 'required', 'when' => function($model) {
-                return (mb_strlen($model->answer) > 0 && $model->pincode_enabled == true) ? false : true;
+            [['pincode'], 'required', 'when' => function ($model) {
+                return (mb_strlen($model->answer) > 0 && $model->pincode_enabled === true) ? false : true;
             }, 'enableClientValidation' => false, 'message' => Yii::t('app', 'Fill the Pincode or answer to the question.'), 'on' => ['pincode-settings']],
 
-            [['answer'], 'required', 'when' => function($model) {
-                return (mb_strlen($model->pincode) > 0 && $model->pincode_enabled == true) ? false : true;
+            [['answer'], 'required', 'when' => function ($model) {
+                return (mb_strlen($model->pincode) > 0 && $model->pincode_enabled === true) ? false : true;
             }, 'enableClientValidation' => false, 'message' => Yii::t('app', 'Fill the Answer or enter the Pincode.'), 'on' => ['pincode-settings']],
 
             [['pincode'], function ($attribute, $params) {
@@ -170,17 +170,19 @@ class Client extends \hipanel\base\Model
         ]);
     }
 
-    public function getTicketSettings() {
+    public function getTicketSettings()
+    {
         return $this->hasOne(ClientTicketSettings::className(), ['id', 'id']);
     }
 
-    public function getDomains() {
+    public function getDomains()
+    {
         return $this->hasMany(Domain::className(), ['client_id' => 'id']);
     }
 
     public static function canBeSelf($model)
     {
-        return Yii::$app->user->is($model->id) || (!Yii::$app->user->can('resell') && Yii::$app->user->can('support') && Yii::$app->user->identity->seller_id == $model->id);
+        return Yii::$app->user->is($model->id) || (!Yii::$app->user->can('resell') && Yii::$app->user->can('support') && Yii::$app->user->identity->seller_id === $model->id);
     }
 
     public static function makeTranslateQuestionList(array $questionList)
@@ -202,7 +204,7 @@ class Client extends \hipanel\base\Model
     public function scenarioCommands()
     {
         return [
-            'change-password' => 'set-password'
+            'change-password' => 'set-password',
         ];
     }
 }

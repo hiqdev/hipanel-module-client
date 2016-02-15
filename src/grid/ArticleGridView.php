@@ -1,10 +1,19 @@
 <?php
+
+/*
+ * Client module for HiPanel
+ *
+ * @link      https://github.com/hiqdev/hipanel-module-client
+ * @package   hipanel-module-client
+ * @license   BSD-3-Clause
+ * @copyright Copyright (c) 2015-2016, HiQDev (http://hiqdev.com/)
+ */
+
 namespace hipanel\modules\client\grid;
 
 use hipanel\grid\ActionColumn;
 use hipanel\grid\BoxedGridView;
 use hipanel\grid\MainColumn;
-use hiqdev\combo\StaticCombo;
 use Yii;
 use yii\helpers\Html;
 

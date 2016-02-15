@@ -1,12 +1,12 @@
 <?php
 
 /*
- * Client Plugin for HiPanel
+ * Client module for HiPanel
  *
  * @link      https://github.com/hiqdev/hipanel-module-client
  * @package   hipanel-module-client
  * @license   BSD-3-Clause
- * @copyright Copyright (c) 2014-2015, HiQDev (https://hiqdev.com/)
+ * @copyright Copyright (c) 2015-2016, HiQDev (http://hiqdev.com/)
  */
 
 namespace hipanel\modules\client\controllers;
@@ -14,8 +14,6 @@ namespace hipanel\modules\client\controllers;
 use hipanel\actions\IndexAction;
 use hipanel\actions\PrepareBulkAction;
 use hipanel\actions\RedirectAction;
-use hipanel\actions\RenderAction;
-use hipanel\actions\RenderAjaxAction;
 use hipanel\actions\RenderJsonAction;
 use hipanel\actions\SearchAction;
 use hipanel\actions\SmartCreateAction;
@@ -47,10 +45,10 @@ class ClientController extends \hipanel\base\CrudController
                     'state' => 'client.client.state',
                     'type' => 'client.client.type',
                     'seller' => 'client.client.seller',
-                ]
+                ],
             ],
             'search' => [
-                'class' => SearchAction::class
+                'class' => SearchAction::class,
             ],
             'create' => [
                 'class' => SmartCreateAction::class,
@@ -83,9 +81,9 @@ class ClientController extends \hipanel\base\CrudController
                         'class' => RenderJsonAction::class,
                         'return' => function ($action) {
                             return ['success' => !$action->collection->hasErrors()];
-                        }
-                    ]
-                ]
+                        },
+                    ],
+                ],
             ],
             'view' => [
                 'class' => ViewAction::class,
@@ -121,9 +119,8 @@ class ClientController extends \hipanel\base\CrudController
                         foreach ($action->collection->models as $model) {
                             $model->setAttributes([
                                 'type' => $type,
-                                'comment' => $comment
+                                'comment' => $comment,
                             ]);
-
                         }
                     }
                 },
@@ -134,9 +131,9 @@ class ClientController extends \hipanel\base\CrudController
                 'view' => '_bulkEnableBlock',
                 'data' => function ($action, $data) {
                     return array_merge($data, [
-                        'blockReasons' => $this->getBlockReasons()
+                        'blockReasons' => $this->getBlockReasons(),
                     ]);
-                }
+                },
             ],
             'bulk-disable-block' => [
                 'class' => SmartUpdateAction::class,
@@ -221,7 +218,7 @@ class ClientController extends \hipanel\base\CrudController
             $model->perform('SetClassValues', [
                 'id' => $id,
                 'class' => 'client,mailing',
-                'values' => $model->dirtyAttributes
+                'values' => $model->dirtyAttributes,
             ]);
             Yii::$app->end();
         }
@@ -241,7 +238,7 @@ class ClientController extends \hipanel\base\CrudController
             $model->perform('SetClassValues', [
                 'id' => $id,
                 'class' => 'client,access',
-                'values' => $model->dirtyAttributes
+                'values' => $model->dirtyAttributes,
             ]);
             Yii::$app->end();
         }
@@ -261,7 +258,7 @@ class ClientController extends \hipanel\base\CrudController
             $model->perform('SetClassValues', [
                 'id' => $id,
                 'class' => 'client,domain_defaults',
-                'values' => $model->dirtyAttributes
+                'values' => $model->dirtyAttributes,
             ]);
             Yii::$app->end();
         }

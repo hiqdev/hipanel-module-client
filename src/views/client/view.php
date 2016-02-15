@@ -1,20 +1,20 @@
 <?php
 
-use hipanel\modules\client\models\Client;
-use hipanel\widgets\BlockModalButton;
-use hipanel\widgets\ModalButton;
-use hiqdev\assets\flagiconcss\FlagIconCssAsset;
+use hipanel\helpers\FontIcon;
 use hipanel\modules\client\grid\ClientGridView;
 use hipanel\modules\client\grid\ContactGridView;
+use hipanel\modules\client\models\Client;
 use hipanel\modules\client\models\Contact;
-use hipanel\modules\finance\models\Purse;
 use hipanel\modules\finance\grid\PurseGridView;
+use hipanel\modules\finance\models\Purse;
+use hipanel\widgets\BlockModalButton;
 use hipanel\widgets\Box;
+use hipanel\widgets\ModalButton;
 use hipanel\widgets\SettingsModal;
-use hipanel\helpers\FontIcon;
+use hiqdev\assets\flagiconcss\FlagIconCssAsset;
 use yii\helpers\Html;
 
-/**
+/*
  * @var $model Client
  */
 
@@ -65,7 +65,7 @@ $this->registerCss('legend {font-size: 16px;}');
                         'scenario' => 'change-password',
                     ]) ?>
                 </li>
-                <?php if (Yii::$app->user->id == $model->id) { ?>
+                <?php if (Yii::$app->user->id === $model->id) : ?>
                     <li>
                         <?= SettingsModal::widget([
                             'model'    => $model,
@@ -74,7 +74,7 @@ $this->registerCss('legend {font-size: 16px;}');
                             'scenario' => 'pincode-settings',
                         ]) ?>
                     </li>
-                <?php } ?>
+                <?php endif ?>
                 <li>
                     <?= SettingsModal::widget([
                         'model'    => $model,
@@ -94,7 +94,7 @@ $this->registerCss('legend {font-size: 16px;}');
                 <li>
                     <?= Html::a(FontIcon::i('fa-edit fa-fw') . Yii::t('app', 'Change contact information'), ['@contact/update', 'id' => $model->id]) ?>
                 </li>
-                <?php if (Yii::getAlias('@domain', false)) { ?>
+                <?php if (Yii::getAlias('@domain', false)) : ?>
                     <li>
                         <?= SettingsModal::widget([
                             'model'    => $model,
@@ -103,8 +103,8 @@ $this->registerCss('legend {font-size: 16px;}');
                             'scenario' => 'domain-settings',
                         ]) ?>
                     </li>
-                <?php } ?>
-                <?php if (Yii::getAlias('@ticket', false)) { ?>
+                <?php endif ?>
+                <?php if (Yii::getAlias('@ticket', false)) : ?>
                     <li>
                         <?= SettingsModal::widget([
                             'model'    => $model,
@@ -113,12 +113,12 @@ $this->registerCss('legend {font-size: 16px;}');
                             'scenario' => 'ticket-settings',
                         ]) ?>
                     </li>
-                <?php } ?>
-                <?php if (Yii::$app->user->can('support') && Yii::$app->user->not($model->id)) { ?>
+                <?php endif ?>
+                <?php if (Yii::$app->user->can('support') && Yii::$app->user->not($model->id)) : ?>
                     <li>
                         <?= BlockModalButton::widget(compact('model')) ?>
                     </li>
-                <?php } ?>
+                <?php endif ?>
             </ul>
         </div>
         <?php Box::end(); ?>
@@ -146,16 +146,14 @@ $this->registerCss('legend {font-size: 16px;}');
                         ]) ?>
                     <?php $box->endBody() ?>
                 <?php $box->end() ?>
-                <?php foreach ($model->purses as $purse) { ?>
-                    <?php if ($purse['balance']===null) {
-                        continue;
-                    } ?>
+                <?php foreach ($model->purses as $purse) : ?>
+                    <?php if ($purse['balance'] === null) continue; ?>
                     <?php $purse = new Purse($purse) ?>
                     <?php $box = Box::begin(['renderBody' => false]) ?>
                         <?php $box->beginHeader() ?>
                             <?= $box->renderTitle(Yii::t('app', '<b>{currency}</b> account', ['currency' => strtoupper($purse->currency)]), '&nbsp;') ?>
                             <?php $box->beginTools() ?>
-                                <?php if (Yii::$app->user->can('support')) { ?>
+                                <?php if (Yii::$app->user->can('support')) : ?>
                                     <?= Html::a(Yii::t('app', 'See new invoice'), ['@purse/generate-invoice', 'id' => $purse->id], ['class' => 'btn btn-default btn-xs']) ?>
                                     <?= ModalButton::widget([
                                         'model'    => $purse,
@@ -173,23 +171,22 @@ $this->registerCss('legend {font-size: 16px;}');
                                             ],
                                         ],
                                     ]) ?>
-                                <?php } else { ?>
+                                <?php else : ?>
                                     <?= Html::a(Yii::t('app', 'Recharge account'), '#', ['class' => 'btn btn-default btn-xs']) ?>
-                                <?php } ?>
+                                <?php endif ?>
                             <?php $box->endTools() ?>
                         <?php $box->endHeader() ?>
                         <?php $box->beginBody() ?>
                             <?= PurseGridView::detailView([
                                 'boxed' => false,
                                 'model' => $purse,
-                                'columns' => $purse->currency=='usd'
+                                'columns' => $purse->currency === 'usd'
                                     ? ['balance', 'credit', 'invoices']
-                                    : ['balance', 'invoices']
-                                ,
+                                    : ['balance', 'invoices'],
                             ]) ?>
                         <?php $box->endBody() ?>
                     <?php $box->end() ?>
-                <?php } ?>
+                <?php endforeach ?>
             </div>
             <div class="col-md-6">
                 <?php $box = Box::begin(['renderBody' => false]); ?>

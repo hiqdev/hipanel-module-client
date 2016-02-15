@@ -1,25 +1,24 @@
 <?php
 
 /*
- * Client Plugin for HiPanel
+ * Client module for HiPanel
  *
  * @link      https://github.com/hiqdev/hipanel-module-client
  * @package   hipanel-module-client
  * @license   BSD-3-Clause
- * @copyright Copyright (c) 2014-2015, HiQDev (https://hiqdev.com/)
+ * @copyright Copyright (c) 2015-2016, HiQDev (http://hiqdev.com/)
  */
 
 namespace hipanel\modules\client\models;
 
-use hipanel\helpers\StringHelper;
-use hipanel\validators\DomainValidator;
 use Yii;
 
 class ClientTicketSettings extends \hipanel\base\Model
 {
     use \hipanel\base\ModelTrait;
 
-    public static function joinIndex() {
+    public static function joinIndex()
+    {
         return 'ticket_settings';
     }
 

@@ -20,7 +20,7 @@ use yii\helpers\Html;
                 'formatter' => function ($model) {
                     return $model->login;
                 },
-                'delimiter' => ',&nbsp; '
+                'delimiter' => ',&nbsp; ',
             ]); ?>
         </div>
     </div>
@@ -34,7 +34,7 @@ use yii\helpers\Html;
             <div class="col-sm-12">
                 <?= $form->field($model, 'comment')->textInput([
                     'id' => 'client-block-comment',
-                    'name' => 'comment'
+                    'name' => 'comment',
                 ]); ?>
             </div>
     </div>
