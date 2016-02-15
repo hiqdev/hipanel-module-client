@@ -3,6 +3,8 @@ hiqdev/hipanel-module-client changelog
 
 ## 0.0.1 Under development
 
+- Added filter saving
+- Fixed (improved) client and contact view pages
 - Fixed minor issues and translation
 - Added ClientTicketSettings, PincodeSettings
 - Fixed validations

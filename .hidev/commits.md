@@ -3,7 +3,27 @@ hiqdev/hipanel-module-client commits history
 
 ## 0.0.1 Under development
 
+- Added filter saving
+    - 023c18b 2016-01-22 IndexAction - added filterStorageMap (d.naumenko.a@gmail.com)
+- Fixed (improved) client and contact view pages
+    - 0738089 2016-02-15 + `email_new` change not confirmed (sol@hiqdev.com)
+    - 4f66939 2016-02-01 Client blockint/unblocking implemented (d.naumenko.a@gmail.com)
+    - a7f6e76 2016-01-29 ClientCombo - changed URL to /index (d.naumenko.a@gmail.com)
+    - 6a5633c 2016-01-24 ClientCombo - URL changed to index instead of search (d.naumenko.a@gmail.com)
+    - 5d6510c 2016-01-22 Fixed ClientCombo search URL (d.naumenko.a@gmail.com)
+    - 0ff8d04 2015-12-25 Change-contact funcionality (andreyklochok@gmail.com)
+    - 549052c 2015-12-23 Change buttons color, add some classes to tabs (andreyklochok@gmail.com)
+    - 5a919cf 2015-12-17 Change avatar at Gravatar added (andreyklochok@gmail.com)
+    - fadb135 2015-12-17 Add linke to Gravatar (andreyklochok@gmail.com)
+    - a7c6561 2015-12-16 Client change password modal - password confirmation field has type = password now (d.naumenko.a@gmail.com)
+    - ddac6b2 2015-12-10  Fixed clientChagePassword (d.naumenko.a@gmail.com)
+    - d5b3eeb 2015-12-04 Classes notation changed from pathtoClassName to PHP 5.6 ClassName::class (d.naumenko.a@gmail.com)
+    - 7ca2237 2015-11-26 Change color Save button in Client form (andreyklochok@gmail.com)
+    - 8c0f60e 2015-11-26 Add Cancel button to Contact (andreyklochok@gmail.com)
 - Fixed minor issues and translation
+    - 7da5e11 2016-02-04 Added module-scope translations file (d.naumenko.a@gmail.com)
+    - 6166c5a 2016-01-29 added tranlations (sol@hiqdev.com)
+    - 9a5a37e 2015-12-09 Removed PHP short-tags (d.naumenko.a@gmail.com)
     - 9e45474 2015-11-18 improved package description (sol@hiqdev.com)
     - 0b9d86c 2015-11-12 Fixed wrong changes in 38a51276 (d.naumenko.a@gmail.com)
     - 01a6463 2015-11-10 Added * for required fields in contact form (bladeroot@gmail.com)
@@ -30,6 +50,7 @@ hiqdev/hipanel-module-client commits history
     - 1e73530 2015-10-20 Add ContactCombo, change html select to cobmo in domainSettingsModal (andreyklochok@gmail.com)
     - 85132ec 2015-10-15 Added ticket option `new_messages_first` (d.naumenko.a@gmail.com)
 - Fixed validations
+    - 98f76cb 2015-11-25 Internal IpValidator replaced with yii2 core one (d.naumenko.a@gmail.com)
     - 92426d9 2015-10-21 Fix validation in domailSettings (andreyklochok@gmail.com)
     - e0b2230 2015-10-21 Fix IpRestriction validation; (andreyklochok@gmail.com)
     - 9ea9ea7 2015-10-21 Add autoclear all text fields on related tab (andreyklochok@gmail.com)
