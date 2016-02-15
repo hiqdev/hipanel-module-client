@@ -4,6 +4,7 @@ hiqdev/hipanel-module-client commits history
 ## 0.0.1 Under development
 
 - Fixed (improved) client and contact view pages
+    - a110742 2016-02-15 phpcsfixed (sol@hiqdev.com)
     - dcdd8ee 2016-02-15 rehideved (sol@hiqdev.com)
     - 0738089 2016-02-15 + `email_new` change not confirmed (sol@hiqdev.com)
     - 4f66939 2016-02-01 Client blockint/unblocking implemented (d.naumenko.a@gmail.com)
