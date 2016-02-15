@@ -3,9 +3,8 @@ hiqdev/hipanel-module-client commits history
 
 ## 0.0.1 Under development
 
-- Added filter saving
-    - 023c18b 2016-01-22 IndexAction - added filterStorageMap (d.naumenko.a@gmail.com)
 - Fixed (improved) client and contact view pages
+    - dcdd8ee 2016-02-15 rehideved (sol@hiqdev.com)
     - 0738089 2016-02-15 + `email_new` change not confirmed (sol@hiqdev.com)
     - 4f66939 2016-02-01 Client blockint/unblocking implemented (d.naumenko.a@gmail.com)
     - a7f6e76 2016-01-29 ClientCombo - changed URL to /index (d.naumenko.a@gmail.com)
@@ -20,6 +19,8 @@ hiqdev/hipanel-module-client commits history
     - d5b3eeb 2015-12-04 Classes notation changed from pathtoClassName to PHP 5.6 ClassName::class (d.naumenko.a@gmail.com)
     - 7ca2237 2015-11-26 Change color Save button in Client form (andreyklochok@gmail.com)
     - 8c0f60e 2015-11-26 Add Cancel button to Contact (andreyklochok@gmail.com)
+- Added filter saving
+    - 023c18b 2016-01-22 IndexAction - added filterStorageMap (d.naumenko.a@gmail.com)
 - Fixed minor issues and translation
     - 7da5e11 2016-02-04 Added module-scope translations file (d.naumenko.a@gmail.com)
     - 6166c5a 2016-01-29 added tranlations (sol@hiqdev.com)
@@ -81,7 +82,7 @@ hiqdev/hipanel-module-client commits history
     - 473a0ba 2015-09-29 Some changes in Modal forms (andreyklochok@gmail.com)
     - 8180a5f 2015-09-28 Merge conflict resolve\ (andreyklochok@gmail.com)
     - 3820a03 2015-09-28 Work with modal setting forms (andreyklochok@gmail.com)
-    - 17525d5 2015-09-25 ClientGridView->credit now uses RemoteXeditable (d.naumenko.a@gmail.com)
+    - 17525d5 2015-09-25 `ClientGridView->credit` now uses RemoteXeditable (d.naumenko.a@gmail.com)
     - 38388e2 2015-09-25 Fix css. Get a smaller the lagend tag (andreyklochok@gmail.com)
     - 38605a4 2015-09-25 Change modal form size (andreyklochok@gmail.com)
     - 297e27c 2015-09-25 Add ipRestriction form (andreyklochok@gmail.com)
@@ -137,7 +138,7 @@ hiqdev/hipanel-module-client commits history
     - 0d836a7 2015-08-11 Add sordeter (andreyklochok@gmail.com)
     - fc943f1 2015-08-05 Refactoring. Action Box (andreyklochok@gmail.com)
     - eae1605 2015-08-04 failed add visible (sol@hiqdev.com)
-    - 121c1b9 2015-08-04 * ClientColumn: fixed visible with user->can('support') (sol@hiqdev.com)
+    - 121c1b9 2015-08-04 * ClientColumn: fixed visible with `user->can('support')` (sol@hiqdev.com)
     - c1bf269 2015-08-04 improved details page for client and contact (sol@hiqdev.com)
     - c375c48 2015-08-03 Remove unuse uses (andreyklochok@gmail.com)
     - a8d94a0 2015-08-03 Fix conflict (andreyklochok@gmail.com)
@@ -171,8 +172,8 @@ hiqdev/hipanel-module-client commits history
     - d6e660f 2015-07-28 + change contact url (sol@hiqdev.com)
     - 7e9f556 2015-07-28 - looking junk assets/combo2/Manager.php (sol@hiqdev.com)
     - c36c243 2015-07-27 + tickets/server/domains/contacts links at client details (sol@hiqdev.com)
-    - 9130083 2015-07-27 WE KEEP BACK voice_phone, fax_phone (sol@hiqdev.com)
-    - 48fbad4 2015-07-27 Fields voice_phone end fax_phone changed (andreyklochok@gmail.com)
+    - 9130083 2015-07-27 WE KEEP BACK `voice_phone`, `fax_phone` (sol@hiqdev.com)
+    - 48fbad4 2015-07-27 Fields `voice_phone` end `fax_phone` changed (andreyklochok@gmail.com)
     - 7b54782 2015-07-27 Additional fields disable fix (andreyklochok@gmail.com)
     - 14bb9cc 2015-07-24 Work (andreyklochok@gmail.com)
     - 51d8477 2015-07-24 improved details pages for contacts and clients (sol@hiqdev.com)
