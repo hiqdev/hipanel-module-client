@@ -26,6 +26,18 @@ class ContactGridView extends BoxedGridView
                 'class'           => MainColumn::className(),
                 'filterAttribute' => 'name',
             ],
+            'email' => [
+                'format' => 'html',
+                'value' => function ($model) {
+                    if ($model->email_new) {
+                        $confirm =
+                            '<br><b class="text-warning">' . Yii::t('hipanel/client', 'change not confirmed') . '</b>' .
+                            '<br><span class="text-muted">' . $model->email_new . '</span>'
+                        ;
+                    }
+                    return $model->email . $confirm;
+                },
+            ],
             'country' => [
                 'attribute' => 'country_name',
                 'format'    => 'html',

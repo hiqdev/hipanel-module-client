@@ -43,7 +43,7 @@ FlagIconCssAsset::register($this);
         <div class="profile-usermenu">
             <ul class="nav">
                 <li>
-                    <?= Html::a('<i class="ion-wrench"></i>' . Yii::t('app', 'Change contact information'), ['update', 'id' => $model->id]) ?>
+                    <?= Html::a('<i class="fa fa-edit"></i>' . Yii::t('app', 'Change contact information'), ['update', 'id' => $model->id]) ?>
                 </li>
             <?php if (Yii::getAlias('@domain', false)) { ?>
                 <li>

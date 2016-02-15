@@ -29,7 +29,7 @@ class Contact extends \hipanel\base\Model
             [['client_name'],                                                   'safe'],
             [['create_time', 'update_time', 'created_date', 'updated_date'],    'date'],
             [['client', 'seller', 'state', 'type'],                             'safe'],
-            [['email', 'abuse_email'],                                          'email'],
+            [['email', 'abuse_email', 'email_new'],                             'email'],
             [['country', 'country_name', 'province', 'province_name'],          'safe'],
             [['postal_code'],                                                   'safe'],
             [['city', 'street1', 'street2', 'street3'],                         'safe'],
