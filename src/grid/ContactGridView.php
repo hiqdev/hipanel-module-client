@@ -29,12 +29,14 @@ class ContactGridView extends BoxedGridView
             'email' => [
                 'format' => 'html',
                 'value' => function ($model) {
+                    $result = $model->email;
                     if ($model->email_new) {
-                        $confirm =
-                            '<br><b class="text-warning">' . Yii::t('hipanel/client', 'change not confirmed') . '</b>' .
-                            '<br><span class="text-muted">' . $model->email_new . '</span>';
+                        $result .= '<br><b class="text-warning">' . Yii::t('hipanel/client', 'change not confirmed') . '</b>';
                     }
-                    return $model->email . $confirm;
+                    if ($model->email_new != $model->email) {
+                        $result .= '<br><span class="text-muted">' . $model->email_new . '</span>';
+                    }
+                    return $result;
                 },
             ],
             'country' => [
