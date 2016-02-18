@@ -7,7 +7,6 @@ use hipanel\modules\client\models\Client;
 use hipanel\modules\client\models\Contact;
 use hipanel\widgets\BlockModalButton;
 use hipanel\widgets\Box;
-use hipanel\widgets\ModalButton;
 use hipanel\widgets\SettingsModal;
 use hiqdev\assets\flagiconcss\FlagIconCssAsset;
 use yii\helpers\Html;

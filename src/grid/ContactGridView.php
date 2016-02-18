@@ -33,7 +33,7 @@ class ContactGridView extends BoxedGridView
                     if ($model->email_new) {
                         $result .= '<br><b class="text-warning">' . Yii::t('hipanel/client', 'change not confirmed') . '</b>';
                     }
-                    if ($model->email_new != $model->email) {
+                    if ($model->email_new !== $model->email) {
                         $result .= '<br><span class="text-muted">' . $model->email_new . '</span>';
                     }
                     return $result;

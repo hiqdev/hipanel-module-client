@@ -3,6 +3,7 @@ hiqdev/hipanel-module-client commits history
 
 ## 0.0.1 Under development
 
+    - 2ffa701 2016-02-18 purse block view moved to finance module (sol@hiqdev.com)
 - Fixed (improved) client and contact view pages
     - 2dcef2a 2016-02-17 fixed showing unconfirmed email (sol@hiqdev.com)
     - a110742 2016-02-15 phpcsfixed (sol@hiqdev.com)
