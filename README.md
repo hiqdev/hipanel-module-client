@@ -13,7 +13,11 @@ HiPanel Client Module
 [![Logo](https://raw.githubusercontent.com/hiqdev/hipanel-core/master/docs/logo.png)](https://hipanel.com/)
 
 [HiPanel](http://hipanel.com) is next generation control panel for hosting, domains and more.
-This package provides client management for HiPanel.
+
+This package provides client management for HiPanel:
+
+* clients
+* contacts
 
 ## Installation
 
