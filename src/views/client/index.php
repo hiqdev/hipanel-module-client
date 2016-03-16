@@ -19,7 +19,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 
 $this->title    = Yii::t('app', 'Clients');
-$this->subtitle = array_filter(Yii::$app->request->get($model->formName(), [])) ? 'filtered list' : 'full list';
+$this->subtitle = array_filter(Yii::$app->request->get($model->formName(), [])) ? Yii::t('hipanel', 'filtered list') : Yii::t('hipanel', 'full list');
 $this->breadcrumbs->setItems([
     $this->title,
 ]);
