@@ -32,7 +32,7 @@ class ArticleGridView extends BoxedGridView
             'action' => [
                 'class' => ActionColumn::className(),
                 'template' => '{view} {block} {delete}', // {state}
-                'header' => Yii::t('app', 'Actions'),
+                'header' => Yii::t('hipanel', 'Actions'),
                 'buttons' => [
                     'block' => function ($url, $model, $key) {
                         return Html::a('Close', ['block', 'id' => $model->id]);

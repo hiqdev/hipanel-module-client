@@ -28,7 +28,7 @@ use yii\helpers\Html;
         ],
     ]) ?>
     <div class="form-group">
-        <?= Html::tag('label', 'Registered range', ['class' => 'control-label']); ?>
+        <?= Html::tag('label', Yii::t('hipanel/client', 'Registered range'), ['class' => 'control-label']); ?>
         <?= DatePicker::widget([
             'model'         => $search->model,
             'type'          => DatePicker::TYPE_RANGE,

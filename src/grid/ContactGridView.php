@@ -31,10 +31,10 @@ class ContactGridView extends BoxedGridView
                 'value' => function ($model) {
                     $result = $model->email;
                     if ($model->email_new) {
-                        $result .= '<br><b class="text-warning">' . Yii::t('hipanel/client', 'change not confirmed') . '</b>';
+                        $result .= '<br>' . Html::tag('b', Yii::t('hipanel/client', 'change is not confirmed'), ['class' => 'text-warning']);
                     }
                     if ($model->email_new !== $model->email) {
-                        $result .= '<br><span class="text-muted">' . $model->email_new . '</span>';
+                        $result .= '<br>' . Html::tag('span', $model->email_new, ['class' => 'text-muted']);
                     }
                     return $result;
                 },
@@ -48,7 +48,7 @@ class ContactGridView extends BoxedGridView
                 },
             ],
             'street' => [
-                'label'  => Yii::t('app', 'Street'),
+                'label'  => Yii::t('hipanel/client', 'Street'),
                 'format' => 'html',
                 'value'  => function ($model) {
                     return $model->street1 . $model->street2 . $model->street3;
@@ -80,7 +80,7 @@ class ContactGridView extends BoxedGridView
             ],
             'messengers' => [
                 'format' => 'html',
-                'label'  => Yii::t('app', 'Messengers'),
+                'label'  => Yii::t('hipanel/client', 'Messengers'),
                 'value'  => function ($model) {
                     $res = [];
                     foreach (['skype' => 'Skype', 'icq' => 'ICQ', 'jabber' => 'Jabber'] as $k => $label) {
@@ -101,18 +101,18 @@ class ContactGridView extends BoxedGridView
             'actions' => [
                 'class'    => ActionColumn::className(),
                 'template' => '{view} {update} {copy} {delete}',
-                'header'   => Yii::t('app', 'Actions'),
+                'header'   => Yii::t('hipanel', 'Actions'),
                 'buttons'  => [
                     'copy'  => function ($url, $model, $key) {
-                        return Html::a('<span class="fa fa-copy"></span>' . Yii::t('app', 'Copy'), $url);
+                        return Html::a('<span class="fa fa-copy"></span>' . Yii::t('hipanel', 'Copy'), $url);
                     },
                     'delete' => function ($url, $model, $key) {
                         return $model->id !== $model->client_id
-                            ? Html::a('<span class="fa fa-trash-o"></span>' . Yii::t('yii', 'Delete'), $url, [
-                                'title'        => Yii::t('yii', 'Delete'),
-                                'aria-label'   => Yii::t('yii', 'Delete'),
+                            ? Html::a('<span class="fa fa-trash-o"></span>' . Yii::t('hipanel', 'Delete'), $url, [
+                                'title'        => Yii::t('hipanel', 'Delete'),
+                                'aria-label'   => Yii::t('hipanel', 'Delete'),
                                 'data' => [
-                                    'confirm' => Yii::t('app', 'Are you sure you want to delete client {client} contact {contact}?', ['contact' => $model->name, 'client' => $model->client]),
+                                    'confirm' => Yii::t('hipanel/client', 'Are you sure you want to delete client {client} contact {contact}?', ['contact' => $model->name, 'client' => $model->client]),
                                     'method'  => 'post',
                                     'data-pjax' => '0',
                                 ],

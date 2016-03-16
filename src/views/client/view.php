@@ -41,7 +41,13 @@ $this->registerCss('legend {font-size: 16px;}');
             <?= $this->render('//layouts/gravatar', ['email' => $model->email, 'size' => 120]); ?>
         </div>
         <p class="text-center">
-            <span class="profile-user-name"><?= $model->login . ' / ' . $model->seller ?></span>
+            <span class="profile-user-name">
+                <?= \hipanel\widgets\ClientSellerLink::widget([
+                    'model' => $model,
+                    'clientAttribute' => 'login',
+                    'clientIdAttribute' => 'id',
+                ]) ?>
+            </span>
             <br>
             <span class="profile-user-role"><?= $model->type ?></span><br>
         </p>

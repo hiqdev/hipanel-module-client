@@ -31,7 +31,7 @@ class ClientGridView extends BoxedGridView
                 'class'         => ClientColumn::className(),
                 'attribute'     => 'id',
                 'nameAttribute' => 'login',
-                'label'         => Yii::t('app', 'Client'),
+                'label'         => Yii::t('hipanel', 'Client'),
             ],
             'login' => [
                 'attribute'       => 'login',
@@ -66,7 +66,7 @@ class ClientGridView extends BoxedGridView
             'credit' => CreditColumn::resolveConfig(),
             'country' => [
                 'attribute' => 'contact',
-                'label'     => Yii::t('app', 'Country'),
+                'label'     => Yii::t('hipanel/client', 'Country'),
                 'format'    => 'html',
                 'value'     => function ($model) {
                     return Html::tag('span', '', ['class' => 'flag-icon flag-icon-' . $model->contact['country']]) .
@@ -104,57 +104,58 @@ class ClientGridView extends BoxedGridView
             ],
             'tickets' => [
                 'format' => 'html',
-                'label'     => Yii::t('app', 'Tickets'),
+                'label'     => Yii::t('hipanel', 'Tickets'),
                 'value'  => function ($model) {
                     $num = $model->count['tickets'];
                     $url = Url::toSearch('ticket', ['client_id' => $model->id]);
 
-                    return $num ? Html::a($num . ' ' . Yii::t('app', 'tickets'), $url) : '';
+                    return $num ? Html::a(Yii::t('hipanel', '{0, plural, one{# ticket} other{# tickets}}', $num), $url) : '';
                 },
             ],
             'servers' => [
                 'format' => 'html',
-                'label'     => Yii::t('app', 'Servers'),
+                'label'     => Yii::t('hipanel', 'Servers'),
                 'value'  => function ($model) {
                     $num = $model->count['servers'];
                     $url = Url::toSearch('server', ['client_id' => $model->id]);
 
-                    return $num ? Html::a($num . ' ' . Yii::t('app', 'servers'), $url) : '';
+                    return $num ? Html::a(Yii::t('hipanel', '{0, plural, one{# server} other{# servers}}', $num), $url) : '';
                 },
             ],
             'domains' => [
                 'format' => 'html',
-                'label'     => Yii::t('app', 'Domains'),
+                'label'     => Yii::t('hipanel', 'Domains'),
                 'value'  => function ($model) {
                     $num = $model->count['domains'];
                     $url = Url::toSearch('domain', ['client_id' => $model->id]);
 
-                    return $num ? Html::a($num . ' ' . Yii::t('app', 'domains'), $url) : '';
+                    return $num ? Html::a(Yii::t('hipanel', '{0, plural, one{# domain} other{# domains}}', $num), $url) : '';
                 },
             ],
             'contacts' => [
                 'format' => 'html',
-                'label'     => Yii::t('app', 'Contacts'),
+                'label'     => Yii::t('hipanel', 'Contacts'),
                 'value'  => function ($model) {
                     $num = $model->count['contacts'];
                     $url = Url::toSearch('contact', ['client_id' => $model->id]);
 
-                    return $num ? Html::a($num . ' ' . Yii::t('app', 'contacts'), $url) : '';
+                    return $num ? Html::a(Yii::t('hipanel', '{0, plural, one{# contact} other{# contacts}}', $num), $url) : '';
                 },
             ],
             'hosting' => [
                 'format' => 'html',
                 'label'     => Yii::t('app', 'Hosting'),
                 'value'  => function ($model) {
+                    $res = '';
                     $num = $model->count['accounts'];
                     $url = Url::toSearch('account', ['client_id' => $model->id]);
-                    $res .= $num ? Html::a($num . ' ' . Yii::t('app', 'accounts'), $url) : '';
+                    $res .= $num ? Html::a(Yii::t('hipanel', '{0, plural, one{# account} other{# accounts}}', $num), $url) : '';
                     $num = $model->count['hdomains'];
                     $url = Url::toSearch('hdomain', ['client_id' => $model->id]);
-                    $res .= $num ? Html::a($num . ' ' . Yii::t('app', 'domains'), $url) : '';
+                    $res .= $num ? Html::a(Yii::t('hipanel', '{0, plural, one{# domain} other{# domains}}', $num), $url) : '';
                     $num = $model->count['dbs'];
                     $url = Url::toSearch('db', ['client_id' => $model->id]);
-                    $res .= $num ? Html::a($num . ' ' . Yii::t('app', 'databases'), $url) : '';
+                    $res .= $num ? Html::a(Yii::t('hipanel', '{0, plural, one{# database} other{# databases}}', $num), $url) : '';
 
                     return $res;
                 },

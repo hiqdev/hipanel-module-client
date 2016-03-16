@@ -10,5 +10,15 @@
  */
 
 return [
-    'change not confirmed' => 'изменение не подтверждено',
+    'change is not confirmed' => 'изменение не подтверждено',
+    'Registered range' => 'Зарегистрирован в период',
+    'Block clients' => 'Заблокировать клиентов',
+    'Unblock clients' => 'Разблокировать клиентов',
+    'Affected clients' => 'Действие распространяется на клиентов',
+    'Country' => 'Страна',
+    'Street' => 'Улица',
+    'Messengers' => 'Мессенджеры',
+    'Are you sure you want to delete client {client}?' => 'Вы уверены, что хотите удалить клиента {client}',
+    'Are you sure you want to delete client {client} contact {contact}?' => 'Вы уверены, что хотите удалить контакт {contact} клиента {client}?',
+
 ];
