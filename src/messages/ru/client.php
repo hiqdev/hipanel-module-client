@@ -20,5 +20,7 @@ return [
     'Messengers' => 'Мессенджеры',
     'Are you sure you want to delete client {client}?' => 'Вы уверены, что хотите удалить клиента {client}',
     'Are you sure you want to delete client {client} contact {contact}?' => 'Вы уверены, что хотите удалить контакт {contact} клиента {client}?',
-
+    'Contact was created' => 'Контакт был создан успешно',
+    'Contact was deleted' => 'Контакт был удален',
+    'Contact was updated' => 'Контакт был отредактирован',
 ];

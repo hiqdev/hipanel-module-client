@@ -51,16 +51,16 @@ class ContactController extends CrudController
                         'scenario' => 'create',
                     ];
                 },
-                'success' => Yii::t('app', 'Contact was created'),
+                'success' => Yii::t('hipanel/client', 'Contact was created'),
             ],
             'delete' => [
                 'class' => SmartDeleteAction::class,
-                'success' => Yii::t('app', 'Contact was deleted'),
+                'success' => Yii::t('hipanel/client', 'Contact was deleted'),
             ],
             'update' => [
                 'class' => SmartUpdateAction::class,
                 'scenario' => 'update',
-                'success' => Yii::t('app', 'Contact was updated'),
+                'success' => Yii::t('hipanel/client', 'Contact was updated'),
                 'data' => function ($action) {
                     return [
                         'countries' => $action->controller->getRefs('country_code'),
