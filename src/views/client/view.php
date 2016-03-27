@@ -54,20 +54,24 @@ $this->registerCss('legend {font-size: 16px;}');
 
         <div class="profile-usermenu">
             <ul class="nav">
-                <li>
-                    <a href="http://gravatar.com" target="_blank">
-                        <i><img src="http://www.gravatar.com/avatar/00000000000000000000000000000000/?s=17" /></i>
-                        <?= Yii::t('app', 'You can change your avatar at Gravatar.com')?>
-                    </a>
-                </li>
-                <li>
-                    <?= SettingsModal::widget([
-                        'model'    => $model,
-                        'title'    => Yii::t('app', 'Change password'),
-                        'icon'     => 'fa-key fa-flip-horizontal fa-fw',
-                        'scenario' => 'change-password',
-                    ]) ?>
-                </li>
+                <?php if ($model->id == Yii::$app->user->id) { ?>
+                    <li>
+                        <a href="http://gravatar.com" target="_blank">
+                            <i><img src="http://www.gravatar.com/avatar/00000000000000000000000000000000/?s=17" /></i>
+                            <?= Yii::t('app', 'You can change your avatar at Gravatar.com')?>
+                        </a>
+                    </li>
+                <?php } ?>
+                <?php if ($model->id == Yii::$app->user->id) { ?>
+                    <li>
+                        <?= SettingsModal::widget([
+                            'model'    => $model,
+                            'title'    => Yii::t('app', 'Change password'),
+                            'icon'     => 'fa-key fa-flip-horizontal fa-fw',
+                            'scenario' => 'change-password',
+                        ]) ?>
+                    </li>
+                <?php } ?>
                 <?php if (Yii::$app->user->id === $model->id) : ?>
                     <li>
                         <?= SettingsModal::widget([
@@ -111,7 +115,7 @@ $this->registerCss('legend {font-size: 16px;}');
                     <li>
                         <?= SettingsModal::widget([
                             'model'    => $model,
-                            'title'    => Yii::t('app', 'Ticket settings'),
+                            'title'    => Yii::t('hipanel/ticket', 'Ticket settings'),
                             'icon'     => 'fa-ticket fa-fw',
                             'scenario' => 'ticket-settings',
                         ]) ?>

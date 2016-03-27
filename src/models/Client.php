@@ -138,7 +138,7 @@ class Client extends \hipanel\base\Model
             'create_time' => Yii::t('app', 'Registered'),
             'update_time' => Yii::t('app', 'Last update'),
 
-            'ticket_emails' => Yii::t('app', 'Email for tickets'),
+            'ticket_emails' => Yii::t('hipanel/ticket', 'Email for tickets'),
             'send_message_text' => Yii::t('app', 'Send message text'),
 
             'allowed_ips' => Yii::t('app', 'Allowed IPs for panel login'),

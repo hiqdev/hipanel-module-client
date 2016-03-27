@@ -36,8 +36,8 @@ class ClientTicketSettings extends \hipanel\base\Model
     public function attributeLabels()
     {
         return $this->mergeAttributeLabels([
-            'ticket_emails' => Yii::t('app', 'Email for tickets'),
-            'send_message_text' => Yii::t('app', 'Send message text'),
+            'ticket_emails' => Yii::t('hipanel/ticket', 'Email for tickets'),
+            'send_message_text' => Yii::t('hipanel/ticket', 'Send message text'),
         ]);
     }
 }
