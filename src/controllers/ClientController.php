@@ -22,6 +22,7 @@ use hipanel\actions\SmartPerformAction;
 use hipanel\actions\SmartUpdateAction;
 use hipanel\actions\ValidateFormAction;
 use hipanel\actions\ViewAction;
+use hipanel\helpers\Url;
 use hipanel\models\Ref;
 use hipanel\modules\client\models\Client;
 use hiqdev\hiart\Collection;
@@ -35,6 +36,11 @@ class ClientController extends \hipanel\base\CrudController
         return [
             'index' => [
                 'class' => IndexAction::class,
+                'on beforePerform' => function ($event) {
+                    if (!Yii::$app->user->can('support')) {
+                        Yii::$app->response->redirect(Url::to(['@client/view', 'id' => Yii::$app->user->id]))->send();
+                    }
+                },
                 'data' => function ($action) {
                     return [
                         'states' => $action->controller->getStates(),
