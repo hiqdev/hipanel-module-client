@@ -14,11 +14,13 @@ namespace hipanel\modules\client\grid;
 use hipanel\grid\ActionColumn;
 use hipanel\grid\BoxedGridView;
 use hipanel\grid\RefColumn;
+use hipanel\helpers\ArrayHelper;
 use hipanel\helpers\Url;
 use hipanel\modules\client\models\Client;
 use hipanel\modules\client\widgets\State as ClientState;
 use hipanel\modules\client\widgets\Type as ClientType;
 use hipanel\modules\finance\grid\CreditColumn;
+use hipanel\widgets\ArraySpoiler;
 use Yii;
 use yii\helpers\Html;
 
@@ -113,9 +115,10 @@ class ClientGridView extends BoxedGridView
                 },
             ],
             'servers' => [
-                'format' => 'html',
+                'format' => 'raw',
                 'label'     => Yii::t('hipanel', 'Servers'),
                 'value'  => function ($model) {
+                    /** @var Client $model */
                     $num = $model->count['servers'];
                     $url = Url::toSearch('server', ['client_id' => $model->id]);
 
@@ -126,11 +129,69 @@ class ClientGridView extends BoxedGridView
                 'format' => 'html',
                 'label'     => Yii::t('hipanel', 'Domains'),
                 'value'  => function ($model) {
+                    /** @var Client $model */
                     $num = $model->count['domains'];
                     $url = Url::toSearch('domain', ['client_id' => $model->id]);
 
                     return $num ? Html::a(Yii::t('hipanel', '{0, plural, one{# domain} other{# domains}}', $num), $url) : '';
                 },
+            ],
+            'domains_spoiler' => [
+                'format' => 'raw',
+                'label' => Yii::t('hipanel', 'Domains'),
+                'value' => function ($model) {
+                    /** @var Client $model */
+                    return ArraySpoiler::widget([
+                        'data' => $model->domains,
+                        'visibleCount' => 1,
+                        'button' => [
+                            'label' => '+' . ($model->count['domains'] - 1),
+                            'popoverOptions' => [
+                                'html' => true
+                            ],
+                        ],
+                        'formatter' => function ($item, $key) use ($model) {
+                            static $index = 0;
+                            $index++;
+
+                            $value = Html::a($item->domain, ['@domain/view', 'id' => $item->id]);
+                            if ($model->count['domains'] > count($model->domains) && $index == count($model->domains)) {
+                                $text = Yii::t('hipanel/client', 'and {n} more', ['n' => $model->count['domains'] - count($model->domains)]);
+                                $value .= ' ' . Html::a($text, Url::toSearch('domain', ['client_id' => $model->id]), ['class' => 'border-bottom-dashed']);
+                            }
+
+                            return $value;
+                        }
+                    ]);
+                },
+            ],
+            'servers_spoiler' => [
+                'format' => 'raw',
+                'label' => Yii::t('hipanel', 'Servers'),
+                'value' => function ($model) {
+                    return ArraySpoiler::widget([
+                        'data' => $model->servers,
+                        'visibleCount' => 1,
+                        'button' => [
+                            'label' => '+' . ($model->count['servers'] - 1),
+                            'popoverOptions' => [
+                                'html' => true
+                            ],
+                        ],
+                        'formatter' => function ($item, $key) use ($model) {
+                            static $index;
+                            $index++;
+
+                            $value = Html::a($item->name, ['@server/view', 'id' => $item->id]);
+                            if ($model->count['servers'] > count($model->servers) && $index == count($model->servers)) {
+                                $text = Yii::t('hipanel/client', 'and {n} more', ['n' => $model->count['servers'] - count($model->servers)]);
+                                $value .= ' ' . Html::a($text, Url::toSearch('server', ['client_id' => $model->id]), ['class' => 'border-bottom-dashed']);
+                            }
+
+                            return $value;
+                        }
+                    ]);
+                }
             ],
             'contacts' => [
                 'format' => 'html',
