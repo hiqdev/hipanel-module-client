@@ -23,4 +23,5 @@ return [
     'Contact was created' => 'Контакт был создан успешно',
     'Contact was deleted' => 'Контакт был удален',
     'Contact was updated' => 'Контакт был отредактирован',
+    'and {n} more' => 'и еще {n}',
 ];
