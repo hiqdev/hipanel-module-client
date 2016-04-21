@@ -14,8 +14,10 @@ namespace hipanel\modules\client\models;
 use Exception;
 use hipanel\helpers\StringHelper;
 use hipanel\modules\domain\models\Domain;
+use hipanel\modules\server\models\Server;
 use hipanel\validators\DomainValidator;
 use Yii;
+use yii\base\InvalidConfigException;
 
 class Client extends \hipanel\base\Model
 {
@@ -61,7 +63,7 @@ class Client extends \hipanel\base\Model
             [['nss'], 'filter', 'filter' => function ($value) {
                 return (mb_strlen($value) > 0) ? StringHelper::mexplode($value) : [];
             }, 'on' => 'domain-settings'],
-            [['nss'], 'each', 'rule' => [DomainValidator::className()], 'on' => 'domain-settings'],
+            [['nss'], 'each', 'rule' => [DomainValidator::class], 'on' => 'domain-settings'],
             [['autorenewal', 'whois_protected'], 'boolean', 'on' => 'domain-settings'],
             [['registrant', 'admin', 'tech', 'billing'], 'safe', 'on' => 'domain-settings'],
 
@@ -172,12 +174,25 @@ class Client extends \hipanel\base\Model
 
     public function getTicketSettings()
     {
-        return $this->hasOne(ClientTicketSettings::className(), ['id', 'id']);
+        return $this->hasOne(ClientTicketSettings::class, ['id', 'id']);
     }
 
     public function getDomains()
     {
-        return $this->hasMany(Domain::className(), ['client_id' => 'id']);
+        if (!Yii::getAlias('@domain', false)) {
+            throw new InvalidConfigException('Domain module is required to use this relation');
+        }
+
+        return $this->hasMany(Domain::class, ['client_id' => 'id']);
+    }
+
+    public function getServers()
+    {
+        if (!Yii::getAlias('@server', false)) {
+            throw new InvalidConfigException('Server module is required to use this relation');
+        }
+
+        return $this->hasMany(Server::class, ['client_id' => 'id']);
     }
 
     public static function canBeSelf($model)
