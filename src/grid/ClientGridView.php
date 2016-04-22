@@ -14,7 +14,6 @@ namespace hipanel\modules\client\grid;
 use hipanel\grid\ActionColumn;
 use hipanel\grid\BoxedGridView;
 use hipanel\grid\RefColumn;
-use hipanel\helpers\ArrayHelper;
 use hipanel\helpers\Url;
 use hipanel\modules\client\models\Client;
 use hipanel\modules\client\widgets\State as ClientState;
@@ -147,21 +146,21 @@ class ClientGridView extends BoxedGridView
                         'button' => [
                             'label' => '+' . ($model->count['domains'] - 1),
                             'popoverOptions' => [
-                                'html' => true
+                                'html' => true,
                             ],
                         ],
                         'formatter' => function ($item, $key) use ($model) {
                             static $index = 0;
-                            $index++;
+                            ++$index;
 
                             $value = Html::a($item->domain, ['@domain/view', 'id' => $item->id]);
-                            if ($model->count['domains'] > count($model->domains) && $index == count($model->domains)) {
+                            if ($model->count['domains'] > count($model->domains) && $index === count($model->domains)) {
                                 $text = Yii::t('hipanel/client', 'and {n} more', ['n' => $model->count['domains'] - count($model->domains)]);
                                 $value .= ' ' . Html::a($text, Url::toSearch('domain', ['client_id' => $model->id]), ['class' => 'border-bottom-dashed']);
                             }
 
                             return $value;
-                        }
+                        },
                     ]);
                 },
             ],
@@ -175,23 +174,23 @@ class ClientGridView extends BoxedGridView
                         'button' => [
                             'label' => '+' . ($model->count['servers'] - 1),
                             'popoverOptions' => [
-                                'html' => true
+                                'html' => true,
                             ],
                         ],
                         'formatter' => function ($item, $key) use ($model) {
                             static $index;
-                            $index++;
+                            ++$index;
 
                             $value = Html::a($item->name, ['@server/view', 'id' => $item->id]);
-                            if ($model->count['servers'] > count($model->servers) && $index == count($model->servers)) {
+                            if ($model->count['servers'] > count($model->servers) && $index === count($model->servers)) {
                                 $text = Yii::t('hipanel/client', 'and {n} more', ['n' => $model->count['servers'] - count($model->servers)]);
                                 $value .= ' ' . Html::a($text, Url::toSearch('server', ['client_id' => $model->id]), ['class' => 'border-bottom-dashed']);
                             }
 
                             return $value;
-                        }
+                        },
                     ]);
-                }
+                },
             ],
             'contacts' => [
                 'format' => 'html',

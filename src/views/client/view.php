@@ -54,15 +54,15 @@ $this->registerCss('legend {font-size: 16px;}');
 
         <div class="profile-usermenu">
             <ul class="nav">
-                <?php if ($model->id == Yii::$app->user->id) { ?>
+                <?php if ($model->id === Yii::$app->user->id) : ?>
                     <li>
                         <a href="http://gravatar.com" target="_blank">
                             <i><img src="http://www.gravatar.com/avatar/00000000000000000000000000000000/?s=17" /></i>
                             <?= Yii::t('app', 'You can change your avatar at Gravatar.com')?>
                         </a>
                     </li>
-                <?php } ?>
-                <?php if ($model->id == Yii::$app->user->id) { ?>
+                <?php endif ?>
+                <?php if ($model->id === Yii::$app->user->id) : ?>
                     <li>
                         <?= SettingsModal::widget([
                             'model'    => $model,
@@ -71,7 +71,7 @@ $this->registerCss('legend {font-size: 16px;}');
                             'scenario' => 'change-password',
                         ]) ?>
                     </li>
-                <?php } ?>
+                <?php endif ?>
                 <?php if (Yii::$app->user->id === $model->id) : ?>
                     <li>
                         <?= SettingsModal::widget([
