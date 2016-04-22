@@ -3,8 +3,21 @@ hiqdev/hipanel-module-client commits history
 
 ## 0.0.1 Under development
 
-    - 2ffa701 2016-02-18 purse block view moved to finance module (sol@hiqdev.com)
 - Fixed (improved) client and contact view pages
+    - c14d897 2016-04-22 phpcsfixed (sol@hiqdev.com)
+    - ffd157b 2016-04-22 inited tests (sol@hiqdev.com)
+    - 70f1aae 2016-04-22 rehideved (sol@hiqdev.com)
+    - 0f6f711 2016-04-22 fixed build with asset-packagist (sol@hiqdev.com)
+    - 6f08696 2016-04-21 Updated ClientGridView - added `servers_spoiler` and `domains_spoiler` coulmns definition (d.naumenko.a@gmail.com)
+    - 46c038c 2016-04-21 Updated translations (d.naumenko.a@gmail.com)
+    - 9d3cbc3 2016-04-21 Added Client::getServers() (d.naumenko.a@gmail.com)
+    - 1ca428d 2016-03-28 Client Index action - redirect to client view, when user can not see other clients (d.naumenko.a@gmail.com)
+    - 10750d9 2016-03-28 ClientCombo, ContactCombo - changed URL to /search instad of /index (d.naumenko.a@gmail.com)
+    - e7ede0f 2016-03-27 Minor (d.naumenko.a@gmail.com)
+    - 694c41f 2016-03-17 Translations update (d.naumenko.a@gmail.com)
+    - e9e5071 2016-03-16 Translations update (d.naumenko.a@gmail.com)
+    - 8fab9f5 2016-03-16 Added missing translation (d.naumenko.a@gmail.com)
+    - 2ffa701 2016-02-18 purse block view moved to finance module (sol@hiqdev.com)
     - 2dcef2a 2016-02-17 fixed showing unconfirmed email (sol@hiqdev.com)
     - a110742 2016-02-15 phpcsfixed (sol@hiqdev.com)
     - dcdd8ee 2016-02-15 rehideved (sol@hiqdev.com)
