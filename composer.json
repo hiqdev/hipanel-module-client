@@ -46,9 +46,20 @@
         "yiisoft/yii2": "~2.0",
         "hiqdev/yii2-asset-flag-icon-css": "~0.7"
     },
+    "require-dev": {
+        "hiqdev/hidev-php": "<2.0",
+        "hiqdev/hidev-vendor": "<2.0",
+        "hiqdev/hidev": "dev-master"
+    },
     "autoload": {
         "psr-4": {
             "hipanel\\modules\\client\\": "src"
         }
-    }
+    },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://asset-packagist.hiqdev.com"
+        }
+    ]
 }
