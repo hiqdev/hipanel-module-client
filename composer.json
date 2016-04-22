@@ -44,7 +44,7 @@
     ],
     "require": {
         "yiisoft/yii2": "~2.0",
-        "hiqdev/yii2-asset-flag-icon-css": "~0.7"
+        "hiqdev/yii2-asset-flag-icon-css": "^1.4"
     },
     "require-dev": {
         "hiqdev/hidev-php": "<2.0",

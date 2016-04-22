@@ -12,9 +12,5 @@ package:
 
         This package provides client management for HiPanel:
 
-        * clients
-        * contacts
-
-require:
-    hiqdev/hidev-php:    "*"
-    hiqdev/hidev-vendor: "*"
+        - clients
+        - contacts
