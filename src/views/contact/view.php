@@ -8,6 +8,10 @@ use hiqdev\assets\flagiconcss\FlagIconCssAsset;
 use yii\helpers\Html;
 use yii\helpers\Inflector;
 
+/**
+ * @var \hipanel\modules\client\models\Contact $model
+ */
+
 $this->title    = Inflector::titleize($model->name, true);
 $this->subtitle = Yii::t('app', 'Contact detailed information') . ' #' . $model->id;
 $this->breadcrumbs->setItems([
@@ -79,6 +83,61 @@ FlagIconCssAsset::register($this);
                         ]) ?>
                     <?php $box->endBody(); ?>
                 <?php $box->end(); ?>
+
+                <?php if (Yii::$app->user->can('manage')) { ?>
+                    <?php $box = Box::begin(['renderBody' => false]) ?>
+                        <?php $box->beginHeader(); ?>
+                            <?= $box->renderTitle(Yii::t('hipanel/client', 'Verification status')); ?>
+                        <?php $box->endHeader(); ?>
+                        <?php $box->beginBody(); ?>
+                            <table class="table table-striped table-bordered">
+                                <tbody>
+                                    <tr>
+                                        <th><?= Yii::t('hipanel/client', 'Name') ?></th>
+                                        <td>
+                                            <?= \hipanel\modules\client\widgets\Confirmation::widget([
+                                                'model' => $model->getVerification('name'),
+                                            ]) ?>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th><?= Yii::t('hipanel/client', 'Address') ?></th>
+                                        <td>
+                                            <?= \hipanel\modules\client\widgets\Confirmation::widget([
+                                                'model' => $model->getVerification('address'),
+                                            ]) ?>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th><?= Yii::t('hipanel/client', 'Email') ?></th>
+                                        <td>
+                                            <?= \hipanel\modules\client\widgets\Confirmation::widget([
+                                                'model' => $model->getVerification('email'),
+                                            ]) ?>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th><?= Yii::t('hipanel/client', 'Voice phone') ?></th>
+                                        <td>
+                                            <?= \hipanel\modules\client\widgets\Confirmation::widget([
+                                                'model' => $model->getVerification('voice_phone'),
+                                            ]) ?>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th><?= Yii::t('hipanel/client', 'Fax phone') ?></th>
+                                        <td>
+                                            <?= \hipanel\modules\client\widgets\Confirmation::widget([
+                                                'model' => $model->getVerification('fax_phone'),
+                                            ]) ?>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        <?php $box->endBody(); ?>
+                    <?php $box->end(); ?>
+                <?php } ?>
+
             </div>
             <div class="col-md-6">
                 <?php $box = Box::begin(['renderBody' => false]); ?>
@@ -97,6 +156,8 @@ FlagIconCssAsset::register($this);
                         ]) ?>
                     <?php $box->endBody(); ?>
                 <?php $box->end(); ?>
+
+
                 <?php $box = Box::begin(['renderBody' => false, 'options' => [
                     'class'                           => 'collapsed-box',
                 ]]) ?>
