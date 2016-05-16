@@ -20,9 +20,12 @@ use hipanel\actions\ValidateFormAction;
 use hipanel\actions\ViewAction;
 use hipanel\base\CrudController;
 use hipanel\modules\client\models\Client;
+use hipanel\modules\client\models\Confirmation;
 use hipanel\modules\client\models\Contact;
+use hipanel\modules\client\models\Verification;
 use hipanel\modules\domain\models\Domain;
 use Yii;
+use yii\base\Event;
 
 class ContactController extends CrudController
 {
@@ -79,6 +82,22 @@ class ContactController extends CrudController
                     ];
                 },
             ],
+            'set-confirmation' => [
+                'class' => SmartUpdateAction::class,
+                'scenario' => 'set-confirmation',
+                'collection' => [
+                    'model' => Confirmation::class,
+                ],
+                'on beforeSave' => function (Event $event) {
+                    /** @var \hipanel\actions\Action $action */
+                    $action = $event->sender;
+
+                    $type = Yii::$app->request->post('type');
+                    foreach ($action->collection->models as $model) {
+                        $model->type = $type;
+                    }
+                },
+            ]
         ];
     }
 
