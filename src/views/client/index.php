@@ -46,7 +46,7 @@ $this->breadcrumbs->setItems([
         <?php $box->beginBulkActions() ?>
             <?php if (Yii::$app->user->can('support')) : ?>
                 <div class="dropdown" style="display: inline-block">
-                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <?= Yii::t('hipanel', 'Block') ?>
                         <span class="caret"></span>
                     </button>
