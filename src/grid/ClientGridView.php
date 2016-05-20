@@ -115,8 +115,9 @@ class ClientGridView extends BoxedGridView
             ],
             'servers' => [
                 'format' => 'raw',
-                'label'     => Yii::t('hipanel', 'Servers'),
-                'value'  => function ($model) {
+                'visible' => Yii::getAlias('@server', false) !== false,
+                'label' => Yii::t('hipanel', 'Servers'),
+                'value' => function ($model) {
                     /** @var Client $model */
                     $num = $model->count['servers'];
                     $url = Url::toSearch('server', ['client_id' => $model->id]);
@@ -126,8 +127,9 @@ class ClientGridView extends BoxedGridView
             ],
             'domains' => [
                 'format' => 'html',
-                'label'     => Yii::t('hipanel', 'Domains'),
-                'value'  => function ($model) {
+                'visible' => Yii::getAlias('@domain', false) !== false,
+                'label' => Yii::t('hipanel', 'Domains'),
+                'value' => function ($model) {
                     /** @var Client $model */
                     $num = $model->count['domains'];
                     $url = Url::toSearch('domain', ['client_id' => $model->id]);
@@ -137,6 +139,7 @@ class ClientGridView extends BoxedGridView
             ],
             'domains_spoiler' => [
                 'format' => 'raw',
+                'visible' => Yii::getAlias('@domain', false) !== false,
                 'label' => Yii::t('hipanel', 'Domains'),
                 'value' => function ($model) {
                     /** @var Client $model */

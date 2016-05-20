@@ -13,6 +13,7 @@ namespace hipanel\modules\client\models;
 
 use Exception;
 use hipanel\helpers\StringHelper;
+use hipanel\modules\client\models\query\ClientQuery;
 use hipanel\modules\domain\models\Domain;
 use hipanel\modules\server\models\Server;
 use hipanel\validators\DomainValidator;
@@ -180,7 +181,7 @@ class Client extends \hipanel\base\Model
     public function getDomains()
     {
         if (!Yii::getAlias('@domain', false)) {
-            throw new InvalidConfigException('Domain module is required to use this relation');
+            return null;
         }
 
         return $this->hasMany(Domain::class, ['client_id' => 'id']);
@@ -189,7 +190,7 @@ class Client extends \hipanel\base\Model
     public function getServers()
     {
         if (!Yii::getAlias('@server', false)) {
-            throw new InvalidConfigException('Server module is required to use this relation');
+            return null;
         }
 
         return $this->hasMany(Server::class, ['client_id' => 'id']);
@@ -214,6 +215,17 @@ class Client extends \hipanel\base\Model
             $result[$translation[$k]] = $translation[$k];
         }
         return $result;
+    }
+
+    /**
+     * @inheritdoc
+     * @return ClientQuery
+     */
+    public static function find($options = [])
+    {
+        return new ClientQuery(get_called_class(), [
+            'options' => $options,
+        ]);
     }
 
     public function scenarioCommands()
