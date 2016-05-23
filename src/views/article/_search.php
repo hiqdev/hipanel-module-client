@@ -1,16 +1,18 @@
 <?php
 use hiqdev\combo\StaticCombo;
-
+/**
+ * @var \hipanel\widgets\AdvancedSearch $search
+ */
 ?>
 <div class="col-md-12" style="margin-top: 1em;">
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-4 col-sm-6 col-xs-12">
             <?= $search->field('article_name') ?>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-4 col-sm-6 col-xs-12">
             <?= $search->field('post_date') ?>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-4 col-sm-6 col-xs-12">
             <?= $search->field('is_published')->widget(StaticCombo::classname(), [
                 'data' => [
                     't' => Yii::t('app', 'Published'),
