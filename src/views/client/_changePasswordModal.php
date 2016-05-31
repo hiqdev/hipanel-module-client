@@ -17,14 +17,15 @@ use yii\helpers\Url;
 
 <?= Html::activeHiddenInput($model, "[$model->id]id"); ?>
 
-<?= $form->field($model, "[$model->id]login")->textInput(['readonly' => 'readonly']); ?>
-<?= $form->field($model, "[$model->id]old_password")->passwordInput(); ?>
-<?= $form->field($model, "[$model->id]new_password")->widget(PasswordInput::className(), [
-    'id' => $model->id . '_change-password-modal',
-]); ?>
-<?= $form->field($model, "[$model->id]confirm_password")->passwordInput(); ?>
+    <?= $form->field($model, "[$model->id]login")->textInput(['readonly' => 'readonly']); ?>
+    <?= $form->field($model, "[$model->id]old_password")->passwordInput(); ?>
+    <?= $form->field($model, "[$model->id]new_password")->widget(PasswordInput::className(), [
+        'id' => $model->id . '_change-password-modal',
+    ]); ?>
+    <?= $form->field($model, "[$model->id]confirm_password")->passwordInput(); ?>
 
-<hr>
-<?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?> &nbsp;
-<?= Html::button(Yii::t('app', 'Cancel'), ['class' => 'btn btn-default', 'data-dismiss' => 'modal']) ?>
+    <hr>
+
+    <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?> &nbsp;
+    <?= Html::button(Yii::t('app', 'Cancel'), ['class' => 'btn btn-default', 'data-dismiss' => 'modal']) ?>
 <?php $form::end(); ?>

@@ -97,6 +97,9 @@ class Client extends \hipanel\base\Model
             // Client validation disabled due the Yii2 bug: https://github.com/yiisoft/yii2/issues/9811
             [['confirm_password'], 'compare', 'compareAttribute' => 'new_password', 'enableClientValidation' => false, 'on' => ['change-password']],
 
+            // Set temporary password
+            [['id'], 'integer', 'on' => 'set-tmp-password'],
+
             // Pincode
             [['enable', 'disable', 'pincode_enabled'], 'boolean', 'on' => ['pincode-settings']],
             [['question', 'answer'], 'string', 'on' => ['pincode-settings']],

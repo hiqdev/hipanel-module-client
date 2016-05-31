@@ -72,6 +72,16 @@ $this->registerCss('legend {font-size: 16px;}');
                         ]) ?>
                     </li>
                 <?php endif ?>
+                <?php if (Yii::$app->user->not($model->id) && Yii::$app->user->can('manage')) : ?>
+                    <li>
+                        <?= SettingsModal::widget([
+                            'model'    => $model,
+                            'title'    => Yii::t('hipanel/client', 'Temporary password'),
+                            'icon'     => 'fa-key fa-flip-horizontal fa-fw',
+                            'scenario' => 'set-tmp-password',
+                        ]) ?>
+                    </li>
+                <?php endif ?>
                 <?php if (Yii::$app->user->is($model->id)) : ?>
                     <li>
                         <?= SettingsModal::widget([
@@ -82,14 +92,16 @@ $this->registerCss('legend {font-size: 16px;}');
                         ]) ?>
                     </li>
                 <?php endif ?>
-                <li>
-                    <?= SettingsModal::widget([
-                        'model'    => $model,
-                        'title'    => Yii::t('app', 'IP address restrictions'),
-                        'icon'     => 'fa-arrows-alt fa-fw',
-                        'scenario' => 'ip-restrictions',
-                    ]) ?>
-                </li>
+                <?php if (Yii::$app->user->is($model->id)) : ?>
+                    <li>
+                        <?= SettingsModal::widget([
+                            'model'    => $model,
+                            'title'    => Yii::t('app', 'IP address restrictions'),
+                            'icon'     => 'fa-arrows-alt fa-fw',
+                            'scenario' => 'ip-restrictions',
+                        ]) ?>
+                    </li>
+                <?php endif ?>
                 <li>
                     <?= SettingsModal::widget([
                         'model'    => $model,
