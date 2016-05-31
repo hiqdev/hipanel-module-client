@@ -12,6 +12,7 @@
 namespace hipanel\modules\client\controllers;
 
 use hipanel\actions\IndexAction;
+use hipanel\actions\OrientationAction;
 use hipanel\actions\SearchAction;
 use hipanel\actions\SmartCreateAction;
 use hipanel\actions\SmartDeleteAction;
@@ -32,6 +33,12 @@ class ContactController extends CrudController
     public function actions()
     {
         return [
+            'set-orientation' => [
+                'class' => OrientationAction::class,
+                'allowedRoutes' => [
+                    '@contact/index'
+                ]
+            ],
             'index' => [
                 'class' => IndexAction::class,
             ],

@@ -12,6 +12,7 @@
 namespace hipanel\modules\client\controllers;
 
 use hipanel\actions\IndexAction;
+use hipanel\actions\OrientationAction;
 use hipanel\actions\PrepareBulkAction;
 use hipanel\actions\RedirectAction;
 use hipanel\actions\RenderJsonAction;
@@ -34,6 +35,12 @@ class ClientController extends \hipanel\base\CrudController
     public function actions()
     {
         return [
+            'set-orientation' => [
+                'class' => OrientationAction::class,
+                'allowedRoutes' => [
+                    '@client/index'
+                ]
+            ],
             'index' => [
                 'class' => IndexAction::class,
                 'on beforePerform' => function ($event) {
