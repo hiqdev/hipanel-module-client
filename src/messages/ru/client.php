@@ -35,4 +35,7 @@ return [
     'Not confirmed' => 'Не подтверждён',
     'Confirmed' => 'Подтверждён',
     'Verified' => 'Верифицирован',
+    'Temporary password' => 'Временный пароль',
+    'Temporary password will be sent to your email' => 'Временный пароль будет отправлен на Ваш email',
+    'Temporary password was sent to your email' => 'Временный пароль отправлен на Ваш email',
 ];

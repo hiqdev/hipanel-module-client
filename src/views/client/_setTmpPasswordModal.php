@@ -1,0 +1,19 @@
+<?php
+
+use hipanel\widgets\PasswordInput;
+use kartik\form\ActiveForm;
+use yii\helpers\Html;
+use yii\helpers\Url;
+
+?>
+
+<?php $form = ActiveForm::begin([]) ?>
+
+<?= Yii::t('hipanel/client', 'Temporary password will be sent to your email') ?>
+
+<hr>
+
+<?= Html::submitButton(Yii::t('hipanel', 'Confirm'), ['class' => 'btn btn-success']) ?> &nbsp;
+<?= Html::button(Yii::t('hipanel', 'Cancel'), ['class' => 'btn btn-default', 'data-dismiss' => 'modal']) ?>
+
+<?php $form::end(); ?>

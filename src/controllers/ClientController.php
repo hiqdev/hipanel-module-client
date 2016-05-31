@@ -98,6 +98,19 @@ class ClientController extends \hipanel\base\CrudController
                     ],
                 ],
             ],
+            'set-tmp-password' => [
+                'class'   => SmartUpdateAction::class,
+                'view'    => '_setTmpPasswordModal',
+                'POST' => [
+                    'save' => true,
+                    'success' => [
+                        'class' => RenderJsonAction::class,
+                        'return' => function ($action) {
+                            return ['success' => !$action->collection->hasErrors()];
+                        },
+                    ],
+                ],
+            ],
             'view' => [
                 'class' => ViewAction::class,
                 'findOptions' => [
