@@ -54,7 +54,7 @@ $this->registerCss('legend {font-size: 16px;}');
 
         <div class="profile-usermenu">
             <ul class="nav">
-                <?php if ($model->id === Yii::$app->user->id) : ?>
+                <?php if (Yii::$app->user->is($model->id)) : ?>
                     <li>
                         <a href="http://gravatar.com" target="_blank">
                             <i><img src="http://www.gravatar.com/avatar/00000000000000000000000000000000/?s=17" /></i>
@@ -62,7 +62,7 @@ $this->registerCss('legend {font-size: 16px;}');
                         </a>
                     </li>
                 <?php endif ?>
-                <?php if ($model->id === Yii::$app->user->id) : ?>
+                <?php if (Yii::$app->user->is($model->id)) : ?>
                     <li>
                         <?= SettingsModal::widget([
                             'model'    => $model,
@@ -72,7 +72,7 @@ $this->registerCss('legend {font-size: 16px;}');
                         ]) ?>
                     </li>
                 <?php endif ?>
-                <?php if (Yii::$app->user->id === $model->id) : ?>
+                <?php if (Yii::$app->user->is($model->id)) : ?>
                     <li>
                         <?= SettingsModal::widget([
                             'model'    => $model,
