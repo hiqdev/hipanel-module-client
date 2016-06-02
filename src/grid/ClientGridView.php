@@ -13,7 +13,9 @@ namespace hipanel\modules\client\grid;
 
 use hipanel\grid\ActionColumn;
 use hipanel\grid\BoxedGridView;
+use hipanel\grid\MainColumn;
 use hipanel\grid\RefColumn;
+use hipanel\grid\XEditableColumn;
 use hipanel\helpers\Url;
 use hipanel\modules\client\models\Client;
 use hipanel\modules\client\widgets\State as ClientState;
@@ -35,12 +37,29 @@ class ClientGridView extends BoxedGridView
                 'label'         => Yii::t('hipanel', 'Client'),
             ],
             'login' => [
+                'class' => MainColumn::class,
                 'attribute'       => 'login',
                 'filterAttribute' => 'login_like',
                 'format'          => 'raw',
                 'value'           => function ($model) {
                     return Html::a($model->login, ['@client/view', 'id' => $model->id]);
                 },
+                'note' => Yii::$app->user->can('manage') ? 'note' : null,
+                'noteOptions' => [
+                    'url' => Url::to('set-note')
+                ],
+            ],
+            'note' => [
+                'class' => XEditableColumn::class,
+                'pluginOptions' => [
+                    'url'       => Url::to('set-note'),
+                ],
+                'widgetOptions' => [
+                    'linkOptions' => [
+                        'data-type' => 'textarea',
+                    ],
+                ],
+                'visible' => Yii::$app->user->can('manage'),
             ],
             'name' => [
                 'filterAttribute' => 'name_like',

@@ -125,6 +125,11 @@ class ClientController extends \hipanel\base\CrudController
                 'class' => SmartUpdateAction::class,
                 'success' => Yii::t('app', 'Credit changed'),
             ],
+            'set-note' => [
+                'class' => SmartUpdateAction::class,
+                'success' => Yii::t('hipanel/client', 'Note changed'),
+                'error' => Yii::t('hipanel/client', 'Failed to change note'),
+            ],
             'bulk-enable-block' => [
                 'class' => SmartUpdateAction::class,
                 'scenario' => 'enable-block',

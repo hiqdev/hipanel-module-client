@@ -44,6 +44,7 @@ class Client extends \hipanel\base\Model
             [['purses'],                                                                        'safe'],
             [['count', 'confirm_url', 'language', 'comment', 'name', 'contact', 'currency'],    'safe'],
             [['create_time', 'update_time'],                                                    'date'],
+            [['id', 'note'], 'safe', 'on' => 'set-note'],
 
             [['id', 'credit'],                              'required', 'on' => 'set-credit'],
             [['id', 'type', 'comment'],                     'required', 'on' => ['set-block', 'enable-block']],

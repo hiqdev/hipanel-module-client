@@ -98,7 +98,8 @@ $this->breadcrumbs->setItems([
             ]) ?>
         </div>
         <?php endif; ?>
-    <?php $page->endContent('bulk-actions') ?>
+    </div>
+    <?php $page->endContent() ?>
 
     <?php $page->beginContent('table') ?>
     <?php $page->beginBulkForm() ?>
