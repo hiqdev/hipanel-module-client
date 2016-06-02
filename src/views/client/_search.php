@@ -38,8 +38,8 @@ use yii\helpers\Html;
         <?= DatePicker::widget([
             'model'         => $search->model,
             'type'          => DatePicker::TYPE_RANGE,
-            'attribute'     => 'created_from',
-            'attribute2'    => 'created_till',
+            'attribute'     => 'create_time_ge',
+            'attribute2'    => 'create_time_lt',
             'pluginOptions' => [
                 'autoclose' => true,
                 'format'    => 'yyyy-mm-dd',
