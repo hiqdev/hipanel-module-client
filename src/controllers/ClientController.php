@@ -50,7 +50,8 @@ class ClientController extends \hipanel\base\CrudController
                 },
                 'data' => function ($action) {
                     return [
-                        'states' => $action->controller->getStates(),
+                        'types'  => Ref::getList('type,client'),
+                        'states' => Ref::getList('state,client'),
                     ];
                 },
                 'filterStorageMap' => [
@@ -194,11 +195,6 @@ class ClientController extends \hipanel\base\CrudController
                 'view' => '_bulkDisableBlock',
             ],
         ];
-    }
-
-    public function getStates()
-    {
-        return Ref::getList('state,client');
     }
 
     public function actionPincodeSettings($id)

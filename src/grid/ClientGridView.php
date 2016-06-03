@@ -18,8 +18,9 @@ use hipanel\grid\RefColumn;
 use hipanel\grid\XEditableColumn;
 use hipanel\helpers\Url;
 use hipanel\modules\client\models\Client;
-use hipanel\modules\client\widgets\State as ClientState;
-use hipanel\modules\client\widgets\Type as ClientType;
+use hipanel\modules\client\widgets\ClientState;
+use hipanel\modules\client\widgets\ClientType;
+use hipanel\modules\finance\grid\BalanceColumn;
 use hipanel\modules\finance\grid\CreditColumn;
 use hipanel\widgets\ArraySpoiler;
 use Yii;
@@ -31,7 +32,7 @@ class ClientGridView extends BoxedGridView
     {
         return [
             'id' => [
-                'class'         => ClientColumn::className(),
+                'class'         => ClientColumn::class,
                 'attribute'     => 'id',
                 'nameAttribute' => 'login',
                 'label'         => Yii::t('hipanel', 'Client'),
@@ -65,7 +66,7 @@ class ClientGridView extends BoxedGridView
                 'filterAttribute' => 'name_like',
             ],
             'state' => [
-                'class'  => RefColumn::className(),
+                'class'  => RefColumn::class,
                 'format' => 'raw',
                 'gtype'  => 'state,client',
                 'value'  => function ($model) {
@@ -73,7 +74,7 @@ class ClientGridView extends BoxedGridView
                 },
             ],
             'type' => [
-                'class'  => RefColumn::className(),
+                'class'  => RefColumn::class,
                 'format' => 'raw',
                 'gtype'  => 'type,client',
                 'value'  => function ($model) {
@@ -81,7 +82,7 @@ class ClientGridView extends BoxedGridView
                 },
             ],
             'balance' => [
-                'class' => 'hipanel\modules\finance\grid\BalanceColumn',
+                'class' => BalanceColumn::class,
             ],
             'credit' => CreditColumn::resolveConfig(),
             'country' => [
@@ -243,7 +244,7 @@ class ClientGridView extends BoxedGridView
                 },
             ],
             'action' => [
-                'class'     => ActionColumn::className(),
+                'class'     => ActionColumn::class,
                 'template'  => Yii::$app->user->can('support') ? '{view}' : '{view}',
             ],
         ];

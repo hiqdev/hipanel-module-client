@@ -1,6 +1,7 @@
 <?php
 
 use hipanel\modules\client\widgets\combo\ClientCombo;
+use hipanel\widgets\RefFilter;
 use hiqdev\combo\StaticCombo;
 use kartik\widgets\DatePicker;
 use yii\helpers\Html;
@@ -10,19 +11,33 @@ use yii\helpers\Html;
 ?>
 
 <div class="col-md-4 col-sm-6 col-xs-12">
-    <?= $search->field('client_like') ?>
+    <?= $search->field('login_like') ?>
 </div>
 <div class="col-md-4 col-sm-6 col-xs-12">
-    <?= $search->field('name_like')->label(Yii::t('app', 'Name')) ?>
+    <?= $search->field('name_like')->label(Yii::t('hipanel', 'Name')) ?>
+</div>
+<div class="col-md-4 col-sm-6 col-xs-12">
+    <?= $search->field('email_like')->label(Yii::t('hipanel', 'Email')) ?>
 </div>
 <div class="col-md-4 col-sm-6 col-xs-12">
     <?= $search->field('seller_like') ?>
 </div>
 <div class="col-md-4 col-sm-6 col-xs-12">
-    <?= $search->field('seller_id')->widget(ClientCombo::classname()) ?>
+    <?= $search->field('seller_id')->widget(ClientCombo::class) ?>
 </div>
 <div class="col-md-4 col-sm-6 col-xs-12">
-    <?= $search->field('state')->widget(StaticCombo::classname(), [
+    <?= $search->field('type')->widget(StaticCombo::class, [
+        'data'          => $types,
+        'hasId'         => true,
+        'pluginOptions' => [
+            'select2Options' => [
+                'multiple' => true,
+            ],
+        ],
+    ]) ?>
+</div>
+<div class="col-md-4 col-sm-6 col-xs-12">
+    <?= $search->field('state')->widget(StaticCombo::class, [
         'data'          => $states,
         'hasId'         => true,
         'pluginOptions' => [
@@ -47,4 +62,3 @@ use yii\helpers\Html;
         ]) ?>
     </div>
 </div>
-

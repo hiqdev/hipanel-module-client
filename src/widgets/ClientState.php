@@ -11,7 +11,7 @@
 
 namespace hipanel\modules\client\widgets;
 
-class State extends \hipanel\widgets\Type
+class ClientState extends \hipanel\widgets\Type
 {
     /** {@inheritdoc} */
     public $model         = [];

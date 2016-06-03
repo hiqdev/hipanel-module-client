@@ -30,7 +30,7 @@ $this->breadcrumbs->setItems([
 <?php Pjax::begin(array_merge(Yii::$app->params['pjax'], ['enablePushState' => true])) ?>
 <?php $page = IndexPage::begin(compact('model', 'dataProvider')) ?>
 
-    <?= $page->setSearchFormData(compact(['states'])) ?>
+    <?= $page->setSearchFormData(compact(['types', 'states'])) ?>
 
     <?php $page->beginContent('main-actions') ?>
         <?= Html::a(Yii::t('hipanel', 'Create client'), 'create', ['class' => 'btn btn-sm btn-success']) ?>
@@ -112,7 +112,6 @@ $this->breadcrumbs->setItems([
             'login', 'name', 'seller_id',
             'type', 'state',
             'balance', 'credit',
-            'action',
         ],
     ]) ?>
     <?php $page->endBulkForm() ?>
