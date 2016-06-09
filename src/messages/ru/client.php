@@ -37,5 +37,8 @@ return [
     'Verified' => 'Верифицирован',
     'Temporary password' => 'Временный пароль',
     'Temporary password will be sent to your email' => 'Временный пароль будет отправлен на Ваш email',
-    'Temporary password was sent to your email' => 'Временный пароль отправлен на Ваш email',
+    'Temporary password was sent on your email' => 'Временный пароль отправлен на Ваш email',
+    'Create client' => 'Создать клиента',
+    'Error during temporary password setting' => 'Ошибка при установке временного пароля',
+
 ];
