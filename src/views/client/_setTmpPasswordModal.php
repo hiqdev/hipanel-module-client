@@ -7,8 +7,14 @@ use yii\helpers\Url;
 
 ?>
 
-<?php $form = ActiveForm::begin([]) ?>
-
+<?php $form = ActiveForm::begin([
+    'options' => [
+        'id' => 'tmp-password-form',
+    ],
+    'enableClientValidation' => false,
+    'enableAjaxValidation' => false,
+]) ?>
+<?= Html::activeHiddenInput($model, "[$model->id]id"); ?>
 <?= Yii::t('hipanel/client', 'Temporary password will be sent to your email') ?>
 
 <hr>

@@ -2,7 +2,7 @@
 
 use hipanel\widgets\Box;
 
-$this->title = Yii::t('app', 'Create Client');
+$this->title = Yii::t('hipanel/client', 'Create Client');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Client'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 
