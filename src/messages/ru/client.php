@@ -40,5 +40,12 @@ return [
     'Temporary password was sent on your email' => 'Временный пароль отправлен на Ваш email',
     'Create client' => 'Создать клиента',
     'Error during temporary password setting' => 'Ошибка при установке временного пароля',
+    'Contact detailed information' => 'Подробная информация о контакте',
+    'Contacts' => 'Контакты',
+    'Change contact information' => 'Изменить контактную информацию',
+    'Contact information' => 'Контактная информация',
+    'Postal information' => 'Почтовая информация',
+    'Additional information' => 'Дополнительная информация',
+    'Used for {n, plural, one{# domain} other{# domains}}' => 'Используется для {n, plural, one{1 домена} few{# доменов} other{# доменов}}',
 
 ];

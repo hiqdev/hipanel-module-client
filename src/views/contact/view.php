@@ -13,9 +13,9 @@ use yii\helpers\Inflector;
  */
 
 $this->title    = Inflector::titleize($model->name, true);
-$this->subtitle = Yii::t('app', 'Contact detailed information') . ' #' . $model->id;
+$this->subtitle = Yii::t('hipanel/client', 'Contact detailed information') . ' #' . $model->id;
 $this->breadcrumbs->setItems([
-    ['label' => Yii::t('app', 'Contacts'), 'url' => ['index']],
+    ['label' => Yii::t('hipanel/client', 'Contacts'), 'url' => ['index']],
     $this->title,
 ]);
 
@@ -45,11 +45,11 @@ FlagIconCssAsset::register($this);
         <div class="profile-usermenu">
             <ul class="nav">
                 <li>
-                    <?= Html::a('<i class="fa fa-edit"></i>' . Yii::t('app', 'Change contact information'), ['update', 'id' => $model->id]) ?>
+                    <?= Html::a('<i class="fa fa-edit"></i>' . Yii::t('hipanel/client', 'Change contact information'), ['update', 'id' => $model->id]) ?>
                 </li>
-            <?php if (Yii::getAlias('@domain', false)) : ?>
+            <?php if (Yii::getAlias('@domain', false) && $model->used_count > 0) : ?>
                 <li>
-                    <?= Html::a('<i class="fa fa-globe"></i>' . Yii::t('app', 'Used for domains: ') . Html::tag('b', $model->used_count), Url::toSearch('domain', ['client_id' => $model->client_id])) ?>
+                    <?= Html::a('<i class="fa fa-globe"></i>' . Yii::t('hipanel/client', 'Used for {n, plural, one{# domain} other{# domains}}', ['n' => $model->used_count]), Url::toSearch('domain', ['client_id' => $model->client_id])) ?>
                 </li>
             <?php endif ?>
             </ul>
@@ -62,9 +62,9 @@ FlagIconCssAsset::register($this);
             <div class="col-md-6">
                 <?php $box = Box::begin(['renderBody' => false]); ?>
                     <?php $box->beginHeader(); ?>
-                        <?= $box->renderTitle(Yii::t('app', 'Contact information')); ?>
+                        <?= $box->renderTitle(Yii::t('hipanel/client', 'Contact information')); ?>
                         <?php $box->beginTools(); ?>
-                            <?= Html::a(Yii::t('app', 'Change contact information'), ['update', 'id' => $model->id], ['class' => 'btn btn-default btn-xs']); ?>
+                            <?= Html::a(Yii::t('hipanel/client', 'Change contact information'), ['update', 'id' => $model->id], ['class' => 'btn btn-default btn-xs']); ?>
                         <?php $box->endTools(); ?>
                     <?php $box->endHeader(); ?>
                     <?php $box->beginBody(); ?>
@@ -142,7 +142,7 @@ FlagIconCssAsset::register($this);
             <div class="col-md-6">
                 <?php $box = Box::begin(['renderBody' => false]); ?>
                     <?php $box->beginHeader(); ?>
-                        <?= $box->renderTitle(Yii::t('app', 'Postal information')); ?>
+                        <?= $box->renderTitle(Yii::t('hipanel/client', 'Postal information')); ?>
                     <?php $box->endHeader(); ?>
                     <?php $box->beginBody(); ?>
                         <?= ContactGridView::detailView([
@@ -162,7 +162,7 @@ FlagIconCssAsset::register($this);
                     'class'                           => 'collapsed-box',
                 ]]) ?>
                     <?php $box->beginHeader(); ?>
-                        <?= $box->renderTitle(Yii::t('app', 'Additional information')); ?>
+                        <?= $box->renderTitle(Yii::t('hipanel/client', 'Additional information')); ?>
                         <div class="box-tools pull-right">
                             <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
                         </div>
