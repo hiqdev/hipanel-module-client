@@ -1,10 +1,11 @@
 <?php
 
 use hipanel\modules\client\widgets\combo\ClientCombo;
+use hipanel\widgets\DatePicker;
 use hipanel\widgets\RefFilter;
 use hiqdev\combo\StaticCombo;
-use kartik\widgets\DatePicker;
 use yii\helpers\Html;
+
 /**
  * @var \hipanel\widgets\AdvancedSearch $search
  */
@@ -27,24 +28,16 @@ use yii\helpers\Html;
 </div>
 <div class="col-md-4 col-sm-6 col-xs-12">
     <?= $search->field('type')->widget(StaticCombo::class, [
-        'data'          => $types,
-        'hasId'         => true,
-        'pluginOptions' => [
-            'select2Options' => [
-                'multiple' => true,
-            ],
-        ],
+        'data'      => $types,
+        'hasId'     => true,
+        'multiple'  => true,
     ]) ?>
 </div>
 <div class="col-md-4 col-sm-6 col-xs-12">
     <?= $search->field('state')->widget(StaticCombo::class, [
-        'data'          => $states,
-        'hasId'         => true,
-        'pluginOptions' => [
-            'select2Options' => [
-                'multiple' => true,
-            ],
-        ],
+        'data'      => $states,
+        'hasId'     => true,
+        'multiple'  => true,
     ]) ?>
 </div>
 <div class="col-md-4 col-sm-6 col-xs-12">

@@ -10,6 +10,8 @@
  */
 
 use hipanel\models\Ref;
+use hipanel\widgets\DatePicker;
+use hipanel\widgets\SwitchInput;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
@@ -17,16 +19,16 @@ use yii\helpers\Html;
 $langs = ArrayHelper::map(hipanel\modules\client\models\Article::getApiLangs(), 'gl_key', 'gl_value');
 $this->registerJs("$(function () {\$('#lang_tab a:first').tab('show');});", yii\web\View::POS_END, 'lng-tabpanel-options');
 $modelReflacion = new \ReflectionClass(get_class($model));
-\yii\helpers\VarDumper::dump($model, 10, true);
+
 ?>
 
 <?php $form = ActiveForm::begin() ?>
-    <?= $form->field($model, 'is_published')->widget(kartik\widgets\SwitchInput::className()); ?>
+    <?= $form->field($model, 'is_published')->widget(SwitchInput::class) ?>
 
-    <?= $form->field($model, 'name'); ?>
-    <?= $form->field($model, 'post_date')->widget(kartik\widgets\DatePicker::className(), [
+    <?= $form->field($model, 'name') ?>
+    <?= $form->field($model, 'post_date')->widget(DatePicker::class, [
         'value' => date('d-M-Y', strtotime('+2 days')),
-    ]); ?>
+    ]) ?>
 
     <?= $form->field($model, 'type')->dropDownList(ArrayHelper::map(Ref::find()->where(['gtype' => 'type,article'])->getList(false), 'gl_key', function ($l) {
          return ucfirst($l->gl_value);

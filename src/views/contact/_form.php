@@ -1,7 +1,8 @@
 <?php
+
 use hipanel\widgets\Box;
+use hipanel\widgets\DatePicker;
 use hiqdev\combo\StaticCombo;
-use kartik\widgets\DatePicker;
 use yii\bootstrap\ActiveForm;
 use yii\bootstrap\Modal;
 use yii\helpers\Html;
@@ -137,7 +138,7 @@ if ($model->scenario === 'change-contact') {
         <?= $form->field($model, 'street2'); ?>
         <?= $form->field($model, 'street3'); ?>
         <?= $form->field($model, 'city'); ?>
-        <?= $form->field($model, 'country')->widget(StaticCombo::classname(), [
+        <?= $form->field($model, 'country')->widget(StaticCombo::class, [
             'data' => $countries,
             'hasId' => true,
         ]); ?>
@@ -174,7 +175,7 @@ if ($model->scenario === 'change-contact') {
         <fieldset id="fiz_domain">
             <div
                 class="well well-sm"><?= Yii::t('app', 'For domain registration in RU and SU zones as physical entity') ?></div>
-            <?= $form->field($model, 'birth_date')->widget(DatePicker::className(), [
+            <?= $form->field($model, 'birth_date')->widget(DatePicker::class, [
                 'removeButton' => false,
                 'pluginOptions' => [
                     'format' => 'yyyy-mm-dd', // TODO: get format from user settings
@@ -188,7 +189,7 @@ if ($model->scenario === 'change-contact') {
                 ],
             ]); ?>
             <?= $form->field($model, 'passport_no'); ?>
-            <?= $form->field($model, 'passport_date')->widget(DatePicker::className(), [
+            <?= $form->field($model, 'passport_date')->widget(DatePicker::class, [
                 'removeButton' => false,
                 'pluginOptions' => [
                     'format' => 'yyyy-mm-dd',  // TODO: get format from user settings
