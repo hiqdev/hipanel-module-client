@@ -17,8 +17,8 @@ $form = ActiveForm::begin([
 
 <?= $form->field($model, 'client')->textInput() ?>
 <?= $form->field($model, 'email')->textInput() ?>
-<?= $form->field($model, 'password')->widget(PasswordInput::className()) ?>
-<?= $form->field($model, 'seller_id')->widget(SellerCombo::classname()) ?>
+<?= $form->field($model, 'password')->widget(PasswordInput::class) ?>
+<?= $form->field($model, 'seller_id')->widget(SellerCombo::class) ?>
 
 <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
     &nbsp;

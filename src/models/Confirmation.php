@@ -77,7 +77,7 @@ class Confirmation extends \hipanel\base\Model
 
     protected function typeIsMultilevel()
     {
-        return in_array($this->type, $this->multilevelTypes);
+        return in_array($this->type, $this->multilevelTypes, true);
     }
 
     public function getTypes()

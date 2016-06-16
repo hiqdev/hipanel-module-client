@@ -33,7 +33,7 @@ use yii\helpers\Url;
     <div class="row">
         <?php foreach (['registrant', 'admin', 'tech', 'billing'] as $item) : ?>
             <div class="col-md-6">
-            <?= $form->field($model, "[$model->id]$item")->widget(ContactCombo::classname(), ['hasId' => true]); ?>
+            <?= $form->field($model, "[$model->id]$item")->widget(ContactCombo::class, ['hasId' => true]); ?>
             </div>
             <!-- /.col-md-6 -->
         <?php endforeach; ?>

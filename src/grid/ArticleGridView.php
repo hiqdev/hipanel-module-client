@@ -23,14 +23,14 @@ class ArticleGridView extends BoxedGridView
     {
         return [
             'article_name' => [
-                'class' => MainColumn::className(),
+                'class' => MainColumn::class,
             ],
             'post_date' => [
                 'format' => 'date',
             ],
 
             'action' => [
-                'class' => ActionColumn::className(),
+                'class' => ActionColumn::class,
                 'template' => '{view} {block} {delete}', // {state}
                 'header' => Yii::t('hipanel', 'Actions'),
                 'buttons' => [

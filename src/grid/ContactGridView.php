@@ -23,7 +23,7 @@ class ContactGridView extends BoxedGridView
     {
         return [
             'name' => [
-                'class'           => MainColumn::className(),
+                'class'           => MainColumn::class,
                 'filterAttribute' => 'name',
             ],
             'email' => [
@@ -99,7 +99,7 @@ class ContactGridView extends BoxedGridView
                 'format' => 'date',
             ],
             'actions' => [
-                'class'    => ActionColumn::className(),
+                'class'    => ActionColumn::class,
                 'template' => '{view} {update} {copy} {delete}',
                 'header'   => Yii::t('hipanel', 'Actions'),
                 'buttons'  => [

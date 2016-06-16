@@ -32,9 +32,9 @@ FlagIconCssAsset::register($this);
             'bodyOptions' => [
                 'class' => 'no-padding',
             ],
-        ]); ?>
+        ]) ?>
         <div class="profile-user-img text-center">
-            <?= $this->render('//layouts/gravatar', ['email' => $model->email, 'size' => 120]); ?>
+            <?= $this->render('//layouts/gravatar', ['email' => $model->email, 'size' => 120]) ?>
         </div>
         <p class="text-center">
             <span class="profile-user-role"><?= $this->title ?></span>
@@ -60,14 +60,14 @@ FlagIconCssAsset::register($this);
     <div class="col-md-9">
         <div class="row">
             <div class="col-md-6">
-                <?php $box = Box::begin(['renderBody' => false]); ?>
-                    <?php $box->beginHeader(); ?>
-                        <?= $box->renderTitle(Yii::t('hipanel/client', 'Contact information')); ?>
-                        <?php $box->beginTools(); ?>
-                            <?= Html::a(Yii::t('hipanel/client', 'Change contact information'), ['update', 'id' => $model->id], ['class' => 'btn btn-default btn-xs']); ?>
-                        <?php $box->endTools(); ?>
-                    <?php $box->endHeader(); ?>
-                    <?php $box->beginBody(); ?>
+                <?php $box = Box::begin(['renderBody' => false]) ?>
+                    <?php $box->beginHeader() ?>
+                        <?= $box->renderTitle(Yii::t('hipanel/client', 'Contact information')) ?>
+                        <?php $box->beginTools() ?>
+                            <?= Html::a(Yii::t('hipanel/client', 'Change contact information'), ['update', 'id' => $model->id], ['class' => 'btn btn-default btn-xs']) ?>
+                        <?php $box->endTools() ?>
+                    <?php $box->endHeader() ?>
+                    <?php $box->beginBody() ?>
                         <?= ContactGridView::detailView([
                             'boxed'   => false,
                             'model'   => $model,
@@ -81,15 +81,15 @@ FlagIconCssAsset::register($this);
                                 'messengers', 'other',
                             ],
                         ]) ?>
-                    <?php $box->endBody(); ?>
-                <?php $box->end(); ?>
+                    <?php $box->endBody() ?>
+                <?php $box->end() ?>
 
-                <?php if (Yii::$app->user->can('manage')) { ?>
+                <?php if (Yii::$app->user->can('manage')) : ?>
                     <?php $box = Box::begin(['renderBody' => false]) ?>
-                        <?php $box->beginHeader(); ?>
-                            <?= $box->renderTitle(Yii::t('hipanel/client', 'Verification status')); ?>
-                        <?php $box->endHeader(); ?>
-                        <?php $box->beginBody(); ?>
+                        <?php $box->beginHeader() ?>
+                            <?= $box->renderTitle(Yii::t('hipanel/client', 'Verification status')) ?>
+                        <?php $box->endHeader() ?>
+                        <?php $box->beginBody() ?>
                             <table class="table table-striped table-bordered">
                                 <tbody>
                                     <tr>
@@ -134,17 +134,16 @@ FlagIconCssAsset::register($this);
                                     </tr>
                                 </tbody>
                             </table>
-                        <?php $box->endBody(); ?>
-                    <?php $box->end(); ?>
-                <?php } ?>
-
+                        <?php $box->endBody() ?>
+                    <?php $box->end() ?>
+                <?php endif ?>
             </div>
             <div class="col-md-6">
-                <?php $box = Box::begin(['renderBody' => false]); ?>
-                    <?php $box->beginHeader(); ?>
-                        <?= $box->renderTitle(Yii::t('hipanel/client', 'Postal information')); ?>
-                    <?php $box->endHeader(); ?>
-                    <?php $box->beginBody(); ?>
+                <?php $box = Box::begin(['renderBody' => false]) ?>
+                    <?php $box->beginHeader() ?>
+                        <?= $box->renderTitle(Yii::t('hipanel/client', 'Postal information')) ?>
+                    <?php $box->endHeader() ?>
+                    <?php $box->beginBody() ?>
                         <?= ContactGridView::detailView([
                             'boxed'   => false,
                             'model'   => $model,
@@ -154,20 +153,20 @@ FlagIconCssAsset::register($this);
                                 'street', 'city', 'province', 'postal_code', 'country',
                             ],
                         ]) ?>
-                    <?php $box->endBody(); ?>
-                <?php $box->end(); ?>
+                    <?php $box->endBody() ?>
+                <?php $box->end() ?>
 
 
                 <?php $box = Box::begin(['renderBody' => false, 'options' => [
-                    'class'                           => 'collapsed-box',
+                    'class' => 'collapsed-box',
                 ]]) ?>
-                    <?php $box->beginHeader(); ?>
-                        <?= $box->renderTitle(Yii::t('hipanel/client', 'Additional information')); ?>
+                    <?php $box->beginHeader() ?>
+                        <?= $box->renderTitle(Yii::t('hipanel/client', 'Additional information')) ?>
                         <div class="box-tools pull-right">
                             <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
                         </div>
-                    <?php $box->endHeader(); ?>
-                    <?php $box->beginBody(); ?>
+                    <?php $box->endHeader() ?>
+                    <?php $box->beginBody() ?>
                         <?= ContactGridView::detailView([
                             'boxed'   => false,
                             'model'   => $model,
@@ -176,8 +175,8 @@ FlagIconCssAsset::register($this);
                                 'organization_ru', 'inn', 'kpp', 'director_name', 'isresident',
                             ],
                         ]) ?>
-                    <?php $box->endBody(); ?>
-                <?php $box->end(); ?>
+                    <?php $box->endBody() ?>
+                <?php $box->end() ?>
             </div>
         </div>
     </div>
