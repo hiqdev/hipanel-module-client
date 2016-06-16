@@ -69,6 +69,7 @@ class ClientGridView extends BoxedGridView
                 'class'  => RefColumn::class,
                 'format' => 'raw',
                 'gtype'  => 'state,client',
+                'i18nDictionary' => 'hipanel/client',
                 'value'  => function ($model) {
                     return ClientState::widget(compact('model'));
                 },
@@ -77,6 +78,7 @@ class ClientGridView extends BoxedGridView
                 'class'  => RefColumn::class,
                 'format' => 'raw',
                 'gtype'  => 'type,client',
+                'i18nDictionary' => 'hipanel/client',
                 'value'  => function ($model) {
                     return ClientType::widget(compact('model'));
                 },

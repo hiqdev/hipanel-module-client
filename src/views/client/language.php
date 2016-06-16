@@ -43,7 +43,7 @@ $widgetIndexConfig = [
             'label'  => Yii::t('app', 'Language'),
             'format' => 'raw',
             'value'  => function ($data) {
-                return Html::dropDownList("ids[$data->id}][Client][language]", $data->language, \hipanel\models\Ref::getList('type,lang', true));
+                return Html::dropDownList("ids[$data->id}][Client][language]", $data->language, \hipanel\models\Ref::getList('type,lang', 'hipanel'));
             },
         ],
     ],

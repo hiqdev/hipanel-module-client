@@ -114,7 +114,7 @@ class ContactController extends CrudController
             $model->scenario = 'change-contact';
 
             return $this->render('changeContact', [
-                'countries' => $this->getRefs('country_code'),
+                'countries' => $this->getRefs('country_code', 'hipanel'),
                 'askPincode' => Client::perform('HasPincode'),
                 'model' => $model,
                 'domainId' => $domainId,

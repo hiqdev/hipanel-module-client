@@ -50,8 +50,8 @@ class ClientController extends \hipanel\base\CrudController
                 },
                 'data' => function ($action) {
                     return [
-                        'types'  => Ref::getList('type,client'),
-                        'states' => Ref::getList('state,client'),
+                        'types'  => $this->getRefs('type,client', 'hipanel/client'),
+                        'states' => $this->getRefs('state,client', 'hipanel/client'),
                     ];
                 },
                 'filterStorageMap' => [
@@ -202,7 +202,7 @@ class ClientController extends \hipanel\base\CrudController
             Yii::$app->end();
         }
         $model->setAttributes(Client::perform('HasPincode', ['id' => $id]));
-        $apiData = Ref::getList('type,question');
+        $apiData = $this->getRefs('type,question', 'hipanel/client');
         $questionList = array_merge(Client::makeTranslateQuestionList($apiData),
             ['own' => Yii::t('app', 'Own question')]);
 

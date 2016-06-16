@@ -30,7 +30,7 @@ if (!Yii::$app->request->isAjax) {
 
 Pjax::begin();
 
-$blockReason = \hipanel\models\Ref::getList('type,block', true);
+$blockReason = \hipanel\models\Ref::getList('type,block', 'hipanel');
 
 $widgetIndexConfig = [
     'dataProvider' => $dataProvider,
@@ -46,7 +46,7 @@ $widgetIndexConfig = [
             'label'  => Yii::t('app', 'Block reason'),
             'format' => 'raw',
             'value'  => function ($data) {
-                return Html::dropDownList("ids[{$data->id}][Client][type]", '', \hipanel\models\Ref::getList('type,block', true), ['promt' => Yii::t('app', 'Select block reason')]);
+                return Html::dropDownList("ids[{$data->id}][Client][type]", '', \hipanel\models\Ref::getList('type,block', 'hipanel'), ['promt' => Yii::t('app', 'Select block reason')]);
             },
         ],
         [
