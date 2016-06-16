@@ -48,4 +48,19 @@ return [
     'Additional information' => 'Дополнительная информация',
     'Used for {n, plural, one{# domain} other{# domains}}' => 'Используется для {n, plural, one{1 домена} few{# доменов} other{# доменов}}',
 
+    // Статусы клиентов
+    'Real delete' => 'Действительно удален',
+    'Wiped' => 'Свайплен',
+    'Deleted' => 'Удалён',
+    'Ok' => 'Ок',
+    'Blocked' => 'Заблокирован',
+
+    // Типы клиентов
+    'Client' => 'Клиент',
+    'Reseller' => 'Реселлер',
+    'Administrator' => 'Администратор',
+    'Manager' => 'Менеджер',
+    'Owner' => 'Владелец',
+
+
 ];
