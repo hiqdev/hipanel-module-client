@@ -12,7 +12,6 @@
 namespace hipanel\modules\client\widgets;
 
 use Yii;
-use yii\base\Exception;
 use yii\base\InvalidConfigException;
 use yii\base\Model;
 use yii\base\Widget;
@@ -55,11 +54,11 @@ class Confirmation extends Widget
         if ($this->model->date) {
             return Yii::t('hipanel/client', '{statusXeditable} since {date}', [
              'statusXeditable' => $xeditable,
-             'date' => Yii::$app->formatter->asDate($this->model->date)
+             'date' => Yii::$app->formatter->asDate($this->model->date),
             ]);
         } else {
             return Yii::t('hipanel/client', '{statusXeditable}', [
-                'statusXeditable' => $xeditable
+                'statusXeditable' => $xeditable,
             ]);
         }
     }

@@ -26,7 +26,7 @@ class ClientQuery extends ActiveQuery
             $this->with([
                 'servers' => function ($query) {
                     $query->limit(21);
-                }
+                },
             ]);
         }
 
@@ -40,7 +40,7 @@ class ClientQuery extends ActiveQuery
             $this->with([
                 'domains' => function ($query) {
                     $query->limit(21);
-                }
+                },
             ]);
         }
 

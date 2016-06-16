@@ -38,8 +38,8 @@ class ClientController extends \hipanel\base\CrudController
             'set-orientation' => [
                 'class' => OrientationAction::class,
                 'allowedRoutes' => [
-                    '@client/index'
-                ]
+                    '@client/index',
+                ],
             ],
             'index' => [
                 'class' => IndexAction::class,

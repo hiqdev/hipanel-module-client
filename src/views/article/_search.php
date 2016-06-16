@@ -3,7 +3,7 @@
 use hiqdev\combo\StaticCombo;
 
 /**
- * @var \hipanel\widgets\AdvancedSearch $search
+ * @var \hipanel\widgets\AdvancedSearch
  */
 ?>
 <div class="col-md-12" style="margin-top: 1em;">

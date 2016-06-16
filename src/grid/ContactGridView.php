@@ -36,6 +36,7 @@ class ContactGridView extends BoxedGridView
                     if ($model->email_new !== $model->email) {
                         $result .= '<br>' . Html::tag('span', $model->email_new, ['class' => 'text-muted']);
                     }
+
                     return $result;
                 },
             ],

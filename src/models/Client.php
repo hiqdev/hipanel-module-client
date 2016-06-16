@@ -18,7 +18,6 @@ use hipanel\modules\domain\models\Domain;
 use hipanel\modules\server\models\Server;
 use hipanel\validators\DomainValidator;
 use Yii;
-use yii\base\InvalidConfigException;
 
 class Client extends \hipanel\base\Model
 {
@@ -218,11 +217,12 @@ class Client extends \hipanel\base\Model
         foreach ($questionList as $k => $v) {
             $result[$translation[$k]] = $translation[$k];
         }
+
         return $result;
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      * @return ClientQuery
      */
     public static function find($options = [])

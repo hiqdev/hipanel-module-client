@@ -2,12 +2,11 @@
 
 use hipanel\modules\client\widgets\combo\ClientCombo;
 use hipanel\widgets\DatePicker;
-use hipanel\widgets\RefFilter;
 use hiqdev\combo\StaticCombo;
 use yii\helpers\Html;
 
 /**
- * @var \hipanel\widgets\AdvancedSearch $search
+ * @var \hipanel\widgets\AdvancedSearch
  */
 ?>
 

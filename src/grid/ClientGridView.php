@@ -47,7 +47,7 @@ class ClientGridView extends BoxedGridView
                 },
                 'note' => Yii::$app->user->can('manage') ? 'note' : null,
                 'noteOptions' => [
-                    'url' => Url::to('set-note')
+                    'url' => Url::to('set-note'),
                 ],
             ],
             'note' => [

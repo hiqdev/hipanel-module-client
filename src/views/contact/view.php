@@ -9,9 +9,8 @@ use yii\helpers\Html;
 use yii\helpers\Inflector;
 
 /**
- * @var \hipanel\modules\client\models\Contact $model
+ * @var \hipanel\modules\client\models\Contact
  */
-
 $this->title    = Inflector::titleize($model->name, true);
 $this->subtitle = Yii::t('hipanel/client', 'Contact detailed information') . ' #' . $model->id;
 $this->breadcrumbs->setItems([

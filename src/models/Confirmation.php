@@ -60,7 +60,7 @@ class Confirmation extends \hipanel\base\Model
         return [
             static::LEVEL_UNCONFIRMED => ['value' => static::LEVEL_UNCONFIRMED, 'text' => Yii::t('hipanel/client', 'Not confirmed')],
             static::LEVEL_CONFIRMED => ['value' => static::LEVEL_CONFIRMED, 'text' => Yii::t('hipanel/client', 'Confirmed')],
-            static::LEVEL_VERIFIED => ['value' => static::LEVEL_VERIFIED, 'text' => Yii::t('hipanel/client', 'Verified')]
+            static::LEVEL_VERIFIED => ['value' => static::LEVEL_VERIFIED, 'text' => Yii::t('hipanel/client', 'Verified')],
         ];
     }
 
@@ -87,7 +87,7 @@ class Confirmation extends \hipanel\base\Model
             'address',
             'email',
             'voice_phone',
-            'fax_phone'
+            'fax_phone',
         ];
     }
 }

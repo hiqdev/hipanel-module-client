@@ -10,7 +10,6 @@
  */
 
 use hipanel\modules\client\grid\ClientGridView;
-use hipanel\widgets\ActionBox;
 use hipanel\widgets\AjaxModal;
 use hipanel\widgets\IndexLayoutSwitcher;
 use hipanel\widgets\IndexPage;

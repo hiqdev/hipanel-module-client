@@ -23,7 +23,6 @@ use hipanel\base\CrudController;
 use hipanel\modules\client\models\Client;
 use hipanel\modules\client\models\Confirmation;
 use hipanel\modules\client\models\Contact;
-use hipanel\modules\client\models\Verification;
 use hipanel\modules\domain\models\Domain;
 use Yii;
 use yii\base\Event;
@@ -36,8 +35,8 @@ class ContactController extends CrudController
             'set-orientation' => [
                 'class' => OrientationAction::class,
                 'allowedRoutes' => [
-                    '@contact/index'
-                ]
+                    '@contact/index',
+                ],
             ],
             'index' => [
                 'class' => IndexAction::class,
@@ -104,7 +103,7 @@ class ContactController extends CrudController
                         $model->type = $type;
                     }
                 },
-            ]
+            ],
         ];
     }
 
