@@ -49,6 +49,7 @@ return [
     'Used for {n, plural, one{# domain} other{# domains}}' => 'Используется для {n, plural, one{1 домена} few{# доменов} other{# доменов}}',
 
     // Статусы клиентов
+    'Active' => 'Активен',
     'Real delete' => 'Действительно удален',
     'Wiped' => 'Свайплен',
     'Deleted' => 'Удалён',
