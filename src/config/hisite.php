@@ -13,6 +13,7 @@ return [
     'aliases' => [
         '@client'  => '/client/client',
         '@contact' => '/client/contact',
+        '@article' => '/client/article',
     ],
     'modules' => [
         'client' => [

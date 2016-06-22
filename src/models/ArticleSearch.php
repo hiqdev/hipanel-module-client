@@ -24,6 +24,9 @@ class ArticleSearch extends Article
     {
         return ArrayHelper::merge($this->defaultSearchAttributes(), [
             'client_like',
+            'with_data',
+            'realm',
+            'language'
         ]);
     }
 }

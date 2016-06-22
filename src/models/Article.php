@@ -12,6 +12,7 @@
 namespace hipanel\modules\client\models;
 
 use hipanel\models\Ref;
+use hipanel\modules\client\models\query\ArticleQuery;
 use Yii;
 
 class Article extends \hipanel\base\Model
@@ -21,14 +22,25 @@ class Article extends \hipanel\base\Model
     public function rules()
     {
         return [
-            [['is_published', 'type', 'post_date', 'data', 'texts'],                             'safe'],
-            [['id', 'client_id', 'type_id'],                                                       'integer'],
-            [['article_name', 'type', 'data', 'texts', 'client', 'name', 'realm'],                 'safe'],
-            [['html_title', 'html_keywords', 'html_description', 'title', 'short_text', 'text'],  'safe'],
-            [['is_published', 'is_common'],                                                        'safe'],
-            [['post_date'],                                                                       'date'],
-            [['name', 'type'],                                                                    'required'],
+            [['is_published', 'type', 'post_date', 'data', 'texts'], 'safe'],
+            [['id', 'client_id', 'type_id'], 'integer'],
+            [['article_name', 'type', 'data', 'texts', 'client', 'name', 'realm'], 'safe'],
+            [['html_title', 'html_keywords', 'html_description', 'title', 'short_text', 'text'], 'safe'],
+            [['is_published', 'is_common'], 'safe'],
+            [['post_date'], 'date'],
+            [['name', 'type'], 'required', 'on' => ['create', 'update']],
         ];
+    }
+
+    /**
+     * {@inheritdoc}
+     * @return ArticleQuery
+     */
+    public static function find($options = [])
+    {
+        return new ArticleQuery(get_called_class(), [
+            'options' => $options,
+        ]);
     }
 
     /**
@@ -41,23 +53,5 @@ class Article extends \hipanel\base\Model
         } else {
             return Ref::find()->where(['gtype' => 'type,lang'])->getList();
         }
-    }
-
-    public function rest()
-    {
-        return \yii\helpers\ArrayHelper::merge(parent::rest(), ['resource' => 'article']);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function attributeLabels()
-    {
-        return $this->mergeAttributeLabels([
-            'id'           => Yii::t('app', 'ID'),
-            'article_name' => Yii::t('app', 'Article Name'),
-            'post_date'    => Yii::t('app', 'Post Date'),
-            'data'         => Yii::t('app', 'Data'),
-        ]);
     }
 }
