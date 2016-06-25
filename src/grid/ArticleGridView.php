@@ -22,7 +22,7 @@ class ArticleGridView extends BoxedGridView
     public static function defaultColumns()
     {
         return [
-            'article_name' => [
+            'name' => [
                 'class' => MainColumn::class,
             ],
             'post_date' => [

@@ -24,7 +24,7 @@ class Article extends \hipanel\base\Model
         return [
             [['is_published', 'type', 'post_date', 'data', 'texts'], 'safe'],
             [['id', 'client_id', 'type_id'], 'integer'],
-            [['article_name', 'type', 'data', 'texts', 'client', 'name', 'realm'], 'safe'],
+            [['name', 'type', 'data', 'texts', 'client', 'name', 'realm'], 'safe'],
             [['html_title', 'html_keywords', 'html_description', 'title', 'short_text', 'text'], 'safe'],
             [['is_published', 'is_common'], 'safe'],
             [['post_date'], 'date'],
