@@ -139,8 +139,6 @@ class Client extends \hipanel\base\Model
     public function attributeLabels()
     {
         return $this->mergeAttributeLabels([
-            'client_like' => Yii::t('app', 'Client'),
-            'seller_like' => Yii::t('app', 'Reseller'),
             'create_time' => Yii::t('app', 'Registered'),
             'update_time' => Yii::t('app', 'Last update'),
 
