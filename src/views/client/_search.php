@@ -13,18 +13,27 @@ use yii\helpers\Html;
 <div class="col-md-4 col-sm-6 col-xs-12">
     <?= $search->field('login_like') ?>
 </div>
+
 <div class="col-md-4 col-sm-6 col-xs-12">
-    <?= $search->field('name_like')->label(Yii::t('hipanel', 'Name')) ?>
+    <?= $search->field('note_like') ?>
 </div>
+
 <div class="col-md-4 col-sm-6 col-xs-12">
-    <?= $search->field('email_like')->label(Yii::t('hipanel', 'Email')) ?>
+    <?= $search->field('name_like') ?>
 </div>
+
+<div class="col-md-4 col-sm-6 col-xs-12">
+    <?= $search->field('email_like') ?>
+</div>
+
 <div class="col-md-4 col-sm-6 col-xs-12">
     <?= $search->field('seller_like') ?>
 </div>
+
 <div class="col-md-4 col-sm-6 col-xs-12">
     <?= $search->field('seller_id')->widget(ClientCombo::class) ?>
 </div>
+
 <div class="col-md-4 col-sm-6 col-xs-12">
     <?= $search->field('type')->widget(StaticCombo::class, [
         'data'      => $types,
@@ -32,6 +41,7 @@ use yii\helpers\Html;
         'multiple'  => true,
     ]) ?>
 </div>
+
 <div class="col-md-4 col-sm-6 col-xs-12">
     <?= $search->field('state')->widget(StaticCombo::class, [
         'data'      => $states,
@@ -39,6 +49,7 @@ use yii\helpers\Html;
         'multiple'  => true,
     ]) ?>
 </div>
+
 <div class="col-md-4 col-sm-6 col-xs-12">
     <div class="form-group">
         <?= Html::tag('label', Yii::t('hipanel/client', 'Registered range'), ['class' => 'control-label']); ?>
