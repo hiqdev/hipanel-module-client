@@ -69,6 +69,8 @@ class Contact extends \hipanel\base\Model
 
             // Change contact
             [['domainId', 'contactType', 'domainName'], 'safe', 'on' => ['create', 'change-contact']],
+
+            [['id'], 'required', 'on' => ['request-email-confirmation', 'request-phone-confirmation']],
         ];
     }
 
@@ -93,28 +95,36 @@ class Contact extends \hipanel\base\Model
 
     public function getVerification($type)
     {
+        $confirmedValueAttribute = $type . '_confirmed';
+        $levelAttribute = $type . '_confirm_level';
         $confirmDateAttribute = $type . '_confirm_date';
 
         $options = [
             'id' => $this->id,
             'type' => $type,
+            'contact' => $this,
         ];
 
         if (isset($this->$confirmDateAttribute)) {
             $options['date'] = $this->$confirmDateAttribute;
+        }
 
-            $levelAttribute = $type . '_confirm_level';
-            $confirmedValueAttribute = $type . '_confirmed';
-
-            if (isset($this->$levelAttribute)) {
-                $options['level'] = $this->$levelAttribute;
-            } elseif (isset($this->$confirmedValueAttribute)) {
-                $options['level'] = Confirmation::LEVEL_CONFIRMED;
-            } else {
-                $options['level'] = Confirmation::LEVEL_UNCONFIRMED;
-            }
+        if (isset($this->$levelAttribute)) {
+            $options['level'] = $this->$levelAttribute;
+        } elseif (isset($this->$confirmedValueAttribute)) {
+            $options['level'] = Confirmation::LEVEL_CONFIRMED;
+        } else {
+            $options['level'] = Confirmation::LEVEL_UNCONFIRMED;
         }
 
         return new Confirmation($options);
+    }
+
+    public function scenarioCommands()
+    {
+        return [
+            'request-email-confirmation' => 'notify-confirm-email',
+            'request-phone-confirmation' => 'notify-confirm-phone',
+        ];
     }
 }

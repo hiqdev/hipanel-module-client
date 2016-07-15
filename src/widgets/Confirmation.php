@@ -13,7 +13,6 @@ namespace hipanel\modules\client\widgets;
 
 use Yii;
 use yii\base\InvalidConfigException;
-use yii\base\Model;
 use yii\base\Widget;
 use yii\web\JsExpression;
 
@@ -69,11 +68,17 @@ class Confirmation extends Widget
             'model' => $this->model,
             'attribute' => 'level',
             'scenario' => $this->scenario,
+            'linkOptions' => [
+                'id' => $this->getId(),
+                'data-attribute' => $this->type
+            ],
             'pluginOptions' => [
+                'selector' => '#' . $this->getId(),
                 'type' => 'select',
+                'title' => Yii::t('hipanel/client', 'Verification level'),
                 'source' => $this->model->getAvailableLevels(),
                 'params' => new JsExpression("function (params) {
-                    params.type = '$this->type';
+                    params.type = $(this).attr('data-attribute');
                     return params;
                 }"),
                 'display' => new JsExpression("function (value, sourceData) {

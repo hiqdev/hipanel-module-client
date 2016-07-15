@@ -17,6 +17,11 @@ class Confirmation extends \hipanel\base\Model
 {
     use \hipanel\base\ModelTrait;
 
+    /**
+     * @var Contact
+     */
+    public $contact;
+
     const LEVEL_UNCONFIRMED = 'unconfirmed';
     const LEVEL_CONFIRMED = 'confirmed';
     const LEVEL_VERIFIED = 'fullverified';

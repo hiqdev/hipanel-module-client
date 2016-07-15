@@ -16,19 +16,38 @@ use hipanel\actions\OrientationAction;
 use hipanel\actions\SearchAction;
 use hipanel\actions\SmartCreateAction;
 use hipanel\actions\SmartDeleteAction;
+use hipanel\actions\SmartPerformAction;
 use hipanel\actions\SmartUpdateAction;
 use hipanel\actions\ValidateFormAction;
 use hipanel\actions\ViewAction;
 use hipanel\base\CrudController;
+use hipanel\helpers\ArrayHelper;
 use hipanel\modules\client\models\Client;
 use hipanel\modules\client\models\Confirmation;
 use hipanel\modules\client\models\Contact;
 use hipanel\modules\domain\models\Domain;
 use Yii;
 use yii\base\Event;
+use yii\filters\VerbFilter;
 
 class ContactController extends CrudController
 {
+    /**
+     * {@inheritdoc}
+     */
+    public function behaviors()
+    {
+        return ArrayHelper::merge(parent::behaviors(), [
+            [
+                'class' => VerbFilter::class,
+                'actions' => [
+                    'request-email-verification' => ['post'],
+                    'request-phone-verification' => ['post'],
+                ],
+            ],
+        ]);
+    }
+
     public function actions()
     {
         return [
@@ -103,6 +122,9 @@ class ContactController extends CrudController
                         $model->type = $type;
                     }
                 },
+            ],
+            'request-email-confirmation' => [
+                'class' => SmartPerformAction::class
             ],
         ];
     }
