@@ -111,12 +111,20 @@ class Client extends \hipanel\base\Model
 
             // If pincode enabled
             [['pincode'], 'required', 'when' => function ($model) {
-                return (mb_strlen($model->answer) > 0 && $model->pincode_enabled === true) ? false : true;
-            }, 'enableClientValidation' => false, 'message' => Yii::t('hipanel/client', 'Fill the Pincode or answer to the question.'), 'on' => ['pincode-settings']],
+                return (empty($model->answer) && $model->pincode_enabled) ? true : false;
+            }, 
+                'enableClientValidation' => false, 
+                'message' => Yii::t('hipanel/client', 'Fill the Pincode or answer to the question.'), 
+                'on' => ['pincode-settings']
+            ],
 
             [['answer'], 'required', 'when' => function ($model) {
-                return (mb_strlen($model->pincode) > 0 && $model->pincode_enabled === true) ? false : true;
-            }, 'enableClientValidation' => false, 'message' => Yii::t('hipanel/client', 'Fill the Answer or enter the Pincode.'), 'on' => ['pincode-settings']],
+                return (empty($model->pincode) && $model->pincode_enabled) ? true : false;
+            }, 
+                'enableClientValidation' => false, 
+                'message' => Yii::t('hipanel/client', 'Fill the Answer or enter the Pincode.'), 
+                'on' => ['pincode-settings']
+            ],
 
             [['pincode'], function ($attribute, $params) {
                 try {
