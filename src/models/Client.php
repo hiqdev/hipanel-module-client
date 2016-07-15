@@ -112,17 +112,17 @@ class Client extends \hipanel\base\Model
             // If pincode enabled
             [['pincode'], 'required', 'when' => function ($model) {
                 return (mb_strlen($model->answer) > 0 && $model->pincode_enabled === true) ? false : true;
-            }, 'enableClientValidation' => false, 'message' => Yii::t('app', 'Fill the Pincode or answer to the question.'), 'on' => ['pincode-settings']],
+            }, 'enableClientValidation' => false, 'message' => Yii::t('hipanel/client', 'Fill the Pincode or answer to the question.'), 'on' => ['pincode-settings']],
 
             [['answer'], 'required', 'when' => function ($model) {
                 return (mb_strlen($model->pincode) > 0 && $model->pincode_enabled === true) ? false : true;
-            }, 'enableClientValidation' => false, 'message' => Yii::t('app', 'Fill the Answer or enter the Pincode.'), 'on' => ['pincode-settings']],
+            }, 'enableClientValidation' => false, 'message' => Yii::t('hipanel/client', 'Fill the Answer or enter the Pincode.'), 'on' => ['pincode-settings']],
 
             [['pincode'], function ($attribute, $params) {
                 try {
                     $response = $this->perform('CheckPincode', [$attribute => $this->$attribute, 'id' => $this->id]);
                 } catch (Exception $e) {
-                    $this->addError($attribute, Yii::t('app', 'Wrong pincode'));
+                    $this->addError($attribute, Yii::t('hipanel/client', 'Wrong pincode'));
                 }
             }, 'on' => ['pincode-settings']],
 
@@ -130,7 +130,7 @@ class Client extends \hipanel\base\Model
                 try {
                     $response = $this->perform('CheckPincode', [$attribute => $this->$attribute, 'id' => $this->id]);
                 } catch (Exception $e) {
-                    $this->addError($attribute, Yii::t('app', 'Wrong answer'));
+                    $this->addError($attribute, Yii::t('hipanel/client', 'Wrong answer'));
                 }
             }, 'on' => ['pincode-settings']],
         ];
@@ -205,11 +205,11 @@ class Client extends \hipanel\base\Model
     public static function makeTranslateQuestionList(array $questionList)
     {
         $translation = [
-            'q1' => Yii::t('app', 'What was your nickname when you were a child?'),
-            'q2' => Yii::t('app', 'What was the name of your best childhood friend?'),
-            'q3' => Yii::t('app', 'What is the month and the year of birth of your oldest relative? (e.g. January, 1900)'),
-            'q4' => Yii::t('app', 'What is your grandmother’s maiden name?'),
-            'q5' => Yii::t('app', 'What is the patronymic of your oldest relative?'),
+            'q1' => Yii::t('hipanel/client', 'What was your nickname when you were a child?'),
+            'q2' => Yii::t('hipanel/client', 'What was the name of your best childhood friend?'),
+            'q3' => Yii::t('hipanel/client', 'What is the month and the year of birth of your oldest relative? (e.g. January, 1900)'),
+            'q4' => Yii::t('hipanel/client', 'What is your grandmother’s maiden name?'),
+            'q5' => Yii::t('hipanel/client', 'What is the patronymic of your oldest relative?'),
         ];
         $result = [];
         foreach ($questionList as $k => $v) {

@@ -62,6 +62,18 @@ return [
     'Administrator' => 'Администратор',
     'Manager' => 'Менеджер',
     'Owner' => 'Владелец',
-
-
+    
+    // PIN code
+    'Disable pincode' => 'Отключить пин-код',
+    'Forgot pincode?' => 'Забыли пин-код?',
+    'Wrong pincode' => 'Неверный пин-код',
+    'Wrong answer' => 'Неверный ответ',
+    'Fill the Answer or enter the Pincode.' => 'Ответьте на вопрос или введите пин-код',
+    'Fill the Pincode or answer to the question.' => 'Введите пин-код или ответье на вопрос',
+    'What was your nickname when you were a child?' => 'Каково было ваше прозвище, когда вы были ребенком?',
+    'What was the name of your best childhood friend?' => 'Как звали вашего лучшего друга детства?',
+    'What is the month and the year of birth of your oldest relative? (e.g. January, 1900)' => 'Какой месяц и год рождения вашего старейшего родственника? (Например, январь, 1900)',
+    'What is your grandmother’s maiden name?' => 'Девичья фамилия вашей бабушки?',
+    'What is the patronymic of your oldest relative?' => 'Какое было отчество вашего старейшего родственника?',
+    'You have already set a PIN code. In order to disable it, enter your current PIN or the secret question.' => 'У вас уже установлен пин-код. Для того что бы его отключить введите ваш текущий пин-код или ответье на секретный вопрос.',
 ];

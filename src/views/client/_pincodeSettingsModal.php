@@ -30,7 +30,7 @@ JS
                 <?= Tabs::widget([
                     'items' => [
                         [
-                            'label' => Yii::t('app', 'Disable pincode'),
+                            'label' => Yii::t('hipanel/client', 'Disable pincode'),
                             'content' => $form->field($model, "[$model->id]pincode"),
                             'active' => true,
                             'options' => [
@@ -38,7 +38,7 @@ JS
                             ],
                         ],
                         [
-                            'label' => Yii::t('app', 'Forgot pincode?'),
+                            'label' => Yii::t('hipanel/client', 'Forgot pincode?'),
                             'content' => $form->field($model, "[$model->id]answer")->label($model->question),
                             'options' => [
                                 'class' => 'md-mt-10',
@@ -47,9 +47,12 @@ JS
                     ],
                 ]); ?>
             </div>
-            <!-- /.nav-tabs-custom -->
         </div>
-        <!-- /.col-md-12 -->
+        <div class="col-lg-12">
+            <div class="alert alert-warning" role="alert">
+                <?= Yii::t('hipanel/client', 'You have already set a PIN code. In order to disable it, enter your current PIN or the secret question.') ?>
+            </div>
+        </div>
     </div>
 <?php else : ?>
     <?php
@@ -78,10 +81,8 @@ JS
             ]) ?>
             <?= $form->field($model, "[$model->id]answer") ?>
         </div>
-        <!-- /.col-md-12 -->
     </div>
 <?php endif ?>
-<!-- /.row -->
 <hr>
 <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?> &nbsp;
 <?= Html::button(Yii::t('app', 'Cancel'), ['class' => 'btn btn-default', 'data-dismiss' => 'modal']) ?>
