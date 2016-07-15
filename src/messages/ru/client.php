@@ -47,6 +47,7 @@ return [
     'Postal information' => 'Почтовая информация',
     'Additional information' => 'Дополнительная информация',
     'Used for {n, plural, one{# domain} other{# domains}}' => 'Используется для {n, plural, one{1 домена} few{# доменов} other{# доменов}}',
+    'Verification level' => 'Уровень верификации',
 
     // Статусы клиентов
     'Active' => 'Активен',
