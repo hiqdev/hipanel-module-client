@@ -14,6 +14,7 @@ namespace hipanel\modules\client\grid;
 use hipanel\grid\ActionColumn;
 use hipanel\grid\BoxedGridView;
 use hipanel\grid\MainColumn;
+use hipanel\modules\client\widgets\ConfirmationIndicator;
 use Yii;
 use yii\helpers\Html;
 
@@ -27,11 +28,12 @@ class ContactGridView extends BoxedGridView
                 'filterAttribute' => 'name',
             ],
             'email' => [
-                'format' => 'html',
+                'format' => 'raw',
                 'value' => function ($model) {
                     $result = $model->email;
                     if ($model->email_new) {
-                        $result .= '<br>' . Html::tag('b', Yii::t('hipanel/client', 'change is not confirmed'), ['class' => 'text-warning']);
+                        $result .= '<br>';
+                        $result .= ConfirmationIndicator::widget(['model' => $model->getVerification('email')]);
                     }
                     if ($model->email_new !== $model->email) {
                         $result .= '<br>' . Html::tag('span', $model->email_new, ['class' => 'text-muted']);
