@@ -77,7 +77,7 @@ return [
     'Wrong answer' => 'Неверный ответ',
     'Fill the Answer or enter the Pincode.' => 'Ответьте на вопрос или введите пин-код',
     'Fill the Pincode or answer to the question.' => 'Введите пин-код или ответье на вопрос',
-    'What was your nickname when you were a child?' => 'Каке прозвище было у Вас, когда вы были ребенком?',
+    'What was your nickname when you were a child?' => 'Какое прозвище было у Вас, когда вы были ребенком?',
     'What was the name of your best childhood friend?' => 'Как звали вашего лучшего друга детства?',
     'What is the month and the year of birth of your oldest relative? (e.g. January, 1900)' => 'Какой месяц и год рождения вашего старейшего родственника? (Например, январь, 1900)',
     'What is your grandmother’s maiden name?' => 'Девичья фамилия вашей бабушки?',
