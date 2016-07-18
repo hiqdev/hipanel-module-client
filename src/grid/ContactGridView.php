@@ -32,12 +32,27 @@ class ContactGridView extends BoxedGridView
                 'value' => function ($model) {
                     $result = $model->email;
                     if ($model->email_new) {
-                        $result .= '<br>';
-                        $result .= ConfirmationIndicator::widget(['model' => $model->getVerification('email')]);
+                        $result .= '<br>' . Html::tag('b', Yii::t('hipanel/client', 'change is not confirmed'), ['class' => 'text-warning']);
                     }
                     if ($model->email_new !== $model->email) {
                         $result .= '<br>' . Html::tag('span', $model->email_new, ['class' => 'text-muted']);
                     }
+
+                    return $result;
+                },
+            ],
+            'email_with_verification' => [
+                'format' => 'raw',
+                'value' => function ($model) {
+                    $result = $model->email;
+                    if ($model->email_new) {
+                        $result .= '<br>' . Html::tag('b', Yii::t('hipanel/client', 'change is not confirmed'), ['class' => 'text-warning']);
+                    }
+                    if ($model->email_new !== $model->email) {
+                        $result .= '<br>' . Html::tag('span', $model->email_new, ['class' => 'text-muted']);
+                    }
+
+                    $result .= ConfirmationIndicator::widget(['model' => $model->getVerification('email')]);
 
                     return $result;
                 },

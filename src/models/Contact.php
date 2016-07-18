@@ -11,6 +11,7 @@
 
 namespace hipanel\modules\client\models;
 
+use hipanel\behaviors\File;
 use Yii;
 
 class Contact extends \hipanel\base\Model
@@ -20,6 +21,21 @@ class Contact extends \hipanel\base\Model
      */
 
     use \hipanel\base\ModelTrait;
+
+    /**
+     * @return array
+     */
+    public function behaviors()
+    {
+        return [
+            [
+                'class'          => File::class,
+                'attribute'      => 'file',
+                'savedAttribute' => 'file_ids',
+                'scenarios'      => ['attach-files'],
+            ],
+        ];
+    }
 
     public function rules()
     {
@@ -39,7 +55,7 @@ class Contact extends \hipanel\base\Model
             [['name', 'first_name', 'last_name'],                               'string'],
             [['birth_date', 'passport_date'],                                   'safe'],
             [['passport_no', 'passport_by', 'organization', 'password'],        'safe'],
-            [['remote'],                                                        'safe'],
+            [['remote', 'file'],                                                'safe'],
             [['email_confirmed'],                                               'boolean'],
             [['used_count'], 'integer'],
             [['voice_phone', 'fax_phone'], 'match', 'pattern' => '/^[+]?[()0-9 .-]{3,20}$/', 'message' => Yii::t('app', 'This field must contains phone number in international format.')],
@@ -65,12 +81,12 @@ class Contact extends \hipanel\base\Model
             [['voice_phone_confirm_date', 'fax_phone_confirm_date', 'email_confirm_date', 'address_confirm_date'], 'safe'],
             [['name_confirm_date'],                                                 'safe'],
             [['files'],                                                             'safe'], /// TODO
-            [['id'],                                                                'required', 'on' => ['delete', 'update']],
 
             // Change contact
             [['domainId', 'contactType', 'domainName'], 'safe', 'on' => ['create', 'change-contact']],
 
-            [['id'], 'required', 'on' => ['request-email-confirmation', 'request-phone-confirmation']],
+            [['id'], 'required', 'on' => ['request-email-confirmation', 'request-phone-confirmation', 'attach-files', 'delete', 'update']],
+            [['file_ids'], 'safe', 'on' => ['attach-files']],
         ];
     }
 

@@ -97,6 +97,15 @@ class ContactController extends CrudController
                     ];
                 },
             ],
+            'attach-files' => [
+                'class' => SmartUpdateAction::class,
+                'success' => Yii::t('hipanel/client', 'Documents were saved'),
+                'data' => function ($action) {
+                    return [
+                        'askPincode' => Client::perform('HasPincode'),
+                    ];
+                },
+            ],
             'copy' => [
                 'class' => SmartUpdateAction::class,
                 'scenario' => 'create',
@@ -124,7 +133,8 @@ class ContactController extends CrudController
                 },
             ],
             'request-email-confirmation' => [
-                'class' => SmartPerformAction::class
+                'class' => SmartPerformAction::class,
+                'success' => Yii::t('hipanel/client', 'Confirmation message was sent to your email')
             ],
         ];
     }

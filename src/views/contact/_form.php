@@ -83,7 +83,7 @@ JS
             'data-loading-icon' => 'glyphicon glyphicon-refresh',
         ]),
     ]); ?>
-    <?= Html::textInput('modal-pincode', null, ['id' => 'modal-pincode', 'class' => 'form-control', 'placeholder' => Yii::t('app', 'Type pincode here') . '...']); ?>
+    <?= Html::textInput('modal-pincode', null, ['id' => 'modal-pincode', 'class' => 'form-control', 'placeholder' => Yii::t('hipanel/client', 'Type pincode here...')]); ?>
     <?php Modal::end(); ?>
 <?php endif; ?>
 
@@ -115,11 +115,11 @@ if ($model->scenario === 'change-contact') {
     <div class="col-md-12">
         <?php Box::begin(); ?>
         <?php if ($model->scenario === 'update') : ?>
-            <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']); ?>
+            <?= Html::submitButton(Yii::t('hipanel', 'Save'), ['class' => 'btn btn-success']); ?>
         <?php else : ?>
             <?= Html::submitButton(Yii::t('app', 'Create contact'), ['class' => 'btn btn-success']); ?>
         <?php endif; ?>
-        <?= Html::submitButton(Yii::t('app', 'Cancel'), ['class' => 'btn btn-default', 'onclick' => 'window.history.back();']); ?>
+        <?= Html::submitButton(Yii::t('hipanel', 'Cancel'), ['class' => 'btn btn-default', 'onclick' => 'window.history.back();']); ?>
         <?php Box::end(); ?>
     </div>
     <!-- /.com-md-12 -->

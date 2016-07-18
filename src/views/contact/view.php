@@ -46,6 +46,9 @@ FlagIconCssAsset::register($this);
                 <li>
                     <?= Html::a('<i class="fa fa-edit"></i>' . Yii::t('hipanel/client', 'Change contact information'), ['update', 'id' => $model->id]) ?>
                 </li>
+                <li>
+                    <?= Html::a('<i class="fa fa-paperclip"></i>' . Yii::t('hipanel/client', 'Upload documents'), ['upload', 'id' => $model->id]) ?>
+                </li>
             <?php if (Yii::getAlias('@domain', false) && $model->used_count > 0) : ?>
                 <li>
                     <?= Html::a('<i class="fa fa-globe"></i>' . Yii::t('hipanel/client', 'Used for {n, plural, one{# domain} other{# domains}}', ['n' => $model->used_count]), Url::toSearch('domain', ['client_id' => $model->client_id])) ?>
@@ -75,7 +78,7 @@ FlagIconCssAsset::register($this);
                                 'client_id',
                                 ['attribute' => 'name'],
                                 'birth_date',
-                                'email', 'abuse_email',
+                                'email_with_verification', 'abuse_email',
                                 'voice_phone', 'fax_phone',
                                 'messengers', 'other',
                             ],

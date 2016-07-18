@@ -48,6 +48,10 @@ return [
     'Additional information' => 'Дополнительная информация',
     'Used for {n, plural, one{# domain} other{# domains}}' => 'Используется для {n, plural, one{1 домена} few{# доменов} other{# доменов}}',
     'Verification level' => 'Уровень верификации',
+    'Type pincode here...' => 'Введите пин-код здесь...',
+    'You can upload copy of your documents in order to help us verify your identity' => 'Вы можете загрузить копии своих документов, чтобы помочь нам верифицировать ваш аккаунт',
+    'Documents attached to the contact {name}' => 'Документы прикреплённые к контакту {name}',
+    'Attached documents' => 'Прикреплённые документы',
 
     // Статусы клиентов
     'Active' => 'Активен',
@@ -56,6 +60,8 @@ return [
     'Deleted' => 'Удалён',
     'Ok' => 'Ок',
     'Blocked' => 'Заблокирован',
+    '{icon} Verify' => '{icon} Верифицировать',
+    'Confirmation message was sent to your email' => 'Письмо подтверждения было отправлено на вашу почту',
 
     // Типы клиентов
     'Client' => 'Клиент',
