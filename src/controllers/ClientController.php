@@ -23,6 +23,7 @@ use hipanel\actions\SmartPerformAction;
 use hipanel\actions\SmartUpdateAction;
 use hipanel\actions\ValidateFormAction;
 use hipanel\actions\ViewAction;
+use hipanel\actions\ClassValuesAction;
 use hipanel\helpers\Url;
 use hipanel\models\Ref;
 use hipanel\modules\client\models\Client;
@@ -187,6 +188,34 @@ class ClientController extends \hipanel\base\CrudController
                 'scenario' => 'disable-block',
                 'view' => '_bulkDisableBlock',
             ],
+            'ip-restrictions' => [
+                'class' => ClassValuesAction::class,
+                'valuesClass' => 'client,access',
+                'view' => '_ipRestrictionsModal',
+            ],
+            'domain-settings' => [
+                'class' => ClassValuesAction::class,
+                'valuesClass' => 'client,domain_defaults',
+                'view' => '_domainSettingsModal',
+                'on beforePerform' => function (Event $event) {
+                    $action = $event->sender;
+                    foreach (['registrant', 'admin', 'billing', 'tech'] as $key) {
+                        if (!$action->model->{$key}) {
+                            unset($action->model->{$key});
+                        }
+                    }
+                },
+            ],
+            'mailing-settings' => [
+                'class' => ClassValuesAction::class,
+                'valuesClass' => 'client,mailing',
+                'view' => '_mailingSettingsModal',
+            ],
+            'ticket-settings' => [
+                'class' => ClassValuesAction::class,
+                'valuesClass' => 'client,ticket_settings',
+                'view' => '_ticketSettingsModal',
+            ],
         ];
     }
 
@@ -209,81 +238,4 @@ class ClientController extends \hipanel\base\CrudController
         return $this->renderAjax('_pincodeSettingsModal', ['model' => $model, 'questionList' => $questionList]);
     }
 
-    public function actionTicketSettings($id)
-    {
-        $model = $this->findModel($id);
-        $model->scenario = 'ticket-settings';
-        $request = Yii::$app->request;
-
-        if ($request->isAjax && $model->load(Yii::$app->request->post())) {
-            $model::perform('SetClassValues', [
-                'id' => $id,
-                'class' => 'client,ticket_settings',
-                'values' => $model->dirtyAttributes,
-            ]);
-            Yii::$app->end();
-        }
-        $model->setAttributes(Client::perform('GetClassValues', ['id' => $id, 'class' => 'client,ticket_settings']));
-
-        return $this->renderAjax('_ticketSettingsModal', ['model' => $model]);
-    }
-
-    public function actionMailingSettings($id)
-    {
-        $model = $this->findModel($id);
-        $model->scenario = 'mailing-settings';
-        $request = Yii::$app->request;
-
-        if ($request->isAjax && $model->load(Yii::$app->request->post())) {
-            $model->perform('SetClassValues', [
-                'id' => $id,
-                'class' => 'client,mailing',
-                'values' => $model->dirtyAttributes,
-            ]);
-            Yii::$app->end();
-        }
-        $model->setAttributes($model->perform('GetClassValues', ['id' => $id, 'class' => 'client,mailing']));
-
-        return $this->renderAjax('_mailingSettingsModal', ['model' => $model]);
-    }
-
-    public function actionIpRestrictions($id)
-    {
-        $model = $this->findModel($id);
-        $model->scenario = 'ip-restrictions';
-        $request = Yii::$app->request;
-
-        if ($request->isAjax && Yii::$app->request->isPost) {
-            $model = (new Collection(['model' => $model]))->load()->first;
-            $model->perform('SetClassValues', [
-                'id' => $id,
-                'class' => 'client,access',
-                'values' => $model->dirtyAttributes,
-            ]);
-            Yii::$app->end();
-        }
-        $model->setAttributes($model->perform('GetClassValues', ['id' => $id, 'class' => 'client,access']));
-
-        return $this->renderAjax('_ipRestrictionsModal', ['model' => $model]);
-    }
-
-    public function actionDomainSettings($id)
-    {
-        $model = $this->findModel($id);
-        $model->scenario = 'domain-settings';
-        $request = Yii::$app->request;
-
-        if ($request->isAjax && Yii::$app->request->isPost) {
-            $model = (new Collection(['model' => $model]))->load()->first;
-            $model->perform('SetClassValues', [
-                'id' => $id,
-                'class' => 'client,domain_defaults',
-                'values' => $model->dirtyAttributes,
-            ]);
-            Yii::$app->end();
-        }
-        $model->setAttributes($model->perform('GetClassValues', ['id' => $id, 'class' => 'client,domain_defaults']));
-
-        return $this->renderAjax('_domainSettingsModal', ['model' => $model]);
-    }
 }
