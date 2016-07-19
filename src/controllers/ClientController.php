@@ -15,6 +15,8 @@ use hipanel\actions\IndexAction;
 use hipanel\actions\OrientationAction;
 use hipanel\actions\PrepareBulkAction;
 use hipanel\actions\RedirectAction;
+use hipanel\actions\RenderAction;
+use hipanel\actions\RenderAjaxAction;
 use hipanel\actions\RenderJsonAction;
 use hipanel\actions\SearchAction;
 use hipanel\actions\SmartCreateAction;
@@ -24,12 +26,14 @@ use hipanel\actions\SmartUpdateAction;
 use hipanel\actions\ValidateFormAction;
 use hipanel\actions\ViewAction;
 use hipanel\actions\ClassValuesAction;
+use hipanel\components\View;
 use hipanel\helpers\Url;
 use hipanel\models\Ref;
 use hipanel\modules\client\models\Client;
 use hiqdev\hiart\Collection;
 use Yii;
 use yii\base\Event;
+use yii\base\Exception;
 
 class ClientController extends \hipanel\base\CrudController
 {
@@ -216,26 +220,51 @@ class ClientController extends \hipanel\base\CrudController
                 'valuesClass' => 'client,ticket_settings',
                 'view' => '_ticketSettingsModal',
             ],
+            'pincode-settings' => [
+                'class' => SmartUpdateAction::class,
+                'view' => '_pincodeSettingsModal',
+                'on beforeFetch' => function ($event) {
+                    /** @var \hipanel\actions\SearchAction $action */
+                    $action = $event->sender;
+                    $dataProvider = $action->getDataProvider();
+                    $dataProvider->query->addSelect('pincode_enabled');
+                },
+                'data' => function ($action, $data) {
+                    $apiData = $this->getRefs('type,question', 'hipanel/client');
+                    $questionList = array_merge(Client::makeTranslateQuestionList($apiData), ['own' => Yii::t('app', 'Own question')]);
+                    return array_merge([
+                        'questionList' => $questionList
+                    ], $data);
+                },
+            ],
         ];
     }
 
-    public function actionPincodeSettings($id)
-    {
-        $model = $this->findModel($id);
-        $model->scenario = 'pincode-settings';
-        $request = Yii::$app->request;
-
-        if ($request->isAjax && Yii::$app->request->isPost) {
-            $model = (new Collection(['model' => $model]))->load()->first;
-            $model::perform($model->pincode_enabled ? 'DisablePincode' : 'EnablePincode', $model->dirtyAttributes);
-            Yii::$app->end();
-        }
-        $model->setAttributes(Client::perform('HasPincode', ['id' => $id]));
-        $apiData = $this->getRefs('type,question', 'hipanel/client');
-        $questionList = array_merge(Client::makeTranslateQuestionList($apiData),
-            ['own' => Yii::t('app', 'Own question')]);
-
-        return $this->renderAjax('_pincodeSettingsModal', ['model' => $model, 'questionList' => $questionList]);
-    }
+    /**
+     * @param $id integer
+     * @return string
+     */
+//    public function actionPincodeSettings($id)
+//    {
+//        $model = $this->findModel($id);
+//        $model->scenario = 'pincode-settings';
+//        $request = Yii::$app->request;
+//
+//        if ($request->isAjax && Yii::$app->request->isPost) {
+//            $model = (new Collection(['model' => $model]))->load()->first;
+//            try {
+//                $model::perform($model->pincode_enabled ? 'DisablePincode' : 'EnablePincode', $model->dirtyAttributes);
+//            } catch (Exception $e) {
+//                Yii::$app->session->addFlash('error', Yii::t('hipanel/client', 'PIN code is not disabled'));
+//
+//                $this->redirect(Yii::$app->request->referrer);
+//            }
+//        }
+//        $model->setAttributes(Client::perform('HasPincode', ['id' => $id]));
+//        $apiData = $this->getRefs('type,question', 'hipanel/client');
+//        $questionList = array_merge(Client::makeTranslateQuestionList($apiData), ['own' => Yii::t('app', 'Own question')]);
+//
+//        return $this->renderAjax('_pincodeSettingsModal', ['model' => $model, 'questionList' => $questionList]);
+//    }
 
 }

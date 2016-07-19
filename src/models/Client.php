@@ -103,6 +103,7 @@ class Client extends \hipanel\base\Model
             // Pincode
             [['enable', 'disable', 'pincode_enabled'], 'boolean', 'on' => ['pincode-settings']],
             [['question', 'answer'], 'string', 'on' => ['pincode-settings']],
+            [['pincode'], 'string', 'min' => 4, 'max' => 4],
 
             // If pincode disabled
             [['pincode', 'answer', 'question'], 'required', 'enableClientValidation' => false, 'when' => function ($model) {
@@ -125,22 +126,6 @@ class Client extends \hipanel\base\Model
                 'message' => Yii::t('hipanel/client', 'Fill the Answer or enter the Pincode.'), 
                 'on' => ['pincode-settings']
             ],
-
-            [['pincode'], function ($attribute, $params) {
-                try {
-                    $response = $this->perform('CheckPincode', [$attribute => $this->$attribute, 'id' => $this->id]);
-                } catch (Exception $e) {
-                    $this->addError($attribute, Yii::t('hipanel/client', 'Wrong pincode'));
-                }
-            }, 'on' => ['pincode-settings']],
-
-            [['answer'], function ($attribute, $params) {
-                try {
-                    $response = $this->perform('CheckPincode', [$attribute => $this->$attribute, 'id' => $this->id]);
-                } catch (Exception $e) {
-                    $this->addError($attribute, Yii::t('hipanel/client', 'Wrong answer'));
-                }
-            }, 'on' => ['pincode-settings']],
         ];
     }
 
@@ -242,6 +227,7 @@ class Client extends \hipanel\base\Model
     {
         return [
             'change-password' => 'set-password',
+            'pincode-settings' => $this->pincode_enabled ? 'disable-pincode' : 'enable-pincode'
         ];
     }
 }
