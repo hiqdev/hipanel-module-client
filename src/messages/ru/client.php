@@ -52,6 +52,9 @@ return [
     'You can upload copy of your documents in order to help us verify your identity' => 'Вы можете загрузить копии своих документов, чтобы помочь нам верифицировать ваш аккаунт',
     'Documents attached to the contact {name}' => 'Документы прикреплённые к контакту {name}',
     'Attached documents' => 'Прикреплённые документы',
+    'Documents' => 'Документы',
+    'Attach new documents' => 'Загрузить новые документы',
+    'Documents were saved' => 'Документы были сохранены',
 
     // Статусы клиентов
     'Active' => 'Активен',
