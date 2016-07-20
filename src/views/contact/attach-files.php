@@ -26,31 +26,55 @@ $this->breadcrumbs->setItems([
     ['label' => Inflector::titleize($model->name, true), 'url' => ['view', 'id' => $model->id]],
     $this->title,
 ]);
+?>
 
-$form = ActiveForm::begin([
-    'id' => 'attach-form',
-    'action' => Url::to('attach-files'),
-    'enableClientValidation' => true,
-    'validateOnBlur' => true,
-    'enableAjaxValidation' => true,
-    'validationUrl' => Url::toRoute(['validate-form', 'scenario' => $model->scenario]),
-    'options' => ['enctype' => 'multipart/form-data'],
-]) ?>
+<div class="col-md-6">
+    <?php
+    $grouped = \yii\helpers\ArrayHelper::index($model->files, 'id', [
+        function ($file) {
+            return (new DateTime($file->create_time))->modify('today')->format('U');
+        }
+    ]);
 
-<div class="col-md-6 col-sm-12">
+    krsort($grouped, SORT_NUMERIC);
+    ?>
 
-    <?php Box::begin([
-        'title' => Yii::t('hipanel/client', 'Documents attached to the contact {name}', [
-            'name' => Inflector::titleize($model->name, true)
-        ])
-    ]); ?>
+    <?php foreach ($grouped as $date => $files) : ?>
+        <div class="panel panel-default">
+            <div class="panel-heading"><?= Yii::$app->formatter->asDate($date, 'medium') ?></div>
+            <div class="panel-body">
+                <?php foreach ($files as $file) {
+                    echo \hipanel\widgets\FileRender::widget([
+                        'file' => $file,
+                        'lightboxLinkOptions' => [
+                            'data-lightbox' => 'files-' . $date
+                        ]
+                    ]);
+                } ?>
+            </div>
+        </div>
+    <?php endforeach; ?>
+</div>
+
+
+<div class="col-md-6">
+    <?php Box::begin(['title' => Yii::t('hipanel/client', 'Attach new documents')]); ?>
 
     <p>
         <?= Yii::t('hipanel/client',
             'You can upload copy of your documents in order to help us verify your identity') ?>
     </p>
 
-    <?php
+    <?php $form = ActiveForm::begin([
+        'id' => 'attach-form',
+        'action' => Url::to('attach-files'),
+        'enableClientValidation' => true,
+        'validateOnBlur' => true,
+        'enableAjaxValidation' => true,
+        'validationUrl' => Url::toRoute(['validate-form', 'scenario' => $model->scenario]),
+        'options' => ['enctype' => 'multipart/form-data'],
+    ]);
+
     echo $form->field($model, 'id')->hiddenInput()->label(false);
     echo $form->field($model, 'file[]')->widget(FileInput::class, [
         'options' => [
@@ -68,15 +92,11 @@ $form = ActiveForm::begin([
     ])->label(false); ?>
 
     <?= Html::submitButton(Yii::t('hipanel', 'Save'), ['class' => 'btn btn-success']); ?>
-    <?= Html::submitButton(Yii::t('hipanel', 'Cancel'), ['class' => 'btn btn-default', 'onclick' => 'window.history.back();']); ?>
+    <?= Html::submitButton(Yii::t('hipanel', 'Cancel'),
+        ['class' => 'btn btn-default', 'onclick' => 'window.history.back();']); ?>
 
+    <?php $form->end(); ?>
     <?php Box::end(); ?>
-
 </div>
 
 
-<?php
-
-$form->end();
-
-?>
