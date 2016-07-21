@@ -100,10 +100,15 @@ class ContactController extends CrudController
             'attach-files' => [
                 'class' => SmartUpdateAction::class,
                 'success' => Yii::t('hipanel/client', 'Documents were saved'),
-                'data' => function ($action) {
-                    return [
-                        'askPincode' => Client::perform('HasPincode'),
-                    ];
+                'on beforeFetch' => function (Event $event) {
+                    /** @var \hipanel\actions\SearchAction $action */
+                    $action = $event->sender;
+                    $dataProvider = $action->getDataProvider();
+                    $dataProvider->query->joinWith('files');
+
+                    $dataProvider->query
+                        ->andWhere(['with_files' => 1])
+                        ->select(['*']);
                 },
             ],
             'copy' => [

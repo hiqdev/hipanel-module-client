@@ -42,6 +42,7 @@ class ContactGridView extends BoxedGridView
                 },
             ],
             'email_with_verification' => [
+                'label' => Yii::t('hipanel', 'Email'),
                 'format' => 'raw',
                 'value' => function ($model) {
                     $result = $model->email;

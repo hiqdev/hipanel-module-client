@@ -9,9 +9,14 @@
  * @copyright Copyright (c) 2015-2016, HiQDev (http://hiqdev.com/)
  */
 
-$this->title                   = Yii::t('app', 'Update');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Contact'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+use yii\helpers\Inflector;
+
+$this->title                   = Yii::t('hipanel', 'Update');
+$this->breadcrumbs->setItems([
+    ['label' => Yii::t('hipanel/client', 'Contacts'), 'url' => ['index']],
+    ['label' => Inflector::titleize($model->name, true), 'url' => ['view', 'id' => $model->id]],
+    $this->title,
+]);
 
 if (!$models) {
     $models[] = $model;

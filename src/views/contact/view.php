@@ -47,7 +47,7 @@ FlagIconCssAsset::register($this);
                     <?= Html::a('<i class="fa fa-edit"></i>' . Yii::t('hipanel/client', 'Change contact information'), ['update', 'id' => $model->id]) ?>
                 </li>
                 <li>
-                    <?= Html::a('<i class="fa fa-paperclip"></i>' . Yii::t('hipanel/client', 'Upload documents'), ['upload', 'id' => $model->id]) ?>
+                    <?= Html::a('<i class="fa fa-paperclip"></i>' . Yii::t('hipanel/client', 'Documents'), ['attach-files', 'id' => $model->id]) ?>
                 </li>
             <?php if (Yii::getAlias('@domain', false) && $model->used_count > 0) : ?>
                 <li>
