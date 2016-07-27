@@ -12,9 +12,7 @@
 /* @var $this yii\web\View */
 /* @var $model hipanel\modules\ticket\models\Ticket */
 
-$this->title = Yii::t('app', 'Create {modelClass}', [
-    'modelClass' => 'Article',
-]);
+$this->title = Yii::t('hipanel/client', 'Create article');
 $this->breadcrumbs->setItems([
     ['label' => 'News and articles', 'url' => ['index']],
     $this->title,

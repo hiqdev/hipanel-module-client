@@ -10,10 +10,11 @@
  */
 
 use hipanel\grid\GridView;
+use hipanel\models\Ref;
 use yii\helpers\Html;
 use yii\widgets\Pjax;
 
-$this->title = Yii::t('app', ucfirst($action)) . ' ' . Yii::t('app', 'block');
+$this->title = Yii::t('hipanel', ucfirst($action)) . ' ' . Yii::t('hipanel', 'block');
 $this->breadcrumbs->setItems([
     ['label' => 'Client', 'url' => ['index']],
     $this->title,
@@ -22,38 +23,38 @@ $this->breadcrumbs->setItems([
 echo Html::beginForm([$action . '-block'], 'POST');
 
 if (!Yii::$app->request->isAjax) {
-    echo Html::submitButton(Yii::t('app', 'Submit'), ['class' => 'btn btn-primary']);
+    echo Html::submitButton(Yii::t('hipanel', 'Submit'), ['class' => 'btn btn-primary']);
 }
 if (!Yii::$app->request->isAjax) {
-    echo Html::submitButton(Yii::t('app', 'Cancel'), ['type' => 'cancel', 'class' => 'btn btn-success', 'onClick' => 'history.back()']);
+    echo Html::submitButton(Yii::t('hipanel', 'Cancel'), ['type' => 'cancel', 'class' => 'btn btn-success', 'onClick' => 'history.back()']);
 }
 
 Pjax::begin();
 
-$blockReason = \hipanel\models\Ref::getList('type,block', 'hipanel');
+$blockReason = Ref::getList('type,block', 'hipanel');
 
 $widgetIndexConfig = [
     'dataProvider' => $dataProvider,
     'columns'      => [
         [
-            'label'  => Yii::t('app', 'Client'),
+            'label'  => Yii::t('hipanel', 'Client'),
             'format' => 'raw',
             'value'  => function ($data) {
                 return HTML::input('hidden', "ids[{$data->id}][Client][id]", $data->id, ['readonly' => 'readonly', 'disabled' => $data->id === \Yii::$app->user->identity->id || \Yii::$app->user->identity->type === 'client']) . HTML::tag('span', $data->login);
             },
         ],
         [
-            'label'  => Yii::t('app', 'Block reason'),
+            'label'  => Yii::t('hipanel', 'Block reason'),
             'format' => 'raw',
             'value'  => function ($data) {
-                return Html::dropDownList("ids[{$data->id}][Client][type]", '', \hipanel\models\Ref::getList('type,block', 'hipanel'), ['promt' => Yii::t('app', 'Select block reason')]);
+                return Html::dropDownList("ids[{$data->id}][Client][type]", '', Ref::getList('type,block', 'hipanel'), ['promt' => Yii::t('hipanel', 'Select block reason')]);
             },
         ],
         [
-            'label'  => Yii::t('app', 'Comment'),
+            'label'  => Yii::t('hipanel', 'Comment'),
             'format' => 'raw',
             'value'  => function ($data) {
-                return Html::input('text', "ids[{$data->id}][Client][comment]", '', ['toggle-title' => Yii::t('app', 'Write comment')]);
+                return Html::input('text', "ids[{$data->id}][Client][comment]", '', ['toggle-title' => Yii::t('hipanel', 'Write comment')]);
             },
         ],
     ],

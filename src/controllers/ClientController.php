@@ -71,15 +71,15 @@ class ClientController extends \hipanel\base\CrudController
             ],
             'create' => [
                 'class' => SmartCreateAction::class,
-                'success' => Yii::t('app', 'Client is created'),
+                'success' => Yii::t('hipanel/client', 'Client was created'),
             ],
             'update' => [
                 'class' => SmartUpdateAction::class,
-                'success' => Yii::t('app', 'Client is updated'),
+                'success' => Yii::t('hipanel/client', 'Client was updated'),
             ],
             'delete' => [
                 'class' => SmartDeleteAction::class,
-                'success' => Yii::t('app', 'Client is deleted'),
+                'success' => Yii::t('hipanel/client', 'Client was deleted'),
             ],
             'enable-block' => [
                 'class' => SmartPerformAction::class,
@@ -122,7 +122,7 @@ class ClientController extends \hipanel\base\CrudController
             ],
             'set-credit' => [
                 'class' => SmartUpdateAction::class,
-                'success' => Yii::t('app', 'Credit changed'),
+                'success' => Yii::t('hipanel/client', 'Credit changed'),
             ],
             'set-note' => [
                 'class' => SmartUpdateAction::class,
@@ -231,7 +231,7 @@ class ClientController extends \hipanel\base\CrudController
                 },
                 'data' => function ($action, $data) {
                     $apiData = $this->getRefs('type,question', 'hipanel/client');
-                    $questionList = array_merge(Client::makeTranslateQuestionList($apiData), ['own' => Yii::t('app', 'Own question')]);
+                    $questionList = array_merge(Client::makeTranslateQuestionList($apiData), ['own' => Yii::t('hipanel/client', 'Own question')]);
                     return array_merge([
                         'questionList' => $questionList
                     ], $data);
@@ -262,7 +262,7 @@ class ClientController extends \hipanel\base\CrudController
 //        }
 //        $model->setAttributes(Client::perform('HasPincode', ['id' => $id]));
 //        $apiData = $this->getRefs('type,question', 'hipanel/client');
-//        $questionList = array_merge(Client::makeTranslateQuestionList($apiData), ['own' => Yii::t('app', 'Own question')]);
+//        $questionList = array_merge(Client::makeTranslateQuestionList($apiData), ['own' => Yii::t('hipanel/client', 'Own question')]);
 //
 //        return $this->renderAjax('_pincodeSettingsModal', ['model' => $model, 'questionList' => $questionList]);
 //    }

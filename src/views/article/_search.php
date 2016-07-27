@@ -17,8 +17,8 @@ use hiqdev\combo\StaticCombo;
         <div class="col-md-4 col-sm-6 col-xs-12">
             <?= $search->field('is_published')->widget(StaticCombo::class, [
                 'data' => [
-                    't' => Yii::t('app', 'Published'),
-                    'f' => Yii::t('app', 'Unpublished'),
+                    't' => Yii::t('hipanel/client', 'Published'),
+                    'f' => Yii::t('hipanel/client', 'Unpublished'),
                 ],
                 'hasId' => true,
                 'mutliple' => true,

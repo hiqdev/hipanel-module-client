@@ -61,7 +61,7 @@ class Contact extends \hipanel\base\Model
                 ['voice_phone', 'fax_phone'],
                 'match',
                 'pattern' => '/^[+]?[()0-9 .-]{3,20}$/',
-                'message' => Yii::t('app', 'This field must contains phone number in international format.')
+                'message' => Yii::t('hipanel/client', 'This field must contains phone number in international format.')
             ],
             [
                 [
@@ -125,19 +125,19 @@ class Contact extends \hipanel\base\Model
     public function attributeLabels()
     {
         return $this->mergeAttributeLabels([
-            'passport_no' => Yii::t('app', 'Passport number'),
-            'icq' => 'ICQ',
-            'voice_phone' => Yii::t('app', 'Phone'),
-            'fax_phone' => Yii::t('app', 'Fax'),
-            'country_name' => Yii::t('app', 'Country'),
-            'isresident' => Yii::t('app', 'RF resident'),
-            'street1' => Yii::t('app', 'Street'),
-            'street2' => Yii::t('app', 'Street'),
-            'street3' => Yii::t('app', 'Street'),
-            'inn' => Yii::t('app', 'Taxpayer identification number'),
-            'kpp' => Yii::t('app', 'Code of reason for registration'),
-            'organization_ru' => Yii::t('app', 'Organization (Russian title)'),
-            'director_name' => Yii::t('app', 'Director\'s full name'),
+            'passport_no'       => Yii::t('hipanel/client', 'Passport number'),
+            'icq'               => 'ICQ',
+            'voice_phone'       => Yii::t('hipanel/client', 'Phone'),
+            'fax_phone'         => Yii::t('hipanel/client', 'Fax'),
+            'country_name'      => Yii::t('hipanel/client', 'Country'),
+            'isresident'        => Yii::t('hipanel/client', 'RF resident'),
+            'street1'           => Yii::t('hipanel/client', 'Street'),
+            'street2'           => Yii::t('hipanel/client', 'Street'),
+            'street3'           => Yii::t('hipanel/client', 'Street'),
+            'inn'               => Yii::t('hipanel/client', 'Taxpayer identification number'),
+            'kpp'               => Yii::t('hipanel/client', 'Code of reason for registration'),
+            'organization_ru'   => Yii::t('hipanel/client', 'Organization (Russian title)'),
+            'director_name'     => Yii::t('hipanel/client', 'Director\'s full name'),
         ]);
     }
 

@@ -229,7 +229,7 @@ class ClientGridView extends BoxedGridView
             ],
             'hosting' => [
                 'format' => 'html',
-                'label'     => Yii::t('app', 'Hosting'),
+                'label'     => Yii::t('hipanel', 'Hosting'),
                 'value'  => function ($model) {
                     $res = '';
                     $num = $model->count['accounts'];

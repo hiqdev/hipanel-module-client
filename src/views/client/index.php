@@ -19,7 +19,7 @@ use yii\bootstrap\Modal;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
-$this->title    = Yii::t('app', 'Clients');
+$this->title    = Yii::t('hipanel', 'Clients');
 $this->subtitle = array_filter(Yii::$app->request->get($model->formName(), [])) ? Yii::t('hipanel', 'filtered list') : Yii::t('hipanel', 'full list');
 $this->breadcrumbs->setItems([
     $this->title,

@@ -132,38 +132,38 @@ class Client extends \hipanel\base\Model
     public function attributeLabels()
     {
         return $this->mergeAttributeLabels([
-            'create_time' => Yii::t('app', 'Registered'),
-            'update_time' => Yii::t('app', 'Last update'),
+            'create_time'                   => Yii::t('hipanel', 'Registered'),
+            'update_time'                   => Yii::t('hipanel', 'Last update'),
 
-            'ticket_emails' => Yii::t('hipanel/ticket', 'Email for tickets'),
-            'send_message_text' => Yii::t('app', 'Send message text'),
+            'ticket_emails'                 => Yii::t('hipanel/client', 'Email for tickets'),
+            'send_message_text'             => Yii::t('hipanel/client', 'Send message text'),
 
-            'allowed_ips' => Yii::t('app', 'Allowed IPs for panel login'),
-            'sshftp_ips' => Yii::t('app', 'Default allowed IPs for SSH/FTP accounts'),
+            'allowed_ips'                   => Yii::t('hipanel/client', 'Allowed IPs for panel login'),
+            'sshftp_ips'                    => Yii::t('hipanel/client', 'Default allowed IPs for SSH/FTP accounts'),
 
-            'old_password' => Yii::t('app', 'Current password'),
-            'new_password' => Yii::t('app', 'New password'),
-            'confirm_password' => Yii::t('app', 'Confirm password'),
+            'old_password'                  => Yii::t('hipanel', 'Current password'),
+            'new_password'                  => Yii::t('hipanel', 'New password'),
+            'confirm_password'              => Yii::t('hipanel', 'Confirm password'),
 
             // Mailing settings
-            'notify_important_actions'      => Yii::t('app', 'Notify important actions'),
-            'domain_registration'           => Yii::t('app', 'Domain registration'),
-            'newsletters'                   => Yii::t('app', 'Newsletters'),
-            'commercial'                    => Yii::t('app', 'Commercial'),
+            'notify_important_actions'      => Yii::t('hipanel/client', 'Notify important actions'),
+            'domain_registration'           => Yii::t('hipanel/client', 'Domain registration'),
+            'newsletters'                   => Yii::t('hipanel/client', 'Newsletters'),
+            'commercial'                    => Yii::t('hipanel/client', 'Commercial'),
 
             // Domain settings
-            'autorenewal' => Yii::t('app', 'Autorenewal'),
-            'nss' => Yii::t('app', 'Name servers'),
-            'whois_protected' => Yii::t('app', 'WHOIS protect'),
-            'registrant' => Yii::t('app', 'Registrant contact'),
-            'admin' => Yii::t('app', 'Admin contact'),
-            'tech' => Yii::t('app', 'Tech contact'),
-            'billing' => Yii::t('app', 'Billing contact'),
+            'autorenewal'                   => Yii::t('hipanel', 'Autorenewal'),
+            'nss'                           => Yii::t('hipanel', 'Name servers'),
+            'whois_protected'               => Yii::t('hipanel/client', 'WHOIS protect'),
+            'registrant'                    => Yii::t('hipanel/client', 'Registrant contact'),
+            'admin'                         => Yii::t('hipanel/client', 'Admin contact'),
+            'tech'                          => Yii::t('hipanel/client', 'Tech contact'),
+            'billing'                       => Yii::t('hipanel/client', 'Billing contact'),
 
             // Pincode
-            'pincode' => Yii::t('app', 'Enter pincode'),
-            'question' => Yii::t('app', 'Choose question'),
-            'answer' => Yii::t('app', 'Answer'),
+            'pincode'                       => Yii::t('hipanel/client', 'Enter pincode'),
+            'question'                      => Yii::t('hipanel/client', 'Choose question'),
+            'answer'                        => Yii::t('hipanel/client', 'Answer'),
         ]);
     }
 

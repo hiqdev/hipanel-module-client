@@ -9,8 +9,8 @@
  * @copyright Copyright (c) 2015-2016, HiQDev (http://hiqdev.com/)
  */
 
-$this->title                   = Yii::t('app', 'Create Contact');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Contact'), 'url' => ['index']];
+$this->title                   = Yii::t('hipanel/client', 'Create contact');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('hipanel', 'Contact'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 
 if (!$models && $model) {

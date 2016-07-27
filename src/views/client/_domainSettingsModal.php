@@ -15,7 +15,7 @@ use yii\helpers\Url;
     'validationUrl' => Url::toRoute(['validate-form', 'scenario' => $model->scenario]),
 ]); ?>
 
-<p><?= Yii::t('app', 'The settings will be automatically applied to all new registered domains.'); ?></p>
+<p><?= Yii::t('hipanel/client', 'The settings will be automatically applied to all new registered domains.'); ?></p>
 
 <div class="row">
     <div class="col-md-6"><?= $form->field($model, "[$model->id]autorenewal")->checkbox(); ?></div>
@@ -28,7 +28,7 @@ use yii\helpers\Url;
 <?= $form->field($model, "[$model->id]nss"); ?>
 
 <fieldset>
-    <legend><?= Yii::t('app', 'Default contacts') ?>:</legend>
+    <legend><?= Yii::t('hipanel/client', 'Default contacts') ?>:</legend>
 
     <div class="row">
         <?php foreach (['registrant', 'admin', 'tech', 'billing'] as $item) : ?>
@@ -41,6 +41,6 @@ use yii\helpers\Url;
     <!-- /.row -->
 </fieldset>
 <hr>
-<?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?> &nbsp;
-<?= Html::button(Yii::t('app', 'Cancel'), ['class' => 'btn btn-default', 'data-dismiss' => 'modal']) ?>
+<?= Html::submitButton(Yii::t('hipanel', 'Save'), ['class' => 'btn btn-success']) ?> &nbsp;
+<?= Html::button(Yii::t('hipanel', 'Cancel'), ['class' => 'btn btn-default', 'data-dismiss' => 'modal']) ?>
 <?php $form->end(); ?>

@@ -13,11 +13,11 @@ $this->breadcrumbs->setItems([
 <div class="event-view">
 
     <p>
-        <?= Html::a(Yii::t('app', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a(Yii::t('app', 'Delete'), ['delete', 'id' => $model->id], [
+        <?= Html::a(Yii::t('hipanel', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a(Yii::t('hipanel', 'Delete'), ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data'  => [
-                'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
+                'confirm' => Yii::t('hipanel', 'Are you sure you want to delete this item?'),
                 'method'  => 'post',
             ],
         ]) ?>

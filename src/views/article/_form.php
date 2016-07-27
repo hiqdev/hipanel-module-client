@@ -72,7 +72,7 @@ $modelReflacion = new \ReflectionClass(get_class($model));
     </div>
 
     <div class="form-group">
-        <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-primary']) ?>
+        <?= Html::submitButton(Yii::t('hipanel', 'Save'), ['class' => 'btn btn-primary']) ?>
     </div>
 
 <?php $form->end(); ?>

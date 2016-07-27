@@ -72,14 +72,14 @@ JS
     <?php Modal::begin([
         'id' => 'askpincode-modal',
         'size' => Modal::SIZE_SMALL,
-        'header' => '<h4 class="modal-title">' . Yii::t('app', 'Enter pincode') . '</h4>',
+        'header' => '<h4 class="modal-title">' . Yii::t('hipanel/client', 'Enter pincode') . '</h4>',
         'clientEvents' => [
             'show.bs.modal' => new JsExpression("function() {document.getElementById('modal-pincode').value = '';}"),
         ],
-        'footer' => Html::submitButton(Yii::t('app', 'Submit'), [
+        'footer' => Html::submitButton(Yii::t('hipanel', 'Submit'), [
             'id' => 'modal-ask-pincode-button',
             'class' => 'btn btn-default btn-loading',
-            'data-loading-text' => Yii::t('app', 'Loading') . '...',
+            'data-loading-text' => Yii::t('hipanel', 'loading...'),
             'data-loading-icon' => 'glyphicon glyphicon-refresh',
         ]),
     ]); ?>
@@ -117,7 +117,7 @@ if ($model->scenario === 'change-contact') {
         <?php if ($model->scenario === 'update') : ?>
             <?= Html::submitButton(Yii::t('hipanel', 'Save'), ['class' => 'btn btn-success']); ?>
         <?php else : ?>
-            <?= Html::submitButton(Yii::t('app', 'Create contact'), ['class' => 'btn btn-success']); ?>
+            <?= Html::submitButton(Yii::t('hipanel/client', 'Create contact'), ['class' => 'btn btn-success']); ?>
         <?php endif; ?>
         <?= Html::submitButton(Yii::t('hipanel', 'Cancel'), ['class' => 'btn btn-default', 'onclick' => 'window.history.back();']); ?>
         <?php Box::end(); ?>
@@ -125,7 +125,7 @@ if ($model->scenario === 'change-contact') {
     <!-- /.com-md-12 -->
 
     <div class="col-md-6">
-        <?php Box::begin(['title' => Yii::t('app', 'Contacts details')]) ?>
+        <?php Box::begin(['title' => Yii::t('hipanel/client', 'Contact details')]) ?>
         <?php if ($model->scenario === 'update') : ?>
             <?= $form->field($model, 'id')->hiddenInput()->label(false); ?>
         <?php endif; ?>
@@ -151,7 +151,7 @@ if ($model->scenario === 'change-contact') {
     </div>
     <!-- /.col-md-6 -->
     <div class="col-md-6">
-        <?php Box::begin(['title' => Yii::t('app', 'Additional contacts information')]) ?>
+        <?php Box::begin(['title' => Yii::t('hipanel/client', 'Additional information')]) ?>
         <?= $form->field($model, 'icq'); ?>
         <?= $form->field($model, 'skype'); ?>
         <?= $form->field($model, 'jabber'); ?>
@@ -164,7 +164,7 @@ if ($model->scenario === 'change-contact') {
             'class' => 'collapsed-box',
         ]]) ?>
         <?php $box->beginHeader(); ?>
-        <h3 class="box-title"><?= Yii::t('app', 'Additional fields') ?></h3>
+        <h3 class="box-title"><?= Yii::t('hipanel/client', 'Additional fields') ?></h3>
 
         <div class="box-tools pull-right">
             <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
@@ -174,7 +174,7 @@ if ($model->scenario === 'change-contact') {
         <?php $box->beginBody() ?>
         <fieldset id="fiz_domain">
             <div
-                class="well well-sm"><?= Yii::t('app', 'For domain registration in RU and SU zones as physical entity') ?></div>
+                class="well well-sm"><?= Yii::t('hipanel/client', 'For domain registration in RU and SU zones as physical entity') ?></div>
             <?= $form->field($model, 'birth_date')->widget(DatePicker::class, [
                 'removeButton' => false,
                 'pluginOptions' => [
@@ -185,7 +185,7 @@ if ($model->scenario === 'change-contact') {
                 'options' => [
                     'readonly' => 'readonly',
                     'class' => 'datepicker',
-                    'placeholder' => Yii::t('app', 'Select date'),
+                    'placeholder' => Yii::t('hipanel', 'Select date'),
                 ],
             ]); ?>
             <?= $form->field($model, 'passport_no'); ?>
@@ -199,7 +199,7 @@ if ($model->scenario === 'change-contact') {
                 'options' => [
                     'readonly' => 'readonly',
                     'class' => 'datepicker',
-                    'placeholder' => Yii::t('app', 'Select date'),
+                    'placeholder' => Yii::t('hipanel', 'Select date'),
                 ],
             ]); ?>
             <?= $form->field($model, 'passport_by'); ?>
@@ -207,7 +207,7 @@ if ($model->scenario === 'change-contact') {
         <hr>
         <fieldset id="jur_domain">
             <div
-                class="well well-sm"><?= Yii::t('app', 'For domain registration in RU and SU zones as legal entity') ?></div>
+                class="well well-sm"><?= Yii::t('hipanel/client', 'For domain registration in RU and SU zones as legal entity') ?></div>
             <?= $form->field($model, 'organization_ru'); ?>
             <?= $form->field($model, 'director_name'); ?>
             <?= $form->field($model, 'inn'); ?>

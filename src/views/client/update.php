@@ -1,11 +1,14 @@
 <?php
 
-$this->title = Yii::t('app', 'Update');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Client'), 'url' => ['index']];
+use hipanel\widgets\Box;
+
+$this->title = Yii::t('hipanel', 'Update');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('hipanel', 'Client'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
+
 ?>
 
-<?php \hipanel\widgets\Box::begin() ?>
-    <?= $this->render('_form', ['model' => $model]); ?>
-<?php \hipanel\widgets\Box::end() ?>
+<?php Box::begin() ?>
+    <?= $this->render('_form', ['model' => $model]) ?>
+<?php Box::end() ?>
 
