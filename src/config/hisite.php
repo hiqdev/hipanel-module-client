@@ -17,14 +17,14 @@ return [
     ],
     'modules' => [
         'client' => [
-            'class' => 'hipanel\modules\client\Module',
+            'class' => \hipanel\modules\client\Module::class,
         ],
     ],
     'components' => [
         'i18n' => [
             'translations' => [
                 'hipanel/client' => [
-                    'class' => 'yii\i18n\PhpMessageSource',
+                    'class' => \yii\i18n\PhpMessageSource::class,
                     'basePath' => '@hipanel/modules/client/messages',
                     'fileMap' => [
                         'hipanel/client' => 'client.php',
@@ -34,7 +34,7 @@ return [
         ],
         'menuManager' => [
             'menus' => [
-                'hipanel\modules\client\SidebarMenu',
+                \hipanel\modules\client\SidebarMenu::class,
             ],
         ],
     ],
