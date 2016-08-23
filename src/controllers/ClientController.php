@@ -26,7 +26,6 @@ use hipanel\actions\SmartUpdateAction;
 use hipanel\actions\ValidateFormAction;
 use hipanel\actions\ViewAction;
 use hipanel\actions\ClassValuesAction;
-use hipanel\components\View;
 use hipanel\helpers\Url;
 use hipanel\models\Ref;
 use hipanel\modules\client\models\Client;
