@@ -12,6 +12,7 @@
 use hipanel\helpers\Url;
 use hipanel\widgets\Box;
 use hipanel\widgets\FileInput;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Inflector;
 use yii\widgets\ActiveForm;
@@ -21,16 +22,15 @@ use yii\widgets\ActiveForm;
  */
 
 $this->title = Yii::t('hipanel/client', 'Attached documents');
-$this->breadcrumbs->setItems([
-    ['label' => Yii::t('hipanel/client', 'Contacts'), 'url' => ['index']],
-    ['label' => Inflector::titleize($model->name, true), 'url' => ['view', 'id' => $model->id]],
-    $this->title,
-]);
+$this->params['breadcrumbs'][] = ['label' => Yii::t('hipanel/client', 'Contacts'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Inflector::titleize($model->name, true), 'url' => ['view', 'id' => $model->id]];
+$this->params['breadcrumbs'][] = $this->title;
+
 ?>
 
 <div class="col-md-6">
     <?php
-    $grouped = \yii\helpers\ArrayHelper::index($model->files, 'id', [
+    $grouped = ArrayHelper::index($model->files, 'id', [
         function ($file) {
             return (new DateTime($file->create_time))->modify('today')->format('U');
         }

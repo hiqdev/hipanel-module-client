@@ -13,10 +13,8 @@
 /* @var $model hipanel\modules\client\models\Article */
 
 $this->title = Yii::t('hipanel/client', 'Update article');
-$this->breadcrumbs->setItems([
-    ['label' => 'News and articles', 'url' => ['index']],
-    $this->title,
-]);
+$this->params['breadcrumbs'][] = ['label' => 'News and articles', 'url' => ['index']];
+$this->params['breadcrumbs'][] = $this->title;
 
 ?>
 <div class="ticket-create">

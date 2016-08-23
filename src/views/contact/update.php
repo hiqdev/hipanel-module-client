@@ -11,12 +11,10 @@
 
 use yii\helpers\Inflector;
 
-$this->title                   = Yii::t('hipanel', 'Update');
-$this->breadcrumbs->setItems([
-    ['label' => Yii::t('hipanel/client', 'Contacts'), 'url' => ['index']],
-    ['label' => Inflector::titleize($model->name, true), 'url' => ['view', 'id' => $model->id]],
-    $this->title,
-]);
+$this->title = Yii::t('hipanel', 'Update');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('hipanel/client', 'Contacts'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Inflector::titleize($model->name, true), 'url' => ['view', 'id' => $model->id]];
+$this->params['breadcrumbs'][] = $this->title;
 
 if (!$models) {
     $models[] = $model;

@@ -13,10 +13,9 @@
 /* @var $model hipanel\modules\ticket\models\Ticket */
 
 $this->title = Yii::t('hipanel/client', 'Create article');
-$this->breadcrumbs->setItems([
-    ['label' => 'News and articles', 'url' => ['index']],
-    $this->title,
-]);
+$this->params['breadcrumbs'][] = ['label' => 'News and articles', 'url' => ['index']];
+$this->params['breadcrumbs'][] = $this->title;
+
 ?>
 <div class="ticket-create">
     <?= $this->render('_form', ['model' => $model]); ?>

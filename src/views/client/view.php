@@ -17,10 +17,8 @@ use yii\helpers\Html;
 
 $this->title = $model->login;
 $this->subtitle = Yii::t('hipanel/client', 'Client detailed information') . ' #' . $model->id;
-$this->breadcrumbs->setItems([
-    ['label' => Yii::t('hipanel', 'Clients'), 'url' => ['index']],
-    $this->title,
-]);
+$this->params['breadcrumbs'][] = ['label' => Yii::t('hipanel', 'Clients'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = $this->title;
 
 FlagIconCssAsset::register($this);
 

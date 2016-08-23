@@ -15,10 +15,8 @@ use yii\helpers\Html;
 use yii\widgets\Pjax;
 
 $this->title = Yii::t('hipanel', ucfirst($action)) . ' ' . Yii::t('hipanel', 'block');
-$this->breadcrumbs->setItems([
-    ['label' => 'Client', 'url' => ['index']],
-    $this->title,
-]);
+$this->params['breadcrumbs'][] = ['label' => 'Client', 'url' => ['index']];
+$this->params['breadcrumbs'][] = $this->title;
 
 echo Html::beginForm([$action . '-block'], 'POST');
 

@@ -13,10 +13,8 @@ use yii\helpers\Inflector;
  */
 $this->title    = Inflector::titleize($model->name, true);
 $this->subtitle = Yii::t('hipanel/client', 'Contact detailed information') . ' #' . $model->id;
-$this->breadcrumbs->setItems([
-    ['label' => Yii::t('hipanel/client', 'Contacts'), 'url' => ['index']],
-    $this->title,
-]);
+$this->params['breadcrumbs'][] = ['label' => Yii::t('hipanel/client', 'Contacts'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = $this->title;
 
 FlagIconCssAsset::register($this);
 
