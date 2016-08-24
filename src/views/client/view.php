@@ -7,6 +7,7 @@ use hipanel\modules\client\models\Client;
 use hipanel\modules\client\models\Contact;
 use hipanel\widgets\BlockModalButton;
 use hipanel\widgets\Box;
+use hipanel\widgets\ClientSellerLink;
 use hipanel\widgets\SettingsModal;
 use hiqdev\assets\flagiconcss\FlagIconCssAsset;
 use yii\helpers\Html;
@@ -16,7 +17,7 @@ use yii\helpers\Html;
  */
 
 $this->title = $model->login;
-$this->subtitle = Yii::t('hipanel/client', 'Client detailed information') . ' #' . $model->id;
+$this->params['subtitle'] = Yii::t('hipanel/client', 'Client detailed information') . ' #' . $model->id;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('hipanel', 'Clients'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 
@@ -40,7 +41,7 @@ $this->registerCss('legend {font-size: 16px;}');
         </div>
         <p class="text-center">
             <span class="profile-user-name">
-                <?= \hipanel\widgets\ClientSellerLink::widget([
+                <?= ClientSellerLink::widget([
                     'model' => $model,
                     'clientAttribute' => 'login',
                     'clientIdAttribute' => 'id',

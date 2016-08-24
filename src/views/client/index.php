@@ -11,7 +11,6 @@
 
 use hipanel\modules\client\grid\ClientGridView;
 use hipanel\widgets\AjaxModal;
-use hipanel\widgets\IndexLayoutSwitcher;
 use hipanel\widgets\IndexPage;
 use hipanel\widgets\Pjax;
 use yii\bootstrap\Dropdown;
@@ -19,8 +18,8 @@ use yii\bootstrap\Modal;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
-$this->title    = Yii::t('hipanel', 'Clients');
-$this->subtitle = array_filter(Yii::$app->request->get($model->formName(), [])) ? Yii::t('hipanel', 'filtered list') : Yii::t('hipanel', 'full list');
+$this->title = Yii::t('hipanel', 'Clients');
+$this->params['subtitle'] = array_filter(Yii::$app->request->get($model->formName(), [])) ? Yii::t('hipanel', 'filtered list') : Yii::t('hipanel', 'full list');
 $this->params['breadcrumbs'][] = $this->title;
 
 ?>
@@ -35,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php $page->endContent() ?>
 
     <?php $page->beginContent('show-actions') ?>
-    <?= IndexLayoutSwitcher::widget() ?>
+    <?= $page->renderLayoutSwitcher() ?>
     <?= $page->renderSorter([
         'attributes' => [
             'seller',

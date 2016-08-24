@@ -1,13 +1,12 @@
 <?php
 
 use hipanel\modules\client\grid\ContactGridView;
-use hipanel\widgets\IndexLayoutSwitcher;
 use hipanel\widgets\IndexPage;
 use hipanel\widgets\Pjax;
 use yii\helpers\Html;
 
-$this->title    = Yii::t('hipanel', 'Contact');
-$this->subtitle = array_filter(Yii::$app->request->get($model->formName(), [])) ? Yii::t('hipanel', 'filtered list') : Yii::t('hipanel', 'full list');
+$this->title = Yii::t('hipanel', 'Contact');
+$this->params['subtitle'] = array_filter(Yii::$app->request->get($model->formName(), [])) ? Yii::t('hipanel', 'filtered list') : Yii::t('hipanel', 'full list');
 $this->params['breadcrumbs'][] = $this->title;
 
 ?>
@@ -21,7 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?php $page->endContent() ?>
 
         <?php $page->beginContent('show-actions') ?>
-            <?= IndexLayoutSwitcher::widget() ?>
+            <?= $page->renderLayoutSwitcher() ?>
             <?= $page->renderSorter([
                 'attributes' => [
                     'email',
@@ -38,18 +37,18 @@ $this->params['breadcrumbs'][] = $this->title;
         <?php $page->endContent() ?>
 
         <?php $page->beginContent('table') ?>
-        <?php $page->beginBulkForm() ?>
-            <?= ContactGridView::widget([
-                'dataProvider' => $dataProvider,
-                'boxed' => false,
-                'filterModel'  => $model,
-                'columns'      => [
-                    'checkbox', 'name', 'email',
-                    'client_id', 'seller_id',
-                    'actions',
-                ],
-            ]) ?>
-        <?php $page->endBulkForm() ?>
+            <?php $page->beginBulkForm() ?>
+                <?= ContactGridView::widget([
+                    'dataProvider' => $dataProvider,
+                    'boxed' => false,
+                    'filterModel'  => $model,
+                    'columns'      => [
+                        'checkbox', 'name', 'email',
+                        'client_id', 'seller_id',
+                        'actions',
+                    ],
+                ]) ?>
+            <?php $page->endBulkForm() ?>
         <?php $page->endContent() ?>
     <?php $page->end() ?>
 <?php Pjax::end() ?>

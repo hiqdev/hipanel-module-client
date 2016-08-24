@@ -2,6 +2,7 @@
 
 use hipanel\helpers\Url;
 use hipanel\modules\client\grid\ContactGridView;
+use hipanel\modules\client\widgets\Confirmation;
 use hipanel\widgets\Box;
 use hipanel\widgets\ClientSellerLink;
 use hiqdev\assets\flagiconcss\FlagIconCssAsset;
@@ -11,8 +12,9 @@ use yii\helpers\Inflector;
 /**
  * @var \hipanel\modules\client\models\Contact $model
  */
-$this->title    = Inflector::titleize($model->name, true);
-$this->subtitle = Yii::t('hipanel/client', 'Contact detailed information') . ' #' . $model->id;
+
+$this->title = Inflector::titleize($model->name, true);
+$this->params['subtitle'] = Yii::t('hipanel/client', 'Contact detailed information') . ' #' . $model->id;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('hipanel/client', 'Contacts'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 
@@ -95,7 +97,7 @@ FlagIconCssAsset::register($this);
                                     <tr>
                                         <th><?= Yii::t('hipanel/client', 'Name') ?></th>
                                         <td>
-                                            <?= \hipanel\modules\client\widgets\Confirmation::widget([
+                                            <?= Confirmation::widget([
                                                 'model' => $model->getVerification('name'),
                                             ]) ?>
                                         </td>
@@ -103,7 +105,7 @@ FlagIconCssAsset::register($this);
                                     <tr>
                                         <th><?= Yii::t('hipanel/client', 'Address') ?></th>
                                         <td>
-                                            <?= \hipanel\modules\client\widgets\Confirmation::widget([
+                                            <?= Confirmation::widget([
                                                 'model' => $model->getVerification('address'),
                                             ]) ?>
                                         </td>
@@ -111,7 +113,7 @@ FlagIconCssAsset::register($this);
                                     <tr>
                                         <th><?= Yii::t('hipanel/client', 'Email') ?></th>
                                         <td>
-                                            <?= \hipanel\modules\client\widgets\Confirmation::widget([
+                                            <?= Confirmation::widget([
                                                 'model' => $model->getVerification('email'),
                                             ]) ?>
                                         </td>
@@ -119,7 +121,7 @@ FlagIconCssAsset::register($this);
                                     <tr>
                                         <th><?= Yii::t('hipanel/client', 'Voice phone') ?></th>
                                         <td>
-                                            <?= \hipanel\modules\client\widgets\Confirmation::widget([
+                                            <?= Confirmation::widget([
                                                 'model' => $model->getVerification('voice_phone'),
                                             ]) ?>
                                         </td>
@@ -127,7 +129,7 @@ FlagIconCssAsset::register($this);
                                     <tr>
                                         <th><?= Yii::t('hipanel/client', 'Fax phone') ?></th>
                                         <td>
-                                            <?= \hipanel\modules\client\widgets\Confirmation::widget([
+                                            <?= Confirmation::widget([
                                                 'model' => $model->getVerification('fax_phone'),
                                             ]) ?>
                                         </td>
