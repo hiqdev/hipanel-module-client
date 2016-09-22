@@ -33,8 +33,17 @@ return [
             ],
         ],
         'menuManager' => [
-            'menus' => [
-                \hipanel\modules\client\SidebarMenu::class,
+            'items' => [
+                'sidebar' => [
+                    'add' => [
+                        'client' => [
+                            'menu' => \hipanel\modules\client\menus\SidebarClientMenu::class,
+                            'where' => [
+                                'after' => ['dashboard'],
+                            ],
+                        ],
+                    ],
+                ],
             ],
         ],
     ],

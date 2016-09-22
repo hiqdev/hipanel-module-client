@@ -9,18 +9,12 @@
  * @copyright Copyright (c) 2015-2016, HiQDev (http://hiqdev.com/)
  */
 
-namespace hipanel\modules\client;
+namespace hipanel\modules\client\menus;
 
 use Yii;
 
-class SidebarMenu extends \hiqdev\menumanager\Menu
+class SidebarClientMenu extends \hiqdev\menumanager\Menu
 {
-    protected $_addTo = 'sidebar';
-
-    protected $_where = [
-        'after'  => ['dashboard'],
-    ];
-
     public function items()
     {
         return [
