@@ -13,7 +13,7 @@ namespace hipanel\modules\client\menus;
 
 use Yii;
 
-class SidebarClientMenu extends \hiqdev\menumanager\Menu
+class SidebarMenu extends \hiqdev\menumanager\Menu
 {
     public function items()
     {
