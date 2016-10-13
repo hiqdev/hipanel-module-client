@@ -140,4 +140,16 @@ return [
     'Choose question' => 'Выберите вопрос',
     'Answer' => 'Ответ',
     'You have already set a PIN code. In order to disable it, enter your current PIN or the secret question.' => 'У вас уже установлен пин-код. Для того что бы его отключить введите ваш текущий пин-код или ответье на секретный вопрос.',
+
+    'First name' => 'Имя',
+    'Last name' => 'Фамилия',
+    'Abuse email' => 'Адрес для жалоб',
+    'Province' => 'Провинция',
+    'Postal code' => 'Индекс',
+    'Mailing settings' => 'Настроки почты',
+    'Login' => 'Логин',
+    'Birth date' => 'Дата рождения',
+    'Other messenger' => 'Другой мессенджер',
+    'Passport issue date' => 'Дата выдачи паспорта',
+    'Issued by' => 'Выдан органом',
 ];
