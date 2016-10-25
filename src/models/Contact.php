@@ -152,31 +152,9 @@ class Contact extends \hipanel\base\Model
         ]);
     }
 
-    public function getVerification($type)
+    public function getVerification($attribute)
     {
-        $confirmedValueAttribute = $type . '_confirmed';
-        $levelAttribute = $type . '_confirm_level';
-        $confirmDateAttribute = $type . '_confirm_date';
-
-        $options = [
-            'id' => $this->id,
-            'type' => $type,
-            'contact' => $this,
-        ];
-
-        if (isset($this->$confirmDateAttribute)) {
-            $options['date'] = $this->$confirmDateAttribute;
-        }
-
-        if (isset($this->$levelAttribute)) {
-            $options['level'] = $this->$levelAttribute;
-        } elseif (isset($this->$confirmedValueAttribute)) {
-            $options['level'] = Confirmation::LEVEL_CONFIRMED;
-        } else {
-            $options['level'] = Confirmation::LEVEL_UNCONFIRMED;
-        }
-
-        return new Confirmation($options);
+        return Verification::fromModel($this, $attribute);
     }
 
     public function getFiles()

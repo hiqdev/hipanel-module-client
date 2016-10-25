@@ -16,10 +16,10 @@ use yii\base\InvalidConfigException;
 use yii\base\Widget;
 use yii\web\JsExpression;
 
-class Confirmation extends Widget
+class Verification extends Widget
 {
     /**
-     * @var \hipanel\modules\client\models\Confirmation
+     * @var \hipanel\modules\client\models\Verification
      */
     public $model;
     /**

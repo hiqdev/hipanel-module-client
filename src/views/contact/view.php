@@ -2,7 +2,7 @@
 
 use hipanel\helpers\Url;
 use hipanel\modules\client\grid\ContactGridView;
-use hipanel\modules\client\widgets\Confirmation;
+use hipanel\modules\client\widgets\Verification;
 use hipanel\widgets\Box;
 use hipanel\widgets\ClientSellerLink;
 use hiqdev\assets\flagiconcss\FlagIconCssAsset;
@@ -80,7 +80,7 @@ FlagIconCssAsset::register($this);
                                 'birth_date',
                                 'email_with_verification', 'abuse_email',
                                 'voice_phone', 'fax_phone',
-                                'messengers', 'other',
+                                'messengers', 'other', 'social',
                             ],
                         ]) ?>
                     <?php $box->endBody() ?>
@@ -94,46 +94,16 @@ FlagIconCssAsset::register($this);
                         <?php $box->beginBody() ?>
                             <table class="table table-striped table-bordered">
                                 <tbody>
-                                    <tr>
-                                        <th><?= Yii::t('hipanel/client', 'Name') ?></th>
-                                        <td>
-                                            <?= Confirmation::widget([
-                                                'model' => $model->getVerification('name'),
-                                            ]) ?>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th><?= Yii::t('hipanel/client', 'Address') ?></th>
-                                        <td>
-                                            <?= Confirmation::widget([
-                                                'model' => $model->getVerification('address'),
-                                            ]) ?>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th><?= Yii::t('hipanel/client', 'Email') ?></th>
-                                        <td>
-                                            <?= Confirmation::widget([
-                                                'model' => $model->getVerification('email'),
-                                            ]) ?>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th><?= Yii::t('hipanel/client', 'Voice phone') ?></th>
-                                        <td>
-                                            <?= Confirmation::widget([
-                                                'model' => $model->getVerification('voice_phone'),
-                                            ]) ?>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th><?= Yii::t('hipanel/client', 'Fax phone') ?></th>
-                                        <td>
-                                            <?= Confirmation::widget([
-                                                'model' => $model->getVerification('fax_phone'),
-                                            ]) ?>
-                                        </td>
-                                    </tr>
+                                    <?php foreach (['name', 'address', 'email', 'voice_phone', 'fax_phone'] as $attribute) : ?>
+                                        <tr>
+                                            <th><?= $model->getAttributeLabel($attribute) ?></th>
+                                            <td>
+                                                <?= Verification::widget([
+                                                    'model' => $model->getVerification($attribute),
+                                                ]) ?>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach ?>
                                 </tbody>
                             </table>
                         <?php $box->endBody() ?>

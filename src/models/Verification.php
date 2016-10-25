@@ -12,8 +12,9 @@
 namespace hipanel\modules\client\models;
 
 use Yii;
+use yii\base\Model;
 
-class Confirmation extends \hipanel\base\Model
+class Verification extends \hipanel\base\Model
 {
     use \hipanel\base\ModelTrait;
 
@@ -39,6 +40,33 @@ class Confirmation extends \hipanel\base\Model
     public static function type()
     {
         return Contact::type();
+    }
+
+    public static function fromModel(Model $model, $attribute)
+    {
+        $valueAttribute = $attribute . '_confirmed';
+        $levelAttribute = $attribute . '_confirm_level';
+        $dateAttribute  = $attribute . '_confirm_date';
+
+        $options = [
+            'id' => $model->id,
+            'type' => $attribute,
+            'contact' => $model,
+        ];
+
+        if (isset($model->$dateAttribute)) {
+            $options['date'] = $model->$dateAttribute;
+        }
+
+        if (isset($model->$levelAttribute)) {
+            $options['level'] = $model->$levelAttribute;
+        } elseif (isset($model->$valueAttribute) && $model->$valueAttribute === $model->$attribute) {
+            $options['level'] = static::LEVEL_CONFIRMED;
+        } else {
+            $options['level'] = static::LEVEL_UNCONFIRMED;
+        }
+
+        return new static($options);
     }
 
     public function init()
@@ -67,6 +95,16 @@ class Confirmation extends \hipanel\base\Model
             static::LEVEL_CONFIRMED => ['value' => static::LEVEL_CONFIRMED, 'text' => Yii::t('hipanel/client', 'Confirmed')],
             static::LEVEL_VERIFIED => ['value' => static::LEVEL_VERIFIED, 'text' => Yii::t('hipanel/client', 'Verified')],
         ];
+    }
+
+    public function isVerified()
+    {
+        return $this->level === static::LEVEL_VERIFIED;
+    }
+
+    public function isConfirmed()
+    {
+        return $this->level === static::LEVEL_CONFIRMED || $this->level === static::LEVEL_VERIFIED;
     }
 
     public function getAvailableLevels()

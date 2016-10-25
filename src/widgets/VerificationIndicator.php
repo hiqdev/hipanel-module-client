@@ -18,10 +18,10 @@ use yii\base\Widget;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
-class ConfirmationIndicator extends Widget
+class VerificationIndicator extends Widget
 {
     /**
-     * @var \hipanel\modules\client\models\Confirmation
+     * @var \hipanel\modules\client\models\Verification
      */
     public $model;
     /**
@@ -50,8 +50,8 @@ class ConfirmationIndicator extends Widget
 
     public function run()
     {
-        if ($this->model->level === \hipanel\modules\client\models\Confirmation::LEVEL_UNCONFIRMED) {
-            $this->renderConfirmationButton();
+        if ($this->model->level === \hipanel\modules\client\models\Verification::LEVEL_UNCONFIRMED) {
+            $this->renderVerificationButton();
         }
     }
 
@@ -60,7 +60,7 @@ class ConfirmationIndicator extends Widget
         return $this->model->id . '-' . $this->type . '-validation-button';
     }
 
-    protected function renderConfirmationButton()
+    protected function renderVerificationButton()
     {
         $form = ActiveForm::begin([
             'action' => ['@contact/request-' . $this->type . '-confirmation'],
