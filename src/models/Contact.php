@@ -49,7 +49,7 @@ class Contact extends \hipanel\base\Model
             [['postal_code'], 'safe'],
             [['city', 'street1', 'street2', 'street3'], 'safe'],
             [['voice_phone', 'fax_phone'], 'safe'],
-            [['icq', 'skype', 'jabber'], 'safe'],
+            [['icq', 'skype', 'jabber', 'social_net'], 'safe'],
             [['roid', 'epp_id', 'remoteid', 'other_messenger'], 'safe'],
             [['name', 'first_name', 'last_name'], 'string'],
             [['birth_date', 'passport_date'], 'safe'],

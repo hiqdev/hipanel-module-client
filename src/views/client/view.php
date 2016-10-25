@@ -185,7 +185,7 @@ $this->registerCss('legend {font-size: 16px;}');
                             'model' => new Contact($model->contact),
                             'columns' => [
                                 'first_name', 'last_name', 'organization',
-                                'email', 'abuse_email', 'messengers',
+                                'email', 'abuse_email', 'messengers', 'social',
                                 'voice_phone', 'fax_phone',
                                 'street', 'city', 'province', 'postal_code', 'country',
                             ],
