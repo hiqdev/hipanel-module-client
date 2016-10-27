@@ -54,6 +54,9 @@ class Client extends \hipanel\base\Model
 
             [['password', 'client', 'seller_id', 'email'],  'required', 'on' => ['create', 'update']],
             [['email'],                                     'email',    'on' => ['create', 'update']],
+            [['client'], 'match', 'pattern' => '/^[a-z][a-z0-9_]{2,31}$/',
+                'message' => Yii::t('hipanel/client', 'Field "{attribute}" can contain Latin characters written in lower case, and it may contain numbers and underscores'),
+                'on' => ['create', 'update']],
 
             // Ticket settings
             [['ticket_emails'],                             'string',   'max' => 128, 'on' => 'ticket-settings'],
