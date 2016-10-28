@@ -154,4 +154,8 @@ return [
     'Passport issue date' => 'Дата выдачи паспорта',
     'Issued by' => 'Выдан органом',
     'New messages first' => 'Новые сообщение, первыми',
+    'Registrant contact' => 'Владелец',
+    'Admin contact' => 'Административный контакт',
+    'Tech contact' => 'Технический контакт',
+    'Billing contact' => 'Биллинг контакт',
 ];
