@@ -153,4 +153,5 @@ return [
     'Other messenger' => 'Другой мессенджер',
     'Passport issue date' => 'Дата выдачи паспорта',
     'Issued by' => 'Выдан органом',
+    'New messages first' => 'Новые сообщение, первыми',
 ];
