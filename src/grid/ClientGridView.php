@@ -67,6 +67,7 @@ class ClientGridView extends BoxedGridView
             ],
             'state' => [
                 'class'  => RefColumn::class,
+                'filterAttribute' => 'states',
                 'format' => 'raw',
                 'gtype'  => 'state,client',
                 'i18nDictionary' => 'hipanel/client',
@@ -76,6 +77,7 @@ class ClientGridView extends BoxedGridView
             ],
             'type' => [
                 'class'  => RefColumn::class,
+                'filterAttribute' => 'types',
                 'format' => 'raw',
                 'gtype'  => 'type,client',
                 'i18nDictionary' => 'hipanel/client',

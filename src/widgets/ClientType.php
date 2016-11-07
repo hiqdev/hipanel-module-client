@@ -19,7 +19,9 @@ class ClientType extends \hipanel\widgets\Type
     public $defaultValues = [
         'none'    => ['client'],
         'danger'  => ['reseller', 'owner'],
-        'warning' => ['admin', 'manager'],
+        'warning' => ['support', 'admin', 'manager'],
+        'primary' => ['employee'],
+        'success' => ['partner'],
     ];
     public $field = 'type';
 }

@@ -19,7 +19,7 @@ class ClientState extends \hipanel\widgets\Type
     public $defaultValues = [
         'none'    => ['ok', 'active'],
         'danger'  => ['blocked', 'wiped'],
-        'deleted' => ['deleted', 'real_deleted'],
+        'default' => ['deleted', 'real_deleted'],
         'warning' => [],
     ];
     public $field = 'state';
