@@ -14,7 +14,9 @@ namespace hipanel\modules\client\grid;
 use hipanel\grid\ActionColumn;
 use hipanel\grid\BoxedGridView;
 use hipanel\grid\MainColumn;
+use hipanel\modules\client\menus\ClientActionsMenu;
 use hipanel\modules\client\widgets\VerificationIndicator;
+use hipanel\widgets\ActionsDropdown;
 use Yii;
 use yii\helpers\Html;
 
@@ -24,7 +26,7 @@ class ContactGridView extends BoxedGridView
     {
         return [
             'name' => [
-                'class'           => MainColumn::class,
+                'class' => MainColumn::class,
                 'filterAttribute' => 'name',
             ],
             'email' => [
@@ -37,6 +39,10 @@ class ContactGridView extends BoxedGridView
                     if ($model->email_new !== $model->email) {
                         $result .= '<br>' . Html::tag('span', $model->email_new, ['class' => 'text-muted']);
                     }
+                    $result .= (new ClientActionsMenu)->render([
+                        'class' => ActionsDropdown::class,
+                        'model' => $model,
+                    ]);
 
                     return $result;
                 },
@@ -59,37 +65,37 @@ class ContactGridView extends BoxedGridView
             ],
             'country' => [
                 'attribute' => 'country_name',
-                'format'    => 'html',
-                'value'     => function ($model) {
+                'format' => 'html',
+                'value' => function ($model) {
                     return Html::tag('span', '',
                         ['class' => 'flag-icon flag-icon-' . $model->country]) . '&nbsp;&nbsp;' . $model->country_name;
                 },
             ],
             'street' => [
-                'label'  => Yii::t('hipanel/client', 'Street'),
+                'label' => Yii::t('hipanel/client', 'Street'),
                 'format' => 'html',
-                'value'  => function ($model) {
+                'value' => function ($model) {
                     return $model->street1 . $model->street2 . $model->street3;
                 },
             ],
             'street1' => [
                 'attribute' => 'street1',
-                'format'    => 'html',
-                'value'     => function ($model) {
+                'format' => 'html',
+                'value' => function ($model) {
                     return Html::tag('span', $model->street1, ['class' => 'bold']);
                 },
             ],
             'street2' => [
                 'attribute' => 'street2',
-                'format'    => 'html',
-                'value'     => function ($model) {
+                'format' => 'html',
+                'value' => function ($model) {
                     return Html::tag('span', $model->street2, ['class' => 'bold']);
                 },
             ],
             'street3' => [
                 'attribute' => 'street3',
-                'format'    => 'html',
-                'value'     => function ($model) {
+                'format' => 'html',
+                'value' => function ($model) {
                     return Html::tag('span', $model->street3, ['class' => 'bold']);
                 },
             ],
@@ -98,8 +104,8 @@ class ContactGridView extends BoxedGridView
             ],
             'messengers' => [
                 'format' => 'html',
-                'label'  => Yii::t('hipanel/client', 'Messengers'),
-                'value'  => function ($model) {
+                'label' => Yii::t('hipanel/client', 'Messengers'),
+                'value' => function ($model) {
                     $res = [];
                     foreach (['skype' => 'Skype', 'icq' => 'ICQ', 'jabber' => 'Jabber'] as $k => $label) {
                         if ($model->{$k}) {
@@ -112,8 +118,8 @@ class ContactGridView extends BoxedGridView
             ],
             'social' => [
                 'format' => 'html',
-                'label'  => Yii::t('hipanel/client', 'Social'),
-                'value'  => function ($model) {
+                'label' => Yii::t('hipanel/client', 'Social'),
+                'value' => function ($model) {
                     return Html::a($model->social_net, $model->social_net);
                 },
             ],
@@ -124,21 +130,21 @@ class ContactGridView extends BoxedGridView
                 'format' => 'date',
             ],
             'actions' => [
-                'class'    => ActionColumn::class,
+                'class' => ActionColumn::class,
                 'template' => '{view} {update} {copy} {delete}',
-                'header'   => Yii::t('hipanel', 'Actions'),
-                'buttons'  => [
-                    'copy'  => function ($url, $model, $key) {
+                'header' => Yii::t('hipanel', 'Actions'),
+                'buttons' => [
+                    'copy' => function ($url, $model, $key) {
                         return Html::a('<span class="fa fa-copy"></span>' . Yii::t('hipanel', 'Copy'), $url);
                     },
                     'delete' => function ($url, $model, $key) {
                         return $model->id !== $model->client_id
                             ? Html::a('<span class="fa fa-trash-o"></span>' . Yii::t('hipanel', 'Delete'), $url, [
-                                'title'        => Yii::t('hipanel', 'Delete'),
-                                'aria-label'   => Yii::t('hipanel', 'Delete'),
+                                'title' => Yii::t('hipanel', 'Delete'),
+                                'aria-label' => Yii::t('hipanel', 'Delete'),
                                 'data' => [
                                     'confirm' => Yii::t('hipanel/client', 'Are you sure you want to delete client {client} contact {contact}?', ['contact' => $model->name, 'client' => $model->client]),
-                                    'method'  => 'post',
+                                    'method' => 'post',
                                     'data-pjax' => '0',
                                 ],
                             ]) : '';
