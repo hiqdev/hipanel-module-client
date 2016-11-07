@@ -34,68 +34,68 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php $page->endContent() ?>
 
     <?php $page->beginContent('show-actions') ?>
-    <?= $page->renderLayoutSwitcher() ?>
-    <?= $page->renderSorter([
-        'attributes' => [
-            'seller',
-            'name',
-            'balance',
-            'credit',
-            'tariff',
-            'type',
-            'create_time',
-        ],
-    ]) ?>
-    <?= $page->renderPerPage() ?>
+        <?= $page->renderLayoutSwitcher() ?>
+        <?= $page->renderSorter([
+            'attributes' => [
+                'seller',
+                'name',
+                'balance',
+                'credit',
+                'tariff',
+                'type',
+                'create_time',
+            ],
+        ]) ?>
+        <?= $page->renderPerPage() ?>
     <?php $page->endContent() ?>
 
     <?php $page->beginContent('bulk-actions') ?>
-    <?php if (Yii::$app->user->can('support')) : ?>
-    <div class="dropdown" style="display: inline-block">
-        <button type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <?= Yii::t('hipanel', 'Block') ?>
-            <span class="caret"></span>
-        </button>
-        <?= Dropdown::widget([
-            'encodeLabels' => false,
-            'options' => ['class' => 'pull-right'],
-            'items' => [
-                [
-                    'label' => '<i class="fa fa-toggle-on"></i> ' . Yii::t('hipanel', 'Enable'),
-                    'linkOptions' => ['data-toggle' => 'modal'],
-                    'url' => '#bulk-enable-block-modal',
-                ],
-                [
-                    'label' => '<i class="fa fa-toggle-off"></i> ' . Yii::t('hipanel', 'Disable'),
-                    'url' => '#bulk-disable-block-modal',
-                    'linkOptions' => ['data-toggle' => 'modal'],
-                ],
-            ],
-        ]); ?>
-        <div class="text-left">
-            <?= AjaxModal::widget([
-                'id' => 'bulk-enable-block-modal',
-                'bulkPage' => true,
-                'header' => Html::tag('h4', Yii::t('hipanel/client', 'Block clients'), ['class' => 'modal-title']),
-                'scenario' => 'bulk-enable-block',
-                'actionUrl' => ['bulk-enable-block-modal'],
-                'size' => Modal::SIZE_LARGE,
-                'handleSubmit' => false,
-                'toggleButton' => false,
-            ]) ?>
-            <?= AjaxModal::widget([
-                'id' => 'bulk-disable-block-modal',
-                'bulkPage' => true,
-                'header' => Html::tag('h4', Yii::t('hipanel/client', 'Unblock clients'), ['class' => 'modal-title']),
-                'scenario' => 'bulk-disable-block',
-                'actionUrl' => ['bulk-disable-block-modal'],
-                'size' => Modal::SIZE_LARGE,
-                'handleSubmit' => false,
-                'toggleButton' => false,
-            ]) ?>
-        </div>
-        <?php endif; ?>
-    </div>
+        <?php if (Yii::$app->user->can('support')) : ?>
+            <div class="dropdown" style="display: inline-block">
+                <button type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <?= Yii::t('hipanel', 'Block') ?>
+                    <span class="caret"></span>
+                </button>
+                <?= Dropdown::widget([
+                    'encodeLabels' => false,
+                    'options' => ['class' => 'pull-right'],
+                    'items' => [
+                        [
+                            'label' => '<i class="fa fa-toggle-on"></i> ' . Yii::t('hipanel', 'Enable'),
+                            'linkOptions' => ['data-toggle' => 'modal'],
+                            'url' => '#bulk-enable-block-modal',
+                        ],
+                        [
+                            'label' => '<i class="fa fa-toggle-off"></i> ' . Yii::t('hipanel', 'Disable'),
+                            'url' => '#bulk-disable-block-modal',
+                            'linkOptions' => ['data-toggle' => 'modal'],
+                        ],
+                    ],
+                ]) ?>
+                <div class="text-left">
+                    <?= AjaxModal::widget([
+                        'id' => 'bulk-enable-block-modal',
+                        'bulkPage' => true,
+                        'header' => Html::tag('h4', Yii::t('hipanel/client', 'Block clients'), ['class' => 'modal-title']),
+                        'scenario' => 'bulk-enable-block',
+                        'actionUrl' => ['bulk-enable-block-modal'],
+                        'size' => Modal::SIZE_LARGE,
+                        'handleSubmit' => false,
+                        'toggleButton' => false,
+                    ]) ?>
+                    <?= AjaxModal::widget([
+                        'id' => 'bulk-disable-block-modal',
+                        'bulkPage' => true,
+                        'header' => Html::tag('h4', Yii::t('hipanel/client', 'Unblock clients'), ['class' => 'modal-title']),
+                        'scenario' => 'bulk-disable-block',
+                        'actionUrl' => ['bulk-disable-block-modal'],
+                        'size' => Modal::SIZE_LARGE,
+                        'handleSubmit' => false,
+                        'toggleButton' => false,
+                    ]) ?>
+                </div>
+            </div>
+        <?php endif ?>
     <?php $page->endContent() ?>
 
     <?php $page->beginContent('table') ?>
