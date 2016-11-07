@@ -101,6 +101,9 @@ class Client extends \hipanel\base\Model
             // Client validation disabled due the Yii2 bug: https://github.com/yiisoft/yii2/issues/9811
             [['confirm_password'], 'compare', 'compareAttribute' => 'new_password', 'enableClientValidation' => false, 'on' => ['change-password']],
 
+            // Delete
+            [['id'], 'integer', 'on' => 'delete'],
+
             // Set temporary password
             [['id'], 'integer', 'on' => 'set-tmp-password'],
 
