@@ -151,11 +151,12 @@ if ($model->scenario === 'change-contact') {
     </div>
     <!-- /.col-md-6 -->
     <div class="col-md-6">
-        <?php Box::begin(['title' => Yii::t('hipanel/client', 'Additional information')]) ?>
+        <?php Box::begin(['title' => Yii::t('hipanel/client', 'Additional contacts')]) ?>
         <?= $form->field($model, 'icq'); ?>
         <?= $form->field($model, 'skype'); ?>
         <?= $form->field($model, 'jabber'); ?>
         <?= $form->field($model, 'other_messenger'); ?>
+        <?= $form->field($model, 'social_net'); ?>
         <?php Box::end() ?>
     </div>
     <!-- /.col-md-6 -->
@@ -164,7 +165,7 @@ if ($model->scenario === 'change-contact') {
             'class' => 'collapsed-box',
         ]]) ?>
         <?php $box->beginHeader(); ?>
-        <h3 class="box-title"><?= Yii::t('hipanel/client', 'Additional fields') ?></h3>
+        <h3 class="box-title"><?= Yii::t('hipanel/client', 'Additional information') ?></h3>
 
         <div class="box-tools pull-right">
             <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
@@ -218,6 +219,12 @@ if ($model->scenario === 'change-contact') {
         <?php $box->end() ?>
     </div>
     <!-- /.col-md-6 -->
+    <div class="col-md-6">
+        <?php Box::begin(['title' => Yii::t('hipanel/client', 'Tax information')]) ?>
+        <?= $form->field($model, 'vat_number') ?>
+        <?= $form->field($model, 'vat_rate') ?>
+        <?php Box::end() ?>
+    </div>
 </div>
 <!-- /.row -->
 

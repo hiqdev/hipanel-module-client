@@ -54,6 +54,10 @@ class Contact extends \hipanel\base\Model
             [['name', 'first_name', 'last_name'], 'string'],
             [['birth_date', 'passport_date'], 'safe'],
             [['passport_no', 'passport_by', 'organization', 'password'], 'safe'],
+
+            [['vat_number'], 'trim'],
+            [['vat_rate'], 'number', 'max' => 99],
+
             [['remote', 'file'], 'safe'],
             [['email_confirmed'], 'boolean'],
             [['used_count'], 'integer'],
@@ -71,7 +75,6 @@ class Contact extends \hipanel\base\Model
                     'street1',
                     'city',
                     'country',
-                    'postal_code',
                     'postal_code',
                     'voice_phone'
                 ],
@@ -149,6 +152,9 @@ class Contact extends \hipanel\base\Model
             'other_messenger' => Yii::t('hipanel/client', 'Other messenger'),
             'passport_date' => Yii::t('hipanel/client', 'Passport issue date'),
             'passport_by' => Yii::t('hipanel/client', 'Issued by'),
+            'social_net' => Yii::t('hipanel/client', 'Social'),
+            'vat_number' => Yii::t('hipanel/client', 'VAT number'),
+            'vat_rate' => Yii::t('hipanel/client', 'VAT rate'),
         ]);
     }
 

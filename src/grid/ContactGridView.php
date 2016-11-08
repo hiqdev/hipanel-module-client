@@ -114,9 +114,8 @@ class ContactGridView extends BoxedGridView
                     return implode('<br>', $res);
                 },
             ],
-            'social' => [
+            'social_net' => [
                 'format' => 'html',
-                'label' => Yii::t('hipanel/client', 'Social'),
                 'value' => function ($model) {
                     return Html::a($model->social_net, $model->social_net);
                 },

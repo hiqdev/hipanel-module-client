@@ -32,31 +32,55 @@ FlagIconCssAsset::register($this);
                 'class' => 'no-padding',
             ],
         ]) ?>
-        <div class="profile-user-img text-center">
-            <?= $this->render('//layouts/gravatar', ['email' => $model->email, 'size' => 120]) ?>
-        </div>
-        <p class="text-center">
-            <span class="profile-user-role"><?= $this->title ?></span>
-            <br>
-            <span class="profile-user-name"><?= ClientSellerLink::widget(compact('model')) ?></span>
-        </p>
+            <div class="profile-user-img text-center">
+                <?= $this->render('//layouts/gravatar', ['email' => $model->email, 'size' => 120]) ?>
+            </div>
+            <p class="text-center">
+                <span class="profile-user-role"><?= $this->title ?></span>
+                <br>
+                <span class="profile-user-name"><?= ClientSellerLink::widget(compact('model')) ?></span>
+            </p>
 
-        <div class="profile-usermenu">
-            <ul class="nav">
-                <li>
-                    <?= Html::a('<i class="fa fa-edit"></i>' . Yii::t('hipanel/client', 'Change contact information'), ['update', 'id' => $model->id]) ?>
-                </li>
-                <li>
-                    <?= Html::a('<i class="fa fa-paperclip"></i>' . Yii::t('hipanel/client', 'Documents'), ['attach-files', 'id' => $model->id]) ?>
-                </li>
-            <?php if (Yii::getAlias('@domain', false) && $model->used_count > 0) : ?>
-                <li>
-                    <?= Html::a('<i class="fa fa-globe"></i>' . Yii::t('hipanel/client', 'Used for {n, plural, one{# domain} other{# domains}}', ['n' => $model->used_count]), Url::toSearch('domain', ['client_id' => $model->client_id])) ?>
-                </li>
-            <?php endif ?>
-            </ul>
-        </div>
+            <div class="profile-usermenu">
+                <ul class="nav">
+                    <li>
+                        <?= Html::a('<i class="fa fa-edit"></i>' . Yii::t('hipanel', 'Edit'), ['update', 'id' => $model->id]) ?>
+                    </li>
+                    <li>
+                        <?= Html::a('<i class="fa fa-paperclip"></i>' . Yii::t('hipanel/client', 'Documents'), ['attach-files', 'id' => $model->id]) ?>
+                    </li>
+                <?php if (Yii::getAlias('@domain', false) && $model->used_count > 0) : ?>
+                    <li>
+                        <?= Html::a('<i class="fa fa-globe"></i>' . Yii::t('hipanel/client', 'Used for {n, plural, one{# domain} other{# domains}}', ['n' => $model->used_count]), Url::toSearch('domain', ['client_id' => $model->client_id])) ?>
+                    </li>
+                <?php endif ?>
+                </ul>
+            </div>
         <?php Box::end() ?>
+
+        <?php if (Yii::$app->user->can('manage')) : ?>
+            <?php $box = Box::begin(['renderBody' => false]) ?>
+                <?php $box->beginHeader() ?>
+                    <?= $box->renderTitle(Yii::t('hipanel/client', 'Verification status')) ?>
+                <?php $box->endHeader() ?>
+                <?php $box->beginBody() ?>
+                    <table class="table table-striped table-bordered">
+                        <tbody>
+                            <?php foreach (['name', 'address', 'email', 'voice_phone', 'fax_phone'] as $attribute) : ?>
+                                <tr>
+                                    <th><?= $model->getAttributeLabel($attribute) ?></th>
+                                    <td>
+                                        <?= Verification::widget([
+                                            'model' => $model->getVerification($attribute),
+                                        ]) ?>
+                                    </td>
+                                </tr>
+                            <?php endforeach ?>
+                        </tbody>
+                    </table>
+                <?php $box->endBody() ?>
+            <?php $box->end() ?>
+        <?php endif ?>
     </div>
 
     <div class="col-md-9">
@@ -66,7 +90,7 @@ FlagIconCssAsset::register($this);
                     <?php $box->beginHeader() ?>
                         <?= $box->renderTitle(Yii::t('hipanel/client', 'Contact information')) ?>
                         <?php $box->beginTools() ?>
-                            <?= Html::a(Yii::t('hipanel/client', 'Change contact information'), ['update', 'id' => $model->id], ['class' => 'btn btn-default btn-xs']) ?>
+                            <?= Html::a(Yii::t('hipanel', 'Edit'), ['update', 'id' => $model->id], ['class' => 'btn btn-default btn-xs']) ?>
                         <?php $box->endTools() ?>
                     <?php $box->endHeader() ?>
                     <?php $box->beginBody() ?>
@@ -80,35 +104,32 @@ FlagIconCssAsset::register($this);
                                 'birth_date',
                                 'email_with_verification', 'abuse_email',
                                 'voice_phone', 'fax_phone',
-                                'messengers', 'other', 'social',
+                                'messengers', 'other', 'social_net',
                             ],
                         ]) ?>
                     <?php $box->endBody() ?>
                 <?php $box->end() ?>
 
-                <?php if (Yii::$app->user->can('manage')) : ?>
-                    <?php $box = Box::begin(['renderBody' => false]) ?>
-                        <?php $box->beginHeader() ?>
-                            <?= $box->renderTitle(Yii::t('hipanel/client', 'Verification status')) ?>
-                        <?php $box->endHeader() ?>
-                        <?php $box->beginBody() ?>
-                            <table class="table table-striped table-bordered">
-                                <tbody>
-                                    <?php foreach (['name', 'address', 'email', 'voice_phone', 'fax_phone'] as $attribute) : ?>
-                                        <tr>
-                                            <th><?= $model->getAttributeLabel($attribute) ?></th>
-                                            <td>
-                                                <?= Verification::widget([
-                                                    'model' => $model->getVerification($attribute),
-                                                ]) ?>
-                                            </td>
-                                        </tr>
-                                    <?php endforeach ?>
-                                </tbody>
-                            </table>
-                        <?php $box->endBody() ?>
-                    <?php $box->end() ?>
-                <?php endif ?>
+                <?php $box = Box::begin([
+                    'renderBody' => false,
+                    'collapsed' => empty($model->vat_number) && empty($model->vat_rate),
+                ]) ?>
+                    <?php $box->beginHeader() ?>
+                        <?= $box->renderTitle(Yii::t('hipanel/client', 'Tax information')) ?>
+                        <div class="box-tools pull-right">
+                            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
+                        </div>
+                    <?php $box->endHeader() ?>
+                    <?php $box->beginBody() ?>
+                        <?= ContactGridView::detailView([
+                            'boxed'   => false,
+                            'model'   => $model,
+                            'columns' => [
+                                'vat_number', 'vat_rate',
+                            ],
+                        ]) ?>
+                    <?php $box->endBody() ?>
+                <?php $box->end() ?>
             </div>
             <div class="col-md-6">
                 <?php $box = Box::begin(['renderBody' => false]) ?>
@@ -120,14 +141,12 @@ FlagIconCssAsset::register($this);
                             'boxed'   => false,
                             'model'   => $model,
                             'columns' => [
-                                'first_name', 'last_name',
-                                'organization',
+                                'first_name', 'last_name', 'organization',
                                 'street', 'city', 'province', 'postal_code', 'country',
                             ],
                         ]) ?>
                     <?php $box->endBody() ?>
                 <?php $box->end() ?>
-
 
                 <?php $box = Box::begin(['renderBody' => false, 'options' => [
                     'class' => 'collapsed-box',
