@@ -113,13 +113,9 @@ FlagIconCssAsset::register($this);
                 <?php $box = Box::begin([
                     'renderBody' => false,
                     'collapsed' => empty($model->vat_number) && empty($model->vat_rate),
+                    'collapsable' => true,
+                    'title' => Yii::t('hipanel/client', 'Tax information'),
                 ]) ?>
-                    <?php $box->beginHeader() ?>
-                        <?= $box->renderTitle(Yii::t('hipanel/client', 'Tax information')) ?>
-                        <div class="box-tools pull-right">
-                            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
-                        </div>
-                    <?php $box->endHeader() ?>
                     <?php $box->beginBody() ?>
                         <?= ContactGridView::detailView([
                             'boxed'   => false,
@@ -148,15 +144,11 @@ FlagIconCssAsset::register($this);
                     <?php $box->endBody() ?>
                 <?php $box->end() ?>
 
-                <?php $box = Box::begin(['renderBody' => false, 'options' => [
-                    'class' => 'collapsed-box',
-                ]]) ?>
-                    <?php $box->beginHeader() ?>
-                        <?= $box->renderTitle(Yii::t('hipanel/client', 'Additional information')) ?>
-                        <div class="box-tools pull-right">
-                            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
-                        </div>
-                    <?php $box->endHeader() ?>
+                <?php $box = Box::begin([
+                    'renderBody' => false,
+                    'collapsed' => true,
+                    'title' => Yii::t('hipanel/client', 'Additional information'),
+                ]) ?>
                     <?php $box->beginBody() ?>
                         <?= ContactGridView::detailView([
                             'boxed'   => false,

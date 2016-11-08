@@ -122,7 +122,6 @@ if ($model->scenario === 'change-contact') {
         <?= Html::submitButton(Yii::t('hipanel', 'Cancel'), ['class' => 'btn btn-default', 'onclick' => 'window.history.back();']); ?>
         <?php Box::end(); ?>
     </div>
-    <!-- /.com-md-12 -->
 
     <div class="col-md-6">
         <?php Box::begin(['title' => Yii::t('hipanel/client', 'Contact details')]) ?>
@@ -149,7 +148,7 @@ if ($model->scenario === 'change-contact') {
 
         <?php Box::end() ?>
     </div>
-    <!-- /.col-md-6 -->
+
     <div class="col-md-6">
         <?php Box::begin(['title' => Yii::t('hipanel/client', 'Additional contacts')]) ?>
         <?= $form->field($model, 'icq'); ?>
@@ -159,19 +158,20 @@ if ($model->scenario === 'change-contact') {
         <?= $form->field($model, 'social_net'); ?>
         <?php Box::end() ?>
     </div>
-    <!-- /.col-md-6 -->
-    <div class="col-md-6">
-        <?php $box = Box::begin(['renderBody' => false, 'options' => [
-            'class' => 'collapsed-box',
-        ]]) ?>
-        <?php $box->beginHeader(); ?>
-        <h3 class="box-title"><?= Yii::t('hipanel/client', 'Additional information') ?></h3>
 
-        <div class="box-tools pull-right">
-            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
-        </div>
-        <!-- /.box-tools -->
-        <?php $box->endHeader(); ?>
+    <div class="col-md-6">
+        <?php Box::begin(['title' => Yii::t('hipanel/client', 'Tax information')]) ?>
+        <?= $form->field($model, 'vat_number') ?>
+        <?= $form->field($model, 'vat_rate') ?>
+        <?php Box::end() ?>
+    </div>
+
+    <div class="col-md-6">
+        <?php $box = Box::begin([
+            'renderBody' => false,
+            'collapsed' => true,
+            'title' => Yii::t('hipanel/client', 'Additional information'),
+        ]) ?>
         <?php $box->beginBody() ?>
         <fieldset id="fiz_domain">
             <div
@@ -219,12 +219,6 @@ if ($model->scenario === 'change-contact') {
         <?php $box->end() ?>
     </div>
     <!-- /.col-md-6 -->
-    <div class="col-md-6">
-        <?php Box::begin(['title' => Yii::t('hipanel/client', 'Tax information')]) ?>
-        <?= $form->field($model, 'vat_number') ?>
-        <?= $form->field($model, 'vat_rate') ?>
-        <?php Box::end() ?>
-    </div>
 </div>
 <!-- /.row -->
 
