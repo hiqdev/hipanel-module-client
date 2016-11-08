@@ -11,12 +11,14 @@
 
 namespace hipanel\modules\client\grid;
 
+use hiqdev\menumanager\widgets\MenuButton;
 use hipanel\grid\ActionColumn;
 use hipanel\grid\BoxedGridView;
 use hipanel\grid\MainColumn;
 use hipanel\grid\RefColumn;
 use hipanel\grid\XEditableColumn;
 use hipanel\helpers\Url;
+use hipanel\modules\client\menus\ClientActionsMenu;
 use hipanel\modules\client\models\Client;
 use hipanel\modules\client\widgets\ClientState;
 use hipanel\modules\client\widgets\ClientType;
@@ -38,15 +40,19 @@ class ClientGridView extends BoxedGridView
                 'label'         => Yii::t('hipanel', 'Client'),
             ],
             'login' => [
-                'class' => MainColumn::class,
+                'class'           => MainColumn::class,
                 'attribute'       => 'login',
                 'filterAttribute' => 'login_like',
                 'format'          => 'raw',
                 'value'           => function ($model) {
-                    return Html::a($model->login, ['@client/view', 'id' => $model->id]);
+                    return Html::a($model->login, ['@client/view', 'id' => $model->id]) .
+                        ClientActionsMenu::create([
+                            'model' => $model,
+                        ])->render(MenuButton::class)
+                    ;
                 },
-                'note' => Yii::$app->user->can('manage') ? 'note' : null,
-                'noteOptions' => [
+                'note'            => Yii::$app->user->can('manage') ? 'note' : null,
+                'noteOptions'     => [
                     'url' => Url::to('set-note'),
                 ],
             ],

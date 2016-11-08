@@ -11,12 +11,12 @@
 
 namespace hipanel\modules\client\grid;
 
+use hiqdev\menumanager\widgets\MenuButton;
 use hipanel\grid\ActionColumn;
 use hipanel\grid\BoxedGridView;
 use hipanel\grid\MainColumn;
 use hipanel\modules\client\menus\ClientActionsMenu;
 use hipanel\modules\client\widgets\VerificationIndicator;
-use hipanel\widgets\ActionsDropdown;
 use Yii;
 use yii\helpers\Html;
 
@@ -27,7 +27,15 @@ class ContactGridView extends BoxedGridView
         return [
             'name' => [
                 'class' => MainColumn::class,
-                'filterAttribute' => 'name',
+                'filterAttribute' => 'name_like',
+                'format'          => 'raw',
+                'value'           => function ($model) {
+                    return Html::a($model->name, ['@contact/view', 'id' => $model->id]) .
+                        ClientActionsMenu::create([
+                            'model' => $model,
+                        ])->render(MenuButton::class)
+                    ;
+                },
             ],
             'email' => [
                 'format' => 'raw',
@@ -39,10 +47,6 @@ class ContactGridView extends BoxedGridView
                     if ($model->email_new !== $model->email) {
                         $result .= '<br>' . Html::tag('span', $model->email_new, ['class' => 'text-muted']);
                     }
-                    $result .= (new ClientActionsMenu)->render([
-                        'class' => ActionsDropdown::class,
-                        'model' => $model,
-                    ]);
 
                     return $result;
                 },
