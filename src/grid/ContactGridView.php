@@ -15,7 +15,7 @@ use hiqdev\menumanager\widgets\MenuButton;
 use hipanel\grid\ActionColumn;
 use hipanel\grid\BoxedGridView;
 use hipanel\grid\MainColumn;
-use hipanel\modules\client\menus\ClientActionsMenu;
+use hipanel\modules\client\menus\ContactActionsMenu;
 use hipanel\modules\client\widgets\VerificationIndicator;
 use Yii;
 use yii\helpers\Html;
@@ -31,7 +31,7 @@ class ContactGridView extends BoxedGridView
                 'format'          => 'raw',
                 'value'           => function ($model) {
                     return Html::a($model->name, ['@contact/view', 'id' => $model->id]) .
-                        ClientActionsMenu::create([
+                        ContactActionsMenu::create([
                             'model' => $model,
                         ])->render(MenuButton::class)
                     ;
