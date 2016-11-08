@@ -11,6 +11,7 @@
 
 namespace hipanel\modules\client\grid;
 
+use hiqdev\menumanager\MenuColumn;
 use hiqdev\menumanager\widgets\MenuButton;
 use hipanel\grid\ActionColumn;
 use hipanel\grid\BoxedGridView;
@@ -29,13 +30,6 @@ class ContactGridView extends BoxedGridView
                 'class' => MainColumn::class,
                 'filterAttribute' => 'name_like',
                 'format'          => 'raw',
-                'value'           => function ($model) {
-                    return Html::a($model->name, ['@contact/view', 'id' => $model->id]) .
-                        ContactActionsMenu::create([
-                            'model' => $model,
-                        ])->render(MenuButton::class)
-                    ;
-                },
             ],
             'email' => [
                 'format' => 'raw',
@@ -134,26 +128,8 @@ class ContactGridView extends BoxedGridView
                 'format' => 'date',
             ],
             'actions' => [
-                'class' => ActionColumn::class,
-                'template' => '{view} {update} {copy} {delete}',
-                'header' => Yii::t('hipanel', 'Actions'),
-                'buttons' => [
-                    'copy' => function ($url, $model, $key) {
-                        return Html::a('<span class="fa fa-copy"></span>' . Yii::t('hipanel', 'Copy'), $url);
-                    },
-                    'delete' => function ($url, $model, $key) {
-                        return $model->id !== $model->client_id
-                            ? Html::a('<span class="fa fa-trash-o"></span>' . Yii::t('hipanel', 'Delete'), $url, [
-                                'title' => Yii::t('hipanel', 'Delete'),
-                                'aria-label' => Yii::t('hipanel', 'Delete'),
-                                'data' => [
-                                    'confirm' => Yii::t('hipanel/client', 'Are you sure you want to delete client {client} contact {contact}?', ['contact' => $model->name, 'client' => $model->client]),
-                                    'method' => 'post',
-                                    'data-pjax' => '0',
-                                ],
-                            ]) : '';
-                    },
-                ],
+                'class' => MenuColumn::class,
+                'menuClass' => ContactActionsMenu::class,
             ],
         ];
     }
