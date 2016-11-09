@@ -163,6 +163,7 @@ if ($model->scenario === 'change-contact') {
         <?php Box::begin(['title' => Yii::t('hipanel/client', 'Tax information')]) ?>
         <?= $form->field($model, 'vat_number') ?>
         <?= $form->field($model, 'vat_rate') ?>
+        <?= $form->field($model, 'tax_comment') ?>
         <?php Box::end() ?>
     </div>
 

@@ -121,7 +121,7 @@ FlagIconCssAsset::register($this);
                             'boxed'   => false,
                             'model'   => $model,
                             'columns' => [
-                                'vat_number', 'vat_rate',
+                                'vat_number', 'vat_rate', 'tax_comment',
                             ],
                         ]) ?>
                     <?php $box->endBody() ?>

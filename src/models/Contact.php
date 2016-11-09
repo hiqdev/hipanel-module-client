@@ -45,6 +45,7 @@ class Contact extends \hipanel\base\Model
             [['create_time', 'update_time', 'created_date', 'updated_date'], 'date'],
             [['client', 'seller', 'state', 'type'], 'safe'],
             [['email', 'abuse_email', 'email_new'], 'email'],
+            [['emails'], 'trim'],
             [['country', 'country_name', 'province', 'province_name'], 'safe'],
             [['postal_code'], 'safe'],
             [['city', 'street1', 'street2', 'street3'], 'safe'],
@@ -55,7 +56,7 @@ class Contact extends \hipanel\base\Model
             [['birth_date', 'passport_date'], 'safe'],
             [['passport_no', 'passport_by', 'organization', 'password'], 'safe'],
 
-            [['vat_number'], 'trim'],
+            [['vat_number', 'tax_comment'], 'trim'],
             [['vat_rate'], 'number', 'max' => 99],
 
             [['remote', 'file'], 'safe'],
