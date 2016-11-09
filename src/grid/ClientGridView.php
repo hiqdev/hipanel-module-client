@@ -11,6 +11,7 @@
 
 namespace hipanel\modules\client\grid;
 
+use hiqdev\menumanager\MenuColumn;
 use hiqdev\menumanager\widgets\MenuButton;
 use hipanel\grid\ActionColumn;
 use hipanel\grid\BoxedGridView;
@@ -44,13 +45,6 @@ class ClientGridView extends BoxedGridView
                 'attribute'       => 'login',
                 'filterAttribute' => 'login_like',
                 'format'          => 'raw',
-                'value'           => function ($model) {
-                    return Html::a($model->login, ['@client/view', 'id' => $model->id]) .
-                        ClientActionsMenu::create([
-                            'model' => $model,
-                        ])->render(MenuButton::class)
-                    ;
-                },
                 'note'            => Yii::$app->user->can('manage') ? 'note' : null,
                 'noteOptions'     => [
                     'url' => Url::to('set-note'),
@@ -253,9 +247,9 @@ class ClientGridView extends BoxedGridView
                     return $res;
                 },
             ],
-            'action' => [
-                'class'     => ActionColumn::class,
-                'template'  => Yii::$app->user->can('support') ? '{view}' : '{view}',
+            'actions' => [
+                'class' => MenuColumn::class,
+                'menuClass' => ClientActionsMenu::class,
             ],
         ];
     }

@@ -109,7 +109,9 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel'  => $model,
         'columns'      => [
             'checkbox',
-            'login', 'name', 'seller_id',
+            'login',
+            'actions',
+            'name', 'seller_id',
             'type', 'state',
             'balance', 'credit',
         ],
