@@ -3,7 +3,6 @@
 namespace hipanel\modules\client\menus;
 
 use Yii;
-use yii\helpers\Url;
 
 class ClientActionsMenu extends \hiqdev\menumanager\Menu
 {
@@ -14,13 +13,13 @@ class ClientActionsMenu extends \hiqdev\menumanager\Menu
         return [
             [
                 'label' => '<i class="fa fa-fw fa-info"></i> ' . Yii::t('hipanel', 'View'),
-                'url' => Url::to(['@client/view', 'id' => $this->model->id]),
+                'url' => ['@client/view', 'id' => $this->model->id],
                 'encode' => false,
             ],
             [
                 'label' => '<i class="fa fa-fw fa-trash"></i> ' . Yii::t('hipanel', 'Delete'),
-                'url' => Url::to(['@client/delete', 'id' => $this->model->id]),
-                'options' => [
+                'url' => ['@client/delete', 'id' => $this->model->id],
+                'linkOptions' => [
                     'data' => [
                         'confirm' => Yii::t('hipanel', 'Are you sure you want to delete this item?'),
                         'method' => 'POST',
