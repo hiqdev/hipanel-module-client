@@ -1,6 +1,7 @@
 <?php
 
 use hipanel\helpers\Url;
+use hipanel\modules\client\models\Client;
 use hipanel\modules\client\widgets\combo\SellerCombo;
 use hipanel\widgets\PasswordInput;
 use yii\bootstrap\ActiveForm;
@@ -18,6 +19,7 @@ $form = ActiveForm::begin([
 <?= $form->field($model, 'client')->textInput() ?>
 <?= $form->field($model, 'email')->textInput() ?>
 <?= $form->field($model, 'password')->widget(PasswordInput::class) ?>
+<?= $form->field($model, 'type')->dropDownList(Client::getTypeOptions()) ?>
 <?= $form->field($model, 'seller_id')->widget(SellerCombo::class) ?>
 
 <?= Html::submitButton(Yii::t('hipanel', 'Save'), ['class' => 'btn btn-success']) ?>

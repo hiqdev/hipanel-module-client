@@ -11,7 +11,6 @@
 
 namespace hipanel\modules\client\models;
 
-use Exception;
 use hipanel\helpers\StringHelper;
 use hipanel\modules\client\models\query\ClientQuery;
 use hipanel\modules\domain\models\Domain;
@@ -36,33 +35,36 @@ class Client extends \hipanel\base\Model
     public function rules()
     {
         return [
-            [['id', 'seller_id', 'state_id', 'type_id', 'tariff_id', 'profile_id'],             'integer'],
-            [['login', 'seller', 'state', 'type', 'tariff', 'profile'],                         'safe'],
-            [['state_label', 'type_label'],                                                     'safe'],
-            [['balance', 'credit'],                                                             'number'],
-            [['purses'],                                                                        'safe'],
-            [['count', 'confirm_url', 'language', 'comment', 'name', 'contact', 'currency'],    'safe'],
-            [['create_time', 'update_time'],                                                    'date'],
+            [['id', 'seller_id', 'state_id', 'type_id', 'tariff_id', 'profile_id'], 'integer'],
+            [['login', 'seller', 'state', 'type', 'tariff', 'profile'], 'safe'],
+            [['state_label', 'type_label'], 'safe'],
+            [['balance', 'credit'], 'number'],
+            [['purses'], 'safe'],
+            [['count', 'confirm_url', 'language', 'comment', 'name', 'contact', 'currency'], 'safe'],
+            [['create_time', 'update_time'], 'date'],
             [['id', 'note'], 'safe', 'on' => 'set-note'],
 
-            [['id', 'credit'],                              'required', 'on' => 'set-credit'],
-            [['id', 'type', 'comment'],                     'required', 'on' => ['set-block', 'enable-block']],
-            [['id'],                                        'required', 'on' => ['disable-block']],
-            [['comment'],                                   'safe',     'on' => ['disable-block']],
-            [['id', 'language'],                            'required', 'on' => 'set-language'],
-            [['id', 'seller_id'],                           'required', 'on' => 'set-seller'],
+            [['id', 'credit'], 'required', 'on' => 'set-credit'],
+            [['id', 'type', 'comment'], 'required', 'on' => ['set-block', 'enable-block']],
+            [['id'], 'required', 'on' => ['disable-block']],
+            [['comment'], 'safe', 'on' => ['disable-block']],
+            [['id', 'language'], 'required', 'on' => 'set-language'],
+            [['id', 'seller_id'], 'required', 'on' => 'set-seller'],
 
-            [['password', 'client', 'seller_id', 'email'],  'required', 'on' => ['create', 'update']],
-            [['email'],                                     'email',    'on' => ['create', 'update']],
+            [['password', 'client', 'seller_id', 'email'], 'required', 'on' => ['create', 'update']],
+            [['type'], 'required', 'on' => ['create', 'update']],
+            [['type'], 'default', 'value' => self::TYPE_CLIENT, 'on' => ['create', 'update']],
+            [['type'], 'in', 'range' => array_keys(self::getTypeOptions()), 'on' => ['create', 'update']],
+            [['email'], 'email', 'on' => ['create', 'update']],
             [['client'], 'match', 'pattern' => '/^[a-z][a-z0-9_]{2,31}$/',
                 'message' => Yii::t('hipanel/client', 'Field "{attribute}" can contain Latin characters written in lower case, and it may contain numbers and underscores'),
                 'on' => ['create', 'update']],
             [['client', 'email'], 'unique', 'on' => ['create', 'update']],
 
             // Ticket settings
-            [['ticket_emails'],                             'string',   'max' => 128, 'on' => 'ticket-settings'],
-            [['ticket_emails'],                             'email',    'on' => 'ticket-settings'],
-            [['send_message_text', 'new_messages_first'],   'boolean',  'on' => 'ticket-settings'],
+            [['ticket_emails'], 'string', 'max' => 128, 'on' => 'ticket-settings'],
+            [['ticket_emails'], 'email', 'on' => 'ticket-settings'],
+            [['send_message_text', 'new_messages_first'], 'boolean', 'on' => 'ticket-settings'],
 
             // Domain settings
             [['nss'], 'filter', 'filter' => function ($value) {
@@ -120,17 +122,17 @@ class Client extends \hipanel\base\Model
             // If pincode enabled
             [['pincode'], 'required', 'when' => function ($model) {
                 return (empty($model->answer) && $model->pincode_enabled) ? true : false;
-            }, 
-                'enableClientValidation' => false, 
-                'message' => Yii::t('hipanel/client', 'Fill the Pincode or answer to the question.'), 
+            },
+                'enableClientValidation' => false,
+                'message' => Yii::t('hipanel/client', 'Fill the Pincode or answer to the question.'),
                 'on' => ['pincode-settings']
             ],
 
             [['answer'], 'required', 'when' => function ($model) {
                 return (empty($model->pincode) && $model->pincode_enabled) ? true : false;
-            }, 
-                'enableClientValidation' => false, 
-                'message' => Yii::t('hipanel/client', 'Fill the Answer or enter the Pincode.'), 
+            },
+                'enableClientValidation' => false,
+                'message' => Yii::t('hipanel/client', 'Fill the Answer or enter the Pincode.'),
                 'on' => ['pincode-settings']
             ],
         ];
@@ -139,40 +141,40 @@ class Client extends \hipanel\base\Model
     public function attributeLabels()
     {
         return $this->mergeAttributeLabels([
-            'login'                         => Yii::t('hipanel/client', 'Login'),
+            'login' => Yii::t('hipanel/client', 'Login'),
 
-            'create_time'                   => Yii::t('hipanel', 'Registered'),
-            'update_time'                   => Yii::t('hipanel', 'Last update'),
+            'create_time' => Yii::t('hipanel', 'Registered'),
+            'update_time' => Yii::t('hipanel', 'Last update'),
 
-            'ticket_emails'                 => Yii::t('hipanel/client', 'Email for tickets'),
-            'send_message_text'             => Yii::t('hipanel/client', 'Send message text'),
+            'ticket_emails' => Yii::t('hipanel/client', 'Email for tickets'),
+            'send_message_text' => Yii::t('hipanel/client', 'Send message text'),
 
-            'allowed_ips'                   => Yii::t('hipanel/client', 'Allowed IPs for panel login'),
-            'sshftp_ips'                    => Yii::t('hipanel/client', 'Default allowed IPs for SSH/FTP accounts'),
+            'allowed_ips' => Yii::t('hipanel/client', 'Allowed IPs for panel login'),
+            'sshftp_ips' => Yii::t('hipanel/client', 'Default allowed IPs for SSH/FTP accounts'),
 
-            'old_password'                  => Yii::t('hipanel', 'Current password'),
-            'new_password'                  => Yii::t('hipanel', 'New password'),
-            'confirm_password'              => Yii::t('hipanel', 'Confirm password'),
+            'old_password' => Yii::t('hipanel', 'Current password'),
+            'new_password' => Yii::t('hipanel', 'New password'),
+            'confirm_password' => Yii::t('hipanel', 'Confirm password'),
 
             // Mailing settings
-            'notify_important_actions'      => Yii::t('hipanel/client', 'Notify important actions'),
-            'domain_registration'           => Yii::t('hipanel/client', 'Domain registration'),
-            'newsletters'                   => Yii::t('hipanel/client', 'Newsletters'),
-            'commercial'                    => Yii::t('hipanel/client', 'Commercial'),
+            'notify_important_actions' => Yii::t('hipanel/client', 'Notify important actions'),
+            'domain_registration' => Yii::t('hipanel/client', 'Domain registration'),
+            'newsletters' => Yii::t('hipanel/client', 'Newsletters'),
+            'commercial' => Yii::t('hipanel/client', 'Commercial'),
 
             // Domain settings
-            'autorenewal'                   => Yii::t('hipanel', 'Autorenewal'),
-            'nss'                           => Yii::t('hipanel', 'Name servers'),
-            'whois_protected'               => Yii::t('hipanel/client', 'WHOIS protect'),
-            'registrant'                    => Yii::t('hipanel/client', 'Registrant contact'),
-            'admin'                         => Yii::t('hipanel/client', 'Admin contact'),
-            'tech'                          => Yii::t('hipanel/client', 'Tech contact'),
-            'billing'                       => Yii::t('hipanel/client', 'Billing contact'),
+            'autorenewal' => Yii::t('hipanel', 'Autorenewal'),
+            'nss' => Yii::t('hipanel', 'Name servers'),
+            'whois_protected' => Yii::t('hipanel/client', 'WHOIS protect'),
+            'registrant' => Yii::t('hipanel/client', 'Registrant contact'),
+            'admin' => Yii::t('hipanel/client', 'Admin contact'),
+            'tech' => Yii::t('hipanel/client', 'Tech contact'),
+            'billing' => Yii::t('hipanel/client', 'Billing contact'),
 
             // Pincode
-            'pincode'                       => Yii::t('hipanel/client', 'Enter pincode'),
-            'question'                      => Yii::t('hipanel/client', 'Choose question'),
-            'answer'                        => Yii::t('hipanel/client', 'Answer'),
+            'pincode' => Yii::t('hipanel/client', 'Enter pincode'),
+            'question' => Yii::t('hipanel/client', 'Choose question'),
+            'answer' => Yii::t('hipanel/client', 'Answer'),
         ]);
     }
 
@@ -237,6 +239,16 @@ class Client extends \hipanel\base\Model
         return [
             'change-password' => 'set-password',
             'pincode-settings' => $this->pincode_enabled ? 'disable-pincode' : 'enable-pincode'
+        ];
+    }
+
+    public static function getTypeOptions()
+    {
+        return [
+            self::TYPE_CLIENT => Yii::t('hipanel/client', 'Client'),
+            self::TYPE_SELLER => Yii::t('hipanel/client', 'Reseller'),
+            self::TYPE_MANAGER => Yii::t('hipanel/client', 'Manager'),
+            self::TYPE_ADMIN => Yii::t('hipanel/client', 'Administrator'),
         ];
     }
 }
