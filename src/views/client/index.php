@@ -110,7 +110,6 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns'      => [
             'checkbox',
             'login',
-            'actions',
             'name', 'seller_id',
             'type', 'state',
             'balance', 'credit',
