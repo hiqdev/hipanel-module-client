@@ -57,6 +57,7 @@ class Contact extends \hipanel\base\Model
             [['passport_no', 'passport_by', 'organization', 'password'], 'safe'],
 
             [['vat_number', 'tax_comment'], 'trim'],
+            [['vat_number', 'tax_comment'], 'string', 'max' => 32],
             [['vat_rate'], 'number', 'max' => 99],
 
             [['remote', 'file'], 'safe'],

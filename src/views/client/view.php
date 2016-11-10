@@ -179,10 +179,11 @@ $this->registerCss('legend {font-size: 16px;}');
                             <?= Html::a(Yii::t('hipanel', 'Change'), ['@contact/update', 'id' => $model->id], ['class' => 'btn btn-default btn-xs']) ?>
                         <?php $box->endTools(); ?>
                     <?php $box->endHeader(); ?>
+                    <?php $contact = new Contact(); $contact->load($model->contact, ''); ?>
                     <?php $box->beginBody(); ?>
                         <?= ContactGridView::detailView([
                             'boxed' => false,
-                            'model' => new Contact($model->contact),
+                            'model' => $contact,
                             'columns' => [
                                 'first_name', 'last_name', 'organization',
                                 'email', 'abuse_email', 'messengers', 'social_net',

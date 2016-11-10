@@ -130,6 +130,11 @@ class ContactGridView extends BoxedGridView
                 'class' => MenuColumn::class,
                 'menuClass' => ContactActionsMenu::class,
             ],
+            'vat_rate' => [
+                'value' => function ($model) {
+                    return $model->vat_rate ? (int)$model->vat_rate . '%' : null;
+                },
+            ],
         ];
     }
 }
