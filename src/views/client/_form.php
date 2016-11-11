@@ -16,7 +16,7 @@ $form = ActiveForm::begin([
 ]);
 ?>
 
-<?= $form->field($model, 'client')->textInput() ?>
+<?= $form->field($model, 'login')->textInput() ?>
 <?= $form->field($model, 'email')->textInput() ?>
 <?= $form->field($model, 'password')->widget(PasswordInput::class) ?>
 <?= $form->field($model, 'type')->dropDownList(Client::getTypeOptions()) ?>

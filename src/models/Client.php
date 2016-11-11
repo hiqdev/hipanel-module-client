@@ -51,15 +51,15 @@ class Client extends \hipanel\base\Model
             [['id', 'language'], 'required', 'on' => 'set-language'],
             [['id', 'seller_id'], 'required', 'on' => 'set-seller'],
 
-            [['password', 'client', 'seller_id', 'email'], 'required', 'on' => ['create', 'update']],
+            [['password', 'login', 'seller_id', 'email'], 'required', 'on' => ['create', 'update']],
             [['type'], 'required', 'on' => ['create', 'update']],
             [['type'], 'default', 'value' => self::TYPE_CLIENT, 'on' => ['create', 'update']],
             [['type'], 'in', 'range' => array_keys(self::getTypeOptions()), 'on' => ['create', 'update']],
             [['email'], 'email', 'on' => ['create', 'update']],
-            [['client'], 'match', 'pattern' => '/^[a-z][a-z0-9_]{2,31}$/',
+            [['login'], 'match', 'pattern' => '/^[a-z][a-z0-9_]{2,31}$/',
                 'message' => Yii::t('hipanel/client', 'Field "{attribute}" can contain Latin characters written in lower case, and it may contain numbers and underscores'),
                 'on' => ['create', 'update']],
-            [['client', 'email'], 'unique', 'on' => ['create', 'update']],
+            [['login', 'email'], 'unique', 'on' => ['create', 'update']],
 
             // Ticket settings
             [['ticket_emails'], 'string', 'max' => 128, 'on' => 'ticket-settings'],
