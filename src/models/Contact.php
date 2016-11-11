@@ -21,6 +21,8 @@ class Contact extends \hipanel\base\Model
      */
     use \hipanel\base\ModelTrait;
 
+    public $oldEmail;
+
     /**
      * @return array
      */
@@ -78,13 +80,13 @@ class Contact extends \hipanel\base\Model
                     'city',
                     'country',
                     'postal_code',
-                    'voice_phone'
+                    'voice_phone',
                 ],
                 'required',
                 'on' => ['create', 'update']
             ],
 
-            [['pincode'], 'safe', 'on' => ['update']],
+            [['pincode', 'oldEmail'], 'safe', 'on' => ['update']],
 
             [['isresident'], 'boolean', 'trueValue' => true, 'falseValue' => false],
             [['birth_date', 'passport_date'], 'safe', 'on' => ['update', 'create']],

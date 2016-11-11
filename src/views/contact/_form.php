@@ -43,30 +43,42 @@ jQuery('#jur_domain input').change(function() {
     jQuery('#fiz_domain').prop('disabled', disable);
 });
 JS
-    , View::POS_READY);
+, View::POS_READY);
 ?>
 
 <?php if ($askPincode['pincode_enabled']) : ?>
-    <?php $this->registerJs(<<<JS
+    <?php $this->registerJs(<<<"JS"
+    var oldEmail = document.getElementById('contact-oldemail').value;
+    var show = true;
     jQuery('#contact-form').on('beforeSubmit', function(event, attributes, messages, deferreds) {
-        event.preventDefault();
-        var show = true;
+        if (attributes === undefined) {
+            attributes = document.getElementById('contact-form').elements; 
+        }
         for (var attr in attributes) {
-            if (attributes[attr].length == 0) {
+            var attribute = attributes[attr]; 
+            if (attribute.length == 0) {
                 show = false;
                 return;
             }
+            if (attribute.name === 'Contact[email]') {
+                if (attribute.value === oldEmail) {
+                    show = false;
+                }
+            }
         }
         if (show) {
+            event.preventDefault();
             jQuery('#askpincode-modal').modal('show');
+            return false;
         }
-        return false;
     });
-    jQuery('#modal-ask-pincode-button').on('click', function(e) {
-        var pincode = jQuery('#modal-pincode').val();
-        jQuery('#contact-pincode').val(pincode);
-        document.getElementById("contact-form").submit();
-    });
+    if (show) {
+        jQuery('#modal-ask-pincode-button').on('click', function(e) {
+            var pincode = jQuery('#modal-pincode').val();
+            jQuery('#contact-pincode').val(pincode);
+            document.getElementById("contact-form").submit();
+        });
+    }
 JS
     ); ?>
     <?php Modal::begin([
@@ -131,6 +143,8 @@ if ($model->scenario === 'change-contact') {
         <?= $form->field($model, 'first_name'); ?>
         <?= $form->field($model, 'last_name'); ?>
         <?= $form->field($model, 'email'); ?>
+        <?= Html::activeHiddenInput($model, 'oldEmail', ['value' => $model->oldAttributes['email'] ? : $model->oldEmail]) ?>
+
         <?= $form->field($model, 'abuse_email'); ?>
         <?= $form->field($model, 'organization'); ?>
         <?= $form->field($model, 'street1'); ?>
