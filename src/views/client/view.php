@@ -126,7 +126,7 @@ $this->registerCss('legend {font-size: 16px;}');
                     <li>
                         <?= SettingsModal::widget([
                             'model'    => $model,
-                            'title'    => Yii::t('hipanel/ticket', 'Ticket settings'),
+                            'title'    => Yii::t('hipanel:ticket', 'Ticket settings'),
                             'icon'     => 'fa-ticket fa-fw',
                             'scenario' => 'ticket-settings',
                         ]) ?>
