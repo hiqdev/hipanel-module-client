@@ -57,7 +57,7 @@ class Client extends \hipanel\base\Model
             [['type'], 'in', 'range' => array_keys(self::getTypeOptions()), 'on' => ['create', 'update']],
             [['email'], 'email', 'on' => ['create', 'update']],
             [['login'], 'match', 'pattern' => '/^[a-z][a-z0-9_]{2,31}$/',
-                'message' => Yii::t('hipanel/client', 'Field "{attribute}" can contain Latin characters written in lower case, and it may contain numbers and underscores'),
+                'message' => Yii::t('hipanel:client', 'Field "{attribute}" can contain Latin characters written in lower case, and it may contain numbers and underscores'),
                 'on' => ['create', 'update']],
             [['login', 'email'], 'unique', 'on' => ['create', 'update']],
 
@@ -97,7 +97,7 @@ class Client extends \hipanel\base\Model
             [['old_password'], function ($attribute, $params) {
                 $response = $this->perform('CheckPassword', ['password' => $this->{$attribute}, 'login' => $this->login]);
                 if (!$response['matches']) {
-                    $this->addError($attribute, Yii::t('hipanel/client', 'The password is incorrect'));
+                    $this->addError($attribute, Yii::t('hipanel:client', 'The password is incorrect'));
                 }
             }, 'on' => ['change-password']],
             // Client validation disabled due the Yii2 bug: https://github.com/yiisoft/yii2/issues/9811
@@ -124,7 +124,7 @@ class Client extends \hipanel\base\Model
                 return (empty($model->answer) && $model->pincode_enabled) ? true : false;
             },
                 'enableClientValidation' => false,
-                'message' => Yii::t('hipanel/client', 'Fill the Pincode or answer to the question.'),
+                'message' => Yii::t('hipanel:client', 'Fill the Pincode or answer to the question.'),
                 'on' => ['pincode-settings']
             ],
 
@@ -132,7 +132,7 @@ class Client extends \hipanel\base\Model
                 return (empty($model->pincode) && $model->pincode_enabled) ? true : false;
             },
                 'enableClientValidation' => false,
-                'message' => Yii::t('hipanel/client', 'Fill the Answer or enter the Pincode.'),
+                'message' => Yii::t('hipanel:client', 'Fill the Answer or enter the Pincode.'),
                 'on' => ['pincode-settings']
             ],
         ];
@@ -141,40 +141,40 @@ class Client extends \hipanel\base\Model
     public function attributeLabels()
     {
         return $this->mergeAttributeLabels([
-            'login' => Yii::t('hipanel/client', 'Login'),
+            'login' => Yii::t('hipanel:client', 'Login'),
 
             'create_time' => Yii::t('hipanel', 'Registered'),
             'update_time' => Yii::t('hipanel', 'Last update'),
 
-            'ticket_emails' => Yii::t('hipanel/client', 'Email for tickets'),
-            'send_message_text' => Yii::t('hipanel/client', 'Send message text'),
+            'ticket_emails' => Yii::t('hipanel:client', 'Email for tickets'),
+            'send_message_text' => Yii::t('hipanel:client', 'Send message text'),
 
-            'allowed_ips' => Yii::t('hipanel/client', 'Allowed IPs for panel login'),
-            'sshftp_ips' => Yii::t('hipanel/client', 'Default allowed IPs for SSH/FTP accounts'),
+            'allowed_ips' => Yii::t('hipanel:client', 'Allowed IPs for panel login'),
+            'sshftp_ips' => Yii::t('hipanel:client', 'Default allowed IPs for SSH/FTP accounts'),
 
             'old_password' => Yii::t('hipanel', 'Current password'),
             'new_password' => Yii::t('hipanel', 'New password'),
             'confirm_password' => Yii::t('hipanel', 'Confirm password'),
 
             // Mailing settings
-            'notify_important_actions' => Yii::t('hipanel/client', 'Notify important actions'),
-            'domain_registration' => Yii::t('hipanel/client', 'Domain registration'),
-            'newsletters' => Yii::t('hipanel/client', 'Newsletters'),
-            'commercial' => Yii::t('hipanel/client', 'Commercial'),
+            'notify_important_actions' => Yii::t('hipanel:client', 'Notify important actions'),
+            'domain_registration' => Yii::t('hipanel:client', 'Domain registration'),
+            'newsletters' => Yii::t('hipanel:client', 'Newsletters'),
+            'commercial' => Yii::t('hipanel:client', 'Commercial'),
 
             // Domain settings
             'autorenewal' => Yii::t('hipanel', 'Autorenewal'),
             'nss' => Yii::t('hipanel', 'Name servers'),
-            'whois_protected' => Yii::t('hipanel/client', 'WHOIS protect'),
-            'registrant' => Yii::t('hipanel/client', 'Registrant contact'),
-            'admin' => Yii::t('hipanel/client', 'Admin contact'),
-            'tech' => Yii::t('hipanel/client', 'Tech contact'),
-            'billing' => Yii::t('hipanel/client', 'Billing contact'),
+            'whois_protected' => Yii::t('hipanel:client', 'WHOIS protect'),
+            'registrant' => Yii::t('hipanel:client', 'Registrant contact'),
+            'admin' => Yii::t('hipanel:client', 'Admin contact'),
+            'tech' => Yii::t('hipanel:client', 'Tech contact'),
+            'billing' => Yii::t('hipanel:client', 'Billing contact'),
 
             // Pincode
-            'pincode' => Yii::t('hipanel/client', 'Enter pincode'),
-            'question' => Yii::t('hipanel/client', 'Choose question'),
-            'answer' => Yii::t('hipanel/client', 'Answer'),
+            'pincode' => Yii::t('hipanel:client', 'Enter pincode'),
+            'question' => Yii::t('hipanel:client', 'Choose question'),
+            'answer' => Yii::t('hipanel:client', 'Answer'),
         ]);
     }
 
@@ -209,11 +209,11 @@ class Client extends \hipanel\base\Model
     public static function makeTranslateQuestionList(array $questionList)
     {
         $translation = [
-            'q1' => Yii::t('hipanel/client', 'What was your nickname when you were a child?'),
-            'q2' => Yii::t('hipanel/client', 'What was the name of your best childhood friend?'),
-            'q3' => Yii::t('hipanel/client', 'What is the month and the year of birth of your oldest relative? (e.g. January, 1900)'),
-            'q4' => Yii::t('hipanel/client', 'What is your grandmother’s maiden name?'),
-            'q5' => Yii::t('hipanel/client', 'What is the patronymic of your oldest relative?'),
+            'q1' => Yii::t('hipanel:client', 'What was your nickname when you were a child?'),
+            'q2' => Yii::t('hipanel:client', 'What was the name of your best childhood friend?'),
+            'q3' => Yii::t('hipanel:client', 'What is the month and the year of birth of your oldest relative? (e.g. January, 1900)'),
+            'q4' => Yii::t('hipanel:client', 'What is your grandmother’s maiden name?'),
+            'q5' => Yii::t('hipanel:client', 'What is the patronymic of your oldest relative?'),
         ];
         $result = [];
         foreach ($questionList as $k => $v) {
@@ -245,10 +245,10 @@ class Client extends \hipanel\base\Model
     public static function getTypeOptions()
     {
         return [
-            self::TYPE_CLIENT => Yii::t('hipanel/client', 'Client'),
-            self::TYPE_SELLER => Yii::t('hipanel/client', 'Reseller'),
-            self::TYPE_MANAGER => Yii::t('hipanel/client', 'Manager'),
-            self::TYPE_ADMIN => Yii::t('hipanel/client', 'Administrator'),
+            self::TYPE_CLIENT => Yii::t('hipanel:client', 'Client'),
+            self::TYPE_SELLER => Yii::t('hipanel:client', 'Reseller'),
+            self::TYPE_MANAGER => Yii::t('hipanel:client', 'Manager'),
+            self::TYPE_ADMIN => Yii::t('hipanel:client', 'Administrator'),
         ];
     }
 }

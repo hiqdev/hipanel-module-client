@@ -14,8 +14,8 @@ use yii\helpers\Inflector;
  */
 
 $this->title = Inflector::titleize($model->name, true);
-$this->params['subtitle'] = Yii::t('hipanel/client', 'Contact detailed information') . ' #' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('hipanel/client', 'Contacts'), 'url' => ['index']];
+$this->params['subtitle'] = Yii::t('hipanel:client', 'Contact detailed information') . ' #' . $model->id;
+$this->params['breadcrumbs'][] = ['label' => Yii::t('hipanel:client', 'Contacts'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 
 FlagIconCssAsset::register($this);
@@ -47,11 +47,11 @@ FlagIconCssAsset::register($this);
                         <?= Html::a('<i class="fa fa-edit"></i>' . Yii::t('hipanel', 'Edit'), ['update', 'id' => $model->id]) ?>
                     </li>
                     <li>
-                        <?= Html::a('<i class="fa fa-paperclip"></i>' . Yii::t('hipanel/client', 'Documents'), ['attach-files', 'id' => $model->id]) ?>
+                        <?= Html::a('<i class="fa fa-paperclip"></i>' . Yii::t('hipanel:client', 'Documents'), ['attach-files', 'id' => $model->id]) ?>
                     </li>
                 <?php if (Yii::getAlias('@domain', false) && $model->used_count > 0) : ?>
                     <li>
-                        <?= Html::a('<i class="fa fa-globe"></i>' . Yii::t('hipanel/client', 'Used for {n, plural, one{# domain} other{# domains}}', ['n' => $model->used_count]), Url::toSearch('domain', ['client_id' => $model->client_id])) ?>
+                        <?= Html::a('<i class="fa fa-globe"></i>' . Yii::t('hipanel:client', 'Used for {n, plural, one{# domain} other{# domains}}', ['n' => $model->used_count]), Url::toSearch('domain', ['client_id' => $model->client_id])) ?>
                     </li>
                 <?php endif ?>
                 </ul>
@@ -61,7 +61,7 @@ FlagIconCssAsset::register($this);
         <?php if (Yii::$app->user->can('manage')) : ?>
             <?php $box = Box::begin(['renderBody' => false]) ?>
                 <?php $box->beginHeader() ?>
-                    <?= $box->renderTitle(Yii::t('hipanel/client', 'Verification status')) ?>
+                    <?= $box->renderTitle(Yii::t('hipanel:client', 'Verification status')) ?>
                 <?php $box->endHeader() ?>
                 <?php $box->beginBody() ?>
                     <table class="table table-striped table-bordered">
@@ -88,7 +88,7 @@ FlagIconCssAsset::register($this);
             <div class="col-md-6">
                 <?php $box = Box::begin(['renderBody' => false]) ?>
                     <?php $box->beginHeader() ?>
-                        <?= $box->renderTitle(Yii::t('hipanel/client', 'Contact information')) ?>
+                        <?= $box->renderTitle(Yii::t('hipanel:client', 'Contact information')) ?>
                         <?php $box->beginTools() ?>
                             <?= Html::a(Yii::t('hipanel', 'Edit'), ['update', 'id' => $model->id], ['class' => 'btn btn-default btn-xs']) ?>
                         <?php $box->endTools() ?>
@@ -114,7 +114,7 @@ FlagIconCssAsset::register($this);
                     'renderBody' => false,
                     'collapsed' => empty($model->vat_number) && empty($model->vat_rate),
                     'collapsable' => true,
-                    'title' => Yii::t('hipanel/client', 'Tax information'),
+                    'title' => Yii::t('hipanel:client', 'Tax information'),
                 ]) ?>
                     <?php $box->beginBody() ?>
                         <?= ContactGridView::detailView([
@@ -130,7 +130,7 @@ FlagIconCssAsset::register($this);
             <div class="col-md-6">
                 <?php $box = Box::begin(['renderBody' => false]) ?>
                     <?php $box->beginHeader() ?>
-                        <?= $box->renderTitle(Yii::t('hipanel/client', 'Postal information')) ?>
+                        <?= $box->renderTitle(Yii::t('hipanel:client', 'Postal information')) ?>
                     <?php $box->endHeader() ?>
                     <?php $box->beginBody() ?>
                         <?= ContactGridView::detailView([
@@ -147,7 +147,7 @@ FlagIconCssAsset::register($this);
                 <?php $box = Box::begin([
                     'renderBody' => false,
                     'collapsed' => true,
-                    'title' => Yii::t('hipanel/client', 'Additional information'),
+                    'title' => Yii::t('hipanel:client', 'Additional information'),
                 ]) ?>
                     <?php $box->beginBody() ?>
                         <?= ContactGridView::detailView([

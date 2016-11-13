@@ -21,8 +21,8 @@ use yii\widgets\ActiveForm;
  * @var \hipanel\modules\client\models\Contact $model
  */
 
-$this->title = Yii::t('hipanel/client', 'Attached documents');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('hipanel/client', 'Contacts'), 'url' => ['index']];
+$this->title = Yii::t('hipanel:client', 'Attached documents');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('hipanel:client', 'Contacts'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => Inflector::titleize($model->name, true), 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = $this->title;
 
@@ -58,10 +58,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
 <div class="col-md-6">
-    <?php Box::begin(['title' => Yii::t('hipanel/client', 'Attach new documents')]); ?>
+    <?php Box::begin(['title' => Yii::t('hipanel:client', 'Attach new documents')]); ?>
 
     <p>
-        <?= Yii::t('hipanel/client',
+        <?= Yii::t('hipanel:client',
             'You can upload copy of your documents in order to help us verify your identity') ?>
     </p>
 

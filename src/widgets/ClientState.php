@@ -23,5 +23,5 @@ class ClientState extends \hipanel\widgets\Type
         'warning' => [],
     ];
     public $field = 'state';
-    public $i18nDictionary = 'hipanel/client';
+    public $i18nDictionary = 'hipanel:client';
 }

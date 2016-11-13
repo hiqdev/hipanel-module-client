@@ -54,8 +54,8 @@ class ClientController extends \hipanel\base\CrudController
                 },
                 'data' => function ($action) {
                     return [
-                        'types'  => $this->getRefs('type,client', 'hipanel/client'),
-                        'states' => $this->getRefs('state,client', 'hipanel/client'),
+                        'types'  => $this->getRefs('type,client', 'hipanel:client'),
+                        'states' => $this->getRefs('state,client', 'hipanel:client'),
                     ];
                 },
                 'filterStorageMap' => [
@@ -70,15 +70,15 @@ class ClientController extends \hipanel\base\CrudController
             ],
             'create' => [
                 'class' => SmartCreateAction::class,
-                'success' => Yii::t('hipanel/client', 'Client was created'),
+                'success' => Yii::t('hipanel:client', 'Client was created'),
             ],
             'update' => [
                 'class' => SmartUpdateAction::class,
-                'success' => Yii::t('hipanel/client', 'Client was updated'),
+                'success' => Yii::t('hipanel:client', 'Client was updated'),
             ],
             'delete' => [
                 'class' => SmartDeleteAction::class,
-                'success' => Yii::t('hipanel/client', 'Client was deleted'),
+                'success' => Yii::t('hipanel:client', 'Client was deleted'),
             ],
             'enable-block' => [
                 'class' => SmartPerformAction::class,
@@ -106,8 +106,8 @@ class ClientController extends \hipanel\base\CrudController
             'set-tmp-password' => [
                 'class'   => SmartUpdateAction::class,
                 'view'    => '_setTmpPasswordModal',
-                'success' => Yii::t('hipanel/client', 'Temporary password was sent on your email'),
-                'error' => Yii::t('hipanel/client', 'Error during temporary password setting'),
+                'success' => Yii::t('hipanel:client', 'Temporary password was sent on your email'),
+                'error' => Yii::t('hipanel:client', 'Error during temporary password setting'),
             ],
             'view' => [
                 'class' => ViewAction::class,
@@ -121,18 +121,18 @@ class ClientController extends \hipanel\base\CrudController
             ],
             'set-credit' => [
                 'class' => SmartUpdateAction::class,
-                'success' => Yii::t('hipanel/client', 'Credit changed'),
+                'success' => Yii::t('hipanel:client', 'Credit changed'),
             ],
             'set-note' => [
                 'class' => SmartUpdateAction::class,
-                'success' => Yii::t('hipanel/client', 'Note changed'),
-                'error' => Yii::t('hipanel/client', 'Failed to change note'),
+                'success' => Yii::t('hipanel:client', 'Note changed'),
+                'error' => Yii::t('hipanel:client', 'Failed to change note'),
             ],
             'bulk-enable-block' => [
                 'class' => SmartUpdateAction::class,
                 'scenario' => 'enable-block',
-                'success' => Yii::t('hipanel/client', 'Clients were blocked successfully'),
-                'error' => Yii::t('hipanel/client', 'Error during the clients blocking'),
+                'success' => Yii::t('hipanel:client', 'Clients were blocked successfully'),
+                'error' => Yii::t('hipanel:client', 'Error during the clients blocking'),
                 'POST html' => [
                     'save'    => true,
                     'success' => [
@@ -167,8 +167,8 @@ class ClientController extends \hipanel\base\CrudController
             'bulk-disable-block' => [
                 'class' => SmartUpdateAction::class,
                 'scenario' => 'disable-block',
-                'success' => Yii::t('hipanel/client', 'Clients were unblocked successfully'),
-                'error' => Yii::t('hipanel/client', 'Error during the clients unblocking'),
+                'success' => Yii::t('hipanel:client', 'Clients were unblocked successfully'),
+                'error' => Yii::t('hipanel:client', 'Error during the clients unblocking'),
                 'POST html' => [
                     'save'    => true,
                     'success' => [
@@ -229,8 +229,8 @@ class ClientController extends \hipanel\base\CrudController
                     $dataProvider->query->addSelect('pincode_enabled');
                 },
                 'data' => function ($action, $data) {
-                    $apiData = $this->getRefs('type,question', 'hipanel/client');
-                    $questionList = array_merge(Client::makeTranslateQuestionList($apiData), ['own' => Yii::t('hipanel/client', 'Own question')]);
+                    $apiData = $this->getRefs('type,question', 'hipanel:client');
+                    $questionList = array_merge(Client::makeTranslateQuestionList($apiData), ['own' => Yii::t('hipanel:client', 'Own question')]);
                     return array_merge([
                         'questionList' => $questionList
                     ], $data);
@@ -238,32 +238,4 @@ class ClientController extends \hipanel\base\CrudController
             ],
         ];
     }
-
-    /**
-     * @param $id integer
-     * @return string
-     */
-//    public function actionPincodeSettings($id)
-//    {
-//        $model = $this->findModel($id);
-//        $model->scenario = 'pincode-settings';
-//        $request = Yii::$app->request;
-//
-//        if ($request->isAjax && Yii::$app->request->isPost) {
-//            $model = (new Collection(['model' => $model]))->load()->first;
-//            try {
-//                $model::perform($model->pincode_enabled ? 'DisablePincode' : 'EnablePincode', $model->dirtyAttributes);
-//            } catch (Exception $e) {
-//                Yii::$app->session->addFlash('error', Yii::t('hipanel/client', 'PIN code is not disabled'));
-//
-//                $this->redirect(Yii::$app->request->referrer);
-//            }
-//        }
-//        $model->setAttributes(Client::perform('HasPincode', ['id' => $id]));
-//        $apiData = $this->getRefs('type,question', 'hipanel/client');
-//        $questionList = array_merge(Client::makeTranslateQuestionList($apiData), ['own' => Yii::t('hipanel/client', 'Own question')]);
-//
-//        return $this->renderAjax('_pincodeSettingsModal', ['model' => $model, 'questionList' => $questionList]);
-//    }
-
 }

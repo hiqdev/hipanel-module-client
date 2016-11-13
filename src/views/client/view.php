@@ -17,7 +17,7 @@ use yii\helpers\Html;
  */
 
 $this->title = $model->login;
-$this->params['subtitle'] = Yii::t('hipanel/client', 'Client detailed information') . ' #' . $model->id;
+$this->params['subtitle'] = Yii::t('hipanel:client', 'Client detailed information') . ' #' . $model->id;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('hipanel', 'Clients'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 
@@ -57,7 +57,7 @@ $this->registerCss('legend {font-size: 16px;}');
                     <li>
                         <a href="http://gravatar.com" target="_blank">
                             <i><img src="https://www.gravatar.com/avatar/00000000000000000000000000000000/?s=17" /></i>
-                            <?= Yii::t('hipanel/client', 'You can change your avatar at Gravatar.com')?>
+                            <?= Yii::t('hipanel:client', 'You can change your avatar at Gravatar.com')?>
                         </a>
                     </li>
                 <?php endif ?>
@@ -75,7 +75,7 @@ $this->registerCss('legend {font-size: 16px;}');
                     <li>
                         <?= SettingsModal::widget([
                             'model'    => $model,
-                            'title'    => Yii::t('hipanel/client', 'Temporary password'),
+                            'title'    => Yii::t('hipanel:client', 'Temporary password'),
                             'icon'     => 'fa-key fa-flip-horizontal fa-fw',
                             'scenario' => 'set-tmp-password',
                         ]) ?>
@@ -85,7 +85,7 @@ $this->registerCss('legend {font-size: 16px;}');
                     <li>
                         <?= SettingsModal::widget([
                             'model'    => $model,
-                            'title'    => Yii::t('hipanel/client', 'Pincode settings'),
+                            'title'    => Yii::t('hipanel:client', 'Pincode settings'),
                             'icon'     => 'fa-puzzle-piece fa-fw',
                             'scenario' => 'pincode-settings',
                         ]) ?>
@@ -95,7 +95,7 @@ $this->registerCss('legend {font-size: 16px;}');
                     <li>
                         <?= SettingsModal::widget([
                             'model'    => $model,
-                            'title'    => Yii::t('hipanel/client', 'IP address restrictions'),
+                            'title'    => Yii::t('hipanel:client', 'IP address restrictions'),
                             'icon'     => 'fa-arrows-alt fa-fw',
                             'scenario' => 'ip-restrictions',
                         ]) ?>
@@ -104,19 +104,19 @@ $this->registerCss('legend {font-size: 16px;}');
                 <li>
                     <?= SettingsModal::widget([
                         'model'    => $model,
-                        'title'    => Yii::t('hipanel/client', 'Mailing settings'),
+                        'title'    => Yii::t('hipanel:client', 'Mailing settings'),
                         'icon'     => 'fa-envelope fa-fw',
                         'scenario' => 'mailing-settings',
                     ]) ?>
                 </li>
                 <li>
-                    <?= Html::a(FontIcon::i('fa-edit fa-fw') . Yii::t('hipanel/client', 'Change contact information'), ['@contact/update', 'id' => $model->id]) ?>
+                    <?= Html::a(FontIcon::i('fa-edit fa-fw') . Yii::t('hipanel:client', 'Change contact information'), ['@contact/update', 'id' => $model->id]) ?>
                 </li>
                 <?php if (Yii::getAlias('@domain', false)) : ?>
                     <li>
                         <?= SettingsModal::widget([
                             'model'    => $model,
-                            'title'    => Yii::t('hipanel/client', 'Domain settings'),
+                            'title'    => Yii::t('hipanel:client', 'Domain settings'),
                             'icon'     => 'fa-globe fa-fw',
                             'scenario' => 'domain-settings',
                         ]) ?>
@@ -147,7 +147,7 @@ $this->registerCss('legend {font-size: 16px;}');
             <div class="col-md-6">
                 <?php $box = Box::begin(['renderBody' => false]) ?>
                     <?php $box->beginHeader() ?>
-                        <?= $box->renderTitle(Yii::t('hipanel/client', 'Client information'), '&nbsp;') ?>
+                        <?= $box->renderTitle(Yii::t('hipanel:client', 'Client information'), '&nbsp;') ?>
                         <?php $box->beginTools() ?>
                         <?php $box->endTools() ?>
                     <?php $box->endHeader() ?>
@@ -173,7 +173,7 @@ $this->registerCss('legend {font-size: 16px;}');
             <div class="col-md-6">
                 <?php $box = Box::begin(['renderBody' => false]); ?>
                     <?php $box->beginHeader(); ?>
-                        <?= $box->renderTitle(Yii::t('hipanel/client', 'Contact information'), ''); ?>
+                        <?= $box->renderTitle(Yii::t('hipanel:client', 'Contact information'), ''); ?>
                         <?php $box->beginTools(); ?>
                             <?= Html::a(Yii::t('hipanel', 'Details'), ['@contact/view', 'id' => $model->id], ['class' => 'btn btn-default btn-xs']) ?>
                             <?= Html::a(Yii::t('hipanel', 'Change'), ['@contact/update', 'id' => $model->id], ['class' => 'btn btn-default btn-xs']) ?>

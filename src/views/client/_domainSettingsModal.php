@@ -15,7 +15,7 @@ use yii\helpers\Url;
     'validationUrl' => Url::toRoute(['validate-form', 'scenario' => $model->scenario]),
 ]); ?>
 
-<p><?= Yii::t('hipanel/client', 'The settings will be automatically applied to all new registered domains.'); ?></p>
+<p><?= Yii::t('hipanel:client', 'The settings will be automatically applied to all new registered domains.'); ?></p>
 
 <div class="row">
     <div class="col-md-6"><?= $form->field($model, "[$model->id]autorenewal")->checkbox(); ?></div>
@@ -28,12 +28,12 @@ use yii\helpers\Url;
 <?= $form->field($model, "[$model->id]nss"); ?>
 
 <fieldset>
-    <legend><?= Yii::t('hipanel/client', 'Default contacts') ?>:</legend>
+    <legend><?= Yii::t('hipanel:client', 'Default contacts') ?>:</legend>
 
     <div class="row">
         <?php foreach (['registrant', 'admin', 'tech', 'billing'] as $item) : ?>
             <div class="col-md-6">
-            <?= $form->field($model, "[$model->id]$item")->widget(ContactCombo::class, ['hasId' => true])->label(Yii::t('hipanel/client', ucfirst($item) . ' contact')); ?>
+            <?= $form->field($model, "[$model->id]$item")->widget(ContactCombo::class, ['hasId' => true])->label(Yii::t('hipanel:client', ucfirst($item) . ' contact')); ?>
             </div>
             <!-- /.col-md-6 -->
         <?php endforeach; ?>

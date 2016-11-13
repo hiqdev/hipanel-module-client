@@ -11,7 +11,7 @@
 
 use yii\helpers\Html;
 
-$this->title = Yii::t('hipanel/client', 'Change contact for {name}', ['name' => Html::encode($domainName)]);
+$this->title = Yii::t('hipanel:client', 'Change contact for {name}', ['name' => Html::encode($domainName)]);
 $this->params['breadcrumbs'][] = ['label' => Yii::t('hipanel', 'Contact'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 

@@ -38,7 +38,7 @@ $widgetIndexConfig = [
             },
         ],
         [
-            'label'  => Yii::t('hipanel/client', 'New login'),
+            'label'  => Yii::t('hipanel:client', 'New login'),
             'format' => 'raw',
             'value'  => function ($data) {
                 return Html::input('text', "ids[$data->id}][Client][language]", $data->login);

@@ -79,16 +79,16 @@ class ContactController extends CrudController
                         'scenario' => 'create',
                     ];
                 },
-                'success' => Yii::t('hipanel/client', 'Contact was created'),
+                'success' => Yii::t('hipanel:client', 'Contact was created'),
             ],
             'delete' => [
                 'class' => SmartDeleteAction::class,
-                'success' => Yii::t('hipanel/client', 'Contact was deleted'),
+                'success' => Yii::t('hipanel:client', 'Contact was deleted'),
             ],
             'update' => [
                 'class' => SmartUpdateAction::class,
                 'scenario' => 'update',
-                'success' => Yii::t('hipanel/client', 'Contact was updated'),
+                'success' => Yii::t('hipanel:client', 'Contact was updated'),
                 'data' => function ($action) {
                     return [
                         'countries' => $action->controller->getRefs('country_code'),
@@ -99,7 +99,7 @@ class ContactController extends CrudController
             ],
             'attach-files' => [
                 'class' => SmartUpdateAction::class,
-                'success' => Yii::t('hipanel/client', 'Documents were saved'),
+                'success' => Yii::t('hipanel:client', 'Documents were saved'),
                 'on beforeFetch' => function (Event $event) {
                     /** @var \hipanel\actions\SearchAction $action */
                     $action = $event->sender;
@@ -139,7 +139,7 @@ class ContactController extends CrudController
             ],
             'request-email-confirmation' => [
                 'class' => SmartPerformAction::class,
-                'success' => Yii::t('hipanel/client', 'Confirmation message was sent to your email')
+                'success' => Yii::t('hipanel:client', 'Confirmation message was sent to your email')
             ],
         ];
     }

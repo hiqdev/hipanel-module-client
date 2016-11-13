@@ -84,7 +84,7 @@ JS
     <?php Modal::begin([
         'id' => 'askpincode-modal',
         'size' => Modal::SIZE_SMALL,
-        'header' => '<h4 class="modal-title">' . Yii::t('hipanel/client', 'Enter pincode') . '</h4>',
+        'header' => '<h4 class="modal-title">' . Yii::t('hipanel:client', 'Enter pincode') . '</h4>',
         'clientEvents' => [
             'show.bs.modal' => new JsExpression("function() {document.getElementById('modal-pincode').value = '';}"),
         ],
@@ -95,7 +95,7 @@ JS
             'data-loading-icon' => 'glyphicon glyphicon-refresh',
         ]),
     ]); ?>
-    <?= Html::textInput('modal-pincode', null, ['id' => 'modal-pincode', 'class' => 'form-control', 'placeholder' => Yii::t('hipanel/client', 'Type pincode here...')]); ?>
+    <?= Html::textInput('modal-pincode', null, ['id' => 'modal-pincode', 'class' => 'form-control', 'placeholder' => Yii::t('hipanel:client', 'Type pincode here...')]); ?>
     <?php Modal::end(); ?>
 <?php endif; ?>
 
@@ -129,14 +129,14 @@ if ($model->scenario === 'change-contact') {
         <?php if ($model->scenario === 'update') : ?>
             <?= Html::submitButton(Yii::t('hipanel', 'Save'), ['class' => 'btn btn-success']); ?>
         <?php else : ?>
-            <?= Html::submitButton(Yii::t('hipanel/client', 'Create contact'), ['class' => 'btn btn-success']); ?>
+            <?= Html::submitButton(Yii::t('hipanel:client', 'Create contact'), ['class' => 'btn btn-success']); ?>
         <?php endif; ?>
         <?= Html::submitButton(Yii::t('hipanel', 'Cancel'), ['class' => 'btn btn-default', 'onclick' => 'window.history.back();']); ?>
         <?php Box::end(); ?>
     </div>
 
     <div class="col-md-6">
-        <?php Box::begin(['title' => Yii::t('hipanel/client', 'Contact details')]) ?>
+        <?php Box::begin(['title' => Yii::t('hipanel:client', 'Contact details')]) ?>
         <?php if ($model->scenario === 'update') : ?>
             <?= $form->field($model, 'id')->hiddenInput()->label(false); ?>
         <?php endif; ?>
@@ -164,7 +164,7 @@ if ($model->scenario === 'change-contact') {
     </div>
 
     <div class="col-md-6">
-        <?php Box::begin(['title' => Yii::t('hipanel/client', 'Additional contacts')]) ?>
+        <?php Box::begin(['title' => Yii::t('hipanel:client', 'Additional contacts')]) ?>
         <?= $form->field($model, 'icq'); ?>
         <?= $form->field($model, 'skype'); ?>
         <?= $form->field($model, 'jabber'); ?>
@@ -174,7 +174,7 @@ if ($model->scenario === 'change-contact') {
     </div>
 
     <div class="col-md-6">
-        <?php Box::begin(['title' => Yii::t('hipanel/client', 'Tax information')]) ?>
+        <?php Box::begin(['title' => Yii::t('hipanel:client', 'Tax information')]) ?>
         <?= $form->field($model, 'vat_number') ?>
         <?= $form->field($model, 'vat_rate') ?>
         <?= $form->field($model, 'tax_comment') ?>
@@ -185,12 +185,12 @@ if ($model->scenario === 'change-contact') {
         <?php $box = Box::begin([
             'renderBody' => false,
             'collapsed' => true,
-            'title' => Yii::t('hipanel/client', 'Additional information'),
+            'title' => Yii::t('hipanel:client', 'Additional information'),
         ]) ?>
         <?php $box->beginBody() ?>
         <fieldset id="fiz_domain">
             <div
-                class="well well-sm"><?= Yii::t('hipanel/client', 'For domain registration in RU and SU zones as physical entity') ?></div>
+                class="well well-sm"><?= Yii::t('hipanel:client', 'For domain registration in RU and SU zones as physical entity') ?></div>
             <?= $form->field($model, 'birth_date')->widget(DatePicker::class, [
                 'removeButton' => false,
                 'pluginOptions' => [
@@ -223,7 +223,7 @@ if ($model->scenario === 'change-contact') {
         <hr>
         <fieldset id="jur_domain">
             <div
-                class="well well-sm"><?= Yii::t('hipanel/client', 'For domain registration in RU and SU zones as legal entity') ?></div>
+                class="well well-sm"><?= Yii::t('hipanel:client', 'For domain registration in RU and SU zones as legal entity') ?></div>
             <?= $form->field($model, 'organization_ru'); ?>
             <?= $form->field($model, 'director_name'); ?>
             <?= $form->field($model, 'inn'); ?>

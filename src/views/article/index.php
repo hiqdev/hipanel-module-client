@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <?php Pjax::begin(array_merge(Yii::$app->params['pjax'], ['enablePushState' => true])) ?>
     <?php $box = ActionBox::begin(['model' => $model, 'dataProvider' => $dataProvider]) ?>
         <?php $box->beginActions() ?>
-            <?= $box->renderCreateButton(Yii::t('hipanel/client', 'Create client')) ?>
+            <?= $box->renderCreateButton(Yii::t('hipanel:client', 'Create client')) ?>
             <?= $box->renderSearchButton() ?>
             <?= $box->renderSorter([
                 'attributes' => [
@@ -37,16 +37,16 @@ $this->params['breadcrumbs'][] = $this->title;
                 'is_published' => [
                     'value' => function ($model) {
                         return $model->is_published === 't' ?
-                            Html::tag('span', Yii::t('hipanel/client', 'Published'), ['class' => 'label label-success']) :
-                            Html::tag('span', Yii::t('hipanel/client', 'Unpublished'), ['class' => 'label label-warning']);
+                            Html::tag('span', Yii::t('hipanel:client', 'Published'), ['class' => 'label label-success']) :
+                            Html::tag('span', Yii::t('hipanel:client', 'Unpublished'), ['class' => 'label label-warning']);
                     },
                     'format' => 'html',
                     'filter' => StaticCombo::widget([
                         'attribute' => 'is_published',
                         'model' => $model,
                         'data' => [
-                            't' => Yii::t('hipanel/client', 'Published'),
-                            'f' => Yii::t('hipanel/client', 'Unpublished'),
+                            't' => Yii::t('hipanel:client', 'Published'),
+                            'f' => Yii::t('hipanel:client', 'Unpublished'),
                         ],
                         'hasId' => true,
                         'inputOptions'        => [

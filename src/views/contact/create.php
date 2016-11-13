@@ -9,7 +9,7 @@
  * @copyright Copyright (c) 2015-2016, HiQDev (http://hiqdev.com/)
  */
 
-$this->title                   = Yii::t('hipanel/client', 'Create contact');
+$this->title                   = Yii::t('hipanel:client', 'Create contact');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('hipanel', 'Contact'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 

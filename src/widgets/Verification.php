@@ -51,12 +51,12 @@ class Verification extends Widget
         $xeditable = $this->renderXEditable();
 
         if ($this->model->date) {
-            return Yii::t('hipanel/client', '{statusXeditable} since {date}', [
+            return Yii::t('hipanel:client', '{statusXeditable} since {date}', [
              'statusXeditable' => $xeditable,
              'date' => Yii::$app->formatter->asDate($this->model->date),
             ]);
         } else {
-            return Yii::t('hipanel/client', '{statusXeditable}', [
+            return Yii::t('hipanel:client', '{statusXeditable}', [
                 'statusXeditable' => $xeditable,
             ]);
         }
@@ -75,7 +75,7 @@ class Verification extends Widget
             'pluginOptions' => [
                 'selector' => '#' . $this->getId(),
                 'type' => 'select',
-                'title' => Yii::t('hipanel/client', 'Verification level'),
+                'title' => Yii::t('hipanel:client', 'Verification level'),
                 'source' => $this->model->getAvailableLevels(),
                 'params' => new JsExpression("function (params) {
                     params.type = $(this).attr('data-attribute');

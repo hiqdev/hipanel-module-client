@@ -23,12 +23,9 @@ return [
     'components' => [
         'i18n' => [
             'translations' => [
-                'hipanel/client' => [
+                'hipanel:client' => [
                     'class' => \yii\i18n\PhpMessageSource::class,
                     'basePath' => '@hipanel/modules/client/messages',
-                    'fileMap' => [
-                        'hipanel/client' => 'client.php',
-                    ],
                 ],
             ],
         ],

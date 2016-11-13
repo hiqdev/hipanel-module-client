@@ -12,7 +12,7 @@
 use yii\helpers\Inflector;
 
 $this->title = Yii::t('hipanel', 'Update');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('hipanel/client', 'Contacts'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('hipanel:client', 'Contacts'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => Inflector::titleize($model->name, true), 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = $this->title;
 

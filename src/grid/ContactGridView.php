@@ -36,7 +36,7 @@ class ContactGridView extends BoxedGridView
                 'value' => function ($model) {
                     $result = $model->email;
                     if ($model->email_new) {
-                        $result .= '<br>' . Html::tag('b', Yii::t('hipanel/client', 'change is not confirmed'), ['class' => 'text-warning']);
+                        $result .= '<br>' . Html::tag('b', Yii::t('hipanel:client', 'change is not confirmed'), ['class' => 'text-warning']);
                     }
                     if ($model->email_new !== $model->email) {
                         $result .= '<br>' . Html::tag('span', $model->email_new, ['class' => 'text-muted']);
@@ -52,7 +52,7 @@ class ContactGridView extends BoxedGridView
                     $confirmation = $model->getVerification('email');
                     $result = $model->email;
                     if (!$confirmation->isConfirmed()) {
-                        $result .= '<br>' . Html::tag('b', Yii::t('hipanel/client', 'change is not confirmed'), ['class' => 'text-warning']);
+                        $result .= '<br>' . Html::tag('b', Yii::t('hipanel:client', 'change is not confirmed'), ['class' => 'text-warning']);
                         $result .= '<br>' . Html::tag('span', $model->email_new, ['class' => 'text-muted']);
                     }
 
@@ -70,7 +70,7 @@ class ContactGridView extends BoxedGridView
                 },
             ],
             'street' => [
-                'label' => Yii::t('hipanel/client', 'Street'),
+                'label' => Yii::t('hipanel:client', 'Street'),
                 'format' => 'html',
                 'value' => function ($model) {
                     return $model->street1 . $model->street2 . $model->street3;
@@ -102,7 +102,7 @@ class ContactGridView extends BoxedGridView
             ],
             'messengers' => [
                 'format' => 'html',
-                'label' => Yii::t('hipanel/client', 'Messengers'),
+                'label' => Yii::t('hipanel:client', 'Messengers'),
                 'value' => function ($model) {
                     $res = [];
                     foreach (['skype' => 'Skype', 'icq' => 'ICQ', 'jabber' => 'Jabber'] as $k => $label) {

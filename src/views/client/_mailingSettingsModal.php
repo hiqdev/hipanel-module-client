@@ -18,7 +18,7 @@ use yii\helpers\Url;
     <div class="row">
         <div class="col-md-6">
             <fieldset>
-                <legend><?= Yii::t('hipanel/client', 'System notifications') ?></legend>
+                <legend><?= Yii::t('hipanel:client', 'System notifications') ?></legend>
                 <?= $form->field($model, 'notify_important_actions')->checkbox() ?>
                 <?= $form->field($model, 'domain_registration')->checkbox() ?>
             </fieldset>
@@ -26,7 +26,7 @@ use yii\helpers\Url;
         <!-- /.col-md-6 -->
         <div class="col-md-6">
             <fieldset>
-                <legend><?= Yii::t('hipanel/client', 'Mailings') ?></legend>
+                <legend><?= Yii::t('hipanel:client', 'Mailings') ?></legend>
                 <?= $form->field($model, 'newsletters')->checkbox() ?>
                 <?= $form->field($model, 'commercial')->checkbox() ?>
             </fieldset>

@@ -14,7 +14,7 @@ use yii\helpers\Html;
 ]) ?>
 
     <?= Html::activeHiddenInput($model, "[$model->id]id") ?>
-    <?= Yii::t('hipanel/client', 'Temporary password will be sent to your email') ?>
+    <?= Yii::t('hipanel:client', 'Temporary password will be sent to your email') ?>
 
     <hr>
 

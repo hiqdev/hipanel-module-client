@@ -30,7 +30,7 @@ JS
                     <?= Tabs::widget([
                         'items' => [
                             [
-                                'label' => Yii::t('hipanel/client', 'Disable pincode'),
+                                'label' => Yii::t('hipanel:client', 'Disable pincode'),
                                 'content' => $form->field($model, "[$model->id]pincode"),
                                 'active' => true,
                                 'options' => [
@@ -38,7 +38,7 @@ JS
                                 ],
                             ],
                             [
-                                'label' => Yii::t('hipanel/client', 'Forgot pincode?'),
+                                'label' => Yii::t('hipanel:client', 'Forgot pincode?'),
                                 'content' => $form->field($model, "[$model->id]answer")->label($model->question),
                                 'options' => [
                                     'class' => 'md-mt-10',
@@ -50,7 +50,7 @@ JS
             </div>
             <div class="col-lg-12">
                 <div class="alert alert-warning" role="alert">
-                    <?= Yii::t('hipanel/client', 'You have already set a PIN code. In order to disable it, enter your current PIN or the secret question.') ?>
+                    <?= Yii::t('hipanel:client', 'You have already set a PIN code. In order to disable it, enter your current PIN or the secret question.') ?>
                 </div>
             </div>
         </div>
@@ -77,7 +77,7 @@ JS
                     'style' => 'display: none;',
                     'value' => '',
                     'disabled' => true,
-                    'placeholder' => Yii::t('hipanel/client', 'Enter your question'),
+                    'placeholder' => Yii::t('hipanel:client', 'Enter your question'),
                 ]) ?>
                 <?= $form->field($model, "[$model->id]answer") ?>
             </div>

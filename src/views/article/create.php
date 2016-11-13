@@ -12,7 +12,7 @@
 /* @var $this yii\web\View */
 /* @var $model hipanel\modules\ticket\models\Ticket */
 
-$this->title = Yii::t('hipanel/client', 'Create article');
+$this->title = Yii::t('hipanel:client', 'Create article');
 $this->params['breadcrumbs'][] = ['label' => 'News and articles', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 

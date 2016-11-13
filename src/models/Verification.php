@@ -91,9 +91,9 @@ class Verification extends \hipanel\base\Model
     public function getLevels()
     {
         return [
-            static::LEVEL_UNCONFIRMED => ['value' => static::LEVEL_UNCONFIRMED, 'text' => Yii::t('hipanel/client', 'Not confirmed')],
-            static::LEVEL_CONFIRMED => ['value' => static::LEVEL_CONFIRMED, 'text' => Yii::t('hipanel/client', 'Confirmed')],
-            static::LEVEL_VERIFIED => ['value' => static::LEVEL_VERIFIED, 'text' => Yii::t('hipanel/client', 'Verified')],
+            static::LEVEL_UNCONFIRMED => ['value' => static::LEVEL_UNCONFIRMED, 'text' => Yii::t('hipanel:client', 'Not confirmed')],
+            static::LEVEL_CONFIRMED => ['value' => static::LEVEL_CONFIRMED, 'text' => Yii::t('hipanel:client', 'Confirmed')],
+            static::LEVEL_VERIFIED => ['value' => static::LEVEL_VERIFIED, 'text' => Yii::t('hipanel:client', 'Verified')],
         ];
     }
 

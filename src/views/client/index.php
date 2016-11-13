@@ -30,7 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= $page->setSearchFormData(compact(['types', 'states'])) ?>
 
     <?php $page->beginContent('main-actions') ?>
-        <?= Html::a(Yii::t('hipanel/client', 'Create client'), 'create', ['class' => 'btn btn-sm btn-success']) ?>
+        <?= Html::a(Yii::t('hipanel:client', 'Create client'), 'create', ['class' => 'btn btn-sm btn-success']) ?>
     <?php $page->endContent() ?>
 
     <?php $page->beginContent('show-actions') ?>
@@ -76,7 +76,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     <?= AjaxModal::widget([
                         'id' => 'bulk-enable-block-modal',
                         'bulkPage' => true,
-                        'header' => Html::tag('h4', Yii::t('hipanel/client', 'Block clients'), ['class' => 'modal-title']),
+                        'header' => Html::tag('h4', Yii::t('hipanel:client', 'Block clients'), ['class' => 'modal-title']),
                         'scenario' => 'bulk-enable-block',
                         'actionUrl' => ['bulk-enable-block-modal'],
                         'size' => Modal::SIZE_LARGE,
@@ -86,7 +86,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     <?= AjaxModal::widget([
                         'id' => 'bulk-disable-block-modal',
                         'bulkPage' => true,
-                        'header' => Html::tag('h4', Yii::t('hipanel/client', 'Unblock clients'), ['class' => 'modal-title']),
+                        'header' => Html::tag('h4', Yii::t('hipanel:client', 'Unblock clients'), ['class' => 'modal-title']),
                         'scenario' => 'bulk-disable-block',
                         'actionUrl' => ['bulk-disable-block-modal'],
                         'size' => Modal::SIZE_LARGE,

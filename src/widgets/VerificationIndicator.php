@@ -70,7 +70,7 @@ class VerificationIndicator extends Widget
         echo $form->field($this->model->contact, 'id')->hiddenInput()->label(false);
 
         echo Html::submitButton(
-            Yii::t('hipanel/client', '{icon} Verify', ['icon' => Html::tag('i', '', ['class' => 'fa fa-check'])]),
+            Yii::t('hipanel:client', '{icon} Verify', ['icon' => Html::tag('i', '', ['class' => 'fa fa-check'])]),
             ['class' => 'btn btn-sm btn-info']
         );
 
