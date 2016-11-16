@@ -9,18 +9,16 @@ use yii\helpers\Html;
 
 $form = ActiveForm::begin([
     'id' => 'client-form',
-    'enableClientValidation' => true,
-    'validateOnBlur' => true,
     'enableAjaxValidation' => true,
     'validationUrl' => Url::toRoute(['validate-form', 'scenario' => $model->isNewRecord ? 'create' : 'update']),
 ]);
 ?>
 
-<?= $form->field($model, 'login')->textInput(['autocomplete' => 'off']) ?>
-<?= $form->field($model, 'email')->textInput(['autocomplete' => 'off']) ?>
-<?= $form->field($model, 'password')->widget(PasswordInput::class) ?>
-<?= $form->field($model, 'type')->dropDownList(Client::getTypeOptions()) ?>
-<?= $form->field($model, 'seller_id')->widget(SellerCombo::class) ?>
+<?= $form->field($model, '[0]login')->textInput(['autocomplete' => 'off']) ?>
+<?= $form->field($model, '[0]email')->textInput(['autocomplete' => 'off']) ?>
+<?= $form->field($model, '[0]password')->widget(PasswordInput::class) ?>
+<?= $form->field($model, '[0]type')->dropDownList(Client::getTypeOptions()) ?>
+<?= $form->field($model, '[0]seller_id')->widget(SellerCombo::class) ?>
 
 <?= Html::submitButton(Yii::t('hipanel', 'Save'), ['class' => 'btn btn-success']) ?>
     &nbsp;
