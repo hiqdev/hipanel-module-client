@@ -1,15 +1,11 @@
 <?php
 
-use hipanel\helpers\FontIcon;
 use hipanel\modules\client\grid\ClientGridView;
 use hipanel\modules\client\grid\ContactGridView;
 use hipanel\modules\client\menus\ClientDetailMenu;
-use hipanel\modules\client\models\Client;
 use hipanel\modules\client\models\Contact;
-use hipanel\widgets\BlockModalButton;
 use hipanel\widgets\Box;
 use hipanel\widgets\ClientSellerLink;
-use hipanel\widgets\SettingsModal;
 use hiqdev\assets\flagiconcss\FlagIconCssAsset;
 use hiqdev\menumanager\widgets\DetailMenu;
 use yii\helpers\Html;
