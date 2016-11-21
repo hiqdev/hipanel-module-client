@@ -3,6 +3,7 @@
 use hipanel\helpers\FontIcon;
 use hipanel\modules\client\grid\ClientGridView;
 use hipanel\modules\client\grid\ContactGridView;
+use hipanel\modules\client\menus\ClientDetailMenu;
 use hipanel\modules\client\models\Client;
 use hipanel\modules\client\models\Contact;
 use hipanel\widgets\BlockModalButton;
@@ -10,6 +11,7 @@ use hipanel\widgets\Box;
 use hipanel\widgets\ClientSellerLink;
 use hipanel\widgets\SettingsModal;
 use hiqdev\assets\flagiconcss\FlagIconCssAsset;
+use hiqdev\menumanager\widgets\DetailMenu;
 use yii\helpers\Html;
 
 /*
@@ -52,92 +54,7 @@ $this->registerCss('legend {font-size: 16px;}');
         </p>
 
         <div class="profile-usermenu">
-            <ul class="nav">
-                <?php if (Yii::$app->user->is($model->id)) : ?>
-                    <li>
-                        <a href="http://gravatar.com" target="_blank">
-                            <i><img src="https://www.gravatar.com/avatar/00000000000000000000000000000000/?s=17" /></i>
-                            <?= Yii::t('hipanel:client', 'You can change your avatar at Gravatar.com')?>
-                        </a>
-                    </li>
-                <?php endif ?>
-                <?php if (Yii::$app->user->is($model->id)) : ?>
-                    <li>
-                        <?= SettingsModal::widget([
-                            'model'    => $model,
-                            'title'    => Yii::t('hipanel', 'Change password'),
-                            'icon'     => 'fa-key fa-flip-horizontal fa-fw',
-                            'scenario' => 'change-password',
-                        ]) ?>
-                    </li>
-                <?php endif ?>
-                <?php if (Yii::$app->user->not($model->id) && Yii::$app->user->can('manage')) : ?>
-                    <li>
-                        <?= SettingsModal::widget([
-                            'model'    => $model,
-                            'title'    => Yii::t('hipanel:client', 'Temporary password'),
-                            'icon'     => 'fa-key fa-flip-horizontal fa-fw',
-                            'scenario' => 'set-tmp-password',
-                        ]) ?>
-                    </li>
-                <?php endif ?>
-                <?php if (Yii::$app->user->is($model->id)) : ?>
-                    <li>
-                        <?= SettingsModal::widget([
-                            'model'    => $model,
-                            'title'    => Yii::t('hipanel:client', 'Pincode settings'),
-                            'icon'     => 'fa-puzzle-piece fa-fw',
-                            'scenario' => 'pincode-settings',
-                        ]) ?>
-                    </li>
-                <?php endif ?>
-                <?php if (Yii::$app->user->is($model->id)) : ?>
-                    <li>
-                        <?= SettingsModal::widget([
-                            'model'    => $model,
-                            'title'    => Yii::t('hipanel:client', 'IP address restrictions'),
-                            'icon'     => 'fa-arrows-alt fa-fw',
-                            'scenario' => 'ip-restrictions',
-                        ]) ?>
-                    </li>
-                <?php endif ?>
-                <li>
-                    <?= SettingsModal::widget([
-                        'model'    => $model,
-                        'title'    => Yii::t('hipanel:client', 'Mailing settings'),
-                        'icon'     => 'fa-envelope fa-fw',
-                        'scenario' => 'mailing-settings',
-                    ]) ?>
-                </li>
-                <li>
-                    <?= Html::a(FontIcon::i('fa-edit fa-fw') . Yii::t('hipanel:client', 'Change contact information'), ['@contact/update', 'id' => $model->id]) ?>
-                </li>
-                <?php if (Yii::getAlias('@domain', false)) : ?>
-                    <li>
-                        <?= SettingsModal::widget([
-                            'model'    => $model,
-                            'title'    => Yii::t('hipanel:client', 'Domain settings'),
-                            'icon'     => 'fa-globe fa-fw',
-                            'scenario' => 'domain-settings',
-                        ]) ?>
-                    </li>
-                <?php endif ?>
-                <?php if (Yii::getAlias('@ticket', false)) : ?>
-                    <li>
-                        <?= SettingsModal::widget([
-                            'model'    => $model,
-                            'title'    => Yii::t('hipanel:ticket', 'Ticket settings'),
-                            'icon'     => 'fa-ticket fa-fw',
-                            'scenario' => 'ticket-settings',
-                        ]) ?>
-                    </li>
-                <?php endif ?>
-                <?php if (Yii::$app->user->can('support') && Yii::$app->user->not($model->id)) : ?>
-                    <li>
-                        <?= BlockModalButton::widget(compact('model')) ?>
-                    </li>
-                <?php endif ?>
-            </ul>
+            <?= ClientDetailMenu::create(['model' => $model])->render(DetailMenu::class) ?>
         </div>
         <?php Box::end(); ?>
     </div>

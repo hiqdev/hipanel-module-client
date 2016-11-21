@@ -45,13 +45,6 @@ FlagIconCssAsset::register($this);
 
             <div class="profile-usermenu">
                 <?= ContactDetailMenu::create(['model' => $model])->render(DetailMenu::class) ?>
-                <ul class="nav">
-                <?php if (Yii::getAlias('@domain', false) && $model->used_count > 0) : ?>
-                    <li>
-                        <?= Html::a('<i class="fa fa-globe"></i>' . Yii::t('hipanel:client', 'Used for {n, plural, one{# domain} other{# domains}}', ['n' => $model->used_count]), Url::toSearch('domain', ['client_id' => $model->client_id])) ?>
-                    </li>
-                <?php endif ?>
-                </ul>
             </div>
         <?php Box::end() ?>
 
