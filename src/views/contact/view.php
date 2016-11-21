@@ -2,10 +2,12 @@
 
 use hipanel\helpers\Url;
 use hipanel\modules\client\grid\ContactGridView;
+use hipanel\modules\client\menus\ContactDetailMenu;
 use hipanel\modules\client\widgets\Verification;
 use hipanel\widgets\Box;
 use hipanel\widgets\ClientSellerLink;
 use hiqdev\assets\flagiconcss\FlagIconCssAsset;
+use hiqdev\menumanager\widgets\DetailMenu;
 use yii\helpers\Html;
 use yii\helpers\Inflector;
 
@@ -42,13 +44,8 @@ FlagIconCssAsset::register($this);
             </p>
 
             <div class="profile-usermenu">
+                <?= ContactDetailMenu::create(['model' => $model])->render(DetailMenu::class) ?>
                 <ul class="nav">
-                    <li>
-                        <?= Html::a('<i class="fa fa-edit"></i>' . Yii::t('hipanel', 'Edit'), ['update', 'id' => $model->id]) ?>
-                    </li>
-                    <li>
-                        <?= Html::a('<i class="fa fa-paperclip"></i>' . Yii::t('hipanel:client', 'Documents'), ['attach-files', 'id' => $model->id]) ?>
-                    </li>
                 <?php if (Yii::getAlias('@domain', false) && $model->used_count > 0) : ?>
                     <li>
                         <?= Html::a('<i class="fa fa-globe"></i>' . Yii::t('hipanel:client', 'Used for {n, plural, one{# domain} other{# domains}}', ['n' => $model->used_count]), Url::toSearch('domain', ['client_id' => $model->client_id])) ?>

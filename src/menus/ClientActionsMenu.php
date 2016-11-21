@@ -11,13 +11,13 @@ class ClientActionsMenu extends \hiqdev\menumanager\Menu
     public function items()
     {
         return [
-            [
+            'view' => [
                 'label' => Yii::t('hipanel', 'View'),
                 'icon' => 'fa-info',
                 'url' => ['@client/view', 'id' => $this->model->id],
                 'encode' => false,
             ],
-            [
+            'delete' => [
                 'label' => Yii::t('hipanel', 'Delete'),
                 'icon' => 'fa-trash',
                 'url' => ['@client/delete', 'id' => $this->model->id],
