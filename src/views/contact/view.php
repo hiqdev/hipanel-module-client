@@ -1,6 +1,5 @@
 <?php
 
-use hipanel\helpers\Url;
 use hipanel\modules\client\grid\ContactGridView;
 use hipanel\modules\client\menus\ContactDetailMenu;
 use hipanel\modules\client\widgets\Verification;
