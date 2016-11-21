@@ -12,18 +12,20 @@ class ClientActionsMenu extends \hiqdev\menumanager\Menu
     {
         return [
             [
-                'label' => '<i class="fa fa-fw fa-info"></i> ' . Yii::t('hipanel', 'View'),
+                'label' => Yii::t('hipanel', 'View'),
+                'icon' => 'fa-info',
                 'url' => ['@client/view', 'id' => $this->model->id],
                 'encode' => false,
             ],
             [
-                'label' => '<i class="fa fa-fw fa-trash"></i> ' . Yii::t('hipanel', 'Delete'),
+                'label' => Yii::t('hipanel', 'Delete'),
+                'icon' => 'fa-trash',
                 'url' => ['@client/delete', 'id' => $this->model->id],
                 'linkOptions' => [
                     'data' => [
                         'confirm' => Yii::t('hipanel', 'Are you sure you want to delete this item?'),
                         'method' => 'POST',
-                        'data-pjax' => '0',
+                        'pjax' => '0',
                     ],
                 ],
                 'encode' => false,
