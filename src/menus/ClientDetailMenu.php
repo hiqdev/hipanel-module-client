@@ -2,6 +2,7 @@
 
 namespace hipanel\modules\client\menus;
 
+use hipanel\modules\client\models\Client;
 use hipanel\widgets\BlockModalButton;
 use hipanel\widgets\SettingsModal;
 use hiqdev\menumanager\Menu;
@@ -9,6 +10,9 @@ use Yii;
 
 class ClientDetailMenu extends Menu
 {
+    /**
+     * @var Client
+     */
     public $model;
 
     public function items()
@@ -16,6 +20,7 @@ class ClientDetailMenu extends Menu
         $actions = ClientActionsMenu::create([
             'model' => $this->model,
         ])->items();
+
         $items = array_merge([
             [
                 'label' => Yii::t('hipanel:client', 'You can change your avatar at Gravatar.com'),

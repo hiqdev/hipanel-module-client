@@ -2,12 +2,19 @@
 
 namespace hipanel\modules\client\menus;
 
+use hipanel\modules\client\models\Client;
 use Yii;
 
 class ClientActionsMenu extends \hiqdev\menumanager\Menu
 {
+    /**
+     * @var Client
+     */
     public $model;
 
+    /**
+     * @inheritdoc
+     */
     public function items()
     {
         return [
