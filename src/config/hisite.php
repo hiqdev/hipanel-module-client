@@ -34,9 +34,11 @@ return [
                 'sidebar' => [
                     'add' => [
                         'client' => [
-                            'menu' => \hipanel\modules\client\menus\SidebarMenu::class,
-                            'where' => [
-                                'after' => ['dashboard'],
+                            'menu' => [
+                                'class' => \hipanel\modules\client\menus\SidebarMenu::class,
+                                'where' => [
+                                    'after' => ['dashboard'],
+                                ],
                             ],
                         ],
                     ],
