@@ -111,10 +111,25 @@ class ClientController extends \hipanel\base\CrudController
             ],
             'view' => [
                 'class' => ViewAction::class,
-                'findOptions' => [
-                    'select' => '*,contact,purses,last_seen,tickets_count,servers_count,hosting_count,contacts_count',
-                    'with_domains_count' => Yii::getAlias('@domain', false) ? 1 : 0,
-                ],
+                //'findOptions' => [
+                //    'with_domains_count' => Yii::getAlias('@domain', false) ? 1 : 0,
+                //],
+                'on beforePerform' => function ($event) {
+                    $action = $event->sender;
+                    $action->getDataProvider()->query
+                        ->addSelect(array_filter([
+                            'last_seen', 'contacts_count',
+                             Yii::getAlias('@domain', false) ? 'domains_count' : null,
+                             Yii::getAlias('@ticket', false) ? 'tickets_count' : null,
+                             Yii::getAlias('@server', false) ? 'servers_count' : null,
+                             Yii::getAlias('@hosting', false) ? 'hosting_count' : null,
+                        ]))
+                        ->joinWith('contact')
+                        ->joinWith(['purses' => function ($query) {
+                            $query->joinWith('files')->joinWith('contact');
+                        }])
+                    ;
+                },
             ],
             'validate-form' => [
                 'class' => ValidateFormAction::class,

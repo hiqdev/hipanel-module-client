@@ -79,7 +79,7 @@ $this->registerCss('legend {font-size: 16px;}');
                 <?php $box->end() ?>
                 <?php foreach ($model->purses as $purse) : ?>
                     <?php if (isset($purse['balance'])) : ?>
-                        <?= $this->render('@hipanel/modules/finance/views/bill/_purseBlock', compact('purse')) ?>
+                        <?= $this->render('@hipanel/modules/finance/views/bill/_purseBlock', ['model' => $purse]) ?>
                     <?php endif ?>
                 <?php endforeach ?>
             </div>
@@ -92,11 +92,10 @@ $this->registerCss('legend {font-size: 16px;}');
                             <?= Html::a(Yii::t('hipanel', 'Change'), ['@contact/update', 'id' => $model->id], ['class' => 'btn btn-default btn-xs']) ?>
                         <?php $box->endTools(); ?>
                     <?php $box->endHeader(); ?>
-                    <?php $contact = new Contact(); $contact->load($model->contact, ''); ?>
                     <?php $box->beginBody(); ?>
                         <?= ContactGridView::detailView([
                             'boxed' => false,
-                            'model' => $contact,
+                            'model' => $model->contact,
                             'columns' => [
                                 'first_name', 'last_name', 'organization',
                                 'email', 'abuse_email', 'messengers', 'social_net',

@@ -15,6 +15,7 @@ use hipanel\helpers\StringHelper;
 use hipanel\modules\client\models\query\ClientQuery;
 use hipanel\modules\domain\models\Domain;
 use hipanel\modules\server\models\Server;
+use hipanel\modules\finance\models\Purse;
 use hipanel\validators\DomainValidator;
 use Yii;
 
@@ -39,8 +40,7 @@ class Client extends \hipanel\base\Model
             [['login', 'seller', 'state', 'type', 'tariff', 'profile'], 'safe'],
             [['state_label', 'type_label'], 'safe'],
             [['balance', 'credit'], 'number'],
-            [['purses'], 'safe'],
-            [['count', 'confirm_url', 'language', 'comment', 'name', 'contact', 'currency'], 'safe'],
+            [['count', 'confirm_url', 'language', 'comment', 'name', 'currency'], 'safe'],
             [['create_time', 'update_time'], 'date'],
             [['id', 'note'], 'safe', 'on' => 'set-note'],
 
@@ -183,6 +183,11 @@ class Client extends \hipanel\base\Model
         return $this->hasOne(ClientTicketSettings::class, ['id', 'id']);
     }
 
+    public function getContact()
+    {
+        return $this->hasOne(Contact::class, ['client_id' => 'id']);
+    }
+
     public function getDomains()
     {
         if (!Yii::getAlias('@domain', false)) {
@@ -199,6 +204,15 @@ class Client extends \hipanel\base\Model
         }
 
         return $this->hasMany(Server::class, ['client_id' => 'id']);
+    }
+
+    public function getPurses()
+    {
+        if (!Yii::getAlias('@finance', false)) {
+            return null;
+        }
+
+        return $this->hasMany(Purse::class, ['client_id' => 'id']);
     }
 
     public static function canBeSelf($model)
