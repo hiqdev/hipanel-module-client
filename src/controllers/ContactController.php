@@ -23,12 +23,14 @@ use hipanel\actions\ViewAction;
 use hipanel\base\CrudController;
 use hipanel\helpers\ArrayHelper;
 use hipanel\modules\client\models\Client;
+use hipanel\modules\client\models\DocumentUploadForm;
 use hipanel\modules\client\models\Verification;
 use hipanel\modules\client\models\Contact;
 use hipanel\modules\domain\models\Domain;
 use Yii;
 use yii\base\Event;
 use yii\filters\VerbFilter;
+use yii\web\NotFoundHttpException;
 
 class ContactController extends CrudController
 {
@@ -97,20 +99,6 @@ class ContactController extends CrudController
                     ];
                 },
             ],
-            'attach-files' => [
-                'class' => SmartUpdateAction::class,
-                'success' => Yii::t('hipanel:client', 'Documents were saved'),
-                'on beforeFetch' => function (Event $event) {
-                    /** @var \hipanel\actions\SearchAction $action */
-                    $action = $event->sender;
-                    $dataProvider = $action->getDataProvider();
-                    $dataProvider->query->joinWith('files');
-
-                    $dataProvider->query
-                        ->andWhere(['with_files' => 1])
-                        ->select(['*']);
-                },
-            ],
             'copy' => [
                 'class' => SmartUpdateAction::class,
                 'scenario' => 'create',
@@ -142,6 +130,32 @@ class ContactController extends CrudController
                 'success' => Yii::t('hipanel:client', 'Confirmation message was sent to your email')
             ],
         ];
+    }
+
+    public function actionAttachDocuments($id)
+    {
+        $contact = Contact::find()->joinWith('documents')->where(['id' => $id])->one();
+
+        if ($contact === null) {
+            throw new NotFoundHttpException();
+        }
+
+        $model = new DocumentUploadForm(['id' => $contact->id]);
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            $session = Yii::$app->session;
+            if ($model->save()) {
+                $session->addFlash('success', Yii::t('hipanel:client', 'Documents were saved'));
+
+                return $this->redirect(['attach-documents', 'id' => $id]);
+            }
+
+            $session->addFlash('error', $model->getFirstError('title'));
+        }
+
+        return $this->render('attach-documents', [
+            'contact' => $contact,
+            'model' => $model,
+        ]);
     }
 
     public function actionChangeContact($contactId = null, $contactType = null, $domainId = null, $domainName = null)

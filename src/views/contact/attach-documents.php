@@ -18,44 +18,47 @@ use yii\helpers\Inflector;
 use yii\widgets\ActiveForm;
 
 /**
- * @var \hipanel\modules\client\models\Contact $model
+ * @var \hipanel\modules\client\models\Contact $contact
+ * @var \hipanel\modules\client\models\DocumentUploadForm $model
  */
 
 $this->title = Yii::t('hipanel:client', 'Attached documents');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('hipanel:client', 'Contacts'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => Inflector::titleize($model->name, true), 'url' => ['view', 'id' => $model->id]];
+$this->params['breadcrumbs'][] = [
+    'label' => Inflector::titleize($contact->name, true),
+    'url' => ['view', 'id' => $contact->id],
+];
 $this->params['breadcrumbs'][] = $this->title;
 
 ?>
 
 <div class="col-md-6">
     <?php
-    $grouped = ArrayHelper::index($model->files, 'id', [
+    $grouped = ArrayHelper::index($contact->documents, 'id', [
         function ($file) {
             return (new DateTime($file->create_time))->modify('today')->format('U');
-        }
+        },
     ]);
 
     krsort($grouped, SORT_NUMERIC);
     ?>
 
     <?php foreach ($grouped as $date => $files) : ?>
-        <div class="panel panel-default">
-            <div class="panel-heading"><?= Yii::$app->formatter->asDate($date, 'medium') ?></div>
-            <div class="panel-body">
-                <?php foreach ($files as $file) {
-                    echo \hipanel\widgets\FileRender::widget([
-                        'file' => $file,
-                        'lightboxLinkOptions' => [
-                            'data-lightbox' => 'files-' . $date
-                        ]
-                    ]);
-                } ?>
-            </div>
+    <div class="panel panel-default">
+        <div class="panel-heading"><?= Yii::$app->formatter->asDate($date, 'medium') ?></div>
+        <div class="panel-body">
+            <?php foreach ($files as $document) { ?>
+                <?= \hipanel\widgets\FileRender::widget([
+                    'file' => $document->file,
+                    'lightboxLinkOptions' => [
+                        'data-lightbox' => 'files-' . $date,
+                    ],
+                ]); ?>
+            <?php } ?>
         </div>
+    </div>
     <?php endforeach; ?>
 </div>
-
 
 <div class="col-md-6">
     <?php Box::begin(['title' => Yii::t('hipanel:client', 'Attach new documents')]); ?>
@@ -67,27 +70,20 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php $form = ActiveForm::begin([
         'id' => 'attach-form',
-        'action' => Url::to('attach-files'),
         'enableClientValidation' => true,
         'validateOnBlur' => true,
-        'enableAjaxValidation' => true,
-        'validationUrl' => Url::toRoute(['validate-form', 'scenario' => $model->scenario]),
         'options' => ['enctype' => 'multipart/form-data'],
     ]);
 
     echo $form->field($model, 'id')->hiddenInput()->label(false);
-    echo $form->field($model, 'file[]')->widget(FileInput::class, [
-        'options' => [
-            'multiple' => true,
-        ],
+    echo $form->field($model, 'title')->textInput([
+        'placeholder' => Yii::t('hipanel:client', 'Passport, ID card, etc'),
+    ]);
+    echo $form->field($model, 'file')->widget(FileInput::class, [
         'pluginOptions' => [
             'previewFileType' => 'any',
             'showRemove' => true,
             'showUpload' => false,
-            'initialPreviewShowDelete' => true,
-            'maxFileCount' => 5,
-            'msgFilesTooMany' => Yii::t('hipanel',
-                'Number of files selected for upload ({n}) exceeds maximum allowed limit of {m}'),
         ],
     ])->label(false); ?>
 

@@ -12,22 +12,25 @@ class ContactDetailMenu extends Menu
 
     public function items()
     {
-        $actions = ContactActionsMenu::create([
+        $items = ContactActionsMenu::create([
             'model' => $this->model,
         ])->items();
-        $items = array_merge($actions, [
-            [
+
+        if (Yii::getAlias('@document', false)) {
+            $items[] = [
                 'label' => Yii::t('hipanel:client', 'Documents'),
                 'icon' => 'fa-paperclip',
-                'url' => ['attach-files', 'id' => $this->model->id],
-            ],
-            [
-                'label' => Yii::t('hipanel:client', 'Used for {n, plural, one{# domain} other{# domains}}', ['n' => (int) $this->model->used_count]),
-                'icon' => 'fa-globe',
-                'url' => Url::toSearch('domain', ['client_id' => $this->model->client_id]),
-                'visible' => Yii::getAlias('@domain', false) && (int) $this->model->used_count > 0,
-            ]
-        ]);
+                'url' => ['attach-documents', 'id' => $this->model->id],
+            ];
+        }
+
+        $items[] = [
+            'label' => Yii::t('hipanel:client', 'Used for {n, plural, one{# domain} other{# domains}}', ['n' => (int) $this->model->used_count]),
+            'icon' => 'fa-globe',
+            'url' => Url::toSearch('domain', ['client_id' => $this->model->client_id]),
+            'visible' => Yii::getAlias('@domain', false) && (int) $this->model->used_count > 0,
+        ];
+
         unset($items['view']);
 
         return $items;

@@ -12,6 +12,7 @@
 namespace hipanel\modules\client\models;
 
 use hipanel\behaviors\File;
+use hipanel\modules\document\models\Document;
 use Yii;
 
 class Contact extends \hipanel\base\Model
@@ -22,21 +23,6 @@ class Contact extends \hipanel\base\Model
     use \hipanel\base\ModelTrait;
 
     public $oldEmail;
-
-    /**
-     * @return array
-     */
-    public function behaviors()
-    {
-        return [
-            [
-                'class' => File::class,
-                'attribute' => 'file',
-                'targetAttribute' => 'file_ids',
-                'scenarios' => ['attach-files'],
-            ],
-        ];
-    }
 
     public function rules()
     {
@@ -123,9 +109,8 @@ class Contact extends \hipanel\base\Model
             [
                 ['id'],
                 'required',
-                'on' => ['request-email-confirmation', 'request-phone-confirmation', 'attach-files', 'delete', 'update']
+                'on' => ['request-email-confirmation', 'request-phone-confirmation', 'delete', 'update']
             ],
-            [['file_ids'], 'safe', 'on' => ['attach-files']],
         ];
     }
 
@@ -167,9 +152,13 @@ class Contact extends \hipanel\base\Model
         return Verification::fromModel($this, $attribute);
     }
 
-    public function getFiles()
+    public function getDocuments()
     {
-        return $this->hasMany(\hipanel\models\File::class, ['object_id' => 'id']);
+        if (!Yii::getAlias('@document', false)) {
+            return null;
+        }
+
+        return $this->hasMany(Document::class, ['object_id' => 'id'])->joinWith('file');
     }
 
     public function scenarioCommands()

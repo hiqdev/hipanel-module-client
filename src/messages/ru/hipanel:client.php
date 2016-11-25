@@ -163,4 +163,6 @@ return [
     'Admin contact' => 'Административный контакт',
     'Tech contact' => 'Технический контакт',
     'Billing contact' => 'Биллинг контакт',
+    'Document type' => 'Тип документа',
+    'Passport, ID card, etc' => 'Паспорт, ID карта, идентификационнй код и т.п.'
 ];
