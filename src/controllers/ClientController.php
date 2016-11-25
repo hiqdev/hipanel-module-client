@@ -111,9 +111,6 @@ class ClientController extends \hipanel\base\CrudController
             ],
             'view' => [
                 'class' => ViewAction::class,
-                //'findOptions' => [
-                //    'with_domains_count' => Yii::getAlias('@domain', false) ? 1 : 0,
-                //],
                 'on beforePerform' => function ($event) {
                     $action = $event->sender;
                     $action->getDataProvider()->query
