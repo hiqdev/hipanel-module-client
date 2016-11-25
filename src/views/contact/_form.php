@@ -9,6 +9,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\web\JsExpression;
 use yii\web\View;
+use hipanel\widgets\BackButton;
 
 $this->registerJs(<<<JS
 jQuery('#fiz_domain input').change(function() {
@@ -131,7 +132,7 @@ if ($model->scenario === 'change-contact') {
         <?php else : ?>
             <?= Html::submitButton(Yii::t('hipanel:client', 'Create contact'), ['class' => 'btn btn-success']); ?>
         <?php endif; ?>
-        <?= Html::submitButton(Yii::t('hipanel', 'Cancel'), ['class' => 'btn btn-default', 'onclick' => 'window.history.back();']); ?>
+        <?= BackButton::widget() ?>
         <?php Box::end(); ?>
     </div>
 
