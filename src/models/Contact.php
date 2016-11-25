@@ -179,4 +179,9 @@ class Contact extends \hipanel\base\Model
             'request-phone-confirmation' => 'notify-confirm-phone',
         ];
     }
+
+    public function getName()
+    {
+        return $this->name ? : $this->first_name . ' ' . $this->last_name;
+    }
 }
