@@ -33,9 +33,9 @@ $this->registerCss('legend {font-size: 16px;}');
             'bodyOptions' => [
                 'class' => 'no-padding',
             ],
-        ]); ?>
+        ]) ?>
         <div class="profile-user-img text-center">
-            <?= $this->render('//layouts/gravatar', ['email' => $model->email, 'size' => 120]); ?>
+            <?= $this->render('//layouts/gravatar', ['email' => $model->email, 'size' => 120]) ?>
         </div>
         <p class="text-center">
             <span class="profile-user-name">
@@ -52,7 +52,7 @@ $this->registerCss('legend {font-size: 16px;}');
         <div class="profile-usermenu">
             <?= ClientDetailMenu::create(['model' => $model])->render(DetailMenu::class) ?>
         </div>
-        <?php Box::end(); ?>
+        <?php Box::end() ?>
     </div>
 
     <div class="col-md-9">
@@ -84,15 +84,15 @@ $this->registerCss('legend {font-size: 16px;}');
                 <?php endforeach ?>
             </div>
             <div class="col-md-6">
-                <?php $box = Box::begin(['renderBody' => false]); ?>
-                    <?php $box->beginHeader(); ?>
-                        <?= $box->renderTitle(Yii::t('hipanel:client', 'Contact information'), ''); ?>
-                        <?php $box->beginTools(); ?>
+                <?php $box = Box::begin(['renderBody' => false]) ?>
+                    <?php $box->beginHeader() ?>
+                        <?= $box->renderTitle(Yii::t('hipanel:client', 'Contact information'), '') ?>
+                        <?php $box->beginTools() ?>
                             <?= Html::a(Yii::t('hipanel', 'Details'), ['@contact/view', 'id' => $model->id], ['class' => 'btn btn-default btn-xs']) ?>
                             <?= Html::a(Yii::t('hipanel', 'Change'), ['@contact/update', 'id' => $model->id], ['class' => 'btn btn-default btn-xs']) ?>
-                        <?php $box->endTools(); ?>
-                    <?php $box->endHeader(); ?>
-                    <?php $box->beginBody(); ?>
+                        <?php $box->endTools() ?>
+                    <?php $box->endHeader() ?>
+                    <?php $box->beginBody() ?>
                         <?= ContactGridView::detailView([
                             'boxed' => false,
                             'model' => $model->contact,
@@ -103,8 +103,8 @@ $this->registerCss('legend {font-size: 16px;}');
                                 'street', 'city', 'province', 'postal_code', 'country',
                             ],
                         ]) ?>
-                    <?php $box->endBody(); ?>
-                <?php $box->end(); ?>
+                    <?php $box->endBody() ?>
+                <?php $box->end() ?>
             </div>
         </div>
     </div>
