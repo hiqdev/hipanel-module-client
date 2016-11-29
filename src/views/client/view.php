@@ -86,7 +86,7 @@ $this->registerCss('legend {font-size: 16px;}');
             <div class="col-md-6">
                 <?php $box = Box::begin(['renderBody' => false]) ?>
                     <?php $box->beginHeader() ?>
-                        <?= $box->renderTitle(Yii::t('hipanel:client', 'Contact information'), '') ?>
+                        <?= $box->renderTitle(Yii::t('hipanel:client', 'Contact information')) ?>
                         <?php $box->beginTools() ?>
                             <?= Html::a(Yii::t('hipanel', 'Details'), ['@contact/view', 'id' => $model->id], ['class' => 'btn btn-default btn-xs']) ?>
                             <?= Html::a(Yii::t('hipanel', 'Change'), ['@contact/update', 'id' => $model->id], ['class' => 'btn btn-default btn-xs']) ?>
