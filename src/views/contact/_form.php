@@ -182,8 +182,7 @@ if ($model->scenario === 'change-contact') {
         ]) ?>
         <?php $box->beginBody() ?>
         <fieldset id="fiz_domain">
-            <div
-                class="well well-sm"><?= Yii::t('hipanel:client', 'For domain registration in RU and SU zones as physical entity') ?></div>
+            <div class="well well-sm"><?= Yii::t('hipanel:client', 'Physical entity information') ?></div>
             <?= $form->field($model, 'birth_date')->widget(DatePicker::class, [
                 'removeButton' => false,
                 'pluginOptions' => [
@@ -215,8 +214,7 @@ if ($model->scenario === 'change-contact') {
         </fieldset>
         <hr>
         <fieldset id="jur_domain">
-            <div
-                class="well well-sm"><?= Yii::t('hipanel:client', 'For domain registration in RU and SU zones as legal entity') ?></div>
+            <div class="well well-sm"><?= Yii::t('hipanel:client', 'Legal entity information') ?></div>
             <?= $form->field($model, 'organization_ru'); ?>
             <?= $form->field($model, 'director_name'); ?>
             <?= $form->field($model, 'inn'); ?>
@@ -224,10 +222,15 @@ if ($model->scenario === 'change-contact') {
             <?= $form->field($model, 'isresident')->checkbox(); ?>
         </fieldset>
         <hr>
-        <fieldset id="jur_domain">
+        <fieldset id="tax_info">
+            <div class="well well-sm"><?= Yii::t('hipanel:client', 'Tax information') ?></div>
             <?= $form->field($model, 'vat_number') ?>
             <?= $form->field($model, 'vat_rate') ?>
             <?= $form->field($model, 'tax_comment') ?>
+        </fieldset>
+        <hr>
+        <fieldset id="bank_info">
+            <?= $form->field($model, 'bank_details')->textArea() ?>
         </fieldset>
 
         <?php $box->endBody() ?>

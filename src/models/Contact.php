@@ -44,7 +44,7 @@ class Contact extends \hipanel\base\Model
             [['birth_date', 'passport_date'], 'safe'],
             [['passport_no', 'passport_by', 'organization', 'password'], 'safe'],
 
-            [['vat_number', 'tax_comment'], 'trim'],
+            [['vat_number', 'tax_comment', 'bank_details'], 'trim'],
             [['vat_number', 'tax_comment'], 'string', 'max' => 32],
             [['vat_rate'], 'number', 'max' => 99],
 
@@ -144,6 +144,7 @@ class Contact extends \hipanel\base\Model
             'social_net'        => Yii::t('hipanel:client', 'Social'),
             'vat_number'        => Yii::t('hipanel:client', 'VAT number'),
             'vat_rate'          => Yii::t('hipanel:client', 'VAT rate'),
+            'bank_details'      => Yii::t('hipanel:client', 'Bank details'),
         ]);
     }
 

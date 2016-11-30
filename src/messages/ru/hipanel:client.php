@@ -72,6 +72,7 @@ return [
     'Additional contacts' => 'Дополнительные контакты',
     'Additional fields' => 'Дополнительные поля',
     'Tax information' => 'Налоговая информация',
+    'Bank details' => 'Банковские реквизиты',
     'Used for {n, plural, one{# domain} other{# domains}}' => 'Используется для {n, plural, one{1 домена} few{# доменов} other{# доменов}}',
     'Verification level' => 'Уровень верификации',
     'You can upload copy of your documents in order to help us verify your identity' => 'Вы можете загрузить копии своих документов, чтобы помочь нам верифицировать ваш аккаунт',
@@ -81,7 +82,9 @@ return [
     'Attach new documents' => 'Загрузить новые документы',
     'Documents were saved' => 'Документы были сохранены',
     'For domain registration in RU and SU zones as legal entity' => 'Для регистрации доменов в зонах RU и SU в качестве юридического лица',
+    'Legal entity information' => 'Данные юридического лица',
     'For domain registration in RU and SU zones as physical entity' => 'Для регистрации доменов в зонах RU и SU в качестве физического лица',
+    'Physical entity information' => 'Данные физического лица',
     'This field must contains phone number in international format.' => 'Это поле обязательно содержит номер телефона в международном формате.',
     'Field "{attribute}" can contain Latin characters written in lower case, and it may contain numbers and underscores' => 'Поле "{attribute}" может содержать символы латинского алфавита написанные в нижнем регистре, также оно может содержать цифры и нижнее подчеркивание',
 

@@ -115,6 +115,17 @@ FlagIconCssAsset::register($this);
                         ]) ?>
                     <?php $box->endBody() ?>
                 <?php $box->end() ?>
+
+                <?php $box = Box::begin([
+                    'renderBody' => false,
+                    'collapsed' => empty($model->bank_details),
+                    'collapsable' => true,
+                    'title' => Yii::t('hipanel:client', 'Bank details'),
+                ]) ?>
+                    <?php $box->beginBody() ?>
+                        <?= nl2br(Html::encode($model->bank_details)) ?>
+                    <?php $box->endBody() ?>
+                <?php $box->end() ?>
             </div>
             <div class="col-md-6">
                 <?php $box = Box::begin(['renderBody' => false]) ?>
