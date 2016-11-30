@@ -123,7 +123,7 @@ class ClientController extends \hipanel\base\CrudController
                         ]))
                         ->joinWith('contact')
                         ->joinWith(['purses' => function ($query) {
-                            $query->joinWith('files')->joinWith('contact');
+                            $query->joinWith('contact')->joinWith('requisite')->joinWith('files');
                         }])
                     ;
                 },
