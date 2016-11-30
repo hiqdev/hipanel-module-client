@@ -29,6 +29,7 @@ class ContactGridView extends BoxedGridView
             'name' => [
                 'class' => MainColumn::class,
                 'filterAttribute' => 'name_like',
+                'extraAttribute'  => 'organization',
                 'format'          => 'raw',
             ],
             'email' => [
