@@ -72,6 +72,7 @@ return [
     'Additional contacts' => 'Дополнительные контакты',
     'Additional fields' => 'Дополнительные поля',
     'Tax information' => 'Налоговая информация',
+    'Registration data' => 'Регистрационные данные',
     'Bank details' => 'Банковские реквизиты',
     'Used for {n, plural, one{# domain} other{# domains}}' => 'Используется для {n, plural, one{1 домена} few{# доменов} other{# доменов}}',
     'Verification level' => 'Уровень верификации',

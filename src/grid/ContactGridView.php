@@ -136,6 +136,12 @@ class ContactGridView extends BoxedGridView
                     return $model->vat_rate ? (int)$model->vat_rate . '%' : null;
                 },
             ],
+            'reg_data' => [
+                'format' => 'html',
+                'value' => function ($model) {
+                    return nl2br($model->reg_data);
+                },
+            ],
         ];
     }
 }

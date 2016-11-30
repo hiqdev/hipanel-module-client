@@ -87,8 +87,7 @@ FlagIconCssAsset::register($this);
                             'boxed'   => false,
                             'model'   => $model,
                             'columns' => [
-                                'seller_id',
-                                'client_id',
+                                'seller_id', 'client_id',
                                 ['attribute' => 'name'],
                                 'birth_date',
                                 'email_with_verification', 'abuse_email',
@@ -101,17 +100,15 @@ FlagIconCssAsset::register($this);
 
                 <?php $box = Box::begin([
                     'renderBody' => false,
-                    'collapsed' => empty($model->vat_number) && empty($model->vat_rate),
+                    'collapsed' => empty($model->reg_data) && empty($model->vat_number) && empty($model->vat_rate),
                     'collapsable' => true,
-                    'title' => Yii::t('hipanel:client', 'Tax information'),
+                    'title' => Yii::t('hipanel:client', 'Registration data'),
                 ]) ?>
                     <?php $box->beginBody() ?>
                         <?= ContactGridView::detailView([
                             'boxed'   => false,
                             'model'   => $model,
-                            'columns' => [
-                                'vat_number', 'vat_rate', 'tax_comment',
-                            ],
+                            'columns' => ['reg_data', 'vat_number', 'vat_rate', 'tax_comment'],
                         ]) ?>
                     <?php $box->endBody() ?>
                 <?php $box->end() ?>
