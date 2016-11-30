@@ -175,14 +175,6 @@ if ($model->scenario === 'change-contact') {
     </div>
 
     <div class="col-md-6">
-        <?php Box::begin(['title' => Yii::t('hipanel:client', 'Tax information')]) ?>
-        <?= $form->field($model, 'vat_number') ?>
-        <?= $form->field($model, 'vat_rate') ?>
-        <?= $form->field($model, 'tax_comment') ?>
-        <?php Box::end() ?>
-    </div>
-
-    <div class="col-md-6">
         <?php $box = Box::begin([
             'renderBody' => false,
             'collapsed' => true,
@@ -231,6 +223,13 @@ if ($model->scenario === 'change-contact') {
             <?= $form->field($model, 'kpp'); ?>
             <?= $form->field($model, 'isresident')->checkbox(); ?>
         </fieldset>
+        <hr>
+        <fieldset id="jur_domain">
+            <?= $form->field($model, 'vat_number') ?>
+            <?= $form->field($model, 'vat_rate') ?>
+            <?= $form->field($model, 'tax_comment') ?>
+        </fieldset>
+
         <?php $box->endBody() ?>
         <?php $box->end() ?>
     </div>
