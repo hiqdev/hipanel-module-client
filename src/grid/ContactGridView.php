@@ -11,9 +11,8 @@
 
 namespace hipanel\modules\client\grid;
 
+use hipanel\modules\domain\widgets\CheckCircle;
 use hiqdev\menumanager\MenuColumn;
-use hiqdev\menumanager\widgets\MenuButton;
-use hipanel\grid\ActionColumn;
 use hipanel\grid\BoxedGridView;
 use hipanel\grid\MainColumn;
 use hipanel\modules\client\menus\ContactActionsMenu;
@@ -29,8 +28,30 @@ class ContactGridView extends BoxedGridView
             'name' => [
                 'class' => MainColumn::class,
                 'filterAttribute' => 'name_like',
-                'extraAttribute'  => 'organization',
-                'format'          => 'raw',
+                'extraAttribute' => 'organization',
+                'format' => 'raw',
+                'value' => function ($model) {
+                    return $model->name . CheckCircle::widget(['value' => $model->getVerification('name')->isVerified()]);
+                },
+            ],
+            'email_v' => [
+                'format' => 'raw',
+                'attribute' => 'email',
+                'value' => function ($model) {
+                    return Html::mailto($model->email, $model->email) . CheckCircle::widget(['value' => $model->getVerification('email')->isVerified()]);
+                },
+            ],
+            'voice_phone' => [
+                'format' => 'raw',
+                'value' => function ($model) {
+                    return $model->voice_phone ? $model->voice_phone . CheckCircle::widget(['value' => $model->getVerification('voice_phone')->isVerified()]) : '';
+                },
+            ],
+            'fax_phone' => [
+                'format' => 'raw',
+                'value' => function ($model) {
+                    return $model->fax_phone ? $model->fax_phone . CheckCircle::widget(['value' => $model->getVerification('fax_phone')->isVerified()]) : '';
+                },
             ],
             'email' => [
                 'format' => 'raw',
