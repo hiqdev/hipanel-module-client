@@ -146,6 +146,7 @@ class Contact extends \hipanel\base\Model
             'vat_number'        => Yii::t('hipanel:client', 'VAT number'),
             'vat_rate'          => Yii::t('hipanel:client', 'VAT rate'),
             'bank_details'      => Yii::t('hipanel:client', 'Bank details'),
+            'name_v' => Yii::t('hipanel', 'Name'),
         ]);
     }
 
