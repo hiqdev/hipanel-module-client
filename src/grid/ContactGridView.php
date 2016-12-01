@@ -30,8 +30,15 @@ class ContactGridView extends BoxedGridView
                 'filterAttribute' => 'name_like',
                 'extraAttribute' => 'organization',
                 'format' => 'raw',
+            ],
+            'name_v' => [
+                'class' => MainColumn::class,
+                'filterAttribute' => 'name_like',
+                'extraAttribute' => 'organization',
+                'format' => 'raw',
                 'value' => function ($model) {
-                    return $model->name . CheckCircle::widget(['value' => $model->getVerification('name')->isVerified()]);
+                    return CheckCircle::widget(['value' => $model->getVerification('name')->isVerified()]) .
+                    Html::a($model->name, ['@contact/view', 'id' => $model->id], ['class' => 'text-bold']);
                 },
             ],
             'email_v' => [
