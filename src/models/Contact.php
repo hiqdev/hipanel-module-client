@@ -148,6 +148,12 @@ class Contact extends \hipanel\base\Model
         ]);
     }
 
+    /**
+     * Returns verification model for the $attribute
+     *
+     * @param string $attribute
+     * @return Verification
+     */
     public function getVerification($attribute)
     {
         return Verification::fromModel($this, $attribute);

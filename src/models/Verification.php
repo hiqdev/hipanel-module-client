@@ -42,6 +42,13 @@ class Verification extends \hipanel\base\Model
         return Contact::type();
     }
 
+    /**
+     * Creates this Verification model from the existing $model for the $attribute
+     *
+     * @param Model $model
+     * @param $attribute
+     * @return static
+     */
     public static function fromModel(Model $model, $attribute)
     {
         $valueAttribute = $attribute . '_confirmed';

@@ -11,7 +11,7 @@
 
 namespace hipanel\modules\client\grid;
 
-use hipanel\modules\domain\widgets\CheckCircle;
+use hipanel\widgets\CheckCircle;
 use hiqdev\menumanager\MenuColumn;
 use hipanel\grid\BoxedGridView;
 use hipanel\grid\MainColumn;
