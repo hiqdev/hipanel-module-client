@@ -11,6 +11,8 @@ use yii\web\JsExpression;
 use yii\web\View;
 use hipanel\widgets\BackButton;
 
+$askPincode = (boolean)$askPincode['pincode_enabled'];
+$isClient = (boolean)Yii::$app->user->can('role:client');
 $this->registerJs(<<<JS
 jQuery('#fiz_domain input').change(function() {
     var disable = false;
@@ -44,13 +46,12 @@ jQuery('#jur_domain input').change(function() {
     jQuery('#fiz_domain').prop('disabled', disable);
 });
 JS
-, View::POS_READY);
+    , View::POS_READY);
 ?>
 
-<?php if ($askPincode['pincode_enabled']) : ?>
-    <?php $this->registerJs(<<<"JS"
+<?php $this->registerJs(<<<"JS"
     var oldEmail = document.getElementById('contact-oldemail').value;
-    var show = true;
+    var show = false, askPincode = Boolean('{$askPincode}'), isClient =  Boolean('{$isClient}');
     jQuery('#contact-form').on('beforeSubmit', function(event, attributes, messages, deferreds) {
         if (attributes === undefined) {
             attributes = document.getElementById('contact-form').elements; 
@@ -62,43 +63,40 @@ JS
                 return;
             }
             if (attribute.name === 'Contact[email]') {
-                if (attribute.value === oldEmail) {
-                    show = false;
+                if (attribute.value !== oldEmail && (askPincode && isClient) ) {
+                    show = true;
                 }
             }
         }
-        if (show) {
+        if (show || !isClient) {
             event.preventDefault();
             jQuery('#askpincode-modal').modal('show');
             return false;
         }
     });
-    if (show) {
-        jQuery('#modal-ask-pincode-button').on('click', function(e) {
-            var pincode = jQuery('#modal-pincode').val();
-            jQuery('#contact-pincode').val(pincode);
-            document.getElementById("contact-form").submit();
-        });
-    }
+    jQuery('#modal-ask-pincode-button').on('click', function(e) {
+        var pincode = jQuery('#modal-pincode').val();
+        jQuery('#contact-pincode').val(pincode);
+        document.getElementById("contact-form").submit();
+    });
 JS
-    ); ?>
-    <?php Modal::begin([
-        'id' => 'askpincode-modal',
-        'size' => Modal::SIZE_SMALL,
-        'header' => '<h4 class="modal-title">' . Yii::t('hipanel:client', 'Enter pincode') . '</h4>',
-        'clientEvents' => [
-            'show.bs.modal' => new JsExpression("function() {document.getElementById('modal-pincode').value = '';}"),
-        ],
-        'footer' => Html::submitButton(Yii::t('hipanel', 'Submit'), [
-            'id' => 'modal-ask-pincode-button',
-            'class' => 'btn btn-default btn-loading',
-            'data-loading-text' => Yii::t('hipanel', 'loading...'),
-            'data-loading-icon' => 'glyphicon glyphicon-refresh',
-        ]),
-    ]); ?>
-    <?= Html::textInput('modal-pincode', null, ['id' => 'modal-pincode', 'class' => 'form-control', 'placeholder' => Yii::t('hipanel:client', 'Type pincode here...')]); ?>
-    <?php Modal::end(); ?>
-<?php endif; ?>
+); ?>
+<?php Modal::begin([
+    'id' => 'askpincode-modal',
+    'size' => Modal::SIZE_SMALL,
+    'header' => '<h4 class="modal-title">' . Yii::t('hipanel:client', 'Enter pincode') . '</h4>',
+    'clientEvents' => [
+        'show.bs.modal' => new JsExpression("function() {document.getElementById('modal-pincode').value = '';}"),
+    ],
+    'footer' => Html::submitButton(Yii::t('hipanel', 'Submit'), [
+        'id' => 'modal-ask-pincode-button',
+        'class' => 'btn btn-default btn-loading',
+        'data-loading-text' => Yii::t('hipanel', 'loading...'),
+        'data-loading-icon' => 'glyphicon glyphicon-refresh',
+    ]),
+]); ?>
+<?= Html::textInput('modal-pincode', null, ['id' => 'modal-pincode', 'class' => 'form-control', 'placeholder' => Yii::t('hipanel:client', 'Type pincode here...')]); ?>
+<?php Modal::end(); ?>
 
 <?php $form = ActiveForm::begin([
     'id' => 'contact-form',
@@ -133,7 +131,7 @@ JS
         <?= $form->field($model, 'first_name'); ?>
         <?= $form->field($model, 'last_name'); ?>
         <?= $form->field($model, 'email'); ?>
-        <?= Html::activeHiddenInput($model, 'oldEmail', ['value' => $model->oldAttributes['email'] ? : $model->oldEmail]) ?>
+        <?= Html::activeHiddenInput($model, 'oldEmail', ['value' => $model->oldAttributes['email'] ?: $model->oldEmail]) ?>
 
         <?= $form->field($model, 'abuse_email'); ?>
         <?= $form->field($model, 'organization'); ?>
