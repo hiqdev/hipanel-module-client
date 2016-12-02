@@ -157,39 +157,4 @@ class ContactController extends CrudController
             'model' => $model,
         ]);
     }
-
-    public function actionChangeContact($contactId = null, $contactType = null, $domainId = null, $domainName = null)
-    {
-        if (!Yii::$app->request->isPost) {
-            $model = $this->findModel($contactId);
-            $model->scenario = 'change-contact';
-
-            return $this->render('changeContact', [
-                'countries' => $this->getRefs('country_code', 'hipanel'),
-                'askPincode' => Client::perform('HasPincode'),
-                'model' => $model,
-                'domainId' => $domainId,
-                'domainName' => $domainName,
-                'contactType' => $contactType,
-            ]);
-        } else {
-            $model = new Contact(['scenario' => 'create']);
-            if ($model->load(Yii::$app->request->post())) {
-                $domainContactInfo = Domain::perform('GetContactsInfo', ['id' => $model->domainId]);
-                $setContactOptions = [
-                    'domain' => $model->domainName,
-                    'id' => $model->domainId,
-                ];
-                if ($model->save()) {
-                    foreach (Domain::$contactOptions as $contact) {
-                        $setContactOptions[$contact] = $contact === $model->contactType ?
-                            $model->id :
-                            $domainContactInfo[$contact]['id'];
-                    }
-                    Domain::perform('SetContacts', $setContactOptions);
-                    $this->redirect(['@domain/view', 'id' => $model->domainId]);
-                }
-            }
-        }
-    }
 }

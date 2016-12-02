@@ -110,17 +110,6 @@ JS
     'validationUrl' => Url::toRoute(['validate-form', 'scenario' => $model->scenario]),
 ]) ?>
 
-<?php
-// If contact change
-if ($model->scenario === 'change-contact') {
-    echo Html::activeHiddenInput($model, 'domainId', ['value' => $domainId]);
-    echo Html::activeHiddenInput($model, 'domainName', ['value' => $domainName]);
-    echo Html::activeHiddenInput($model, 'contactType', ['value' => $contactType]);
-}
-
-?>
-
-
 <div class="row">
 
     <?= Html::activeHiddenInput($model, 'pincode'); ?>

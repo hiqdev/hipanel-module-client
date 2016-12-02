@@ -103,9 +103,6 @@ class Contact extends \hipanel\base\Model
             ],
             [['name_confirm_date'], 'safe'],
 
-            // Change contact
-            [['domainId', 'contactType', 'domainName'], 'safe', 'on' => ['create', 'change-contact']],
-
             [
                 ['id'],
                 'required',
