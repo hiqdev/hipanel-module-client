@@ -39,11 +39,7 @@ $this->registerCss('legend {font-size: 16px;}');
         </div>
         <p class="text-center">
             <span class="profile-user-name">
-                <?= ClientSellerLink::widget([
-                    'model' => $model,
-                    'clientAttribute' => 'login',
-                    'clientIdAttribute' => 'id',
-                ]) ?>
+                <?= ClientSellerLink::widget(['model' => $model]) ?>
             </span>
             <br>
             <span class="profile-user-role"><?= $model->type ?></span><br>

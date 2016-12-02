@@ -138,6 +138,16 @@ class Client extends \hipanel\base\Model
         ];
     }
 
+    public function getClient()
+    {
+        return $this->login;
+    }
+
+    public function getClient_id()
+    {
+        return $this->id;
+    }
+
     public function attributeLabels()
     {
         return $this->mergeAttributeLabels([
