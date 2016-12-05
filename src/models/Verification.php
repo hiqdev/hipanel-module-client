@@ -53,7 +53,7 @@ class Verification extends \hipanel\base\Model
     {
         $valueAttribute = $attribute . '_confirmed';
         $levelAttribute = $attribute . '_confirm_level';
-        $dateAttribute  = $attribute . '_confirm_date';
+        $dateAttribute = $attribute . '_confirm_date';
 
         $options = [
             'id' => $model->id,
@@ -97,10 +97,20 @@ class Verification extends \hipanel\base\Model
 
     public function getLevels()
     {
+        $out = [];
+        foreach ([static::LEVEL_CONFIRMED, static::LEVEL_VERIFIED, static::LEVEL_UNCONFIRMED] as $level) {
+            $out[$level] = ['value' => $level, 'text' => $this->getLabels()[$level]];
+        }
+
+        return $out;
+    }
+
+    public function getLabels()
+    {
         return [
-            static::LEVEL_UNCONFIRMED => ['value' => static::LEVEL_UNCONFIRMED, 'text' => Yii::t('hipanel:client', 'Not confirmed')],
-            static::LEVEL_CONFIRMED => ['value' => static::LEVEL_CONFIRMED, 'text' => Yii::t('hipanel:client', 'Confirmed')],
-            static::LEVEL_VERIFIED => ['value' => static::LEVEL_VERIFIED, 'text' => Yii::t('hipanel:client', 'Verified')],
+            static::LEVEL_UNCONFIRMED => Yii::t('hipanel:client', 'Not confirmed'),
+            static::LEVEL_CONFIRMED => Yii::t('hipanel:client', 'Confirmed'),
+            static::LEVEL_VERIFIED => Yii::t('hipanel:client', 'Verified'),
         ];
     }
 
