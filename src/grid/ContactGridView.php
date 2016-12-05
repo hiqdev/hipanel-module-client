@@ -11,7 +11,7 @@
 
 namespace hipanel\modules\client\grid;
 
-use hipanel\widgets\CheckCircle;
+use hipanel\widgets\VerificationMark;
 use hiqdev\menumanager\MenuColumn;
 use hipanel\grid\BoxedGridView;
 use hipanel\grid\MainColumn;
@@ -37,7 +37,7 @@ class ContactGridView extends BoxedGridView
                 'extraAttribute' => 'organization',
                 'format' => 'raw',
                 'value' => function ($model) {
-                    return CheckCircle::widget(['value' => $model->getVerification('name')->isVerified()]) .
+                    return VerificationMark::widget(['model' => $model->getVerification('name')]) .
                     Html::a($model->name, ['@contact/view', 'id' => $model->id], ['class' => 'text-bold']);
                 },
             ],
@@ -45,19 +45,19 @@ class ContactGridView extends BoxedGridView
                 'format' => 'raw',
                 'attribute' => 'email',
                 'value' => function ($model) {
-                    return Html::mailto($model->email, $model->email) . CheckCircle::widget(['value' => $model->getVerification('email')->isVerified()]);
+                    return Html::mailto($model->email, $model->email) . VerificationMark::widget(['model' => $model->getVerification('email')]);
                 },
             ],
             'voice_phone' => [
                 'format' => 'raw',
                 'value' => function ($model) {
-                    return $model->voice_phone ? $model->voice_phone . CheckCircle::widget(['value' => $model->getVerification('voice_phone')->isVerified()]) : '';
+                    return $model->voice_phone ? $model->voice_phone . VerificationMark::widget(['model' => $model->getVerification('voice_phone')]) : '';
                 },
             ],
             'fax_phone' => [
                 'format' => 'raw',
                 'value' => function ($model) {
-                    return $model->fax_phone ? $model->fax_phone . CheckCircle::widget(['value' => $model->getVerification('fax_phone')->isVerified()]) : '';
+                    return $model->fax_phone ? $model->fax_phone . VerificationMark::widget(['model' => $model->getVerification('fax_phone')]) : '';
                 },
             ],
             'email' => [
