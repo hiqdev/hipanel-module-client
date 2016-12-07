@@ -73,7 +73,7 @@ class ClientDetailMenu extends Menu
             [
                 'label' => SettingsModal::widget([
                     'model' => $this->model,
-                    'title' => Yii::t('hipanel:client', 'Mailing settings'),
+                    'title' => Yii::t('hipanel:client', 'Notification settings'),
                     'icon' => 'fa-envelope fa-fw',
                     'scenario' => 'mailing-settings',
                 ]),

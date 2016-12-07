@@ -157,6 +157,7 @@ return [
     'Province' => 'Провинция',
     'Postal code' => 'Индекс',
     'Mailing settings' => 'Настроки почты',
+    'Notification settings' => 'Настроки уведомлений',
     'Login' => 'Логин',
     'Birth date' => 'Дата рождения',
     'Other messenger' => 'Другой мессенджер',
