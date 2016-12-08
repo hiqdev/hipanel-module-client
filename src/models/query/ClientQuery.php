@@ -46,12 +46,4 @@ class ClientQuery extends ActiveQuery
 
         return $this;
     }
-
-    public function withContacts()
-    {
-        $this->andWhere(['with_contact' => 1]);
-        $this->with(['contact']);
-
-        return $this;
-    }
 }
