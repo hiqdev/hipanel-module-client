@@ -29,6 +29,9 @@ use yii\helpers\Url;
                 <legend><?= Yii::t('hipanel:client', 'Mailings') ?></legend>
                 <?= $form->field($model, 'newsletters')->checkbox() ?>
                 <?= $form->field($model, 'commercial')->checkbox() ?>
+            <?php if (Yii::$app->user->can('manage')) : ?>
+                <?= $form->field($model, 'monthly_invoice')->checkbox() ?>
+            <?php endif ?>
             </fieldset>
         </div>
         <!-- /.col-md-6 -->

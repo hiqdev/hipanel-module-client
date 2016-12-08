@@ -74,12 +74,10 @@ class Client extends \hipanel\base\Model
             [['autorenewal', 'whois_protected'], 'boolean', 'on' => 'domain-settings'],
             [['registrant', 'admin', 'tech', 'billing'], 'safe', 'on' => 'domain-settings'],
 
-            // Mailings
+            // Mailings/Notification settings
             [[
-                'notify_important_actions',
-                'domain_registration',
-                'newsletters',
-                'commercial',
+                'notify_important_actions', 'domain_registration',
+                'newsletters', 'commercial', 'monthly_invoice',
             ], 'boolean', 'on' => ['mailing-settings']],
 
             // IP address restrictions
@@ -166,11 +164,12 @@ class Client extends \hipanel\base\Model
             'new_password' => Yii::t('hipanel', 'New password'),
             'confirm_password' => Yii::t('hipanel', 'Confirm password'),
 
-            // Mailing settings
+            // Mailing/Notification settings
             'notify_important_actions' => Yii::t('hipanel:client', 'Notify important actions'),
             'domain_registration' => Yii::t('hipanel:client', 'Domain registration'),
             'newsletters' => Yii::t('hipanel:client', 'Newsletters'),
             'commercial' => Yii::t('hipanel:client', 'Commercial'),
+            'monthly_invoice' => Yii::t('hipanel:client', 'Monthly invoice'),
 
             // Domain settings
             'autorenewal' => Yii::t('hipanel', 'Autorenewal'),

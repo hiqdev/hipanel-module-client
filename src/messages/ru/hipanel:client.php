@@ -106,6 +106,7 @@ return [
     'Domain registration' => 'Регистрация домена',
     'Newsletters' => 'Новости',
     'Commercial' => 'Коммерческие предложения',
+    'Monthly invoice' => 'Ежемесячный инвойс',
     'You can change your avatar at Gravatar.com' => 'Вы можете изменить свой аватар на сайте Gravatar.com',
     'When checked, mail notification includes the text of the new message. By default, the mail has only the acknowledgment of the response and a link to the ticket. Be careful, the text can include confidential information.' => 'Когда отмечено, почтовые уведомления об ответах будут включать в себя текст сообщения. По умолчанию, в письме приходит только упоминание о новом ответе и ссылка на тикет. Будьте внимательны, текст сообщения может содержать конфиденциальную информацию.',
     'When checked, new answers in the ticket will be displayed first.' => 'Когда отмечено, новые ответы в тикете отображаются вначале',
