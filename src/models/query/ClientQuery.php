@@ -49,9 +49,8 @@ class ClientQuery extends ActiveQuery
 
     public function withContacts()
     {
-        if (Yii::getAlias('@client', false)) {
-            $this->andWhere(['with_contact' => 1]);
-        }
+        $this->andWhere(['with_contact' => 1]);
+        $this->with(['contact']);
 
         return $this;
     }
