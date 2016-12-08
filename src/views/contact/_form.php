@@ -211,10 +211,8 @@ JS
         <hr>
         <fieldset id="tax_info">
             <div class="well well-sm"><?= Yii::t('hipanel:client', 'Registration data') ?></div>
-            <?= $form->field($model, 'reg_data')->textArea() ?>
-            <?= $form->field($model, 'vat_number') ?>
+            <?= $form->field($model, 'vat_number')->textArea() ?>
             <?= $form->field($model, 'vat_rate') ?>
-            <?= $form->field($model, 'tax_comment') ?>
         </fieldset>
         <hr>
         <fieldset id="bank_info">
