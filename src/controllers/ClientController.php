@@ -121,7 +121,9 @@ class ClientController extends \hipanel\base\CrudController
                              Yii::getAlias('@server', false) ? 'servers_count' : null,
                              Yii::getAlias('@hosting', false) ? 'hosting_count' : null,
                         ]))
-                        ->joinWith('contact')
+                        ->joinWith(['contact' => function ($query) {
+                            $query->joinWith('documents');
+                        }])
                         ->joinWith(['purses' => function ($query) {
                             $query->joinWith('contact')->joinWith('requisite')->joinWith('files');
                         }])

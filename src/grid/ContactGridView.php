@@ -11,6 +11,7 @@
 
 namespace hipanel\modules\client\grid;
 
+use hipanel\modules\document\widgets\StackedDocumentsView;
 use hipanel\widgets\VerificationMark;
 use hiqdev\menumanager\MenuColumn;
 use hipanel\grid\BoxedGridView;
@@ -159,6 +160,19 @@ class ContactGridView extends BoxedGridView
                     return nl2br($model->reg_data);
                 },
             ],
+            'documents' => [
+                'format' => 'raw',
+                'label' => Yii::t('hipanel:client', 'Documents'),
+                'value' => function ($model) {
+                    if (Yii::getAlias('@documents', false) === null) {
+                        return '';
+                    }
+
+                    return StackedDocumentsView::widget([
+                        'models' => $model->documents,
+                    ]);
+                }
+            ]
         ];
     }
 }

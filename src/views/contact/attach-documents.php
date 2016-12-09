@@ -10,6 +10,7 @@
  */
 
 use hipanel\helpers\Url;
+use hipanel\modules\document\widgets\StackedDocumentsView;
 use hipanel\widgets\Box;
 use hipanel\widgets\FileInput;
 use yii\helpers\ArrayHelper;
@@ -33,31 +34,17 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <div class="col-md-6">
-    <?php
-    $grouped = ArrayHelper::index($contact->documents, 'id', [
-        function ($file) {
-            return (new DateTime($file->create_time))->modify('today')->format('U');
-        },
-    ]);
-
-    krsort($grouped, SORT_NUMERIC);
-    ?>
-
-    <?php foreach ($grouped as $date => $files) : ?>
-    <div class="panel panel-default">
-        <div class="panel-heading"><?= Yii::$app->formatter->asDate($date, 'medium') ?></div>
-        <div class="panel-body">
-            <?php foreach ($files as $document) { ?>
-                <?= \hipanel\widgets\FileRender::widget([
-                    'file' => $document->file,
-                    'lightboxLinkOptions' => [
-                        'data-lightbox' => 'files-' . $date,
-                    ],
-                ]); ?>
-            <?php } ?>
-        </div>
-    </div>
-    <?php endforeach; ?>
+    <?php $box = Box::begin(['renderBody' => false]) ?>
+        <?php $box->beginHeader() ?>
+            <?= $box->renderTitle(Yii::t('hipanel:client', 'Documents')) ?>
+        <?php $box->endHeader() ?>
+        <?php $box->beginBody() ?>
+            <?= StackedDocumentsView::widget([
+                'models' => $contact->documents,
+                'thumbSize' => 150
+            ]); ?>
+        <?php $box->endBody() ?>
+    <?php $box->end() ?>
 </div>
 
 <div class="col-md-6">

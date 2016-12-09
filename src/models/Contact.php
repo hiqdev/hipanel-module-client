@@ -166,7 +166,7 @@ class Contact extends \hipanel\base\Model
             return null;
         }
 
-        return $this->hasMany(Document::class, ['object_id' => 'id'])->joinWith('file');
+        return $this->hasMany(Document::class, ['object_id' => 'id'])->joinWith('file')->joinWith('statuses');
     }
 
     public function scenarioCommands()
