@@ -131,17 +131,6 @@ class ContactGridView extends BoxedGridView
             ],
             'messengers' => [
                 'format' => 'html',
-                'label' => Yii::t('hipanel:client', 'Messengers'),
-                'value' => function ($model) {
-                    $res = [];
-                    foreach (['skype' => 'Skype', 'icq' => 'ICQ', 'jabber' => 'Jabber'] as $k => $label) {
-                        if ($model->{$k}) {
-                            $res[] = "<b>$label:</b>&nbsp;" . $model->{$k};
-                        }
-                    }
-
-                    return implode('<br>', $res);
-                },
             ],
             'social_net' => [
                 'format' => 'html',

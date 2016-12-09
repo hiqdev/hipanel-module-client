@@ -137,6 +137,7 @@ class Contact extends \hipanel\base\Model
             'province'          => Yii::t('hipanel:client', 'Province'),
             'postal_code'       => Yii::t('hipanel:client', 'Postal code'),
             'birth_date'        => Yii::t('hipanel:client', 'Birth date'),
+            'messengers'         => Yii::t('hipanel:client', 'Messengers'),
             'other_messenger'   => Yii::t('hipanel:client', 'Other messenger'),
             'passport_date'     => Yii::t('hipanel:client', 'Passport issue date'),
             'passport_by'       => Yii::t('hipanel:client', 'Issued by'),
@@ -179,5 +180,17 @@ class Contact extends \hipanel\base\Model
     public function getName()
     {
         return $this->name ? : $this->first_name . ' ' . $this->last_name;
+    }
+
+    public function getMessengers()
+    {
+        $res = [];
+        foreach (['skype' => 'Skype', 'icq' => 'ICQ', 'jabber' => 'Jabber'] as $k => $label) {
+            if ($this->{$k}) {
+                $res[] = "<b>$label:</b>&nbsp;" . $this->{$k};
+            }
+        }
+
+        return implode('<br>', $res);
     }
 }
