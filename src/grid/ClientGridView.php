@@ -249,10 +249,7 @@ class ClientGridView extends BoxedGridView
             ],
             'messengers' => [
                 'format' => 'html',
-                'label' => Yii::t('hipanel:client', 'Messengers'),
-                'value' => function ($model) {
-                    return $model->contact->getMessengers();
-                },
+                'attribute' => 'contact.messengers',
             ],
             'actions' => [
                 'class' => MenuColumn::class,
