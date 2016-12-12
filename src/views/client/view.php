@@ -107,6 +107,7 @@ $this->registerCss('legend {font-size: 16px;}');
                         <?php $box->beginHeader() ?>
                             <?= $box->renderTitle(Yii::t('hipanel:client', 'Documents')) ?>
                             <?php $box->beginTools() ?>
+                                <?= Html::a(Yii::t('hipanel', 'Details'), ['@contact/attach-documents', 'id' => $model->id], ['class' => 'btn btn-default btn-xs']) ?>
                                 <?= Html::a(Yii::t('hipanel', 'Upload'), ['@contact/attach-documents', 'id' => $model->id], ['class' => 'btn btn-default btn-xs']) ?>
                             <?php $box->endTools() ?>
                         <?php $box->endHeader() ?>

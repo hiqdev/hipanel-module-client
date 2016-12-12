@@ -3,6 +3,7 @@
 use hipanel\modules\client\grid\ContactGridView;
 use hipanel\modules\client\menus\ContactDetailMenu;
 use hipanel\modules\client\widgets\Verification;
+use hipanel\modules\document\widgets\StackedDocumentsView;
 use hipanel\widgets\Box;
 use hipanel\widgets\ClientSellerLink;
 use hiqdev\assets\flagiconcss\FlagIconCssAsset;
@@ -140,6 +141,23 @@ FlagIconCssAsset::register($this);
                         ]) ?>
                     <?php $box->endBody() ?>
                 <?php $box->end() ?>
+
+                <?php if (Yii::getAlias('@document', false) !== false) : ?>
+                    <?php $box = Box::begin(['renderBody' => false]) ?>
+                        <?php $box->beginHeader() ?>
+                            <?= $box->renderTitle(Yii::t('hipanel:client', 'Documents')) ?>
+                            <?php $box->beginTools() ?>
+                                <?= Html::a(Yii::t('hipanel', 'Details'), ['@contact/attach-documents', 'id' => $model->id], ['class' => 'btn btn-default btn-xs']) ?>
+                                <?= Html::a(Yii::t('hipanel', 'Upload'), ['@contact/attach-documents', 'id' => $model->id], ['class' => 'btn btn-default btn-xs']) ?>
+                            <?php $box->endTools() ?>
+                        <?php $box->endHeader() ?>
+                        <?php $box->beginBody() ?>
+                            <?= StackedDocumentsView::widget([
+                                'models' => $model->documents
+                            ]); ?>
+                        <?php $box->endBody() ?>
+                    <?php $box->end() ?>
+                <?php endif; ?>
 
                 <?php $box = Box::begin([
                     'renderBody' => false,

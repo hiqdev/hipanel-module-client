@@ -68,6 +68,13 @@ class ContactController extends CrudController
             'view' => [
                 'class' => ViewAction::class,
                 'findOptions' => ['with_counters' => 1],
+                'on beforePerform' => function ($event) {
+                    /** @var ViewAction $action */
+                    $action = $event->sender;
+
+                    $action->getDataProvider()->query
+                        ->andFilterWhere(['with_documents' => true])->joinWith('documents');
+                }
             ],
             'validate-form' => [
                 'class' => ValidateFormAction::class,
