@@ -111,7 +111,13 @@ class ClientDetailMenu extends Menu
                 'encode' => false,
                 'visible' => Yii::$app->user->can('support') && Yii::$app->user->not($this->model->id),
             ],
-        ], $actions);
+        ], $actions, [
+            [
+                'label' => Yii::t('hipanel:client', 'Return to old panel'),
+                'icon' => 'fa-sign-out fa-flip-horizontal',
+                'url' => ['@client/return-old-panel'],
+            ],
+        ]);
         unset($items['view']);
 
         return $items;
