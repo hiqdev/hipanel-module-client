@@ -44,17 +44,11 @@ class ContactCombo extends Combo
         ]);
     }
 
-    /**
-     * @var string|integer client ID
-     */
-    public $client_id;
-
     /** {@inheritdoc} */
     public function getFilter()
     {
         return ArrayHelper::merge(parent::getFilter(), [
             'select'    => ['format' => 'min'],
-            'client_id' => ['format' => $this->client_id],
         ]);
     }
 }
