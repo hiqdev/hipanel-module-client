@@ -33,12 +33,12 @@ use yii\helpers\Url;
     <div class="row">
         <?php foreach (['registrant', 'admin', 'tech', 'billing'] as $item) : ?>
             <div class="col-md-6">
-            <?= $form->field($model, "[$model->id]$item")->widget(ContactCombo::class, [
-                'hasId' => true,
-                'filter' => [
-                    'client_id' => ['format' => $model->id]
-                ]
-            ])->label(Yii::t('hipanel:client', ucfirst($item) . ' contact')); ?>
+                <?= $form->field($model, "[$model->id]$item")->widget(ContactCombo::class, [
+                    'hasId' => true,
+                    'filter' => [
+                        'client_id' => ['format' => $model->id],
+                    ],
+                ])->label(Yii::t('hipanel:client', ucfirst($item) . ' contact')); ?>
             </div>
             <!-- /.col-md-6 -->
         <?php endforeach; ?>
