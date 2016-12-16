@@ -81,7 +81,7 @@ class ClientDetailMenu extends Menu
             ],
             [
                 'label' => Yii::t('hipanel:client', 'Change contact information'),
-                'icon' => 'fa-edit',
+                'icon' => 'fa-edit fa-fw',
                 'url' => ['@contact/update', 'id' => $this->model->id],
                 'encode' => false,
                 'visible' => false,
@@ -111,13 +111,8 @@ class ClientDetailMenu extends Menu
                 'encode' => false,
                 'visible' => Yii::$app->user->can('support') && Yii::$app->user->not($this->model->id),
             ],
-        ], $actions, [
-            [
-                'label' => Yii::t('hipanel:client', 'Return to old panel'),
-                'icon' => 'fa-sign-out fa-flip-horizontal',
-                'url' => ['@client/return-old-panel'],
-            ],
-        ]);
+        ], $actions);
+
         unset($items['view']);
 
         return $items;
