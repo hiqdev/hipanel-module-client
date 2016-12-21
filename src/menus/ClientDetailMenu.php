@@ -5,10 +5,9 @@ namespace hipanel\modules\client\menus;
 use hipanel\modules\client\models\Client;
 use hipanel\widgets\BlockModalButton;
 use hipanel\widgets\SettingsModal;
-use hiqdev\menumanager\Menu;
 use Yii;
 
-class ClientDetailMenu extends Menu
+class ClientDetailMenu extends \hipanel\menus\AbstractDetailMenu
 {
     /**
      * @var Client

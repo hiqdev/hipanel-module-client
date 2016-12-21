@@ -7,7 +7,6 @@ use hipanel\modules\document\widgets\StackedDocumentsView;
 use hipanel\widgets\Box;
 use hipanel\widgets\ClientSellerLink;
 use hiqdev\assets\flagiconcss\FlagIconCssAsset;
-use hiqdev\menumanager\widgets\DetailMenu;
 use yii\helpers\Html;
 use yii\helpers\Inflector;
 
@@ -40,11 +39,11 @@ FlagIconCssAsset::register($this);
             <p class="text-center">
                 <span class="profile-user-role"><?= $this->title ?></span>
                 <br>
-                <span class="profile-user-name"><?= ClientSellerLink::widget(compact('model')) ?></span>
+                <span class="profile-user-name"><?= ClientSellerLink::widget(['model' => $model]) ?></span>
             </p>
 
             <div class="profile-usermenu">
-                <?= ContactDetailMenu::create(['model' => $model])->render(DetailMenu::class) ?>
+                <?= ContactDetailMenu::widget(['model' => $model]) ?>
             </div>
         <?php Box::end() ?>
 

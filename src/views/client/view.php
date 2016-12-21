@@ -7,7 +7,6 @@ use hipanel\modules\document\widgets\StackedDocumentsView;
 use hipanel\widgets\Box;
 use hipanel\widgets\ClientSellerLink;
 use hiqdev\assets\flagiconcss\FlagIconCssAsset;
-use hiqdev\menumanager\widgets\DetailMenu;
 use yii\helpers\Html;
 
 /*
@@ -46,7 +45,7 @@ $this->registerCss('legend {font-size: 16px;}');
         </p>
 
         <div class="profile-usermenu">
-            <?= ClientDetailMenu::create(['model' => $model])->render(DetailMenu::class) ?>
+            <?= ClientDetailMenu::widget(['model' => $model]) ?>
         </div>
         <?php Box::end() ?>
     </div>

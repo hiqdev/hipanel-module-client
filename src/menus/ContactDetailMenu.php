@@ -3,10 +3,9 @@
 namespace hipanel\modules\client\menus;
 
 use hipanel\helpers\Url;
-use hiqdev\menumanager\Menu;
 use Yii;
 
-class ContactDetailMenu extends Menu
+class ContactDetailMenu extends \hipanel\menus\AbstractDetailMenu
 {
     public $model;
 
