@@ -21,12 +21,15 @@ class SellerColumn extends ClientColumn
 
     public function init()
     {
+        if (!empty($this->grid->filterModel) && $this->filter === null) {
+            $this->filter = SellerCombo::widget([
+                'attribute' => $this->attribute,
+                'model' => $this->grid->filterModel,
+                'formElementSelector' => 'td',
+            ]);
+        }
+
         parent::init();
 
-        $this->filter = SellerCombo::widget([
-            'attribute'           => $this->attribute,
-            'model'               => $this->grid->filterModel,
-            'formElementSelector' => 'td',
-        ]);
     }
 }
