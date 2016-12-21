@@ -29,17 +29,17 @@ return [
                 ],
             ],
         ],
-        'menuManager' => [
-            'items' => [
-                'sidebar' => [
-                    'add' => [
-                        'client' => [
-                            'menu' => [
-                                'class' => \hipanel\modules\client\menus\SidebarMenu::class,
-                            ],
-                            'where' => [
-                                'after' => ['dashboard'],
-                            ],
+    ],
+    'container' => [
+        'definitions' => [
+            \hiqdev\thememanager\menus\AbstractSidebarMenu::class => [
+                'add' => [
+                    'client' => [
+                        'menu' => [
+                            'class' => \hipanel\modules\client\menus\SidebarMenu::class,
+                        ],
+                        'where' => [
+                            'after' => ['dashboard'],
                         ],
                     ],
                 ],
