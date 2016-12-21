@@ -27,11 +27,6 @@ class ClientColumn extends DataColumn
     public $format = 'html';
 
     /**
-     * @var string the combo type. Available: `client` or `seller`
-     */
-    public $clientType;
-
-    /**
      * Sets visibility and default behaviour for value and filter when visible.
      */
     public function init()
@@ -59,7 +54,6 @@ class ClientColumn extends DataColumn
                     'attribute'           => $this->attribute,
                     'model'               => $this->grid->filterModel,
                     'formElementSelector' => 'td',
-                    'clientType'          => $this->clientType,
                 ]);
             }
         }

@@ -11,10 +11,22 @@
 
 namespace hipanel\modules\client\grid;
 
+use hipanel\modules\client\widgets\combo\SellerCombo;
+
 class SellerColumn extends ClientColumn
 {
     public $attribute     = 'seller_id';
     public $idAttribute   = 'seller_id';
     public $nameAttribute = 'seller';
-    public $clientType    = 'reseller';
+
+    public function init()
+    {
+        parent::init();
+
+        $this->filter = SellerCombo::widget([
+            'attribute'           => $this->attribute,
+            'model'               => $this->grid->filterModel,
+            'formElementSelector' => 'td',
+        ]);
+    }
 }
