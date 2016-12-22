@@ -11,8 +11,7 @@
 
 namespace hipanel\modules\client\grid;
 
-use hiqdev\menumanager\MenuColumn;
-use hiqdev\menumanager\widgets\MenuButton;
+use hiqdev\yii2\menus\grid\MenuColumn;
 use hipanel\grid\ActionColumn;
 use hipanel\grid\BoxedGridView;
 use hipanel\grid\MainColumn;

@@ -4,7 +4,7 @@ namespace hipanel\modules\client\menus;
 
 use Yii;
 
-class ContactActionsMenu extends \hiqdev\menumanager\Menu
+class ContactActionsMenu extends \hiqdev\yii2\menus\Menu
 {
     public $model;
 

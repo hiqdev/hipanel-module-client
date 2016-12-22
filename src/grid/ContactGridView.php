@@ -13,7 +13,7 @@ namespace hipanel\modules\client\grid;
 
 use hipanel\modules\document\widgets\StackedDocumentsView;
 use hipanel\widgets\VerificationMark;
-use hiqdev\menumanager\MenuColumn;
+use hiqdev\yii2\menus\grid\MenuColumn;
 use hipanel\grid\BoxedGridView;
 use hipanel\grid\MainColumn;
 use hipanel\modules\client\menus\ContactActionsMenu;
