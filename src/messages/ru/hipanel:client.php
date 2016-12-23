@@ -121,7 +121,7 @@ return [
     'Deleted' => 'Удалён',
     'Ok' => 'Ок',
     'Blocked' => 'Заблокирован',
-    '{icon} Verify' => '{icon} Верифицировать',
+    '{icon} Confirm' => '{icon} Подтвердить',
     'Confirmation message was sent to your email' => 'Письмо подтверждения было отправлено на вашу почту',
 
     // Типы клиентов

@@ -11,6 +11,8 @@
 
 namespace hipanel\modules\client\grid;
 
+use hipanel\modules\client\models\Contact;
+use hipanel\modules\client\widgets\PhoneVerificationIndicator;
 use hipanel\modules\document\widgets\StackedDocumentsView;
 use hipanel\widgets\VerificationMark;
 use hiqdev\yii2\menus\grid\MenuColumn;
@@ -52,7 +54,18 @@ class ContactGridView extends BoxedGridView
             'voice_phone' => [
                 'format' => 'raw',
                 'value' => function ($model) {
-                    return $model->voice_phone ? $model->voice_phone . VerificationMark::widget(['model' => $model->getVerification('voice_phone')]) : '';
+                    /** @var Contact $model */
+                    if (!$model->voice_phone) {
+                        return '';
+                    }
+
+                    $verification = $model->getVerification('voice_phone');
+
+                    $result = $model->voice_phone;
+                    $result .= VerificationMark::widget(['model' => $verification]);
+                    $result .= PhoneVerificationIndicator::widget(['model' => $verification, 'type' => 'voice_phone']);
+
+                    return $result;
                 },
             ],
             'fax_phone' => [

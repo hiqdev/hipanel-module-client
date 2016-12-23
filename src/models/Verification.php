@@ -55,19 +55,30 @@ class Verification extends \hipanel\base\Model
         $levelAttribute = $attribute . '_confirm_level';
         $dateAttribute = $attribute . '_confirm_date';
 
+        $modelValue = $model->$attribute;
+        $value = isset($model->$valueAttribute) ? $model->$valueAttribute : null;
+        $level = isset($model->$levelAttribute) ? $model->$levelAttribute : null;
+        $date = isset($model->$dateAttribute) ? $model->$dateAttribute : null;
+
         $options = [
             'id' => $model->id,
             'type' => $attribute,
             'contact' => $model,
         ];
 
-        if (isset($model->$dateAttribute)) {
-            $options['date'] = $model->$dateAttribute;
+        if (isset($date)) {
+            $options['date'] = $date;
         }
 
-        if (isset($model->$levelAttribute)) {
-            $options['level'] = $model->$levelAttribute;
-        } elseif (isset($model->$valueAttribute) && $model->$valueAttribute === $model->$attribute) {
+        // TODO: get rid of this crutch. Move into VerificationValueNormalizer or so
+        if (in_array($attribute, ['voice_phone', 'fax_phone']) && !empty($value)) {
+            $value = preg_replace('/[^0-9]/', '', $value);
+            $modelValue = preg_replace('/[^0-9]/', '', $modelValue);
+        }
+
+        if (isset($level)) {
+            $options['level'] = $level;
+        } elseif (isset($value) && $value === $modelValue) {
             $options['level'] = static::LEVEL_CONFIRMED;
         } else {
             $options['level'] = static::LEVEL_UNCONFIRMED;

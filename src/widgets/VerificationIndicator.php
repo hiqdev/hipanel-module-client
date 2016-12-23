@@ -16,6 +16,7 @@ use Yii;
 use yii\base\InvalidConfigException;
 use yii\base\Widget;
 use yii\helpers\Html;
+use yii\helpers\Inflector;
 use yii\widgets\ActiveForm;
 
 class VerificationIndicator extends Widget
@@ -50,7 +51,7 @@ class VerificationIndicator extends Widget
 
     public function run()
     {
-        if ($this->model->level === \hipanel\modules\client\models\Verification::LEVEL_UNCONFIRMED) {
+        if (!$this->model->isConfirmed()) {
             $this->renderVerificationButton();
         }
     }
@@ -63,14 +64,14 @@ class VerificationIndicator extends Widget
     protected function renderVerificationButton()
     {
         $form = ActiveForm::begin([
-            'action' => ['@contact/request-' . $this->type . '-confirmation'],
+            'action' => ['@contact/request-' . Inflector::camel2id($this->type). '-confirmation'],
             'class' => 'form-inline'
         ]);
 
         echo $form->field($this->model->contact, 'id')->hiddenInput()->label(false);
 
         echo Html::submitButton(
-            Yii::t('hipanel:client', '{icon} Verify', ['icon' => Html::tag('i', '', ['class' => 'fa fa-check'])]),
+            Yii::t('hipanel:client', '{icon} Confirm', ['icon' => Html::tag('i', '', ['class' => 'fa fa-check'])]),
             ['class' => 'btn btn-sm btn-info']
         );
 

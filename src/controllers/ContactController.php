@@ -22,18 +22,34 @@ use hipanel\actions\ValidateFormAction;
 use hipanel\actions\ViewAction;
 use hipanel\base\CrudController;
 use hipanel\helpers\ArrayHelper;
+use hipanel\modules\client\forms\PhoneConfirmationForm;
+use hipanel\modules\client\logic\PhoneConfirmationException;
+use hipanel\modules\client\logic\PhoneConfirmer;
 use hipanel\modules\client\models\Client;
 use hipanel\modules\client\models\DocumentUploadForm;
 use hipanel\modules\client\models\Verification;
 use hipanel\modules\client\models\Contact;
-use hipanel\modules\domain\models\Domain;
+use hipanel\modules\client\repositories\NotifyTriesRepository;
 use Yii;
 use yii\base\Event;
 use yii\filters\VerbFilter;
 use yii\web\NotFoundHttpException;
+use yii\web\Response;
 
 class ContactController extends CrudController
 {
+    /**
+     * @var NotifyTriesRepository
+     */
+    private $notifyTriesRepository;
+
+    public function __construct($id, $module, NotifyTriesRepository $notifyTriesRepository, $config = [])
+    {
+        parent::__construct($id, $module, $config);
+
+        $this->notifyTriesRepository = $notifyTriesRepository;
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -44,7 +60,8 @@ class ContactController extends CrudController
                 'class' => VerbFilter::class,
                 'actions' => [
                     'request-email-verification' => ['post'],
-                    'request-phone-verification' => ['post'],
+                    'request-phone-confirmation-code' => ['post'],
+                    'confirm-phone' => ['post'],
                 ],
             ],
         ]);
@@ -163,5 +180,84 @@ class ContactController extends CrudController
             'contact' => $contact,
             'model' => $model,
         ]);
+    }
+
+    public function actionPhoneConfirmationModal($id, $type)
+    {
+        $contact = $this->getContactById($id);
+        $tries = $this->getTriesForContact($contact, $type);
+        $model = PhoneConfirmationForm::fromContact($contact, $type);
+        $model->scenario = 'check';
+
+        return $this->renderAjax('confirmationModal', [
+            'model' => $model,
+            'contact' => $contact,
+            'tries' => $tries
+        ]);
+    }
+
+    public function actionConfirmPhone($id, $type)
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        $contact = $this->getContactById($id);
+
+        $model = new PhoneConfirmationForm(['scenario' => 'check', 'type' => $type]);
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            $tries = $this->getTriesForContact($contact, $model->type);
+
+            /** @var PhoneConfirmer $confirmer */
+            $confirmer = Yii::createObject(PhoneConfirmer::class, [$model, $tries]);
+
+            try {
+                $confirmer->submitCode();
+                return ['success' => Yii::t('hipanel:client', 'The phone was verified successfully')];
+            } catch (PhoneConfirmationException $e) {
+                return ['error' => $e->getMessage()];
+            }
+        }
+
+        return ['error' => true];
+    }
+
+    public function actionRequestPhoneConfirmationCode()
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+
+        $model = new PhoneConfirmationForm(['scenario' => 'request']);
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            $contact = $this->getContactById($model->id);
+            $tries = $this->getTriesForContact($contact, $model->type);
+
+            /** @var PhoneConfirmer $confirmer */
+            $confirmer = Yii::createObject(PhoneConfirmer::class, [$model, $tries]);
+            try {
+                $confirmer->requestCode();
+                return ['success' => true];
+            } catch (PhoneConfirmationException $e) {
+                return ['error' => $e->getMessage()];
+            }
+        }
+
+        return ['error' => true];
+    }
+
+    private function getContactById($id)
+    {
+        $contact = Contact::find()->where(['id' => $id])->one();
+        if ($contact === null) {
+            throw new NotFoundHttpException('Contact was not found');
+        }
+
+        return $contact;
+    }
+
+    private function getTriesForContact($contact, $type)
+    {
+        $tries = $this->notifyTriesRepository->getTriesForContact($contact, $type);
+        if ($tries === null) {
+            throw new NotFoundHttpException('Tries information for contact was not found');
+        }
+
+        return $tries;
     }
 }
