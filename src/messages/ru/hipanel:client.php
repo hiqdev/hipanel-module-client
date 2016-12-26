@@ -25,7 +25,6 @@ return [
     'Client was updated' => 'Клиент был изменён',
     'Credit changed' => 'Кредит изменён',
     'and {n} more' => 'и еще {n}',
-    'Verification status' => 'Статус верификации',
     'New login' => 'Новый логин',
     'Name' => 'Имя',
     'Address' => 'Адрес',
@@ -49,9 +48,6 @@ return [
     'Director\'s full name' => 'ФИО руководителя',
     '{statusXeditable} since {date}' => '{statusXeditable} с {date}',
     '{statusXeditable}' => '{statusXeditable}',
-    'Not confirmed' => 'Не подтверждён',
-    'Confirmed' => 'Подтверждён',
-    'Verified' => 'Верифицирован',
     'Temporary password' => 'Временный пароль',
     'Temporary password will be sent to your email' => 'Временный пароль будет отправлен на Ваш email',
     'Temporary password was sent on your email' => 'Временный пароль отправлен на Ваш email',
@@ -75,7 +71,6 @@ return [
     'Registration data' => 'Регистрационные данные',
     'Bank details' => 'Банковские реквизиты',
     'Used for {n, plural, one{# domain} other{# domains}}' => 'Используется для {n, plural, one{1 домена} few{# доменов} other{# доменов}}',
-    'Verification level' => 'Уровень верификации',
     'You can upload copy of your documents in order to help us verify your identity' => 'Вы можете загрузить копии своих документов, чтобы помочь нам верифицировать ваш аккаунт',
     'Documents attached to the contact {name}' => 'Документы прикреплённые к контакту {name}',
     'Attached documents' => 'Прикреплённые документы',
@@ -121,8 +116,6 @@ return [
     'Deleted' => 'Удалён',
     'Ok' => 'Ок',
     'Blocked' => 'Заблокирован',
-    '{icon} Confirm' => '{icon} Подтвердить',
-    'Confirmation message was sent to your email' => 'Письмо подтверждения было отправлено на вашу почту',
 
     // Типы клиентов
     'Client' => 'Клиент',
@@ -170,5 +163,19 @@ return [
     'Tech contact' => 'Технический контакт',
     'Billing contact' => 'Биллинг контакт',
     'Document type' => 'Тип документа',
-    'Passport, ID card, etc' => 'Паспорт, ID карта, идентификационнй код и т.п.'
+    'Passport, ID card, etc' => 'Паспорт, ID карта, идентификационнй код и т.п.',
+
+    // Confirmation and verification
+    'Verification status' => 'Статус верификации',
+    'Verified' => 'Верифицирован',
+    'Verification level' => 'Уровень верификации',
+    '{icon} Confirm' => '{icon} Подтвердить',
+    'Confirmation message was sent to your email' => 'Письмо подтверждения было отправлено на вашу почту',
+    'Not confirmed' => 'Не подтверждён',
+    'Confirmed' => 'Подтверждён',
+    'The phone number was verified successfully' => 'Номер телефона был успешно подтверждён',
+    'Confirmation code' => 'Код подтверждения',
+    'Wrong confirmation code' => 'Неправильный код потверждения',
+    'Phone number confirmation' => 'Подтверждение номера телефона',
+    'Phone verification is a simple procedure that helps us to verify your identity. Press the "Request code" button bellow to get SMS message with confirmation code. Enter the code from a message and press "Confirm" button to complete the phone confirmation procedure.' => 'Верификация номера телефона — это простая процедура ...'
 ];

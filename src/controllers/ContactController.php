@@ -210,7 +210,7 @@ class ContactController extends CrudController
 
             try {
                 $confirmer->submitCode();
-                return ['success' => Yii::t('hipanel:client', 'The phone was verified successfully')];
+                return ['success' => Yii::t('hipanel:client', 'The phone number was verified successfully')];
             } catch (PhoneConfirmationException $e) {
                 return ['error' => $e->getMessage()];
             }

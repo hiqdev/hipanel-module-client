@@ -3,6 +3,7 @@
 namespace hipanel\modules\client\forms;
 
 use hipanel\modules\client\models\Contact;
+use Yii;
 use yii\base\Model;
 use yii\db\ActiveRecord;
 
@@ -55,6 +56,17 @@ class PhoneConfirmationForm extends Model
 
             [['id', 'code', 'type', 'phone'], 'required', 'on' => 'check'],
             [['id', 'type', 'phone'], 'required', 'on' => 'request'],
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'code' => Yii::t('hipanel:client', 'Confirmation code'),
+            'phone' => Yii::t('hipanel:client', 'Phone'),
         ];
     }
 
