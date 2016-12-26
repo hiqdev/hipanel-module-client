@@ -71,7 +71,19 @@ class ContactGridView extends BoxedGridView
             'fax_phone' => [
                 'format' => 'raw',
                 'value' => function ($model) {
-                    return $model->fax_phone ? $model->fax_phone . VerificationMark::widget(['model' => $model->getVerification('fax_phone')]) : '';
+                    /** @var Contact $model */
+                    if (!$model->fax_phone) {
+                        return '';
+                    }
+
+                    $verification = $model->getVerification('fax_phone');
+
+                    $result = $model->fax_phone;
+                    $result .= VerificationMark::widget(['model' => $verification]);
+                    $result .= PhoneVerificationIndicator::widget(['model' => $verification, 'type' => 'fax_phone']);
+
+                    return $result;
+
                 },
             ],
             'email' => [

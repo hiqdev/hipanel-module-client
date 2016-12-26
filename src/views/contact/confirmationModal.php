@@ -16,10 +16,7 @@ use yii\helpers\Html;
 <?php $form = ActiveForm::begin([
     'action' => ['@contact/confirm-phone', 'id' => $model->id, 'type' => $model->type],
     'options' => [
-        'id' => 'confirmation-form',
-        'data' => [
-            'auto-request' => empty($tries->try_last),
-        ],
+        'id' => 'confirmation-form'
     ],
 ]) ?>
 
@@ -142,10 +139,6 @@ use yii\helpers\Html;
         
         return false;
     });
-    
-    if (form.data('auto-request')) {
-        requestButton.click();
-    }
     
     if (nextTryBlock.length) {
         var nextTry = nextTryBlock.find('span');

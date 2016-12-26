@@ -36,7 +36,7 @@ class Contact extends \hipanel\base\Model
             [['emails'], 'trim'],
             [['country', 'country_name', 'province', 'province_name'], 'safe'],
             [['postal_code'], 'safe'],
-            [['city', 'street1', 'street2', 'street3'], 'safe'],
+            [['city', 'street1', 'street2', 'street3', 'address'], 'safe'],
             [['voice_phone', 'fax_phone'], 'safe'],
             [['icq', 'skype', 'jabber', 'social_net'], 'safe'],
             [['roid', 'epp_id', 'remoteid', 'other_messenger'], 'safe'],
