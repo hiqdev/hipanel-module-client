@@ -177,5 +177,10 @@ return [
     'Confirmation code' => 'Код подтверждения',
     'Wrong confirmation code' => 'Неправильный код потверждения',
     'Phone number confirmation' => 'Подтверждение номера телефона',
-    'Phone verification is a simple procedure that helps us to verify your identity. Press the "Request code" button bellow to get SMS message with confirmation code. Enter the code from a message and press "Confirm" button to complete the phone confirmation procedure.' => 'Верификация номера телефона — это простая процедура ...'
+    'Request code' => 'Запросить код',
+    'Checking...' => 'Проверяем...',
+    'Requesting...' => 'Отправляем...',
+    'We have sent the confirmation code on your phone number.' => 'Мы отправили код подтверждения на указанный номер телефона.',
+    'Usually we deliver SMS immediately, but sometimes it takes a bit longer. In case you have not received the code, you can request a new one {time}' => 'Обычно сообщение приходит мгновенно, но иногда это занимает немного больше времени. Если вы не получили код, вы можете запросить новый {time}',
+    'Phone confirmation is a simple procedure that helps us to verify your identity. Press the "Request code" button bellow to get SMS message with confirmation code. Enter the code from a message and press "Confirm" button to complete the phone confirmation procedure.' => 'Подтверждение номера телефона — это простая процедура для верификации вашей личности. Нажмите кнопку "Запросить код" внизу этого окна, чтобы получить СМС сообщение с кодом подтверждения. Введите полученный код в и нажмите "Подтвердить" для завершение процедуры.'
 ];

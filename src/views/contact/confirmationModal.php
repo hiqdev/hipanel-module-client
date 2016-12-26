@@ -24,8 +24,7 @@ use yii\helpers\Html;
 ]) ?>
 
     <div class="alert" role="alert">
-        <?= Yii::t('hipanel:client',
-            'Phone verification is a simple procedure that helps us to verify your identity. Press the "Request code" button bellow to get SMS message with confirmation code. Enter the code from a message and press "Confirm" button to complete the phone confirmation procedure.') ?>
+        <?= Yii::t('hipanel:client', 'Phone confirmation is a simple procedure that helps us to verify your identity. Press the "Request code" button bellow to get SMS message with confirmation code. Enter the code from a message and press "Confirm" button to complete the phone confirmation procedure.') ?>
     </div>
 
 <?= Html::activeHiddenInput($model, 'id', ['class' => 'confirmation-form-id']) ?>
