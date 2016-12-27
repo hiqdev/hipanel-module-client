@@ -32,6 +32,7 @@ use hipanel\modules\client\models\Contact;
 use hipanel\modules\client\repositories\NotifyTriesRepository;
 use Yii;
 use yii\base\Event;
+use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
@@ -57,8 +58,17 @@ class ContactController extends CrudController
     {
         return ArrayHelper::merge(parent::behaviors(), [
             [
+                'class' => AccessControl::class,
+                'only' => ['set-confirmation'],
+                'rules' => [
+                    'allow' => true,
+                    'roles' => ['contact.force-verify'],
+                ],
+            ],
+            [
                 'class' => VerbFilter::class,
                 'actions' => [
+                    'set-confirmation' => ['post'],
                     'request-email-verification' => ['post'],
                     'request-phone-confirmation-code' => ['post'],
                     'confirm-phone' => ['post'],

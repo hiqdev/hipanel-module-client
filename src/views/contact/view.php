@@ -47,7 +47,7 @@ FlagIconCssAsset::register($this);
             </div>
         <?php Box::end() ?>
 
-        <?php if (Yii::$app->user->can('manage')) : ?>
+        <?php if (Yii::$app->user->can('contact.force-verify')) : ?>
             <?php $box = Box::begin(['renderBody' => false]) ?>
                 <?php $box->beginHeader() ?>
                     <?= $box->renderTitle(Yii::t('hipanel:client', 'Verification status')) ?>
