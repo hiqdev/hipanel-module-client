@@ -61,8 +61,10 @@ class ContactController extends CrudController
                 'class' => AccessControl::class,
                 'only' => ['set-confirmation'],
                 'rules' => [
-                    'allow' => true,
-                    'roles' => ['contact.force-verify'],
+                    [
+                        'allow' => true,
+                        'roles' => ['contact.force-verify'],
+                    ]
                 ],
             ],
             [
