@@ -19,17 +19,12 @@ class SellerColumn extends ClientColumn
     public $idAttribute   = 'seller_id';
     public $nameAttribute = 'seller';
 
-    public function init()
+    protected function getDefaultFilter()
     {
-        if (!empty($this->grid->filterModel) && $this->filter === null) {
-            $this->filter = SellerCombo::widget([
-                'attribute' => $this->attribute,
-                'model' => $this->grid->filterModel,
-                'formElementSelector' => 'td',
-            ]);
-        }
-
-        parent::init();
-
+        return SellerCombo::widget([
+            'attribute' => $this->attribute,
+            'model' => $this->grid->filterModel,
+            'formElementSelector' => 'td',
+        ]);
     }
 }

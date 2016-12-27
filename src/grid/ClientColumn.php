@@ -39,7 +39,7 @@ class ClientColumn extends DataColumn
         parent::init();
         $this->visible = Yii::$app->user->can('support');
         if (!$this->visible) {
-            return;
+            return null;
         }
 
         if (!$this->sortAttribute) {
@@ -55,13 +55,20 @@ class ClientColumn extends DataColumn
                 $this->filterInputOptions['id'] = $this->attribute;
             }
             if (!$this->filter) {
-                $this->filter = ClientCombo::widget([
-                    'attribute'           => $this->attribute,
-                    'model'               => $this->grid->filterModel,
-                    'formElementSelector' => 'td',
-                    'clientType'          => $this->clientType,
-                ]);
+                $this->filter = $this->getDefaultFilter();
             }
         }
+
+        return true;
+    }
+
+    protected function getDefaultFilter()
+    {
+        return ClientCombo::widget([
+            'attribute'           => $this->attribute,
+            'model'               => $this->grid->filterModel,
+            'formElementSelector' => 'td',
+            'clientType'          => $this->clientType,
+        ]);
     }
 }
