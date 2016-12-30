@@ -34,19 +34,31 @@ class ContactGridView extends BoxedGridView
                 'extraAttribute' => 'organization',
                 'format' => 'raw',
             ],
-            'name_v' => [
+            'name_with_verification' => [
                 'class' => MainColumn::class,
                 'filterAttribute' => 'name_like',
                 'extraAttribute' => 'organization',
+                'label' => Yii::t('hipanel', 'Name'),
+                'format' => 'raw',
+                'value' => function ($model) {
+                    return $model->name . VerificationMark::widget(['model' => $model->getVerification('name')]);
+                },
+            ],
+            'name_link_with_verification' => [
+                'class' => MainColumn::class,
+                'filterAttribute' => 'name_like',
+                'extraAttribute' => 'organization',
+                'label' => Yii::t('hipanel', 'Name'),
                 'format' => 'raw',
                 'value' => function ($model) {
                     return VerificationMark::widget(['model' => $model->getVerification('name')]) .
                     Html::a($model->name, ['@contact/view', 'id' => $model->id], ['class' => 'text-bold']);
                 },
             ],
-            'email_v' => [
+            'email_link_with_verification' => [
                 'format' => 'raw',
                 'attribute' => 'email',
+                'label' => Yii::t('hipanel', 'Email'),
                 'value' => function ($model) {
                     return Html::mailto($model->email, $model->email) . VerificationMark::widget(['model' => $model->getVerification('email')]);
                 },
@@ -63,7 +75,7 @@ class ContactGridView extends BoxedGridView
 
                     $result = $model->voice_phone;
                     $result .= VerificationMark::widget(['model' => $verification]);
-                    $result .= PhoneVerificationIndicator::widget(['model' => $verification, 'type' => 'voice_phone']);
+                    $result .= PhoneVerificationIndicator::widget(['model' => $verification]);
 
                     return $result;
                 },
@@ -80,7 +92,7 @@ class ContactGridView extends BoxedGridView
 
                     $result = $model->fax_phone;
                     $result .= VerificationMark::widget(['model' => $verification]);
-                    $result .= PhoneVerificationIndicator::widget(['model' => $verification, 'type' => 'fax_phone']);
+                    $result .= PhoneVerificationIndicator::widget(['model' => $verification]);
 
                     return $result;
 
@@ -104,14 +116,15 @@ class ContactGridView extends BoxedGridView
                 'label' => Yii::t('hipanel', 'Email'),
                 'format' => 'raw',
                 'value' => function ($model) {
-                    $confirmation = $model->getVerification('email');
+                    $verification = $model->getVerification('email');
                     $result = $model->email;
-                    if (!$confirmation->isConfirmed()) {
+                    if (!$verification->isConfirmed()) {
                         $result .= '<br>' . Html::tag('b', Yii::t('hipanel:client', 'change is not confirmed'), ['class' => 'text-warning']);
                         $result .= '<br>' . Html::tag('span', $model->email_new, ['class' => 'text-muted']);
                     }
 
-                    $result .= VerificationIndicator::widget(['model' => $confirmation]);
+                    $result .= VerificationMark::widget(['model' => $verification]);
+                    $result .= VerificationIndicator::widget(['model' => $verification]);
 
                     return $result;
                 },
@@ -128,7 +141,8 @@ class ContactGridView extends BoxedGridView
                 'label' => Yii::t('hipanel:client', 'Street'),
                 'format' => 'html',
                 'value' => function ($model) {
-                    return $model->street1 . $model->street2 . $model->street3;
+                    return $model->street1 . $model->street2 . $model->street3 .
+                        VerificationMark::widget(['model' => $model->getVerification('address')]);
                 },
             ],
             'street1' => [

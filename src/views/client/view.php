@@ -92,8 +92,8 @@ $this->registerCss('legend {font-size: 16px;}');
                             'boxed' => false,
                             'model' => $model->contact,
                             'columns' => [
-                                'first_name', 'last_name', 'organization',
-                                'email', 'abuse_email', 'messengers', 'social_net',
+                                'name_with_verification', 'organization',
+                                'email_with_verification', 'abuse_email', 'messengers', 'social_net',
                                 'voice_phone', 'fax_phone',
                                 'street', 'city', 'province', 'postal_code', 'country',
                             ],

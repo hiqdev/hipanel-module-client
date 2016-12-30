@@ -88,7 +88,7 @@ FlagIconCssAsset::register($this);
                             'model'   => $model,
                             'columns' => [
                                 'seller_id', 'client_id',
-                                ['attribute' => 'name'],
+                                'name_with_verification',
                                 'birth_date',
                                 'email_with_verification', 'abuse_email',
                                 'voice_phone', 'fax_phone',

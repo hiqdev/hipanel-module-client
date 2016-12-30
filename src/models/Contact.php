@@ -115,7 +115,6 @@ class Contact extends \hipanel\base\Model
     {
         return $this->mergeAttributeLabels([
             'name'              => Yii::t('hipanel', 'Name'),
-            'name_v'            => Yii::t('hipanel', 'Name'),
             'first_name'        => Yii::t('hipanel:client', 'First name'),
             'last_name'         => Yii::t('hipanel:client', 'Last name'),
             'organization'      => Yii::t('hipanel:client', 'Organization'),
