@@ -51,10 +51,10 @@ class ClientColumn extends DataColumn
             };
         }
         if (!empty($this->grid->filterModel)) {
-            if (!$this->filterInputOptions['id']) {
+            if (!isset($this->filterInputOptions['id'])) {
                 $this->filterInputOptions['id'] = $this->attribute;
             }
-            if (!$this->filter) {
+            if ($this->filter === null) {
                 $this->filter = $this->getDefaultFilter();
             }
         }
