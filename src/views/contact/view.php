@@ -56,14 +56,16 @@ FlagIconCssAsset::register($this);
                     <table class="table table-striped table-bordered">
                         <tbody>
                             <?php foreach (['name', 'address', 'email', 'voice_phone', 'fax_phone'] as $attribute) : ?>
-                                <tr>
-                                    <th><?= $model->getAttributeLabel($attribute) ?></th>
-                                    <td>
-                                        <?= Verification::widget([
-                                            'model' => $model->getVerification($attribute),
-                                        ]) ?>
-                                    </td>
-                                </tr>
+                                <?php if ($model->$attribute) : ?>
+                                    <tr>
+                                        <th><?= $model->getAttributeLabel($attribute) ?></th>
+                                        <td>
+                                            <?= Verification::widget([
+                                                'model' => $model->getVerification($attribute),
+                                            ]) ?>
+                                        </td>
+                                    </tr>
+                                <?php endif ?>
                             <?php endforeach ?>
                         </tbody>
                     </table>

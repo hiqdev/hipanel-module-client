@@ -30,6 +30,10 @@ class Verification extends Widget
      * @var string
      */
     public $type;
+    /**
+     * @var string
+     */
+    public $submitUrl;
 
     public function init()
     {
@@ -73,6 +77,7 @@ class Verification extends Widget
                 'data-attribute' => $this->type
             ],
             'pluginOptions' => [
+                'url'       => $this->submitUrl,
                 'selector' => '#' . $this->getId(),
                 'type' => 'select',
                 'title' => Yii::t('hipanel:client', 'Verification level'),
