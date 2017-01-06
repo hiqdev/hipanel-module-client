@@ -107,6 +107,9 @@ class Client extends \hipanel\base\Model
             // Set temporary password
             [['id'], 'integer', 'on' => 'set-tmp-password'],
 
+            // TOTP
+            [['totp_enabled'], 'boolean'],
+
             // Pincode
             [['enable', 'disable', 'pincode_enabled'], 'boolean', 'on' => ['pincode-settings']],
             [['question', 'answer'], 'string', 'on' => ['pincode-settings']],

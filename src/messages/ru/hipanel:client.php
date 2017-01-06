@@ -10,6 +10,8 @@
  */
 
 return [
+    'Enable two factor authorization' => 'Включить двухфакторную авторизацию',
+    'Disable two factor authorization' => 'Отключить двухфакторную авторизацию',
     'change is not confirmed' => 'изменение не подтверждено',
     'Registered range' => 'Зарегистрирован в период',
     'Block clients' => 'Заблокировать клиентов',

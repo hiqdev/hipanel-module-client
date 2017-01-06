@@ -6,6 +6,7 @@ use hipanel\modules\client\models\Client;
 use hipanel\widgets\BlockModalButton;
 use hipanel\widgets\SettingsModal;
 use Yii;
+use yii\helpers\Url;
 
 class ClientDetailMenu extends \hipanel\menus\AbstractDetailMenu
 {
@@ -19,6 +20,9 @@ class ClientDetailMenu extends \hipanel\menus\AbstractDetailMenu
         $actions = ClientActionsMenu::create([
             'model' => $this->model,
         ])->items();
+
+        $user = Yii::$app->user;
+        $totp_enabled = $this->model->totp_enabled;
 
         $items = array_merge([
             [
@@ -37,7 +41,13 @@ class ClientDetailMenu extends \hipanel\menus\AbstractDetailMenu
                     'scenario' => 'change-password',
                 ]),
                 'encode' => false,
-                'visible' => Yii::$app->user->is($this->model->id),
+                'visible' => $user->is($this->model->id),
+            ],
+            [
+                'label' => $totp_enabled ? Yii::t('hipanel:client', 'Disable two factor authorization') : Yii::t('hipanel:client', 'Enable two factor authorization'),
+                'icon' => 'fa-qrcode',
+                'url' => 'https://' . Yii::$app->params['hiam.site'] . Url::to(['/mfa/totp/' . ($totp_enabled ? 'disable' : 'enable'), 'back' => Url::to('', true)]),
+                'visible' => $user->is($this->model->id),
             ],
             [
                 'label' => SettingsModal::widget([
@@ -47,7 +57,7 @@ class ClientDetailMenu extends \hipanel\menus\AbstractDetailMenu
                     'scenario' => 'set-tmp-password',
                 ]),
                 'encode' => false,
-                'visible' => Yii::$app->user->not($this->model->id) && Yii::$app->user->can('manage'),
+                'visible' => $user->not($this->model->id) && $user->can('manage'),
             ],
             [
                 'label' => SettingsModal::widget([
@@ -57,7 +67,7 @@ class ClientDetailMenu extends \hipanel\menus\AbstractDetailMenu
                     'scenario' => 'pincode-settings',
                 ]),
                 'encode' => false,
-                'visible' => Yii::$app->user->is($this->model->id),
+                'visible' => $user->is($this->model->id),
             ],
             [
                 'label' => SettingsModal::widget([
@@ -67,7 +77,7 @@ class ClientDetailMenu extends \hipanel\menus\AbstractDetailMenu
                     'scenario' => 'ip-restrictions',
                 ]),
                 'encode' => false,
-                'visible' => Yii::$app->user->is($this->model->id),
+                'visible' => $user->is($this->model->id),
             ],
             [
                 'label' => SettingsModal::widget([
@@ -108,7 +118,7 @@ class ClientDetailMenu extends \hipanel\menus\AbstractDetailMenu
             [
                 'label' => BlockModalButton::widget(['model' => $this->model]),
                 'encode' => false,
-                'visible' => Yii::$app->user->can('support') && Yii::$app->user->not($this->model->id),
+                'visible' => $user->can('support') && $user->not($this->model->id),
             ],
         ], $actions);
 
