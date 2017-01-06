@@ -3,7 +3,7 @@
 use hipanel\modules\client\grid\ClientGridView;
 use hipanel\modules\client\grid\ContactGridView;
 use hipanel\modules\client\menus\ClientDetailMenu;
-use hipanel\modules\client\widgets\Verification;
+use hipanel\modules\client\widgets\ForceVerificationBlock;
 use hipanel\modules\document\widgets\StackedDocumentsView;
 use hipanel\widgets\Box;
 use hipanel\widgets\ClientSellerLink;
@@ -51,33 +51,9 @@ $this->registerCss('legend {font-size: 16px;}');
         </div>
         <?php Box::end() ?>
 
-        <?php if (Yii::$app->user->can('contact.force-verify')) : ?>
-            <?php $box = Box::begin(['renderBody' => false]) ?>
-                <?php $box->beginHeader() ?>
-                    <?= $box->renderTitle(Yii::t('hipanel:client', 'Verification status')) ?>
-                <?php $box->endHeader() ?>
-                <?php $box->beginBody() ?>
-                    <table class="table table-striped table-bordered">
-                        <tbody>
-                            <?php foreach (['name', 'address', 'email', 'voice_phone', 'fax_phone'] as $attribute) : ?>
-                                <?php if ($model->contact->$attribute) : ?>
-                                    <tr>
-                                        <th><?= $model->contact->getAttributeLabel($attribute) ?></th>
-                                        <td>
-                                            <?= Verification::widget([
-                                                'submitUrl' => '@contact/set-confirmation',
-                                                'model'     => $model->contact->getVerification($attribute),
-                                            ]) ?>
-                                        </td>
-                                    </tr>
-                                <?php endif ?>
-                            <?php endforeach ?>
-                        </tbody>
-                    </table>
-                <?php $box->endBody() ?>
-            <?php $box->end() ?>
-        <?php endif ?>
-
+        <?= ForceVerificationBlock::widget([
+            'model' => $model->contact
+        ]) ?>
     </div>
 
     <div class="col-md-9">
