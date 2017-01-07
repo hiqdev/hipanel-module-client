@@ -9,7 +9,7 @@ use hipanel\modules\client\widgets\Verification;
  * @var string $title
  * @var string $scenrio
  * @var string $submitUrl
- * @var array $$attributes
+ * @var array $attributes
  */
 
 ?>
