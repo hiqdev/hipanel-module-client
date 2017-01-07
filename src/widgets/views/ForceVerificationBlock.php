@@ -4,6 +4,14 @@ use yii\helpers\Html;
 use hipanel\widgets\Box;
 use hipanel\modules\client\widgets\Verification;
 
+/**
+ * @var \hipanel\modules\client\models\Contact $model
+ * @var string $title
+ * @var string $scenrio
+ * @var string $submitUrl
+ * @var array $$attributes
+ */
+
 ?>
 <?php $box = Box::begin(['renderBody' => false]) ?>
     <?php $box->beginHeader() ?>
@@ -20,7 +28,7 @@ use hipanel\modules\client\widgets\Verification;
                                 <?= Verification::widget([
                                     'model' => $model->getVerification($attribute),
                                     'scenario' => $scenario,
-                                    'submitUrl' => $submitUrl
+                                    'submitUrl' => $submitUrl,
                                 ]) ?>
                             </td>
                         </tr>
