@@ -59,9 +59,7 @@ class Verification extends Widget
 
         if ($this->title === null) {
             $this->title = Yii::t('hipanel:client', 'Verification level');
-
         }
-
     }
 
     public function run()
