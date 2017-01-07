@@ -52,7 +52,7 @@ $this->registerCss('legend {font-size: 16px;}');
         <?php Box::end() ?>
 
         <?= ForceVerificationBlock::widget([
-            'model' => $model->contact
+            'model' => $model->contact,
         ]) ?>
     </div>
 
