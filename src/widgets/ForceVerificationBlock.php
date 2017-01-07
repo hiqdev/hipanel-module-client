@@ -24,12 +24,6 @@ class ForceVerificationBlock extends Widget
      */
     public $model;
     /**
-     * options
-     *
-     * @var array
-     */
-    public $options = [];
-    /**
      * @var string
      */
     public $scenario;
@@ -63,15 +57,17 @@ class ForceVerificationBlock extends Widget
 
     public function run()
     {
-        if (Yii::$app->user->can('contact.force-verify')) {
-            return $this->render((new \ReflectionClass($this))->getShortName(), [
-                'attributes' => $this->attributes,
-                'model' => $this->model,
-                'title' => $this->title,
-                'scenario' => $this->scenario,
-                'submitUrl' => $this->submitUrl
-            ]);
+        if (!Yii::$app->user->can('contact.force-verify'))
+        {
+            return;
         }
+        return $this->render((new \ReflectionClass($this))->getShortName(), [
+            'attributes' => $this->attributes,
+            'model' => $this->model,
+            'title' => $this->title,
+            'scenario' => $this->scenario,
+            'submitUrl' => $this->submitUrl,
+        ]);
     }
 
 }
