@@ -3,11 +3,13 @@
 use hipanel\modules\client\grid\ClientGridView;
 use hipanel\modules\client\grid\ContactGridView;
 use hipanel\modules\client\menus\ClientDetailMenu;
+use hipanel\modules\client\widgets\ForceVerificationBlock;
 use hipanel\modules\document\widgets\StackedDocumentsView;
 use hipanel\widgets\Box;
 use hipanel\widgets\ClientSellerLink;
 use hiqdev\assets\flagiconcss\FlagIconCssAsset;
 use yii\helpers\Html;
+use yii\helpers\Url;
 
 /*
  * @var $model Client
@@ -48,6 +50,10 @@ $this->registerCss('legend {font-size: 16px;}');
             <?= ClientDetailMenu::widget(['model' => $model]) ?>
         </div>
         <?php Box::end() ?>
+
+        <?= ForceVerificationBlock::widget([
+            'model' => $model->contact
+        ]) ?>
     </div>
 
     <div class="col-md-9">
@@ -113,10 +119,10 @@ $this->registerCss('legend {font-size: 16px;}');
                         <?php $box->beginBody() ?>
                             <?= StackedDocumentsView::widget([
                                 'models' => $model->contact->documents
-                            ]); ?>
+                            ]) ?>
                         <?php $box->endBody() ?>
                     <?php $box->end() ?>
-                <?php endif; ?>
+                <?php endif ?>
             </div>
         </div>
     </div>
