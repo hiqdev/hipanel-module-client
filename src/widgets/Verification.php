@@ -30,6 +30,14 @@ class Verification extends Widget
      * @var string
      */
     public $type;
+    /**
+     * @var string
+     */
+    public $submitUrl;
+    /**
+     * @var string
+     */
+    public $title;
 
     public function init()
     {
@@ -43,6 +51,14 @@ class Verification extends Widget
 
         if ($this->type === null) {
             $this->type = $this->model->type;
+        }
+
+        if ($this->submitUrl === null) {
+            $this->submitUrl = '@contact/set-confirmation';
+        }
+
+        if ($this->title === null) {
+            $this->title = Yii::t('hipanel:client', 'Verification level');
         }
     }
 
@@ -64,7 +80,7 @@ class Verification extends Widget
 
     protected function renderXEditable()
     {
-        return\hipanel\widgets\XEditable::widget([
+        return \hipanel\widgets\XEditable::widget([
             'model' => $this->model,
             'attribute' => 'level',
             'scenario' => $this->scenario,
@@ -73,9 +89,10 @@ class Verification extends Widget
                 'data-attribute' => $this->type
             ],
             'pluginOptions' => [
+                'url' => $this->submitUrl,
                 'selector' => '#' . $this->getId(),
                 'type' => 'select',
-                'title' => Yii::t('hipanel:client', 'Verification level'),
+                'title' => $this->title,
                 'source' => $this->model->getAvailableLevels(),
                 'params' => new JsExpression("function (params) {
                     params.type = $(this).attr('data-attribute');
