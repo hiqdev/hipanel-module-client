@@ -11,7 +11,7 @@
 
 return [
     'aliases' => [
-        '@client'  => '/client/client',
+        '@client' => '/client/client',
         '@contact' => '/client/contact',
         '@article' => '/client/article',
     ],
@@ -19,6 +19,9 @@ return [
         'client' => [
             'class' => \hipanel\modules\client\Module::class,
         ],
+    ],
+    'bootstrap' => [
+        \hipanel\modules\client\bootstrap\ContactAttributesVerificationBootstrap::class,
     ],
     'components' => [
         'i18n' => [

@@ -15,8 +15,6 @@ use hipanel\actions\IndexAction;
 use hipanel\actions\OrientationAction;
 use hipanel\actions\PrepareBulkAction;
 use hipanel\actions\RedirectAction;
-use hipanel\actions\RenderAction;
-use hipanel\actions\RenderAjaxAction;
 use hipanel\actions\RenderJsonAction;
 use hipanel\actions\SearchAction;
 use hipanel\actions\SmartCreateAction;
@@ -27,15 +25,36 @@ use hipanel\actions\ValidateFormAction;
 use hipanel\actions\ViewAction;
 use hipanel\actions\ClassValuesAction;
 use hipanel\helpers\Url;
-use hipanel\models\Ref;
 use hipanel\modules\client\models\Client;
-use hiqdev\hiart\Collection;
 use Yii;
 use yii\base\Event;
-use yii\base\Exception;
+use yii\filters\AccessControl;
+use yii\filters\VerbFilter;
 
 class ClientController extends \hipanel\base\CrudController
 {
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => AccessControl::class,
+                'only' => ['set-verified'],
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['contact.force-verify'],
+                    ],
+                ],
+            ],
+            [
+                'class' => VerbFilter::class,
+                'actions' => [
+                    'set-verified' => ['post'],
+                ],
+            ],
+        ];
+    }
+
     public function actions()
     {
         return [
@@ -54,7 +73,7 @@ class ClientController extends \hipanel\base\CrudController
                 },
                 'data' => function ($action) {
                     return [
-                        'types'  => $this->getRefs('type,client', 'hipanel:client'),
+                        'types' => $this->getRefs('type,client', 'hipanel:client'),
                         'states' => $this->getRefs('state,client', 'hipanel:client'),
                     ];
                 },
@@ -104,8 +123,8 @@ class ClientController extends \hipanel\base\CrudController
                 ],
             ],
             'set-tmp-password' => [
-                'class'   => SmartUpdateAction::class,
-                'view'    => '_setTmpPasswordModal',
+                'class' => SmartUpdateAction::class,
+                'view' => '_setTmpPasswordModal',
                 'success' => Yii::t('hipanel:client', 'Temporary password was sent on your email'),
                 'error' => Yii::t('hipanel:client', 'Error during temporary password setting'),
             ],
@@ -115,19 +134,23 @@ class ClientController extends \hipanel\base\CrudController
                     $action = $event->sender;
                     $action->getDataProvider()->query
                         ->addSelect(array_filter([
-                            'last_seen', 'contacts_count',
-                             Yii::getAlias('@domain', false) ? 'domains_count' : null,
-                             Yii::getAlias('@ticket', false) ? 'tickets_count' : null,
-                             Yii::getAlias('@server', false) ? 'servers_count' : null,
-                             Yii::getAlias('@hosting', false) ? 'hosting_count' : null,
+                            'last_seen',
+                            'contacts_count',
+                            Yii::getAlias('@domain', false) ? 'domains_count' : null,
+                            Yii::getAlias('@ticket', false) ? 'tickets_count' : null,
+                            Yii::getAlias('@server', false) ? 'servers_count' : null,
+                            Yii::getAlias('@hosting', false) ? 'hosting_count' : null,
                         ]))
-                        ->joinWith(['contact' => function ($query) {
-                            $query->joinWith('documents');
-                        }])
-                        ->joinWith(['purses' => function ($query) {
-                            $query->joinWith('contact')->joinWith('requisite')->joinWith('files');
-                        }])
-                    ;
+                        ->joinWith([
+                            'contact' => function ($query) {
+                                $query->joinWith('documents');
+                            },
+                        ])
+                        ->joinWith([
+                            'purses' => function ($query) {
+                                $query->joinWith('contact')->joinWith('requisite')->joinWith('files');
+                            },
+                        ]);
                 },
             ],
             'validate-form' => [
@@ -148,7 +171,7 @@ class ClientController extends \hipanel\base\CrudController
                 'success' => Yii::t('hipanel:client', 'Clients were blocked successfully'),
                 'error' => Yii::t('hipanel:client', 'Error during the clients blocking'),
                 'POST html' => [
-                    'save'    => true,
+                    'save' => true,
                     'success' => [
                         'class' => RedirectAction::class,
                     ],
@@ -184,7 +207,7 @@ class ClientController extends \hipanel\base\CrudController
                 'success' => Yii::t('hipanel:client', 'Clients were unblocked successfully'),
                 'error' => Yii::t('hipanel:client', 'Error during the clients unblocking'),
                 'POST html' => [
-                    'save'    => true,
+                    'save' => true,
                     'success' => [
                         'class' => RedirectAction::class,
                     ],
@@ -245,10 +268,38 @@ class ClientController extends \hipanel\base\CrudController
                 'data' => function ($action, $data) {
                     $apiData = $this->getRefs('type,question', 'hipanel:client');
                     $questionList = array_merge(Client::makeTranslateQuestionList($apiData), ['own' => Yii::t('hipanel:client', 'Own question')]);
-                    return array_merge([
-                        'questionList' => $questionList
-                    ], $data);
+
+                    return array_merge(['questionList' => $questionList], $data);
                 },
+            ],
+            'set-verified' => [
+                'class' => SmartPerformAction::class,
+                'success' => Yii::t('hipanel:client', 'Client verification status has been changed'),
+                'POST ajax' => [
+                    'save' => true,
+                    'flash' => true,
+                    'success' => [
+                        'class' => RenderJsonAction::class,
+                        'return' => function ($action) {
+                            $message = Yii::$app->session->removeFlash('success');
+                            return [
+                                'success' => true,
+                                'text' => Yii::t('hipanel:client', reset($message)['text']),
+                            ];
+                        },
+                    ],
+                    'error' => [
+                        'class' => RenderJsonAction::class,
+                        'return' => function ($action) {
+                            $message = Yii::$app->session->removeFlash('error');
+                            return [
+                                'success' => false,
+                                'text' => reset($message)['text'],
+                            ];
+                        },
+                    ],
+                ],
+
             ],
         ];
     }

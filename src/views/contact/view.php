@@ -47,7 +47,7 @@ FlagIconCssAsset::register($this);
             </div>
         <?php Box::end() ?>
         <?= ForceVerificationBlock::widget([
-                'model' => $model,
+            'contact' => $model
         ]) ?>
     </div>
 

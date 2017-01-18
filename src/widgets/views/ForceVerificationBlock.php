@@ -1,15 +1,12 @@
 <?php
 
-use yii\helpers\Html;
 use hipanel\widgets\Box;
 use hipanel\modules\client\widgets\Verification;
 
 /**
  * @var \hipanel\modules\client\models\Contact $model
  * @var string $title
- * @var string $scenrio
- * @var string $submitUrl
- * @var array $attributes
+ * @var \hipanel\modules\client\widgets\verification\ForceVerificationWidgetInterface[] $widgets
  */
 
 ?>
@@ -18,19 +15,13 @@ use hipanel\modules\client\widgets\Verification;
         <?= $box->renderTitle($title) ?>
     <?php $box->endHeader() ?>
     <?php $box->beginBody() ?>
-        <table class='table table-striped table-borderetable table-striped table-bordered'>
+        <table class='table table-striped table-bordered'>
             <tbody>
-                <?php foreach ($attributes as $attribute) : ?>
-                    <?php if (!empty($model->$attribute)) : ?>
+                <?php foreach ($widgets as $widget) : ?>
+                    <?php if ($widget->canBeRendered()) : ?>
                         <tr>
-                            <th><?= $model->getAttributeLabel($attribute) ?></th>
-                            <td>
-                                <?= Verification::widget([
-                                    'model' => $model->getVerification($attribute),
-                                    'scenario' => $scenario,
-                                    'submitUrl' => $submitUrl,
-                                ]) ?>
-                            </td>
+                            <th><?= $widget->getLabel() ?></th>
+                            <td><?= $widget->getWidget() ?></td>
                         </tr>
                     <?php endif ?>
                 <?php endforeach ?>

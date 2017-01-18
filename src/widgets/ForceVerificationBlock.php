@@ -11,63 +11,89 @@
 
 namespace hipanel\modules\client\widgets;
 
+use hipanel\base\Model;
+use hipanel\modules\client\models\Client;
+use hipanel\modules\client\models\Contact;
+use hipanel\modules\client\widgets\verification\ForceVerificationWidgetInterface;
 use Yii;
 use yii\base\InvalidConfigException;
 use yii\base\Widget;
-use yii\helpers\Html;
-use hipanel\widgets\Box;
 
 class ForceVerificationBlock extends Widget
 {
+    const EVENT_COLLECT_WIDGETS = 'collectWidgets';
+
     /**
-     * @var \hipanel\base\Model
+     * @var Model|Client
      */
-    public $model;
+    public $client;
+    /**
+     * @var Contact
+     */
+    public $contact;
     /**
      * @var string
      */
     public $scenario;
     /**
-     * @var string
+     * @var array of widgets that should be rendered
      */
-    public $submitUrl;
+    public $widgets;
     /**
-     * @var array
-     */
-    public $attributes;
-    /**
-     * @var string
+     * @var string the title of verification block
      */
     public $title;
 
+    /**
+     * @inheritdoc
+     */
     public function init()
     {
-        if ($this->model === null) {
-            throw new InvalidConfigException('Please specify the "model" property.');
-        }
-
-        if ($this->attributes === null) {
-            $this->attributes = ['name', 'address', 'email', 'voice_phone', 'fax_phone'];
+        if ($this->contact === null && $this->client === null) {
+            throw new InvalidConfigException('Property "contact" or "client" must be specified.');
         }
 
         if ($this->title === null) {
             $this->title = Yii::t('hipanel:client', 'Verification status');
         }
+
+        $this->collectWidgets();
     }
 
+    /**
+     * @inheritdoc
+     */
     public function run()
     {
-        if (!Yii::$app->user->can('contact.force-verify'))
-        {
-            return;
+        if (!Yii::$app->user->can('contact.force-verify')) {
+            return null;
         }
+
         return $this->render((new \ReflectionClass($this))->getShortName(), [
-            'attributes' => $this->attributes,
-            'model' => $this->model,
+            'widgets' => $this->widgets,
             'title' => $this->title,
-            'scenario' => $this->scenario,
-            'submitUrl' => $this->submitUrl,
         ]);
     }
 
+    /**
+     * @param string $name
+     * @param ForceVerificationWidgetInterface $widget
+     * @throws InvalidConfigException
+     */
+    public function registerWidget($name, $widget)
+    {
+        if (!$widget instanceof ForceVerificationWidgetInterface) {
+            throw new InvalidConfigException('Widget must implement "ForceVerificationWidgetInterface"');
+        }
+
+        $this->widgets[$name] = $widget;
+    }
+
+    /**
+     * Triggers event that collect required widgets
+     */
+    protected function collectWidgets()
+    {
+        $this->trigger(self::EVENT_COLLECT_WIDGETS);
+    }
 }

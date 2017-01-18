@@ -136,6 +136,8 @@ class Client extends \hipanel\base\Model
                 'message' => Yii::t('hipanel:client', 'Fill the Answer or enter the Pincode.'),
                 'on' => ['pincode-settings']
             ],
+
+            [['is_verified'], 'boolean', 'on' => ['set-verified']],
         ];
     }
 
@@ -166,6 +168,8 @@ class Client extends \hipanel\base\Model
             'old_password' => Yii::t('hipanel', 'Current password'),
             'new_password' => Yii::t('hipanel', 'New password'),
             'confirm_password' => Yii::t('hipanel', 'Confirm password'),
+
+            'is_verified' => Yii::t('hipanel:client', 'Is verified'),
 
             // Mailing/Notification settings
             'notify_important_actions' => Yii::t('hipanel:client', 'Notify important actions'),
