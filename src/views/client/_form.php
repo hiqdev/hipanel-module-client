@@ -14,8 +14,8 @@ $form = ActiveForm::begin([
 ]);
 ?>
 
-<?= $form->field($model, '[0]login')->textInput(['autocomplete' => 'off']) ?>
-<?= $form->field($model, '[0]email')->textInput(['autocomplete' => 'off']) ?>
+<?= $form->field($model, '[0]login')->textInput(['autocomplete' => 'new-login']) ?>
+<?= $form->field($model, '[0]email')->textInput(['autocomplete' => 'new-email']) ?>
 <?= $form->field($model, '[0]password')->widget(PasswordInput::class) ?>
 <?= $form->field($model, '[0]type')->dropDownList(Client::getTypeOptions()) ?>
 <?= $form->field($model, '[0]seller_id')->widget(SellerCombo::class) ?>
