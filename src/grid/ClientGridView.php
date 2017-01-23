@@ -142,10 +142,23 @@ class ClientGridView extends BoxedGridView
                 'label' => Yii::t('hipanel', 'Servers'),
                 'value' => function ($model) {
                     /** @var Client $model */
-                    $num = $model->count['servers'];
-                    $url = Url::toSearch('server', ['client_id' => $model->id]);
+                    $result = [];
 
-                    return $num ? Html::a(Yii::t('hipanel', '{0, plural, one{# server} other{# servers}}', $num), $url) : '';
+                    if ($num = $model->count['servers']) {
+                        $result[] = Html::a(
+                            Yii::t('hipanel', '{0, plural, one{# server} other{# servers}}', $num),
+                            Url::toSearch('server', ['client_id' => $model->id])
+                        );
+                    }
+
+                    if (Yii::$app->user->can('resell') && $num = $model->count['pre_ordered_servers']) {
+                        $result[] = Html::a(
+                            Yii::t('hipanel:client', '{0, plural, one{# pre-ordered server} other{# pre-ordered servers}}', $num),
+                            Url::to(['@pre-order', 'ChangeSearch' => ['client_id' => $model->id]])
+                        );
+                    }
+
+                    return implode(', ', $result);
                 },
             ],
             'domains' => [
