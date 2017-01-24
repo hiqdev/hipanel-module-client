@@ -2,8 +2,8 @@
 
 namespace hipanel\modules\client\logic;
 
-use hipanel\components\ApiConnectionInterface;
 use hipanel\modules\client\forms\PhoneConfirmationForm;
+use hipanel\modules\client\models\Contact;
 use hipanel\modules\client\models\NotifyTries;
 use hiqdev\hiart\ErrorResponseException;
 use Yii;
@@ -14,10 +14,7 @@ class PhoneConfirmer
      * @var PhoneConfirmationForm
      */
     private $model;
-    /**
-     * @var ApiConnectionInterface
-     */
-    private $api;
+
     /**
      * @var NotifyTries
      */
@@ -27,18 +24,16 @@ class PhoneConfirmer
      * PhoneConfirmer constructor
      * @param PhoneConfirmationForm $model
      * @param NotifyTries $notifyTries
-     * @param ApiConnectionInterface $api
      */
-    public function __construct(PhoneConfirmationForm $model, NotifyTries $notifyTries, ApiConnectionInterface $api)
+    public function __construct(PhoneConfirmationForm $model, NotifyTries $notifyTries)
     {
+        $this->db = $db;
         $this->model = $model;
-        $this->api = $api;
         $this->notifyTries = $notifyTries;
     }
 
     /**
      * Requests API to send the phone number confirmation code
-     *
      * @return bool
      * @throws PhoneConfirmationException
      */
@@ -52,7 +47,10 @@ class PhoneConfirmer
         }
 
         try {
-            $this->api->post('contactNotifyConfirmPhone', ['id' => $this->model->id, 'type' => $this->model->type]);
+            Contact::perform('notify-confirm-phone', [
+                'id' => $this->model->id,
+                'type' => $this->model->type,
+            ]);
         } catch (ErrorResponseException $e) {
             throw new PhoneConfirmationException('Failed to request code confirmation', $e);
         }
@@ -73,7 +71,7 @@ class PhoneConfirmer
         }
 
         try {
-            $this->api->post('contactConfirmPhone', [
+            Contact::perform('confirm-phone', [
                 'id' => $this->model->id,
                 'type' => $this->model->type,
                 'phone' => $this->model->phone,
