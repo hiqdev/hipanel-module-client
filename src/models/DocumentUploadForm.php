@@ -64,7 +64,7 @@ class DocumentUploadForm extends Model
         $this->trigger('beforeInsert');
 
         try {
-            Contact::perform('AttachDocument', $this->getAttributes());
+            Contact::perform('attach-document', $this->getAttributes());
         } catch (ErrorResponseException $e) {
             $this->addError('title', $e->getMessage());
 

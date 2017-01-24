@@ -130,7 +130,7 @@ class ContactController extends CrudController
                 'data' => function ($action) {
                     return [
                         'countries' => $action->controller->getRefs('country_code'),
-                        'askPincode' => Client::perform('HasPincode'),
+                        'askPincode' => Client::perform('has-pincode'),
                         'scenario' => 'update',
                     ];
                 },
