@@ -15,6 +15,9 @@ use hipanel\models\Ref;
 use hipanel\modules\client\models\query\ArticleQuery;
 use Yii;
 
+/**
+ * Class Article
+ */
 class Article extends \hipanel\base\Model
 {
     use \hipanel\base\ModelTrait;
