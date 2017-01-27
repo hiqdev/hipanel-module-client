@@ -32,14 +32,9 @@ class Verification extends \hipanel\base\Model
      */
     private $multilevelTypes = ['name', 'address'];
 
-    public static function index()
+    public static function from()
     {
-        return Contact::index();
-    }
-
-    public static function type()
-    {
-        return Contact::type();
+        return Contact::from();
     }
 
     /**
