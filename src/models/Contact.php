@@ -132,6 +132,7 @@ class Contact extends \hipanel\base\Model
             'kpp'               => Yii::t('hipanel:client', 'Code of reason for registration'),
             'organization_ru'   => Yii::t('hipanel:client', 'Organization (Russian title)'),
             'director_name'     => Yii::t('hipanel:client', 'Director\'s full name'),
+            'address'           => Yii::t('hipanel:client', 'Address'),
             'city'              => Yii::t('hipanel:client', 'City'),
             'province'          => Yii::t('hipanel:client', 'Province'),
             'postal_code'       => Yii::t('hipanel:client', 'Postal code'),

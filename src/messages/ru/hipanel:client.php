@@ -110,6 +110,7 @@ return [
     'In this field you can specify to receive email notifications of ticket. By default, the notification is used for editing the main e-mail' => 'В этом поле вы можете указать получить уведомления по электронной почте о тикете. По умолчанию, уведомление используется для редактирования основной электронной почты',
     'Email for tickets' => 'E-mail для тикетов',
     'Send message text' => 'Отправлять текст сообщения',
+    'Social' => 'Соцсети',
 
     // Статусы клиентов
     'Active' => 'Активен',
