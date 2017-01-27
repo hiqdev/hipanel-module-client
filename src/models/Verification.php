@@ -32,14 +32,13 @@ class Verification extends \hipanel\base\Model
      */
     private $multilevelTypes = ['name', 'address'];
 
-    public static function from()
+    public static function tableName()
     {
-        return Contact::from();
+        return Contact::tableName();
     }
 
     /**
      * Creates this Verification model from the existing $model for the $attribute
-     *
      * @param Model $model
      * @param $attribute
      * @return static
