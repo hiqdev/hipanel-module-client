@@ -4,7 +4,7 @@ namespace hipanel\modules\client\repositories;
 
 use hipanel\modules\client\models\Contact;
 use hipanel\modules\client\models\NotifyTries;
-use hiqdev\hiart\ErrorResponseException;
+use hiqdev\hiart\ResponseErrorException;
 use yii\db\ActiveRecordInterface;
 
 class NotifyTriesRepository
@@ -19,7 +19,7 @@ class NotifyTriesRepository
         try {
             $data = Contact::perform('get-notify-tries', ['id' => $contact->id, 'type' => $type]);
             return new NotifyTries($data);
-        } catch (ErrorResponseException $e) {
+        } catch (ResponseErrorException $e) {
             return null;
         }
     }

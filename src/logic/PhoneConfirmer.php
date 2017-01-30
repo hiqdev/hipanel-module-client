@@ -5,7 +5,7 @@ namespace hipanel\modules\client\logic;
 use hipanel\modules\client\forms\PhoneConfirmationForm;
 use hipanel\modules\client\models\Contact;
 use hipanel\modules\client\models\NotifyTries;
-use hiqdev\hiart\ErrorResponseException;
+use hiqdev\hiart\ResponseErrorException;
 use Yii;
 
 class PhoneConfirmer
@@ -51,7 +51,7 @@ class PhoneConfirmer
                 'id' => $this->model->id,
                 'type' => $this->model->type,
             ]);
-        } catch (ErrorResponseException $e) {
+        } catch (ResponseErrorException $e) {
             throw new PhoneConfirmationException('Failed to request code confirmation', $e);
         }
 
@@ -77,7 +77,7 @@ class PhoneConfirmer
                 'phone' => $this->model->phone,
                 'code' => $this->model->code,
             ]);
-        } catch (ErrorResponseException $e) {
+        } catch (ResponseErrorException $e) {
             if ($e->getMessage() === 'wrong code') {
                 throw new PhoneConfirmationException(Yii::t('hipanel:client', 'Wrong confirmation code'));
             }

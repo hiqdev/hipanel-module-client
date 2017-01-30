@@ -3,7 +3,7 @@
 namespace hipanel\modules\client\models;
 
 use hipanel\behaviors\File;
-use hiqdev\hiart\ErrorResponseException;
+use hiqdev\hiart\ResponseErrorException;
 use Yii;
 use yii\base\Model;
 
@@ -65,7 +65,7 @@ class DocumentUploadForm extends Model
 
         try {
             Contact::perform('attach-document', $this->getAttributes());
-        } catch (ErrorResponseException $e) {
+        } catch (ResponseErrorException $e) {
             $this->addError('title', $e->getMessage());
 
             return false;
