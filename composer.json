@@ -44,7 +44,7 @@
     ],
     "require": {
         "hiqdev/hipanel-core": "<2.0 || dev-master",
-        "hiqdev/yii2-asset-flag-icon-css": "^1.4"
+        "hiqdev/yii2-asset-flag-icon-css": "^1.0 || ^2.0 || dev-master"
     },
     "require-dev": {
         "hiqdev/hidev-php": "<2.0",
