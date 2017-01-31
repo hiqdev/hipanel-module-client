@@ -169,7 +169,7 @@ class Contact extends \hipanel\base\Model
         return $this->hasMany(Document::class, ['object_id' => 'id'])->joinWith('file')->joinWith('statuses');
     }
 
-    public function scenarioCommands()
+    public function scenarioActions()
     {
         return [
             'request-email-confirmation' => 'notify-confirm-email',

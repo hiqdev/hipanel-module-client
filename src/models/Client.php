@@ -264,7 +264,7 @@ class Client extends \hipanel\base\Model
         ]);
     }
 
-    public function scenarioCommands()
+    public function scenarioActions()
     {
         return [
             'change-password' => 'set-password',
