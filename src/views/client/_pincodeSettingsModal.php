@@ -5,6 +5,10 @@ use yii\bootstrap\Tabs;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
+/**
+ * @var \yii\web\View
+ * @var array $questionList
+ */
 ?>
 <?php $form = ActiveForm::begin([
     'options' => [
@@ -31,7 +35,7 @@ JS
                         'items' => [
                             [
                                 'label' => Yii::t('hipanel:client', 'Disable pincode'),
-                                'content' => $form->field($model, "[$model->id]pincode"),
+                                'content' => $form->field($model, "[$model->id]pincode")->passwordInput(),
                                 'active' => true,
                                 'options' => [
                                     'class' => 'md-mt-10',
@@ -57,8 +61,8 @@ JS
     <?php else : ?>
         <?php
         $this->registerJs(<<<JS
-        jQuery( document ).on( "change", "select.client-question", function() {
-            var selectField = jQuery(this), textField = jQuery('input.own-question');
+        jQuery(document).on( "change", "select.client-question", function() {
+            var textField = jQuery('input.own-question');
             if (this.value == 'own') {
                 textField.attr('disabled', false).show();
             } else {
@@ -70,7 +74,7 @@ JS
         ?>
         <div class="row">
             <div class="col-md-12">
-                <?= $form->field($model, "[$model->id]pincode")->textInput(['value' => mt_rand(1000, 9999)]) ?>
+                <?= $form->field($model, "[$model->id]pincode")->textInput(['value' => mt_rand(1000, 9999), 'autocomplete' => 'new-password']) ?>
                 <?= $form->field($model, "[$model->id]question")->dropDownList($questionList, ['class' => 'client-question form-control']) ?>
                 <?= Html::activeTextInput($model, "[$model->id]question", [
                     'class' => 'own-question form-control',
@@ -79,7 +83,7 @@ JS
                     'disabled' => true,
                     'placeholder' => Yii::t('hipanel:client', 'Enter your question'),
                 ]) ?>
-                <?= $form->field($model, "[$model->id]answer") ?>
+                <?= $form->field($model, "[$model->id]answer")->textInput(['autocomplete' => 'new-password']) ?>
             </div>
         </div>
     <?php endif ?>

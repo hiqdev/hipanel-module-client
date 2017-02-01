@@ -261,6 +261,7 @@ class ClientController extends \hipanel\base\CrudController
             'pincode-settings' => [
                 'class' => SmartUpdateAction::class,
                 'view' => '_pincodeSettingsModal',
+                'success' => Yii::t('hipanel:client', 'Pincode settings were updated'),
                 'on beforeFetch' => function ($event) {
                     /** @var SearchAction $action */
                     $action = $event->sender;
