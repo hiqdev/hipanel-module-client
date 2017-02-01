@@ -262,7 +262,7 @@ class ClientController extends \hipanel\base\CrudController
                 'class' => SmartUpdateAction::class,
                 'view' => '_pincodeSettingsModal',
                 'on beforeFetch' => function ($event) {
-                    /** @var \hipanel\actions\SearchAction $action */
+                    /** @var SearchAction $action */
                     $action = $event->sender;
                     $dataProvider = $action->getDataProvider();
                     $dataProvider->query->addSelect('pincode_enabled');
