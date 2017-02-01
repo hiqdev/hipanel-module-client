@@ -69,6 +69,10 @@ class ForceVerificationBlock extends Widget
             return null;
         }
 
+        if (Yii::$app->user->id === (int) $this->contact->client_id) {
+            return null;
+        }
+
         return $this->render((new \ReflectionClass($this))->getShortName(), [
             'widgets' => $this->widgets,
             'title' => $this->title,
