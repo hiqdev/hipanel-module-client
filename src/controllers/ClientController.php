@@ -273,6 +273,7 @@ class ClientController extends \hipanel\base\CrudController
 
                     return array_merge(['questionList' => $questionList], $data);
                 },
+                'success' => Yii::t('hipanel:client', 'Pincode settings was changed'),
             ],
             'set-verified' => [
                 'class' => SmartPerformAction::class,

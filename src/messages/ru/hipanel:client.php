@@ -147,6 +147,7 @@ return [
     'Choose question' => 'Выберите вопрос',
     'Answer' => 'Ответ',
     'You have already set a PIN code. In order to disable it, enter your current PIN or the secret question.' => 'У вас уже установлен пин-код. Для того что бы его отключить введите ваш текущий пин-код или ответье на секретный вопрос.',
+    'Pincode settings was changed' => 'Настройки пинкода успешно изменены',
 
     'First name' => 'Имя',
     'Last name' => 'Фамилия',
