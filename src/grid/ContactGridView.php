@@ -37,7 +37,6 @@ class ContactGridView extends BoxedGridView
             'name_with_verification' => [
                 'class' => MainColumn::class,
                 'filterAttribute' => 'name_like',
-                'extraAttribute' => 'organization',
                 'label' => Yii::t('hipanel', 'Name'),
                 'format' => 'raw',
                 'value' => function ($model) {
