@@ -269,4 +269,34 @@ class ClientGridView extends BoxedGridView
             ],
         ];
     }
+
+    public static function defaultRepresentations()
+    {
+        return [
+            'common' => [
+                'label'   => Yii::t('hipanel', 'Common'),
+                'columns' => [
+                    'checkbox',
+                    'login',
+                    'name', 'seller_id',
+                    'type', 'state',
+                    'balance', 'credit',
+                ],
+            ],
+            'payment' => Yii::$app->user->can('support') ? [
+                'label'   => Yii::t('hipanel:client', 'Payment'),
+                'columns' => [
+                    'checkbox', 'login',
+                    'balance'
+                ],
+            ] : null,
+            'documents' => Yii::$app->user->can('support') ? [
+                'label'   => Yii::t('hipanel:client', 'Documents'),
+                'columns' => [
+                    'checkbox', 'login',
+                ],
+            ] : null,
+
+        ];
+    }
 }

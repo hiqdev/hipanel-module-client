@@ -22,6 +22,8 @@ $this->title = Yii::t('hipanel', 'Clients');
 $this->params['subtitle'] = array_filter(Yii::$app->request->get($model->formName(), [])) ? Yii::t('hipanel', 'filtered list') : Yii::t('hipanel', 'full list');
 $this->params['breadcrumbs'][] = $this->title;
 
+$representation = Yii::$app->request->get('representation');
+
 ?>
 
 <?php Pjax::begin(array_merge(Yii::$app->params['pjax'], ['enablePushState' => true])) ?>
@@ -47,6 +49,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ]) ?>
         <?= $page->renderPerPage() ?>
+        <?= $page->renderRepresentations(ClientGridView::class, $representation) ?>
     <?php $page->endContent() ?>
 
     <?php $page->beginContent('bulk-actions') ?>
@@ -102,20 +105,14 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php $page->endContent() ?>
 
     <?php $page->beginContent('table') ?>
-    <?php $page->beginBulkForm() ?>
-    <?= ClientGridView::widget([
-        'boxed' => false,
-        'dataProvider' => $dataProvider,
-        'filterModel'  => $model,
-        'columns'      => [
-            'checkbox',
-            'login',
-            'name', 'seller_id',
-            'type', 'state',
-            'balance', 'credit',
-        ],
-    ]) ?>
-    <?php $page->endBulkForm() ?>
+        <?php $page->beginBulkForm() ?>
+            <?= ClientGridView::widget([
+                'boxed' => false,
+                'dataProvider' => $dataProvider,
+                'filterModel'  => $model,
+                'representation' => $representation,
+            ]) ?>
+        <?php $page->endBulkForm() ?>
     <?php $page->endContent() ?>
 
 <?php $page->end() ?>

@@ -191,5 +191,7 @@ return [
     'NO' => 'НЕТ',
     'Is verified' => 'Верифицирован',
     'Client verification status has been changed' => 'Статус верфикации клиента был изменён',
-    '{0, plural, one{# pre-ordered server} other{# pre-ordered servers}}' => '{0, plural, one{# предзаказ} few{# предзаказа} other{# предзаказов}}'
+    '{0, plural, one{# pre-ordered server} other{# pre-ordered servers}}' => '{0, plural, one{# предзаказ} few{# предзаказа} other{# предзаказов}}',
+    'Payment' => 'Платежи',
+    'Documents' => 'Документы',
 ];
