@@ -130,7 +130,7 @@ class ContactController extends CrudController
                 'data' => function ($action) {
                     return [
                         'countries' => $action->controller->getRefs('country_code'),
-                        'askPincode' => Client::perform('has-pincode'),
+                        'askPincode' => Client::perform('has-pincode', ['id' => Yii::$app->user->id]),
                         'scenario' => 'update',
                     ];
                 },
