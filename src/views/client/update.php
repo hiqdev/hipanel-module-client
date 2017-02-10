@@ -8,7 +8,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
 ?>
 
-<?php Box::begin() ?>
-    <?= $this->render('_form', ['model' => $model]) ?>
-<?php Box::end() ?>
+<div class="row col-md-4">
+    <?php Box::begin() ?>
+        <?= $this->render('_form', ['model' => $model]) ?>
+    <?php Box::end() ?>
+</div>
 

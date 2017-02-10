@@ -37,9 +37,16 @@ class ContactCombo extends Combo
     {
         return parent::getPluginOptions([
             'select2Options' => [
-                'formatResult' => new JsExpression("function (data) {
+                'templateResult' => new JsExpression("function (data) {
+                    if (data.loading) {
+                        return data.text;
+                    }
+
                     return data.name + '<br><span class=\"text-muted\">' + data.email + '</span>';
                 }"),
+                'escapeMarkup' => new JsExpression("function (markup) {
+                    return markup; // Allows HTML
+                }")
             ],
         ]);
     }

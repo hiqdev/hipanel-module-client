@@ -52,11 +52,6 @@ $this->params['breadcrumbs'][] = $this->title;
                         'inputOptions'        => [
                             'id' => 'responsible_id',
                         ],
-                        'pluginOptions' => [
-                            'select2Options' => [
-                                'multiple' => false,
-                            ],
-                        ],
                     ]),
                 ],
             ],
