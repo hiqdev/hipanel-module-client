@@ -210,7 +210,41 @@ class ContactGridView extends BoxedGridView
                         'models' => $model->documents,
                     ]);
                 }
-            ]
+            ],
+            'requisites' => [
+                'format' => 'html',
+                'value' => function ($model) {
+                    $res = implode("\n", array_filter([
+                        $model->organization,
+                        $model->renderAddress(),
+                        $model->vat_number,
+                    ])) . "\n\n";
+                    $res .= $model->bank_details;
+
+                    return nl2br($res);
+                },
+            ],
+        ];
+    }
+
+    public static function defaultRepresentations()
+    {
+        return [
+            'common' => [
+                'label'   => Yii::t('hipanel', 'Common'),
+                'columns' => [
+                    'checkbox',
+                    'name', 'actions', 'email',
+                    'client_id', 'seller_id',
+                ],
+            ],
+            'requisites' => [
+                'label'   => Yii::t('hipanel:client', 'Requisites'),
+                'columns' => [
+                    'checkbox',
+                    'name', 'actions', 'requisites',
+                ],
+            ],
         ];
     }
 }
