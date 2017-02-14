@@ -193,4 +193,15 @@ class Contact extends \hipanel\base\Model
 
         return implode('<br>', $res);
     }
+
+    public function renderAddress()
+    {
+        $res = implode("\n", array_filter([$this->street1, $this->street2, $this->street3])) . "\n";
+        $res .= $this->postal_code . ' ';
+        $res .= $this->province . ' ';
+        $res .= $this->city . ', ';
+        $res .= $this->country_name;
+
+        return preg_replace('/ +/', ' ', $res);
+    }
 }
