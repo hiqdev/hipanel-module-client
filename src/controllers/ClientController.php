@@ -11,6 +11,7 @@
 
 namespace hipanel\modules\client\controllers;
 
+use hipanel\actions\ComboSearchAction;
 use hipanel\actions\IndexAction;
 use hipanel\actions\OrientationAction;
 use hipanel\actions\PrepareBulkAction;
@@ -85,7 +86,7 @@ class ClientController extends \hipanel\base\CrudController
                 ],
             ],
             'search' => [
-                'class' => SearchAction::class,
+                'class' => ComboSearchAction::class,
             ],
             'create' => [
                 'class' => SmartCreateAction::class,

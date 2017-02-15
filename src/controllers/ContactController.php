@@ -11,9 +11,9 @@
 
 namespace hipanel\modules\client\controllers;
 
+use hipanel\actions\ComboSearchAction;
 use hipanel\actions\IndexAction;
 use hipanel\actions\OrientationAction;
-use hipanel\actions\SearchAction;
 use hipanel\actions\SmartCreateAction;
 use hipanel\actions\SmartDeleteAction;
 use hipanel\actions\SmartPerformAction;
@@ -92,7 +92,7 @@ class ContactController extends CrudController
                 'class' => IndexAction::class,
             ],
             'search' => [
-                'class' => SearchAction::class,
+                'class' => ComboSearchAction::class,
             ],
             'view' => [
                 'class' => ViewAction::class,
