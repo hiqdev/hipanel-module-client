@@ -42,7 +42,7 @@ class ContactCombo extends Combo
                         return data.text;
                     }
 
-                    return data.name + '<br><span class=\"text-muted\">' + data.email + '</span>';
+                    return data.name + '<br>' + data.email;
                 }"),
                 'escapeMarkup' => new JsExpression("function (markup) {
                     return markup; // Allows HTML
