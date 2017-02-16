@@ -60,10 +60,11 @@ class ContactGridView extends BoxedGridView
                 'attribute' => 'email',
                 'label' => Yii::t('hipanel', 'Email'),
                 'value' => function ($model) {
-                    return Html::mailto($model->email, $model->email) . VerificationMark::widget(['model' => $model->getVerification('email')]);
                     $result = Html::mailto($model->email, $model->email);
-                    if (Yii::$app->user->can('manage') && ($model->email !== $model->email_confirmed) && ($model->email_confirmed)) {
-                        $result .= ' / ' . Yii::t('hipanel', 'Confirmed: {value}', [ 'value' => Html::mailto($model->email_confirmed, $model->email_confirmed) ]);
+                    $verification = $model->getVerification('email');
+                    if (Yii::$app->user->can('manage') && $model->email_confirmed && !$verification->isConfirmed()) {
+                        $result .= '<br>' . Html::tag('b', Yii::t('hipanel:client', 'change is not confirmed'), ['class' => 'text-warning']);
+                        $result .= '<br>' . Html::tag('span', Html::mailto($model->email_confirmed, $model->email_confirmed), ['class' => 'text-muted']);
                     }
                     return $result . VerificationMark::widget(['model' => $model->getVerification('email')]);
                 },
