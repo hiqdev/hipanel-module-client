@@ -81,7 +81,7 @@ $this->registerCss('legend {font-size: 16px;}');
                 <?php $box->end() ?>
                 <?php foreach ($model->purses as $purse) : ?>
                     <?php if (isset($purse['balance'])) : ?>
-                        <?= $this->render('@hipanel/modules/finance/views/bill/_purseBlock', ['model' => $purse]) ?>
+                        <?= $this->render('@hipanel/modules/finance/views/purse/_client-view', ['model' => $purse]) ?>
                     <?php endif ?>
                 <?php endforeach ?>
             </div>
