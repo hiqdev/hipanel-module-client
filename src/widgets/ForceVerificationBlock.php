@@ -1,12 +1,11 @@
 <?php
-
-/*
+/**
  * Client module for HiPanel
  *
  * @link      https://github.com/hiqdev/hipanel-module-client
  * @package   hipanel-module-client
  * @license   BSD-3-Clause
- * @copyright Copyright (c) 2015-2016, HiQDev (http://hiqdev.com/)
+ * @copyright Copyright (c) 2015-2017, HiQDev (http://hiqdev.com/)
  */
 
 namespace hipanel\modules\client\widgets;
@@ -45,7 +44,7 @@ class ForceVerificationBlock extends Widget
     public $title;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function init()
     {
@@ -61,7 +60,7 @@ class ForceVerificationBlock extends Widget
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function run()
     {
@@ -94,7 +93,7 @@ class ForceVerificationBlock extends Widget
     }
 
     /**
-     * Triggers event that collect required widgets
+     * Triggers event that collect required widgets.
      */
     protected function collectWidgets()
     {

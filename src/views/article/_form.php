@@ -31,7 +31,7 @@ $modelReflacion = new \ReflectionClass(get_class($model));
     ]) ?>
 
     <?= $form->field($model, 'type')->dropDownList(ArrayHelper::map(Ref::find()->where(['gtype' => 'type,article'])->getList(false), 'gl_key', function ($l) {
-         return ucfirst($l->gl_value);
+        return ucfirst($l->gl_value);
     })); ?>
 
     <div role="tabpanel" style="margin-bottom: 25px;">
@@ -40,7 +40,7 @@ $modelReflacion = new \ReflectionClass(get_class($model));
         <ul id="lang_tab" class="nav nav-tabs" role="tablist">
             <?php foreach ($langs as $code => $label) : ?>
                 <?=Html::beginTag('li', ['role' => 'presentation'])?>
-                    <?=Html::a($label, '#' . $code, ['role' => 'tab', 'data-toggle' => 'tab']);?>
+                    <?=Html::a($label, '#' . $code, ['role' => 'tab', 'data-toggle' => 'tab']); ?>
                 <?=Html::endTag('li')?>
             <?php endforeach; ?>
         </ul>

@@ -13,16 +13,14 @@ use hipanel\helpers\Url;
 use hipanel\modules\document\widgets\StackedDocumentsView;
 use hipanel\widgets\Box;
 use hipanel\widgets\FileInput;
-use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Inflector;
 use yii\widgets\ActiveForm;
 
 /**
- * @var \hipanel\modules\client\models\Contact $contact
+ * @var \hipanel\modules\client\models\Contact
  * @var \hipanel\modules\client\models\DocumentUploadForm $model
  */
-
 $this->title = Yii::t('hipanel:client', 'Attached documents');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('hipanel:client', 'Contacts'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = [
@@ -41,7 +39,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?php $box->beginBody() ?>
             <?= StackedDocumentsView::widget([
                 'models' => $contact->documents,
-                'thumbSize' => 150
+                'thumbSize' => 150,
             ]); ?>
         <?php $box->endBody() ?>
     <?php $box->end() ?>

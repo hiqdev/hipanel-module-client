@@ -1,25 +1,24 @@
 <?php
-
-/*
+/**
  * Client module for HiPanel
  *
  * @link      https://github.com/hiqdev/hipanel-module-client
  * @package   hipanel-module-client
  * @license   BSD-3-Clause
- * @copyright Copyright (c) 2015-2016, HiQDev (http://hiqdev.com/)
+ * @copyright Copyright (c) 2015-2017, HiQDev (http://hiqdev.com/)
  */
 
 namespace hipanel\modules\client\grid;
 
-use hipanel\modules\client\models\Contact;
-use hipanel\modules\client\widgets\PhoneVerificationIndicator;
-use hipanel\modules\document\widgets\StackedDocumentsView;
-use hipanel\widgets\VerificationMark;
-use hiqdev\yii2\menus\grid\MenuColumn;
 use hipanel\grid\BoxedGridView;
 use hipanel\grid\MainColumn;
 use hipanel\modules\client\menus\ContactActionsMenu;
+use hipanel\modules\client\models\Contact;
+use hipanel\modules\client\widgets\PhoneVerificationIndicator;
 use hipanel\modules\client\widgets\VerificationIndicator;
+use hipanel\modules\document\widgets\StackedDocumentsView;
+use hipanel\widgets\VerificationMark;
+use hiqdev\yii2\menus\grid\MenuColumn;
 use Yii;
 use yii\helpers\Html;
 
@@ -94,7 +93,6 @@ class ContactGridView extends BoxedGridView
                     $result .= PhoneVerificationIndicator::widget(['model' => $verification]);
 
                     return $result;
-
                 },
             ],
             'email' => [
@@ -189,7 +187,7 @@ class ContactGridView extends BoxedGridView
             ],
             'vat_rate' => [
                 'value' => function ($model) {
-                    return $model->vat_rate ? (int)$model->vat_rate . '%' : null;
+                    return $model->vat_rate ? (int) $model->vat_rate . '%' : null;
                 },
             ],
             'reg_data' => [
@@ -209,7 +207,7 @@ class ContactGridView extends BoxedGridView
                     return StackedDocumentsView::widget([
                         'models' => $model->documents,
                     ]);
-                }
+                },
             ],
             'requisites' => [
                 'format' => 'html',

@@ -1,12 +1,11 @@
 <?php
-
-/*
+/**
  * Client module for HiPanel
  *
  * @link      https://github.com/hiqdev/hipanel-module-client
  * @package   hipanel-module-client
  * @license   BSD-3-Clause
- * @copyright Copyright (c) 2015-2016, HiQDev (http://hiqdev.com/)
+ * @copyright Copyright (c) 2015-2017, HiQDev (http://hiqdev.com/)
  */
 
 namespace hipanel\modules\client\menus;
@@ -22,7 +21,9 @@ class SidebarMenu extends \hiqdev\yii2\menus\Menu
                 'label'   => Yii::t('hipanel', 'Clients'),
                 'url'     => ['/client/client/index'],
                 'icon'    => 'fa-group',
-                'visible' => function () { return Yii::$app->user->can('support') ?: false; },
+                'visible' => function () {
+                    return Yii::$app->user->can('support') ?: false;
+                },
                 'items'   => [
                     'clients' => [
                         'label' => Yii::t('hipanel', 'Clients'),

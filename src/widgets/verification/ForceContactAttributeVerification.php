@@ -1,4 +1,12 @@
 <?php
+/**
+ * Client module for HiPanel
+ *
+ * @link      https://github.com/hiqdev/hipanel-module-client
+ * @package   hipanel-module-client
+ * @license   BSD-3-Clause
+ * @copyright Copyright (c) 2015-2017, HiQDev (http://hiqdev.com/)
+ */
 
 namespace hipanel\modules\client\widgets\verification;
 
@@ -8,7 +16,7 @@ use yii\base\Widget;
 
 /**
  * Class ForceContactAttributeVerification represents verification of a particular
- * contact attribute
+ * contact attribute.
  */
 class ForceContactAttributeVerification extends Widget implements ForceVerificationWidgetInterface
 {

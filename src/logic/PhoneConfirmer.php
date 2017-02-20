@@ -1,4 +1,12 @@
 <?php
+/**
+ * Client module for HiPanel
+ *
+ * @link      https://github.com/hiqdev/hipanel-module-client
+ * @package   hipanel-module-client
+ * @license   BSD-3-Clause
+ * @copyright Copyright (c) 2015-2017, HiQDev (http://hiqdev.com/)
+ */
 
 namespace hipanel\modules\client\logic;
 
@@ -21,7 +29,7 @@ class PhoneConfirmer
     private $notifyTries;
 
     /**
-     * PhoneConfirmer constructor
+     * PhoneConfirmer constructor.
      * @param PhoneConfirmationForm $model
      * @param NotifyTries $notifyTries
      */
@@ -33,9 +41,9 @@ class PhoneConfirmer
     }
 
     /**
-     * Requests API to send the phone number confirmation code
-     * @return bool
+     * Requests API to send the phone number confirmation code.
      * @throws PhoneConfirmationException
+     * @return bool
      */
     public function requestCode()
     {
@@ -59,10 +67,10 @@ class PhoneConfirmer
     }
 
     /**
-     * Sends the phone number confirmation code to the API
+     * Sends the phone number confirmation code to the API.
      *
-     * @return bool whether code was submitted successfully
      * @throws PhoneConfirmationException
+     * @return bool whether code was submitted successfully
      */
     public function submitCode()
     {

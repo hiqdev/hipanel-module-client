@@ -1,12 +1,11 @@
 <?php
-
-/*
+/**
  * Client module for HiPanel
  *
  * @link      https://github.com/hiqdev/hipanel-module-client
  * @package   hipanel-module-client
  * @license   BSD-3-Clause
- * @copyright Copyright (c) 2015-2016, HiQDev (http://hiqdev.com/)
+ * @copyright Copyright (c) 2015-2017, HiQDev (http://hiqdev.com/)
  */
 
 namespace hipanel\modules\client\controllers;
@@ -26,9 +25,9 @@ use hipanel\modules\client\forms\PhoneConfirmationForm;
 use hipanel\modules\client\logic\PhoneConfirmationException;
 use hipanel\modules\client\logic\PhoneConfirmer;
 use hipanel\modules\client\models\Client;
+use hipanel\modules\client\models\Contact;
 use hipanel\modules\client\models\DocumentUploadForm;
 use hipanel\modules\client\models\Verification;
-use hipanel\modules\client\models\Contact;
 use hipanel\modules\client\repositories\NotifyTriesRepository;
 use Yii;
 use yii\base\Event;
@@ -64,7 +63,7 @@ class ContactController extends CrudController
                     [
                         'allow' => true,
                         'roles' => ['contact.force-verify'],
-                    ]
+                    ],
                 ],
             ],
             [
@@ -103,7 +102,7 @@ class ContactController extends CrudController
 
                     $action->getDataProvider()->query
                         ->andFilterWhere(['with_documents' => true])->joinWith('documents');
-                }
+                },
             ],
             'validate-form' => [
                 'class' => ValidateFormAction::class,
@@ -163,7 +162,7 @@ class ContactController extends CrudController
             ],
             'request-email-confirmation' => [
                 'class' => SmartPerformAction::class,
-                'success' => Yii::t('hipanel:client', 'Confirmation message was sent to your email')
+                'success' => Yii::t('hipanel:client', 'Confirmation message was sent to your email'),
             ],
         ];
     }
@@ -204,7 +203,7 @@ class ContactController extends CrudController
         return $this->renderAjax('confirmationModal', [
             'model' => $model,
             'contact' => $contact,
-            'tries' => $tries
+            'tries' => $tries,
         ]);
     }
 

@@ -1,12 +1,11 @@
 <?php
-
-/*
+/**
  * Client module for HiPanel
  *
  * @link      https://github.com/hiqdev/hipanel-module-client
  * @package   hipanel-module-client
  * @license   BSD-3-Clause
- * @copyright Copyright (c) 2015-2016, HiQDev (http://hiqdev.com/)
+ * @copyright Copyright (c) 2015-2017, HiQDev (http://hiqdev.com/)
  */
 
 namespace hipanel\modules\client\widgets;
@@ -26,12 +25,12 @@ class PhoneVerificationIndicator extends VerificationIndicator
             'actionUrl' => [
                 '@contact/phone-confirmation-modal',
                 'id' => $this->model->id,
-                'type' => $this->type
+                'type' => $this->type,
             ],
             'toggleButton' => [
                 'label' => Yii::t('hipanel:client', '{icon} Confirm', ['icon' => Html::tag('i', '', ['class' => 'fa fa-check'])]),
                 'class' => 'btn btn-sm btn-info',
-                'style' => 'display: block'
+                'style' => 'display: block',
             ],
         ]);
     }

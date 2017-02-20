@@ -1,14 +1,12 @@
 <?php
 
 use hipanel\widgets\Box;
-use hipanel\modules\client\widgets\Verification;
 
 /**
- * @var \hipanel\modules\client\models\Contact $model
+ * @var \hipanel\modules\client\models\Contact
  * @var string $title
  * @var \hipanel\modules\client\widgets\verification\ForceVerificationWidgetInterface[] $widgets
  */
-
 ?>
 <?php $box = Box::begin(['renderBody' => false]) ?>
     <?php $box->beginHeader() ?>

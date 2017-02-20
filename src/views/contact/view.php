@@ -11,9 +11,8 @@ use yii\helpers\Html;
 use yii\helpers\Inflector;
 
 /**
- * @var \hipanel\modules\client\models\Contact $model
+ * @var \hipanel\modules\client\models\Contact
  */
-
 $this->title = Inflector::titleize($model->name, true);
 $this->params['subtitle'] = Yii::t('hipanel:client', 'Contact detailed information') . ' #' . $model->id;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('hipanel:client', 'Contacts'), 'url' => ['index']];
@@ -47,7 +46,7 @@ FlagIconCssAsset::register($this);
             </div>
         <?php Box::end() ?>
         <?= ForceVerificationBlock::widget([
-            'contact' => $model
+            'contact' => $model,
         ]) ?>
     </div>
 
@@ -131,7 +130,7 @@ FlagIconCssAsset::register($this);
                         <?php $box->endHeader() ?>
                         <?php $box->beginBody() ?>
                             <?= StackedDocumentsView::widget([
-                                'models' => $model->documents
+                                'models' => $model->documents,
                             ]); ?>
                         <?php $box->endBody() ?>
                     <?php $box->end() ?>

@@ -119,7 +119,7 @@ $this->registerCss('legend {font-size: 16px;}');
                         <?php $box->endHeader() ?>
                         <?php $box->beginBody() ?>
                             <?= StackedDocumentsView::widget([
-                                'models' => $model->contact->documents
+                                'models' => $model->contact->documents,
                             ]) ?>
                         <?php $box->endBody() ?>
                     <?php $box->end() ?>

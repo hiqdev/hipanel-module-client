@@ -1,5 +1,6 @@
 <?php
 
+use hipanel\widgets\BackButton;
 use hipanel\widgets\Box;
 use hipanel\widgets\DatePicker;
 use hiqdev\combo\StaticCombo;
@@ -9,10 +10,9 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\web\JsExpression;
 use yii\web\View;
-use hipanel\widgets\BackButton;
 
-$askPincode = (boolean)$askPincode['pincode_enabled'];
-$isClient = (boolean)Yii::$app->user->can('role:client');
+$askPincode = (bool) $askPincode['pincode_enabled'];
+$isClient = (bool) Yii::$app->user->can('role:client');
 $this->registerJs(<<<JS
 jQuery('#fiz_domain input').change(function() {
     var disable = false;

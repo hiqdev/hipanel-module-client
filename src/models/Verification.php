@@ -1,12 +1,11 @@
 <?php
-
-/*
+/**
  * Client module for HiPanel
  *
  * @link      https://github.com/hiqdev/hipanel-module-client
  * @package   hipanel-module-client
  * @license   BSD-3-Clause
- * @copyright Copyright (c) 2015-2016, HiQDev (http://hiqdev.com/)
+ * @copyright Copyright (c) 2015-2017, HiQDev (http://hiqdev.com/)
  */
 
 namespace hipanel\modules\client\models;
@@ -38,7 +37,7 @@ class Verification extends \hipanel\base\Model
     }
 
     /**
-     * Creates this Verification model from the existing $model for the $attribute
+     * Creates this Verification model from the existing $model for the $attribute.
      * @param Model $model
      * @param $attribute
      * @return static
@@ -65,7 +64,7 @@ class Verification extends \hipanel\base\Model
         }
 
         // TODO: get rid of this crutch. Move into VerificationValueNormalizer or so
-        if (in_array($attribute, ['voice_phone', 'fax_phone']) && !empty($value)) {
+        if (in_array($attribute, ['voice_phone', 'fax_phone'], true) && !empty($value)) {
             $value = preg_replace('/[^0-9]/', '', $value);
             $modelValue = preg_replace('/[^0-9]/', '', $modelValue);
         }

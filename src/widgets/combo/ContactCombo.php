@@ -1,12 +1,11 @@
 <?php
-
-/*
+/**
  * Client module for HiPanel
  *
  * @link      https://github.com/hiqdev/hipanel-module-client
  * @package   hipanel-module-client
  * @license   BSD-3-Clause
- * @copyright Copyright (c) 2015-2016, HiQDev (http://hiqdev.com/)
+ * @copyright Copyright (c) 2015-2017, HiQDev (http://hiqdev.com/)
  */
 
 namespace hipanel\modules\client\widgets\combo;
@@ -44,9 +43,9 @@ class ContactCombo extends Combo
 
                     return data.name + '<br>' + data.email;
                 }"),
-                'escapeMarkup' => new JsExpression("function (markup) {
+                'escapeMarkup' => new JsExpression('function (markup) {
                     return markup; // Allows HTML
-                }")
+                }'),
             ],
         ]);
     }

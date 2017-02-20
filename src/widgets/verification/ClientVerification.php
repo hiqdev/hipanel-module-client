@@ -1,4 +1,12 @@
 <?php
+/**
+ * Client module for HiPanel
+ *
+ * @link      https://github.com/hiqdev/hipanel-module-client
+ * @package   hipanel-module-client
+ * @license   BSD-3-Clause
+ * @copyright Copyright (c) 2015-2017, HiQDev (http://hiqdev.com/)
+ */
 
 namespace hipanel\modules\client\widgets\verification;
 
@@ -9,7 +17,7 @@ use Yii;
 use yii\base\Widget;
 
 /**
- * Class VdsOrderVerification
+ * Class VdsOrderVerification.
  */
 class ClientVerification extends Widget implements ForceVerificationWidgetInterface
 {
@@ -43,7 +51,7 @@ class ClientVerification extends Widget implements ForceVerificationWidgetInterf
                 'onColor' => 'success',
                 'offText' => Yii::t('hipanel:client', 'NO'),
                 'onText' => Yii::t('hipanel:client', 'YES'),
-            ]
+            ],
         ]);
     }
 

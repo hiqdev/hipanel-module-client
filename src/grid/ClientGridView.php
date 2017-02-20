@@ -1,18 +1,15 @@
 <?php
-
-/*
+/**
  * Client module for HiPanel
  *
  * @link      https://github.com/hiqdev/hipanel-module-client
  * @package   hipanel-module-client
  * @license   BSD-3-Clause
- * @copyright Copyright (c) 2015-2016, HiQDev (http://hiqdev.com/)
+ * @copyright Copyright (c) 2015-2017, HiQDev (http://hiqdev.com/)
  */
 
 namespace hipanel\modules\client\grid;
 
-use hiqdev\yii2\menus\grid\MenuColumn;
-use hipanel\grid\ActionColumn;
 use hipanel\grid\BoxedGridView;
 use hipanel\grid\MainColumn;
 use hipanel\grid\RefColumn;
@@ -25,6 +22,7 @@ use hipanel\modules\client\widgets\ClientType;
 use hipanel\modules\finance\grid\BalanceColumn;
 use hipanel\modules\finance\grid\CreditColumn;
 use hipanel\widgets\ArraySpoiler;
+use hiqdev\yii2\menus\grid\MenuColumn;
 use Yii;
 use yii\helpers\Html;
 
@@ -287,7 +285,7 @@ class ClientGridView extends BoxedGridView
                 'label'   => Yii::t('hipanel:client', 'Payment'),
                 'columns' => [
                     'checkbox', 'login',
-                    'balance'
+                    'balance',
                 ],
             ] : null,
             'documents' => Yii::$app->user->can('support') ? [
@@ -296,7 +294,6 @@ class ClientGridView extends BoxedGridView
                     'checkbox', 'login',
                 ],
             ] : null,
-
         ];
     }
 }

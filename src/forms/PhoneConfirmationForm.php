@@ -1,4 +1,12 @@
 <?php
+/**
+ * Client module for HiPanel
+ *
+ * @link      https://github.com/hiqdev/hipanel-module-client
+ * @package   hipanel-module-client
+ * @license   BSD-3-Clause
+ * @copyright Copyright (c) 2015-2017, HiQDev (http://hiqdev.com/)
+ */
 
 namespace hipanel\modules\client\forms;
 
@@ -8,9 +16,7 @@ use yii\base\Model;
 use yii\db\ActiveRecord;
 
 /**
- * Class PhoneConfirmationForm
- *
- * @package hipanel\modules\client\forms
+ * Class PhoneConfirmationForm.
  */
 class PhoneConfirmationForm extends Model
 {
@@ -38,7 +44,7 @@ class PhoneConfirmationForm extends Model
     public $code;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function attributes()
     {
@@ -46,7 +52,7 @@ class PhoneConfirmationForm extends Model
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function rules()
     {
@@ -60,7 +66,7 @@ class PhoneConfirmationForm extends Model
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function attributeLabels()
     {
@@ -85,7 +91,7 @@ class PhoneConfirmationForm extends Model
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function formName()
     {

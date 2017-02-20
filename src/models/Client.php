@@ -1,12 +1,11 @@
 <?php
-
-/*
+/**
  * Client module for HiPanel
  *
  * @link      https://github.com/hiqdev/hipanel-module-client
  * @package   hipanel-module-client
  * @license   BSD-3-Clause
- * @copyright Copyright (c) 2015-2016, HiQDev (http://hiqdev.com/)
+ * @copyright Copyright (c) 2015-2017, HiQDev (http://hiqdev.com/)
  */
 
 namespace hipanel\modules\client\models;
@@ -14,8 +13,8 @@ namespace hipanel\modules\client\models;
 use hipanel\helpers\StringHelper;
 use hipanel\modules\client\models\query\ClientQuery;
 use hipanel\modules\domain\models\Domain;
-use hipanel\modules\server\models\Server;
 use hipanel\modules\finance\models\Purse;
+use hipanel\modules\server\models\Server;
 use hipanel\validators\DomainValidator;
 use Yii;
 
@@ -59,7 +58,7 @@ class Client extends \hipanel\base\Model
             [['email'], 'email', 'on' => ['create', 'update']],
             [['login'], 'match', 'pattern' => '/^[a-z][a-z0-9_]{2,31}$/',
                 'message' => Yii::t('hipanel:client', 'Field "{attribute}" can contain Latin characters written in lower case, and it may contain numbers and underscores'),
-                'on' => ['create', 'update']],
+                'on' => ['create', 'update'], ],
             [['login', 'email'], 'unique', 'on' => ['create', 'update']],
 
             // Ticket settings
@@ -127,7 +126,7 @@ class Client extends \hipanel\base\Model
             },
                 'enableClientValidation' => false,
                 'message' => Yii::t('hipanel:client', 'Fill the Pincode or answer to the question.'),
-                'on' => ['pincode-settings']
+                'on' => ['pincode-settings'],
             ],
 
             [['answer'], 'required', 'when' => function ($model) {
@@ -135,7 +134,7 @@ class Client extends \hipanel\base\Model
             },
                 'enableClientValidation' => false,
                 'message' => Yii::t('hipanel:client', 'Fill the Answer or enter the Pincode.'),
-                'on' => ['pincode-settings']
+                'on' => ['pincode-settings'],
             ],
 
             [['is_verified'], 'boolean', 'on' => ['set-verified']],
@@ -269,7 +268,7 @@ class Client extends \hipanel\base\Model
     {
         return [
             'change-password' => 'set-password',
-            'pincode-settings' => $this->pincode_enabled ? 'disable-pincode' : 'enable-pincode'
+            'pincode-settings' => $this->pincode_enabled ? 'disable-pincode' : 'enable-pincode',
         ];
     }
 

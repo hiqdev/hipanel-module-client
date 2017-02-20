@@ -1,12 +1,11 @@
 <?php
-
-/*
+/**
  * Client module for HiPanel
  *
  * @link      https://github.com/hiqdev/hipanel-module-client
  * @package   hipanel-module-client
  * @license   BSD-3-Clause
- * @copyright Copyright (c) 2015-2016, HiQDev (http://hiqdev.com/)
+ * @copyright Copyright (c) 2015-2017, HiQDev (http://hiqdev.com/)
  */
 
 namespace hipanel\modules\client\models;
@@ -55,7 +54,7 @@ class Contact extends \hipanel\base\Model
                 ['voice_phone', 'fax_phone'],
                 'match',
                 'pattern' => '/^[+]?[()0-9 .-]{3,20}$/',
-                'message' => Yii::t('hipanel:client', 'This field must contains phone number in international format.')
+                'message' => Yii::t('hipanel:client', 'This field must contains phone number in international format.'),
             ],
             [
                 [
@@ -69,7 +68,7 @@ class Contact extends \hipanel\base\Model
                     'voice_phone',
                 ],
                 'required',
-                'on' => ['create', 'update']
+                'on' => ['create', 'update'],
             ],
 
             [['pincode', 'oldEmail'], 'safe', 'on' => ['update']],
@@ -88,25 +87,25 @@ class Contact extends \hipanel\base\Model
                     'inn',
                     'kpp',
                 ],
-                'safe'
+                'safe',
             ],
             [
                 ['email_confirmed', 'voice_phone_confirmed', 'fax_phone_confirmed'],
                 'boolean',
                 'trueValue' => true,
-                'falseValue' => false
+                'falseValue' => false,
             ],
             [['name_confirm_level', 'address_confirm_level'], 'safe'],
             [
                 ['voice_phone_confirm_date', 'fax_phone_confirm_date', 'email_confirm_date', 'address_confirm_date'],
-                'safe'
+                'safe',
             ],
             [['name_confirm_date'], 'safe'],
 
             [
                 ['id'],
                 'required',
-                'on' => ['request-email-confirmation', 'request-phone-confirmation', 'delete', 'update']
+                'on' => ['request-email-confirmation', 'request-phone-confirmation', 'delete', 'update'],
             ],
         ];
     }
@@ -150,7 +149,7 @@ class Contact extends \hipanel\base\Model
     }
 
     /**
-     * Returns verification model for the $attribute
+     * Returns verification model for the $attribute.
      *
      * @param string $attribute
      * @return Verification
@@ -179,7 +178,7 @@ class Contact extends \hipanel\base\Model
 
     public function getName()
     {
-        return $this->name ? : $this->first_name . ' ' . $this->last_name;
+        return $this->name ?: $this->first_name . ' ' . $this->last_name;
     }
 
     public function getMessengers()

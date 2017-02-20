@@ -5,18 +5,17 @@ use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 
 /**
- * @var \yii\web\View $this
+ * @var \yii\web\View
  * @var \hipanel\modules\client\models\Contact $contact
  * @var \hipanel\modules\client\forms\PhoneConfirmationForm $model
  * @var \hipanel\modules\client\models\NotifyTries $tries
  */
-
 ?>
 
 <?php $form = ActiveForm::begin([
     'action' => ['@contact/confirm-phone', 'id' => $model->id, 'type' => $model->type],
     'options' => [
-        'id' => 'confirmation-form'
+        'id' => 'confirmation-form',
     ],
 ]) ?>
 
@@ -49,7 +48,7 @@ use yii\helpers\Html;
     'class' => 'btn btn-success',
     'data' => [
         'loading-text' => Yii::t('hipanel:client', 'Checking...'),
-    ]
+    ],
 ]) ?>
 
 <?= Html::button(Yii::t('hipanel:client', 'Request code'), [

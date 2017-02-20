@@ -1,13 +1,21 @@
 <?php
+/**
+ * Client module for HiPanel
+ *
+ * @link      https://github.com/hiqdev/hipanel-module-client
+ * @package   hipanel-module-client
+ * @license   BSD-3-Clause
+ * @copyright Copyright (c) 2015-2017, HiQDev (http://hiqdev.com/)
+ */
 
 namespace hipanel\modules\client\bootstrap;
 
+use hipanel\modules\client\widgets\ForceVerificationBlock;
 use hipanel\modules\client\widgets\verification\ClientVerification;
 use hipanel\modules\client\widgets\verification\ForceContactAttributeVerification;
 use Yii;
 use yii\base\BootstrapInterface;
 use yii\base\Event;
-use hipanel\modules\client\widgets\ForceVerificationBlock;
 
 class ContactAttributesVerificationBootstrap implements BootstrapInterface
 {
