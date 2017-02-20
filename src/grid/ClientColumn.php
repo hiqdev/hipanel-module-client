@@ -11,8 +11,8 @@
 
 namespace hipanel\modules\client\grid;
 
-use hipanel\grid\DataColumn;
 use hipanel\modules\client\widgets\combo\ClientCombo;
+use hiqdev\higrid\DataColumn;
 use Yii;
 use yii\helpers\Html;
 
