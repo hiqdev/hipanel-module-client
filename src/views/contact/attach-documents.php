@@ -73,8 +73,6 @@ $this->params['breadcrumbs'][] = $this->title;
     ])->label(false); ?>
 
     <?= Html::submitButton(Yii::t('hipanel', 'Save'), ['class' => 'btn btn-success']); ?>
-    <?= Html::submitButton(Yii::t('hipanel', 'Cancel'),
-        ['class' => 'btn btn-default', 'onclick' => 'window.history.back();']); ?>
 
     <?php $form->end(); ?>
     <?php Box::end(); ?>
