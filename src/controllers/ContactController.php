@@ -169,7 +169,7 @@ class ContactController extends CrudController
 
     public function actionAttachDocuments($id)
     {
-        $contact = Contact::find()->joinWith('documents')->where(['id' => $id])->one();
+        $contact = Contact::findOne($id);
 
         if ($contact === null) {
             throw new NotFoundHttpException();
