@@ -162,6 +162,26 @@ JS
     </div>
 
     <div class="col-md-6">
+        <?php Box::begin([
+            'collapsed' => true,
+            'title' => Yii::t('hipanel:client', 'Registration data')
+        ]) ?>
+        <fieldset id="tax_info">
+            <?= $form->field($model, 'vat_number')->textArea() ?>
+            <?= $form->field($model, 'vat_rate') ?>
+        </fieldset>
+        <hr>
+        <fieldset id="bank_info">
+            <div class="well well-sm"><?= Yii::t('hipanel:client', 'Bank details') ?></div>
+            <?= $form->field($model, 'bank_account') ?>
+            <?= $form->field($model, 'bank_name') ?>
+            <?= $form->field($model, 'bank_address') ?>
+            <?= $form->field($model, 'bank_swift') ?>
+        </fieldset>
+        <?php Box::end() ?>
+    </div>
+
+    <div class="col-md-6">
         <?php $box = Box::begin([
             'renderBody' => false,
             'collapsed' => true,
@@ -207,16 +227,6 @@ JS
             <?= $form->field($model, 'inn'); ?>
             <?= $form->field($model, 'kpp'); ?>
             <?= $form->field($model, 'isresident')->checkbox(); ?>
-        </fieldset>
-        <hr>
-        <fieldset id="tax_info">
-            <div class="well well-sm"><?= Yii::t('hipanel:client', 'Registration data') ?></div>
-            <?= $form->field($model, 'vat_number')->textArea() ?>
-            <?= $form->field($model, 'vat_rate') ?>
-        </fieldset>
-        <hr>
-        <fieldset id="bank_info">
-            <?= $form->field($model, 'bank_details')->textArea() ?>
         </fieldset>
 
         <?php $box->endBody() ?>

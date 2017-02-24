@@ -44,6 +44,7 @@ class Contact extends \hipanel\base\Model
             [['passport_no', 'passport_by', 'organization', 'password'], 'safe'],
 
             [['reg_data', 'vat_number', 'tax_comment', 'bank_details'], 'trim'],
+            [['bank_account', 'bank_name', 'bank_address', 'bank_swift'], 'trim'],
             [['vat_number', 'tax_comment'], 'string', 'max' => 32],
             [['vat_rate'], 'number', 'max' => 99],
 
@@ -144,7 +145,10 @@ class Contact extends \hipanel\base\Model
             'reg_data'          => Yii::t('hipanel:client', 'Registration data'),
             'vat_number'        => Yii::t('hipanel:client', 'VAT number'),
             'vat_rate'          => Yii::t('hipanel:client', 'VAT rate'),
-            'bank_details'      => Yii::t('hipanel:client', 'Bank details'),
+            'bank_account'      => Yii::t('hipanel:client', 'Bank account'),
+            'bank_name'         => Yii::t('hipanel:client', 'Bank name'),
+            'bank_address'      => Yii::t('hipanel:client', 'Bank address'),
+            'bank_swift'        => Yii::t('hipanel:client', 'SWIFT code'),
         ]);
     }
 

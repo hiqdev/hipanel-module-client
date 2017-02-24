@@ -98,7 +98,11 @@ FlagIconCssAsset::register($this);
                     'title' => Yii::t('hipanel:client', 'Bank details'),
                 ]) ?>
                     <?php $box->beginBody() ?>
-                        <?= nl2br(Html::encode($model->bank_details)) ?>
+                        <?= ContactGridView::detailView([
+                            'boxed'   => false,
+                            'model'   => $model,
+                            'columns' => ['bank_account', 'bank_name', 'bank_address', 'bank_swift'],
+                        ]) ?>
                     <?php $box->endBody() ?>
                 <?php $box->end() ?>
             </div>
