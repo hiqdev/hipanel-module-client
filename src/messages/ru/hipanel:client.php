@@ -82,6 +82,7 @@ return [
     'Legal entity information' => 'Данные юридического лица',
     'For domain registration in RU and SU zones as physical entity' => 'Для регистрации доменов в зонах RU и SU в качестве физического лица',
     'Physical entity information' => 'Данные физического лица',
+    'Passport data' => 'Паспортные данные',
     'This field must contains phone number in international format.' => 'Это поле обязательно содержит номер телефона в международном формате.',
     'Field "{attribute}" can contain Latin characters written in lower case, and it may contain numbers and underscores' => 'Поле "{attribute}" может содержать символы латинского алфавита написанные в нижнем регистре, также оно может содержать цифры и нижнее подчеркивание',
 

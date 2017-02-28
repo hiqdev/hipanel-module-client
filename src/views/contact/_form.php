@@ -152,7 +152,10 @@ JS
     </div>
 
     <div class="col-md-6">
-        <?php Box::begin(['title' => Yii::t('hipanel:client', 'Additional contacts')]) ?>
+        <?php Box::begin([
+            'collapsable' => true,
+            'title' => Yii::t('hipanel:client', 'Additional contacts'),
+        ]) ?>
         <?= $form->field($model, 'icq'); ?>
         <?= $form->field($model, 'skype'); ?>
         <?= $form->field($model, 'jabber'); ?>
@@ -164,32 +167,9 @@ JS
     <div class="col-md-6">
         <?php Box::begin([
             'collapsed' => true,
-            'title' => Yii::t('hipanel:client', 'Registration data')
+            'title' => Yii::t('hipanel:client', 'Passport data'),
         ]) ?>
-        <fieldset id="tax_info">
-            <?= $form->field($model, 'vat_number')->textArea() ?>
-            <?= $form->field($model, 'vat_rate') ?>
-        </fieldset>
-        <hr>
-        <fieldset id="bank_info">
-            <div class="well well-sm"><?= Yii::t('hipanel:client', 'Bank details') ?></div>
-            <?= $form->field($model, 'bank_account') ?>
-            <?= $form->field($model, 'bank_name') ?>
-            <?= $form->field($model, 'bank_address') ?>
-            <?= $form->field($model, 'bank_swift') ?>
-        </fieldset>
-        <?php Box::end() ?>
-    </div>
-
-    <div class="col-md-6">
-        <?php $box = Box::begin([
-            'renderBody' => false,
-            'collapsed' => true,
-            'title' => Yii::t('hipanel:client', 'Additional information'),
-        ]) ?>
-        <?php $box->beginBody() ?>
         <fieldset id="fiz_domain">
-            <div class="well well-sm"><?= Yii::t('hipanel:client', 'Physical entity information') ?></div>
             <?= $form->field($model, 'birth_date')->widget(DatePicker::class, [
                 'removeButton' => false,
                 'pluginOptions' => [
@@ -219,20 +199,49 @@ JS
             ]); ?>
             <?= $form->field($model, 'passport_by'); ?>
         </fieldset>
-        <hr>
+        <?php Box::end() ?>
+    </div>
+
+    <div class="col-md-6">
+        <?php Box::begin([
+            'collapsed' => true,
+            'title' => Yii::t('hipanel:client', 'Legal entity information'),
+        ]) ?>
         <fieldset id="jur_domain">
-            <div class="well well-sm"><?= Yii::t('hipanel:client', 'Legal entity information') ?></div>
             <?= $form->field($model, 'organization_ru'); ?>
             <?= $form->field($model, 'director_name'); ?>
             <?= $form->field($model, 'inn'); ?>
             <?= $form->field($model, 'kpp'); ?>
             <?= $form->field($model, 'isresident')->checkbox(); ?>
         </fieldset>
-
-        <?php $box->endBody() ?>
-        <?php $box->end() ?>
+        <?php Box::end() ?>
     </div>
-    <!-- /.col-md-6 -->
+
+    <div class="col-md-6">
+        <?php Box::begin([
+            'collapsed' => true,
+            'title' => Yii::t('hipanel:client', 'Registration data')
+        ]) ?>
+        <fieldset id="tax_info">
+            <?= $form->field($model, 'vat_number')->textArea() ?>
+            <?= $form->field($model, 'vat_rate') ?>
+        </fieldset>
+        <?php Box::end() ?>
+    </div>
+
+    <div class="col-md-6">
+        <?php Box::begin([
+            'collapsed' => true,
+            'title' => Yii::t('hipanel:client', 'Bank details')
+        ]) ?>
+        <fieldset id="bank_info">
+            <?= $form->field($model, 'bank_account') ?>
+            <?= $form->field($model, 'bank_name') ?>
+            <?= $form->field($model, 'bank_address') ?>
+            <?= $form->field($model, 'bank_swift') ?>
+        </fieldset>
+        <?php Box::end() ?>
+    </div>
 </div>
 <!-- /.row -->
 
