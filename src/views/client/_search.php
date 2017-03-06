@@ -11,25 +11,25 @@ use yii\helpers\Html;
 ?>
 
 <div class="col-md-4 col-sm-6 col-xs-12">
-    <?= $search->field('login_like') ?>
+    <?= $search->field('login_ilike') ?>
 </div>
 
 <?php if (Yii::$app->user->can('support')) : ?>
     <div class="col-md-4 col-sm-6 col-xs-12">
-        <?= $search->field('note_like') ?>
+        <?= $search->field('note_ilike') ?>
     </div>
 <?php endif ?>
 
 <div class="col-md-4 col-sm-6 col-xs-12">
-    <?= $search->field('name_like') ?>
+    <?= $search->field('name_ilike') ?>
 </div>
 
 <div class="col-md-4 col-sm-6 col-xs-12">
-    <?= $search->field('email_like') ?>
+    <?= $search->field('email_ilike') ?>
 </div>
 
 <div class="col-md-4 col-sm-6 col-xs-12">
-    <?= $search->field('seller_like') ?>
+    <?= $search->field('seller_ilike') ?>
 </div>
 
 <div class="col-md-4 col-sm-6 col-xs-12">
