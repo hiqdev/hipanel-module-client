@@ -32,7 +32,7 @@ $representation = Yii::$app->request->get('representation');
     <?= $page->setSearchFormData(compact(['types', 'states'])) ?>
 
     <?php $page->beginContent('main-actions') ?>
-        <?= Html::a(Yii::t('hipanel:client', 'Create client'), 'create', ['class' => 'btn btn-sm btn-success']) ?>
+        <?= Html::a(Yii::t('hipanel:client', 'Create client'), ['@client/create'], ['class' => 'btn btn-sm btn-success']) ?>
     <?php $page->endContent() ?>
 
     <?php $page->beginContent('show-actions') ?>

@@ -21,6 +21,7 @@ use hipanel\actions\ValidateFormAction;
 use hipanel\actions\ViewAction;
 use hipanel\base\CrudController;
 use hipanel\helpers\ArrayHelper;
+use hipanel\modules\client\forms\EmployeeForm;
 use hipanel\modules\client\forms\PhoneConfirmationForm;
 use hipanel\modules\client\logic\PhoneConfirmationException;
 use hipanel\modules\client\logic\PhoneConfirmer;
@@ -101,7 +102,10 @@ class ContactController extends CrudController
                     $action = $event->sender;
 
                     $action->getDataProvider()->query
-                        ->andFilterWhere(['with_documents' => true])->joinWith('documents');
+                        ->andFilterWhere(['with_documents' => true, 'with_localizations' => true])
+                        ->joinWith('client')
+                        ->joinWith('localizations')
+                        ->joinWith('documents');
                 },
             ],
             'validate-form' => [
@@ -126,6 +130,25 @@ class ContactController extends CrudController
                 'class' => SmartUpdateAction::class,
                 'scenario' => 'update',
                 'success' => Yii::t('hipanel:client', 'Contact was updated'),
+                'on beforeFetch' => function ($event) {
+                    /** @var SmartUpdateAction $action */
+                    $action = $event->sender;
+
+                    $action->getDataProvider()->query
+                        ->andFilterWhere(['with_localizations' => true])
+                        ->joinWith('localizations');
+                },
+                'on beforeSave' => function (Event $event) {
+                    /** @var \hipanel\actions\Action $action */
+                    $action = $event->sender;
+
+                    $pincode = Yii::$app->request->post('pincode');
+                    if (isset($pincode)) {
+                        foreach ($action->collection->models as $model) {
+                            $model->pincode = $pincode;
+                        }
+                    }
+                },
                 'data' => function ($action) {
                     return [
                         'countries' => $action->controller->getRefs('country_code'),

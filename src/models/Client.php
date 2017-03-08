@@ -11,6 +11,7 @@
 namespace hipanel\modules\client\models;
 
 use hipanel\helpers\StringHelper;
+use hipanel\modules\client\forms\EmployeeForm;
 use hipanel\modules\client\models\query\ClientQuery;
 use hipanel\modules\domain\models\Domain;
 use hipanel\modules\finance\models\Purse;
@@ -18,6 +19,11 @@ use hipanel\modules\server\models\Server;
 use hipanel\validators\DomainValidator;
 use Yii;
 
+/**
+ * Class Client
+ *
+ * @property Contact $contact the primary contact
+ */
 class Client extends \hipanel\base\Model
 {
     use \hipanel\base\ModelTrait;
@@ -201,7 +207,7 @@ class Client extends \hipanel\base\Model
 
     public function getContact()
     {
-        return $this->hasOne(Contact::class, ['client_id' => 'id']);
+        return $this->hasOne(Contact::class, ['id' => 'id']);
     }
 
     public function getDomains()
@@ -274,11 +280,17 @@ class Client extends \hipanel\base\Model
 
     public static function getTypeOptions()
     {
-        return [
+        $types = [
             self::TYPE_CLIENT => Yii::t('hipanel:client', 'Client'),
             self::TYPE_SELLER => Yii::t('hipanel:client', 'Reseller'),
             self::TYPE_MANAGER => Yii::t('hipanel:client', 'Manager'),
             self::TYPE_ADMIN => Yii::t('hipanel:client', 'Administrator'),
         ];
+
+        if (Yii::$app->user->can('employee.read')) {
+            $types[self::TYPE_EMPLOYEE] = Yii::t('hipanel:client', 'Employee');
+        }
+
+        return $types;
     }
 }

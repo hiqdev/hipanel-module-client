@@ -14,6 +14,11 @@ use hipanel\behaviors\File;
 use hipanel\modules\document\models\Document;
 use Yii;
 
+/**
+ * Class Contact
+ *
+ * @property Contact[] localizations
+ */
 class Contact extends \hipanel\base\Model
 {
     /*
@@ -28,7 +33,7 @@ class Contact extends \hipanel\base\Model
         return [
             [['id', 'obj_id', 'client_id', 'seller_id'], 'integer'],
             [['type_id', 'state_id'], 'integer'],
-            [['client_name'], 'safe'],
+            [['client_name', 'client_type'], 'safe'],
             [['create_time', 'update_time', 'created_date', 'updated_date'], 'date'],
             [['client', 'seller', 'state', 'type'], 'safe'],
             [['email', 'abuse_email', 'email_new'], 'email'],
@@ -42,6 +47,7 @@ class Contact extends \hipanel\base\Model
             [['name', 'first_name', 'last_name'], 'string'],
             [['birth_date', 'passport_date'], 'safe'],
             [['passport_no', 'passport_by', 'organization', 'password'], 'safe'],
+            [['localization'], 'safe'],
 
             [['reg_data', 'vat_number', 'tax_comment', 'bank_details'], 'trim'],
             [['bank_account', 'bank_name', 'bank_address', 'bank_swift'], 'trim'],
@@ -149,6 +155,7 @@ class Contact extends \hipanel\base\Model
             'bank_name'         => Yii::t('hipanel:client', 'Bank name'),
             'bank_address'      => Yii::t('hipanel:client', 'Bank address'),
             'bank_swift'        => Yii::t('hipanel:client', 'SWIFT code'),
+            'localization'      => Yii::t('hipanel:client', 'Localization'),
         ]);
     }
 
@@ -178,6 +185,45 @@ class Contact extends \hipanel\base\Model
             'request-email-confirmation' => 'notify-confirm-email',
             'request-phone-confirmation' => 'notify-confirm-phone',
         ];
+    }
+
+    public function getLocalizations()
+    {
+        return $this->hasMany(self::class, ['id' => 'id']);
+    }
+
+    /**
+     * Gets localized version of this contact
+     *
+     * @param $language
+     * @param bool $createWhenNotExists
+     * @return $this|Contact
+     */
+    public function getLocalized($language, $createWhenNotExists = true)
+    {
+        if ($language === 'en') {
+            return $this;
+        }
+
+        foreach ($this->localizations as $contact) {
+            if ($contact->localization === $language) {
+                $contact->scenario = $this->scenario;
+                return $contact;
+            }
+        }
+
+        if (!$createWhenNotExists) {
+            return null;
+        }
+
+        $model = clone $this;
+        $model->setAttributes([
+            'id' => null,
+            'type' => 'localized',
+            'localization' => $language,
+        ]);
+
+        return $model;
     }
 
     public function getName()
