@@ -194,5 +194,15 @@ return [
     '{0, plural, one{# pre-ordered server} other{# pre-ordered servers}}' => '{0, plural, one{# предзаказ} few{# предзаказа} other{# предзаказов}}',
     'Payment' => 'Платежи',
     'Employee' => 'Сотрудник',
-    'Localization' => 'Локализация'
+    'Localization' => 'Локализация',
+    'Bank account' => 'Расчётный счет',
+    'Bank name' => 'Название банка',
+    'Bank address' => 'Адрес банка',
+    'SWIFT code' => 'SWIFT',
+    'Number' => 'Номер',
+    'Date' => 'Дата',
+    'Provided services (en)' => 'Предоставляемые услуги (en)',
+    'Provided services (uk)' => 'Предоставляемые услуги (uk)',
+    'VAT number' => 'ИНН',
+    'Contract information' => 'Информация о договоре',
 ];

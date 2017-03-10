@@ -5,18 +5,22 @@
  * @var string $scenario
  * @var array $countries
  * @var boolean $askPincode
- * @var \hipanel\modules\client\models\Contact $model
- * @var \yii\widgets\ActiveForm $form
+ * @var Contact $model the primary model
+ * @var ActiveForm $form
+ * @var EmployeeForm $employeeForm
  */
 
+use hipanel\modules\client\forms\EmployeeForm;
+use hipanel\modules\client\models\Contact;
 use hipanel\modules\client\widgets\combo\ClientCombo;
 use hipanel\widgets\BackButton;
 use hipanel\widgets\Box;
 use hiqdev\combo\StaticCombo;
 use yii\helpers\Html;
+use yii\widgets\ActiveForm;
 
 $i = 0;
-$employeeForm = new \hipanel\modules\client\forms\EmployeeForm($model);
+$contract = $employeeForm->getContract();
 ?>
 
 <?= $this->render('_pincode', compact('askPincode')) ?>
@@ -30,13 +34,14 @@ $employeeForm = new \hipanel\modules\client\forms\EmployeeForm($model);
         <?= Html::activeHiddenInput($model, 'pincode', ['name' => 'pincode']); ?>
     </div>
 
-    <?php foreach ($employeeForm->getContactLocalizations() as $language => $model) : ?>
+    <?php foreach ($employeeForm->getContacts() as $language => $model) : ?>
         <div class="col-md-6">
             <?php Box::begin([
                 'title' => Html::tag('span', $language, ['class' => 'label label-default']) . ' ' . Yii::t('hipanel:client', 'Contact details')
             ]) ?>
                 <?php if ($model->scenario === 'update') : ?>
-                    <?= $form->field($model, "[$i]id")->hiddenInput()->label(false); ?>
+                    <?= Html::activeHiddenInput($model, "[$i]id") ?>
+                    <?= Html::activeHiddenInput($model, "[$i]localization") ?>
                 <?php else: ?>
                     <?= $form->field($model, 'client_id')->widget(ClientCombo::class, [
                         'clientType' => 'employee'
@@ -61,6 +66,7 @@ $employeeForm = new \hipanel\modules\client\forms\EmployeeForm($model);
 
             <?php Box::begin(['title' => Yii::t('hipanel:client', 'Bank details')]) ?>
             <fieldset id="bank_info">
+                <?= $form->field($model, "[$i]vat_number") ?>
                 <?= $form->field($model, "[$i]bank_account") ?>
                 <?= $form->field($model, "[$i]bank_name") ?>
                 <?= $form->field($model, "[$i]bank_address") ?>
@@ -71,4 +77,19 @@ $employeeForm = new \hipanel\modules\client\forms\EmployeeForm($model);
     <?php $i++ ?>
     <?php endforeach; ?>
 </div>
-<!-- /.row -->
+<?php if ($contract) : ?>
+    <div class="row">
+        <div class="col-md-6">
+            <?php $box = Box::begin(['renderBody' => false]) ?>
+                <?php $box->beginHeader() ?>
+                    <?= $box->renderTitle(Yii::t('hipanel:client', 'Contract information')) ?>
+                <?php $box->endHeader() ?>
+                <?php $box->beginBody() ?>
+                    <?php foreach ($employeeForm->getContractFields() as $name => $label) : ?>
+                        <?= $form->field($contract, "data[$name]")->label($label) ?>
+                    <?php endforeach; ?>
+                <?php $box->endBody() ?>
+            <?php $box->end(); ?>
+        </div>
+    </div>
+<?php endif; ?>

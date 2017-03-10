@@ -11,6 +11,7 @@
 namespace hipanel\modules\client\models;
 
 use hipanel\behaviors\File;
+use hipanel\modules\client\models\query\ContactQuery;
 use hipanel\modules\document\models\Document;
 use Yii;
 
@@ -55,7 +56,6 @@ class Contact extends \hipanel\base\Model
             [['vat_rate'], 'number', 'max' => 99],
 
             [['remote', 'file'], 'safe'],
-            [['email_confirmed'], 'boolean'],
             [['used_count'], 'integer'],
             [
                 ['voice_phone', 'fax_phone'],
@@ -97,18 +97,14 @@ class Contact extends \hipanel\base\Model
                 'safe',
             ],
             [
-                ['email_confirmed', 'voice_phone_confirmed', 'fax_phone_confirmed'],
-                'boolean',
-                'trueValue' => true,
-                'falseValue' => false,
+                [
+                    'email_confirmed', 'email_confirm_date',
+                    'voice_phone_confirmed', 'voice_phone_confirm_date',
+                    'fax_phone_confirmed', 'fax_phone_confirm_date',
+                    'name_confirm_level', 'name_confirm_date',
+                    'address_confirm_level', 'address_confirm_date'
+                ], 'safe'
             ],
-            [['name_confirm_level', 'address_confirm_level'], 'safe'],
-            [
-                ['voice_phone_confirm_date', 'fax_phone_confirm_date', 'email_confirm_date', 'address_confirm_date'],
-                'safe',
-            ],
-            [['name_confirm_date'], 'safe'],
-
             [
                 ['id'],
                 'required',
@@ -192,40 +188,6 @@ class Contact extends \hipanel\base\Model
         return $this->hasMany(self::class, ['id' => 'id']);
     }
 
-    /**
-     * Gets localized version of this contact
-     *
-     * @param $language
-     * @param bool $createWhenNotExists
-     * @return $this|Contact
-     */
-    public function getLocalized($language, $createWhenNotExists = true)
-    {
-        if ($language === 'en') {
-            return $this;
-        }
-
-        foreach ($this->localizations as $contact) {
-            if ($contact->localization === $language) {
-                $contact->scenario = $this->scenario;
-                return $contact;
-            }
-        }
-
-        if (!$createWhenNotExists) {
-            return null;
-        }
-
-        $model = clone $this;
-        $model->setAttributes([
-            'id' => null,
-            'type' => 'localized',
-            'localization' => $language,
-        ]);
-
-        return $model;
-    }
-
     public function getName()
     {
         return $this->name ?: $this->first_name . ' ' . $this->last_name;
@@ -252,5 +214,16 @@ class Contact extends \hipanel\base\Model
         $res .= $this->country_name;
 
         return preg_replace('/ +/', ' ', $res);
+    }
+
+    /**
+     * {@inheritdoc}
+     * @return ContactQuery
+     */
+    public static function find($options = [])
+    {
+        return new ContactQuery(get_called_class(), [
+            'options' => $options,
+        ]);
     }
 }

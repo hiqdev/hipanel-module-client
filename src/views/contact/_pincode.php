@@ -68,6 +68,7 @@ JS
             }
         }
         if (show || !isClient) {
+            debugger;
             event.preventDefault();
             jQuery('#askpincode-modal').modal('show');
             return false;

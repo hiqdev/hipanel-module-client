@@ -28,6 +28,7 @@ use hipanel\modules\client\logic\PhoneConfirmer;
 use hipanel\modules\client\models\Client;
 use hipanel\modules\client\models\Contact;
 use hipanel\modules\client\models\DocumentUploadForm;
+use hipanel\modules\client\models\query\ContactQuery;
 use hipanel\modules\client\models\Verification;
 use hipanel\modules\client\repositories\NotifyTriesRepository;
 use Yii;
@@ -68,6 +69,16 @@ class ContactController extends CrudController
                 ],
             ],
             [
+                'class' => AccessControl::class,
+                'only' => ['update-employee'],
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['employee.update'],
+                    ],
+                ],
+            ],
+            [
                 'class' => VerbFilter::class,
                 'actions' => [
                     'set-confirmation' => ['post'],
@@ -101,11 +112,9 @@ class ContactController extends CrudController
                     /** @var ViewAction $action */
                     $action = $event->sender;
 
-                    $action->getDataProvider()->query
-                        ->andFilterWhere(['with_documents' => true, 'with_localizations' => true])
-                        ->joinWith('client')
-                        ->joinWith('localizations')
-                        ->joinWith('documents');
+                    /** @var ContactQuery $query */
+                    $query = $action->getDataProvider()->query;
+                    $query->withDocuments()->withLocalizations();
                 },
             ],
             'validate-form' => [
@@ -293,5 +302,33 @@ class ContactController extends CrudController
         }
 
         return $tries;
+    }
+
+    public function actionUpdateEmployee($id)
+    {
+        $contact = Contact::find()
+            ->where(['id' => $id])
+            ->withDocuments()
+            ->withLocalizations()
+            ->one();
+
+        if ($contact === null) {
+            throw new NotFoundHttpException('Contact was not found');
+        }
+
+        $model = new EmployeeForm($contact, 'update');
+
+        if (Yii::$app->request->isPost && $model->load(Yii::$app->request->post()) && $model->validate()) {
+            if ($model->save()) {
+                return $this->redirect(['@client/view', 'id' => $model->getId()]);
+            }
+        }
+
+        return $this->render('update-employee', [
+            'employeeForm' => $model,
+            'model' => $model->getPrimaryContact(),
+            'askPincode' => Client::perform('has-pincode'),
+            'countries' => $this->getRefs('country_code'),
+        ]);
     }
 }

@@ -3,6 +3,7 @@
 use hipanel\modules\client\grid\ClientGridView;
 use hipanel\modules\client\grid\ContactGridView;
 use hipanel\modules\client\menus\ClientDetailMenu;
+use hipanel\modules\client\models\Client;
 use hipanel\modules\client\widgets\ForceVerificationBlock;
 use hipanel\modules\document\widgets\StackedDocumentsView;
 use hipanel\widgets\Box;
@@ -10,15 +11,15 @@ use hipanel\widgets\ClientSellerLink;
 use hiqdev\assets\flagiconcss\FlagIconCssAsset;
 use yii\helpers\Html;
 
-/*
- * @var $model Client
+/**
+ * @var Client $model
  */
 
 FlagIconCssAsset::register($this);
 
 $this->registerCss('legend {font-size: 16px;}');
 
-$form = new \hipanel\modules\client\forms\EmployeeForm($model->contact);
+$form = new \hipanel\modules\client\forms\EmployeeForm($model->contact, $scenario);
 
 ?>
 <div class="row">
@@ -50,14 +51,14 @@ $form = new \hipanel\modules\client\forms\EmployeeForm($model->contact);
 
     <div class="col-md-9">
         <div class="row">
-            <?php foreach ($form->getContactLocalizations() as $language => $contact) : ?>
+            <?php foreach ($form->getContacts() as $language => $contact) : ?>
                 <div class="col-md-6">
                     <?php $box = Box::begin(['renderBody' => false]) ?>
                     <?php $box->beginHeader() ?>
                         <?= $box->renderTitle(Html::tag('span', $language, ['class' => 'label label-default']) . ' ' . Yii::t('hipanel:client', 'Contact information')) ?>
                         <?php $box->beginTools() ?>
                             <?= Html::a(Yii::t('hipanel', 'Details'), ['@contact/view', 'id' => $contact->id], ['class' => 'btn btn-default btn-xs']) ?>
-                            <?= Html::a(Yii::t('hipanel', 'Change'), ['@contact/update', 'id' => $contact->id], ['class' => 'btn btn-default btn-xs']) ?>
+                            <?= Html::a(Yii::t('hipanel', 'Change'), ['@contact/update-employee', 'id' => $model->id], ['class' => 'btn btn-default btn-xs']) ?>
                         <?php $box->endTools() ?>
                     <?php $box->endHeader() ?>
                     <?php $box->beginBody() ?>
@@ -68,28 +69,21 @@ $form = new \hipanel\modules\client\forms\EmployeeForm($model->contact);
                                 'name_with_verification',
                                 'email', 'voice_phone', 'fax_phone',
                                 'street', 'city', 'province', 'postal_code', 'country',
+                                'reg_data',
+                                'bank_account', 'bank_name', 'bank_address', 'bank_swift'
                             ],
                         ]) ?>
                     <?php $box->endBody() ?>
-                    <?php $box->end() ?>
-
-                    <?php $box = Box::begin([
-                        'renderBody' => false,
-                        'collapsable' => true,
-                        'title' => Yii::t('hipanel:client', 'Bank details'),
-                    ]) ?>
-                        <?php $box->beginBody() ?>
-                            <?= ContactGridView::detailView([
-                                'boxed'   => false,
-                                'model'   => $contact,
-                                'columns' => ['bank_account', 'bank_name', 'bank_address', 'bank_swift'],
-                            ]) ?>
-                        <?php $box->endBody() ?>
                     <?php $box->end() ?>
                 </div>
             <?php endforeach; ?>
         </div>
         <div class="row">
+            <div class="col-md-6">
+                <?php foreach ($model->purses as $purse) : ?>
+                    <?= $this->render('@hipanel/modules/finance/views/purse/_client-view', ['model' => $purse]) ?>
+                <?php endforeach ?>
+            </div>
             <div class="col-md-6">
                 <?php if (Yii::getAlias('@document', false) !== false) : ?>
                     <?php $box = Box::begin(['renderBody' => false]) ?>
