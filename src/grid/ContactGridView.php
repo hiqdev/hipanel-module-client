@@ -16,6 +16,7 @@ use hipanel\modules\client\menus\ContactActionsMenu;
 use hipanel\modules\client\models\Contact;
 use hipanel\modules\client\widgets\PhoneVerificationIndicator;
 use hipanel\modules\client\widgets\VerificationIndicator;
+use hipanel\modules\client\widgets\UnverifiedWidget;
 use hipanel\modules\document\widgets\StackedDocumentsView;
 use hipanel\widgets\VerificationMark;
 use hiqdev\yii2\menus\grid\MenuColumn;
@@ -58,53 +59,32 @@ class ContactGridView extends BoxedGridView
                 'attribute' => 'email',
                 'label' => Yii::t('hipanel', 'Email'),
                 'value' => function ($model) {
-                    $result = Html::mailto($model->email, $model->email);
-                    $verification = $model->getVerification('email');
-                    if (Yii::$app->user->can('manage') && $model->email_confirmed && !$verification->isConfirmed()) {
-                        $result .= '<br>' . Html::tag('b', Yii::t('hipanel:client', 'change is not confirmed'), ['class' => 'text-warning']);
-                        $result .= '<br>' . Html::tag('span', Html::mailto($model->email_confirmed, $model->email_confirmed), ['class' => 'text-muted']);
-                    }
-                    return $result . VerificationMark::widget(['model' => $model->getVerification('email')]);
+                    return UnverifiedWidget::widget([
+                        'model' => $model,
+                        'field' => 'email',
+                        'fieldConfirmed' => 'email_new',
+                        'skip' => true,
+                        'tag' => 'mailto',
+                    ]);
                 },
             ],
             'voice_phone' => [
                 'format' => 'raw',
                 'value' => function ($model) {
-                    /** @var Contact $model */
-                    if (!$model->voice_phone) {
-                        return '';
-                    }
-
-                    $verification = $model->getVerification('voice_phone');
-                    $result = $model->voice_phone;
-                    if (Yii::$app->user->can('manage') && $model->voice_phone_confirmed && !$verification->isConfirmed()) {
-                        $result .= '<br>' . Html::tag('b', Yii::t('hipanel:client', 'change is not confirmed'), ['class' => 'text-warning']);
-                         $result .= '<br>' . Html::tag('span', $model->voice_phone_confirmed, ['class' => 'text-muted']);
-                    }
-                    $result .= VerificationMark::widget(['model' => $verification]);
-                    $result .= PhoneVerificationIndicator::widget(['model' => $verification]);
-
-                    return $result;
+                    return UnverifiedWidget::widget([
+                        'model' => $model,
+                        'field' => 'voice_phone',
+                    ]);
                 },
             ],
             'fax_phone' => [
                 'format' => 'raw',
                 'value' => function ($model) {
-                    /** @var Contact $model */
-                    if (!$model->fax_phone) {
-                        return '';
-                    }
+                    return UnverifiedWidget::widget([
+                        'model' => $model,
+                        'field' => 'fax_phone',
+                    ]);
 
-                    $verification = $model->getVerification('fax_phone');
-                    $result = $model->fax_phone;
-                    if (Yii::$app->user->can('manage') && $model->fax_phone_confirmed && !$verification->isConfirmed()) {
-                        $result .= '<br>' . Html::tag('b', Yii::t('hipanel:client', 'change is not confirmed'), ['class' => 'text-warning']);
-                        $result .= '<br>' . Html::tag('span',  $model->fax_phone_confirmed, ['class' => 'text-muted']);
-                    }
-                    $result .= VerificationMark::widget(['model' => $verification]);
-                    $result .= PhoneVerificationIndicator::widget(['model' => $verification]);
-
-                    return $result;
                 },
             ],
             'email' => [
@@ -125,17 +105,12 @@ class ContactGridView extends BoxedGridView
                 'label' => Yii::t('hipanel', 'Email'),
                 'format' => 'raw',
                 'value' => function ($model) {
-                    $verification = $model->getVerification('email');
-                    $result = $model->email;
-                    if (!$verification->isConfirmed()) {
-                        $result .= '<br>' . Html::tag('b', Yii::t('hipanel:client', 'change is not confirmed'), ['class' => 'text-warning']);
-                        $result .= '<br>' . Html::tag('span', $model->email_new, ['class' => 'text-muted']);
-                    }
-
-                    $result .= VerificationMark::widget(['model' => $verification]);
-                    $result .= VerificationIndicator::widget(['model' => $verification]);
-
-                    return $result;
+                    return UnverifiedWidget::widget([
+                        'model' => $model,
+                        'field' => 'email',
+                        'fieldConfirmed' => 'email_new',
+                        'skip' => true,
+                    ]);
                 },
             ],
             'country' => [
