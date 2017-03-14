@@ -162,6 +162,10 @@ class ClientController extends \hipanel\base\CrudController
                 'success' => Yii::t('hipanel:client', 'Note changed'),
                 'error' => Yii::t('hipanel:client', 'Failed to change note'),
             ],
+            'send-payment-notification' => [
+                'class' => SmartPerformAction::class,
+                 'success' => Yii::t('hipanel:client', 'Message was sent'),
+            ],
             'bulk-enable-block' => [
                 'class' => SmartUpdateAction::class,
                 'scenario' => 'enable-block',

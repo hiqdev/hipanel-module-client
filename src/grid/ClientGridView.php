@@ -284,7 +284,7 @@ class ClientGridView extends BoxedGridView
             'payment' => Yii::$app->user->can('support') ? [
                 'label'   => Yii::t('hipanel:client', 'Payment'),
                 'columns' => [
-                    'checkbox', 'login',
+                    'checkbox', 'login', 'seller_id','type', 'state',
                     'balance',
                 ],
             ] : null,
