@@ -5,6 +5,7 @@ namespace hipanel\modules\client\forms;
 use hipanel\modules\client\models\Contact;
 use hipanel\modules\document\models\Document;
 use hiqdev\hiart\Collection;
+use hiqdev\hiart\ResponseErrorException;
 use Yii;
 
 /**
@@ -155,21 +156,20 @@ class EmployeeForm
     /**
      * Validates all models of the form
      *
-     * @return bool
+     * @return true|string
      */
     public function validate()
     {
-        $success = true;
-
-        if (!$this->getContactsCollection()->validate()) {
-            $success = false;
+        $contacts = $this->getContactsCollection();
+        if (!$contacts->validate()) {
+            return $contacts->getFirstError();
         }
 
         if (!$this->getContract()->validate()) {
-            $success = false;
+            return reset($this->getContract()->getFirstErrors());
         }
 
-        return $success;
+        return true;
     }
 
     /**
@@ -181,7 +181,11 @@ class EmployeeForm
     {
         $collection = $this->getContactsCollection();
 
-        return $collection->save() && $this->getContract()->save();
+        try {
+            return $collection->save() && $this->getContract()->save();
+        } catch (ResponseErrorException $e) {
+            return $e->getMessage();
+        }
     }
 
     /**

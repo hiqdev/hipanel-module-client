@@ -205,4 +205,5 @@ return [
     'Provided services (uk)' => 'Предоставляемые услуги (uk)',
     'VAT number' => 'ИНН',
     'Contract information' => 'Информация о договоре',
+    'Employee contact was save successfully' => 'Контакт сотрудника был успешно сохранён',
 ];
