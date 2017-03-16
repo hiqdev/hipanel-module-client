@@ -8,7 +8,8 @@
  * @copyright Copyright (c) 2015-2017, HiQDev (http://hiqdev.com/)
  */
 
-use hipanel\helpers\Url;
+use hipanel\modules\client\forms\EmployeeForm;
+use hipanel\modules\client\models\Contact;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Inflector;
 
@@ -16,7 +17,8 @@ use yii\helpers\Inflector;
  * @var string $scenario
  * @var array $countries
  * @var boolean $askPincode
- * @var \hipanel\modules\client\models\Contact $model
+ * @var Contact $model the primary contact
+ * @var EmployeeForm $employeeForm
  */
 
 $this->title = Yii::t('hipanel', 'Update');
@@ -30,15 +32,12 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <?php $form = ActiveForm::begin([
     'id' => 'contact-form',
-    'action' => $model->scenario,
+    'action' => ['update-employee', 'id' => $model->id],
     'enableClientValidation' => true,
     'validateOnBlur' => true,
-    'enableAjaxValidation' => true,
     'layout' => 'horizontal',
-    'validationUrl' => Url::toRoute(['validate-form', 'scenario' => $model->scenario]),
 ]) ?>
 
-<?= $this->render('_pincode', compact('askPincode')) ?>
-<?= $this->render('_form', compact('model', 'countries', 'model', 'form')) ?>
+<?= $this->render('_employee-form', compact('scenario', 'countries', 'askPincode', 'model', 'form', 'employeeForm')) ?>
 
 <?php ActiveForm::end() ?>

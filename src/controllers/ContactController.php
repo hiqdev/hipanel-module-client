@@ -21,12 +21,14 @@ use hipanel\actions\ValidateFormAction;
 use hipanel\actions\ViewAction;
 use hipanel\base\CrudController;
 use hipanel\helpers\ArrayHelper;
+use hipanel\modules\client\forms\EmployeeForm;
 use hipanel\modules\client\forms\PhoneConfirmationForm;
 use hipanel\modules\client\logic\PhoneConfirmationException;
 use hipanel\modules\client\logic\PhoneConfirmer;
 use hipanel\modules\client\models\Client;
 use hipanel\modules\client\models\Contact;
 use hipanel\modules\client\models\DocumentUploadForm;
+use hipanel\modules\client\models\query\ContactQuery;
 use hipanel\modules\client\models\Verification;
 use hipanel\modules\client\repositories\NotifyTriesRepository;
 use Yii;
@@ -67,6 +69,16 @@ class ContactController extends CrudController
                 ],
             ],
             [
+                'class' => AccessControl::class,
+                'only' => ['update-employee'],
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['employee.update'],
+                    ],
+                ],
+            ],
+            [
                 'class' => VerbFilter::class,
                 'actions' => [
                     'set-confirmation' => ['post'],
@@ -100,8 +112,9 @@ class ContactController extends CrudController
                     /** @var ViewAction $action */
                     $action = $event->sender;
 
-                    $action->getDataProvider()->query
-                        ->andFilterWhere(['with_documents' => true])->joinWith('documents');
+                    /** @var ContactQuery $query */
+                    $query = $action->getDataProvider()->query;
+                    $query->withDocuments()->withLocalizations();
                 },
             ],
             'validate-form' => [
@@ -126,6 +139,25 @@ class ContactController extends CrudController
                 'class' => SmartUpdateAction::class,
                 'scenario' => 'update',
                 'success' => Yii::t('hipanel:client', 'Contact was updated'),
+                'on beforeFetch' => function ($event) {
+                    /** @var SmartUpdateAction $action */
+                    $action = $event->sender;
+
+                    $action->getDataProvider()->query
+                        ->andFilterWhere(['with_localizations' => true])
+                        ->joinWith('localizations');
+                },
+                'on beforeSave' => function (Event $event) {
+                    /** @var \hipanel\actions\Action $action */
+                    $action = $event->sender;
+
+                    $pincode = Yii::$app->request->post('pincode');
+                    if (isset($pincode)) {
+                        foreach ($action->collection->models as $model) {
+                            $model->pincode = $pincode;
+                        }
+                    }
+                },
                 'data' => function ($action) {
                     return [
                         'countries' => $action->controller->getRefs('country_code'),
@@ -270,5 +302,33 @@ class ContactController extends CrudController
         }
 
         return $tries;
+    }
+
+    public function actionUpdateEmployee($id)
+    {
+        $contact = Contact::find()
+            ->where(['id' => $id])
+            ->withDocuments()
+            ->withLocalizations()
+            ->one();
+
+        if ($contact === null) {
+            throw new NotFoundHttpException('Contact was not found');
+        }
+
+        $model = new EmployeeForm($contact, 'update');
+
+        if (Yii::$app->request->isPost && $model->load(Yii::$app->request->post()) && $model->validate()) {
+            if ($model->save()) {
+                return $this->redirect(['@client/view', 'id' => $model->getId()]);
+            }
+        }
+
+        return $this->render('update-employee', [
+            'employeeForm' => $model,
+            'model' => $model->getPrimaryContact(),
+            'askPincode' => Client::perform('has-pincode'),
+            'countries' => $this->getRefs('country_code'),
+        ]);
     }
 }

@@ -40,6 +40,7 @@ class ClientDetailMenu extends \hipanel\menus\AbstractDetailMenu
                 'linkOptions' => [
                     'target' => '_blank',
                 ],
+                'visible' => $user->is($this->model->id),
             ],
             [
                 'label' => SettingsModal::widget([
@@ -95,6 +96,7 @@ class ClientDetailMenu extends \hipanel\menus\AbstractDetailMenu
                     'scenario' => 'mailing-settings',
                 ]),
                 'encode' => false,
+                'visible' => $this->model->type !== Client::TYPE_EMPLOYEE,
             ],
             [
                 'label' => Yii::t('hipanel:client', 'Change contact information'),
@@ -121,7 +123,7 @@ class ClientDetailMenu extends \hipanel\menus\AbstractDetailMenu
                     'scenario' => 'ticket-settings',
                 ]),
                 'encode' => false,
-                'visible' => Yii::getAlias('@ticket', false),
+                'visible' => Yii::getAlias('@ticket', false) && $this->model->type !== Client::TYPE_EMPLOYEE,
             ],
             [
                 'label' => BlockModalButton::widget(['model' => $this->model]),

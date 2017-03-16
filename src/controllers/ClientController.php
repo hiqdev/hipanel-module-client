@@ -25,11 +25,13 @@ use hipanel\actions\SmartUpdateAction;
 use hipanel\actions\ValidateFormAction;
 use hipanel\actions\ViewAction;
 use hipanel\helpers\Url;
+use hipanel\modules\client\forms\EmployeeForm;
 use hipanel\modules\client\models\Client;
 use Yii;
 use yii\base\Event;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
+use yii\web\NotFoundHttpException;
 
 class ClientController extends \hipanel\base\CrudController
 {
@@ -144,16 +146,8 @@ class ClientController extends \hipanel\base\CrudController
                             Yii::getAlias('@hosting', false) ? 'hosting_count' : null,
                             Yii::getAlias('@server', false) && Yii::$app->user->can('resell') ? 'pre_ordered_servers_count' : null,
                         ]))
-                        ->joinWith([
-                            'contact' => function ($query) {
-                                $query->joinWith('documents');
-                            },
-                        ])
-                        ->joinWith([
-                            'purses' => function ($query) {
-                                $query->joinWith('contact')->joinWith('requisite')->joinWith('documents');
-                            },
-                        ]);
+                        ->withContact()
+                        ->withPurses();
                 },
             ],
             'validate-form' => [

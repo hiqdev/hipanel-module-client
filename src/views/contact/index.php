@@ -15,7 +15,7 @@ $representation = Yii::$app->request->get('representation');
 <?php Pjax::begin(array_merge(Yii::$app->params['pjax'], ['enablePushState' => true])) ?>
     <?php $page = IndexPage::begin(compact('model', 'dataProvider')) ?>
 
-        <?= $page->setSearchFormData() ?>
+        <?php $page->setSearchFormData() ?>
 
         <?php $page->beginContent('main-actions') ?>
             <?= Html::a(Yii::t('hipanel', 'Create'), 'create', ['class' => 'btn btn-sm btn-success']) ?>

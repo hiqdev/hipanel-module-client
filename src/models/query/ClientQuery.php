@@ -45,4 +45,27 @@ class ClientQuery extends ActiveQuery
 
         return $this;
     }
+
+    public function withContact()
+    {
+        $this->joinWith([
+            'contact' => function ($query) {
+                $query->joinWith('documents');
+                $query->joinWith('localizations');
+            },
+        ]);
+
+        return $this;
+    }
+
+    public function withPurses()
+    {
+        $this->joinWith([
+            'purses' => function ($query) {
+                $query->joinWith('contact')->joinWith('requisite')->joinWith('documents');
+            },
+        ]);
+
+        return $this;
+    }
 }

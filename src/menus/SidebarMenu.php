@@ -22,7 +22,7 @@ class SidebarMenu extends \hiqdev\yii2\menus\Menu
                 'url'     => ['/client/client/index'],
                 'icon'    => 'fa-group',
                 'visible' => function () {
-                    return Yii::$app->user->can('support') ?: false;
+                    return Yii::$app->user->can('support');
                 },
                 'items'   => [
                     'clients' => [

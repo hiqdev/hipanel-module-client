@@ -8,14 +8,31 @@
  * @copyright Copyright (c) 2015-2017, HiQDev (http://hiqdev.com/)
  */
 
-$this->title                   = Yii::t('hipanel:client', 'Create contact');
+
+use hipanel\helpers\Url;
+use yii\bootstrap\ActiveForm;
+
+/**
+ * @var \yii\web\View $this
+ * @var array $countries
+ * @var \hipanel\modules\client\models\Contact $model
+ */
+
+$this->title = Yii::t('hipanel:client', 'Create contact');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('hipanel', 'Contact'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
+?>
 
-if (!$models && $model) {
-    $models[] = $model;
-}
-foreach ($models as $model) {
-    $model->scenario = $scenario;
-    echo $this->render('_form', ['model' => $model, 'countries' => $countries]);
-}
+<?php $form = ActiveForm::begin([
+    'id' => 'contact-form',
+    'action' => $model->scenario === 'copy' ? Url::toRoute('create') : $model->scenario,
+    'enableClientValidation' => true,
+    'validateOnBlur' => true,
+    'enableAjaxValidation' => true,
+    'layout' => 'horizontal',
+    'validationUrl' => Url::toRoute(['validate-form', 'scenario' => $model->scenario]),
+]) ?>
+
+<?= $this->render('_form', compact('model', 'countries', 'form')); ?>
+
+<?php ActiveForm::end() ?>

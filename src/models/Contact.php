@@ -11,9 +11,15 @@
 namespace hipanel\modules\client\models;
 
 use hipanel\behaviors\File;
+use hipanel\modules\client\models\query\ContactQuery;
 use hipanel\modules\document\models\Document;
 use Yii;
 
+/**
+ * Class Contact
+ *
+ * @property Contact[] localizations
+ */
 class Contact extends \hipanel\base\Model
 {
     /*
@@ -28,7 +34,7 @@ class Contact extends \hipanel\base\Model
         return [
             [['id', 'obj_id', 'client_id', 'seller_id'], 'integer'],
             [['type_id', 'state_id'], 'integer'],
-            [['client_name'], 'safe'],
+            [['client_name', 'client_type'], 'safe'],
             [['create_time', 'update_time', 'created_date', 'updated_date'], 'date'],
             [['client', 'seller', 'state', 'type'], 'safe'],
             [['email', 'abuse_email', 'email_new'], 'email'],
@@ -42,6 +48,7 @@ class Contact extends \hipanel\base\Model
             [['name', 'first_name', 'last_name'], 'string'],
             [['birth_date', 'passport_date'], 'safe'],
             [['passport_no', 'passport_by', 'organization', 'password'], 'safe'],
+            [['localization'], 'safe'],
 
             [['reg_data', 'vat_number', 'tax_comment', 'bank_details'], 'trim'],
             [['bank_account', 'bank_name', 'bank_address', 'bank_swift'], 'trim'],
@@ -49,7 +56,6 @@ class Contact extends \hipanel\base\Model
             [['vat_rate'], 'number', 'max' => 99],
 
             [['remote', 'file'], 'safe'],
-            [['email_confirmed'], 'boolean'],
             [['used_count'], 'integer'],
             [
                 ['voice_phone', 'fax_phone'],
@@ -91,18 +97,14 @@ class Contact extends \hipanel\base\Model
                 'safe',
             ],
             [
-                ['email_confirmed', 'voice_phone_confirmed', 'fax_phone_confirmed'],
-                'boolean',
-                'trueValue' => true,
-                'falseValue' => false,
+                [
+                    'email_confirmed', 'email_confirm_date',
+                    'voice_phone_confirmed', 'voice_phone_confirm_date',
+                    'fax_phone_confirmed', 'fax_phone_confirm_date',
+                    'name_confirm_level', 'name_confirm_date',
+                    'address_confirm_level', 'address_confirm_date'
+                ], 'safe'
             ],
-            [['name_confirm_level', 'address_confirm_level'], 'safe'],
-            [
-                ['voice_phone_confirm_date', 'fax_phone_confirm_date', 'email_confirm_date', 'address_confirm_date'],
-                'safe',
-            ],
-            [['name_confirm_date'], 'safe'],
-
             [
                 ['id'],
                 'required',
@@ -149,6 +151,7 @@ class Contact extends \hipanel\base\Model
             'bank_name'         => Yii::t('hipanel:client', 'Bank name'),
             'bank_address'      => Yii::t('hipanel:client', 'Bank address'),
             'bank_swift'        => Yii::t('hipanel:client', 'SWIFT code'),
+            'localization'      => Yii::t('hipanel:client', 'Localization'),
         ]);
     }
 
@@ -178,6 +181,11 @@ class Contact extends \hipanel\base\Model
             'request-email-confirmation' => 'notify-confirm-email',
             'request-phone-confirmation' => 'notify-confirm-phone',
         ];
+    }
+
+    public function getLocalizations()
+    {
+        return $this->hasMany(self::class, ['id' => 'id']);
     }
 
     public function getName()
@@ -240,5 +248,16 @@ class Contact extends \hipanel\base\Model
     public function renderBankSwift($swift)
     {
         return $swift ? "SWIFT code: " . $swift : null;
+    }
+
+    /**
+     * {@inheritdoc}
+     * @return ContactQuery
+     */
+    public static function find($options = [])
+    {
+        return new ContactQuery(get_called_class(), [
+            'options' => $options,
+        ]);
     }
 }
