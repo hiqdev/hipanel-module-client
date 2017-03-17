@@ -44,7 +44,9 @@ $form = new \hipanel\modules\client\forms\EmployeeForm($model->contact, $scenari
         </p>
 
         <div class="profile-usermenu">
-            <?= ClientDetailMenu::widget(['model' => $model]) ?>
+            <?= ClientDetailMenu::widget([
+                'model' => $model,
+            ]) ?>
         </div>
         <?php Box::end() ?>
     </div>
