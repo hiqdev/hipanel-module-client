@@ -54,9 +54,11 @@ $representation = Yii::$app->request->get('representation');
 
     <?php $page->beginContent('bulk-actions') ?>
         <?php if (Yii::$app->user->can('support')) : ?>
-            <?= $page->renderBulkButton(Yii::t('hipanel', 'Payment notification'), 'send-payment-notification', 'danger')?>
+            <?php if ($representation === 'payment') : ?>
+                <?= $page->renderBulkButton(Yii::t('hipanel:client', 'Payment notification'), 'create-payment-ticket', 'danger')?>
+            <?php endif ?>
             <div class="dropdown" style="display: inline-block">
-                <button type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <?= Yii::t('hipanel', 'Block') ?>
                     <span class="caret"></span>
                 </button>

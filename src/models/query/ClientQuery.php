@@ -68,4 +68,12 @@ class ClientQuery extends ActiveQuery
 
         return $this;
     }
+    public function withPaymentTicket()
+    {
+        $this->joinWith([
+            'payment_ticket'
+        ]);
+
+        return $this;
+    }
 }
