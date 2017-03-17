@@ -29,6 +29,19 @@ class Contact extends \hipanel\base\Model
 
     public $oldEmail;
 
+    public function init()
+    {
+        parent::init();
+
+        $this->on(self::EVENT_BEFORE_INSERT, [$this, 'setBankDetails']);
+        $this->on(self::EVENT_BEFORE_UPDATE, [$this, 'setBankDetails']);
+    }
+
+    public function setBankDetails($insert)
+    {
+        $this->bank_details = $this->renderBankDetails();
+    }
+
     public function rules()
     {
         return [
@@ -52,7 +65,7 @@ class Contact extends \hipanel\base\Model
 
             [['reg_data', 'vat_number', 'tax_comment', 'bank_details'], 'trim'],
             [['bank_account', 'bank_name', 'bank_address', 'bank_swift'], 'trim'],
-            [['vat_number', 'tax_comment'], 'string', 'max' => 32],
+            [['vat_number', 'tax_comment'], 'string'],
             [['vat_rate'], 'number', 'max' => 99],
 
             [['remote', 'file'], 'safe'],
@@ -260,4 +273,5 @@ class Contact extends \hipanel\base\Model
             'options' => $options,
         ]);
     }
+
 }
