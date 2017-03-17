@@ -68,14 +68,24 @@ JS
             }
         }
         if (show || !isClient) {
-            debugger;
             event.preventDefault();
-            jQuery('#askpincode-modal').modal('show');
+            if (($("#askpincode-modal").data('bs.modal') || {}).isShown) {
+                $('#modal-ask-pincode-button').trigger('click');
+                return false;
+            }
+
+            $('#askpincode-modal').modal('show');
+            setTimeout(function () {
+                $("#modal-pincode").focus();
+            }, 500);
             return false;
         }
     });
     jQuery('#modal-ask-pincode-button').on('click', function(e) {
         var pincode = jQuery('#modal-pincode').val();
+        if (pincode.length === 0) {
+            return false;
+        }
         jQuery('#contact-pincode').val(pincode);
         document.getElementById("contact-form").submit();
     });
@@ -88,7 +98,7 @@ JS
     'clientEvents' => [
         'show.bs.modal' => new JsExpression("function() {document.getElementById('modal-pincode').value = '';}"),
     ],
-    'footer' => Html::submitButton(Yii::t('hipanel', 'Submit'), [
+    'footer' => Html::button(Yii::t('hipanel', 'Submit'), [
         'id' => 'modal-ask-pincode-button',
         'class' => 'btn btn-default btn-loading',
         'data-loading-text' => Yii::t('hipanel', 'loading...'),
@@ -99,5 +109,6 @@ JS
     'id' => 'modal-pincode',
     'class' => 'form-control',
     'placeholder' => Yii::t('hipanel:client', 'Type pincode here...'),
+    'autocomplete' => 'new-password',
 ]); ?>
 <?php Modal::end(); ?>

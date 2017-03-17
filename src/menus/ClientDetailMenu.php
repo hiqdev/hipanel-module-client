@@ -129,7 +129,7 @@ class ClientDetailMenu extends \hipanel\menus\AbstractDetailMenu
                 'label' => BlockModalButton::widget(['model' => $this->model]),
                 'encode' => false,
                 'visible' => $user->can('support') && $user->not($this->model->id),
-            ],
+            ]
         ], $actions);
 
         unset($items['view']);

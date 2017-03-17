@@ -196,6 +196,12 @@ class ContactGridView extends BoxedGridView
                     return nl2br($model->reg_data);
                 },
             ],
+            'bank_account' => [
+                'format' => 'html',
+                'value' => function ($model) {
+                    return nl2br($model->bank_account);
+                },
+            ],
             'documents' => [
                 'format' => 'raw',
                 'label' => Yii::t('hipanel:client', 'Documents'),
@@ -217,7 +223,7 @@ class ContactGridView extends BoxedGridView
                         $model->renderAddress(),
                         $model->vat_number,
                     ])) . "\n\n";
-                    $res .= $model->bank_details;
+                    $res .= $model->renderBankDetails();
 
                     return nl2br($res);
                 },

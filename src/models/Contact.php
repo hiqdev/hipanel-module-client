@@ -216,6 +216,40 @@ class Contact extends \hipanel\base\Model
         return preg_replace('/ +/', ' ', $res);
     }
 
+    public function renderBankDetails()
+    {
+        return implode("\n", array_filter([
+            $this->renderBankAccount($this->bank_account),
+            $this->renderBankName($this->bank_name),
+            $this->renderBankAddress($this->bank_address),
+            $this->renderBankSwift($this->bank_swift),
+        ]));
+    }
+
+    public function renderBankAccount($iban)
+    {
+        if (empty($iban)) {
+            return null;
+        }
+
+        return strpos($iban, "\n")===false ? "IBAN: $iban" : $iban;
+    }
+
+    public function renderBankName($name)
+    {
+        return $name ? "Bank Name: $name" : null;
+    }
+
+    public function renderBankAddress($address)
+    {
+        return $address ? "Bank Address: " . $address : null;
+    }
+
+    public function renderBankSwift($swift)
+    {
+        return $swift ? "SWIFT code: " . $swift : null;
+    }
+
     /**
      * {@inheritdoc}
      * @return ContactQuery
