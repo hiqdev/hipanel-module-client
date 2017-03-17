@@ -61,8 +61,8 @@ class ContactGridView extends BoxedGridView
                 'value' => function ($model) {
                     return UnverifiedWidget::widget([
                         'model' => $model,
-                        'field' => 'email',
-                        'fieldConfirmed' => 'email_new',
+                        'attribute' => 'email',
+                        'confirmedAttribute' => 'email_new',
                         'skip' => true,
                         'tag' => 'mailto',
                     ]);
@@ -73,7 +73,7 @@ class ContactGridView extends BoxedGridView
                 'value' => function ($model) {
                     return UnverifiedWidget::widget([
                         'model' => $model,
-                        'field' => 'voice_phone',
+                        'attribute' => 'voice_phone',
                     ]);
                 },
             ],
@@ -82,7 +82,7 @@ class ContactGridView extends BoxedGridView
                 'value' => function ($model) {
                     return UnverifiedWidget::widget([
                         'model' => $model,
-                        'field' => 'fax_phone',
+                        'attribute' => 'fax_phone',
                     ]);
 
                 },
@@ -107,8 +107,8 @@ class ContactGridView extends BoxedGridView
                 'value' => function ($model) {
                     return UnverifiedWidget::widget([
                         'model' => $model,
-                        'field' => 'email',
-                        'fieldConfirmed' => 'email_new',
+                        'attribute' => 'email',
+                        'confirmedAttribute' => 'email_new',
                         'skip' => true,
                     ]);
                 },

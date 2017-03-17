@@ -1,12 +1,11 @@
 <?php
-
-/*
+/**
  * HiPanel core package
  *
  * @link      https://hipanel.com/
  * @package   hipanel-core
  * @license   BSD-3-Clause
- * @copyright Copyright (c) 2014-2016, HiQDev (http://hiqdev.com/)
+ * @copyright Copyright (c) 2014-2017, HiQDev (http://hiqdev.com/)
  */
 
 namespace hipanel\modules\client\widgets;
@@ -22,8 +21,8 @@ use Yii;
  * Usage:
  * UnverifiedWidget::widget([
  *      'model' => $model,
- *      'field' => 'email',
- *      'fieldConfirmed' => 'email_new',
+ *      'attribute' => 'email',
+ *      'confirmedAttribute' => 'email_new',
  *      'tag' => 'span',
  *      'tagOptions' => ['class' => 'danger'],
  *      'skip' => true,
@@ -35,41 +34,109 @@ class UnverifiedWidget extends \yii\base\Widget
 {
     /** Contact $model */
     public $model;
+    protected $verification;
     /** @var string */
-    public $field;
-    public $fieldConfirmed;
+    public $attribute;
+    public $confirmedAttribute;
     public $tag;
     /** @var array */
     public $tagOptions = [];
-    /** @var boolean */
+    /** @var boolean: Skip checks for permitions, existing of confirmed attribute */
     public $skip = false;
+    /** @var array */
+    public $indicatorMap = [
+        'voice_phone' => PhoneVerificationIndicator::class,
+        'fax_phone' => PhoneVerificationIndicator::class,
+        '*' => VerificationIndicator::class
+    ];
+
+    public function init()
+    {
+        if ($this->model === null)
+        {
+            throw new InvalidConfigException('Parameter "model" is required');
+        }
+
+        if ($this->attribute === null)
+        {
+            throw new InvalidConfigException('Parameter "attribute" is required');
+        }
+
+        $this->verification = $this->model->getVerification($this->attribute);
+    }
 
     public function run()
     {
-        if (!$this->model->{$this->field} || !$this->field)
+        if ($this->getValue() === null && $this->getConfirmedValue() === null)
         {
             return '';
         }
 
-        $this->fieldConfirmed = $this->fieldConfirmed ? : $this->field . "_confirmed";
-        $verification = $this->model->getVerification($this->field);
+        $result = $this->renderValue();
+        $result .= $this->renderConfirmedValue();
+        $result .= $this->renderVerificationMark();
+        $result .= $this->renderVerificationIndicator();
 
-        $result = $this->tag
-            ? (in_array($this->tag, ['a', 'mailto'])
-                ? Html::{$this->tag}($this->model->{$this->field}, $this->model->{$this->field}, $this->tagOptions)
-                : Html::tag($this->tag, $this->model->{$this->field}, $this->tagOptions))
-            : $this->model->{$this->field};
+        return $result;
+    }
 
-        if ((Yii::$app->user->can('manage') && $this->model->{"{$this->fieldConfirmed}"}) || $this->skip)
+    protected function renderValue()
+    {
+        if ($this->tag === null) {
+            return $this->getValue();
+        }
+
+        if (in_array($this->tag, ['a', 'mailto']))
         {
-            if (!$verification->isConfirmed())
+            return Html::{$this->tag}($this->getValue(), $this->getValue(), $this->tagOptions);
+        }
+
+        return Html::tag($this->tag, $this->getValue(), $this->tagOptions);
+    }
+
+    protected function renderConfirmedValue()
+    {
+        if ((Yii::$app->user->can('manage') && $this->getConfirmedValue()) || $this->skip)
+        {
+            if (!$this->verification->isConfirmed())
             {
                 $result .= '<br>' . Html::tag('b', Yii::t('hipanel:client', 'change is not confirmed'), ['class' => 'text-warning']);
-                $result .= '<br>' . Html::tag('span',  $this->model->{"{$this->fieldConfirmed}"}, ['class' => 'text-muted']);
+                $result .= '<br>' . Html::tag('span',  $this->getConfirmedValue(), ['class' => 'text-muted']);
             }
         }
 
-        $result .= VerificationMark::widget(['model' => $verification]);
-        return $result . (preg_match('/phone/', $this->field) ? PhoneVerificationIndicator::widget(['model' => $verification]) : VerificationIndicator::widget(['model' => $verification]));
+        return '';
+    }
+
+    protected function renderVerificationMark()
+    {
+        return VerificationMark::widget(['model' => $this->verification]);
+    }
+
+    protected function renderVerificationIndicator()
+    {
+        $class = $this->indicatorMap['*'];
+
+        if (isset($this->indicatorMap[$this->attribute]))
+        {
+            $class = $this->indicatorMap[$this->attribute];
+        }
+
+        return $class::widget(['model' => $this->verification]);
+    }
+
+    protected function getValue()
+    {
+        return $this->getAttributeValue($this->attribute);
+    }
+
+    protected function getConfirmedValue()
+    {
+        return $this->getAttributeValue($this->confirmedAttribute);
+    }
+
+    protected function getAttributeValue($attribute)
+    {
+        return $this->model->getAttribute($attribute) ? $this->model->$attribute : null;
     }
 }
