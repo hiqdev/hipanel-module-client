@@ -24,6 +24,7 @@ use Yii;
  * Class Client
  *
  * @property Contact $contact the primary contact
+ * @property Purse[] $purses
  */
 class Client extends \hipanel\base\Model
 {

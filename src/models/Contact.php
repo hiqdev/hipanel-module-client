@@ -29,6 +29,19 @@ class Contact extends \hipanel\base\Model
 
     public $oldEmail;
 
+    public function init()
+    {
+        parent::init();
+
+        $this->on(self::EVENT_BEFORE_INSERT, [$this, 'setBankDetails']);
+        $this->on(self::EVENT_BEFORE_UPDATE, [$this, 'setBankDetails']);
+    }
+
+    public function setBankDetails($insert)
+    {
+        $this->bank_details = $this->renderBankDetails();
+    }
+
     public function rules()
     {
         return [
@@ -52,7 +65,7 @@ class Contact extends \hipanel\base\Model
 
             [['reg_data', 'vat_number', 'tax_comment', 'bank_details'], 'trim'],
             [['bank_account', 'bank_name', 'bank_address', 'bank_swift'], 'trim'],
-            [['vat_number', 'tax_comment'], 'string', 'max' => 32],
+            [['vat_number', 'tax_comment'], 'string'],
             [['vat_rate'], 'number', 'max' => 99],
 
             [['remote', 'file'], 'safe'],
@@ -216,6 +229,40 @@ class Contact extends \hipanel\base\Model
         return preg_replace('/ +/', ' ', $res);
     }
 
+    public function renderBankDetails()
+    {
+        return implode("\n", array_filter([
+            $this->renderBankAccount($this->bank_account),
+            $this->renderBankName($this->bank_name),
+            $this->renderBankAddress($this->bank_address),
+            $this->renderBankSwift($this->bank_swift),
+        ]));
+    }
+
+    public function renderBankAccount($iban)
+    {
+        if (empty($iban)) {
+            return null;
+        }
+
+        return strpos($iban, "\n")===false ? "IBAN: $iban" : $iban;
+    }
+
+    public function renderBankName($name)
+    {
+        return $name ? "Bank Name: $name" : null;
+    }
+
+    public function renderBankAddress($address)
+    {
+        return $address ? "Bank Address: " . $address : null;
+    }
+
+    public function renderBankSwift($swift)
+    {
+        return $swift ? "SWIFT code: " . $swift : null;
+    }
+
     /**
      * {@inheritdoc}
      * @return ContactQuery
@@ -226,4 +273,5 @@ class Contact extends \hipanel\base\Model
             'options' => $options,
         ]);
     }
+
 }

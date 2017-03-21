@@ -144,7 +144,7 @@ use yii\helpers\Html;
             'title' => Yii::t('hipanel:client', 'Bank details')
         ]) ?>
         <fieldset id="bank_info">
-            <?= $form->field($model, 'bank_account') ?>
+            <?= $form->field($model, 'bank_account')->textArea() ?>
             <?= $form->field($model, 'bank_name') ?>
             <?= $form->field($model, 'bank_address') ?>
             <?= $form->field($model, 'bank_swift') ?>
