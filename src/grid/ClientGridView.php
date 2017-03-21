@@ -85,12 +85,6 @@ class ClientGridView extends BoxedGridView
             'balance' => [
                 'class' => BalanceColumn::class,
             ],
-            'balance_with_purses' => [
-                'format' => 'raw',
-                'attribute' => 'balance',
-                'value' => function ($model) {
-                }
-            ],
             'credit' => CreditColumn::resolveConfig(),
             'country' => [
                 'attribute' => 'contact',
@@ -276,8 +270,7 @@ class ClientGridView extends BoxedGridView
                 'label' => Yii::t('hipanel', 'Ticket'),
                 'filter' => false,
                 'value' => function ($model) {
-                    if (!$model->payment_ticket_id)
-                    {
+                    if (!$model->payment_ticket_id) {
                         return '';
                     }
                     return Html::a(

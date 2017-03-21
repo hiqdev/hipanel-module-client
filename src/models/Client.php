@@ -231,8 +231,7 @@ class Client extends \hipanel\base\Model
 
     public function getPayment_ticket()
     {
-        if (!Yii::getAlias('@ticket', false))
-        {
+        if (!Yii::getAlias('@ticket', false)) {
             return null;
         }
         return $this->hasOne(Thread::class, ['id' => 'payment_ticket_id']);

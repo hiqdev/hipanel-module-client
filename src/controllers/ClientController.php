@@ -73,8 +73,7 @@ class ClientController extends \hipanel\base\CrudController
                         Yii::$app->response->redirect(Url::to(['@client/view', 'id' => Yii::$app->user->id]))->send();
                     }
 
-                    if (Yii::$app->request->get('representation') === 'payment')
-                    {
+                    if (Yii::$app->request->get('representation') === 'payment') {
                         $action = $event->sender;
                         $action->getDataProvider()->query
                             ->addSelect([
