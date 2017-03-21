@@ -44,6 +44,7 @@ class ClientActionsMenu extends \hiqdev\yii2\menus\Menu
                     ],
                 ],
                 'encode' => false,
+                'visible' => Yii::$app->user->can('support') && Yii::$app->user->id !== (int) $this->model->id,
             ],
         ];
     }
