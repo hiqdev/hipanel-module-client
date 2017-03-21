@@ -63,7 +63,7 @@ class ContactGridView extends BoxedGridView
                         'model' => $model,
                         'attribute' => 'email',
                         'confirmedAttribute' => 'email_new',
-                        'skip' => true,
+                        'checkPermissionsForConfirmedValue' => true,
                         'tag' => 'mailto',
                     ]);
                 },
@@ -109,7 +109,7 @@ class ContactGridView extends BoxedGridView
                         'model' => $model,
                         'attribute' => 'email',
                         'confirmedAttribute' => 'email_new',
-                        'skip' => true,
+                        'checkPermissionsForConfirmedValue' => true,
                     ]);
                 },
             ],
