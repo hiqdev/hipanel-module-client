@@ -262,6 +262,7 @@ class ClientController extends \hipanel\base\CrudController
                     $action = $event->sender;
                     $dataProvider = $action->getDataProvider();
                     $dataProvider->query->addSelect('pincode_enabled');
+                    Yii::$app->cache->delete(['user-pincode-enabled', Yii::$app->user->id]);
                 },
                 'data' => function ($action, $data) {
                     $apiData = $this->getRefs('type,question', 'hipanel:client');

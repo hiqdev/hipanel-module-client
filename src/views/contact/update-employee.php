@@ -38,6 +38,8 @@ $this->params['breadcrumbs'][] = $this->title;
     'layout' => 'horizontal',
 ]) ?>
 
-<?= $this->render('_employee-form', compact('scenario', 'countries', 'askPincode', 'model', 'form', 'employeeForm')) ?>
+<?= $this->render('_employee-form', compact('scenario', 'countries', 'model', 'form', 'employeeForm')) ?>
 
 <?php ActiveForm::end() ?>
+
+<?= $this->render('_pincode', compact('askPincode')) ?>

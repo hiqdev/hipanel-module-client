@@ -4,7 +4,6 @@
  * @var \yii\web\View $this
  * @var string $scenario
  * @var array $countries
- * @var boolean $askPincode
  * @var Contact $model the primary model
  * @var ActiveForm $form
  * @var EmployeeForm $employeeForm
@@ -23,15 +22,13 @@ $i = 0;
 $contract = $employeeForm->getContract();
 ?>
 
-<?= $this->render('_pincode', compact('askPincode')) ?>
-
 <div class="row">
     <div class="col-md-12">
         <?php Box::begin(); ?>
-        <?= Html::submitButton(Yii::t('hipanel', 'Save'), ['class' => 'btn btn-success']); ?>
-        <?= BackButton::widget() ?>
+            <?= Html::submitButton(Yii::t('hipanel', 'Save'), ['class' => 'btn btn-success']); ?>
+            <?= BackButton::widget() ?>
         <?php Box::end(); ?>
-        <?= Html::activeHiddenInput($model, 'pincode', ['name' => 'pincode']); ?>
+        <?= Html::hiddenInput('pincode', null, ['id' => 'contact-pincode']) ?>
     </div>
 
     <?php foreach ($employeeForm->getContacts() as $language => $model) : ?>

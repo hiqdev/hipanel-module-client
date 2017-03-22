@@ -6,6 +6,7 @@ use hipanel\widgets\Box;
 use hipanel\widgets\DatePicker;
 use hiqdev\combo\StaticCombo;
 use yii\helpers\Html;
+use yii\web\View;
 
 /**
  * @var string $scenario
@@ -16,8 +17,6 @@ use yii\helpers\Html;
 ?>
 
 <div class="row">
-    <?= Html::activeHiddenInput($model, 'pincode'); ?>
-
     <div class="col-md-12">
         <?php Box::begin(); ?>
         <?php if ($model->scenario === 'update') : ?>
@@ -27,6 +26,7 @@ use yii\helpers\Html;
         <?php endif; ?>
         <?= BackButton::widget() ?>
         <?php Box::end(); ?>
+        <?= Html::hiddenInput('pincode', null, ['id' => 'contact-pincode']) ?>
     </div>
 
     <div class="col-md-6">
@@ -153,3 +153,42 @@ use yii\helpers\Html;
     </div>
 </div>
 <!-- /.row -->
+
+<?php
+
+$this->registerJs(<<<JS
+jQuery('#fiz_domain input').change(function() {
+    var disable = false;
+    jQuery('#fiz_domain input').each(function(i, e) {
+        var elem = jQuery(e);
+        if (elem.prop('type') == 'text' && elem.val() != '') {
+            disable = true;
+        }
+    });
+    jQuery('#jur_domain').prop('disabled', disable);
+});
+
+jQuery('#jur_domain input').change(function() {
+    var disable = false;
+    jQuery('#jur_domain input').each(function(i, e) {
+        var elem = jQuery(e);
+        if ((elem.prop('type') == 'checkbox' && elem.is(':checked')) || (elem.prop('type') == 'text' && elem.val() != '')) {
+            disable = true;
+        }
+    });
+    jQuery('#contact-passport_date, #contact-birth_date').each(function(i, e) {
+        var elem = jQuery(e);
+        var opts = elem.data('krajee-datepicker');
+        if (disable) {
+            elem.parent().kvDatepicker('remove');
+            elem.parent().addClass('disabled');
+        } else {
+            elem.parent().kvDatepicker(opts);
+            elem.parent().removeClass('disabled');
+        }
+    });
+    jQuery('#fiz_domain').prop('disabled', disable);
+});
+JS
+    , View::POS_READY);
+?>

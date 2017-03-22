@@ -38,7 +38,8 @@ $this->params['breadcrumbs'][] = $this->title;
     'validationUrl' => Url::toRoute(['validate-form', 'scenario' => $model->scenario]),
 ]) ?>
 
-<?= $this->render('_pincode', compact('askPincode')) ?>
 <?= $this->render('_form', compact('model', 'countries', 'model', 'form')) ?>
 
 <?php ActiveForm::end() ?>
+
+<?= $this->render('_pincode', compact('askPincode')) ?>
