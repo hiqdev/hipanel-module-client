@@ -169,8 +169,8 @@ class ClientController extends \hipanel\base\CrudController
             ],
             'set-note' => [
                 'class' => SmartUpdateAction::class,
-                'success' => Yii::t('hipanel:client', 'Note changed'),
-                'error' => Yii::t('hipanel:client', 'Failed to change note'),
+                'success' => Yii::t('hipanel', 'Note was changed'),
+                'error' => Yii::t('hipanel', 'Failed to change note'),
             ],
             'create-payment-ticket' => [
                 'class' => SmartPerformAction::class,
@@ -312,6 +312,12 @@ class ClientController extends \hipanel\base\CrudController
                     ],
                 ],
             ],
+            'set-description' => [
+                'class' => SmartUpdateAction::class,
+                'success' => Yii::t('hipanel', 'Description was changed'),
+                'error' => Yii::t('hipanel', 'Failed to change description'),
+            ],
+
         ];
     }
 }

@@ -284,6 +284,27 @@ class ClientGridView extends BoxedGridView
                     ]);
                 }
             ],
+            'language' => [
+                'filter' => false,
+            ],
+            'description' => [
+                'class' => XEditableColumn::class,
+                'label' => Yii::t('hipanel','Description'),
+                'pluginOptions' => [
+                    'url'       => Url::to('set-description'),
+                ],
+                'widgetOptions' => [
+                    'linkOptions' => [
+                        'data-type' => 'textarea',
+                    ],
+                ],
+                'visible' => Yii::$app->user->can('manage'),
+            ],
+            'last_charge' => [
+                'label' => Yii::t('hipanel:client', 'Last charge'),
+                'format' => 'date',
+                'filter' => false,
+            ]
         ];
     }
 
@@ -300,11 +321,16 @@ class ClientGridView extends BoxedGridView
                     'balance', 'credit',
                 ],
             ],
-            'payment' => Yii::$app->user->can('support') ? [
+            'payment' => Yii::$app->user->can('manage') ? [
                 'label'   => Yii::t('hipanel:client', 'Payment'),
                 'columns' => [
-                    'checkbox', 'login', 'seller_id','type', 'state',
-                    'balance', 'payment_ticket',
+                    'checkbox', 'login',
+                    'note', 'balance',
+                    'last_charge',
+                    // 'type of buy',
+                    'payment_ticket',
+                    // 'payment'
+                    'description',
                 ],
             ] : null,
             'documents' => Yii::$app->user->can('support') ? [
