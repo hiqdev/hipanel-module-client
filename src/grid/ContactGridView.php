@@ -16,6 +16,7 @@ use hipanel\modules\client\menus\ContactActionsMenu;
 use hipanel\modules\client\models\Contact;
 use hipanel\modules\client\widgets\PhoneVerificationIndicator;
 use hipanel\modules\client\widgets\VerificationIndicator;
+use hipanel\modules\client\widgets\UnverifiedWidget;
 use hipanel\modules\document\widgets\StackedDocumentsView;
 use hipanel\widgets\VerificationMark;
 use hiqdev\yii2\menus\grid\MenuColumn;
@@ -58,41 +59,32 @@ class ContactGridView extends BoxedGridView
                 'attribute' => 'email',
                 'label' => Yii::t('hipanel', 'Email'),
                 'value' => function ($model) {
-                    return Html::mailto($model->email, $model->email) . VerificationMark::widget(['model' => $model->getVerification('email')]);
+                    return UnverifiedWidget::widget([
+                        'model' => $model,
+                        'attribute' => 'email',
+                        'confirmedAttribute' => 'email_new',
+                        'checkPermissionsForConfirmedValue' => true,
+                        'tag' => 'mailto',
+                    ]);
                 },
             ],
             'voice_phone' => [
                 'format' => 'raw',
                 'value' => function ($model) {
-                    /** @var Contact $model */
-                    if (!$model->voice_phone) {
-                        return '';
-                    }
-
-                    $verification = $model->getVerification('voice_phone');
-
-                    $result = $model->voice_phone;
-                    $result .= VerificationMark::widget(['model' => $verification]);
-                    $result .= PhoneVerificationIndicator::widget(['model' => $verification]);
-
-                    return $result;
+                    return UnverifiedWidget::widget([
+                        'model' => $model,
+                        'attribute' => 'voice_phone',
+                    ]);
                 },
             ],
             'fax_phone' => [
                 'format' => 'raw',
                 'value' => function ($model) {
-                    /** @var Contact $model */
-                    if (!$model->fax_phone) {
-                        return '';
-                    }
+                    return UnverifiedWidget::widget([
+                        'model' => $model,
+                        'attribute' => 'fax_phone',
+                    ]);
 
-                    $verification = $model->getVerification('fax_phone');
-
-                    $result = $model->fax_phone;
-                    $result .= VerificationMark::widget(['model' => $verification]);
-                    $result .= PhoneVerificationIndicator::widget(['model' => $verification]);
-
-                    return $result;
                 },
             ],
             'email' => [
@@ -113,17 +105,12 @@ class ContactGridView extends BoxedGridView
                 'label' => Yii::t('hipanel', 'Email'),
                 'format' => 'raw',
                 'value' => function ($model) {
-                    $verification = $model->getVerification('email');
-                    $result = $model->email;
-                    if (!$verification->isConfirmed()) {
-                        $result .= '<br>' . Html::tag('b', Yii::t('hipanel:client', 'change is not confirmed'), ['class' => 'text-warning']);
-                        $result .= '<br>' . Html::tag('span', $model->email_new, ['class' => 'text-muted']);
-                    }
-
-                    $result .= VerificationMark::widget(['model' => $verification]);
-                    $result .= VerificationIndicator::widget(['model' => $verification]);
-
-                    return $result;
+                    return UnverifiedWidget::widget([
+                        'model' => $model,
+                        'attribute' => 'email',
+                        'confirmedAttribute' => 'email_new',
+                        'checkPermissionsForConfirmedValue' => true,
+                    ]);
                 },
             ],
             'country' => [
