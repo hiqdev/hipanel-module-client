@@ -10,16 +10,18 @@
 
 namespace hipanel\modules\client\widgets;
 
+use hipanel\modules\client\models\Contact;
+use hipanel\modules\client\models\Verification;
+use yii\base\InvalidConfigException;
 use yii\helpers\Html;
-use hipanel\modules\client\widgets\PhoneVerificationIndicator;
-use hipanel\modules\client\widgets\VerificationIndicator;
 use hipanel\widgets\VerificationMark;
 use Yii;
 
 /**
  *
  * Usage:
- * UnverifiedWidget::widget([
+ * ```php
+ * echo UnverifiedWidget::widget([
  *      'model' => $model,
  *      'attribute' => 'email',
  *      'confirmedAttribute' => 'email_new',
@@ -27,27 +29,54 @@ use Yii;
  *      'tagOptions' => ['class' => 'danger'],
  *      'checkPermissionsForConfirmedValue' => true,
  * ]);
+ *```
  *
  * @var string
  */
 class UnverifiedWidget extends \yii\base\Widget
 {
-    /** Contact $model */
+    /**
+     * @var Contact
+     */
     public $model;
+
+    /**
+     * @var Verification
+     */
     protected $verification;
-    /** @var string */
+
+    /**
+     * @var string
+     */
     public $attribute;
+
+    /**
+     * @var string
+     */
     public $confirmedAttribute;
+
+    /**
+     * @var string
+     */
     public $tag;
-    /** @var array */
+
+    /**
+     * @var array
+     */
     public $tagOptions = [];
-    /** @var boolean: Skip checks for permitions, existing of confirmed attribute */
+
+    /**
+     * @var boolean whether to check permissions for the confirmed value
+     */
     public $checkPermissionsForConfirmedValue = false;
-    /** @var array */
+
+    /**
+     * @var array
+     */
     public $indicatorMap = [
         'voice_phone' => PhoneVerificationIndicator::class,
         'fax_phone' => PhoneVerificationIndicator::class,
-        '*' => VerificationIndicator::class
+        '*' => VerificationIndicator::class,
     ];
 
     public function init()
@@ -84,7 +113,8 @@ class UnverifiedWidget extends \yii\base\Widget
         }
 
         if (in_array($this->tag, ['a', 'mailto'])) {
-            return Html::{$this->tag}($this->getValue(), $this->getValue(), $this->tagOptions);
+            $tag = $this->tag;
+            return Html::$tag($this->getValue(), $this->getValue(), $this->tagOptions);
         }
 
         return Html::tag($this->tag, $this->getValue(), $this->tagOptions);
@@ -101,9 +131,9 @@ class UnverifiedWidget extends \yii\base\Widget
         }
 
         $result = '<br>' . Html::tag('b', Yii::t('hipanel:client', 'change is not confirmed'), ['class' => 'text-warning']);
-        $result .= '<br>' . Html::tag('span',  $this->getConfirmedValue(), ['class' => 'text-muted']);
-        return $result;
+        $result .= '<br>' . Html::tag('span', $this->getConfirmedValue(), ['class' => 'text-muted']);
 
+        return $result;
     }
 
     protected function renderVerificationMark()
