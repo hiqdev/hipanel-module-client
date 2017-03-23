@@ -40,7 +40,7 @@ class ContactActionsMenu extends \hiqdev\yii2\menus\Menu
             'delete' => [
                 'label' => Yii::t('hipanel', 'Delete'),
                 'icon' => 'fa-trash',
-                'url' => ['@client/delete', 'id' => $this->model->id],
+                'url' => ['@contact/delete', 'id' => $this->model->id],
                 'linkOptions' => [
                     'data' => [
                         'confirm' => Yii::t('hipanel', 'Are you sure you want to delete this item?'),
@@ -49,6 +49,7 @@ class ContactActionsMenu extends \hiqdev\yii2\menus\Menu
                     ],
                 ],
                 'encode' => false,
+                'visible' => $this->model->id !== $this->model->client_id
             ],
         ];
     }
