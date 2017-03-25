@@ -161,7 +161,7 @@ class ContactController extends CrudController
                 'data' => function ($action) {
                     return [
                         'countries' => $action->controller->getRefs('country_code'),
-                        'askPincode' => $this->getUserHasPincode(),
+                        'askPincode' => Client::checkUserHasPincode(),
                         'scenario' => 'update',
                     ];
                 },
@@ -331,16 +331,8 @@ class ContactController extends CrudController
         return $this->render('update-employee', [
             'employeeForm' => $model,
             'model' => $model->getPrimaryContact(),
-            'askPincode' => $this->getUserHasPincode(),
+            'askPincode' => Client::checkUserHasPincode(),
             'countries' => $this->getRefs('country_code'),
         ]);
-    }
-
-    protected function getUserHasPincode()
-    {
-        return Yii::$app->cache->getOrSet(['user-pincode-enabled', Yii::$app->user->id], function () {
-            $pincodeData = Client::perform('has-pincode', ['id' => Yii::$app->user->id]);
-            return $pincodeData['pincode_enabled'];
-        }, 3600);
     }
 }
