@@ -294,4 +294,12 @@ class Client extends \hipanel\base\Model
 
         return $types;
     }
+
+    public static function checkUserHasPincode()
+    {
+        return Yii::$app->cache->getOrSet(['user-pincode-enabled', Yii::$app->user->id], function () {
+            $pincodeData = Client::perform('has-pincode', ['id' => Yii::$app->user->id]);
+            return $pincodeData['pincode_enabled'];
+        }, 3600);
+    }
 }
