@@ -18,7 +18,7 @@ use yii\web\View;
 
 <div class="row">
     <div class="col-md-12">
-        <?php Box::begin(); ?>
+        <?php Box::begin(['options' => ['class' => 'box-widget']]); ?>
         <?php if ($model->scenario === 'update') : ?>
             <?= Html::submitButton(Yii::t('hipanel', 'Save'), ['class' => 'btn btn-success']); ?>
         <?php else : ?>
@@ -150,6 +150,17 @@ use yii\web\View;
             <?= $form->field($model, 'bank_swift') ?>
         </fieldset>
         <?php Box::end() ?>
+    </div>
+
+    <div class="col-md-12">
+        <?php Box::begin(['options' => ['class' => 'box-widget']]); ?>
+        <?php if ($model->scenario === 'update') : ?>
+            <?= Html::submitButton(Yii::t('hipanel', 'Save'), ['class' => 'btn btn-success']); ?>
+        <?php else : ?>
+            <?= Html::submitButton(Yii::t('hipanel:client', 'Create contact'), ['class' => 'btn btn-success']); ?>
+        <?php endif; ?>
+        <?= BackButton::widget() ?>
+        <?php Box::end(); ?>
     </div>
 </div>
 <!-- /.row -->
