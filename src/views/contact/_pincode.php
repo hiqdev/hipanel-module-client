@@ -10,7 +10,7 @@ use yii\web\View;
  * @var boolean $askPincode
  */
 
-$isClient = (bool)Yii::$app->user->can('role:client');
+$isClient = !(bool)Yii::$app->user->can('role:client');
 ?>
 
 <?php $this->registerJs(<<<"JS"
@@ -18,10 +18,12 @@ $isClient = (bool)Yii::$app->user->can('role:client');
     var oldEmail = $('#contact-oldemail'),
         askPincode = Boolean('{$askPincode}'), 
         form = $('#contact-form'),
-        pincodeInput = $('#contact-pincode');
+        pincodeInput = $('#contact-pincode'),
+        isPrivilegedUser = Boolean('{$isClient}')
     
     form.on('beforeSubmit', function(event, attributes, messages, deferreds) {
-        var show = false, attribute;
+        var show = isPrivilegedUser, // always show for privileged users
+            attribute;
 
         attributes = attributes || document.getElementById('contact-form').elements; 
         for (var i in attributes) {
