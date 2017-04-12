@@ -25,19 +25,17 @@ use hipanel\actions\SmartUpdateAction;
 use hipanel\actions\ValidateFormAction;
 use hipanel\actions\ViewAction;
 use hipanel\helpers\Url;
-use hipanel\modules\client\forms\EmployeeForm;
 use hipanel\modules\client\models\Client;
 use Yii;
 use yii\base\Event;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
-use yii\web\NotFoundHttpException;
 
 class ClientController extends \hipanel\base\CrudController
 {
     public function behaviors()
     {
-        return [
+        return array_merge(parent::behaviors(), [
             [
                 'class' => AccessControl::class,
                 'only' => ['set-verified'],
@@ -54,18 +52,12 @@ class ClientController extends \hipanel\base\CrudController
                     'set-verified' => ['post'],
                 ],
             ],
-        ];
+        ]);
     }
 
     public function actions()
     {
         return [
-            'set-orientation' => [
-                'class' => OrientationAction::class,
-                'allowedRoutes' => [
-                    '@client/index',
-                ],
-            ],
             'index' => [
                 'class' => IndexAction::class,
                 'on beforePerform' => function ($event) {

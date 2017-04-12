@@ -20,6 +20,7 @@ use hipanel\actions\SmartUpdateAction;
 use hipanel\actions\ValidateFormAction;
 use hipanel\actions\ViewAction;
 use hipanel\base\CrudController;
+use hipanel\behaviors\UiOptionsBehavior;
 use hipanel\helpers\ArrayHelper;
 use hipanel\modules\client\forms\EmployeeForm;
 use hipanel\modules\client\forms\PhoneConfirmationForm;
@@ -93,12 +94,6 @@ class ContactController extends CrudController
     public function actions()
     {
         return [
-            'set-orientation' => [
-                'class' => OrientationAction::class,
-                'allowedRoutes' => [
-                    '@contact/index',
-                ],
-            ],
             'index' => [
                 'class' => IndexAction::class,
             ],
