@@ -22,8 +22,6 @@ $this->title = Yii::t('hipanel', 'Clients');
 $this->params['subtitle'] = array_filter(Yii::$app->request->get($model->formName(), [])) ? Yii::t('hipanel', 'filtered list') : Yii::t('hipanel', 'full list');
 $this->params['breadcrumbs'][] = $this->title;
 
-$representation = Yii::$app->request->get('representation');
-
 ?>
 
 <?php Pjax::begin(array_merge(Yii::$app->params['pjax'], ['enablePushState' => true])) ?>
@@ -49,7 +47,7 @@ $representation = Yii::$app->request->get('representation');
             ],
         ]) ?>
         <?= $page->renderPerPage() ?>
-        <?= $page->renderRepresentations(ClientGridView::class, $representation) ?>
+        <?= $page->renderRepresentations(ClientGridView::class) ?>
     <?php $page->endContent() ?>
 
     <?php $page->beginContent('bulk-actions') ?>
@@ -110,7 +108,7 @@ $representation = Yii::$app->request->get('representation');
                 'boxed' => false,
                 'dataProvider' => $dataProvider,
                 'filterModel'  => $model,
-                'representation' => $representation,
+                'representation' => $uiModel->representation,
             ]) ?>
         <?php $page->endBulkForm() ?>
     <?php $page->endContent() ?>
