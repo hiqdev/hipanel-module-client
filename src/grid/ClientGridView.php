@@ -178,6 +178,7 @@ class ClientGridView extends BoxedGridView
                 'value' => function ($model) {
                     /** @var Client $model */
                     return ArraySpoiler::widget([
+                        'id' => uniqid('ds'),
                         'data' => $model->domains,
                         'visibleCount' => 1,
                         'button' => [
@@ -206,6 +207,7 @@ class ClientGridView extends BoxedGridView
                 'label' => Yii::t('hipanel', 'Servers'),
                 'value' => function ($model) {
                     return ArraySpoiler::widget([
+                        'id' => uniqid('ss'),
                         'data' => $model->servers,
                         'visibleCount' => 1,
                         'button' => [
@@ -259,7 +261,10 @@ class ClientGridView extends BoxedGridView
             ],
             'messengers' => [
                 'format' => 'html',
-                'attribute' => 'contact.messengers',
+                'label' => Yii::t('hipanel:client', 'Messengers'),
+                'value' => function ($model) {
+                    return $model->contact->messengers;
+                }
             ],
             'actions' => [
                 'class' => MenuColumn::class,

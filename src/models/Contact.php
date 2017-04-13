@@ -152,7 +152,7 @@ class Contact extends \hipanel\base\Model
             'province'          => Yii::t('hipanel:client', 'Province'),
             'postal_code'       => Yii::t('hipanel:client', 'Postal code'),
             'birth_date'        => Yii::t('hipanel:client', 'Birth date'),
-            'messengers'         => Yii::t('hipanel:client', 'Messengers'),
+            'messengers'        => Yii::t('hipanel:client', 'Messengers'),
             'other_messenger'   => Yii::t('hipanel:client', 'Other messenger'),
             'passport_date'     => Yii::t('hipanel:client', 'Passport issue date'),
             'passport_by'       => Yii::t('hipanel:client', 'Issued by'),
