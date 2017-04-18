@@ -57,7 +57,7 @@ class ClientGridView extends BoxedGridView
                         'data-type' => 'textarea',
                     ],
                 ],
-                'visible' => Yii::$app->user->can('manage'),
+                'visible' => Yii::$app->user->can('support'),
             ],
             'name' => [
                 'filterAttribute' => 'name_ilike',
@@ -298,9 +298,9 @@ class ClientGridView extends BoxedGridView
                         'data-type' => 'textarea',
                     ],
                 ],
-                'visible' => Yii::$app->user->can('manage'),
+                'visible' => Yii::$app->user->can('support'),
             ],
-            'last_charge' => [
+            'last_deposit' => [
                 'label' => Yii::t('hipanel:client', 'Last charge'),
                 'format' => 'date',
                 'filter' => false,
@@ -321,12 +321,12 @@ class ClientGridView extends BoxedGridView
                     'balance', 'credit',
                 ],
             ],
-            'payment' => Yii::$app->user->can('manage') ? [
+            'payment' => Yii::$app->user->can('support') ? [
                 'label'   => Yii::t('hipanel:client', 'Payment'),
                 'columns' => [
                     'checkbox', 'login',
                     'note', 'balance',
-                    'last_charge',
+                    'last_deposit',
                     // 'type of buy',
                     'payment_ticket',
                     // 'payment'
