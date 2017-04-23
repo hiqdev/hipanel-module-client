@@ -67,3 +67,22 @@ use yii\helpers\Html;
         ]) ?>
     </div>
 </div>
+
+<?php if (Yii::$app->request->get('representation') === 'payment') : ?>
+    <div class="col-md-4 col-sm-6 col-xs-12">
+        <div class="form-group">
+            <?= Html::tag('label', Yii::t('hipanel:client', 'Financial month'), ['class' => 'control-label']); ?>
+            <?= DatePicker::widget([
+                'model'         => $search->model,
+                'type'          => DatePicker::TYPE_INPUT,
+                'attribute'     => 'financial_month',
+                'pluginOptions' => [
+                    'autoclose' => true,
+                    'startView' => 'year',
+                    'minViewMode' => 'months',
+                    'format'    => 'yyyy-mm-01',
+                ],
+            ]) ?>
+        </div>
+    </div>
+<?php endif ?>

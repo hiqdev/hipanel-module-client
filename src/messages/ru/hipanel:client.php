@@ -205,5 +205,8 @@ return [
     'Provided services (uk)' => 'Предоставляемые услуги (uk)',
     'VAT number' => 'ИНН',
     'Contract information' => 'Информация о договоре',
+    'Notification was created' => 'Напоминание создано',
+    'Payment notification' => 'Напомнить о оплате',
+    'Financial month' => 'Финансовый месяц',
     'Employee contact was save successfully' => 'Контакт сотрудника был успешно сохранён',
 ];

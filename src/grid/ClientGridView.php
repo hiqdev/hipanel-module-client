@@ -85,6 +85,12 @@ class ClientGridView extends BoxedGridView
             'balance' => [
                 'class' => BalanceColumn::class,
             ],
+            'balance_with_purses' => [
+                'format' => 'raw',
+                'attribute' => 'balance',
+                'value' => function ($model) {
+                }
+            ],
             'credit' => CreditColumn::resolveConfig(),
             'country' => [
                 'attribute' => 'contact',
@@ -270,6 +276,26 @@ class ClientGridView extends BoxedGridView
                 'class' => MenuColumn::class,
                 'menuClass' => ClientActionsMenu::class,
             ],
+            'payment_ticket' => [
+                'format' => 'html',
+                'label' => Yii::t('hipanel', 'Ticket'),
+                'filter' => false,
+                'value' => function ($model) {
+                    if (!$model->payment_ticket_id)
+                    {
+                        return '';
+                    }
+                    return Html::a(
+                        $model->payment_ticket_id,
+                        Url::to(['@ticket/view', 'id' => $model->payment_ticket_id]),
+                        [
+                            'class' => $model->balance >= 0 && $model->payment_ticket->state === 'opened' ? 'text-red' :
+                                ($model->balance >= 0 ? 'text-purple'
+                                    : ( $model->payment_ticket->state === 'closed' ? 'text-red bold'
+                                        : ($model->payment_ticket->status === 'wait_admin' ? 'text-green' : 'text-blue')))
+                    ]);
+                }
+            ],
         ];
     }
 
@@ -289,8 +315,8 @@ class ClientGridView extends BoxedGridView
             'payment' => Yii::$app->user->can('support') ? [
                 'label'   => Yii::t('hipanel:client', 'Payment'),
                 'columns' => [
-                    'checkbox', 'login',
-                    'balance',
+                    'checkbox', 'login', 'seller_id','type', 'state',
+                    'balance', 'payment_ticket',
                 ],
             ] : null,
             'documents' => Yii::$app->user->can('support') ? [

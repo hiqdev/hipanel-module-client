@@ -65,6 +65,17 @@ class ClientController extends \hipanel\base\CrudController
                     if (!$user->isGuest && !$user->can('support')) {
                         Yii::$app->response->redirect(Url::to(['@client/view', 'id' => $user->id]))->send();
                     }
+
+                    if (Yii::$app->request->get('representation') === 'payment')
+                    {
+                        $action = $event->sender;
+                        $action->getDataProvider()->query
+                            ->addSelect([
+                                    'full_balance',
+                            ])
+                            ->withPurses()
+                            ->withPaymentTicket();
+                    }
                 },
                 'data' => function ($action) {
                     return [
@@ -154,6 +165,10 @@ class ClientController extends \hipanel\base\CrudController
                 'class' => SmartUpdateAction::class,
                 'success' => Yii::t('hipanel:client', 'Note changed'),
                 'error' => Yii::t('hipanel:client', 'Failed to change note'),
+            ],
+            'create-payment-ticket' => [
+                'class' => SmartPerformAction::class,
+                'success' => Yii::t('hipanel:client', 'Notification was created'),
             ],
             'bulk-enable-block' => [
                 'class' => SmartUpdateAction::class,
