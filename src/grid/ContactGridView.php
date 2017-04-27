@@ -226,7 +226,7 @@ class ContactGridView extends BoxedGridView
                 'columns' => [
                     'checkbox',
                     'name', 'actions', 'email',
-                    'client_id', 'seller_id',
+                    'client_like', 'seller_id',
                 ],
             ],
             'requisites' => [

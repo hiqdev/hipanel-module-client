@@ -36,6 +36,7 @@ class ClientColumn extends DataColumn
     public function init()
     {
         parent::init();
+
         $this->visible = Yii::$app->user->can('support');
         if (!$this->visible) {
             return null;
@@ -53,7 +54,7 @@ class ClientColumn extends DataColumn
             if (!isset($this->filterInputOptions['id'])) {
                 $this->filterInputOptions['id'] = $this->attribute;
             }
-            if ($this->filter === null) {
+            if ($this->filter === null && strpos($this->attribute, '_like') === false) {
                 $this->filter = $this->getDefaultFilter();
             }
         }
