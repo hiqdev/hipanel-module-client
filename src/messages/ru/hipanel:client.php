@@ -206,4 +206,12 @@ return [
     'VAT number' => 'ИНН',
     'Contract information' => 'Информация о договоре',
     'Employee contact was save successfully' => 'Контакт сотрудника был успешно сохранён',
+
+    'In order to be able to disable the pin code in the future, it is required to ask an answer to a security question.' => 'Для возможности отключения пин кода в будущем требуется задать ответ на секретный вопрос.',
+    'Change the email address of the account\'s primary contact' => 'Смена емейла основного контакта аккаунта',
+    'Obtaining an authorization code for a domain transfer' => 'Получение кода авторизации для трансфера домена',
+    'Push domain' => 'Пуш доменов',
+    'To further protect your account, you can install a pin code.' => 'Для дополнительной защиты Вашей учётной записи Вы можете установить пин-код.',
+    'The following operations, {0}, {1}, {2}, will be executed only when the correct PIN code is entered.' => 'Следующие операции, {0}, {1}, {2}, будут выполняться только при вводе правильного пин-кода.',
+    'In case you forget the PIN code or answer to a secret question, you can disconnect the PIN code only through the support service! (You will need to verify your account by providing a copy of the documents)' => 'В случае, если Вы забудете пинкод или ответ на секретный вопрос отключение пинкода возможно только через службу поддержки! (потребуется верификация аккаунта посредством предоставленияскан-копий документов)',
 ];
