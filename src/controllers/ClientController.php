@@ -73,7 +73,7 @@ class ClientController extends \hipanel\base\CrudController
                     ];
                 },
                 'filterStorageMap' => [
-                    'login_like' => 'client.client.login_like',
+                    'login_ilike' => 'client.client.login_ilike',
                     'state' => 'client.client.state',
                     'type' => 'client.client.type',
                     'seller' => 'client.client.seller',
