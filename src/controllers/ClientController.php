@@ -94,6 +94,26 @@ class ClientController extends \hipanel\base\CrudController
                 'class' => SmartDeleteAction::class,
                 'success' => Yii::t('hipanel:client', 'Client was deleted'),
             ],
+            'bulk-delete' => [
+                'class' => SmartDeleteAction::class,
+                'success' => Yii::t('hipanel:client', 'Clients were deleted successfully'),
+                'error' => Yii::t('hipanel:client', 'Failed to delete clients'),
+            ],
+            'bulk-delete-modal' => [
+                'class' => PrepareBulkAction::class,
+                'scenario' => 'delete',
+                'view' => '_bulk-operation',
+                'data' => function ($action, $data) {
+                    return [
+                        'bulkOp' => array_merge($data, [
+                            'scenario' => 'delete',
+                            'hiddenInputs' => ['id', 'name'],
+                            'submitButton' => Yii::t('hipanel', 'Delete'),
+                            'submitButtonOptions' => ['class' => 'btn btn-danger'],
+                        ]),
+                    ];
+                },
+            ],
             'enable-block' => [
                 'class' => SmartPerformAction::class,
                 'success' => 'Client was blocked successfully',
@@ -184,11 +204,18 @@ class ClientController extends \hipanel\base\CrudController
             'bulk-enable-block-modal' => [
                 'class' => PrepareBulkAction::class,
                 'scenario' => 'enable-block',
-                'view' => '_bulkEnableBlock',
+                'view' => '_bulk-operation',
                 'data' => function ($action, $data) {
-                    return array_merge($data, [
-                        'blockReasons' => $this->getBlockReasons(),
-                    ]);
+                    return [
+                        'bulkOp' => array_merge($data, [
+                            'scenario' => 'enable-block',
+                            'hiddenInputs' => ['id', 'name'],
+                            'dropDownInputs' => ['type' => $this->getBlockReasons()],
+                            'visibleInputs' => ['comment'],
+                            'submitButton' => Yii::t('hipanel', 'Enable block'),
+                            'submitButtonOptions' => ['class' => 'btn btn-danger'],
+                        ]),
+                    ];
                 },
             ],
             'bulk-disable-block' => [
@@ -205,6 +232,7 @@ class ClientController extends \hipanel\base\CrudController
                 'on beforeSave' => function (Event $event) {
                     /** @var \hipanel\actions\Action $action */
                     $action = $event->sender;
+                    $type = Yii::$app->request->post('type');
                     $comment = Yii::$app->request->post('comment');
                     if (!empty($type)) {
                         foreach ($action->collection->models as $model) {
@@ -216,7 +244,19 @@ class ClientController extends \hipanel\base\CrudController
             'bulk-disable-block-modal' => [
                 'class' => PrepareBulkAction::class,
                 'scenario' => 'disable-block',
-                'view' => '_bulkDisableBlock',
+                'view' => '_bulk-operation',
+                'data' => function ($action, $data) {
+                    return [
+                        'bulkOp' => array_merge($data, [
+                            'scenario' => 'disable-block',
+                            'hiddenInputs' => ['id', 'name'],
+                            'dropDownInputs' => ['type' => $this->getBlockReasons()],
+                            'visibleInputs' => ['comment'],
+                            'submitButton' => Yii::t('hipanel', 'Disable block'),
+                            'submitButtonOptions' => ['class' => 'btn btn-danger'],
+                       ]),
+                    ];
+                },
             ],
             'ip-restrictions' => [
                 'class' => ClassValuesAction::class,
