@@ -44,7 +44,7 @@ class Contact extends \hipanel\base\Model
 
     public function rules()
     {
-        return [
+        return array_filter([
             [['id', 'obj_id', 'client_id', 'seller_id'], 'integer'],
             [['type_id', 'state_id'], 'integer'],
             [['client_name', 'client_type'], 'safe'],
@@ -76,7 +76,8 @@ class Contact extends \hipanel\base\Model
                 'pattern' => '/^[+]?[()0-9 .-]{3,20}$/',
                 'message' => Yii::t('hipanel:client', 'This field must contains phone number in international format.'),
             ],
-            [
+
+            Yii::$app->user->can('manage') ? null : [
                 [
                     'first_name',
                     'last_name',
@@ -87,9 +88,7 @@ class Contact extends \hipanel\base\Model
                     'postal_code',
                     'voice_phone',
                 ],
-                'required', 'on' => ['create', 'update'], 'when' => function () {
-                    return !Yii::$app->user->can('manage');
-                },
+                'required', 'on' => ['create', 'update'],
             ],
 
             [['pincode', 'oldEmail'], 'safe', 'on' => ['update']],
@@ -124,7 +123,7 @@ class Contact extends \hipanel\base\Model
                 'required',
                 'on' => ['request-email-confirmation', 'request-phone-confirmation', 'delete', 'update'],
             ],
-        ];
+        ]);
     }
 
     public function attributeLabels()
