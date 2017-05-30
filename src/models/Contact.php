@@ -87,8 +87,9 @@ class Contact extends \hipanel\base\Model
                     'postal_code',
                     'voice_phone',
                 ],
-                'required',
-                'on' => ['create', 'update'],
+                'required', 'on' => ['create', 'update'], 'when' => function () {
+                    return !Yii::$app->user->can('manage');
+                },
             ],
 
             [['pincode', 'oldEmail'], 'safe', 'on' => ['update']],
