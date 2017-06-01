@@ -101,7 +101,7 @@ class ClientController extends \hipanel\base\CrudController
             ],
             'bulk-delete-modal' => [
                 'class' => PrepareBulkAction::class,
-                'view' => '_bulk-delete',
+                'view' => '_bulkDelete',
             ],
             'enable-block' => [
                 'class' => SmartPerformAction::class,
@@ -192,7 +192,7 @@ class ClientController extends \hipanel\base\CrudController
             ],
             'bulk-enable-block-modal' => [
                 'class' => PrepareBulkAction::class,
-                'view' => '_bulk-enable-block',
+                'view' => '_bulkEnableBlock',
                 'data' => function ($action, $data) {
                     return array_merge($data, [
                         'blockReasons' => $this->getBlockReasons(),
@@ -224,7 +224,7 @@ class ClientController extends \hipanel\base\CrudController
             ],
             'bulk-disable-block-modal' => [
                 'class' => PrepareBulkAction::class,
-                'view' => '_bulk-disable-block',
+                'view' => '_bulkDisableBlock',
                 'data' => function ($action, $data) {
                     return array_merge($data, [
                         'blockReasons' => $this->getBlockReasons(),
