@@ -14,9 +14,7 @@ use hipanel\widgets\AjaxModal;
 use hipanel\widgets\IndexPage;
 use hipanel\widgets\Pjax;
 use yii\bootstrap\Dropdown;
-use yii\bootstrap\Modal;
 use yii\helpers\Html;
-use yii\helpers\Url;
 
 $this->title = Yii::t('hipanel', 'Clients');
 $this->params['subtitle'] = array_filter(Yii::$app->request->get($model->formName(), [])) ? Yii::t('hipanel', 'filtered list') : Yii::t('hipanel', 'full list');
