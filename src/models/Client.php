@@ -294,4 +294,9 @@ class Client extends \hipanel\base\Model
 
         return $types;
     }
+
+    public function isOperable()
+    {
+        return true;
+    }
 }
