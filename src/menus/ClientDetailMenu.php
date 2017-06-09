@@ -153,7 +153,7 @@ class ClientDetailMenu extends \hipanel\menus\AbstractDetailMenu
                     'modalFooterClass' => 'btn btn-danger',
                 ]),
                 'encode' => false,
-                'visible' => Yii::$app->user->can('support'),
+                'visible' => $user->can('manage') && $user->not($this->model->id),
             ],
 
         ], $actions);
