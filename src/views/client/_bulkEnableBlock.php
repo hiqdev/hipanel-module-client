@@ -7,6 +7,7 @@ echo BulkOperation::widget([
     'models' => $models,
     'scenario' => 'enable-block',
     'affectedObjects' => Yii::t('hipanel:client', 'Affected clients'),
+    'formatterField' => 'client',
     'hiddenInputs' => ['id', 'client'],
     'visibleInputs' => ['comment'],
     'submitButton' => Yii::t('hipanel', 'Enable block'),
