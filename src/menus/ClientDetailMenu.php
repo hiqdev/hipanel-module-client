@@ -142,7 +142,6 @@ class ClientDetailMenu extends \hipanel\menus\AbstractDetailMenu
                 'label' => SimpleOperation::widget([
                     'model' => $this->model,
                     'scenario' => 'delete',
-                    'skipCheckOperable' => true,
                     'buttonLabel' => '<i class="fa fa-fw fa-trash-o"></i>' . Yii::t('hipanel', 'Delete'),
                     'buttonClass' => '',
                     'body' => Yii::t('hipanel:client', 'Are you sure you want to delete client {name}?', ['name' => $this->model->client]),
