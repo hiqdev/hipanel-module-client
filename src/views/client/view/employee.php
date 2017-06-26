@@ -71,7 +71,7 @@ $form = new \hipanel\modules\client\forms\EmployeeForm($model->contact, $scenari
                                 'name_with_verification',
                                 'email', 'voice_phone', 'fax_phone',
                                 'street', 'city', 'province', 'postal_code', 'country',
-                                'reg_data',
+                                'tin_number',
                                 'bank_account', 'bank_name', 'bank_address', 'bank_swift'
                             ],
                         ]) ?>

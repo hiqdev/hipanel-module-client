@@ -172,6 +172,10 @@ class ContactGridView extends BoxedGridView
                 'class' => MenuColumn::class,
                 'menuClass' => ContactActionsMenu::class,
             ],
+            'tin_number' => [
+                'attribute' => 'vat_number',
+                'label'     => Yii::t('hipanel:client', 'TIN number'),
+            ],
             'vat_rate' => [
                 'value' => function ($model) {
                     return $model->vat_rate ? (int) $model->vat_rate . '%' : null;

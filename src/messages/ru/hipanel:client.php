@@ -204,6 +204,7 @@ return [
     'Provided services (en)' => 'Предоставляемые услуги (en)',
     'Provided services (uk)' => 'Предоставляемые услуги (uk)',
     'VAT number' => 'ИНН',
+    'TIN number' => 'ИНН',
     'Contract information' => 'Информация о договоре',
     'Employee contact was save successfully' => 'Контакт сотрудника был успешно сохранён',
 
