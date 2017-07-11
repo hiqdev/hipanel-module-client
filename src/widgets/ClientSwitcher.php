@@ -2,6 +2,7 @@
 
 namespace hipanel\modules\client\widgets;
 
+use Yii;
 use yii\base\Widget;
 use yii\helpers\Url;
 
@@ -11,9 +12,13 @@ class ClientSwitcher extends Widget
 
     public function run()
     {
-        $this->initClientScript();
+        if (Yii::$app->user->can('support')) {
+            $this->initClientScript();
 
-        return $this->render('ClientSwitcher', ['model' => $this->model]);
+            return $this->render('ClientSwitcher', ['model' => $this->model]);
+        }
+
+        return null;
     }
 
     protected function initClientScript()

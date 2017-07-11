@@ -26,9 +26,7 @@ $form = new \hipanel\modules\client\forms\EmployeeForm($model->contact, $scenari
 <div class="row">
     <div class="col-md-3">
 
-        <?php if (Yii::$app->user->can('support')) : ?>
-            <?= ClientSwitcher::widget(['model' => $model]) ?>
-        <?php endif; ?>
+        <?= ClientSwitcher::widget(['model' => $model]) ?>
 
         <?php Box::begin([
             'options' => [
@@ -63,24 +61,24 @@ $form = new \hipanel\modules\client\forms\EmployeeForm($model->contact, $scenari
                 <div class="col-md-6">
                     <?php $box = Box::begin(['renderBody' => false]) ?>
                     <?php $box->beginHeader() ?>
-                        <?= $box->renderTitle(Html::tag('span', $language, ['class' => 'label label-default']) . ' ' . Yii::t('hipanel:client', 'Contact information')) ?>
-                        <?php $box->beginTools() ?>
-                            <?= Html::a(Yii::t('hipanel', 'Details'), ['@contact/view', 'id' => $contact->id], ['class' => 'btn btn-default btn-xs']) ?>
-                            <?= Html::a(Yii::t('hipanel', 'Change'), ['@contact/update-employee', 'id' => $model->id], ['class' => 'btn btn-default btn-xs']) ?>
-                        <?php $box->endTools() ?>
+                    <?= $box->renderTitle(Html::tag('span', $language, ['class' => 'label label-default']) . ' ' . Yii::t('hipanel:client', 'Contact information')) ?>
+                    <?php $box->beginTools() ?>
+                    <?= Html::a(Yii::t('hipanel', 'Details'), ['@contact/view', 'id' => $contact->id], ['class' => 'btn btn-default btn-xs']) ?>
+                    <?= Html::a(Yii::t('hipanel', 'Change'), ['@contact/update-employee', 'id' => $model->id], ['class' => 'btn btn-default btn-xs']) ?>
+                    <?php $box->endTools() ?>
                     <?php $box->endHeader() ?>
                     <?php $box->beginBody() ?>
-                        <?= ContactGridView::detailView([
-                            'boxed' => false,
-                            'model' => $contact,
-                            'columns' => [
-                                'name_with_verification',
-                                'email', 'voice_phone', 'fax_phone',
-                                'street', 'city', 'province', 'postal_code', 'country',
-                                'tin_number',
-                                'bank_account', 'bank_name', 'bank_address', 'bank_swift'
-                            ],
-                        ]) ?>
+                    <?= ContactGridView::detailView([
+                        'boxed' => false,
+                        'model' => $contact,
+                        'columns' => [
+                            'name_with_verification',
+                            'email', 'voice_phone', 'fax_phone',
+                            'street', 'city', 'province', 'postal_code', 'country',
+                            'tin_number',
+                            'bank_account', 'bank_name', 'bank_address', 'bank_swift'
+                        ],
+                    ]) ?>
                     <?php $box->endBody() ?>
                     <?php $box->end() ?>
                 </div>
@@ -95,18 +93,18 @@ $form = new \hipanel\modules\client\forms\EmployeeForm($model->contact, $scenari
             <div class="col-md-6">
                 <?php if (Yii::getAlias('@document', false) !== false) : ?>
                     <?php $box = Box::begin(['renderBody' => false]) ?>
-                        <?php $box->beginHeader() ?>
-                        <?= $box->renderTitle(Yii::t('hipanel:client', 'Documents')) ?>
-                            <?php $box->beginTools() ?>
-                                <?= Html::a(Yii::t('hipanel', 'Details'), ['@contact/attach-documents', 'id' => $model->id], ['class' => 'btn btn-default btn-xs']) ?>
-                                <?= Html::a(Yii::t('hipanel', 'Upload'), ['@contact/attach-documents', 'id' => $model->id], ['class' => 'btn btn-default btn-xs']) ?>
-                            <?php $box->endTools() ?>
-                        <?php $box->endHeader() ?>
-                        <?php $box->beginBody() ?>
-                            <?= StackedDocumentsView::widget([
-                                'models' => $model->contact->documents,
-                            ]) ?>
-                        <?php $box->endBody() ?>
+                    <?php $box->beginHeader() ?>
+                    <?= $box->renderTitle(Yii::t('hipanel:client', 'Documents')) ?>
+                    <?php $box->beginTools() ?>
+                    <?= Html::a(Yii::t('hipanel', 'Details'), ['@contact/attach-documents', 'id' => $model->id], ['class' => 'btn btn-default btn-xs']) ?>
+                    <?= Html::a(Yii::t('hipanel', 'Upload'), ['@contact/attach-documents', 'id' => $model->id], ['class' => 'btn btn-default btn-xs']) ?>
+                    <?php $box->endTools() ?>
+                    <?php $box->endHeader() ?>
+                    <?php $box->beginBody() ?>
+                    <?= StackedDocumentsView::widget([
+                        'models' => $model->contact->documents,
+                    ]) ?>
+                    <?php $box->endBody() ?>
                     <?php $box->end() ?>
                 <?php endif ?>
             </div>

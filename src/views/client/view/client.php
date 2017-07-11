@@ -23,9 +23,7 @@ $this->registerCss('legend {font-size: 16px;}');
 <div class="row">
     <div class="col-md-3">
 
-        <?php if (Yii::$app->user->can('support')) : ?>
-            <?= ClientSwitcher::widget(['model' => $model]) ?>
-        <?php endif; ?>
+        <?= ClientSwitcher::widget(['model' => $model]) ?>
 
         <?php Box::begin([
             'options' => [
