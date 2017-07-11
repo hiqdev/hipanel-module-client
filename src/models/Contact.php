@@ -139,6 +139,7 @@ class Contact extends \hipanel\base\Model
             'voice_phone'       => Yii::t('hipanel:client', 'Phone'),
             'fax_phone'         => Yii::t('hipanel:client', 'Fax'),
             'country_name'      => Yii::t('hipanel:client', 'Country'),
+            'country'           => Yii::t('hipanel:client', 'Country'),
             'isresident'        => Yii::t('hipanel:client', 'RF resident'),
             'street1'           => Yii::t('hipanel:client', 'Street'),
             'street2'           => Yii::t('hipanel:client', 'Street 2'),
