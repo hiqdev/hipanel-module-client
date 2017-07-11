@@ -105,13 +105,13 @@ class ClientController extends \hipanel\base\CrudController
             ],
             'enable-block' => [
                 'class' => SmartPerformAction::class,
-                'success' => 'Client was blocked successfully',
-                'error' => 'Error during the client account blocking',
+                'success' => Yii::t('hipanel:client', 'Client was blocked successfully'),
+                'error' => Yii::t('hipanel:client', 'Error during the client account blocking'),
             ],
             'disable-block' => [
                 'class' => SmartPerformAction::class,
-                'success' => 'Client was unblocked successfully',
-                'error' => 'Error during the client account unblocking',
+                'success' => Yii::t('hipanel:client', 'Client was unblocked successfully'),
+                'error' => Yii::t('hipanel:client', 'Error during the client account unblocking'),
             ],
             'change-password' => [
                 'class' => SmartUpdateAction::class,
@@ -229,7 +229,7 @@ class ClientController extends \hipanel\base\CrudController
                     return array_merge($data, [
                         'blockReasons' => $this->getBlockReasons(),
                     ]);
-                 },
+                },
             ],
             'ip-restrictions' => [
                 'class' => ClassValuesAction::class,
