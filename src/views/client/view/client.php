@@ -3,6 +3,7 @@
 use hipanel\modules\client\grid\ClientGridView;
 use hipanel\modules\client\grid\ContactGridView;
 use hipanel\modules\client\menus\ClientDetailMenu;
+use hipanel\modules\client\widgets\ClientSwitcher;
 use hipanel\modules\client\widgets\ForceVerificationBlock;
 use hipanel\modules\document\widgets\StackedDocumentsView;
 use hipanel\widgets\Box;
@@ -21,6 +22,11 @@ $this->registerCss('legend {font-size: 16px;}');
 ?>
 <div class="row">
     <div class="col-md-3">
+
+        <?php if (Yii::$app->user->can('support')) : ?>
+            <?= ClientSwitcher::widget(['model' => $model]) ?>
+        <?php endif; ?>
+
         <?php Box::begin([
             'options' => [
                 'class' => 'box-solid',
@@ -56,21 +62,21 @@ $this->registerCss('legend {font-size: 16px;}');
             <div class="col-md-6">
                 <?php $box = Box::begin(['renderBody' => false]) ?>
                 <?php $box->beginHeader() ?>
-                    <?= $box->renderTitle(Yii::t('hipanel:client', 'Client information'), '&nbsp;') ?>
-                    <?php $box->beginTools() ?>
-                    <?php $box->endTools() ?>
+                <?= $box->renderTitle(Yii::t('hipanel:client', 'Client information'), '&nbsp;') ?>
+                <?php $box->beginTools() ?>
+                <?php $box->endTools() ?>
                 <?php $box->endHeader() ?>
                 <?php $box->beginBody() ?>
-                    <?= ClientGridView::detailView([
-                        'boxed' => false,
-                        'model' => $model,
-                        'columns' => [
-                            'seller_id', 'name', 'note',
-                            'type', 'state',
-                            'create_time', 'update_time',
-                            'tickets', 'servers', 'domains', 'contacts', 'hosting',
-                        ],
-                    ]) ?>
+                <?= ClientGridView::detailView([
+                    'boxed' => false,
+                    'model' => $model,
+                    'columns' => [
+                        'seller_id', 'name', 'note',
+                        'type', 'state',
+                        'create_time', 'update_time',
+                        'tickets', 'servers', 'domains', 'contacts', 'hosting',
+                    ],
+                ]) ?>
                 <?php $box->endBody() ?>
                 <?php $box->end() ?>
                 <?php foreach ($model->purses as $purse) : ?>
@@ -82,39 +88,39 @@ $this->registerCss('legend {font-size: 16px;}');
             <div class="col-md-6">
                 <?php $box = Box::begin(['renderBody' => false]) ?>
                 <?php $box->beginHeader() ?>
-                    <?= $box->renderTitle(Yii::t('hipanel:client', 'Contact information')) ?>
-                    <?php $box->beginTools() ?>
-                        <?= Html::a(Yii::t('hipanel', 'Details'), ['@contact/view', 'id' => $model->id], ['class' => 'btn btn-default btn-xs']) ?>
-                        <?= Html::a(Yii::t('hipanel', 'Change'), ['@contact/update', 'id' => $model->id], ['class' => 'btn btn-default btn-xs']) ?>
-                    <?php $box->endTools() ?>
+                <?= $box->renderTitle(Yii::t('hipanel:client', 'Contact information')) ?>
+                <?php $box->beginTools() ?>
+                <?= Html::a(Yii::t('hipanel', 'Details'), ['@contact/view', 'id' => $model->id], ['class' => 'btn btn-default btn-xs']) ?>
+                <?= Html::a(Yii::t('hipanel', 'Change'), ['@contact/update', 'id' => $model->id], ['class' => 'btn btn-default btn-xs']) ?>
+                <?php $box->endTools() ?>
                 <?php $box->endHeader() ?>
                 <?php $box->beginBody() ?>
-                    <?= ContactGridView::detailView([
-                        'boxed' => false,
-                        'model' => $model->contact,
-                        'columns' => [
-                            'name_with_verification', 'organization',
-                            'email_with_verification', 'abuse_email', 'messengers', 'social_net',
-                            'voice_phone', 'fax_phone',
-                            'street', 'city', 'province', 'postal_code', 'country',
-                        ],
-                    ]) ?>
+                <?= ContactGridView::detailView([
+                    'boxed' => false,
+                    'model' => $model->contact,
+                    'columns' => [
+                        'name_with_verification', 'organization',
+                        'email_with_verification', 'abuse_email', 'messengers', 'social_net',
+                        'voice_phone', 'fax_phone',
+                        'street', 'city', 'province', 'postal_code', 'country',
+                    ],
+                ]) ?>
                 <?php $box->endBody() ?>
                 <?php $box->end() ?>
 
                 <?php if (Yii::getAlias('@document', false) !== false) : ?>
                     <?php $box = Box::begin(['renderBody' => false]) ?>
                     <?php $box->beginHeader() ?>
-                        <?= $box->renderTitle(Yii::t('hipanel:client', 'Documents')) ?>
-                        <?php $box->beginTools() ?>
-                            <?= Html::a(Yii::t('hipanel', 'Details'), ['@contact/attach-documents', 'id' => $model->id], ['class' => 'btn btn-default btn-xs']) ?>
-                            <?= Html::a(Yii::t('hipanel', 'Upload'), ['@contact/attach-documents', 'id' => $model->id], ['class' => 'btn btn-default btn-xs']) ?>
-                        <?php $box->endTools() ?>
+                    <?= $box->renderTitle(Yii::t('hipanel:client', 'Documents')) ?>
+                    <?php $box->beginTools() ?>
+                    <?= Html::a(Yii::t('hipanel', 'Details'), ['@contact/attach-documents', 'id' => $model->id], ['class' => 'btn btn-default btn-xs']) ?>
+                    <?= Html::a(Yii::t('hipanel', 'Upload'), ['@contact/attach-documents', 'id' => $model->id], ['class' => 'btn btn-default btn-xs']) ?>
+                    <?php $box->endTools() ?>
                     <?php $box->endHeader() ?>
                     <?php $box->beginBody() ?>
-                        <?= StackedDocumentsView::widget([
-                            'models' => $model->contact->documents,
-                        ]) ?>
+                    <?= StackedDocumentsView::widget([
+                        'models' => $model->contact->documents,
+                    ]) ?>
                     <?php $box->endBody() ?>
                     <?php $box->end() ?>
                 <?php endif ?>
