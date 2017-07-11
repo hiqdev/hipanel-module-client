@@ -4,6 +4,7 @@ use hipanel\modules\client\grid\ClientGridView;
 use hipanel\modules\client\grid\ContactGridView;
 use hipanel\modules\client\menus\ClientDetailMenu;
 use hipanel\modules\client\models\Client;
+use hipanel\modules\client\widgets\ClientSwitcher;
 use hipanel\modules\client\widgets\ForceVerificationBlock;
 use hipanel\modules\document\widgets\StackedDocumentsView;
 use hipanel\widgets\Box;
@@ -24,6 +25,11 @@ $form = new \hipanel\modules\client\forms\EmployeeForm($model->contact, $scenari
 ?>
 <div class="row">
     <div class="col-md-3">
+
+        <?php if (Yii::$app->user->can('support')) : ?>
+            <?= ClientSwitcher::widget(['model' => $model]) ?>
+        <?php endif; ?>
+
         <?php Box::begin([
             'options' => [
                 'class' => 'box-solid',
