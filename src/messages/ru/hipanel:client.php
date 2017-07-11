@@ -221,4 +221,11 @@ return [
     'Confirm client deleting' => 'Подтвердите удаление клиента',
     'Delete client' => 'Удалить клиента',
     'Deleting client' => 'Удаление клиента',
+
+    'Clients were deleted successfully' => 'Клиенты были успешно удалены.',
+    'Failed to delete clients' => 'Не удалось удалить клиентов',
+    'Client was blocked successfully' => 'Клиент был успешно заблокирован',
+    'Error during the client account blocking' => 'Ошибка при блокировке учетной записи клиента',
+    'Client was unblocked successfully' => 'Клиент был успешно разблокирован',
+    'Error during the client account unblocking' => 'Ошибка при разблокировке учетной записи клиента',
 ];
