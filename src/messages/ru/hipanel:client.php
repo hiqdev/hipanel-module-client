@@ -37,6 +37,8 @@ return [
     'Country' => 'Страна',
     'City' => 'Город',
     'Street' => 'Улица',
+    'Street 2' => 'Улица 2',
+    'Street 3' => 'Улица 3',
     'Messengers' => 'Мессенджеры',
     'RF resident' => 'Резидент РФ',
     'Passport by' => 'Орган, что выдал паспорт',
