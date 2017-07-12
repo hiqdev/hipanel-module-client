@@ -27,7 +27,7 @@ class ClientSwitcher extends Widget
         $this->view->registerJs("
             $('#client-client_id').on('select2:select', function (e) {
                 var selectedClientId = this.value;
-                location.replace('{$url}' + selectedClientId);
+                window.location.href = '{$url}' + selectedClientId;
             });
         ");
     }
