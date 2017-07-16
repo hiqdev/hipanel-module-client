@@ -1,15 +1,20 @@
 <?php
 
 use hipanel\modules\client\widgets\combo\ClientCombo;
-use yii\bootstrap\ActiveForm;
 
 ?>
-<?php $form = ActiveForm::begin() ?>
-<?= $form->field($model, 'client_id')->widget(ClientCombo::class, [
-    'inputOptions' => [
-        'data' => [
-            'allow-clear' => 'false'
-        ]
-    ]
-])->label(false) ?>
-<?php ActiveForm::end(); ?>
+
+<div class="client-switcher">
+    <?= ClientCombo::widget([
+        'model' => new \yii\base\DynamicModel(['login']),
+        'attribute' => 'login',
+        'hasId' => true,
+        'formElementSelector' => '.client-switcher',
+        'pluginOptions' => [
+            'select2Options' => [
+                'placeholder' => Yii::t('hipanel:client', 'Fast navigation to another client'),
+                'allowClear' => false,
+            ],
+        ],
+    ]) ?>
+</div>

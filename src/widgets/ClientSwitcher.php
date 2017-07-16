@@ -12,20 +12,19 @@ class ClientSwitcher extends Widget
 
     public function run()
     {
-        if (Yii::$app->user->can('support')) {
-            $this->initClientScript();
-
-            return $this->render('ClientSwitcher', ['model' => $this->model]);
+        if (!Yii::$app->user->can('support')) {
+            return '';
         }
 
-        return null;
+        $this->initClientScript();
+        return $this->render('ClientSwitcher', ['model' => $this->model]);
     }
 
     protected function initClientScript()
     {
         $url = Url::to(['@client/view', 'id' => '']);
         $this->view->registerJs("
-            $('#client-client_id').on('select2:select', function (e) {
+            $('.client-switcher select').on('select2:select', function (e) {
                 var selectedClientId = this.value;
                 window.location.href = '{$url}' + selectedClientId;
             });

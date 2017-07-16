@@ -87,6 +87,7 @@ return [
     'Passport data' => 'Паспортные данные',
     'This field must contains phone number in international format.' => 'Это поле обязательно содержит номер телефона в международном формате.',
     'Field "{attribute}" can contain Latin characters written in lower case, and it may contain numbers and underscores' => 'Поле "{attribute}" может содержать символы латинского алфавита написанные в нижнем регистре, также оно может содержать цифры и нижнее подчеркивание',
+    'Fast navigation to another client' => 'Быстрый переход к другому клиенту',
 
     /// Settings
     'IP address restrictions' => 'Ограничение доступа по IP',
