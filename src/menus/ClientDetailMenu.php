@@ -112,6 +112,13 @@ class ClientDetailMenu extends \hipanel\menus\AbstractDetailMenu
                 'visible' => false,
             ],
             [
+                'label' => Yii::t('hipanel:client', 'User edit'),
+                'icon' => 'fa-edit fa-fw',
+                'url' => ['@client/update', 'id' => $this->model->id],
+                'encode' => false,
+                'visible' => Yii::$app->user->can('manage'),
+            ],
+            [
                 'label' => SettingsModal::widget([
                     'model' => $this->model,
                     'title' => Yii::t('hipanel:client', 'Domain settings'),
