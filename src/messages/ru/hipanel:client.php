@@ -229,4 +229,6 @@ return [
     'Error during the client account blocking' => 'Ошибка при блокировке учетной записи клиента',
     'Client was unblocked successfully' => 'Клиент был успешно разблокирован',
     'Error during the client account unblocking' => 'Ошибка при разблокировке учетной записи клиента',
+
+    'User edit' => 'Редактирование пользователя',
 ];
