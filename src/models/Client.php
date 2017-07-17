@@ -59,8 +59,7 @@ class Client extends \hipanel\base\Model
             [['id', 'language'], 'required', 'on' => 'set-language'],
             [['id', 'seller_id'], 'required', 'on' => 'set-seller'],
 
-            [['password', 'login', 'seller_id', 'email'], 'required', 'on' => ['create', 'update']],
-            [['type'], 'required', 'on' => ['create', 'update']],
+            [['password', 'login', 'seller_id', 'email'], 'required', 'on' => ['create']],
             [['type'], 'default', 'value' => self::TYPE_CLIENT, 'on' => ['create', 'update']],
             [['type'], 'in', 'range' => array_keys(self::getTypeOptions()), 'on' => ['create', 'update']],
             [['email'], 'email', 'on' => ['create', 'update']],
