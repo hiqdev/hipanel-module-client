@@ -102,6 +102,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'toggleButton' => false,
                 ]);
             }
+            echo $page->renderBulkButton(Yii::t('hipanel', 'Edit'), 'update');
             ?>
             <div class="dropdown" style="display: inline-block">
                 <button type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
