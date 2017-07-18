@@ -1,15 +1,9 @@
 <?php
 
-use hipanel\widgets\Box;
-
 $this->title = Yii::t('hipanel:client', 'Create client');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('hipanel', 'Client'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 
 ?>
 
-<div class="row col-md-4">
-    <?php Box::begin() ?>
-        <?= $this->render('_form', ['model' => $model]) ?>
-    <?php Box::end() ?>
-</div>
+<?= $this->render('_form', compact('model', 'models')) ?>
