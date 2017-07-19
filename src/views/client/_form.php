@@ -78,7 +78,7 @@ $form = ActiveForm::begin([
                                                     if ( container ) {
                                                         return data.text; 
                                                     } else {
-                                                        $('#client-0-seller_id').attr('disabled', true);
+                                                        $('#client-{$i}-seller_id').attr('disabled', true);
                                                         return disVal;
                                                     }
                                                 }
