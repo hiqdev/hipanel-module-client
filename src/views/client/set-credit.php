@@ -10,8 +10,7 @@
 
 use hipanel\grid\GridView;
 use yii\helpers\Html;
-use yii\helpers\Url;
-use yii\widgets\Pjax;
+use hipanel\widgets\Pjax;
 
 $this->title = 'Set credit';
 $this->params['breadcrumbs'][] = ['label' => 'Client', 'url' => ['index']];

@@ -10,7 +10,7 @@
 
 use hipanel\grid\GridView;
 use yii\helpers\Html;
-use yii\widgets\Pjax;
+use hipanel\widgets\Pjax;
 
 $this->title = 'Set language';
 $this->params['breadcrumbs'][] = $this->title;
