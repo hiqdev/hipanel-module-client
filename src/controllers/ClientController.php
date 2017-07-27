@@ -13,7 +13,6 @@ namespace hipanel\modules\client\controllers;
 use hipanel\actions\ClassValuesAction;
 use hipanel\actions\ComboSearchAction;
 use hipanel\actions\IndexAction;
-use hipanel\actions\OrientationAction;
 use hipanel\actions\PrepareBulkAction;
 use hipanel\actions\RedirectAction;
 use hipanel\actions\RenderJsonAction;
@@ -36,6 +35,16 @@ class ClientController extends \hipanel\base\CrudController
     public function behaviors()
     {
         return array_merge(parent::behaviors(), [
+            [
+                'class' => AccessControl::class,
+                'only' => ['update', 'delete'],
+                'rules' => [
+                    [
+                        'allow'   => true,
+                        'roles'   => ['manage'],
+                    ],
+                ],
+            ],
             [
                 'class' => AccessControl::class,
                 'only' => ['set-verified'],
