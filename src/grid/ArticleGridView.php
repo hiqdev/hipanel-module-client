@@ -18,9 +18,9 @@ use yii\helpers\Html;
 
 class ArticleGridView extends BoxedGridView
 {
-    public static function defaultColumns()
+    public function columns()
     {
-        return [
+        return array_merge(parent::columns(), [
             'name' => [
                 'class' => MainColumn::class,
             ],
@@ -38,6 +38,6 @@ class ArticleGridView extends BoxedGridView
                     },
                 ],
             ],
-        ];
+        ]);
     }
 }
