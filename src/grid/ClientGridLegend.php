@@ -3,24 +3,12 @@
 namespace hipanel\modules\client\grid;
 
 use hipanel\modules\client\models\Client;
+use hipanel\widgets\gridLegend\BaseGridLegend;
 use hipanel\widgets\gridLegend\GridLegendInterface;
 use Yii;
 
-class ClientGridLegend implements GridLegendInterface
+class ClientGridLegend extends BaseGridLegend implements GridLegendInterface
 {
-    /**
-     * @var Client
-     */
-    protected $model;
-
-    /**
-     * @param $model
-     */
-    public function __construct(Client $model)
-    {
-        $this->model = $model;
-    }
-
     /**
      * @inheritdoc
      */

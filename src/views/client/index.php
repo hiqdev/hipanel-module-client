@@ -27,124 +27,123 @@ $this->params['breadcrumbs'][] = $this->title;
 <?php Pjax::begin(array_merge(Yii::$app->params['pjax'], ['enablePushState' => true])) ?>
 <?php $page = IndexPage::begin(compact('model', 'dataProvider')) ?>
 
-<?= $page->setSearchFormData(compact(['types', 'states'])) ?>
+    <?= $page->setSearchFormData(compact(['types', 'states'])) ?>
 
-<?php $page->beginContent('main-actions') ?>
-<?= Html::a(Yii::t('hipanel:client', 'Create client'), ['@client/create'], ['class' => 'btn btn-sm btn-success']) ?>
-<?php $page->endContent() ?>
+    <?php $page->beginContent('main-actions') ?>
+        <?= Html::a(Yii::t('hipanel:client', 'Create client'), ['@client/create'], ['class' => 'btn btn-sm btn-success']) ?>
+    <?php $page->endContent() ?>
 
-<?php $page->beginContent('legend') ?>
-<?= GridLegend::widget(['legendItem' => new ClientGridLegend($model)]) ?>
-<?php $page->endContent() ?>
+    <?php $page->beginContent('legend') ?>
+        <?= GridLegend::widget(['legendItem' => new ClientGridLegend($model)]) ?>
+    <?php $page->endContent() ?>
 
-<?php $page->beginContent('show-actions') ?>
-<?= $page->renderLayoutSwitcher() ?>
-<?= $page->renderSorter([
-    'attributes' => [
-        'seller',
-        'name',
-        'balance',
-        'credit',
-        'tariff',
-        'type',
-        'create_time',
-    ],
-]) ?>
-<?= $page->renderPerPage() ?>
-<?= $page->renderRepresentations(ClientGridView::class) ?>
-<?php $page->endContent() ?>
-
-<?php $page->beginContent('bulk-actions') ?>
-<?php if (Yii::$app->user->can('support')) : ?>
-    <?php
-    $dropDownItems = [
-        [
-            'label' => '<i class="fa fa-toggle-on"></i> ' . Yii::t('hipanel', 'Enable block'),
-            'linkOptions' => ['data-toggle' => 'modal'],
-            'url' => '#bulk-enable-block-modal',
-        ],
-        [
-            'label' => '<i class="fa fa-toggle-off"></i> ' . Yii::t('hipanel', 'Disable block'),
-            'url' => '#bulk-disable-block-modal',
-            'linkOptions' => ['data-toggle' => 'modal'],
-        ],
-    ];
-    $ajaxModals = [
-        [
-            'id' => 'bulk-enable-block-modal',
-            'bulkPage' => true,
-            'header' => Html::tag('h4', Yii::t('hipanel:client', 'Block clients'), ['class' => 'modal-title']),
-            'headerOptions' => ['class' => 'label-warning'],
-            'scenario' => 'bulk-enable-block',
-            'actionUrl' => ['bulk-enable-block-modal'],
-            'handleSubmit' => false,
-            'toggleButton' => false,
-        ],
-        [
-            'id' => 'bulk-disable-block-modal',
-            'bulkPage' => true,
-            'header' => Html::tag('h4', Yii::t('hipanel:client', 'Unblock clients'), ['class' => 'modal-title']),
-            'headerOptions' => ['class' => 'label-warning'],
-            'scenario' => 'bulk-disable-block',
-            'actionUrl' => ['bulk-disable-block-modal'],
-            'handleSubmit' => false,
-            'toggleButton' => false,
-        ],
-    ];
-    if (Yii::$app->user->can('manage')) {
-        array_push($dropDownItems, [
-            'label' => '<i class="fa fa-trash"></i> ' . Yii::t('hipanel', 'Delete'),
-            'url' => '#bulk-delete-modal',
-            'linkOptions' => ['data-toggle' => 'modal']
-        ]);
-        array_push($ajaxModals, [
-            'id' => 'bulk-delete-modal',
-            'bulkPage' => true,
-            'header' => Html::tag('h4', Yii::t('hipanel', 'Delete'), ['class' => 'modal-title label-danger']),
-            'headerOptions' => ['class' => 'label-danger'],
-            'scenario' => 'delete',
-            'actionUrl' => ['bulk-delete-modal'],
-            'handleSubmit' => false,
-            'toggleButton' => false,
-        ]);
-    }
-    if (Yii::$app->user->can('manage')) {
-        echo $page->renderBulkButton(Yii::t('hipanel', 'Edit'), 'update');
-    }
-    ?>
-    <div class="dropdown" style="display: inline-block">
-        <button type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                aria-expanded="false">
-            <?= Yii::t('hipanel', 'Basic actions') ?>
-            <span class="caret"></span>
-        </button>
-        <?= Dropdown::widget([
-            'encodeLabels' => false,
-            'options' => ['class' => 'pull-right'],
-            'items' => $dropDownItems,
+    <?php $page->beginContent('show-actions') ?>
+        <?= $page->renderLayoutSwitcher() ?>
+        <?= $page->renderSorter([
+            'attributes' => [
+                'seller',
+                'name',
+                'balance',
+                'credit',
+                'tariff',
+                'type',
+                'create_time',
+            ],
         ]) ?>
-        <div class="text-left">
-            <?php foreach ($ajaxModals as $ajaxModal) : ?>
-                <?= AjaxModal::widget($ajaxModal) ?>
-            <?php endforeach ?>
-        </div>
-    </div>
-<?php endif ?>
-<?php $page->endContent() ?>
+        <?= $page->renderPerPage() ?>
+        <?= $page->renderRepresentations(ClientGridView::class) ?>
+    <?php $page->endContent() ?>
 
-<?php $page->beginContent('table') ?>
-<?php $page->beginBulkForm() ?>
-<?= ClientGridView::widget([
-    'boxed' => false,
-    'rowOptions' => function ($model) {
-        return GridLegend::create(new ClientGridLegend($model))->gridRowOptions();
-    },
-    'dataProvider' => $dataProvider,
-    'filterModel' => $model,
-    'representation' => $uiModel->representation,
-]) ?>
-<?php $page->endBulkForm() ?>
-<?php $page->endContent() ?>
+    <?php $page->beginContent('bulk-actions') ?>
+        <?php if (Yii::$app->user->can('support')) : ?>
+            <?php
+            $dropDownItems = [
+                [
+                    'label' => '<i class="fa fa-toggle-on"></i> ' . Yii::t('hipanel', 'Enable block'),
+                    'linkOptions' => ['data-toggle' => 'modal'],
+                    'url' => '#bulk-enable-block-modal',
+                ],
+                [
+                    'label' => '<i class="fa fa-toggle-off"></i> ' . Yii::t('hipanel', 'Disable block'),
+                    'url' => '#bulk-disable-block-modal',
+                    'linkOptions' => ['data-toggle' => 'modal'],
+                ],
+            ];
+            $ajaxModals = [
+                [
+                    'id' => 'bulk-enable-block-modal',
+                    'bulkPage' => true,
+                    'header' => Html::tag('h4', Yii::t('hipanel:client', 'Block clients'), ['class' => 'modal-title']),
+                    'headerOptions' => ['class' => 'label-warning'],
+                    'scenario' => 'bulk-enable-block',
+                    'actionUrl' => ['bulk-enable-block-modal'],
+                    'handleSubmit' => false,
+                    'toggleButton' => false,
+                ],
+                [
+                    'id' => 'bulk-disable-block-modal',
+                    'bulkPage' => true,
+                    'header' => Html::tag('h4', Yii::t('hipanel:client', 'Unblock clients'), ['class' => 'modal-title']),
+                    'headerOptions' => ['class' => 'label-warning'],
+                    'scenario' => 'bulk-disable-block',
+                    'actionUrl' => ['bulk-disable-block-modal'],
+                    'handleSubmit' => false,
+                    'toggleButton' => false,
+                ],
+            ];
+            if (Yii::$app->user->can('manage')) {
+                array_push($dropDownItems, [
+                    'label' => '<i class="fa fa-trash"></i> ' . Yii::t('hipanel', 'Delete'),
+                    'url' => '#bulk-delete-modal',
+                    'linkOptions' => ['data-toggle' => 'modal']
+                ]);
+                array_push($ajaxModals, [
+                    'id' => 'bulk-delete-modal',
+                    'bulkPage' => true,
+                    'header' => Html::tag('h4', Yii::t('hipanel', 'Delete'), ['class' => 'modal-title label-danger']),
+                    'headerOptions' => ['class' => 'label-danger'],
+                    'scenario' => 'delete',
+                    'actionUrl' => ['bulk-delete-modal'],
+                    'handleSubmit' => false,
+                    'toggleButton' => false,
+                ]);
+            }
+            if (Yii::$app->user->can('manage')) {
+                echo $page->renderBulkButton(Yii::t('hipanel', 'Edit'), 'update');
+            }
+            ?>
+            <div class="dropdown" style="display: inline-block">
+                <button type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <?= Yii::t('hipanel', 'Basic actions') ?>
+                    <span class="caret"></span>
+                </button>
+                <?= Dropdown::widget([
+                    'encodeLabels' => false,
+                    'options' => ['class' => 'pull-right'],
+                    'items' => $dropDownItems,
+                ]) ?>
+                <div class="text-left">
+                    <?php foreach ($ajaxModals as $ajaxModal) : ?>
+                        <?= AjaxModal::widget($ajaxModal) ?>
+                    <?php endforeach ?>
+               </div>
+            </div>
+        <?php endif ?>
+    <?php $page->endContent() ?>
+
+    <?php $page->beginContent('table') ?>
+        <?php $page->beginBulkForm() ?>
+            <?= ClientGridView::widget([
+                'boxed' => false,
+                'rowOptions' => function ($model) {
+                    return  GridLegend::create(new ClientGridLegend($model))->gridRowOptions();
+                },
+                'dataProvider' => $dataProvider,
+                'filterModel'  => $model,
+                'representation' => $uiModel->representation,
+            ]) ?>
+        <?php $page->endBulkForm() ?>
+    <?php $page->endContent() ?>
 
 <?php $page->end() ?>
 <?php Pjax::end() ?>
