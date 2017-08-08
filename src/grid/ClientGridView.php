@@ -28,9 +28,9 @@ use yii\helpers\Html;
 
 class ClientGridView extends BoxedGridView
 {
-    public static function defaultColumns()
+    public function columns()
     {
-        return [
+        return array_merge(parent::columns(), [
             'id' => [
                 'class'         => ClientColumn::class,
                 'attribute'     => 'id',
@@ -270,35 +270,6 @@ class ClientGridView extends BoxedGridView
                 'class' => MenuColumn::class,
                 'menuClass' => ClientActionsMenu::class,
             ],
-        ];
-    }
-
-    public static function defaultRepresentations()
-    {
-        return [
-            'common' => [
-                'label'   => Yii::t('hipanel', 'Common'),
-                'columns' => [
-                    'checkbox',
-                    'login',
-                    'name', 'seller_id',
-                    'type', 'state',
-                    'balance', 'credit',
-                ],
-            ],
-            'payment' => Yii::$app->user->can('support') ? [
-                'label'   => Yii::t('hipanel:client', 'Payment'),
-                'columns' => [
-                    'checkbox', 'login',
-                    'balance',
-                ],
-            ] : null,
-            'documents' => Yii::$app->user->can('support') ? [
-                'label'   => Yii::t('hipanel:client', 'Documents'),
-                'columns' => [
-                    'checkbox', 'login',
-                ],
-            ] : null,
-        ];
+        ]);
     }
 }
