@@ -25,9 +25,9 @@ use yii\helpers\Html;
 
 class ContactGridView extends BoxedGridView
 {
-    public static function defaultColumns()
+    public function columns()
     {
-        return [
+        return array_merge(parent::columns(), [
             'name' => [
                 'class' => MainColumn::class,
                 'filterAttribute' => 'name_like',
@@ -219,7 +219,7 @@ class ContactGridView extends BoxedGridView
                     return nl2br($res);
                 },
             ],
-        ];
+        ]);
     }
 
     public static function defaultRepresentations()

@@ -30,7 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
             ]) ?>
             <?= $page->renderPerPage() ?>
-            <?= $page->renderRepresentations(ContactGridView::class) ?>
+            <?= $page->renderRepresentations($representationCollection) ?>
         <?php $page->endContent() ?>
 
         <?php $page->beginContent('bulk-actions') ?>
@@ -43,7 +43,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'dataProvider' => $dataProvider,
                     'boxed' => false,
                     'filterModel'  => $model,
-                    'representation' => $uiModel->representation,
+                    'columns' => $representationCollection->getByName($uiModel->representation)->getColumns(),
                 ]) ?>
             <?php $page->endBulkForm() ?>
         <?php $page->endContent() ?>
