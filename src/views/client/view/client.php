@@ -72,7 +72,7 @@ $this->registerCss('legend {font-size: 16px;}');
                         'seller_id', 'name', 'note',
                         'type', 'state',
                         'create_time', 'update_time',
-                        'tickets', 'servers', 'domains', 'contacts', 'hosting',
+                        'tickets', 'servers', 'domains', 'contacts', 'hosting', 'blocking'
                     ],
                 ]) ?>
                 <?php $box->endBody() ?>

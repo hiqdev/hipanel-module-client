@@ -173,6 +173,7 @@ class ClientController extends \hipanel\base\CrudController
                         ->addSelect(array_filter([
                             'last_seen',
                             'contacts_count',
+                            'blocking',
                             Yii::$app->user->can('manage') ? 'show_deleted' : null,
                             Yii::getAlias('@domain', false) ? 'domains_count' : null,
                             Yii::getAlias('@ticket', false) ? 'tickets_count' : null,
@@ -181,6 +182,7 @@ class ClientController extends \hipanel\base\CrudController
                             Yii::getAlias('@hosting', false) ? 'hosting_count' : null,
                             Yii::getAlias('@server', false) && Yii::$app->user->can('resell') ? 'pre_ordered_servers_count' : null,
                         ]))
+                        ->joinWith(['blocking'])
                         ->withContact()
                         ->withPurses();
                 },
