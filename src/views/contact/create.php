@@ -14,6 +14,7 @@ use yii\bootstrap\ActiveForm;
 
 /**
  * @var \yii\web\View $this
+ * @var string $action
  * @var array $countries
  * @var \hipanel\modules\client\models\Contact $model
  */
@@ -25,7 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <?php $form = ActiveForm::begin([
     'id' => 'contact-form',
-    'action' => $model->scenario === 'copy' ? Url::toRoute('create') : $model->scenario,
+    'action' => $action ?: $model->scenario,
     'enableClientValidation' => true,
     'validateOnBlur' => true,
     'enableAjaxValidation' => true,

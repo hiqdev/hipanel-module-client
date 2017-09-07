@@ -19,10 +19,10 @@ use yii\web\View;
 <div class="row">
     <div class="col-md-12">
         <?php Box::begin(['options' => ['class' => 'box-widget']]); ?>
-        <?php if ($model->scenario === 'update') : ?>
-            <?= Html::submitButton(Yii::t('hipanel', 'Save'), ['class' => 'btn btn-success']); ?>
-        <?php else : ?>
+        <?php if ($model->scenario === 'create') : ?>
             <?= Html::submitButton(Yii::t('hipanel:client', 'Create contact'), ['class' => 'btn btn-success']); ?>
+        <?php else : ?>
+            <?= Html::submitButton(Yii::t('hipanel', 'Save'), ['class' => 'btn btn-success']); ?>
         <?php endif; ?>
         <?= BackButton::widget() ?>
         <?php Box::end(); ?>
@@ -31,9 +31,9 @@ use yii\web\View;
 
     <div class="col-md-6">
         <?php Box::begin(['title' => Yii::t('hipanel:client', 'Contact details')]) ?>
-        <?php if ($model->scenario === 'update') : ?>
+        <?php if ($model->scenario !== 'create') : ?>
             <?= $form->field($model, 'id')->hiddenInput()->label(false); ?>
-        <?php else: ?>
+        <?php elseif (Yii::$app->user->can('support')) : ?>
             <?= $form->field($model, 'client_id')->widget(ClientCombo::class); ?>
         <?php endif; ?>
 
@@ -75,7 +75,9 @@ use yii\web\View;
 
     <div class="col-md-6">
         <?php Box::begin([
-            'collapsed' => true,
+            'collapsed' => !in_array($model->scenario, ['create-require-passport', 'update-require-passport'])
+                && empty($model->birth_date) && empty($model->passport_no)
+                && empty($model->passport_date) && empty($model->passport_by),
             'title' => Yii::t('hipanel:client', 'Passport data'),
         ]) ?>
         <fieldset id="fiz_domain">
@@ -154,10 +156,10 @@ use yii\web\View;
 
     <div class="col-md-12">
         <?php Box::begin(['options' => ['class' => 'box-widget']]); ?>
-        <?php if ($model->scenario === 'update') : ?>
-            <?= Html::submitButton(Yii::t('hipanel', 'Save'), ['class' => 'btn btn-success']); ?>
-        <?php else : ?>
+        <?php if ($model->scenario === 'create') : ?>
             <?= Html::submitButton(Yii::t('hipanel:client', 'Create contact'), ['class' => 'btn btn-success']); ?>
+        <?php else : ?>
+            <?= Html::submitButton(Yii::t('hipanel', 'Save'), ['class' => 'btn btn-success']); ?>
         <?php endif; ?>
         <?= BackButton::widget() ?>
         <?php Box::end(); ?>

@@ -88,13 +88,13 @@ class Contact extends \hipanel\base\Model
                     'postal_code',
                     'voice_phone',
                 ],
-                'required', 'on' => ['create', 'update'],
+                'required', 'on' => ['create', 'create-require-passport', 'update', 'update-require-passport'],
             ],
 
-            [['pincode', 'oldEmail'], 'safe', 'on' => ['update']],
+            [['pincode', 'oldEmail'], 'safe', 'on' => ['update', 'update-require-passport']],
 
             [['isresident'], 'boolean', 'trueValue' => true, 'falseValue' => false],
-            [['birth_date', 'passport_date'], 'safe', 'on' => ['update', 'create']],
+            [['birth_date', 'passport_date'], 'safe', 'on' => ['update', 'create', 'create-require-passport', 'update-require-passport']],
             [
                 [
                     // Для регистрации доменов в зоне RU в качестве физического лица
@@ -111,6 +111,15 @@ class Contact extends \hipanel\base\Model
             ],
             [
                 [
+                    // Для регистрации доменов в зоне RU в качестве физического лица
+                    'passport_no', 'passport_by',
+                    'birth_date', 'passport_date'
+                ],
+                'required',
+                'on' => ['create-require-passport', 'update-require-passport']
+            ],
+            [
+                [
                     'email_confirmed', 'email_confirm_date',
                     'voice_phone_confirmed', 'voice_phone_confirm_date',
                     'fax_phone_confirmed', 'fax_phone_confirm_date',
@@ -121,7 +130,7 @@ class Contact extends \hipanel\base\Model
             [
                 ['id'],
                 'required',
-                'on' => ['request-email-confirmation', 'request-phone-confirmation', 'delete', 'update'],
+                'on' => ['request-email-confirmation', 'request-phone-confirmation', 'delete', 'update', 'update-require-passport'],
             ],
         ]);
     }
