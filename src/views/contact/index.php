@@ -29,8 +29,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     'seller',
                 ],
             ]) ?>
-            <?= $page->renderPerPage() ?>
             <?= $page->renderRepresentations($representationCollection) ?>
+            <?= $page->renderPerPage() ?>
         <?php $page->endContent() ?>
 
         <?php $page->beginContent('bulk-actions') ?>

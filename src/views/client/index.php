@@ -46,8 +46,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'type', 'create_time',
             ],
         ]) ?>
-        <?= $page->renderPerPage() ?>
         <?= $page->renderRepresentations($representationCollection) ?>
+        <?= $page->renderPerPage() ?>
     <?php $page->endContent() ?>
 
     <?php $page->beginContent('bulk-actions') ?>
