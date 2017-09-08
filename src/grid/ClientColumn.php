@@ -47,7 +47,11 @@ class ClientColumn extends DataColumn
         }
         if ($this->value === null) {
             $this->value = function ($model) {
-                return Html::a($model->{$this->nameAttribute}, ['@client/view', 'id' => $model->{$this->idAttribute}]);
+                if (Yii::$app->user->identity->hasSeller($model->{$this->idAttribute})) {
+                    return $model->{$this->nameAttribute};
+                } else {
+                    return Html::a($model->{$this->nameAttribute}, ['@client/view', 'id' => $model->{$this->idAttribute}]);
+                }
             };
         }
         if (!empty($this->grid->filterModel)) {
