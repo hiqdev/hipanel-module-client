@@ -41,9 +41,14 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= $page->renderLayoutSwitcher() ?>
         <?= $page->renderSorter([
             'attributes' => [
-                'seller', 'name',
-                'balance', 'credit', 'tariff',
-                'type', 'create_time',
+                'login',
+                'name',
+                'seller',
+                'type',
+                'balance',
+                'credit',
+                'tariff',
+                'create_time',
             ],
         ]) ?>
         <?= $page->renderRepresentations($representationCollection) ?>
