@@ -19,8 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <?= Html::a(Yii::t('hipanel', 'Create'), 'create', ['class' => 'btn btn-sm btn-success']) ?>
         <?php $page->endContent() ?>
 
-        <?php $page->beginContent('show-actions') ?>
-            <?= $page->renderLayoutSwitcher() ?>
+        <?php $page->beginContent('sorter-actions') ?>
             <?= $page->renderSorter([
                 'attributes' => [
                     'email',
@@ -29,8 +28,9 @@ $this->params['breadcrumbs'][] = $this->title;
                     'seller',
                 ],
             ]) ?>
+        <?php $page->endContent() ?>
+        <?php $page->beginContent('representation-actions') ?>
             <?= $page->renderRepresentations($representationCollection) ?>
-            <?= $page->renderPerPage() ?>
         <?php $page->endContent() ?>
 
         <?php $page->beginContent('bulk-actions') ?>

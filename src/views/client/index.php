@@ -37,8 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= GridLegend::widget(['legendItem' => new ClientGridLegend($model)]) ?>
     <?php $page->endContent() ?>
 
-    <?php $page->beginContent('show-actions') ?>
-        <?= $page->renderLayoutSwitcher() ?>
+    <?php $page->beginContent('sorter-actions') ?>
         <?= $page->renderSorter([
             'attributes' => [
                 'login',
@@ -51,8 +50,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 'create_time',
             ],
         ]) ?>
+    <?php $page->endContent() ?>
+    <?php $page->beginContent('representation-actions') ?>
         <?= $page->renderRepresentations($representationCollection) ?>
-        <?= $page->renderPerPage() ?>
     <?php $page->endContent() ?>
 
     <?php $page->beginContent('bulk-actions') ?>
