@@ -84,6 +84,7 @@ class ClientGridView extends BoxedGridView
             ],
             'balance' => [
                 'class' => BalanceColumn::class,
+                'format' => 'raw'
             ],
             'credit' => CreditColumn::resolveConfig(),
             'country' => [
