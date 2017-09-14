@@ -35,7 +35,6 @@ class PhoneConfirmer
      */
     public function __construct(PhoneConfirmationForm $model, NotifyTries $notifyTries)
     {
-        $this->db = $db;
         $this->model = $model;
         $this->notifyTries = $notifyTries;
     }
@@ -60,7 +59,7 @@ class PhoneConfirmer
                 'type' => $this->model->type,
             ]);
         } catch (ResponseErrorException $e) {
-            throw new PhoneConfirmationException('Failed to request code confirmation', $e);
+            throw new PhoneConfirmationException('Failed to request code confirmation', 0, $e);
         }
 
         return true;
