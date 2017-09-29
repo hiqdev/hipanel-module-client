@@ -13,6 +13,7 @@ namespace hipanel\modules\client\menus;
 use hipanel\modules\client\models\Client;
 use hipanel\widgets\BlockModalButton;
 use hipanel\widgets\SettingsModal;
+use hipanel\widgets\SimpleOperation;
 use Yii;
 use yii\helpers\Url;
 
@@ -46,6 +47,7 @@ class ClientDetailMenu extends \hipanel\menus\AbstractDetailMenu
                 'label' => SettingsModal::widget([
                     'model' => $this->model,
                     'title' => Yii::t('hipanel', 'Change password'),
+                    'headerOptions' => ['class' => 'label-info'],
                     'icon' => 'fa-key fa-flip-horizontal fa-fw',
                     'scenario' => 'change-password',
                 ]),
@@ -54,7 +56,7 @@ class ClientDetailMenu extends \hipanel\menus\AbstractDetailMenu
             ],
             [
                 'label' => $totp_enabled ? Yii::t('hipanel:client', 'Disable two factor authorization') : Yii::t('hipanel:client', 'Enable two factor authorization'),
-                'icon' => 'fa-shield',
+                'icon' => 'fa-lock',
                 'url' => 'https://' . Yii::$app->params['hiam.site'] . Url::to(['/mfa/totp/' . ($totp_enabled ? 'disable' : 'enable'), 'back' => Url::to('', true)]),
                 'visible' => $user->is($this->model->id),
             ],
@@ -62,6 +64,7 @@ class ClientDetailMenu extends \hipanel\menus\AbstractDetailMenu
                 'label' => SettingsModal::widget([
                     'model' => $this->model,
                     'title' => Yii::t('hipanel:client', 'Temporary password'),
+                    'headerOptions' => ['class' => 'label-warning'],
                     'icon' => 'fa-key fa-flip-horizontal fa-fw',
                     'scenario' => 'set-tmp-password',
                 ]),
@@ -72,6 +75,7 @@ class ClientDetailMenu extends \hipanel\menus\AbstractDetailMenu
                 'label' => SettingsModal::widget([
                     'model' => $this->model,
                     'title' => Yii::t('hipanel:client', 'Pincode settings'),
+                    'headerOptions' => ['class' => 'label-warning'],
                     'icon' => 'fa-puzzle-piece fa-fw',
                     'scenario' => 'pincode-settings',
                 ]),
@@ -82,6 +86,7 @@ class ClientDetailMenu extends \hipanel\menus\AbstractDetailMenu
                 'label' => SettingsModal::widget([
                     'model' => $this->model,
                     'title' => Yii::t('hipanel:client', 'IP address restrictions'),
+                    'headerOptions' => ['class' => 'label-warning'],
                     'icon' => 'fa-arrows-alt fa-fw',
                     'scenario' => 'ip-restrictions',
                 ]),
@@ -92,6 +97,7 @@ class ClientDetailMenu extends \hipanel\menus\AbstractDetailMenu
                 'label' => SettingsModal::widget([
                     'model' => $this->model,
                     'title' => Yii::t('hipanel:client', 'Notification settings'),
+                    'headerOptions' => ['class' => 'label-info'],
                     'icon' => 'fa-envelope fa-fw',
                     'scenario' => 'mailing-settings',
                 ]),
@@ -106,9 +112,17 @@ class ClientDetailMenu extends \hipanel\menus\AbstractDetailMenu
                 'visible' => false,
             ],
             [
+                'label' => Yii::t('hipanel:client', 'User edit'),
+                'icon' => 'fa-edit fa-fw',
+                'url' => ['@client/update', 'id' => $this->model->id],
+                'encode' => false,
+                'visible' => Yii::$app->user->can('manage'),
+            ],
+            [
                 'label' => SettingsModal::widget([
                     'model' => $this->model,
                     'title' => Yii::t('hipanel:client', 'Domain settings'),
+                    'headerOptions' => ['class' => 'label-info'],
                     'icon' => 'fa-globe fa-fw',
                     'scenario' => 'domain-settings',
                 ]),
@@ -119,6 +133,7 @@ class ClientDetailMenu extends \hipanel\menus\AbstractDetailMenu
                 'label' => SettingsModal::widget([
                     'model' => $this->model,
                     'title' => Yii::t('hipanel:ticket', 'Ticket settings'),
+                    'headerOptions' => ['class' => 'label-info'],
                     'icon' => 'fa-ticket fa-fw',
                     'scenario' => 'ticket-settings',
                 ]),
@@ -129,7 +144,24 @@ class ClientDetailMenu extends \hipanel\menus\AbstractDetailMenu
                 'label' => BlockModalButton::widget(['model' => $this->model]),
                 'encode' => false,
                 'visible' => $user->can('support') && $user->not($this->model->id),
-            ]
+            ],
+            [
+                'label' => SimpleOperation::widget([
+                    'model' => $this->model,
+                    'scenario' => 'delete',
+                    'buttonLabel' => '<i class="fa fa-fw fa-trash-o"></i>' . Yii::t('hipanel', 'Delete'),
+                    'buttonClass' => '',
+                    'body' => Yii::t('hipanel:client', 'Are you sure you want to delete client {name}?', ['name' => $this->model->client]),
+                    'modalHeaderLabel' => Yii::t('hipanel:client', 'Confirm client deleting'),
+                    'modalHeaderOptions' => ['class' => 'label-danger'],
+                    'modalFooterLabel' => Yii::t('hipanel:client', 'Delete client'),
+                    'modalFooterLoading' => Yii::t('hipanel:client', 'Deleting client'),
+                    'modalFooterClass' => 'btn btn-danger',
+                ]),
+                'encode' => false,
+                'visible' => $user->can('manage') && $user->not($this->model->id),
+            ],
+
         ], $actions);
 
         unset($items['view']);

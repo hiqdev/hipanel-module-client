@@ -6,6 +6,7 @@ use hipanel\widgets\Box;
 use hipanel\widgets\DatePicker;
 use hiqdev\combo\StaticCombo;
 use yii\helpers\Html;
+use yii\web\View;
 
 /**
  * @var string $scenario
@@ -16,24 +17,23 @@ use yii\helpers\Html;
 ?>
 
 <div class="row">
-    <?= Html::activeHiddenInput($model, 'pincode'); ?>
-
     <div class="col-md-12">
-        <?php Box::begin(); ?>
-        <?php if ($model->scenario === 'update') : ?>
-            <?= Html::submitButton(Yii::t('hipanel', 'Save'), ['class' => 'btn btn-success']); ?>
-        <?php else : ?>
+        <?php Box::begin(['options' => ['class' => 'box-widget']]); ?>
+        <?php if ($model->scenario === 'create') : ?>
             <?= Html::submitButton(Yii::t('hipanel:client', 'Create contact'), ['class' => 'btn btn-success']); ?>
+        <?php else : ?>
+            <?= Html::submitButton(Yii::t('hipanel', 'Save'), ['class' => 'btn btn-success']); ?>
         <?php endif; ?>
         <?= BackButton::widget() ?>
         <?php Box::end(); ?>
+        <?= Html::hiddenInput('pincode', null, ['id' => 'contact-pincode']) ?>
     </div>
 
     <div class="col-md-6">
         <?php Box::begin(['title' => Yii::t('hipanel:client', 'Contact details')]) ?>
-        <?php if ($model->scenario === 'update') : ?>
+        <?php if ($model->scenario !== 'create') : ?>
             <?= $form->field($model, 'id')->hiddenInput()->label(false); ?>
-        <?php else: ?>
+        <?php elseif (Yii::$app->user->can('support')) : ?>
             <?= $form->field($model, 'client_id')->widget(ClientCombo::class); ?>
         <?php endif; ?>
 
@@ -75,7 +75,9 @@ use yii\helpers\Html;
 
     <div class="col-md-6">
         <?php Box::begin([
-            'collapsed' => true,
+            'collapsed' => !in_array($model->scenario, ['create-require-passport', 'update-require-passport'])
+                && empty($model->birth_date) && empty($model->passport_no)
+                && empty($model->passport_date) && empty($model->passport_by),
             'title' => Yii::t('hipanel:client', 'Passport data'),
         ]) ?>
         <fieldset id="fiz_domain">
@@ -151,5 +153,55 @@ use yii\helpers\Html;
         </fieldset>
         <?php Box::end() ?>
     </div>
+
+    <div class="col-md-12">
+        <?php Box::begin(['options' => ['class' => 'box-widget']]); ?>
+        <?php if ($model->scenario === 'create') : ?>
+            <?= Html::submitButton(Yii::t('hipanel:client', 'Create contact'), ['class' => 'btn btn-success']); ?>
+        <?php else : ?>
+            <?= Html::submitButton(Yii::t('hipanel', 'Save'), ['class' => 'btn btn-success']); ?>
+        <?php endif; ?>
+        <?= BackButton::widget() ?>
+        <?php Box::end(); ?>
+    </div>
 </div>
 <!-- /.row -->
+
+<?php
+
+$this->registerJs(<<<JS
+jQuery('#fiz_domain input').change(function() {
+    var disable = false;
+    jQuery('#fiz_domain input').each(function(i, e) {
+        var elem = jQuery(e);
+        if (elem.prop('type') == 'text' && elem.val() != '') {
+            disable = true;
+        }
+    });
+    jQuery('#jur_domain').prop('disabled', disable);
+});
+
+jQuery('#jur_domain input').change(function() {
+    var disable = false;
+    jQuery('#jur_domain input').each(function(i, e) {
+        var elem = jQuery(e);
+        if ((elem.prop('type') == 'checkbox' && elem.is(':checked')) || (elem.prop('type') == 'text' && elem.val() != '')) {
+            disable = true;
+        }
+    });
+    jQuery('#contact-passport_date, #contact-birth_date').each(function(i, e) {
+        var elem = jQuery(e);
+        var opts = elem.data('krajee-datepicker');
+        if (disable) {
+            elem.parent().kvDatepicker('remove');
+            elem.parent().addClass('disabled');
+        } else {
+            elem.parent().kvDatepicker(opts);
+            elem.parent().removeClass('disabled');
+        }
+    });
+    jQuery('#fiz_domain').prop('disabled', disable);
+});
+JS
+    , View::POS_READY);
+?>

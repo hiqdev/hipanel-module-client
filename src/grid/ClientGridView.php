@@ -28,9 +28,9 @@ use yii\helpers\Html;
 
 class ClientGridView extends BoxedGridView
 {
-    public static function defaultColumns()
+    public function columns()
     {
-        return [
+        return array_merge(parent::columns(), [
             'id' => [
                 'class'         => ClientColumn::class,
                 'attribute'     => 'id',
@@ -84,6 +84,7 @@ class ClientGridView extends BoxedGridView
             ],
             'balance' => [
                 'class' => BalanceColumn::class,
+                'format' => 'raw'
             ],
             'credit' => CreditColumn::resolveConfig(),
             'country' => [
@@ -178,6 +179,7 @@ class ClientGridView extends BoxedGridView
                 'value' => function ($model) {
                     /** @var Client $model */
                     return ArraySpoiler::widget([
+                        'id' => uniqid('ds'),
                         'data' => $model->domains,
                         'visibleCount' => 1,
                         'button' => [
@@ -206,6 +208,7 @@ class ClientGridView extends BoxedGridView
                 'label' => Yii::t('hipanel', 'Servers'),
                 'value' => function ($model) {
                     return ArraySpoiler::widget([
+                        'id' => uniqid('ss'),
                         'data' => $model->servers,
                         'visibleCount' => 1,
                         'button' => [
@@ -259,7 +262,10 @@ class ClientGridView extends BoxedGridView
             ],
             'messengers' => [
                 'format' => 'html',
-                'attribute' => 'contact.messengers',
+                'label' => Yii::t('hipanel:client', 'Messengers'),
+                'value' => function ($model) {
+                    return $model->contact->messengers;
+                }
             ],
             'actions' => [
                 'class' => MenuColumn::class,
@@ -282,7 +288,7 @@ class ClientGridView extends BoxedGridView
                                     : ( $model->payment_ticket->state === 'closed' ? 'text-red bold'
                                         : ($model->payment_ticket->status === 'wait_admin' ? 'text-green' : 'text-blue')))
                     ]);
-                }
+                },
             ],
             'language' => [
                 'filter' => false,
@@ -305,7 +311,7 @@ class ClientGridView extends BoxedGridView
                 'format' => 'date',
                 'filter' => false,
             ]
-        ];
+        ]);
     }
 
     public static function defaultRepresentations()

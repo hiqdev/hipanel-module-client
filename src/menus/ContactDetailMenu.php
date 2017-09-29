@@ -34,7 +34,7 @@ class ContactDetailMenu extends \hipanel\menus\AbstractDetailMenu
         $items[] = [
             'label' => Yii::t('hipanel:client', 'Used for {n, plural, one{# domain} other{# domains}}', ['n' => (int) $this->model->used_count]),
             'icon' => 'fa-globe',
-            'url' => Url::toSearch('domain', ['client_id' => $this->model->client_id]),
+            'url' => Url::toSearch('domain', ['contacts' => $this->model->id]),
             'visible' => Yii::getAlias('@domain', false) && (int) $this->model->used_count > 0,
         ];
 

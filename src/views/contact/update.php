@@ -13,7 +13,7 @@ use yii\bootstrap\ActiveForm;
 use yii\helpers\Inflector;
 
 /**
- * @var string $scenario
+ * @var string $action
  * @var array $countries
  * @var boolean $askPincode
  * @var \hipanel\modules\client\models\Contact $model
@@ -30,7 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <?php $form = ActiveForm::begin([
     'id' => 'contact-form',
-    'action' => $model->scenario,
+    'action' => $action ?: $model->scenario,
     'enableClientValidation' => true,
     'validateOnBlur' => true,
     'enableAjaxValidation' => true,
@@ -38,7 +38,8 @@ $this->params['breadcrumbs'][] = $this->title;
     'validationUrl' => Url::toRoute(['validate-form', 'scenario' => $model->scenario]),
 ]) ?>
 
-<?= $this->render('_pincode', compact('askPincode')) ?>
 <?= $this->render('_form', compact('model', 'countries', 'model', 'form')) ?>
 
 <?php ActiveForm::end() ?>
+
+<?= $this->render('_pincode', compact('askPincode')) ?>

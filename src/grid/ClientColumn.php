@@ -36,6 +36,7 @@ class ClientColumn extends DataColumn
     public function init()
     {
         parent::init();
+
         $this->visible = Yii::$app->user->can('support');
         if (!$this->visible) {
             return null;
@@ -46,14 +47,18 @@ class ClientColumn extends DataColumn
         }
         if ($this->value === null) {
             $this->value = function ($model) {
-                return Html::a($model->{$this->nameAttribute}, ['@client/view', 'id' => $model->{$this->idAttribute}]);
+                if (Yii::$app->user->identity->hasSeller($model->{$this->idAttribute})) {
+                    return $model->{$this->nameAttribute};
+                } else {
+                    return Html::a($model->{$this->nameAttribute}, ['@client/view', 'id' => $model->{$this->idAttribute}]);
+                }
             };
         }
         if (!empty($this->grid->filterModel)) {
             if (!isset($this->filterInputOptions['id'])) {
                 $this->filterInputOptions['id'] = $this->attribute;
             }
-            if ($this->filter === null) {
+            if ($this->filter === null && strpos($this->attribute, '_like') === false) {
                 $this->filter = $this->getDefaultFilter();
             }
         }

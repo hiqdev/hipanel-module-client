@@ -46,7 +46,6 @@ class ClientCombo extends Combo
     {
         return ArrayHelper::merge(parent::getFilter(), [
             'type_in'  => ['format' => $this->clientType],
-            'order' => ['format' => ['loginlike' => 'desc']],
             'limit' => ['format' => '50'],
         ]);
     }

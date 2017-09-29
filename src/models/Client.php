@@ -11,6 +11,7 @@
 namespace hipanel\modules\client\models;
 
 use hipanel\helpers\StringHelper;
+use hipanel\models\Ref;
 use hipanel\modules\client\forms\EmployeeForm;
 use hipanel\modules\client\models\query\ClientQuery;
 use hipanel\modules\domain\models\Domain;
@@ -30,7 +31,7 @@ class Client extends \hipanel\base\Model
 {
     use \hipanel\base\ModelTrait;
 
-    const TYPE_SELLER = 'seller';
+    const TYPE_SELLER = 'reseller';
     const TYPE_ADMIN = 'admin';
     const TYPE_MANAGER = 'manager';
     const TYPE_CLIENT = 'client';
@@ -60,8 +61,7 @@ class Client extends \hipanel\base\Model
             [['id', 'language'], 'required', 'on' => 'set-language'],
             [['id', 'seller_id'], 'required', 'on' => 'set-seller'],
 
-            [['password', 'login', 'seller_id', 'email'], 'required', 'on' => ['create', 'update']],
-            [['type'], 'required', 'on' => ['create', 'update']],
+            [['password', 'login', 'seller_id', 'email'], 'required', 'on' => ['create']],
             [['type'], 'default', 'value' => self::TYPE_CLIENT, 'on' => ['create', 'update']],
             [['type'], 'in', 'range' => array_keys(self::getTypeOptions()), 'on' => ['create', 'update']],
             [['email'], 'email', 'on' => ['create', 'update']],

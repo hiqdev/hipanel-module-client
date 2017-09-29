@@ -9,8 +9,6 @@ $this->title = Yii::t('hipanel', 'Contact');
 $this->params['subtitle'] = array_filter(Yii::$app->request->get($model->formName(), [])) ? Yii::t('hipanel', 'filtered list') : Yii::t('hipanel', 'full list');
 $this->params['breadcrumbs'][] = $this->title;
 
-$representation = Yii::$app->request->get('representation');
-
 ?>
 <?php Pjax::begin(array_merge(Yii::$app->params['pjax'], ['enablePushState' => true])) ?>
     <?php $page = IndexPage::begin(compact('model', 'dataProvider')) ?>
@@ -21,8 +19,7 @@ $representation = Yii::$app->request->get('representation');
             <?= Html::a(Yii::t('hipanel', 'Create'), 'create', ['class' => 'btn btn-sm btn-success']) ?>
         <?php $page->endContent() ?>
 
-        <?php $page->beginContent('show-actions') ?>
-            <?= $page->renderLayoutSwitcher() ?>
+        <?php $page->beginContent('sorter-actions') ?>
             <?= $page->renderSorter([
                 'attributes' => [
                     'email',
@@ -31,8 +28,9 @@ $representation = Yii::$app->request->get('representation');
                     'seller',
                 ],
             ]) ?>
-            <?= $page->renderPerPage() ?>
-            <?= $page->renderRepresentations(ContactGridView::class, $representation) ?>
+        <?php $page->endContent() ?>
+        <?php $page->beginContent('representation-actions') ?>
+            <?= $page->renderRepresentations($representationCollection) ?>
         <?php $page->endContent() ?>
 
         <?php $page->beginContent('bulk-actions') ?>
@@ -45,7 +43,7 @@ $representation = Yii::$app->request->get('representation');
                     'dataProvider' => $dataProvider,
                     'boxed' => false,
                     'filterModel'  => $model,
-                    'representation' => $representation,
+                    'columns' => $representationCollection->getByName($uiModel->representation)->getColumns(),
                 ]) ?>
             <?php $page->endBulkForm() ?>
         <?php $page->endContent() ?>

@@ -37,6 +37,8 @@ return [
     'Country' => 'Страна',
     'City' => 'Город',
     'Street' => 'Улица',
+    'Street 2' => 'Улица 2',
+    'Street 3' => 'Улица 3',
     'Messengers' => 'Мессенджеры',
     'RF resident' => 'Резидент РФ',
     'Passport by' => 'Орган, что выдал паспорт',
@@ -85,6 +87,7 @@ return [
     'Passport data' => 'Паспортные данные',
     'This field must contains phone number in international format.' => 'Это поле обязательно содержит номер телефона в международном формате.',
     'Field "{attribute}" can contain Latin characters written in lower case, and it may contain numbers and underscores' => 'Поле "{attribute}" может содержать символы латинского алфавита написанные в нижнем регистре, также оно может содержать цифры и нижнее подчеркивание',
+    'Fast navigation to another client' => 'Быстрый переход к другому клиенту',
 
     /// Settings
     'IP address restrictions' => 'Ограничение доступа по IP',
@@ -204,9 +207,31 @@ return [
     'Provided services (en)' => 'Предоставляемые услуги (en)',
     'Provided services (uk)' => 'Предоставляемые услуги (uk)',
     'VAT number' => 'ИНН',
+    'TIN number' => 'ИНН',
     'Contract information' => 'Информация о договоре',
     'Notification was created' => 'Напоминание создано',
     'Payment notification' => 'Напомнить о оплате',
     'Financial month' => 'Финансовый месяц',
     'Employee contact was save successfully' => 'Контакт сотрудника был успешно сохранён',
+
+    'In order to be able to disable the pin code in the future, it is required to ask an answer to a security question.' => 'Для возможности отключения пин кода в будущем требуется задать ответ на секретный вопрос.',
+    'Change the email address of the account\'s primary contact' => 'Смена емейла основного контакта аккаунта',
+    'Obtaining an authorization code for a domain transfer' => 'Получение кода авторизации для трансфера домена',
+    'Push domain' => 'Пуш доменов',
+    'To further protect your account, you can install a pin code.' => 'Для дополнительной защиты Вашей учётной записи Вы можете установить пин-код.',
+    'The following operations, {0}, {1}, {2}, will be executed only when the correct PIN code is entered.' => 'Следующие операции, {0}, {1}, {2}, будут выполняться только при вводе правильного пин-кода.',
+    'In case you forget the PIN code or answer to a secret question, you can disconnect the PIN code only through the support service! (You will need to verify your account by providing a copy of the documents)' => 'В случае, если Вы забудете пинкод или ответ на секретный вопрос отключение пинкода возможно только через службу поддержки! (потребуется верификация аккаунта посредством предоставленияскан-копий документов)',
+    'Are you sure you want to delete client {name}?' => 'Вы уверены, что хотите удалить клиента {name}?',
+    'Confirm client deleting' => 'Подтвердите удаление клиента',
+    'Delete client' => 'Удалить клиента',
+    'Deleting client' => 'Удаление клиента',
+
+    'Clients were deleted successfully' => 'Клиенты были успешно удалены.',
+    'Failed to delete clients' => 'Не удалось удалить клиентов',
+    'Client was blocked successfully' => 'Клиент был успешно заблокирован',
+    'Error during the client account blocking' => 'Ошибка при блокировке учетной записи клиента',
+    'Client was unblocked successfully' => 'Клиент был успешно разблокирован',
+    'Error during the client account unblocking' => 'Ошибка при разблокировке учетной записи клиента',
+
+    'User edit' => 'Редактирование пользователя',
 ];

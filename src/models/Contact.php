@@ -44,7 +44,7 @@ class Contact extends \hipanel\base\Model
 
     public function rules()
     {
-        return [
+        return array_filter([
             [['id', 'obj_id', 'client_id', 'seller_id'], 'integer'],
             [['type_id', 'state_id'], 'integer'],
             [['client_name', 'client_type'], 'safe'],
@@ -76,7 +76,8 @@ class Contact extends \hipanel\base\Model
                 'pattern' => '/^[+]?[()0-9 .-]{3,20}$/',
                 'message' => Yii::t('hipanel:client', 'This field must contains phone number in international format.'),
             ],
-            [
+
+            Yii::$app->user->can('manage') ? null : [
                 [
                     'first_name',
                     'last_name',
@@ -87,14 +88,13 @@ class Contact extends \hipanel\base\Model
                     'postal_code',
                     'voice_phone',
                 ],
-                'required',
-                'on' => ['create', 'update'],
+                'required', 'on' => ['create', 'create-require-passport', 'update', 'update-require-passport'],
             ],
 
-            [['pincode', 'oldEmail'], 'safe', 'on' => ['update']],
+            [['pincode', 'oldEmail'], 'safe', 'on' => ['update', 'update-require-passport']],
 
             [['isresident'], 'boolean', 'trueValue' => true, 'falseValue' => false],
-            [['birth_date', 'passport_date'], 'safe', 'on' => ['update', 'create']],
+            [['birth_date', 'passport_date'], 'safe', 'on' => ['update', 'create', 'create-require-passport', 'update-require-passport']],
             [
                 [
                     // Для регистрации доменов в зоне RU в качестве физического лица
@@ -111,6 +111,15 @@ class Contact extends \hipanel\base\Model
             ],
             [
                 [
+                    // Для регистрации доменов в зоне RU в качестве физического лица
+                    'passport_no', 'passport_by',
+                    'birth_date', 'passport_date'
+                ],
+                'required',
+                'on' => ['create-require-passport', 'update-require-passport']
+            ],
+            [
+                [
                     'email_confirmed', 'email_confirm_date',
                     'voice_phone_confirmed', 'voice_phone_confirm_date',
                     'fax_phone_confirmed', 'fax_phone_confirm_date',
@@ -121,9 +130,9 @@ class Contact extends \hipanel\base\Model
             [
                 ['id'],
                 'required',
-                'on' => ['request-email-confirmation', 'request-phone-confirmation', 'delete', 'update'],
+                'on' => ['request-email-confirmation', 'request-phone-confirmation', 'delete', 'update', 'update-require-passport'],
             ],
-        ];
+        ]);
     }
 
     public function attributeLabels()
@@ -139,10 +148,11 @@ class Contact extends \hipanel\base\Model
             'voice_phone'       => Yii::t('hipanel:client', 'Phone'),
             'fax_phone'         => Yii::t('hipanel:client', 'Fax'),
             'country_name'      => Yii::t('hipanel:client', 'Country'),
+            'country'           => Yii::t('hipanel:client', 'Country'),
             'isresident'        => Yii::t('hipanel:client', 'RF resident'),
             'street1'           => Yii::t('hipanel:client', 'Street'),
-            'street2'           => Yii::t('hipanel:client', 'Street'),
-            'street3'           => Yii::t('hipanel:client', 'Street'),
+            'street2'           => Yii::t('hipanel:client', 'Street 2'),
+            'street3'           => Yii::t('hipanel:client', 'Street 3'),
             'inn'               => Yii::t('hipanel:client', 'Taxpayer identification number'),
             'kpp'               => Yii::t('hipanel:client', 'Code of reason for registration'),
             'organization_ru'   => Yii::t('hipanel:client', 'Organization (Russian title)'),
@@ -152,7 +162,7 @@ class Contact extends \hipanel\base\Model
             'province'          => Yii::t('hipanel:client', 'Province'),
             'postal_code'       => Yii::t('hipanel:client', 'Postal code'),
             'birth_date'        => Yii::t('hipanel:client', 'Birth date'),
-            'messengers'         => Yii::t('hipanel:client', 'Messengers'),
+            'messengers'        => Yii::t('hipanel:client', 'Messengers'),
             'other_messenger'   => Yii::t('hipanel:client', 'Other messenger'),
             'passport_date'     => Yii::t('hipanel:client', 'Passport issue date'),
             'passport_by'       => Yii::t('hipanel:client', 'Issued by'),

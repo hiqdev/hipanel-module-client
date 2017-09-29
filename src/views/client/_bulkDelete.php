@@ -5,13 +5,11 @@ use hipanel\widgets\BulkOperation;
 echo BulkOperation::widget([
     'model' => $model,
     'models' => $models,
-    'scenario' => 'enable-block',
+    'scenario' => 'delete',
     'affectedObjects' => Yii::t('hipanel:client', 'Affected clients'),
     'formatterField' => 'client',
     'hiddenInputs' => ['id', 'client'],
-    'visibleInputs' => ['comment'],
-    'submitButton' => Yii::t('hipanel', 'Enable block'),
+    'submitButton' => Yii::t('hipanel', 'Delete'),
     'submitButtonOptions' => ['class' => 'btn btn-danger'],
-    'dropDownInputs' => ['type' => $blockReasons ],
 ]);
 

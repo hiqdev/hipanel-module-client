@@ -4,7 +4,6 @@ package:
     title:          Client module for HiPanel
     headline:       HiPanel Client Module
     keywords:       client, hipanel, plugin
-    namespace:      hipanel\modules\client
     description:    |
         [![Logo](https://raw.githubusercontent.com/hiqdev/hipanel-core/master/docs/logo.png)](https://hipanel.com/)
 

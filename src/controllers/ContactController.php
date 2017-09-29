@@ -12,8 +12,6 @@ namespace hipanel\modules\client\controllers;
 
 use hipanel\actions\ComboSearchAction;
 use hipanel\actions\IndexAction;
-use hipanel\actions\OrientationAction;
-use hipanel\actions\SmartCreateAction;
 use hipanel\actions\SmartDeleteAction;
 use hipanel\actions\SmartPerformAction;
 use hipanel\actions\SmartUpdateAction;
@@ -21,6 +19,8 @@ use hipanel\actions\ValidateFormAction;
 use hipanel\actions\ViewAction;
 use hipanel\base\CrudController;
 use hipanel\helpers\ArrayHelper;
+use hipanel\modules\client\actions\ContactCreateAction;
+use hipanel\modules\client\actions\ContactUpdateAction;
 use hipanel\modules\client\forms\EmployeeForm;
 use hipanel\modules\client\forms\PhoneConfirmationForm;
 use hipanel\modules\client\logic\PhoneConfirmationException;
@@ -93,12 +93,6 @@ class ContactController extends CrudController
     public function actions()
     {
         return [
-            'set-orientation' => [
-                'class' => OrientationAction::class,
-                'allowedRoutes' => [
-                    '@contact/index',
-                ],
-            ],
             'index' => [
                 'class' => IndexAction::class,
             ],
@@ -121,50 +115,14 @@ class ContactController extends CrudController
                 'class' => ValidateFormAction::class,
             ],
             'create' => [
-                'class' => SmartCreateAction::class,
-                'scenario' => 'create',
-                'data' => function ($action) {
-                    return [
-                        'countries' => $action->controller->getRefs('country_code'),
-                        'scenario' => 'create',
-                    ];
-                },
-                'success' => Yii::t('hipanel:client', 'Contact was created'),
+                'class' => ContactCreateAction::class,
             ],
             'delete' => [
                 'class' => SmartDeleteAction::class,
                 'success' => Yii::t('hipanel:client', 'Contact was deleted'),
             ],
             'update' => [
-                'class' => SmartUpdateAction::class,
-                'scenario' => 'update',
-                'success' => Yii::t('hipanel:client', 'Contact was updated'),
-                'on beforeFetch' => function ($event) {
-                    /** @var SmartUpdateAction $action */
-                    $action = $event->sender;
-
-                    $action->getDataProvider()->query
-                        ->andFilterWhere(['with_localizations' => true])
-                        ->joinWith('localizations');
-                },
-                'on beforeSave' => function (Event $event) {
-                    /** @var \hipanel\actions\Action $action */
-                    $action = $event->sender;
-
-                    $pincode = Yii::$app->request->post('pincode');
-                    if (isset($pincode)) {
-                        foreach ($action->collection->models as $model) {
-                            $model->pincode = $pincode;
-                        }
-                    }
-                },
-                'data' => function ($action) {
-                    return [
-                        'countries' => $action->controller->getRefs('country_code'),
-                        'askPincode' => Client::perform('has-pincode'),
-                        'scenario' => 'update',
-                    ];
-                },
+                'class' => ContactUpdateAction::class
             ],
             'copy' => [
                 'class' => SmartUpdateAction::class,
@@ -172,7 +130,7 @@ class ContactController extends CrudController
                 'data' => function ($action) {
                     return [
                         'countries' => $action->controller->getRefs('country_code'),
-                        'scenario' => 'create',
+                        'action' => 'create',
                     ];
                 },
             ],
@@ -331,8 +289,16 @@ class ContactController extends CrudController
         return $this->render('update-employee', [
             'employeeForm' => $model,
             'model' => $model->getPrimaryContact(),
-            'askPincode' => Client::perform('has-pincode'),
+            'askPincode' => $this->getUserHasPincode(),
             'countries' => $this->getRefs('country_code'),
         ]);
+    }
+
+    protected function getUserHasPincode()
+    {
+        return Yii::$app->cache->getOrSet(['user-pincode-enabled', Yii::$app->user->id], function () {
+            $pincodeData = Client::perform('has-pincode', ['id' => Yii::$app->user->id]);
+            return $pincodeData['pincode_enabled'];
+        }, 3600);
     }
 }

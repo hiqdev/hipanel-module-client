@@ -13,7 +13,6 @@ namespace hipanel\modules\client\controllers;
 use hipanel\actions\ClassValuesAction;
 use hipanel\actions\ComboSearchAction;
 use hipanel\actions\IndexAction;
-use hipanel\actions\OrientationAction;
 use hipanel\actions\PrepareBulkAction;
 use hipanel\actions\RedirectAction;
 use hipanel\actions\RenderJsonAction;
@@ -25,19 +24,27 @@ use hipanel\actions\SmartUpdateAction;
 use hipanel\actions\ValidateFormAction;
 use hipanel\actions\ViewAction;
 use hipanel\helpers\Url;
-use hipanel\modules\client\forms\EmployeeForm;
 use hipanel\modules\client\models\Client;
 use Yii;
 use yii\base\Event;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
-use yii\web\NotFoundHttpException;
 
 class ClientController extends \hipanel\base\CrudController
 {
     public function behaviors()
     {
-        return [
+        return array_merge(parent::behaviors(), [
+            [
+                'class' => AccessControl::class,
+                'only' => ['update', 'delete'],
+                'rules' => [
+                    [
+                        'allow'   => true,
+                        'roles'   => ['manage'],
+                    ],
+                ],
+            ],
             [
                 'class' => AccessControl::class,
                 'only' => ['set-verified'],
@@ -54,23 +61,18 @@ class ClientController extends \hipanel\base\CrudController
                     'set-verified' => ['post'],
                 ],
             ],
-        ];
+        ]);
     }
 
     public function actions()
     {
         return [
-            'set-orientation' => [
-                'class' => OrientationAction::class,
-                'allowedRoutes' => [
-                    '@client/index',
-                ],
-            ],
             'index' => [
                 'class' => IndexAction::class,
                 'on beforePerform' => function ($event) {
-                    if (!Yii::$app->user->can('support')) {
-                        Yii::$app->response->redirect(Url::to(['@client/view', 'id' => Yii::$app->user->id]))->send();
+                    $user = Yii::$app->user;
+                    if (!$user->isGuest && !$user->can('support')) {
+                        Yii::$app->response->redirect(Url::to(['@client/view', 'id' => $user->id]))->send();
                     }
 
                     if (Yii::$app->request->get('representation') === 'payment') {
@@ -90,7 +92,7 @@ class ClientController extends \hipanel\base\CrudController
                     ];
                 },
                 'filterStorageMap' => [
-                    'login_like' => 'client.client.login_like',
+                    'login_ilike' => 'client.client.login_ilike',
                     'state' => 'client.client.state',
                     'type' => 'client.client.type',
                     'seller' => 'client.client.seller',
@@ -109,17 +111,50 @@ class ClientController extends \hipanel\base\CrudController
             ],
             'delete' => [
                 'class' => SmartDeleteAction::class,
-                'success' => Yii::t('hipanel:client', 'Client was deleted'),
+                'success' => Yii::t('hipanel:client', 'Client(s) were deleted'),
+                'error' => Yii::t('hipanel:client', 'Failed to delete client(s)'),
+            ],
+            'bulk-delete-modal' => [
+                'class' => PrepareBulkAction::class,
+                'view' => '_bulkDelete',
             ],
             'enable-block' => [
                 'class' => SmartPerformAction::class,
-                'success' => 'Client was blocked successfully',
-                'error' => 'Error during the client account blocking',
+                'success' => Yii::t('hipanel:client', 'Client(s) were blocked successfully'),
+                'error' => Yii::t('hipanel:client', 'Failed to block client(s)'),
+                'on beforeSave' => function (Event $event) {
+                    /** @var \hipanel\actions\Action $action */
+                    $action = $event->sender;
+                    $type = Yii::$app->request->post('type');
+                    $comment = Yii::$app->request->post('comment');
+                    if (!empty($type) || !empty($comment)) {
+                        foreach ($action->collection->models as $model) {
+                            $model->setAttributes(array_filter([
+                                'type' => $type,
+                                'comment' => $comment,
+                            ]));
+                        }
+                    }
+                },
             ],
             'disable-block' => [
                 'class' => SmartPerformAction::class,
-                'success' => 'Client was unblocked successfully',
-                'error' => 'Error during the client account unblocking',
+                'success' => Yii::t('hipanel:client', 'Client(s) were unblocked successfully'),
+                'error' => Yii::t('hipanel:client', 'Failed to unblock client(s)'),
+                'on beforeSave' => function (Event $event) {
+                    /** @var \hipanel\actions\Action $action */
+                    $action = $event->sender;
+                    $type = Yii::$app->request->post('type');
+                    $comment = Yii::$app->request->post('comment');
+                    if (!empty($type) || !empty($comment)) {
+                        foreach ($action->collection->models as $model) {
+                            $model->setAttributes(array_filter([
+                                'type' => $type,
+                                'comment' => $comment,
+                            ]));
+                        }
+                    }
+                },
             ],
             'change-password' => [
                 'class' => SmartUpdateAction::class,
@@ -148,6 +183,7 @@ class ClientController extends \hipanel\base\CrudController
                         ->addSelect(array_filter([
                             'last_seen',
                             'contacts_count',
+                            'blocking',
                             Yii::$app->user->can('manage') ? 'show_deleted' : null,
                             Yii::getAlias('@domain', false) ? 'domains_count' : null,
                             Yii::getAlias('@ticket', false) ? 'tickets_count' : null,
@@ -156,6 +192,7 @@ class ClientController extends \hipanel\base\CrudController
                             Yii::getAlias('@hosting', false) ? 'hosting_count' : null,
                             Yii::getAlias('@server', false) && Yii::$app->user->can('resell') ? 'pre_ordered_servers_count' : null,
                         ]))
+                        ->joinWith(['blocking'])
                         ->withContact()
                         ->withPurses();
                 },
@@ -176,35 +213,8 @@ class ClientController extends \hipanel\base\CrudController
                 'class' => SmartPerformAction::class,
                 'success' => Yii::t('hipanel:client', 'Notification was created'),
             ],
-            'bulk-enable-block' => [
-                'class' => SmartUpdateAction::class,
-                'scenario' => 'enable-block',
-                'success' => Yii::t('hipanel:client', 'Clients were blocked successfully'),
-                'error' => Yii::t('hipanel:client', 'Error during the clients blocking'),
-                'POST html' => [
-                    'save' => true,
-                    'success' => [
-                        'class' => RedirectAction::class,
-                    ],
-                ],
-                'on beforeSave' => function (Event $event) {
-                    /** @var \hipanel\actions\Action $action */
-                    $action = $event->sender;
-                    $type = Yii::$app->request->post('type');
-                    $comment = Yii::$app->request->post('comment');
-                    if (!empty($type)) {
-                        foreach ($action->collection->models as $model) {
-                            $model->setAttributes([
-                                'type' => $type,
-                                'comment' => $comment,
-                            ]);
-                        }
-                    }
-                },
-            ],
             'bulk-enable-block-modal' => [
                 'class' => PrepareBulkAction::class,
-                'scenario' => 'enable-block',
                 'view' => '_bulkEnableBlock',
                 'data' => function ($action, $data) {
                     return array_merge($data, [
@@ -212,32 +222,14 @@ class ClientController extends \hipanel\base\CrudController
                     ]);
                 },
             ],
-            'bulk-disable-block' => [
-                'class' => SmartUpdateAction::class,
-                'scenario' => 'disable-block',
-                'success' => Yii::t('hipanel:client', 'Clients were unblocked successfully'),
-                'error' => Yii::t('hipanel:client', 'Error during the clients unblocking'),
-                'POST html' => [
-                    'save' => true,
-                    'success' => [
-                        'class' => RedirectAction::class,
-                    ],
-                ],
-                'on beforeSave' => function (Event $event) {
-                    /** @var \hipanel\actions\Action $action */
-                    $action = $event->sender;
-                    $comment = Yii::$app->request->post('comment');
-                    if (!empty($type)) {
-                        foreach ($action->collection->models as $model) {
-                            $model->setAttribute('comment', $comment);
-                        }
-                    }
-                },
-            ],
             'bulk-disable-block-modal' => [
                 'class' => PrepareBulkAction::class,
-                'scenario' => 'disable-block',
                 'view' => '_bulkDisableBlock',
+                'data' => function ($action, $data) {
+                    return array_merge($data, [
+                        'blockReasons' => $this->getBlockReasons(),
+                    ]);
+                },
             ],
             'ip-restrictions' => [
                 'class' => ClassValuesAction::class,
@@ -276,6 +268,7 @@ class ClientController extends \hipanel\base\CrudController
                     $action = $event->sender;
                     $dataProvider = $action->getDataProvider();
                     $dataProvider->query->addSelect('pincode_enabled');
+                    Yii::$app->cache->delete(['user-pincode-enabled', Yii::$app->user->id]);
                 },
                 'data' => function ($action, $data) {
                     $apiData = $this->getRefs('type,question', 'hipanel:client');

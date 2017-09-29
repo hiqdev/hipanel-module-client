@@ -3,6 +3,7 @@
 use hipanel\helpers\Url;
 use hipanel\modules\client\models\Client;
 use hipanel\modules\client\widgets\combo\SellerCombo;
+use hipanel\widgets\DynamicFormWidget;
 use hipanel\widgets\PasswordInput;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
@@ -14,13 +15,89 @@ $form = ActiveForm::begin([
 ]);
 ?>
 
-<?= $form->field($model, '[0]login')->textInput(['autocomplete' => 'new-login']) ?>
-<?= $form->field($model, '[0]email')->textInput(['autocomplete' => 'new-email']) ?>
-<?= $form->field($model, '[0]password')->widget(PasswordInput::class) ?>
-<?= $form->field($model, '[0]type')->dropDownList(Client::getTypeOptions()) ?>
-<?= $form->field($model, '[0]seller_id')->widget(SellerCombo::class) ?>
+<?php DynamicFormWidget::begin([
+    'widgetContainer' => 'dynamicform_wrapper', // required: only alphanumeric characters plus "_" [A-Za-z0-9_]
+    'widgetBody' => '.container-items', // required: css class selector
+    'widgetItem' => '.item', // required: css class
+    'limit' => 99, // the maximum times, an element can be cloned (default 999)
+    'min' => 1, // 0 or 1 (default 1)
+    'insertButton' => '.add-item', // css class
+    'deleteButton' => '.remove-item', // css class
+    'model' => $model,
+    'formId' => 'client-form',
+    'formFields' => [
+        'login',
+        'email',
+        'password',
+        'type',
+        'seller_id',
+    ],
+]) ?>
+
+<div class="container-items">
+    <?php foreach ($models as $i => $model) : ?>
+        <div class="item">
+            <div class="box box-widget">
+                <div class="box-header with-border">
+                    <?php if ($model->isNewRecord) : ?>
+                        <h3 class="box-title"></h3>
+                        <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-box-tool remove-item"><i class="fa fa-minus"></i>
+                            </button>
+                            <button type="button" class="btn btn-box-tool add-item"><i class="fa fa-plus"></i></button>
+                        </div>
+                    <?php else: ?>
+                        <h3 class="box-title"><?= $model->login ?></h3>
+                    <?php endif; ?>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <?php if ($model->isNewRecord) : ?>
+                            <div class="col-md-2">
+                                <?= $form->field($model, "[{$i}]login")->textInput(['autocomplete' => 'new-login']) ?>
+                            </div>
+                            <div class="col-md-2">
+                                <?= $form->field($model, "[{$i}]email")->textInput(['autocomplete' => 'new-email']) ?>
+                            </div>
+                            <div class="col-md-4">
+                                <?= $form->field($model, "[{$i}]password")->widget(PasswordInput::class) ?>
+                            </div>
+                        <?php else: ?>
+                            <?= $form->field($model, "[{$i}]id")->hiddenInput()->label(false) ?>
+                        <?php endif; ?>
+                        <div class="col-md-2">
+                            <?= $form->field($model, "[{$i}]type")->dropDownList(Client::getTypeOptions()) ?>
+                        </div>
+                        <div class="col-md-2">
+                            <?= $form->field($model, "[{$i}]seller_id")->widget(SellerCombo::class, [
+                                'pluginOptions' => [
+                                    'select2Options' => $model->isNewRecord ? [] : [
+                                        'templateSelection' => new \yii\web\JsExpression("
+                                                function (data, container) { 
+                                                    var disVal = '{$model->seller}'; 
+                                                    if ( container ) {
+                                                        return data.text; 
+                                                    } else {
+                                                        $('#client-{$i}-seller_id').attr('disabled', true);
+                                                        return disVal;
+                                                    }
+                                                }
+                                            ")
+                                    ]
+                                ],
+                            ]) ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <?php endforeach; ?>
+</div>
+
+<?php DynamicFormWidget::end(); ?>
 
 <?= Html::submitButton(Yii::t('hipanel', 'Save'), ['class' => 'btn btn-success']) ?>
-    &nbsp;
+&nbsp;
 <?= Html::button(Yii::t('hipanel', 'Cancel'), ['class' => 'btn btn-default', 'onclick' => 'history.go(-1)']) ?>
+
 <?php $form->end() ?>

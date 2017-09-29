@@ -30,52 +30,51 @@ $this->params['breadcrumbs'][] = [
 $this->params['breadcrumbs'][] = $this->title;
 
 ?>
+<div class="row">
+    <div class="col-md-5">
+        <?php Box::begin(['title' => Yii::t('hipanel:client', 'Attach new documents')]); ?>
 
-<div class="col-md-6">
-    <?php $box = Box::begin(['renderBody' => false]) ?>
-        <?php $box->beginHeader() ?>
-            <?= $box->renderTitle(Yii::t('hipanel:client', 'Documents')) ?>
-        <?php $box->endHeader() ?>
-        <?php $box->beginBody() ?>
-            <?= StackedDocumentsView::widget([
-                'models' => $contact->documents,
-                'thumbSize' => 150,
-            ]); ?>
-        <?php $box->endBody() ?>
-    <?php $box->end() ?>
+        <p>
+            <?= Yii::t('hipanel:client',
+                'You can upload copy of your documents in order to help us verify your identity') ?>
+        </p>
+
+        <?php $form = ActiveForm::begin([
+            'id' => 'attach-form',
+            'enableClientValidation' => true,
+            'validateOnBlur' => true,
+            'options' => ['enctype' => 'multipart/form-data'],
+        ]);
+
+        echo $form->field($model, 'id')->hiddenInput()->label(false);
+        echo $form->field($model, 'title')->textInput([
+            'placeholder' => Yii::t('hipanel:client', 'Passport, ID card, etc'),
+        ]);
+        echo $form->field($model, 'file')->widget(FileInput::class, [
+            'pluginOptions' => [
+                'previewFileType' => 'any',
+                'showRemove' => true,
+                'showUpload' => false,
+            ],
+        ])->label(false); ?>
+
+        <?= Html::submitButton(Yii::t('hipanel', 'Save'), ['class' => 'btn btn-success']); ?>
+
+        <?php $form->end(); ?>
+        <?php Box::end(); ?>
+    </div>
+    <div class="col-md-7">
+        <?php $box = Box::begin(['renderBody' => false]) ?>
+            <?php $box->beginHeader() ?>
+                <?= $box->renderTitle(Yii::t('hipanel:client', 'Documents')) ?>
+            <?php $box->endHeader() ?>
+            <?php $box->beginBody() ?>
+                <?= StackedDocumentsView::widget([
+                    'models' => $contact->documents,
+                    'thumbSize' => 64,
+                ]); ?>
+            <?php $box->endBody() ?>
+        <?php $box->end() ?>
+    </div>
 </div>
-
-<div class="col-md-6">
-    <?php Box::begin(['title' => Yii::t('hipanel:client', 'Attach new documents')]); ?>
-
-    <p>
-        <?= Yii::t('hipanel:client',
-            'You can upload copy of your documents in order to help us verify your identity') ?>
-    </p>
-
-    <?php $form = ActiveForm::begin([
-        'id' => 'attach-form',
-        'enableClientValidation' => true,
-        'validateOnBlur' => true,
-        'options' => ['enctype' => 'multipart/form-data'],
-    ]);
-
-    echo $form->field($model, 'id')->hiddenInput()->label(false);
-    echo $form->field($model, 'title')->textInput([
-        'placeholder' => Yii::t('hipanel:client', 'Passport, ID card, etc'),
-    ]);
-    echo $form->field($model, 'file')->widget(FileInput::class, [
-        'pluginOptions' => [
-            'previewFileType' => 'any',
-            'showRemove' => true,
-            'showUpload' => false,
-        ],
-    ])->label(false); ?>
-
-    <?= Html::submitButton(Yii::t('hipanel', 'Save'), ['class' => 'btn btn-success']); ?>
-
-    <?php $form->end(); ?>
-    <?php Box::end(); ?>
-</div>
-
 
