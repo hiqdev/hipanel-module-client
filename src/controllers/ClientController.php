@@ -86,6 +86,8 @@ class ClientController extends \hipanel\base\CrudController
                     'state' => 'client.client.state',
                     'type' => 'client.client.type',
                     'seller' => 'client.client.seller',
+                    'seller_id' => 'client.client.seller_id',
+                    'name_ilike' => 'client.client.name_ilike',
                 ],
             ],
             'search' => [
