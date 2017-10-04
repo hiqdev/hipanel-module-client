@@ -27,7 +27,7 @@ class ClientRepresentations extends RepresentationCollection
                     'login',
                     'name', 'seller_id',
                     'type', 'registered_and_last_update', 'state',
-                    'servers_spoiler',
+                    'servers',
                     'balance',
                 ],
             ] : null,

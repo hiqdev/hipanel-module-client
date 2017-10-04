@@ -278,7 +278,10 @@ class ClientGridView extends BoxedGridView
                         'registered' => $formatter->asDatetime($model->create_time),
                         'last_update' => $formatter->asDatetime($model->update_time),
                     ]);
-                }
+                },
+                'contentOptions' => [
+                    'style' => 'white-space: nowrap;',
+                ],
             ],
             'actions' => [
                 'class' => MenuColumn::class,
