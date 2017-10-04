@@ -40,8 +40,8 @@ class ClientController extends \hipanel\base\CrudController
                 'only' => ['update', 'delete'],
                 'rules' => [
                     [
-                        'allow'   => true,
-                        'roles'   => ['manage'],
+                        'allow' => true,
+                        'roles' => ['manage'],
                     ],
                 ],
             ],
@@ -74,6 +74,8 @@ class ClientController extends \hipanel\base\CrudController
                     if (!$user->isGuest && !$user->can('support')) {
                         Yii::$app->response->redirect(Url::to(['@client/view', 'id' => $user->id]))->send();
                     }
+                    $action = $event->sender;
+                    $action->getDataProvider()->query->addSelect(array_filter([Yii::getAlias('@server', false) ? 'servers_count' : null]));
                 },
                 'data' => function ($action) {
                     return [
