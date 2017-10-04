@@ -74,6 +74,16 @@ class ClientController extends \hipanel\base\CrudController
                     if (!$user->isGuest && !$user->can('support')) {
                         Yii::$app->response->redirect(Url::to(['@client/view', 'id' => $user->id]))->send();
                     }
+
+                    if (Yii::$app->request->get('representation') === 'payment') {
+                        $action = $event->sender;
+                        $action->getDataProvider()->query
+                            ->addSelect([
+                                    'full_balance',
+                            ])
+                            ->withPurses()
+                            ->withPaymentTicket();
+                    }
                 },
                 'data' => function ($action) {
                     return [
@@ -198,8 +208,12 @@ class ClientController extends \hipanel\base\CrudController
             ],
             'set-note' => [
                 'class' => SmartUpdateAction::class,
-                'success' => Yii::t('hipanel:client', 'Note changed'),
-                'error' => Yii::t('hipanel:client', 'Failed to change note'),
+                'success' => Yii::t('hipanel', 'Note was changed'),
+                'error' => Yii::t('hipanel', 'Failed to change note'),
+            ],
+            'create-payment-ticket' => [
+                'class' => SmartPerformAction::class,
+                'success' => Yii::t('hipanel:client', 'Notification was created'),
             ],
             'bulk-enable-block-modal' => [
                 'class' => PrepareBulkAction::class,
@@ -293,6 +307,12 @@ class ClientController extends \hipanel\base\CrudController
                     ],
                 ],
             ],
+            'set-description' => [
+                'class' => SmartUpdateAction::class,
+                'success' => Yii::t('hipanel', 'Description was changed'),
+                'error' => Yii::t('hipanel', 'Failed to change description'),
+            ],
+
         ];
     }
 }

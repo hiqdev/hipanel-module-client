@@ -57,7 +57,7 @@ class ClientGridView extends BoxedGridView
                         'data-type' => 'textarea',
                     ],
                 ],
-                'visible' => Yii::$app->user->can('manage'),
+                'visible' => Yii::$app->user->can('support'),
             ],
             'name' => [
                 'filterAttribute' => 'name_ilike',
@@ -284,6 +284,80 @@ class ClientGridView extends BoxedGridView
                 'class' => MenuColumn::class,
                 'menuClass' => ClientActionsMenu::class,
             ],
+            'payment_ticket' => [
+                'format' => 'html',
+                'label' => Yii::t('hipanel', 'Ticket'),
+                'filter' => false,
+                'value' => function ($model) {
+                    if (!$model->payment_ticket_id) {
+                        return '';
+                    }
+                    return Html::a(
+                        $model->payment_ticket_id,
+                        Url::to(['@ticket/view', 'id' => $model->payment_ticket_id]),
+                        [
+                            'class' => $model->balance >= 0 && $model->payment_ticket->state === 'opened' ? 'text-red' :
+                                ($model->balance >= 0 ? 'text-purple'
+                                    : ( $model->payment_ticket->state === 'closed' ? 'text-red bold'
+                                        : ($model->payment_ticket->status === 'wait_admin' ? 'text-green' : 'text-blue')))
+                    ]);
+                },
+            ],
+            'language' => [
+                'filter' => false,
+            ],
+            'description' => [
+                'class' => XEditableColumn::class,
+                'label' => Yii::t('hipanel','Description'),
+                'pluginOptions' => [
+                    'url'       => Url::to('set-description'),
+                ],
+                'widgetOptions' => [
+                    'linkOptions' => [
+                        'data-type' => 'textarea',
+                    ],
+                ],
+                'visible' => Yii::$app->user->can('support'),
+            ],
+            'last_deposit' => [
+                'label' => Yii::t('hipanel:client', 'Last charge'),
+                'format' => 'date',
+                'filter' => false,
+            ]
         ]);
+    }
+
+    public static function defaultRepresentations()
+    {
+        return [
+            'common' => [
+                'label'   => Yii::t('hipanel', 'Common'),
+                'columns' => [
+                    'checkbox',
+                    'login',
+                    'name', 'seller_id',
+                    'type', 'state',
+                    'balance', 'credit',
+                ],
+            ],
+            'payment' => Yii::$app->user->can('support') ? [
+                'label'   => Yii::t('hipanel:client', 'Payment'),
+                'columns' => [
+                    'checkbox', 'login',
+                    'note', 'balance',
+                    'last_deposit',
+                    // 'type of buy',
+                    'payment_ticket',
+                    // 'payment'
+                    'description',
+                ],
+            ] : null,
+            'documents' => Yii::$app->user->can('support') ? [
+                'label'   => Yii::t('hipanel:client', 'Documents'),
+                'columns' => [
+                    'checkbox', 'login',
+                ],
+            ] : null,
+        ];
     }
 }

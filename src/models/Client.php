@@ -17,6 +17,7 @@ use hipanel\modules\client\models\query\ClientQuery;
 use hipanel\modules\domain\models\Domain;
 use hipanel\modules\finance\models\Purse;
 use hipanel\modules\server\models\Server;
+use hipanel\modules\ticket\models\Thread;
 use hipanel\validators\DomainValidator;
 use Yii;
 
@@ -44,17 +45,18 @@ class Client extends \hipanel\base\Model
     public function rules()
     {
         return [
-            [['id', 'seller_id', 'state_id', 'type_id', 'tariff_id', 'profile_id'], 'integer'],
-            [['login', 'seller', 'state', 'type', 'tariff', 'profile'], 'safe'],
+            [['id', 'seller_id', 'state_id', 'type_id', 'tariff_id', 'profile_id', 'payment_ticket_id'], 'integer'],
+            [['login', 'seller', 'state', 'type', 'tariff', 'profile' ], 'safe'],
             [['state_label', 'type_label'], 'safe'],
             [['balance', 'credit'], 'number'],
-            [['count', 'confirm_url', 'language', 'comment', 'name', 'currency'], 'safe'],
-            [['create_time', 'update_time'], 'date'],
+            [['count', 'confirm_url', 'language', 'comment', 'name', 'currency', 'financial_month'], 'safe'],
+            [['create_time', 'update_time', 'last_deposit'], 'date'],
             [['id', 'note'], 'safe', 'on' => 'set-note'],
+            [['id', 'description'], 'safe', 'on' => 'set-description'],
 
             [['id', 'credit'], 'required', 'on' => 'set-credit'],
             [['id', 'type', 'comment'], 'required', 'on' => ['set-block', 'enable-block']],
-            [['id'], 'required', 'on' => ['disable-block']],
+            [['id'], 'required', 'on' => ['disable-block', 'create-payment-ticket']],
             [['comment'], 'safe', 'on' => ['disable-block']],
             [['id', 'language'], 'required', 'on' => 'set-language'],
             [['id', 'seller_id'], 'required', 'on' => 'set-seller'],
@@ -227,6 +229,14 @@ class Client extends \hipanel\base\Model
         }
 
         return $this->hasMany(Server::class, ['client_id' => 'id']);
+    }
+
+    public function getPayment_ticket()
+    {
+        if (!Yii::getAlias('@ticket', false)) {
+            return null;
+        }
+        return $this->hasOne(Thread::class, ['id' => 'payment_ticket_id']);
     }
 
     public function getPurses()
