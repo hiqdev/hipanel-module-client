@@ -231,4 +231,5 @@ return [
     'Error during the client account unblocking' => 'Ошибка при разблокировке учетной записи клиента',
 
     'User edit' => 'Редактирование пользователя',
+    'Servers' => 'Сервера',
 ];

@@ -269,6 +269,17 @@ class ClientGridView extends BoxedGridView
                     return $model->contact->messengers;
                 }
             ],
+            'registered_and_last_update' => [
+                'format' => 'html',
+                'label' => Yii::t('hipanel:client', 'Registered / Last Update'),
+                'value' => function ($model) {
+                    $formatter = Yii::$app->formatter;
+                    return Yii::t('hipanel:client', '{registered}<br>{last_update}', [
+                        'registered' => $formatter->asDatetime($model->create_time),
+                        'last_update' => $formatter->asDatetime($model->update_time),
+                    ]);
+                }
+            ],
             'actions' => [
                 'class' => MenuColumn::class,
                 'menuClass' => ClientActionsMenu::class,
