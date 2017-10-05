@@ -244,6 +244,16 @@ class ClientGridView extends BoxedGridView
                     return $num ? Html::a(Yii::t('hipanel', '{0, plural, one{# contact} other{# contacts}}', $num), $url) : '';
                 },
             ],
+            'accounts_count' => [
+                'format' => 'html',
+                'label'  => Yii::t('hipanel', 'Accounts'),
+                'value'  => function ($model) {
+                    $num = $model->count['accounts'];
+                    $url = Url::toSearch('account', ['client_id' => $model->id]);
+
+                    return $num ? Html::a(Yii::t('hipanel', '{0, plural, one{# account} other{# accounts}}', $num), $url) : '';
+                },
+            ],
             'hosting' => [
                 'format' => 'html',
                 'label'     => Yii::t('hipanel', 'Hosting'),
