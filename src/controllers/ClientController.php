@@ -75,7 +75,7 @@ class ClientController extends \hipanel\base\CrudController
                         Yii::$app->response->redirect(Url::to(['@client/view', 'id' => $user->id]))->send();
                     }
                     $action = $event->sender;
-                    $action->getDataProvider()->query->addSelect(array_filter([Yii::getAlias('@server', false) ? 'servers_count' : null]));
+                    $action->getDataProvider()->query->addSelect(array_filter(['contacts_count', Yii::getAlias('@server', false) ? 'servers_count' : null]));
                 },
                 'data' => function ($action) {
                     return [
