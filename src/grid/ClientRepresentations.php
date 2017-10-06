@@ -37,6 +37,11 @@ class ClientRepresentations extends RepresentationCollection
                 'columns' => [
                     'checkbox', 'login',
                     'balance',
+                    'balance_eur',
+                    'balance_other',
+                    'last_deposit_time',
+                    'requisites',
+                    'credit',
                 ],
             ] : null,
             'documents' => Yii::$app->user->can('support') ? [
