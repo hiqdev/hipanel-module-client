@@ -29,7 +29,7 @@ class ClientRepresentations extends RepresentationCollection
                     'type', 'registered_and_last_update', 'state',
                     'servers',
                     'accounts_count',
-                    'balance',
+                    'balances',
                 ],
             ] : null,
             'payment' => Yii::$app->user->can('support') ? [
