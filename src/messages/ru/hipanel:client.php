@@ -237,4 +237,6 @@ return [
     'Other balances' => 'Другие балансы',
     'Requisites' => 'Реквизиты',
 
+    'Balances' => 'Балансы',
+
 ];

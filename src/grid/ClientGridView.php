@@ -147,6 +147,7 @@ class ClientGridView extends BoxedGridView
                 'format' => 'raw'
             ],
             'balances' => [
+                'label' => Yii::t('hipanel:client', 'Balances'),
                 'format' => 'raw',
                 'value' => function ($model) {
                     $balances = [];
