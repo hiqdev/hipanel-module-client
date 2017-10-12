@@ -69,14 +69,15 @@ class ClientController extends \hipanel\base\CrudController
         return [
             'index' => [
                 'class' => IndexAction::class,
-                'on beforePerform' => function ($event) {
+                'on beforePerform' => function (Event $event) {
                     $user = Yii::$app->user;
                     if (!$user->isGuest && !$user->can('support')) {
                         Yii::$app->response->redirect(Url::to(['@client/view', 'id' => $user->id]))->send();
                     }
 
-                    if (Yii::$app->request->get('representation') === 'payment') {
-                        $action = $event->sender;
+                    $action = $event->sender;
+
+                    if ($action->controller->indexPageUiOptionsModel->representation === 'payment') {
                         $action->getDataProvider()->query
                             ->addSelect([
                                     'full_balance',

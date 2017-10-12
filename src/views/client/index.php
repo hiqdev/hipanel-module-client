@@ -57,7 +57,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php $page->beginContent('bulk-actions') ?>
         <?php if (Yii::$app->user->can('support')) : ?>
-            <?php if ($representation === 'payment') : ?>
+            <?php if ($uiModel->representation === 'payment') : ?>
                 <?= $page->renderBulkButton(Yii::t('hipanel:client', 'Payment notification'), 'create-payment-ticket', 'danger')?>
             <?php endif ?>
             <?php
