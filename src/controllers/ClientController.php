@@ -40,8 +40,8 @@ class ClientController extends \hipanel\base\CrudController
                 'only' => ['update', 'delete'],
                 'rules' => [
                     [
-                        'allow'   => true,
-                        'roles'   => ['manage'],
+                        'allow' => true,
+                        'roles' => ['manage'],
                     ],
                 ],
             ],
@@ -76,14 +76,14 @@ class ClientController extends \hipanel\base\CrudController
                     }
 
                     $action = $event->sender;
-
-                    if ($action->controller->indexPageUiOptionsModel->representation === 'payment') {
-                        $action->getDataProvider()->query
-                            ->addSelect([
-                                    'full_balance',
-                            ])
-                            ->withPurses()
-                            ->withPaymentTicket();
+                    $query = $action->getDataProvider()->query;
+                    $representation = $action->controller->indexPageUiOptionsModel->representation;
+                    if ($representation === 'payment') {
+                        $query->addSelect(['purses', 'full_balance'])->withPurses()->withPaymentTicket();
+                    }
+                    if ($representation === 'servers') {
+                        $query->addSelect(['accounts_count', Yii::getAlias('@server', false) ? 'servers_count' : null]);
+                        $query->addSelect(['purses'])->withPurses();
                     }
                 },
                 'data' => function ($action) {
@@ -97,6 +97,8 @@ class ClientController extends \hipanel\base\CrudController
                     'state' => 'client.client.state',
                     'type' => 'client.client.type',
                     'seller' => 'client.client.seller',
+                    'seller_id' => 'client.client.seller_id',
+                    'name_ilike' => 'client.client.name_ilike',
                 ],
             ],
             'search' => [

@@ -215,7 +215,7 @@ return [
     'Employee contact was save successfully' => 'Контакт сотрудника был успешно сохранён',
 
     'In order to be able to disable the pin code in the future, it is required to ask an answer to a security question.' => 'Для возможности отключения пин кода в будущем требуется задать ответ на секретный вопрос.',
-    'Change the email address of the account\'s primary contact' => 'Смена емейла основного контакта аккаунта',
+    'Chjange the email address of the account\'s primary contact' => 'Смена емейла основного контакта аккаунта',
     'Obtaining an authorization code for a domain transfer' => 'Получение кода авторизации для трансфера домена',
     'Push domain' => 'Пуш доменов',
     'To further protect your account, you can install a pin code.' => 'Для дополнительной защиты Вашей учётной записи Вы можете установить пин-код.',
@@ -234,4 +234,12 @@ return [
     'Error during the client account unblocking' => 'Ошибка при разблокировке учетной записи клиента',
 
     'User edit' => 'Редактирование пользователя',
+    'Servers' => 'Сервера',
+    'Last deposit' => 'Последнее пополнение',
+    'Balance EUR' => 'Баланс EUR',
+    'Other balances' => 'Другие балансы',
+    'Requisites' => 'Реквизиты',
+
+    'Balances' => 'Балансы',
+
 ];

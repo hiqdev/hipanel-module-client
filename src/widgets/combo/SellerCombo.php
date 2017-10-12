@@ -23,7 +23,7 @@ class SellerCombo extends ClientCombo
     /**
      * {@inheritdoc}
      */
-    public $clientType = ['reseller', 'owner', 'partner'];
+    public $clientType = ['reseller', 'owner'];
 
     /**
      * {@inheritdoc}
