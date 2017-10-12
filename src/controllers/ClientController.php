@@ -79,7 +79,7 @@ class ClientController extends \hipanel\base\CrudController
                     $query = $action->getDataProvider()->query;
                     $representation = $action->controller->indexPageUiOptionsModel->representation;
                     if ($representation === 'payment') {
-                        $query->addSelect(['purses', 'full_balance'])->withPurses()->withPaymentTicket();
+                        $query->addSelect(['purses'])->withPurses()->withPaymentTicket();
                     }
                     if ($representation === 'servers') {
                         $query->addSelect(['accounts_count', Yii::getAlias('@server', false) ? 'servers_count' : null]);

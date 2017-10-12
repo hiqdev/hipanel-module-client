@@ -113,13 +113,6 @@ class ClientGridView extends BoxedGridView
             'name' => [
                 'filterAttribute' => 'name_ilike',
             ],
-            'last_deposit_time' => [
-                'attribute' => 'last_deposit_time',
-                'label' => Yii::t('hipanel:client', 'Last deposit'),
-                'format' => 'date',
-                'filter' => false,
-                'enableSorting' => false,
-            ],
             'state' => [
                 'class' => RefColumn::class,
                 'filterAttribute' => 'states',
