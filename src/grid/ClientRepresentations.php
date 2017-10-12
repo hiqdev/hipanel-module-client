@@ -18,6 +18,7 @@ class ClientRepresentations extends RepresentationCollection
                     'name', 'seller_id',
                     'type', 'state',
                     'balance', 'credit',
+                    'language',
                 ],
             ],
             'servers' => Yii::$app->user->can('support') ? [
@@ -30,6 +31,7 @@ class ClientRepresentations extends RepresentationCollection
                     'servers',
                     'accounts_count',
                     'balances',
+                    'language',
                 ],
             ] : null,
             'payment' => Yii::$app->user->can('support') ? [
@@ -42,12 +44,15 @@ class ClientRepresentations extends RepresentationCollection
                     'last_deposit_time',
                     'requisites',
                     'credit',
+                    'language',
                 ],
             ] : null,
             'documents' => Yii::$app->user->can('support') ? [
                 'label' => Yii::t('hipanel:client', 'Documents'),
                 'columns' => [
                     'checkbox', 'login',
+                    'seller', 'requisites',
+                    'language',
                 ],
             ] : null,
         ]);
