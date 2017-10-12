@@ -15,10 +15,9 @@ class ClientRepresentations extends RepresentationCollection
                 'columns' => [
                     'checkbox',
                     'login',
-                    'name', 'seller_id',
+                    'name_language', 'seller_id',
                     'type', 'state',
                     'balance', 'credit',
-                    'language',
                 ],
             ],
             'servers' => Yii::$app->user->can('support') ? [
@@ -26,12 +25,11 @@ class ClientRepresentations extends RepresentationCollection
                 'columns' => [
                     'checkbox',
                     'login',
-                    'name', 'seller_id',
+                    'name_language', 'seller_id',
                     'type', 'registered_and_last_update', 'state',
                     'servers',
                     'accounts_count',
                     'balances',
-                    'language',
                 ],
             ] : null,
             'payment' => Yii::$app->user->can('support') ? [

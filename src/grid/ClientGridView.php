@@ -113,6 +113,20 @@ class ClientGridView extends BoxedGridView
             'name' => [
                 'filterAttribute' => 'name_ilike',
             ],
+            'name_language' => [
+                'filterAttribute' => 'name_ilike',
+                'label' => Yii::t('hipanel', 'Client'),
+                'format' => 'raw',
+                'contentOptions' => [
+                    'style' => 'display: flex; justify-content: space-between;'
+                ],
+                'value' => function ($model) {
+                    $language = $model->language === 'ru' ? 'ru' : 'gb';
+                    $flag = Html::tag('span', null, ['class' => "flag-icon flag-icon-{$language}"]);
+
+                    return sprintf('<div>%s</div><div>%s</div>', $model->name, $flag);
+                },
+            ],
             'last_deposit_time' => [
                 'attribute' => 'last_deposit_time',
                 'label' => Yii::t('hipanel:client', 'Last deposit'),
@@ -382,7 +396,7 @@ class ClientGridView extends BoxedGridView
                 'format' => 'html',
                 'value' => function ($model) {
                     $language = $model->language === 'ru' ? 'ru' : 'gb';
-                    return Html::tag('span', '', ['class' => "flag-icon flag-icon-{$language}"]) . '&nbsp;&nbsp;' . Yii::t('hipanel', $model->language); ;
+                    return Html::tag('span', '', ['class' => "flag-icon flag-icon-{$language}"]) . '&nbsp;&nbsp;' . Yii::t('hipanel', $model->language);
                 },
                 'filter' => false,
             ],
