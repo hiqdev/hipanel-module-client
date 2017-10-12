@@ -117,14 +117,11 @@ class ClientGridView extends BoxedGridView
                 'filterAttribute' => 'name_ilike',
                 'label' => Yii::t('hipanel', 'Client'),
                 'format' => 'raw',
-                'contentOptions' => [
-                    'style' => 'display: flex; justify-content: space-between;'
-                ],
                 'value' => function ($model) {
                     $language = $model->language === 'ru' ? 'ru' : 'gb';
                     $flag = Html::tag('span', null, ['class' => "flag-icon flag-icon-{$language}"]);
 
-                    return sprintf('<div>%s</div><div>%s</div>', $model->name, $flag);
+                    return sprintf('<div style="display: flex; justify-content: space-between;"><div>%s</div><div>%s</div></div>', $model->name, $flag);
                 },
             ],
             'last_deposit_time' => [
