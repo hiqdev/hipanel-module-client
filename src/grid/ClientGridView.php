@@ -118,8 +118,8 @@ class ClientGridView extends BoxedGridView
                 'label' => Yii::t('hipanel', 'Client'),
                 'format' => 'raw',
                 'value' => function ($model) {
-                    $language = $model->language === 'ru' ? 'ru' : 'gb';
-                    $flag = Html::tag('span', null, ['class' => "flag-icon flag-icon-{$language}"]);
+                    $language = $model->language === 'ru' ? 'RU' : 'EN';
+                    $flag = Html::tag('span', $language, ['class' => "label bg-olive"]);
 
                     return sprintf('<div style="display: flex; justify-content: space-between;"><div>%s</div><div>%s</div></div>', $model->name, $flag);
                 },
