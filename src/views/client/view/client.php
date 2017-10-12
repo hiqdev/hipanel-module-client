@@ -69,7 +69,7 @@ $this->registerCss('legend {font-size: 16px;}');
                     'boxed' => false,
                     'model' => $model,
                     'columns' => [
-                        'seller_id', 'name', 'note',
+                        'seller_id', 'name', 'note', 'language',
                         'type', 'state',
                         'create_time', 'update_time',
                         'tickets', 'servers', 'domains', 'contacts', 'hosting', 'blocking'
