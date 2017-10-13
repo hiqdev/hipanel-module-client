@@ -392,8 +392,8 @@ class ClientGridView extends BoxedGridView
             'language' => [
                 'format' => 'html',
                 'value' => function ($model) {
-                    $language = $model->language === 'ru' ? 'ru' : 'gb';
-                    return Html::tag('span', '', ['class' => "flag-icon flag-icon-{$language}"]) . '&nbsp;&nbsp;' . Yii::t('hipanel', $model->language);
+                    $language = $model->language === 'ru' ? 'ru' : 'en';
+                    return Html::tag('span', strtoupper($language), ['class' => "label bg-olive"]) . '&nbsp;&nbsp;' . Yii::t('hipanel', $model->language);
                 },
                 'filter' => false,
             ],
