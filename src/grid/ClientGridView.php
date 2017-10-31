@@ -163,16 +163,10 @@ class ClientGridView extends BoxedGridView
                 'value' => function ($model) {
                     $balances = [];
                     if ($model->purses) {
-                        foreach ($model->purses as $purse) {
+                        foreach ($model->sortedPurses as $purse) {
                             $billSearchUrl = BillController::getSearchUrl(['client_id' => $model->client_id, 'purse_id' => $model->id, 'currency_in' => [$purse->currency]]);
                             $balance = ColoredBalance::widget(['model' => $purse, 'url' => $billSearchUrl]);
-                            if ($purse->currency === 'usd') {
-                                array_unshift($balances, $balance);
-                            } elseif ($purse->currency === 'eur') {
-                                array_splice($balances, 1, 0, $balance); // insert EUR to the second position of $balances array
-                            } else {
-                                array_push($balances, $balance);
-                            }
+                            array_push($balances, $balance);
                         }
                     }
 
