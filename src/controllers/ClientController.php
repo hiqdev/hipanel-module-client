@@ -66,7 +66,7 @@ class ClientController extends \hipanel\base\CrudController
 
     public function actions()
     {
-        return [
+        return array_merge(parent::actions(), [
             'index' => [
                 'class' => IndexAction::class,
                 'on beforePerform' => function ($event) {
@@ -303,6 +303,6 @@ class ClientController extends \hipanel\base\CrudController
                     ],
                 ],
             ],
-        ];
+        ]);
     }
 }
