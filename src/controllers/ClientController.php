@@ -66,7 +66,7 @@ class ClientController extends \hipanel\base\CrudController
 
     public function actions()
     {
-        return [
+        return array_merge(parent::actions(), [
             'index' => [
                 'class' => IndexAction::class,
                 'on beforePerform' => function (Event $event) {
@@ -314,6 +314,6 @@ class ClientController extends \hipanel\base\CrudController
                 'error' => Yii::t('hipanel', 'Failed to change description'),
             ],
 
-        ];
+        ]);
     }
 }

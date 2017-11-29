@@ -92,7 +92,7 @@ class ContactController extends CrudController
 
     public function actions()
     {
-        return [
+        return array_merge(parent::actions(), [
             'index' => [
                 'class' => IndexAction::class,
             ],
@@ -154,7 +154,7 @@ class ContactController extends CrudController
                 'class' => SmartPerformAction::class,
                 'success' => Yii::t('hipanel:client', 'Confirmation message was sent to your email'),
             ],
-        ];
+        ]);
     }
 
     public function actionAttachDocuments($id)

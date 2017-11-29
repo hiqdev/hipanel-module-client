@@ -159,7 +159,9 @@ class ContactGridView extends BoxedGridView
             'social_net' => [
                 'format' => 'html',
                 'value' => function ($model) {
-                    return Html::a($model->social_net, $model->social_net);
+                    $url = $model->social_net;
+
+                    return filter_var($url, FILTER_VALIDATE_URL) ? "<a href=\"$url\">$url</a>" : $url;
                 },
             ],
             'birth_date' => [

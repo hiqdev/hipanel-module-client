@@ -69,7 +69,7 @@ $this->registerCss('legend {font-size: 16px;}');
                     'boxed' => false,
                     'model' => $model,
                     'columns' => [
-                        'seller_id', 'name', 'note',
+                        'seller_id', 'name', 'note', 'language',
                         'type', 'state',
                         'create_time', 'update_time',
                         'tickets', 'servers', 'domains', 'contacts', 'hosting', 'blocking'
@@ -77,7 +77,7 @@ $this->registerCss('legend {font-size: 16px;}');
                 ]) ?>
                 <?php $box->endBody() ?>
                 <?php $box->end() ?>
-                <?php foreach ($model->purses as $purse) : ?>
+                <?php foreach ($model->sortedPurses as $purse) : ?>
                     <?php if (isset($purse['balance'])) : ?>
                         <?= $this->render('@hipanel/modules/finance/views/purse/_client-view', ['model' => $purse]) ?>
                     <?php endif ?>

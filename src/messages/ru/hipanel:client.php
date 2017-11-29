@@ -242,4 +242,10 @@ return [
 
     'Balances' => 'Балансы',
 
+    /// Language
+    'Language' => 'Язык',
+    'RU' => 'Русский',
+    'EN' => 'English',
+    'ru' => 'Русский',
+    'en' => 'English',
 ];

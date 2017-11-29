@@ -15,7 +15,7 @@ class ClientRepresentations extends RepresentationCollection
                 'columns' => [
                     'checkbox',
                     'login',
-                    'name', 'seller_id',
+                    'name_language', 'seller_id',
                     'type', 'state',
                     'balance', 'credit',
                 ],
@@ -25,7 +25,7 @@ class ClientRepresentations extends RepresentationCollection
                 'columns' => [
                     'checkbox',
                     'login',
-                    'name', 'seller_id',
+                    'name_language', 'seller_id',
                     'type', 'registered_and_last_update', 'state',
                     'servers',
                     'accounts_count',
@@ -43,12 +43,15 @@ class ClientRepresentations extends RepresentationCollection
                     'payment_ticket',
                     'requisites',
                     'credit',
+                    'language',
                 ],
             ] : null,
             'documents' => Yii::$app->user->can('support') ? [
                 'label' => Yii::t('hipanel:client', 'Documents'),
                 'columns' => [
                     'checkbox', 'login',
+                    'seller', 'requisites',
+                    'language',
                 ],
             ] : null,
         ]);

@@ -65,9 +65,13 @@ class Client extends \hipanel\base\Model
             [['type'], 'default', 'value' => self::TYPE_CLIENT, 'on' => ['create', 'update']],
             [['type'], 'in', 'range' => array_keys(self::getTypeOptions()), 'on' => ['create', 'update']],
             [['email'], 'email', 'on' => ['create', 'update']],
-            [['login'], 'match', 'pattern' => '/^[a-z][a-z0-9_]{2,31}$/',
+            [
+                ['login'],
+                'match',
+                'pattern' => '/^[a-z][a-z0-9_]{2,31}$/',
                 'message' => Yii::t('hipanel:client', 'Field "{attribute}" can contain Latin characters written in lower case, and it may contain numbers and underscores'),
-                'on' => ['create', 'update'], ],
+                'on' => ['create', 'update'],
+            ],
             [['login', 'email'], 'unique', 'on' => ['create', 'update']],
 
             // Ticket settings
@@ -76,39 +80,71 @@ class Client extends \hipanel\base\Model
             [['send_message_text', 'new_messages_first'], 'boolean', 'on' => 'ticket-settings'],
 
             // Domain settings
-            [['nss'], 'filter', 'filter' => function ($value) {
-                return (mb_strlen($value) > 0) ? StringHelper::mexplode($value) : [];
-            }, 'on' => 'domain-settings'],
+            [
+                ['nss'],
+                'filter',
+                'filter' => function ($value) {
+                    return (mb_strlen($value) > 0) ? StringHelper::mexplode($value) : [];
+                },
+                'on' => 'domain-settings',
+            ],
             [['nss'], 'each', 'rule' => [DomainValidator::class], 'on' => 'domain-settings'],
             [['autorenewal', 'whois_protected'], 'boolean', 'on' => 'domain-settings'],
             [['registrant', 'admin', 'tech', 'billing'], 'safe', 'on' => 'domain-settings'],
 
             // Mailings/Notification settings
-            [[
-                'notify_important_actions', 'domain_registration',
-                'newsletters', 'commercial', 'monthly_invoice',
-            ], 'boolean', 'on' => ['mailing-settings']],
+            [
+                [
+                    'notify_important_actions',
+                    'domain_registration',
+                    'newsletters',
+                    'commercial',
+                    'monthly_invoice',
+                    'financial',
+                ],
+                'boolean',
+                'on' => ['mailing-settings'],
+            ],
 
             // IP address restrictions
-            [['allowed_ips', 'sshftp_ips'], 'filter', 'filter' => function ($value) {
-                if (!is_array($value)) {
-                    return (mb_strlen($value) > 0) ? StringHelper::mexplode($value) : true;
-                } else {
-                    return $value;
-                }
-            }, 'skipOnEmpty' => true, 'on' => ['ip-restrictions']],
+            [
+                ['allowed_ips', 'sshftp_ips'],
+                'filter',
+                'filter' => function ($value) {
+                    if (!is_array($value)) {
+                        return (mb_strlen($value) > 0) ? StringHelper::mexplode($value) : true;
+                    } else {
+                        return $value;
+                    }
+                },
+                'skipOnEmpty' => true,
+                'on' => ['ip-restrictions'],
+            ],
             [['allowed_ips', 'sshftp_ips'], 'each', 'rule' => ['ip'], 'on' => ['ip-restrictions']],
 
             // Change password
             [['login', 'old_password', 'new_password', 'confirm_password'], 'required', 'on' => ['change-password']],
-            [['old_password'], function ($attribute, $params) {
-                $response = $this->perform('CheckPassword', ['password' => $this->{$attribute}, 'login' => $this->login]);
-                if (!$response['matches']) {
-                    $this->addError($attribute, Yii::t('hipanel:client', 'The password is incorrect'));
-                }
-            }, 'on' => ['change-password']],
+            [
+                ['old_password'],
+                function ($attribute, $params) {
+                    $response = $this->perform('CheckPassword', [
+                        'password' => $this->{$attribute},
+                        'login' => $this->login,
+                    ]);
+                    if (!$response['matches']) {
+                        $this->addError($attribute, Yii::t('hipanel:client', 'The password is incorrect'));
+                    }
+                },
+                'on' => ['change-password'],
+            ],
             // Client validation disabled due the Yii2 bug: https://github.com/yiisoft/yii2/issues/9811
-            [['confirm_password'], 'compare', 'compareAttribute' => 'new_password', 'enableClientValidation' => false, 'on' => ['change-password']],
+            [
+                ['confirm_password'],
+                'compare',
+                'compareAttribute' => 'new_password',
+                'enableClientValidation' => false,
+                'on' => ['change-password'],
+            ],
 
             // Delete
             [['id'], 'integer', 'on' => 'delete'],
@@ -125,22 +161,34 @@ class Client extends \hipanel\base\Model
             [['pincode'], 'string', 'min' => 4, 'max' => 4],
 
             // If pincode disabled
-            [['pincode', 'answer', 'question'], 'required', 'enableClientValidation' => false, 'when' => function ($model) {
-                return $model->pincode_enabled === false;
-            }, 'on' => ['pincode-settings']],
+            [
+                ['pincode', 'answer', 'question'],
+                'required',
+                'enableClientValidation' => false,
+                'when' => function ($model) {
+                    return $model->pincode_enabled === false;
+                },
+                'on' => ['pincode-settings'],
+            ],
 
             // If pincode enabled
-            [['pincode'], 'required', 'when' => function ($model) {
-                return (empty($model->answer) && $model->pincode_enabled) ? true : false;
-            },
+            [
+                ['pincode'],
+                'required',
+                'when' => function ($model) {
+                    return (empty($model->answer) && $model->pincode_enabled) ? true : false;
+                },
                 'enableClientValidation' => false,
                 'message' => Yii::t('hipanel:client', 'Fill the Pincode or answer to the question.'),
                 'on' => ['pincode-settings'],
             ],
 
-            [['answer'], 'required', 'when' => function ($model) {
-                return (empty($model->pincode) && $model->pincode_enabled) ? true : false;
-            },
+            [
+                ['answer'],
+                'required',
+                'when' => function ($model) {
+                    return (empty($model->pincode) && $model->pincode_enabled) ? true : false;
+                },
                 'enableClientValidation' => false,
                 'message' => Yii::t('hipanel:client', 'Fill the Answer or enter the Pincode.'),
                 'on' => ['pincode-settings'],
@@ -186,6 +234,7 @@ class Client extends \hipanel\base\Model
             'newsletters' => Yii::t('hipanel:client', 'Newsletters'),
             'commercial' => Yii::t('hipanel:client', 'Commercial'),
             'monthly_invoice' => Yii::t('hipanel:client', 'Monthly invoice'),
+            'financial' => Yii::t('hipanel:client', 'Payment notification'),
 
             // Domain settings
             'autorenewal' => Yii::t('hipanel', 'Autorenewal'),
@@ -303,5 +352,32 @@ class Client extends \hipanel\base\Model
         }
 
         return $types;
+    }
+
+    /**
+     * Sort related purses like `usd`, `eur`, other...
+     *
+     * @return array
+     */
+    public function getSortedPurses()
+    {
+        $purses = [];
+        if ($this->purses) {
+            foreach ($this->purses as $purse) {
+                if ($purse->currency === 'usd') {
+                    array_unshift($purses, $purse);
+                } elseif ($purse->currency === 'eur') {
+                    if (array_key_exists(1, $purses)) {
+                        array_splice($purses, 1, 0, $purse);
+                    } else {
+                        array_push($purses, $purse);
+                    }
+                } else {
+                    array_push($purses, $purse);
+                }
+            }
+        }
+
+        return $purses;
     }
 }

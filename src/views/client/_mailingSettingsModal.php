@@ -21,6 +21,7 @@ use yii\helpers\Url;
                 <legend><?= Yii::t('hipanel:client', 'System notifications') ?></legend>
                 <?= $form->field($model, 'notify_important_actions')->checkbox() ?>
                 <?= $form->field($model, 'domain_registration')->checkbox() ?>
+                <?= $form->field($model,'financial')->checkbox() ?>
             </fieldset>
         </div>
         <!-- /.col-md-6 -->

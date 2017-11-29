@@ -91,7 +91,7 @@ class ClientGridView extends BoxedGridView
             'login' => [
                 'class' => MainColumn::class,
                 'attribute' => 'login',
-                'filterAttribute' => 'login_ilike',
+                'filterAttribute' => 'login_like',
                 'format' => 'raw',
                 'note' => Yii::$app->user->can('manage') ? 'note' : null,
                 'noteOptions' => [
@@ -112,6 +112,24 @@ class ClientGridView extends BoxedGridView
             ],
             'name' => [
                 'filterAttribute' => 'name_ilike',
+            ],
+            'name_language' => [
+                'filterAttribute' => 'name_ilike',
+                'label' => Yii::t('hipanel', 'Client'),
+                'format' => 'raw',
+                'value' => function ($model) {
+                    $language = $model->language === 'ru' ? 'RU' : 'EN';
+                    $flag = Html::tag('span', $language, ['class' => "label bg-olive"]);
+
+                    return sprintf('<div style="display: flex; justify-content: space-between;"><div>%s</div><div>%s</div></div>', $model->name, $flag);
+                },
+            ],
+            'last_deposit_time' => [
+                'attribute' => 'last_deposit_time',
+                'label' => Yii::t('hipanel:client', 'Last deposit'),
+                'format' => 'date',
+                'filter' => false,
+                'enableSorting' => false,
             ],
             'state' => [
                 'class' => RefColumn::class,
@@ -145,16 +163,10 @@ class ClientGridView extends BoxedGridView
                 'value' => function ($model) {
                     $balances = [];
                     if ($model->purses) {
-                        foreach ($model->purses as $purse) {
+                        foreach ($model->sortedPurses as $purse) {
                             $billSearchUrl = BillController::getSearchUrl(['client_id' => $model->client_id, 'purse_id' => $model->id, 'currency_in' => [$purse->currency]]);
                             $balance = ColoredBalance::widget(['model' => $purse, 'url' => $billSearchUrl]);
-                            if ($purse->currency === 'usd') {
-                                array_unshift($balances, $balance);
-                            } elseif ($purse->currency === 'eur') {
-                                array_splice($balances, 1, 0, $balance); // insert EUR to the second position of $balances array
-                            } else {
-                                array_push($balances, $balance);
-                            }
+                            array_push($balances, $balance);
                         }
                     }
 
@@ -410,7 +422,15 @@ class ClientGridView extends BoxedGridView
                 'label' => Yii::t('hipanel:client', 'Last charge'),
                 'format' => 'date',
                 'filter' => false,
-            ]
+            ],
+            'language' => [
+                'format' => 'html',
+                'value' => function ($model) {
+                    $language = $model->language === 'ru' ? 'ru' : 'en';
+                    return Html::tag('span', strtoupper($language), ['class' => "label bg-olive"]) . '&nbsp;&nbsp;' . Yii::t('hipanel:client', $model->language);
+                },
+                'filter' => false,
+            ],
         ]);
     }
 

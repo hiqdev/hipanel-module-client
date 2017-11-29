@@ -16,7 +16,10 @@ use hipanel\widgets\gridLegend\GridLegend;
 use hipanel\widgets\IndexPage;
 use hipanel\widgets\Pjax;
 use yii\bootstrap\Dropdown;
+use hiqdev\assets\flagiconcss\FlagIconCssAsset;
 use yii\helpers\Html;
+
+FlagIconCssAsset::register($this);
 
 $this->title = Yii::t('hipanel', 'Clients');
 $this->params['subtitle'] = array_filter(Yii::$app->request->get($model->formName(), [])) ? Yii::t('hipanel', 'filtered list') : Yii::t('hipanel', 'full list');
