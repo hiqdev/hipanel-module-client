@@ -360,7 +360,7 @@ class Client extends \hipanel\base\Model
         };
 
         usort($purses, function ($a, $b) use ($getOrder) {
-            return $getOrder($a->currency) <> $getOrder($b->currency);
+            return $getOrder($a->currency) <=> $getOrder($b->currency);
         });
 
         return $purses;
