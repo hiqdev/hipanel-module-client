@@ -68,7 +68,7 @@ use yii\helpers\Html;
     </div>
 </div>
 
-<?php if (Yii::$app->request->get('representation') === 'payment') : ?>
+<?php if ($uiModel->representation === 'payment') : ?>
     <div class="col-md-4 col-sm-6 col-xs-12">
         <div class="form-group">
             <?= Html::tag('label', Yii::t('hipanel:client', 'Financial month'), ['class' => 'control-label']); ?>
