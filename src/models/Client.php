@@ -361,22 +361,19 @@ class Client extends \hipanel\base\Model
      */
     public function getSortedPurses()
     {
-        $purses = [];
-        if ($this->purses) {
-            foreach ($this->purses as $purse) {
-                if ($purse->currency === 'usd') {
-                    array_unshift($purses, $purse);
-                } elseif ($purse->currency === 'eur') {
-                    if (array_key_exists(1, $purses)) {
-                        array_splice($purses, 1, 0, $purse);
-                    } else {
-                        array_push($purses, $purse);
-                    }
-                } else {
-                    array_push($purses, $purse);
-                }
-            }
+        $purses = $this->purses;
+        if (empty($purses)) {
+            return $purses;
         }
+
+        $getOrder = function ($currency) {
+            $order = ['usd' => 0, 'eur' => 1];
+            return $order[$currency] ?? 100;
+        };
+
+        usort($purses, function ($a, $b) use ($getOrder) {
+            return $getOrder($a->currency) <> $getOrder($b->currency);
+        });
 
         return $purses;
     }
