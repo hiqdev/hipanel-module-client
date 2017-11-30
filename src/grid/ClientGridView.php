@@ -164,7 +164,7 @@ class ClientGridView extends BoxedGridView
                     $balances = [];
                     if ($model->purses) {
                         foreach ($model->sortedPurses as $purse) {
-                            $billSearchUrl = BillController::getSearchUrl(['client_id' => $model->client_id, 'purse_id' => $model->id, 'currency_in' => [$purse->currency]]);
+                            $billSearchUrl = BillController::getSearchUrl(['client_id' => $model->client_id, 'purse_id' => $purse->id, 'currency_in' => [$purse->currency]]);
                             $balance = ColoredBalance::widget(['model' => $purse, 'url' => $billSearchUrl]);
                             array_push($balances, $balance);
                         }
@@ -451,7 +451,7 @@ class ClientGridView extends BoxedGridView
                 'label'   => Yii::t('hipanel:client', 'Payment'),
                 'columns' => [
                     'checkbox', 'login',
-                    'note', 'balance',
+                    'note', 'balances',
                     'last_deposit',
                     // 'type of buy',
                     'payment_ticket',
