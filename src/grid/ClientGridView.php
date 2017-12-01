@@ -124,13 +124,6 @@ class ClientGridView extends BoxedGridView
                     return sprintf('<div style="display: flex; justify-content: space-between;"><div>%s</div><div>%s</div></div>', $model->name, $flag);
                 },
             ],
-            'last_deposit_time' => [
-                'attribute' => 'last_deposit_time',
-                'label' => Yii::t('hipanel:client', 'Last deposit'),
-                'format' => 'date',
-                'filter' => false,
-                'enableSorting' => false,
-            ],
             'state' => [
                 'class' => RefColumn::class,
                 'filterAttribute' => 'states',
@@ -419,7 +412,8 @@ class ClientGridView extends BoxedGridView
                 'visible' => Yii::$app->user->can('support'),
             ],
             'last_deposit' => [
-                'label' => Yii::t('hipanel:client', 'Last charge'),
+                'label' => Yii::t('hipanel:client', 'Last deposit'),
+                'attribute' => 'last_deposit_time',
                 'format' => 'date',
                 'filter' => false,
             ],
