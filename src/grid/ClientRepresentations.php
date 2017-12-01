@@ -40,9 +40,7 @@ class ClientRepresentations extends RepresentationCollection
                     'balances',
                     'last_deposit',
                     'payment_ticket',
-                    'requisites',
-                    'credit',
-                    'language',
+                    'lang',
                 ],
             ] : null,
             'documents' => Yii::$app->user->can('support') ? [
