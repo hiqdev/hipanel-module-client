@@ -241,6 +241,9 @@ return [
     'Requisites' => 'Реквизиты',
 
     'Balances' => 'Балансы',
+    'Deb period' => 'Период задолжености',
+    'Deb period could not be counted' => 'Невозможно подсчитать',
+    'Approximatly {0, plural, one{# month} other{# monthes}}' => 'Приблизительно {0, plural, one{# месяц} few{# месяца} other{# месяцев}}',
 
     /// Language
     'Language' => 'Язык',

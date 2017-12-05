@@ -118,7 +118,7 @@ class ClientGridView extends BoxedGridView
                 'label' => Yii::t('hipanel', 'Client'),
                 'format' => 'raw',
                 'value' => function ($model) {
-                    $language = $model->language === 'ru' ? 'RU' : 'EN';
+                    $language = strtoupper($model->language ?? 'en');
                     $flag = Html::tag('span', $language, ['class' => "label bg-olive"]);
 
                     return sprintf('<div style="display: flex; justify-content: space-between;"><div>%s</div><div>%s</div></div>', $model->name, $flag);
@@ -384,15 +384,20 @@ class ClientGridView extends BoxedGridView
                     if (!$model->payment_ticket_id) {
                         return '';
                     }
-                    return Html::a(
-                        $model->payment_ticket_id,
-                        Url::to(['@ticket/view', 'id' => $model->payment_ticket_id]),
-                        [
-                            'class' => $model->balance >= 0 && $model->payment_ticket->state === 'opened' ? 'text-red' :
-                                ($model->balance >= 0 ? 'text-purple'
-                                    : ( $model->payment_ticket->state === 'closed' ? 'text-red bold'
-                                        : ($model->payment_ticket->status === 'wait_admin' ? 'text-green' : 'text-blue')))
-                    ]);
+
+                    if ($model->balance >= 0 && $model->payment_ticket->state === 'opened') {
+                        $class = 'text-red';
+                    } elseif ($model->balance >= 0) {
+                        $class = 'text-purple';
+                    } elseif ($model->payment_ticket->state === 'closed') {
+                        $class = 'text-red bold';
+                    } elseif ($model->payment_ticket->status === 'wait_admin') {
+                        $class = 'text-green';
+                    } else {
+                        $class = 'text-blue';
+                    }
+
+                    return  Html::a($model->payment_ticket_id, Url::to(['@ticket/view', 'id' => $model->payment_ticket_id]), compact('class'));
                 },
             ],
             'language' => [
@@ -420,21 +425,34 @@ class ClientGridView extends BoxedGridView
             'language' => [
                 'format' => 'html',
                 'value' => function ($model) {
-                    $language = $model->language === 'ru' ? 'ru' : 'en';
-                    return Html::tag('span', strtoupper($language), ['class' => "label bg-olive"]) . '&nbsp;&nbsp;' . Yii::t('hipanel:client', $model->language);
+                    $language = $model->language ?? 'en';
+                    return Html::tag('span', strtoupper($language), ['class' => "label bg-olive"]) . '&nbsp;&nbsp;' . Yii::t('hipanel:client', $language);
                 },
                 'filter' => false,
+            ],
+            'deb_period' => [
+                'filter' => false,
+                'format' => 'html',
+                'value' => function($model) {
+                    if ($model->balance >= 0) {
+                        return '';
+                    }
+                    if ($model->deb_period === null || (int) $model->deb_period > 1000) {
+                        return Html::tag('span', Yii::t('hipanel:client', 'Deb period could not be counted'), ['class' => 'text-red']);
+                    }
+
+                    return Html::tag('span', Yii::t('hipanel:client', 'Approximatly {0, plural, one{# month} other{# monthes}}', $model->deb_period), ['class' => 'text-blue']);
+                },
             ],
             'lang' => [
                 'format' => 'html',
                 'label' => Yii::t('hipanel', 'Language'),
                 'value' => function ($model) {
-                    $language = $model->language === 'ru' ? 'RU' : 'EN';
+                    $language = $model->language ?? 'ru';
                     return Html::tag('span', strtoupper($language), ['class' => "label bg-olive"]);
                 },
                 'filter' => false,
             ],
-
         ]);
     }
 }
