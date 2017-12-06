@@ -430,18 +430,18 @@ class ClientGridView extends BoxedGridView
                 },
                 'filter' => false,
             ],
-            'deb_period' => [
+            'debt_period' => [
                 'filter' => false,
                 'format' => 'html',
                 'value' => function($model) {
                     if ($model->balance >= 0) {
                         return '';
                     }
-                    if ($model->deb_period === null || (int) $model->deb_period > 1000) {
-                        return Html::tag('span', Yii::t('hipanel:client', 'Deb period could not be counted'), ['class' => 'text-red']);
+                    if ($model->debt_period === null || (int) $model->debt_period > 1000) {
+                        return Html::tag('span', Yii::t('hipanel:client', 'Debt period could not be counted'), ['class' => 'text-red']);
                     }
 
-                    return Html::tag('span', Yii::t('hipanel:client', 'Approximatly {0, plural, one{# month} other{# monthes}}', $model->deb_period), ['class' => 'text-blue']);
+                    return Html::tag('span', Yii::t('hipanel:client', 'Approximatly {0, plural, one{# month} other{# monthes}}', $model->debt_period), ['class' => 'text-blue']);
                 },
             ],
             'lang' => [

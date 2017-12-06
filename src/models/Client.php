@@ -45,7 +45,7 @@ class Client extends \hipanel\base\Model
     public function rules()
     {
         return [
-            [['id', 'seller_id', 'state_id', 'type_id', 'tariff_id', 'profile_id', 'payment_ticket_id', 'deb_period'], 'integer'],
+            [['id', 'seller_id', 'state_id', 'type_id', 'tariff_id', 'profile_id', 'payment_ticket_id', 'debt_period'], 'integer'],
             [['login', 'seller', 'state', 'type', 'tariff', 'profile' ], 'safe'],
             [['state_label', 'type_label'], 'safe'],
             [['balance', 'credit', 'full_balance'], 'number'],
@@ -228,7 +228,7 @@ class Client extends \hipanel\base\Model
 
             'is_verified' => Yii::t('hipanel:client', 'Is verified'),
 
-            'deb_period' => Yii::t('hipanel:client', 'Deb period'),
+            'debt_period' => Yii::t('hipanel:client', 'Debt period'),
 
             // Mailing/Notification settings
             'notify_important_actions' => Yii::t('hipanel:client', 'Notify important actions'),
