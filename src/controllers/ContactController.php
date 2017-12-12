@@ -22,6 +22,7 @@ use hipanel\helpers\ArrayHelper;
 use hipanel\modules\client\actions\ContactCreateAction;
 use hipanel\modules\client\actions\ContactUpdateAction;
 use hipanel\modules\client\forms\EmployeeForm;
+use hipanel\modules\client\logic\EmailConfirmer;
 use hipanel\modules\client\forms\PhoneConfirmationForm;
 use hipanel\modules\client\logic\PhoneConfirmationException;
 use hipanel\modules\client\logic\PhoneConfirmer;
@@ -240,6 +241,16 @@ class ContactController extends CrudController
         }
 
         return ['error' => true];
+    }
+
+    public function actionConfirmEmail($id = null)
+    {
+        $confirmer = Yii::createObject(EmailConfirmer::class);
+        $confirmer->confirm();
+
+        $to = $id ? ['@contact/view', 'id' => $id] : ['/site/profile'];
+
+        return $this->redirect($to);
     }
 
     private function getContactById($id)
