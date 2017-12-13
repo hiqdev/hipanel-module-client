@@ -56,6 +56,7 @@ use yii\web\View;
         <?= $form->field($model, 'postal_code'); ?>
         <?= $form->field($model, 'voice_phone'); ?>
         <?= $form->field($model, 'fax_phone'); ?>
+        <?= $form->field($model, 'xxx_token'); ?>
 
         <?php Box::end() ?>
     </div>

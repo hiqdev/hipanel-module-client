@@ -44,6 +44,7 @@ return [
     'Passport by' => 'Орган, что выдал паспорт',
     'Passport date' => 'Дата выдачи паспорта',
     'Passport number' => 'Номер паспорта',
+    'XXX Token' => 'XXX Токен',
     'Code of reason for registration' => 'Код причины постановки на учет',
     'Taxpayer identification number' => 'Идентификационный номер налогоплательщика',
     'Organization' => 'Организация',
