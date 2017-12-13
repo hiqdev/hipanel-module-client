@@ -60,7 +60,7 @@ class Contact extends \hipanel\base\Model
             [['roid', 'epp_id', 'remoteid', 'other_messenger'], 'safe'],
             [['name', 'first_name', 'last_name'], 'string'],
             [['birth_date', 'passport_date'], 'safe'],
-            [['passport_no', 'passport_by', 'organization', 'password'], 'safe'],
+            [['passport_no', 'passport_by', 'organization', 'password', 'xxx_token'], 'safe'],
             [['localization'], 'safe'],
 
             [['reg_data', 'vat_number', 'tax_comment', 'bank_details'], 'trim'],
@@ -175,6 +175,7 @@ class Contact extends \hipanel\base\Model
             'bank_address'      => Yii::t('hipanel:client', 'Bank address'),
             'bank_swift'        => Yii::t('hipanel:client', 'SWIFT code'),
             'localization'      => Yii::t('hipanel:client', 'Localization'),
+            'xxx_token'         => Yii::t('hipanel:client', 'XXX Token'),
         ]);
     }
 

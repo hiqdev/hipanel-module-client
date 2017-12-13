@@ -71,6 +71,7 @@ FlagIconCssAsset::register($this);
                                 'email_with_verification', 'abuse_email',
                                 'voice_phone', 'fax_phone',
                                 'messengers', 'other', 'social_net',
+                                'xxx_token',
                             ],
                         ]) ?>
                     <?php $box->endBody() ?>
