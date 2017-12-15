@@ -34,6 +34,18 @@ return [
     ],
     'container' => [
         'definitions' => [
+            \hipanel\modules\dashboard\menus\DashboardMenu::class => [
+                'add' => [
+                    'client' => [
+                        'menu' => [
+                            'class' => \hipanel\modules\client\menus\DashboardItem::class,
+                        ],
+                        'where' => [
+                            'after' => ['dashboard'],
+                        ],
+                    ],
+                ],
+            ],
             \hiqdev\thememanager\menus\AbstractSidebarMenu::class => [
                 'add' => [
                     'client' => [
