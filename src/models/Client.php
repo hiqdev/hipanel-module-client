@@ -396,4 +396,9 @@ class Client extends \hipanel\base\Model
 
         return $purses;
     }
+
+    public function getLanguage($default = 'ru')
+    {
+        return $this->->language ? : $default;
+    }
 }

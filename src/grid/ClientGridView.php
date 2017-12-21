@@ -125,8 +125,7 @@ class ClientGridView extends BoxedGridView
                 'label' => Yii::t('hipanel', 'Client'),
                 'format' => 'raw',
                 'value' => function ($model) {
-                    $language = strtoupper($model->language ?? 'en');
-                    $flag = Html::tag('span', $language, ['class' => "label bg-olive"]);
+                    $flag = Html::tag('span', $model->getLanguage(), ['class' => "label bg-olive"]);
 
                     return sprintf('<div style="display: flex; justify-content: space-between;"><div>%s</div><div>%s</div></div>', $model->name, $flag);
                 },
@@ -432,7 +431,7 @@ class ClientGridView extends BoxedGridView
             'language' => [
                 'format' => 'html',
                 'value' => function ($model) {
-                    $language = $model->language ?? 'en';
+                    $language = $model->getLanguage();
                     return Html::tag('span', strtoupper($language), ['class' => "label bg-olive"]) . '&nbsp;&nbsp;' . Yii::t('hipanel:client', $language);
                 },
                 'filter' => false,
@@ -455,8 +454,7 @@ class ClientGridView extends BoxedGridView
                 'format' => 'html',
                 'label' => Yii::t('hipanel', 'Language'),
                 'value' => function ($model) {
-                    $language = $model->language ?? 'ru';
-                    return Html::tag('span', strtoupper($language), ['class' => "label bg-olive"]);
+                    return Html::tag('span', strtoupper($model->getLanguage()), ['class' => "label bg-olive"]);
                 },
                 'filter' => false,
             ],
