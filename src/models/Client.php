@@ -399,6 +399,6 @@ class Client extends \hipanel\base\Model
 
     public function getLanguage($default = 'ru')
     {
-        return $this->->language ? : $default;
+        return $this->language ? : $default;
     }
 }
