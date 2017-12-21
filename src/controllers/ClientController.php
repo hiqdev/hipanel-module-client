@@ -91,6 +91,7 @@ class ClientController extends \hipanel\base\CrudController
                     return [
                         'types' => $this->getRefs('type,client', 'hipanel:client'),
                         'states' => $this->getRefs('state,client', 'hipanel:client'),
+                        'sold_services' => Client::getSoldServices(),
                     ];
                 },
                 'filterStorageMap' => [
@@ -314,7 +315,6 @@ class ClientController extends \hipanel\base\CrudController
                 'success' => Yii::t('hipanel', 'Description was changed'),
                 'error' => Yii::t('hipanel', 'Failed to change description'),
             ],
-
         ]);
     }
 }

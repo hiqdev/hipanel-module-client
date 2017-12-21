@@ -35,9 +35,9 @@ class ClientRepresentations extends RepresentationCollection
             'payment' => Yii::$app->user->can('support') ? [
                 'label' => Yii::t('hipanel:client', 'Payment'),
                 'columns' => [
-                    'checkbox', 'login', 'seller_id', 'note',
+                    'checkbox', 'login_without_note', 'note',
+                    'sold_services',
                     'balance',
-                    'balances',
                     'last_deposit',
                     'debt_period',
                     'payment_ticket',

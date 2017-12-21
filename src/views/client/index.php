@@ -30,7 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <?php Pjax::begin(array_merge(Yii::$app->params['pjax'], ['enablePushState' => true])) ?>
 <?php $page = IndexPage::begin(compact('model', 'dataProvider')) ?>
 
-    <?= $page->setSearchFormData(compact(['types', 'states', 'uiModel'])) ?>
+    <?= $page->setSearchFormData(compact(['types', 'states', 'uiModel', 'sold_services'])) ?>
 
     <?php $page->beginContent('main-actions') ?>
         <?= Html::a(Yii::t('hipanel:client', 'Create client'), ['@client/create'], ['class' => 'btn btn-sm btn-success']) ?>

@@ -24,6 +24,7 @@ use hipanel\modules\finance\grid\BalanceColumn;
 use hipanel\modules\finance\grid\CreditColumn;
 use hipanel\modules\finance\widgets\ColoredBalance;
 use hipanel\widgets\ArraySpoiler;
+use hipanel\widgets\DatePicker;
 use hiqdev\yii2\menus\grid\MenuColumn;
 use Yii;
 use yii\helpers\Html;
@@ -98,6 +99,12 @@ class ClientGridView extends BoxedGridView
                     'url' => Url::to('set-note'),
                 ],
             ],
+            'login_without_note' => [
+                'class' => MainColumn::class,
+                'attribute' => 'login',
+                'filterAttribute' => 'login_like',
+                'format' => 'raw',
+            ],
             'note' => [
                 'class' => XEditableColumn::class,
                 'pluginOptions' => [
@@ -165,7 +172,7 @@ class ClientGridView extends BoxedGridView
 
                     return join('<br>', $balances);
                 },
-                'contentOptions' => ['class' => 'text-bold text-right'],
+                'contentOptions' => ['class' => 'text-small text-right'],
             ],
             'credit' => CreditColumn::resolveConfig(),
             'country' => [
@@ -438,10 +445,10 @@ class ClientGridView extends BoxedGridView
                         return '';
                     }
                     if ($model->debt_period === null || (int) $model->debt_period > 1000) {
-                        return Html::tag('span', Yii::t('hipanel:client', 'Debt period could not be counted'), ['class' => 'text-red']);
+                        return Html::tag('span', Yii::t('hipanel:client', '&#8734;'), ['class' => 'text-red']);
                     }
 
-                    return Html::tag('span', Yii::t('hipanel:client', 'Approximatly {0, plural, one{# month} other{# monthes}}', $model->debt_period), ['class' => 'text-blue']);
+                    return Html::tag('span', sprintf("%01.2f", "{$model->debt_period}"), ['class' => 'text-blue']);
                 },
             ],
             'lang' => [
@@ -452,6 +459,18 @@ class ClientGridView extends BoxedGridView
                     return Html::tag('span', strtoupper($language), ['class' => "label bg-olive"]);
                 },
                 'filter' => false,
+            ],
+            'sold_services' => [
+                'format' => 'html',
+                'filter' => false,
+                'label' => Yii::t('hipanel:client', 'SubType'),
+                'value' => function($model) {
+                    foreach (json_decode($model->sold_services, true) as $sold_service => $value) {
+
+                        $sold_services[] = Html::tag('span', strtoupper(substr($sold_service, 0, 1)), ['class' => $value ? 'text-green text-bold' : 'text-red']);
+                    }
+                    return implode(' / ', $sold_services);
+                },
             ],
         ]);
     }

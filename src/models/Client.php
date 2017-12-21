@@ -42,14 +42,19 @@ class Client extends \hipanel\base\Model
     const STATE_DELETED = 'deleted';
     const STATE_BLOCKED = 'blocked';
 
+    const SOLD_DEDICATED = 'dedicated';
+    const SOLD_CDN = 'cdn';
+    const SOLD_VIRTUAL = 'virtual';
+    const SOLD_NOTHING = 'nothing';
+
     public function rules()
     {
         return [
-            [['id', 'seller_id', 'state_id', 'type_id', 'tariff_id', 'profile_id', 'payment_ticket_id', 'debt_period'], 'integer'],
+            [['id', 'seller_id', 'state_id', 'type_id', 'tariff_id', 'profile_id', 'payment_ticket_id'], 'integer'],
             [['login', 'seller', 'state', 'type', 'tariff', 'profile' ], 'safe'],
             [['state_label', 'type_label'], 'safe'],
             [['balance', 'credit', 'full_balance'], 'number'],
-            [['count', 'confirm_url', 'language', 'comment', 'name', 'currency', 'financial_month'], 'safe'],
+            [['count', 'confirm_url', 'language', 'comment', 'name', 'currency', 'financial_month', 'debt_period', 'sold_services'], 'safe'],
             [['create_time', 'update_time', 'last_deposit_time'], 'date'],
             [['id', 'note'], 'safe', 'on' => 'set-note'],
             [['id', 'description'], 'safe', 'on' => 'set-description'],
@@ -354,6 +359,18 @@ class Client extends \hipanel\base\Model
         }
 
         return $types;
+    }
+
+    public static function getSoldServices()
+    {
+        $sold_services = [
+            self::SOLD_DEDICATED => Yii::t('hipanel:server', 'Dedicated'),
+            self::SOLD_CDN => Yii::t('hipanel:server', 'CDN'),
+            self::SOLD_VIRTUAL => Yii::t('hipanel:server', 'Virtual'),
+            self::SOLD_NOTHING => Yii::t('hipanel:client', 'Nothing'),
+        ];
+
+        return $sold_services;
     }
 
     /**
