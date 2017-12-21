@@ -245,8 +245,6 @@ return [
     'Debt period' => 'Период задолжености',
     'Debt period could not be counted' => 'Невозможно подсчитать',
     'Approximatly {0, plural, one{# month} other{# monthes}}' => 'Приблизительно {0, plural, one{# месяц} few{# месяца} other{# месяцев}}',
-    'Description was changed' => 'Описание было изменено',
-    'Failed to change description' => 'Ошибка при изменении описания',
 
     /// Language
     'Language' => 'Язык',
