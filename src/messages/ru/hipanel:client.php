@@ -210,6 +210,9 @@ return [
     'VAT number' => 'ИНН',
     'TIN number' => 'ИНН',
     'Contract information' => 'Информация о договоре',
+    'Notification was created' => 'Напоминание создано',
+    'Payment notification' => 'Напомнить о оплате',
+    'Financial month' => 'Финансовый месяц',
     'Employee contact was save successfully' => 'Контакт сотрудника был успешно сохранён',
 
     'In order to be able to disable the pin code in the future, it is required to ask an answer to a security question.' => 'Для возможности отключения пин кода в будущем требуется задать ответ на секретный вопрос.',
@@ -239,6 +242,9 @@ return [
     'Requisites' => 'Реквизиты',
 
     'Balances' => 'Балансы',
+    'Debt period' => 'Период задолжености',
+    'Debt period could not be counted' => 'Невозможно подсчитать',
+    'Approximatly {0, plural, one{# month} other{# monthes}}' => 'Приблизительно {0, plural, one{# месяц} few{# месяца} other{# месяцев}}',
 
     /// Language
     'Language' => 'Язык',

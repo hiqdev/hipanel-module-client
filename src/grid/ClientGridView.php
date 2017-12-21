@@ -24,6 +24,7 @@ use hipanel\modules\finance\grid\BalanceColumn;
 use hipanel\modules\finance\grid\CreditColumn;
 use hipanel\modules\finance\widgets\ColoredBalance;
 use hipanel\widgets\ArraySpoiler;
+use hipanel\widgets\DatePicker;
 use hiqdev\yii2\menus\grid\MenuColumn;
 use Yii;
 use yii\helpers\Html;
@@ -98,6 +99,12 @@ class ClientGridView extends BoxedGridView
                     'url' => Url::to('set-note'),
                 ],
             ],
+            'login_without_note' => [
+                'class' => MainColumn::class,
+                'attribute' => 'login',
+                'filterAttribute' => 'login_like',
+                'format' => 'raw',
+            ],
             'note' => [
                 'class' => XEditableColumn::class,
                 'pluginOptions' => [
@@ -118,18 +125,10 @@ class ClientGridView extends BoxedGridView
                 'label' => Yii::t('hipanel', 'Client'),
                 'format' => 'raw',
                 'value' => function ($model) {
-                    $language = $model->language === 'ru' ? 'RU' : 'EN';
-                    $flag = Html::tag('span', $language, ['class' => "label bg-olive"]);
+                    $flag = Html::tag('span', $model->getLanguage(), ['class' => "label bg-olive"]);
 
                     return sprintf('<div style="display: flex; justify-content: space-between;"><div>%s</div><div>%s</div></div>', $model->name, $flag);
                 },
-            ],
-            'last_deposit_time' => [
-                'attribute' => 'last_deposit_time',
-                'label' => Yii::t('hipanel:client', 'Last deposit'),
-                'format' => 'date',
-                'filter' => false,
-                'enableSorting' => false,
             ],
             'state' => [
                 'class' => RefColumn::class,
@@ -164,7 +163,7 @@ class ClientGridView extends BoxedGridView
                     $balances = [];
                     if ($model->purses) {
                         foreach ($model->sortedPurses as $purse) {
-                            $billSearchUrl = BillController::getSearchUrl(['client_id' => $model->client_id, 'purse_id' => $model->id, 'currency_in' => [$purse->currency]]);
+                            $billSearchUrl = BillController::getSearchUrl(['client_id' => $model->client_id, 'purse_id' => $purse->id, 'currency_in' => [$purse->currency]]);
                             $balance = ColoredBalance::widget(['model' => $purse, 'url' => $billSearchUrl]);
                             array_push($balances, $balance);
                         }
@@ -172,7 +171,7 @@ class ClientGridView extends BoxedGridView
 
                     return join('<br>', $balances);
                 },
-                'contentOptions' => ['class' => 'text-bold text-right'],
+                'contentOptions' => ['class' => 'text-small text-right'],
             ],
             'credit' => CreditColumn::resolveConfig(),
             'country' => [
@@ -383,13 +382,93 @@ class ClientGridView extends BoxedGridView
                 'class' => MenuColumn::class,
                 'menuClass' => ClientActionsMenu::class,
             ],
+            'payment_ticket' => [
+                'format' => 'html',
+                'label' => Yii::t('hipanel', 'Ticket'),
+                'filter' => false,
+                'value' => function ($model) {
+                    if (!$model->payment_ticket_id) {
+                        return '';
+                    }
+
+                    if ($model->balance >= 0 && $model->payment_ticket->state === 'opened') {
+                        $class = 'text-red';
+                    } elseif ($model->balance >= 0) {
+                        $class = 'text-purple';
+                    } elseif ($model->payment_ticket->state === 'closed') {
+                        $class = 'text-red bold';
+                    } elseif ($model->payment_ticket->status === 'wait_admin') {
+                        $class = 'text-green';
+                    } else {
+                        $class = 'text-blue';
+                    }
+
+                    return  Html::a($model->payment_ticket_id, Url::to(['@ticket/view', 'id' => $model->payment_ticket_id]), compact('class'));
+                },
+            ],
+            'language' => [
+                'filter' => false,
+            ],
+            'description' => [
+                'class' => XEditableColumn::class,
+                'label' => Yii::t('hipanel','Description'),
+                'pluginOptions' => [
+                    'url'       => Url::to('set-description'),
+                ],
+                'widgetOptions' => [
+                    'linkOptions' => [
+                        'data-type' => 'textarea',
+                    ],
+                ],
+                'visible' => Yii::$app->user->can('support'),
+            ],
+            'last_deposit' => [
+                'label' => Yii::t('hipanel:client', 'Last deposit'),
+                'attribute' => 'last_deposit_time',
+                'format' => 'date',
+                'filter' => false,
+            ],
             'language' => [
                 'format' => 'html',
                 'value' => function ($model) {
-                    $language = $model->language === 'ru' ? 'ru' : 'en';
-                    return Html::tag('span', strtoupper($language), ['class' => "label bg-olive"]) . '&nbsp;&nbsp;' . Yii::t('hipanel:client', $model->language);
+                    $language = $model->getLanguage();
+                    return Html::tag('span', strtoupper($language), ['class' => "label bg-olive"]) . '&nbsp;&nbsp;' . Yii::t('hipanel:client', $language);
                 },
                 'filter' => false,
+            ],
+            'debt_period' => [
+                'filter' => false,
+                'format' => 'html',
+                'value' => function($model) {
+                    if ($model->balance >= 0) {
+                        return '';
+                    }
+                    if ($model->debt_period === null || (int) $model->debt_period > 1000) {
+                        return Html::tag('span', Yii::t('hipanel:client', '&#8734;'), ['class' => 'text-red']);
+                    }
+
+                    return Html::tag('span', sprintf("%01.2f", "{$model->debt_period}"), ['class' => 'text-blue']);
+                },
+            ],
+            'lang' => [
+                'format' => 'html',
+                'label' => Yii::t('hipanel', 'Language'),
+                'value' => function ($model) {
+                    return Html::tag('span', strtoupper($model->getLanguage()), ['class' => "label bg-olive"]);
+                },
+                'filter' => false,
+            ],
+            'sold_services' => [
+                'format' => 'html',
+                'filter' => false,
+                'label' => Yii::t('hipanel:client', 'SubType'),
+                'value' => function($model) {
+                    foreach (json_decode($model->sold_services, true) as $sold_service => $value) {
+
+                        $sold_services[] = Html::tag('span', strtoupper(substr($sold_service, 0, 1)), ['class' => $value ? 'text-green text-bold' : 'text-red']);
+                    }
+                    return implode(' / ', $sold_services);
+                },
             ],
         ]);
     }

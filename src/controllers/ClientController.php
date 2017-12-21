@@ -69,26 +69,29 @@ class ClientController extends \hipanel\base\CrudController
         return array_merge(parent::actions(), [
             'index' => [
                 'class' => IndexAction::class,
-                'on beforePerform' => function ($event) {
+                'on beforePerform' => function (Event $event) {
                     $user = Yii::$app->user;
                     if (!$user->isGuest && !$user->can('support')) {
                         Yii::$app->response->redirect(Url::to(['@client/view', 'id' => $user->id]))->send();
                     }
+
                     $action = $event->sender;
                     $query = $action->getDataProvider()->query;
                     $representation = $action->controller->indexPageUiOptionsModel->representation;
-                    if ($representation === 'payment') {
+                    if (in_array($representation, ['servers', 'payment'], true)) {
                         $query->addSelect(['purses'])->withPurses();
-                    }
-                    if ($representation === 'servers') {
-                        $query->addSelect(['accounts_count', Yii::getAlias('@server', false) ? 'servers_count' : null]);
-                        $query->addSelect(['purses'])->withPurses();
+                        if ($representation === 'payment') {
+                            $query->withPaymentTicket()->addSelect(['full_balance', 'debts_period']);
+                        } else {
+                            $query->addSelect(['accounts_count', Yii::getAlias('@server', false) ? 'servers_count' : null]);
+                        }
                     }
                 },
                 'data' => function ($action) {
                     return [
                         'types' => $this->getRefs('type,client', 'hipanel:client'),
                         'states' => $this->getRefs('state,client', 'hipanel:client'),
+                        'sold_services' => Client::getSoldServices(),
                     ];
                 },
                 'filterStorageMap' => [
@@ -211,6 +214,10 @@ class ClientController extends \hipanel\base\CrudController
                 'success' => Yii::t('hipanel', 'Note was changed'),
                 'error' => Yii::t('hipanel', 'Failed to change note'),
             ],
+            'create-payment-ticket' => [
+                'class' => SmartPerformAction::class,
+                'success' => Yii::t('hipanel:client', 'Notification was created'),
+            ],
             'bulk-enable-block-modal' => [
                 'class' => PrepareBulkAction::class,
                 'view' => '_bulkEnableBlock',
@@ -302,6 +309,11 @@ class ClientController extends \hipanel\base\CrudController
                         },
                     ],
                 ],
+            ],
+            'set-description' => [
+                'class' => SmartUpdateAction::class,
+                'success' => Yii::t('hipanel', 'Description was changed'),
+                'error' => Yii::t('hipanel', 'Failed to change description'),
             ],
         ]);
     }

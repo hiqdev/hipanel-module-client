@@ -17,6 +17,7 @@ use hipanel\modules\client\models\query\ClientQuery;
 use hipanel\modules\domain\models\Domain;
 use hipanel\modules\finance\models\Purse;
 use hipanel\modules\server\models\Server;
+use hipanel\modules\ticket\models\Thread;
 use hipanel\validators\DomainValidator;
 use Yii;
 
@@ -41,20 +42,26 @@ class Client extends \hipanel\base\Model
     const STATE_DELETED = 'deleted';
     const STATE_BLOCKED = 'blocked';
 
+    const SOLD_DEDICATED = 'dedicated';
+    const SOLD_CDN = 'cdn';
+    const SOLD_VIRTUAL = 'virtual';
+    const SOLD_NOTHING = 'nothing';
+
     public function rules()
     {
         return [
-            [['id', 'seller_id', 'state_id', 'type_id', 'tariff_id', 'profile_id'], 'integer'],
-            [['login', 'seller', 'state', 'type', 'tariff', 'profile'], 'safe'],
+            [['id', 'seller_id', 'state_id', 'type_id', 'tariff_id', 'profile_id', 'payment_ticket_id'], 'integer'],
+            [['login', 'seller', 'state', 'type', 'tariff', 'profile' ], 'safe'],
             [['state_label', 'type_label'], 'safe'],
-            [['balance', 'credit'], 'number'],
-            [['count', 'confirm_url', 'language', 'comment', 'name', 'currency'], 'safe'],
+            [['balance', 'credit', 'full_balance'], 'number'],
+            [['count', 'confirm_url', 'language', 'comment', 'name', 'currency', 'financial_month', 'debt_period', 'sold_services'], 'safe'],
             [['create_time', 'update_time', 'last_deposit_time'], 'date'],
             [['id', 'note'], 'safe', 'on' => 'set-note'],
+            [['id', 'description'], 'safe', 'on' => 'set-description'],
 
             [['id', 'credit'], 'required', 'on' => 'set-credit'],
             [['id', 'type', 'comment'], 'required', 'on' => ['set-block', 'enable-block']],
-            [['id'], 'required', 'on' => ['disable-block']],
+            [['id'], 'required', 'on' => ['disable-block', 'create-payment-ticket']],
             [['comment'], 'safe', 'on' => ['disable-block']],
             [['id', 'language'], 'required', 'on' => 'set-language'],
             [['id', 'seller_id'], 'required', 'on' => 'set-seller'],
@@ -98,6 +105,7 @@ class Client extends \hipanel\base\Model
                     'newsletters',
                     'commercial',
                     'monthly_invoice',
+                    'financial',
                 ],
                 'boolean',
                 'on' => ['mailing-settings'],
@@ -225,12 +233,15 @@ class Client extends \hipanel\base\Model
 
             'is_verified' => Yii::t('hipanel:client', 'Is verified'),
 
+            'debt_period' => Yii::t('hipanel:client', 'Debt period'),
+
             // Mailing/Notification settings
             'notify_important_actions' => Yii::t('hipanel:client', 'Notify important actions'),
             'domain_registration' => Yii::t('hipanel:client', 'Domain registration'),
             'newsletters' => Yii::t('hipanel:client', 'Newsletters'),
             'commercial' => Yii::t('hipanel:client', 'Commercial'),
             'monthly_invoice' => Yii::t('hipanel:client', 'Monthly invoice'),
+            'financial' => Yii::t('hipanel:client', 'Payment notification'),
 
             // Domain settings
             'autorenewal' => Yii::t('hipanel', 'Autorenewal'),
@@ -274,6 +285,14 @@ class Client extends \hipanel\base\Model
         }
 
         return $this->hasMany(Server::class, ['client_id' => 'id']);
+    }
+
+    public function getPayment_ticket()
+    {
+        if (!Yii::getAlias('@ticket', false)) {
+            return null;
+        }
+        return $this->hasOne(Thread::class, ['id' => 'payment_ticket_id']);
     }
 
     public function getPurses()
@@ -342,6 +361,18 @@ class Client extends \hipanel\base\Model
         return $types;
     }
 
+    public static function getSoldServices()
+    {
+        $sold_services = [
+            self::SOLD_DEDICATED => Yii::t('hipanel:server', 'Dedicated'),
+            self::SOLD_CDN => Yii::t('hipanel:server', 'CDN'),
+            self::SOLD_VIRTUAL => Yii::t('hipanel:server', 'Virtual'),
+            self::SOLD_NOTHING => Yii::t('hipanel:client', 'Nothing'),
+        ];
+
+        return $sold_services;
+    }
+
     /**
      * Sort related purses like `usd`, `eur`, other...
      *
@@ -364,5 +395,10 @@ class Client extends \hipanel\base\Model
         });
 
         return $purses;
+    }
+
+    public function getLanguage($default = 'ru')
+    {
+        return $this->language ? : $default;
     }
 }
