@@ -179,6 +179,7 @@ return [
     'Verification level' => 'Уровень верификации',
     '{icon} Confirm' => '{icon} Подтвердить',
     'Confirmation message was sent to your email' => 'Письмо подтверждения было отправлено на вашу почту',
+    'Email was confirmed successfully' => 'E-mail был успешно подтверждён',
     'Not confirmed' => 'Не подтверждён',
     'Confirmed' => 'Подтверждён',
     'The phone number was verified successfully' => 'Номер телефона был успешно подтверждён',

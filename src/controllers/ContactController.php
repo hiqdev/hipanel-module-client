@@ -247,6 +247,7 @@ class ContactController extends CrudController
     {
         $confirmer = Yii::createObject(EmailConfirmer::class);
         $confirmer->confirm();
+        Yii::$app->getSession()->setFlash('success', Yii::t('hipanel:client', 'Email was confirmed successfully'));
 
         $to = $id ? ['@contact/view', 'id' => $id] : ['/site/profile'];
 
