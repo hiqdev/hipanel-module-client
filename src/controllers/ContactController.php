@@ -64,7 +64,6 @@ class ContactController extends CrudController
                 'actions' => [
                     'update-employee' => 'employee.update',
                     'set-confirmation' => 'contact.force-verify',
-                    '*' => 'contact.read',
                 ],
             ],
             [
