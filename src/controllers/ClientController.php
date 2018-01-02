@@ -23,6 +23,7 @@ use hipanel\actions\SmartPerformAction;
 use hipanel\actions\SmartUpdateAction;
 use hipanel\actions\ValidateFormAction;
 use hipanel\actions\ViewAction;
+use hipanel\filters\EasyAccessControl;
 use hipanel\helpers\Url;
 use hipanel\modules\client\models\Client;
 use Yii;
@@ -36,23 +37,12 @@ class ClientController extends \hipanel\base\CrudController
     {
         return array_merge(parent::behaviors(), [
             [
-                'class' => AccessControl::class,
-                'only' => ['update', 'delete'],
-                'rules' => [
-                    [
-                        'allow' => true,
-                        'roles' => ['manage'],
-                    ],
-                ],
-            ],
-            [
-                'class' => AccessControl::class,
-                'only' => ['set-verified'],
-                'rules' => [
-                    [
-                        'allow' => true,
-                        'roles' => ['contact.force-verify'],
-                    ],
+                'class' => EasyAccessControl::class,
+                'actions' => [
+                    'update' => 'client.update',
+                    'delete' => 'client.delete',
+                    'set-verified' => 'contact.force-verify',
+                    '*' => 'client.read',
                 ],
             ],
             [
