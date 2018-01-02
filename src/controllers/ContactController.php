@@ -62,8 +62,12 @@ class ContactController extends CrudController
             [
                 'class' => EasyAccessControl::class,
                 'actions' => [
+                    'create' => 'contact.create',
+                    'update' => 'contact.update',
+                    'delete' => 'contact.delete',
                     'update-employee' => 'employee.update',
                     'set-confirmation' => 'contact.force-verify',
+                    '*' => 'contact.read',
                 ],
             ],
             [
