@@ -18,6 +18,7 @@ use hipanel\actions\SmartUpdateAction;
 use hipanel\actions\ValidateFormAction;
 use hipanel\actions\ViewAction;
 use hipanel\base\CrudController;
+use hipanel\filters\EasyAccessControl;
 use hipanel\helpers\ArrayHelper;
 use hipanel\modules\client\actions\ContactCreateAction;
 use hipanel\modules\client\actions\ContactUpdateAction;
@@ -34,7 +35,6 @@ use hipanel\modules\client\models\Verification;
 use hipanel\modules\client\repositories\NotifyTriesRepository;
 use Yii;
 use yii\base\Event;
-use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
@@ -60,23 +60,11 @@ class ContactController extends CrudController
     {
         return ArrayHelper::merge(parent::behaviors(), [
             [
-                'class' => AccessControl::class,
-                'only' => ['set-confirmation'],
-                'rules' => [
-                    [
-                        'allow' => true,
-                        'roles' => ['contact.force-verify'],
-                    ],
-                ],
-            ],
-            [
-                'class' => AccessControl::class,
-                'only' => ['update-employee'],
-                'rules' => [
-                    [
-                        'allow' => true,
-                        'roles' => ['employee.update'],
-                    ],
+                'class' => EasyAccessControl::class,
+                'actions' => [
+                    'update-employee' => 'employee.update',
+                    'set-confirmation' => 'contact.force-verify',
+                    '*' => 'contact.read',
                 ],
             ],
             [

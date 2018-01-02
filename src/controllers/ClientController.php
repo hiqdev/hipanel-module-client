@@ -14,7 +14,6 @@ use hipanel\actions\ClassValuesAction;
 use hipanel\actions\ComboSearchAction;
 use hipanel\actions\IndexAction;
 use hipanel\actions\PrepareBulkAction;
-use hipanel\actions\RedirectAction;
 use hipanel\actions\RenderJsonAction;
 use hipanel\actions\SearchAction;
 use hipanel\actions\SmartCreateAction;
@@ -28,7 +27,6 @@ use hipanel\helpers\Url;
 use hipanel\modules\client\models\Client;
 use Yii;
 use yii\base\Event;
-use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 
 class ClientController extends \hipanel\base\CrudController
