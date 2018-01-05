@@ -12,6 +12,7 @@ namespace hipanel\modules\client\menus;
 
 use hipanel\modules\client\models\Client;
 use hipanel\widgets\BlockModalButton;
+use hipanel\widgets\ImpersonateButton;
 use hipanel\widgets\SettingsModal;
 use hipanel\widgets\SimpleOperation;
 use Yii;
@@ -70,6 +71,11 @@ class ClientDetailMenu extends \hipanel\menus\AbstractDetailMenu
                 ]),
                 'encode' => false,
                 'visible' => $user->not($this->model->id) && $user->can('manage'),
+            ],
+            [
+                'label' => ImpersonateButton::widget(['model' => $this->model]),
+                'encode' => false,
+                'visible' => $user->can('client.impersonate') && $user->not($this->model->id)
             ],
             [
                 'label' => SettingsModal::widget([
@@ -161,7 +167,6 @@ class ClientDetailMenu extends \hipanel\menus\AbstractDetailMenu
                 'encode' => false,
                 'visible' => $user->can('manage') && $user->not($this->model->id),
             ],
-
         ], $actions);
 
         unset($items['view']);
