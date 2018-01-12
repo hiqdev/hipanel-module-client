@@ -66,13 +66,21 @@ class ClientController extends \hipanel\base\CrudController
                     $action = $event->sender;
                     $query = $action->getDataProvider()->query;
                     $representation = $action->controller->indexPageUiOptionsModel->representation;
+
                     if (in_array($representation, ['servers', 'payment'], true)) {
                         $query->addSelect(['purses'])->withPurses();
-                        if ($representation === 'payment') {
+                    }
+
+                    switch ($representation) {
+                        case 'payment':
                             $query->withPaymentTicket()->addSelect(['full_balance', 'debts_period']);
-                        } else {
+                            break;
+                        case 'servers':
                             $query->addSelect(['accounts_count', Yii::getAlias('@server', false) ? 'servers_count' : null]);
-                        }
+                            break;
+                        case 'documents':
+                            $query->addSelect(['documents']);
+                            break;
                     }
                 },
                 'data' => function ($action) {
@@ -177,6 +185,8 @@ class ClientController extends \hipanel\base\CrudController
                             'last_seen',
                             'contacts_count',
                             'blocking',
+                            'documents',
+                            'purses',
                             Yii::$app->user->can('manage') ? 'show_deleted' : null,
                             Yii::getAlias('@domain', false) ? 'domains_count' : null,
                             Yii::getAlias('@ticket', false) ? 'tickets_count' : null,
