@@ -183,6 +183,8 @@ class ClientController extends \hipanel\base\CrudController
                             'last_seen',
                             'contacts_count',
                             'blocking',
+                            'documents',
+                            'purses',
                             Yii::$app->user->can('manage') ? 'show_deleted' : null,
                             Yii::getAlias('@domain', false) ? 'domains_count' : null,
                             Yii::getAlias('@ticket', false) ? 'tickets_count' : null,
