@@ -67,7 +67,7 @@ class ClientController extends \hipanel\base\CrudController
                     $query = $action->getDataProvider()->query;
                     $representation = $action->controller->indexPageUiOptionsModel->representation;
 
-                    if (in_array($representation, ['servers', 'payment', 'documents'], true)) {
+                    if (in_array($representation, ['servers', 'payment'], true)) {
                         $query->addSelect(['purses'])->withPurses();
                     }
 
