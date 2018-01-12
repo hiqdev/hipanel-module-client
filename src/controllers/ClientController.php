@@ -66,19 +66,21 @@ class ClientController extends \hipanel\base\CrudController
                     $action = $event->sender;
                     $query = $action->getDataProvider()->query;
                     $representation = $action->controller->indexPageUiOptionsModel->representation;
+
                     if (in_array($representation, ['servers', 'payment', 'documents'], true)) {
                         $query->addSelect(['purses'])->withPurses();
-                        switch ($representation) {
-                            case 'payment':
-                                $query->withPaymentTicket()->addSelect(['full_balance', 'debts_period']);
-                                break;
-                            case 'servers':
-                                $query->addSelect(['accounts_count', Yii::getAlias('@server', false) ? 'servers_count' : null]);
-                                break;
-                            case 'documents':
-                                $query->addSelect(['documents']);
-                                break;
-                        }
+                    }
+
+                    switch ($representation) {
+                        case 'payment':
+                            $query->withPaymentTicket()->addSelect(['full_balance', 'debts_period']);
+                            break;
+                        case 'servers':
+                            $query->addSelect(['accounts_count', Yii::getAlias('@server', false) ? 'servers_count' : null]);
+                            break;
+                        case 'documents':
+                            $query->addSelect(['documents']);
+                            break;
                     }
                 },
                 'data' => function ($action) {
