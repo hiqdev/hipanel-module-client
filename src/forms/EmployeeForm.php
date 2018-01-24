@@ -165,8 +165,10 @@ class EmployeeForm
             return $contacts->getFirstError();
         }
 
-        if (!$this->getContract()->validate()) {
-            return reset($this->getContract()->getFirstErrors());
+        if ($this->getContract() !== null) {
+            if (!$this->getContract()->validate()) {
+                return reset($this->getContract()->getFirstErrors());
+            }
         }
 
         return true;
@@ -182,7 +184,14 @@ class EmployeeForm
         $collection = $this->getContactsCollection();
 
         try {
-            return $collection->save() && $this->getContract()->save();
+            $contractSaved = true;
+            $contactsSaved = $collection->save();
+
+            if ($this->getContract() !== null) {
+                $this->getContract()->save();
+            }
+
+            return $contactsSaved && $contractSaved;
         } catch (ResponseErrorException $e) {
             return $e->getMessage();
         }
