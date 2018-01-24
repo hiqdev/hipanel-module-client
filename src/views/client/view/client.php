@@ -68,12 +68,14 @@ $this->registerCss('legend {font-size: 16px;}');
                 <?= ClientGridView::detailView([
                     'boxed' => false,
                     'model' => $model,
-                    'columns' => [
-                        'seller_id', 'name', 'note', 'language',
+                    'columns' => array_filter([
+                        'seller_id', 'name',
+                        Yii::$app->user->not($model->id) ? 'note' : null,
+                        'language',
                         'type', 'state',
                         'create_time', 'update_time',
                         'tickets', 'servers', 'domains', 'contacts', 'hosting', 'blocking'
-                    ],
+                    ]),
                 ]) ?>
                 <?php $box->endBody() ?>
                 <?php $box->end() ?>
