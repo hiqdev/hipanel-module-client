@@ -39,6 +39,15 @@ $this->params['breadcrumbs'][] = $this->title;
                 'You can upload copy of your documents in order to help us verify your identity') ?>
         </p>
 
+        <p>
+            <?= Yii::t('hipanel:client', 'Please make sure that your submitted documents are:') ?>
+        </p>
+        <ul>
+            <li><?= Yii::t('hipanel:client', 'High quality: color image, 150 DPI resolution or higher, not blurry') ?></li>
+            <li><?= Yii::t('hipanel:client', 'Entirely visible: all four corners are captured') ?></li>
+            <li><?= Yii::t('hipanel:client', 'Valid: the expiry date is clearly visible') ?></li>
+        </ul>
+
         <?php $form = ActiveForm::begin([
             'id' => 'attach-form',
             'enableClientValidation' => true,
