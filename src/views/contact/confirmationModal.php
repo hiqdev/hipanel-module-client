@@ -10,6 +10,23 @@ use yii\helpers\Html;
  * @var \hipanel\modules\client\forms\PhoneConfirmationForm $model
  * @var \hipanel\modules\client\models\NotifyTries $tries
  */
+
+$requestCodeButton = Html::button(Yii::t('hipanel:client', 'Request code'), [
+    'id' => 'request-code',
+    'class' => 'pull-right btn btn-block btn-info ' . (!$tries->isIntervalSatisfied() ? 'disabled' : ''),
+    'style' => 'margin-top: 25px;',
+    'data' => [
+        'url' => Url::to(['@contact/request-phone-confirmation-code']),
+        'loading-text' => Yii::t('hipanel:client', 'Requesting...'),
+    ],
+]);
+$submitButton = Html::submitButton(Yii::t('hipanel', 'Confirm'), [
+    'class' => 'btn btn-success btn-block',
+    'style' => 'margin-top: 25px;',
+    'data' => [
+        'loading-text' => Yii::t('hipanel:client', 'Checking...'),
+    ],
+]);
 ?>
 
 <?php $form = ActiveForm::begin([
@@ -26,8 +43,12 @@ use yii\helpers\Html;
 <?= Html::activeHiddenInput($model, 'id', ['class' => 'confirmation-form-id']) ?>
 <?= Html::activeHiddenInput($model, 'type') ?>
     <div class="row">
-        <div class="col-md-6"><?= $form->field($model, 'phone')->textInput(['readonly' => true]) ?></div>
-        <div class="col-md-6"><?= $form->field($model, 'code') ?></div>
+        <div class="col-md-8"><?= $form->field($model, 'phone')->textInput(['readonly' => true]) ?></div>
+        <div class="col-md-4"><?= $requestCodeButton ?></div>
+    </div>
+    <div class="row">
+        <div class="col-md-8"><?= $form->field($model, 'code') ?></div>
+        <div class="col-md-4"><?= $submitButton ?></div>
     </div>
 
 <?php if (!$tries->isIntervalSatisfied()) : ?>
@@ -42,26 +63,6 @@ use yii\helpers\Html;
     </p>
 <?php endif ?>
 
-    <hr>
-
-<?= Html::submitButton(Yii::t('hipanel', 'Confirm'), [
-    'class' => 'btn btn-success',
-    'data' => [
-        'loading-text' => Yii::t('hipanel:client', 'Checking...'),
-    ],
-]) ?>
-
-<?= Html::button(Yii::t('hipanel:client', 'Request code'), [
-    'id' => 'request-code',
-    'class' => 'pull-right btn btn-info ' . (!$tries->isIntervalSatisfied() ? 'hide' : ''),
-    'data' => [
-        'url' => Url::to(['@contact/request-phone-confirmation-code']),
-        'loading-text' => Yii::t('hipanel:client', 'Requesting...'),
-    ],
-]) ?>
-
-<?= Html::button(Yii::t('hipanel', 'Cancel'), ['class' => 'btn btn-default', 'data-dismiss' => 'modal']) ?>
-
 <?php $form->end() ?>
 
 
@@ -72,10 +73,10 @@ use yii\helpers\Html;
     var nextTryBlock = $('.docs-next-try');
     
     // Init attributes
-    requestButton.filter('.hide').attr('disabled', true);
+    requestButton.filter('.disabled').attr('disabled', true);
     
     var enableRequestButton = function () {
-        return requestButton.removeClass('hide').removeAttr('disabled')
+        return requestButton.removeClass('disabled').removeAttr('disabled')
     };
     
     requestButton.on('click', function (event) {

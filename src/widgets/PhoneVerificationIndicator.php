@@ -20,7 +20,7 @@ class PhoneVerificationIndicator extends VerificationIndicator
     {
         echo AjaxModal::widget([
             'id' => $this->model->id . '-' . $this->type . '-verification-link',
-            'header' => Html::tag('h4', Yii::t('hipanel:client', 'Phone number confirmation')),
+            'header' => Html::tag('h4', Yii::t('hipanel:client', 'Phone number confirmation'), ['class' => 'modal-title']),
             'scenario' => 'push',
             'actionUrl' => [
                 '@contact/phone-confirmation-modal',
