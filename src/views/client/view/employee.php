@@ -91,7 +91,7 @@ $form = new \hipanel\modules\client\forms\EmployeeForm($model->contact, $scenari
                 <?php endforeach ?>
             </div>
             <div class="col-md-6">
-                <?php if (Yii::getAlias('@document', false) !== false) : ?>
+                <?php if (Yii::getAlias('@document', false) !== false && Yii::$app->user->can('document.read')) : ?>
                     <?php $box = Box::begin(['renderBody' => false]) ?>
                     <?php $box->beginHeader() ?>
                     <?= $box->renderTitle(Yii::t('hipanel:client', 'Documents')) ?>

@@ -124,7 +124,7 @@ FlagIconCssAsset::register($this);
                     <?php $box->endBody() ?>
                 <?php $box->end() ?>
 
-                <?php if (Yii::getAlias('@document', false) !== false) : ?>
+                <?php if (Yii::getAlias('@document', false) !== false && Yii::$app->user->can('document.read')) : ?>
                     <?php $box = Box::begin(['renderBody' => false]) ?>
                         <?php $box->beginHeader() ?>
                             <?= $box->renderTitle(Yii::t('hipanel:client', 'Documents')) ?>

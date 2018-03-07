@@ -44,7 +44,7 @@ class ClientRepresentations extends RepresentationCollection
                     'lang',
                 ],
             ] : null,
-            'documents' => Yii::$app->user->can('support') ? [
+            'documents' => Yii::$app->user->can('support')  &&  Yii::$app->user->can('document.read') ? [
                 'label' => Yii::t('hipanel:client', 'Documents'),
                 'columns' => [
                     'checkbox', 'login',
