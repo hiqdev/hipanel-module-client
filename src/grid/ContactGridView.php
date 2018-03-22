@@ -203,6 +203,10 @@ class ContactGridView extends BoxedGridView
                         return '';
                     }
 
+                    if (!Yii::$app->user->can('document.read')) {
+                        return '';
+                    }
+
                     return StackedDocumentsView::widget([
                         'models' => $model->documents,
                     ]);

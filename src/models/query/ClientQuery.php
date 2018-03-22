@@ -50,7 +50,10 @@ class ClientQuery extends ActiveQuery
     {
         $this->joinWith([
             'contact' => function ($query) {
-                $query->joinWith('documents');
+                if (Yii::$app->user->can('document.read')) {
+                    $query->joinWith('documents');
+                }
+
                 $query->joinWith('localizations');
             },
         ]);
@@ -62,7 +65,10 @@ class ClientQuery extends ActiveQuery
     {
         $this->joinWith([
             'purses' => function ($query) {
-                $query->joinWith('contact')->joinWith('requisite')->joinWith('documents');
+                $query->joinWith('contact')->joinWith('requisite');
+                if (Yii::$app->user->can('document.read')) {
+                    $query->joinWith('documents');
+                }
             },
         ]);
 
