@@ -40,7 +40,10 @@ class ClientController extends \hipanel\base\CrudController
                     'update' => 'client.update',
                     'delete' => 'client.delete',
                     'set-verified' => 'contact.force-verify',
-                    '*' => 'client.read',
+                    '*' => [
+                        'client.read',
+                        'employee.read',
+                    ],
                 ],
             ],
             [

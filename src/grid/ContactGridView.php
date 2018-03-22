@@ -228,24 +228,4 @@ class ContactGridView extends BoxedGridView
         ]);
     }
 
-    public static function defaultRepresentations()
-    {
-        return [
-            'common' => [
-                'label'   => Yii::t('hipanel', 'Common'),
-                'columns' => [
-                    'checkbox',
-                    'name', 'actions', 'email',
-                    'client_like', 'seller_id',
-                ],
-            ],
-            'requisites' => [
-                'label'   => Yii::t('hipanel:client', 'Requisites'),
-                'columns' => [
-                    'checkbox',
-                    'name', 'actions', 'requisites',
-                ],
-            ],
-        ];
-    }
 }
