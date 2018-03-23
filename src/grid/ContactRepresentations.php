@@ -12,11 +12,12 @@ class ContactRepresentations extends RepresentationCollection
         $this->representations = array_filter([
             'common' => [
                 'label' => Yii::t('hipanel', 'Common'),
-                'columns' => [
+                'columns' => array_filter([
                     'checkbox',
                     'name', 'actions', 'email',
-                    'client_like', 'seller_id',
-                ],
+                    'client_like',
+                    Yii::$app->user->can('client.read') ? 'seller_id' : null,
+                ]),
             ],
             'requisites' => [
                 'label' => Yii::t('hipanel:client', 'Requisites'),
