@@ -68,25 +68,27 @@ $form = ActiveForm::begin([
                         <div class="col-md-2">
                             <?= $form->field($model, "[{$i}]type")->dropDownList(Client::getTypeOptions()) ?>
                         </div>
-                        <div class="col-md-2">
-                            <?= $form->field($model, "[{$i}]seller_id")->widget(SellerCombo::class, [
-                                'pluginOptions' => [
-                                    'select2Options' => $model->isNewRecord ? [] : [
-                                        'templateSelection' => new \yii\web\JsExpression("
-                                                function (data, container) { 
-                                                    var disVal = '{$model->seller}'; 
+                        <?php if (Yii::$app->user->can('client.create') || Yii::$app->user->can('client.update')) : ?>
+                            <div class="col-md-2">
+                                <?= $form->field($model, "[{$i}]seller_id")->widget(SellerCombo::class, [
+                                    'pluginOptions' => [
+                                        'select2Options' => $model->isNewRecord ? [] : [
+                                            'templateSelection' => new \yii\web\JsExpression("
+                                                function (data, container) {
+                                                    var disVal = '{$model->seller}';
                                                     if ( container ) {
-                                                        return data.text; 
+                                                        return data.text;
                                                     } else {
                                                         $('#client-{$i}-seller_id').attr('disabled', true);
                                                         return disVal;
                                                     }
                                                 }
-                                            ")
-                                    ]
-                                ],
-                            ]) ?>
-                        </div>
+                                            "),
+                                        ],
+                                    ],
+                                ]) ?>
+                            </div>
+                        <?php endif ?>
                     </div>
                 </div>
             </div>
