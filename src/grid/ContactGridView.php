@@ -203,6 +203,10 @@ class ContactGridView extends BoxedGridView
                         return '';
                     }
 
+                    if (!Yii::$app->user->can('document.read')) {
+                        return '';
+                    }
+
                     return StackedDocumentsView::widget([
                         'models' => $model->documents,
                     ]);
@@ -224,24 +228,4 @@ class ContactGridView extends BoxedGridView
         ]);
     }
 
-    public static function defaultRepresentations()
-    {
-        return [
-            'common' => [
-                'label'   => Yii::t('hipanel', 'Common'),
-                'columns' => [
-                    'checkbox',
-                    'name', 'actions', 'email',
-                    'client_like', 'seller_id',
-                ],
-            ],
-            'requisites' => [
-                'label'   => Yii::t('hipanel:client', 'Requisites'),
-                'columns' => [
-                    'checkbox',
-                    'name', 'actions', 'requisites',
-                ],
-            ],
-        ];
-    }
 }

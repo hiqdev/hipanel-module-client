@@ -46,7 +46,9 @@ class EmployeeForm
     {
         $this->scenario = $scenario;
         $this->contacts = $this->extractContacts($contact);
-        $this->contract = $this->extractContract($contact);
+        if (Yii::$app->user->can('document.read')) {
+            $this->contract = $this->extractContract($contact);
+        }
     }
 
     /**

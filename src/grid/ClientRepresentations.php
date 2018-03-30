@@ -9,30 +9,35 @@ class ClientRepresentations extends RepresentationCollection
 {
     protected function fillRepresentations()
     {
+        $user = Yii::$app->user;
         $this->representations = array_filter([
             'common' => [
                 'label' => Yii::t('hipanel', 'Common'),
-                'columns' => [
+                'columns' => array_filter([
                     'checkbox',
                     'login',
-                    'name_language', 'seller_id',
-                    'type', 'state',
-                    'balance', 'credit',
-                ],
+                    'name_language',
+                    $user->can('client.read') ? 'seller_id' : null,
+                    $user->can('client.read') ? 'type' : null,
+                    'state',
+                    $user->can('bill.read') ? 'balance' : null,
+                    $user->can('bill.read') ? 'credit' : null,
+                ]),
             ],
-            'servers' => Yii::$app->user->can('support') ? [
+            'servers' => $user->can('support') ? [
                 'label' => Yii::t('hipanel:client', 'Servers'),
                 'columns' => [
                     'checkbox',
                     'login',
                     'name_language', 'seller_id',
-                    'type', 'registered_and_last_update', 'state',
+                    $user->can('client.read') ? 'type' :null,
+                    'registered_and_last_update', 'state',
                     'servers',
                     'accounts_count',
                     'balances',
                 ],
             ] : null,
-            'payment' => Yii::$app->user->can('support') ? [
+            'payment' => $user->can('support') && $user->can('bill.read') ? [
                 'label' => Yii::t('hipanel:client', 'Payment'),
                 'columns' => [
                     'checkbox', 'login_without_note', 'note',
@@ -44,7 +49,7 @@ class ClientRepresentations extends RepresentationCollection
                     'lang',
                 ],
             ] : null,
-            'documents' => Yii::$app->user->can('support') ? [
+            'documents' => $user->can('support')  && $user->can('document.read') ? [
                 'label' => Yii::t('hipanel:client', 'Documents'),
                 'columns' => [
                     'checkbox', 'login',

@@ -40,7 +40,7 @@ class ClientController extends \hipanel\base\CrudController
                     'update' => 'client.update',
                     'delete' => 'client.delete',
                     'set-verified' => 'contact.force-verify',
-                    '*' => 'client.read',
+                    '*' => ['client.read', 'employee.read'],
                 ],
             ],
             [
@@ -185,7 +185,7 @@ class ClientController extends \hipanel\base\CrudController
                             'last_seen',
                             'contacts_count',
                             'blocking',
-                            'documents',
+                            Yii::$app->user->can('document.read') ? 'documents' : null,
                             'purses',
                             Yii::$app->user->can('manage') ? 'show_deleted' : null,
                             Yii::getAlias('@domain', false) ? 'domains_count' : null,
