@@ -256,6 +256,12 @@ class Client extends \hipanel\base\Model
             'pincode' => Yii::t('hipanel:client', 'Enter pincode'),
             'question' => Yii::t('hipanel:client', 'Choose question'),
             'answer' => Yii::t('hipanel:client', 'Answer'),
+
+            // Debt
+            'debt_till' => Yii::t('hipanel:client', 'Debt till'),
+            'debt_from' => Yii::t('hipanel:client', 'Debt from'),
+            'debt_period_till' => Yii::t('hipanel:client', 'Debt period till'),
+            'debt_period_from' => Yii::t('hipanel:client', 'Debt period from'),
         ]);
     }
 
