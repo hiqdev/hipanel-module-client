@@ -53,8 +53,8 @@ class Client extends \hipanel\base\Model
             [['id', 'seller_id', 'state_id', 'type_id', 'tariff_id', 'profile_id', 'payment_ticket_id'], 'integer'],
             [['login', 'seller', 'state', 'type', 'tariff', 'profile' ], 'safe'],
             [['state_label', 'type_label'], 'safe'],
-            [['balance', 'credit', 'full_balance'], 'number'],
-            [['count', 'confirm_url', 'language', 'comment', 'name', 'currency', 'financial_month', 'debt_period', 'sold_services'], 'safe'],
+            [['balance', 'credit', 'full_balance', 'debt_gt', 'debt_lt', 'debt_depth_gt', 'debt_depth_lt'], 'number'],
+            [['count', 'confirm_url', 'language', 'comment', 'name', 'currency', 'financial_month', 'debt_depth', 'sold_services'], 'safe'],
             [['create_time', 'update_time', 'last_deposit_time'], 'date'],
             [['id', 'note'], 'safe', 'on' => 'set-note'],
             [['id', 'description'], 'safe', 'on' => 'set-description'],
@@ -233,7 +233,7 @@ class Client extends \hipanel\base\Model
 
             'is_verified' => Yii::t('hipanel:client', 'Is verified'),
 
-            'debt_period' => Yii::t('hipanel:client', 'Debt period'),
+            'debt_depth' => Yii::t('hipanel:client', 'Debt period'),
 
             // Mailing/Notification settings
             'notify_important_actions' => Yii::t('hipanel:client', 'Notify important actions'),
@@ -256,6 +256,12 @@ class Client extends \hipanel\base\Model
             'pincode' => Yii::t('hipanel:client', 'Enter pincode'),
             'question' => Yii::t('hipanel:client', 'Choose question'),
             'answer' => Yii::t('hipanel:client', 'Answer'),
+
+            // Debt
+            'debt_lt' => Yii::t('hipanel:client', 'Debt till'),
+            'debt_gt' => Yii::t('hipanel:client', 'Debt from'),
+            'debt_depth_lt' => Yii::t('hipanel:client', 'Debt period till'),
+            'debt_depth_gt' => Yii::t('hipanel:client', 'Debt period from'),
         ]);
     }
 

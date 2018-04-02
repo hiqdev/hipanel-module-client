@@ -60,6 +60,20 @@ use yii\helpers\Html;
             'multiple'  => true,
         ]) ?>
     </div>
+    <div class="col-md-4 col-sm-6 col-xs-12">
+        <?= $search->field('debt_gt') ?>
+    </div>
+    <div class="col-md-4 col-sm-6 col-xs-12">
+        <?= $search->field('debt_lt') ?>
+    </div>
+    <div class="col-md-4 col-sm-6 col-xs-12">
+        <?= $search->field('debt_depth_gt') ?>
+    </div>
+    <div class="col-md-4 col-sm-6 col-xs-12">
+        <?= $search->field('debt_depth_lt') ?>
+    </div>
+
+
 <?php endif ?>
 
 <div class="row top-buffer"></div>

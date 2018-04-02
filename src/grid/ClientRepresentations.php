@@ -44,7 +44,7 @@ class ClientRepresentations extends RepresentationCollection
                     'sold_services',
                     'balance',
                     'last_deposit',
-                    'debt_period',
+                    'debt_depth',
                     'payment_ticket',
                     'lang',
                 ],
