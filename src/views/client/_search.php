@@ -61,16 +61,16 @@ use yii\helpers\Html;
         ]) ?>
     </div>
     <div class="col-md-4 col-sm-6 col-xs-12">
-        <?= $search->field('debt_from') ?>
+        <?= $search->field('debt_gt') ?>
     </div>
     <div class="col-md-4 col-sm-6 col-xs-12">
-        <?= $search->field('debt_till') ?>
+        <?= $search->field('debt_lt') ?>
     </div>
     <div class="col-md-4 col-sm-6 col-xs-12">
-        <?= $search->field('debt_periods_from') ?>
+        <?= $search->field('debt_periods_gt') ?>
     </div>
     <div class="col-md-4 col-sm-6 col-xs-12">
-        <?= $search->field('debt_periods_till') ?>
+        <?= $search->field('debt_periods_lt') ?>
     </div>
 
 

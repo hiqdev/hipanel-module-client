@@ -53,7 +53,7 @@ class Client extends \hipanel\base\Model
             [['id', 'seller_id', 'state_id', 'type_id', 'tariff_id', 'profile_id', 'payment_ticket_id'], 'integer'],
             [['login', 'seller', 'state', 'type', 'tariff', 'profile' ], 'safe'],
             [['state_label', 'type_label'], 'safe'],
-            [['balance', 'credit', 'full_balance', 'debt_from', 'debt_till', 'debt_periods_from', 'debt_periods_till'], 'number'],
+            [['balance', 'credit', 'full_balance', 'debt_gt', 'debt_lt', 'debt_periods_gt', 'debt_periods_lt'], 'number'],
             [['count', 'confirm_url', 'language', 'comment', 'name', 'currency', 'financial_month', 'debt_period', 'sold_services'], 'safe'],
             [['create_time', 'update_time', 'last_deposit_time'], 'date'],
             [['id', 'note'], 'safe', 'on' => 'set-note'],
@@ -258,10 +258,10 @@ class Client extends \hipanel\base\Model
             'answer' => Yii::t('hipanel:client', 'Answer'),
 
             // Debt
-            'debt_till' => Yii::t('hipanel:client', 'Debt till'),
-            'debt_from' => Yii::t('hipanel:client', 'Debt from'),
-            'debt_periods_till' => Yii::t('hipanel:client', 'Debt period till'),
-            'debt_periods_from' => Yii::t('hipanel:client', 'Debt period from'),
+            'debt_lt' => Yii::t('hipanel:client', 'Debt till'),
+            'debt_gt' => Yii::t('hipanel:client', 'Debt from'),
+            'debt_periods_lt' => Yii::t('hipanel:client', 'Debt period till'),
+            'debt_periods_gt' => Yii::t('hipanel:client', 'Debt period from'),
         ]);
     }
 
