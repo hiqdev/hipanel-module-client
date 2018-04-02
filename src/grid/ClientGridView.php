@@ -436,18 +436,18 @@ class ClientGridView extends BoxedGridView
                 },
                 'filter' => false,
             ],
-            'debt_period' => [
+            'debt_depth' => [
                 'filter' => false,
                 'format' => 'html',
                 'value' => function($model) {
                     if ($model->balance >= 0) {
                         return '';
                     }
-                    if ($model->debt_period === null || (int) $model->debt_period > 1000) {
+                    if ($model->debt_depth === null || (int) $model->debt_depth > 1000) {
                         return Html::tag('span', Yii::t('hipanel:client', '&#8734;'), ['class' => 'text-red']);
                     }
 
-                    return Html::tag('span', sprintf("%01.2f", "{$model->debt_period}"), ['class' => 'text-blue']);
+                    return Html::tag('span', sprintf("%01.2f", "{$model->debt_depth}"), ['class' => 'text-blue']);
                 },
             ],
             'lang' => [
