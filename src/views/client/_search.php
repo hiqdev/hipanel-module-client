@@ -67,10 +67,10 @@ use yii\helpers\Html;
         <?= $search->field('debt_till') ?>
     </div>
     <div class="col-md-4 col-sm-6 col-xs-12">
-        <?= $search->field('debt_period_from') ?>
+        <?= $search->field('debt_periods_from') ?>
     </div>
     <div class="col-md-4 col-sm-6 col-xs-12">
-        <?= $search->field('debt_period_till') ?>
+        <?= $search->field('debt_periods_till') ?>
     </div>
 
 

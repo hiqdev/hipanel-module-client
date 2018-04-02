@@ -248,8 +248,8 @@ return [
 
     'Balances' => 'Балансы',
     'Debt period' => 'Период задолжености',
-    'Debt period from' => 'Период задолжености от',
-    'Debt period till' => 'Период задолжености по',
+    'Debt periods from' => 'Период задолжености от',
+    'Debt periods till' => 'Период задолжености по',
     'Debt period could not be counted' => 'Невозможно подсчитать',
     'Debt from' => 'Размер задолжености от',
     'Debt till' => 'Размер задолжености по',
