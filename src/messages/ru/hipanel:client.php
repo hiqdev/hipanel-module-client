@@ -247,6 +247,7 @@ return [
     'Requisites' => 'Реквизиты',
 
     'Balances' => 'Балансы',
+    'Sold services' => 'Проданные сервисы',
     'Debt period' => 'Период задолжености',
     'Debt periods from' => 'Период задолжености от',
     'Debt periods till' => 'Период задолжености по',
@@ -254,6 +255,10 @@ return [
     'Debt from' => 'Размер задолжености от',
     'Debt till' => 'Размер задолжености по',
     'Approximatly {0, plural, one{# month} other{# monthes}}' => 'Приблизительно {0, plural, one{# месяц} few{# месяца} other{# месяцев}}',
+    'Nothing' => 'Ничего',
+    'Dedicated' => 'Выделенные',
+    'Virtual' => 'Виртуальные',
+    'Hide VIP' => 'Скрыть VIP',
 
     /// Language
     'Language' => 'Язык',

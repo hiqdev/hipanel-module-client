@@ -45,6 +45,10 @@ class Client extends \hipanel\base\Model
     const SOLD_DEDICATED = 'dedicated';
     const SOLD_CDN = 'cdn';
     const SOLD_VIRTUAL = 'virtual';
+    const SOLD_DEDICATED_CDN = 'dedicated_cdn';
+    const SOLD_DEDICATED_VIRTUAL = 'dedicated_virtual';
+    const SOLD_CDN_VIRUAL = 'cdn_virtual';
+    const SOLD_ALL = 'all';
     const SOLD_NOTHING = 'nothing';
 
     public function rules()
@@ -106,6 +110,7 @@ class Client extends \hipanel\base\Model
                     'commercial',
                     'monthly_invoice',
                     'financial',
+                    'hide_vip',
                 ],
                 'boolean',
                 'on' => ['mailing-settings'],
@@ -260,8 +265,11 @@ class Client extends \hipanel\base\Model
             // Debt
             'debt_lt' => Yii::t('hipanel:client', 'Debt till'),
             'debt_gt' => Yii::t('hipanel:client', 'Debt from'),
-            'debt_depth_lt' => Yii::t('hipanel:client', 'Debt period till'),
-            'debt_depth_gt' => Yii::t('hipanel:client', 'Debt period from'),
+            'debt_depth_lt' => Yii::t('hipanel:client', 'Debt periods till'),
+            'debt_depth_gt' => Yii::t('hipanel:client', 'Debt periods from'),
+
+            // VIP
+            'hide_vip' => Yii::t('hipanel:client', 'Hide VIP'),
         ]);
     }
 
@@ -370,9 +378,13 @@ class Client extends \hipanel\base\Model
     public static function getSoldServices()
     {
         $sold_services = [
-            self::SOLD_DEDICATED => Yii::t('hipanel:server', 'Dedicated'),
-            self::SOLD_CDN => Yii::t('hipanel:server', 'CDN'),
-            self::SOLD_VIRTUAL => Yii::t('hipanel:server', 'Virtual'),
+            self::SOLD_DEDICATED => Yii::t('hipanel:client', 'Dedicated'),
+            self::SOLD_CDN => Yii::t('hipanel:client', 'CDN'),
+            self::SOLD_VIRTUAL => Yii::t('hipanel:client', 'Virtual'),
+            self::SOLD_DEDICATED_CDN => Yii::t('hipanel:client', 'Dedicated') . "+CDN",
+            self::SOLD_DEDICATED_VIRTUAL => Yii::t('hipanel:client', 'Dedicated') . "+" . Yii::t('hipanel:client', 'Virtual'),
+            self::SOLD_CDN_VIRUAL => "CDN+" . Yii::t('hipanel:client', 'Virtual'),
+            self::SOLD_ALL => Yii::t('hipanel:client', 'Dedicated') . "+CDN+" . Yii::t('hipanel:client', 'Virtual'),
             self::SOLD_NOTHING => Yii::t('hipanel:client', 'Nothing'),
         ];
 
