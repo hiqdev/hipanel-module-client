@@ -247,19 +247,6 @@ return [
     'Requisites' => 'Реквизиты',
 
     'Balances' => 'Балансы',
-    'Sold services' => 'Проданные услуги',
-    'Debt depth' => 'Глубина долга',
-    'Debt depth from' => 'Глубина долга от',
-    'Debt depth to' => 'Глубина долга до',
-    'Debt depth could not be counted' => 'Невозможно подсчитать',
-    'Debt from' => 'Долг от',
-    'Debt to' => 'Долг до',
-    'Approximatly {0, plural, one{# month} other{# monthes}}' => 'Приблизительно {0, plural, one{# месяц} few{# месяца} other{# месяцев}}',
-    'Nothing' => 'Ничего',
-    'Dedicated' => 'Выделенные',
-    'Virtual' => 'Виртуальные',
-    'Hide VIP' => 'Скрыть VIP',
-
     /// Language
     'Language' => 'Язык',
     'RU' => 'Русский',

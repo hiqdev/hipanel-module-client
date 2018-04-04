@@ -67,14 +67,11 @@ class ClientController extends \hipanel\base\CrudController
                     $query = $action->getDataProvider()->query;
                     $representation = $action->controller->indexPageUiOptionsModel->representation;
 
-                    if (in_array($representation, ['servers', 'payment'], true)) {
+                    if (in_array($representation, ['servers'], true)) {
                         $query->addSelect(['purses'])->withPurses();
                     }
 
                     switch ($representation) {
-                        case 'payment':
-                            $query->withPaymentTicket()->addSelect(['full_balance', 'debts_period']);
-                            break;
                         case 'servers':
                             $query->addSelect(['accounts_count', Yii::getAlias('@server', false) ? 'servers_count' : null]);
                             break;
@@ -87,7 +84,6 @@ class ClientController extends \hipanel\base\CrudController
                     return [
                         'types' => $this->getRefs('type,client', 'hipanel:client'),
                         'states' => $this->getRefs('state,client', 'hipanel:client'),
-                        'sold_services' => Client::getSoldServices(),
                     ];
                 },
                 'filterStorageMap' => [
@@ -211,10 +207,6 @@ class ClientController extends \hipanel\base\CrudController
                 'class' => SmartUpdateAction::class,
                 'success' => Yii::t('hipanel', 'Note was changed'),
                 'error' => Yii::t('hipanel', 'Failed to change note'),
-            ],
-            'create-payment-ticket' => [
-                'class' => SmartPerformAction::class,
-                'success' => Yii::t('hipanel:client', 'Notification was created'),
             ],
             'bulk-enable-block-modal' => [
                 'class' => PrepareBulkAction::class,
