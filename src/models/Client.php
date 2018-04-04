@@ -42,15 +42,6 @@ class Client extends \hipanel\base\Model
     const STATE_DELETED = 'deleted';
     const STATE_BLOCKED = 'blocked';
 
-    const SOLD_DEDICATED = 'dedicated';
-    const SOLD_CDN = 'cdn';
-    const SOLD_VIRTUAL = 'virtual';
-    const SOLD_DEDICATED_CDN = 'dedicated_cdn';
-    const SOLD_DEDICATED_VIRTUAL = 'dedicated_virtual';
-    const SOLD_CDN_VIRTUAL = 'cdn_virtual';
-    const SOLD_ALL = 'all';
-    const SOLD_NOTHING = 'nothing';
-
     public function rules()
     {
         return [
@@ -58,8 +49,8 @@ class Client extends \hipanel\base\Model
             [['login', 'seller', 'state', 'type', 'tariff', 'profile' ], 'safe'],
             [['state_label', 'type_label'], 'safe'],
             [['balance', 'credit', 'full_balance', 'debt_gt', 'debt_lt', 'debt_depth_gt', 'debt_depth_lt'], 'number'],
-            [['count', 'confirm_url', 'language', 'comment', 'name', 'currency', 'financial_month', 'debt_depth', 'sold_services'], 'safe'],
-            [['create_time', 'update_time', 'last_deposit_time'], 'date'],
+            [['count', 'confirm_url', 'language', 'comment', 'name', 'currency' ], 'safe'],
+            [['create_time', 'update_time' ], 'date'],
             [['id', 'note'], 'safe', 'on' => 'set-note'],
             [['id', 'description'], 'safe', 'on' => 'set-description'],
 
@@ -110,7 +101,6 @@ class Client extends \hipanel\base\Model
                     'commercial',
                     'monthly_invoice',
                     'financial',
-                    'hide_vip',
                 ],
                 'boolean',
                 'on' => ['mailing-settings'],
@@ -262,15 +252,6 @@ class Client extends \hipanel\base\Model
             'question' => Yii::t('hipanel:client', 'Choose question'),
             'answer' => Yii::t('hipanel:client', 'Answer'),
 
-            // Debt
-            'debt_lt' => Yii::t('hipanel:client', 'Debt to'),
-            'debt_gt' => Yii::t('hipanel:client', 'Debt from'),
-            'debt_depth_lt' => Yii::t('hipanel:client', 'Debt depth to'),
-            'debt_depth_gt' => Yii::t('hipanel:client', 'Debt depth from'),
-            'sold_services' => Yii::t('hipanel:client', 'Sold services'),
-
-            // VIP
-            'hide_vip' => Yii::t('hipanel:client', 'Hide VIP'),
         ]);
     }
 
@@ -300,14 +281,6 @@ class Client extends \hipanel\base\Model
         }
 
         return $this->hasMany(Server::class, ['client_id' => 'id']);
-    }
-
-    public function getPayment_ticket()
-    {
-        if (!Yii::getAlias('@ticket', false)) {
-            return null;
-        }
-        return $this->hasOne(Thread::class, ['id' => 'payment_ticket_id']);
     }
 
     public function getPurses()
@@ -374,22 +347,6 @@ class Client extends \hipanel\base\Model
         }
 
         return $types;
-    }
-
-    public static function getSoldServices()
-    {
-        $sold_services = [
-            self::SOLD_DEDICATED => Yii::t('hipanel:client', 'Dedicated'),
-            self::SOLD_CDN => Yii::t('hipanel:client', 'CDN'),
-            self::SOLD_VIRTUAL => Yii::t('hipanel:client', 'Virtual'),
-            self::SOLD_DEDICATED_CDN => Yii::t('hipanel:client', 'Dedicated') . "+CDN",
-            self::SOLD_DEDICATED_VIRTUAL => Yii::t('hipanel:client', 'Dedicated') . "+" . Yii::t('hipanel:client', 'Virtual'),
-            self::SOLD_CDN_VIRTUAL => "CDN+" . Yii::t('hipanel:client', 'Virtual'),
-            self::SOLD_ALL => Yii::t('hipanel:client', 'Dedicated') . "+CDN+" . Yii::t('hipanel:client', 'Virtual'),
-            self::SOLD_NOTHING => Yii::t('hipanel:client', 'Nothing'),
-        ];
-
-        return $sold_services;
     }
 
     /**
