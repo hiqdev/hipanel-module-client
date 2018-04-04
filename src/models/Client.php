@@ -48,7 +48,7 @@ class Client extends \hipanel\base\Model
             [['id', 'seller_id', 'state_id', 'type_id', 'tariff_id', 'profile_id', 'payment_ticket_id'], 'integer'],
             [['login', 'seller', 'state', 'type', 'tariff', 'profile' ], 'safe'],
             [['state_label', 'type_label'], 'safe'],
-            [['balance', 'credit', 'full_balance', 'debt_gt', 'debt_lt', 'debt_depth_gt', 'debt_depth_lt'], 'number'],
+            [['balance', 'credit', 'full_balance'], 'number'],
             [['count', 'confirm_url', 'language', 'comment', 'name', 'currency' ], 'safe'],
             [['create_time', 'update_time' ], 'date'],
             [['id', 'note'], 'safe', 'on' => 'set-note'],
@@ -227,8 +227,6 @@ class Client extends \hipanel\base\Model
             'confirm_password' => Yii::t('hipanel', 'Confirm password'),
 
             'is_verified' => Yii::t('hipanel:client', 'Is verified'),
-
-            'debt_depth' => Yii::t('hipanel:client', 'Debt depth'),
 
             // Mailing/Notification settings
             'notify_important_actions' => Yii::t('hipanel:client', 'Notify important actions'),
