@@ -72,6 +72,9 @@ use yii\helpers\Html;
     <div class="col-md-4 col-sm-6 col-xs-12">
         <?= $search->field('debt_depth_lt') ?>
     </div>
+    <div class="col-md-4 col-sm-6 col-xs-12">
+        <?= $search->field('hide_vip')->checkbox() ?>
+    </div>
 
 
 <?php endif ?>
