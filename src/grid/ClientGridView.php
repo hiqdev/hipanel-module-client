@@ -96,7 +96,7 @@ class ClientGridView extends BoxedGridView
                 'format' => 'raw',
                 'note' => Yii::$app->user->can('manage') ? 'note' : null,
                 'noteOptions' => [
-                    'url' => Url::to('set-note'),
+                    'url' => Url::to('@client/set-note'),
                 ],
             ],
             'login_without_note' => [
@@ -108,7 +108,7 @@ class ClientGridView extends BoxedGridView
             'note' => [
                 'class' => XEditableColumn::class,
                 'pluginOptions' => [
-                    'url' => Url::to('set-note'),
+                    'url' => Url::to('@client/set-note'),
                 ],
                 'widgetOptions' => [
                     'linkOptions' => [
@@ -413,7 +413,7 @@ class ClientGridView extends BoxedGridView
                 'class' => XEditableColumn::class,
                 'label' => Yii::t('hipanel','Description'),
                 'pluginOptions' => [
-                    'url'       => Url::to('set-description'),
+                    'url'       => Url::to('@client/set-description'),
                 ],
                 'widgetOptions' => [
                     'linkOptions' => [
