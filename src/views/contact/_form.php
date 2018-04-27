@@ -69,6 +69,9 @@ use yii\web\View;
         <?= $form->field($model, 'icq'); ?>
         <?= $form->field($model, 'skype'); ?>
         <?= $form->field($model, 'jabber'); ?>
+        <?= $form->field($model, 'viber'); ?>
+        <?= $form->field($model, 'telegram'); ?>
+        <?= $form->field($model, 'whatsapp'); ?>
         <?= $form->field($model, 'other_messenger'); ?>
         <?= $form->field($model, 'social_net'); ?>
         <?php Box::end() ?>

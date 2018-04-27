@@ -56,7 +56,7 @@ class Contact extends \hipanel\base\Model
             [['postal_code'], 'safe'],
             [['city', 'street1', 'street2', 'street3', 'address'], 'safe'],
             [['voice_phone', 'fax_phone'], 'safe'],
-            [['icq', 'skype', 'jabber', 'social_net'], 'safe'],
+            [['icq', 'skype', 'jabber', 'viber', 'telegram', 'whatsapp', 'social_net'], 'safe'],
             [['roid', 'epp_id', 'remoteid', 'other_messenger'], 'safe'],
             [['name', 'first_name', 'last_name'], 'string'],
             [['birth_date', 'passport_date'], 'safe'],
@@ -220,7 +220,15 @@ class Contact extends \hipanel\base\Model
     public function getMessengers()
     {
         $res = [];
-        foreach (['skype' => 'Skype', 'icq' => 'ICQ', 'jabber' => 'Jabber'] as $k => $label) {
+        $messengers = [
+            'skype' => 'Skype',
+            'icq' => 'ICQ',
+            'jabber' => 'Jabber',
+            'viber' => 'Viber',
+            'telegram' => 'Telegram',
+            'whatsapp' => 'WhatsApp',
+        ];
+        foreach ($messengers as $k => $label) {
             if ($this->{$k}) {
                 $res[] = "<b>$label:</b>&nbsp;" . $this->{$k};
             }
