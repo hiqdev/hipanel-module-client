@@ -47,17 +47,6 @@ $modelReflacion = new \ReflectionClass(get_class($model));
 
         <!-- Tab panes -->
         <div class="tab-content">
-            <?php /*foreach ($langs as $code=>$label) : ?>
-                <?=Html::beginTag('div',['id'=>$code,'role'=>'tabpanel','class'=>'tab-pane'])?>
-                    <?= $form->field($model, "html_title_$code"); ?>
-                    <?= $form->field($model, "html_keywords_$code"); ?>
-                    <?= $form->field($model, "html_description_$code"); ?>
-                    <?= $form->field($model, "title_$code"); ?>
-                    <?= $form->field($model, "short_text_$code")->textarea(['row'=>6]); ?>
-                    <?= $form->field($model, "text_$code")->textarea(['row'=>9]); ?>
-                <?=Html::endTag('div')?>
-            <?php endforeach; */?>
-
             <?php foreach ([2867298 => 'ru', 2867299 => 'en'] as $id => $lng) : ?>
                 <?=Html::beginTag('div', ['id' => $lng, 'role' => 'tabpanel', 'class' => 'tab-pane'])?>
                     <?= $form->field($model, "data[$id][html_title]")->label('Html Title'); ?>
