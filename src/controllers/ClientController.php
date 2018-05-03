@@ -37,6 +37,7 @@ class ClientController extends \hipanel\base\CrudController
             [
                 'class' => EasyAccessControl::class,
                 'actions' => [
+                    'view,view html | pjax' => true,
                     'update' => 'client.update',
                     'delete' => 'client.delete',
                     'set-verified' => 'contact.force-verify',
