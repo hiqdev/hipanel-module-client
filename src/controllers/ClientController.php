@@ -41,6 +41,7 @@ class ClientController extends \hipanel\base\CrudController
                     'update' => 'client.update',
                     'delete' => 'client.delete',
                     'set-verified' => 'contact.force-verify',
+                    'perform-billing' => 'bill.create',
                     '*' => ['client.read', 'employee.read'],
                 ],
             ],
@@ -172,6 +173,11 @@ class ClientController extends \hipanel\base\CrudController
                 'view' => '_setTmpPasswordModal',
                 'success' => Yii::t('hipanel:client', 'Temporary password was sent on your email'),
                 'error' => Yii::t('hipanel:client', 'Error during temporary password setting'),
+            ],
+            'perform-billing' => [
+                'class' => SmartPerformAction::class,
+                'success' => Yii::t('hipanel:client', 'Bills were charged successfully!'),
+                'error' => Yii::t('hipanel:client', 'Error during bills charging'),
             ],
             'view' => [
                 'class' => ViewAction::class,

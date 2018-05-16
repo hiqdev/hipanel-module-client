@@ -32,6 +32,23 @@ class ClientActionsMenu extends \hiqdev\yii2\menus\Menu
                 'url' => ['@client/view', 'id' => $this->model->id],
                 'encode' => false,
             ],
+            'billing' => [
+                'label' => Yii::t('hipanel:client', 'Perform billing'),
+                'icon' => 'fa-money',
+                'url' => ['@client/perform-billing'],
+                'linkOptions' => [
+                    'data' => [
+                        'method' => 'post',
+                        'pjax' => '0',
+                        'form' => 'perform-billing',
+                        'params' => [
+                            'Client[id]' => $this->model->id,
+                        ],
+                    ],
+                ],
+                'encode' => false,
+                'visible' => Yii::$app->user->can('bill.create'),
+            ],
         ];
     }
 }

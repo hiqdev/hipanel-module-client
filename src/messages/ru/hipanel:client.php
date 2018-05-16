@@ -253,4 +253,7 @@ return [
     'EN' => 'English',
     'ru' => 'Русский',
     'en' => 'English',
+    'Perform billing' => 'Пробилить сейчас',
+    'Bills were charged successfully!' => 'Билы были пересчитаны успешно',
+    'Error during bills charging' => 'Возникла ошибка при пересчете билов',
 ];

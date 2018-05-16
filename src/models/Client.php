@@ -147,7 +147,7 @@ class Client extends \hipanel\base\Model
             ],
 
             // Delete
-            [['id'], 'integer', 'on' => 'delete'],
+            [['id'], 'integer', 'on' => ['delete', 'perform-billing']],
 
             // Set temporary password
             [['id'], 'integer', 'on' => 'set-tmp-password'],
