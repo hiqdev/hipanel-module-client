@@ -50,7 +50,7 @@ class Client extends \hipanel\base\Model
             [['state_label', 'type_label'], 'safe'],
             [['balance', 'credit', 'full_balance'], 'number'],
             [['count', 'confirm_url', 'language', 'comment', 'name', 'currency' ], 'safe'],
-            [['create_time', 'update_time' ], 'date'],
+            [['create_time', 'update_time', 'create_date'], 'date'],
             [['id', 'note'], 'safe', 'on' => 'set-note'],
             [['id', 'description'], 'safe', 'on' => 'set-description'],
 

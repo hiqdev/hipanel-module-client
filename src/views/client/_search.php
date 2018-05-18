@@ -59,8 +59,8 @@ use yii\helpers\Html;
         <?= Html::tag('label', Yii::t('hipanel:client', 'Registered range'), ['class' => 'control-label']); ?>
         <?= DateRangePicker::widget([
             'model' => $search->model,
-            'attribute' => 'create_time_ge',
-            'attribute2' => 'create_time_lt',
+            'attribute' => 'create_date_ge',
+            'attribute2' => 'create_date_le',
             'options' => [
                 'class' => 'form-control',
             ],
