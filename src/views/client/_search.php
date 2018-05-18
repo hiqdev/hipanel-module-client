@@ -1,8 +1,8 @@
 <?php
 
 use hipanel\modules\client\widgets\combo\SellerCombo;
-use hipanel\widgets\DatePicker;
 use hiqdev\combo\StaticCombo;
+use hiqdev\yii2\daterangepicker\DateRangePicker;
 use yii\helpers\Html;
 
 /**
@@ -57,15 +57,14 @@ use yii\helpers\Html;
 <div class="col-md-4 col-sm-6 col-xs-12">
     <div class="form-group">
         <?= Html::tag('label', Yii::t('hipanel:client', 'Registered range'), ['class' => 'control-label']); ?>
-        <?= DatePicker::widget([
-            'model'         => $search->model,
-            'type'          => DatePicker::TYPE_RANGE,
-            'attribute'     => 'create_time_ge',
-            'attribute2'    => 'create_time_lt',
-            'pluginOptions' => [
-                'autoclose' => true,
-                'format'    => 'yyyy-mm-dd',
+        <?= DateRangePicker::widget([
+            'model' => $search->model,
+            'attribute' => 'create_time_ge',
+            'attribute2' => 'create_time_lt',
+            'options' => [
+                'class' => 'form-control',
             ],
+            'dateFormat' => 'yyyy-MM-dd',
         ]) ?>
     </div>
 </div>
