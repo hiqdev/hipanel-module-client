@@ -10,8 +10,9 @@ class ProfileCest
     public function ensureThatProfilePageWorks(Admin $I)
     {
         $I->login();
-        $I->amOnPage(Url::to(['/client/client/view?id=' . $I->id]));
+        $I->amOnPage(Url::to(['@client/view', 'id' => $I->id]));
         $I->see('Client detailed information');
         $I->see('admin', '.profile-user-role');
+
     }
 }
