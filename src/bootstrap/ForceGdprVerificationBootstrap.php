@@ -47,7 +47,7 @@ class ForceGdprVerificationBootstrap implements BootstrapInterface
             }
 
             $contact = Contact::findOne(['id' => $app->user->getId()]);
-            if ($contact->gdpr_consent && $contact->privacy_consent) {
+            if ($contact->gdpr_consent && $contact->policy_consent) {
                 $app->session->set('contact.gdpr.accepted', true);
                 return;
             }

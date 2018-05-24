@@ -27,7 +27,7 @@ class GdprConsent extends Widget
 
     public function run()
     {
-        if ((string)$this->model->id !== (string)Yii::$app->user->getId() || $this->model->gdpr_consent && $this->model->privacy_consent) {
+        if ((string)$this->model->id !== (string)Yii::$app->user->getId() || $this->model->gdpr_consent && $this->model->policy_consent) {
             return $this->renderHiddenInputs();
         }
 
@@ -48,7 +48,7 @@ class GdprConsent extends Widget
         acceptingButton = $('.gdpr-acception');
     
     var validToCloseModal = {
-        privacy_consent: false,
+        policy_consent: false,
         gdpr_consent: false
     };
     var isGdprAccepted = function () {
@@ -87,7 +87,7 @@ JS
     {
         return implode('', [
             Html::activeHiddenInput($this->model, 'gdpr_consent'),
-            Html::activeHiddenInput($this->model, 'privacy_consent'),
+            Html::activeHiddenInput($this->model, 'policy_consent'),
         ]);
     }
 }
