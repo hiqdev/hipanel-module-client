@@ -27,7 +27,7 @@ class GdprConsent extends Widget
 
     public function run()
     {
-        if ($this->model->id !== Yii::$app->user->getId() || $this->model->gdpr_agreement && $this->model->privacy_policy) {
+        if ($this->model->id !== Yii::$app->user->getId() || $this->model->gdpr_consent && $this->model->privacy_consent) {
             return $this->renderHiddenInputs();
         }
 
@@ -48,8 +48,8 @@ class GdprConsent extends Widget
         acceptingButton = $('.gdpr-acception');
     
     var validToCloseModal = {
-        privacy_policy: false,
-        gdpr_agreement: false
+        privacy_consent: false,
+        gdpr_consent: false
     };
     var isGdprAccepted = function () {
         var gdprIsAccepted = true;
@@ -86,8 +86,8 @@ JS
     private function renderHiddenInputs()
     {
         return implode('', [
-            Html::activeHiddenInput($this->model, 'gdpr_agreement'),
-            Html::activeHiddenInput($this->model, 'privacy_policy'),
+            Html::activeHiddenInput($this->model, 'gdpr_consent'),
+            Html::activeHiddenInput($this->model, 'privacy_consent'),
         ]);
     }
 }

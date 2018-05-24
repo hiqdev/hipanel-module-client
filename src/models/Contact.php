@@ -19,8 +19,8 @@ use Yii;
  *
  * @property Contact[] $localizations
  * @property int|string $id
- * @property bool $gdpr_agreement
- * @property bool $privacy_policy
+ * @property bool $gdpr_consent
+ * @property bool $privacy_consent
  */
 class Contact extends \hipanel\base\Model
 {
@@ -135,10 +135,10 @@ class Contact extends \hipanel\base\Model
                 'on' => ['request-email-confirmation', 'request-phone-confirmation', 'delete', 'update', 'update-require-passport'],
             ],
             [
-                ['gdpr_agreement', 'privacy_policy'], 'default', 'value' => 1, 'on' => ['create'],
+                ['gdpr_consent', 'privacy_consent'], 'default', 'value' => 1, 'on' => ['create'],
             ],
             [
-                ['gdpr_agreement', 'privacy_policy'],
+                ['gdpr_consent', 'privacy_consent'],
                 'required', 'requiredValue' => 1,
                 'on' => ['update'],
                 'when' => function () { return (string)Yii::$app->user->getId() === (string)$this->id; },
@@ -188,8 +188,8 @@ class Contact extends \hipanel\base\Model
             'bank_swift'        => Yii::t('hipanel:client', 'SWIFT code'),
             'localization'      => Yii::t('hipanel:client', 'Localization'),
             'xxx_token'         => Yii::t('hipanel:client', 'XXX Token'),
-            'privacy_policy'    => Yii::t('hipanel:client', 'Privacy policy agreement'),
-            'gdpr_agreement'    => Yii::t('hipanel:client', 'GDPR policy agreement'),
+            'privacy_consent'    => Yii::t('hipanel:client', 'Privacy policy agreement'),
+            'gdpr_consent'    => Yii::t('hipanel:client', 'GDPR policy agreement'),
         ]);
     }
 

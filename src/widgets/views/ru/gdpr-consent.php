@@ -69,10 +69,10 @@ use yii\bootstrap\Html;
 </p>
 
 <p>
-    <?= $form->field($model, 'privacy_policy')->checkbox()->label(
+    <?= $form->field($model, 'privacy_consent')->checkbox()->label(
         'Я согласен с ' .  Html::a('Политикой Конфиденциальности', Yii::$app->params['legals.privacyPolicyUrl'])
     ) ?>
-    <?= $form->field($model, 'gdpr_agreement')->checkbox()->label(
+    <?= $form->field($model, 'gdpr_consent')->checkbox()->label(
         'Я соглашаюсь предоставить любые Личные данные для целей, указанных в настоящей '
             . Html::a('Политике Конфиденциальности', Yii::$app->params['legals.privacyPolicyUrl'])
     ) ?>
