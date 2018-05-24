@@ -245,6 +245,7 @@ return [
     'Balance EUR' => 'Баланс EUR',
     'Other balances' => 'Другие балансы',
     'Requisites' => 'Реквизиты',
+    'We need your permission in order to provide services' => 'Нам необходимо ваше разрешение чтобы предоставлять услуги',
 
     'Balances' => 'Балансы',
     /// Language

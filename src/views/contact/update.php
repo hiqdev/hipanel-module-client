@@ -38,6 +38,7 @@ $this->params['breadcrumbs'][] = $this->title;
     'validationUrl' => Url::toRoute(['validate-form', 'scenario' => $model->scenario]),
 ]) ?>
 
+<?= \hipanel\modules\client\widgets\GdprConsent::widget(compact('model', 'form')) ?>
 <?= $this->render('_form', compact('model', 'countries', 'model', 'form')) ?>
 
 <?php ActiveForm::end() ?>

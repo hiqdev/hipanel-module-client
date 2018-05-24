@@ -21,6 +21,7 @@ return [
     ],
     'bootstrap' => [
         \hipanel\modules\client\bootstrap\ContactAttributesVerificationBootstrap::class,
+        \hipanel\modules\client\bootstrap\ForceGdprVerificationBootstrap::class,
     ],
     'components' => [
         'i18n' => [

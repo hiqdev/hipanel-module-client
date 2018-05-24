@@ -12,6 +12,7 @@ namespace hipanel\modules\client\controllers;
 
 use hipanel\actions\ComboSearchAction;
 use hipanel\actions\IndexAction;
+use hipanel\actions\RenderAction;
 use hipanel\actions\SmartDeleteAction;
 use hipanel\actions\SmartPerformAction;
 use hipanel\actions\SmartUpdateAction;
@@ -67,6 +68,7 @@ class ContactController extends CrudController
                     'delete' => 'contact.delete',
                     'update-employee' => 'employee.update',
                     'set-confirmation' => 'contact.force-verify',
+                    'gdpr-consent' => '@',
                     '*' => 'contact.read',
                 ],
             ],
