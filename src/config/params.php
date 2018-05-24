@@ -1,7 +1,5 @@
 <?php
 
 return [
-    'legals' => [
-        'privacy_policy' => '#'
-    ]
+    'legals.privacyPolicyUrl' => '#'
 ];

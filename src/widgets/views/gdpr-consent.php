@@ -59,18 +59,18 @@ use yii\bootstrap\Html;
     We do not provide your Personal Data to third parties, except cases regulated in accordance with this Privacy
     Policy,
     any agreement we have with you or as required by law. You consent to Us using any Personal Data that We collect for
-    any one of the purposes stated in this <?= Html::a('Privacy Policy', Yii::$app->params['legals']['privacy_policy']) ?>
+    any one of the purposes stated in this <?= Html::a('Privacy Policy', Yii::$app->params['legals.privacyPolicyUrl']) ?>
 </p>
 
 <hr/>
 
 <p>
     <?= $form->field($model, 'privacy_policy')->checkbox()->label(
-        'I agree to the ' . Html::a('Privacy Policy', Yii::$app->params['legals']['privacy_policy'])
+        'I agree to the ' . Html::a('Privacy Policy', Yii::$app->params['legals.privacyPolicyUrl'])
     ) ?>
     <?= $form->field($model, 'gdpr_agreement')->checkbox()->label(
         'I consent to provide any Personal Data for the purposes indicated in this '
-            . Html::a('Privacy Policy', Yii::$app->params['legals']['privacy_policy'])
+            . Html::a('Privacy Policy', Yii::$app->params['legals.privacyPolicyUrl'])
     ) ?>
 </p>
 
