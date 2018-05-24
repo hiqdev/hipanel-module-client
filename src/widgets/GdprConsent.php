@@ -27,7 +27,7 @@ class GdprConsent extends Widget
 
     public function run()
     {
-        if ($this->model->id !== Yii::$app->user->getId() || $this->model->gdpr_consent && $this->model->privacy_consent) {
+        if ((string)$this->model->id !== (string)Yii::$app->user->getId() || $this->model->gdpr_consent && $this->model->privacy_consent) {
             return $this->renderHiddenInputs();
         }
 
