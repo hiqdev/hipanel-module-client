@@ -3,6 +3,7 @@
 namespace hipanel\modules\client\widgets;
 
 use hipanel\modules\client\models\Contact;
+use Yii;
 use yii\base\Widget;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
@@ -26,11 +27,12 @@ class GdprConsent extends Widget
 
     public function run()
     {
-        if ($this->model->gdpr_agreement && $this->model->privacy_policy) {
+        if ($this->model->id !== Yii::$app->user->getId() || $this->model->gdpr_agreement && $this->model->privacy_policy) {
             return $this->renderHiddenInputs();
         }
 
         $this->registerClientScript();
+
         return $this->render('gdpr-consent', [
             'form' => $this->form,
             'model' => $this->model,

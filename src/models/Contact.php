@@ -18,6 +18,7 @@ use Yii;
  * Class Contact
  *
  * @property Contact[] $localizations
+ * @property int|string $id
  * @property bool $gdpr_agreement
  * @property bool $privacy_policy
  */
@@ -140,7 +141,8 @@ class Contact extends \hipanel\base\Model
                 ['gdpr_agreement', 'privacy_policy'],
                 'required', 'requiredValue' => 1,
                 'on' => ['update'],
-                'message' => Yii::t('hipanel:client', 'We need your permission in order to provide services')
+                'when' => function () { return (string)Yii::$app->user->getId() === (string)$this->id; },
+                'message' => Yii::t('hipanel:client', 'We need your permission in order to provide services'),
             ],
         ]);
     }
