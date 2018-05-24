@@ -28,11 +28,11 @@ class ForceGdprVerificationBootstrap implements BootstrapInterface
             return;
         }
 
-        if ($app->user->getIsGuest()) {
-            return;
-        }
-
         $app->on(Application::EVENT_BEFORE_ACTION, function (ActionEvent $event) use ($app) {
+            if ($app->user->getIsGuest()) {
+                return;
+            }
+
             if ($app->request->getIsAjax()) {
                 return;
             }
