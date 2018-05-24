@@ -68,7 +68,6 @@ class ContactController extends CrudController
                     'delete' => 'contact.delete',
                     'update-employee' => 'employee.update',
                     'set-confirmation' => 'contact.force-verify',
-                    'gdpr-consent' => '@',
                     '*' => 'contact.read',
                 ],
             ],
