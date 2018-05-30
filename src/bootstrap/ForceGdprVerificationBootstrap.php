@@ -37,7 +37,12 @@ class ForceGdprVerificationBootstrap implements BootstrapInterface
                 return;
             }
 
-            if (strpos($event->action->getUniqueId(), 'client/') === 0) {
+            $action = $event->action->getUniqueId();
+            if (
+                strpos($action, 'client/') === 0
+                || strpos($action, 'monitoring/') === 0
+                || strpos($action, 'site/logout') === 0
+            ) {
                 return;
             }
 
