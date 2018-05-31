@@ -37,12 +37,15 @@ class ClientController extends \hipanel\base\CrudController
             [
                 'class' => EasyAccessControl::class,
                 'actions' => [
-                    'view,view html | pjax' => true,
                     'update' => 'client.update',
                     'delete' => 'client.delete',
+                    'enable-block, disable-block' => 'client.update',
                     'set-verified' => 'contact.force-verify',
-                    'perform-billing' => 'bill.create',
-                    '*' => ['client.read', 'employee.read'],
+                    'perform-billing, set-credit' => 'bill.create',
+                    'set-description, set-note' => 'client.update',
+                    'set-tmp-pwd' => 'client.update',
+                    'index, search' => ['client.read', 'employee.read'],
+                    '*' => '@',
                 ],
             ],
             [
