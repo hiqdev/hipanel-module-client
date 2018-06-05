@@ -20,8 +20,6 @@ use yii\helpers\Url;
 <div class="row">
     <div class="col-md-6"><?= $form->field($model, "[$model->id]autorenewal")->checkbox(); ?></div>
     <!-- /.col-md-6 -->
-    <div class="col-md-6"><?= $form->field($model, "[$model->id]whois_protected")->checkbox(); ?></div>
-    <!-- /.col-md-6 -->
 </div>
 <!-- /.row -->
 
