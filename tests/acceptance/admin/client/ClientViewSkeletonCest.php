@@ -5,9 +5,9 @@ namespace hipanel\modules\client\tests\acceptance\admin\client;
 use hipanel\tests\_support\Step\Acceptance\Admin;
 use hipanel\helpers\Url;
 
-class VisibilityCest
+class ClientViewSkeletonCest
 {
-    public function ensureThatClientPageVisible(Admin $I)
+    public function ensureThatClientSkeletonPageVisible(Admin $I)
     {
         $I->login();
         $I->needPage(Url::to(['@client/view', 'id' => $I->id]));

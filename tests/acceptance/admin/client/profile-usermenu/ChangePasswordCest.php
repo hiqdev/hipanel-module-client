@@ -7,8 +7,26 @@ use hipanel\helpers\Url;
 
 class ChangePasswordCest
 {
-    private $warningSelector = '//label[@class="control-label"]/../p';
+    /**
+     * @var string
+     */
+    private $warningSelector = '';
+
+    /**
+     * @var array
+     */
     private $labels = [];
+
+    public function __construct()
+    {
+        $this->warningSelector = '//label[@class="control-label"]/../p';
+        $this->labels = [
+            ['text' => 'Login',            'warning' => ''],
+            ['text' => 'Current password', 'warning' => 'cannot be blank.'],
+            ['text' => 'New password',     'warning' => 'cannot be blank.'],
+            ['text' => 'Confirm password', 'warning' => 'cannot be blank.'],
+        ];
+    }
 
     public function ensureThatChangePasswordWorks(Admin $I)
     {
@@ -16,12 +34,6 @@ class ChangePasswordCest
         $I->needPage(Url::to(['@client/view', 'id' => $I->id]));
         $I->click('Change password');
         $I->waitForElement('#change-password-form');
-        $this->labels = [
-            ['text' => 'Login',            'warning' => ''],
-            ['text' => 'Current password', 'warning' => 'cannot be blank.'],
-            ['text' => 'New password',     'warning' => 'cannot be blank.'],
-            ['text' => 'Confirm password', 'warning' => 'cannot be blank.'],
-        ];
 
         $this->testVisibility($I);
         $this->testWarnings($I);
@@ -55,9 +67,9 @@ class ChangePasswordCest
         $oldPassword = '0';
         $newPassword = 'NVc27ruX';
 
-        $I->fillField("#client-{$I->id}-old_password", $oldPassword);
-        $I->fillField("#client-{$I->id}-new_password", $newPassword);
-        $I->fillField("#client-{$I->id}-confirm_password", $oldPassword);
+        $I->fillField(['name' => "Client[{$I->id}][old_password]"], $oldPassword);
+        $I->fillField(['name' => "Client[{$I->id}][new_password]"], $newPassword);
+        $I->fillField(['name' => "Client[{$I->id}][confirm_password]"], $oldPassword);
         $I->click('Save');
         $I->waitForText('incorrect');
         $I->see('The password is incorrect', $this->warningSelector);
