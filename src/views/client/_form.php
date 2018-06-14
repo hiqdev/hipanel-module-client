@@ -71,6 +71,7 @@ $form = ActiveForm::begin([
                         <?php if (Yii::$app->user->can('client.create') || Yii::$app->user->can('client.update')) : ?>
                             <div class="col-md-2">
                                 <?= $form->field($model, "[{$i}]seller_id")->widget(SellerCombo::class, [
+                                    'clientType' => ['owner', 'seller', 'client'],
                                     'pluginOptions' => [
                                         'select2Options' => $model->isNewRecord ? [] : [
                                             'templateSelection' => new \yii\web\JsExpression("
