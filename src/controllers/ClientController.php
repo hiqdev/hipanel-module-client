@@ -39,6 +39,7 @@ class ClientController extends \hipanel\base\CrudController
                 'actions' => [
                     'update' => 'client.update',
                     'delete' => 'client.delete',
+                    'create' => ['employee.create', 'client.create'],
                     'enable-block, disable-block' => 'client.update',
                     'set-verified' => 'contact.force-verify',
                     'perform-billing, set-credit' => 'bill.create',
