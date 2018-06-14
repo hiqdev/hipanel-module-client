@@ -13,8 +13,8 @@ class UsdAccountCest
         $I->needPage(Url::to(['@client/view', 'id' => $I->id]));
         $key = 'data-resizable-column-id';
         $tbody = [
-            [$key => 'contact',   'text' => 'Contact',         'td' => 'Admin HiPanel'],
-            [$key => 'requisite', 'text' => 'Payment details', 'td' => 'Test Reseller'],
+            [$key => 'contact',   'text' => 'Contact',         'td' => 'HiQDev / Admin HiPanel'],
+            [$key => 'requisite', 'text' => 'Payment details', 'td' => 'HiQDev / Test Reseller'],
         ];
         foreach ($tbody as $tr ) {
             $I->seeElement(['css' => 'table tbody tr th'], [$key => $tr[$key]]);
