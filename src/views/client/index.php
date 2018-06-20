@@ -32,9 +32,11 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= $page->setSearchFormData(compact(['types', 'states', 'uiModel', 'sold_services'])) ?>
 
-    <?php $page->beginContent('main-actions') ?>
-        <?= Html::a(Yii::t('hipanel:client', 'Create client'), ['@client/create'], ['class' => 'btn btn-sm btn-success']) ?>
-    <?php $page->endContent() ?>
+    <?php if (Yii::$app->user->can('client.create') || Yii::$app->user->can('employee.create')) : ?>
+        <?php $page->beginContent('main-actions') ?>
+            <?= Html::a(Yii::t('hipanel:client', 'Create client'), ['@client/create'], ['class' => 'btn btn-sm btn-success']) ?>
+        <?php $page->endContent() ?>
+    <?php endif ?>
 
     <?php $page->beginContent('legend') ?>
         <?= GridLegend::widget(['legendItem' => new ClientGridLegend($model)]) ?>
