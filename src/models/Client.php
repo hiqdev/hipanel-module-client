@@ -120,7 +120,7 @@ class Client extends \hipanel\base\Model
                 'skipOnEmpty' => true,
                 'on' => ['ip-restrictions'],
             ],
-            [['allowed_ips', 'sshftp_ips'], 'each', 'rule' => ['ip', 'subnet' => true], 'on' => ['ip-restrictions']],
+            [['allowed_ips', 'sshftp_ips'], 'each', 'rule' => ['ip', 'subnet' => null], 'on' => ['ip-restrictions']],
 
             // Change password
             [['login', 'old_password', 'new_password', 'confirm_password'], 'required', 'on' => ['change-password']],
