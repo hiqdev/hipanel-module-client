@@ -110,7 +110,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 ]);
             }
             if (Yii::$app->user->can('manage')) {
-                echo $page->renderBulkButton(Yii::t('hipanel', 'Edit'), 'update');
+                echo $page->renderBulkButton('@client/update', Yii::t('hipanel', 'Edit'));
             }
             ?>
             <div class="dropdown" style="display: inline-block">

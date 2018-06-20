@@ -34,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?php $page->endContent() ?>
 
         <?php $page->beginContent('bulk-actions') ?>
-            <?= $page->renderBulkButton(Yii::t('hipanel', 'Delete'), 'delete', 'danger')?>
+            <?= $page->renderBulkDeleteButton('@contact/delete')?>
         <?php $page->endContent() ?>
 
         <?php $page->beginContent('table') ?>
