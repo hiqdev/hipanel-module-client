@@ -25,3 +25,4 @@ modules:
             admin.id: '%admin.id%'
             admin.login: '%admin.login%'
             admin.password: '%admin.password%'
+        - \hipanel\tests\_support\Helper\PnotifyHelper
