@@ -54,6 +54,12 @@ class ClientGridView extends BoxedGridView
                     return null;
                 },
             ],
+            'referer_id' => [
+                'class' => ClientColumn::class,
+                'idAttribute' => 'referer_id',
+                'attribute' => 'referer_id',
+                'nameAttribute' => 'referer',
+            ],
             'balance_eur' => [
                 'attribute' => 'purses',
                 'label' => Yii::t('hipanel:client', 'Balance EUR'),

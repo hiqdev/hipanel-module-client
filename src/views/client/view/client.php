@@ -69,7 +69,7 @@ $this->registerCss('legend {font-size: 16px;}');
                     'boxed' => false,
                     'model' => $model,
                     'columns' => array_filter([
-                        'seller_id', 'name',
+                        'seller_id', 'referer_id', 'name',
                         Yii::$app->user->not($model->id) ? 'note' : null,
                         'language',
                         'type', 'state',

@@ -2,6 +2,7 @@
 
 use hipanel\helpers\Url;
 use hipanel\modules\client\models\Client;
+use hipanel\modules\client\widgets\combo\ClientCombo;
 use hipanel\modules\client\widgets\combo\SellerCombo;
 use hipanel\widgets\DynamicFormWidget;
 use hipanel\widgets\PasswordInput;
@@ -59,16 +60,19 @@ $form = ActiveForm::begin([
                             <div class="col-md-2">
                                 <?= $form->field($model, "[{$i}]email")->textInput(['autocomplete' => 'new-email']) ?>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <?= $form->field($model, "[{$i}]password")->widget(PasswordInput::class) ?>
                             </div>
                         <?php else: ?>
                             <?= $form->field($model, "[{$i}]id")->hiddenInput()->label(false) ?>
                         <?php endif; ?>
-                        <div class="col-md-2">
+                        <div class="col-md-1">
                             <?= $form->field($model, "[{$i}]type")->dropDownList(Client::getTypeOptions()) ?>
                         </div>
                         <?php if (Yii::$app->user->can('client.create') || Yii::$app->user->can('client.update')) : ?>
+                            <div class="col-md-2">
+                                <?= $form->field($model, "[{$i}]referer_id")->widget(ClientCombo::class) ?>
+                            </div>
                             <div class="col-md-2">
                                 <?= $form->field($model, "[{$i}]seller_id")->widget(SellerCombo::class, [
                                     'clientType' => ['owner', 'seller', 'client'],

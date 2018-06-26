@@ -11,13 +11,9 @@
 namespace hipanel\modules\client\models;
 
 use hipanel\helpers\StringHelper;
-use hipanel\models\Ref;
-use hipanel\modules\client\forms\EmployeeForm;
 use hipanel\modules\client\models\query\ClientQuery;
-use hipanel\modules\domain\models\Domain;
 use hipanel\modules\finance\models\Purse;
 use hipanel\modules\server\models\Server;
-use hipanel\modules\ticket\models\Thread;
 use hipanel\validators\DomainValidator;
 use Yii;
 
@@ -45,8 +41,8 @@ class Client extends \hipanel\base\Model
     public function rules()
     {
         return [
-            [['id', 'seller_id', 'state_id', 'type_id', 'tariff_id', 'profile_id', 'payment_ticket_id'], 'integer'],
-            [['login', 'seller', 'state', 'type', 'tariff', 'profile' ], 'safe'],
+            [['id', 'seller_id', 'state_id', 'type_id', 'tariff_id', 'profile_id', 'payment_ticket_id', 'referer_id'], 'integer'],
+            [['login', 'seller', 'state', 'type', 'tariff', 'profile', 'referer'], 'safe'],
             [['state_label', 'type_label'], 'safe'],
             [['balance', 'credit', 'full_balance'], 'number'],
             [['count', 'confirm_url', 'language', 'comment', 'name', 'currency' ], 'safe'],
@@ -65,6 +61,7 @@ class Client extends \hipanel\base\Model
             [['type'], 'default', 'value' => self::TYPE_CLIENT, 'on' => ['create', 'update']],
             [['type'], 'in', 'range' => array_keys(self::getTypeOptions()), 'on' => ['create', 'update']],
             [['email'], 'email', 'on' => ['create', 'update']],
+            [['referer_id'], 'integer', 'on' => ['create', 'update']],
             [
                 ['login'],
                 'match',
@@ -212,6 +209,8 @@ class Client extends \hipanel\base\Model
     {
         return $this->mergeAttributeLabels([
             'login' => Yii::t('hipanel:client', 'Login'),
+            'referer_id' => Yii::t('hipanel:client', 'Referer'),
+            'referer' => Yii::t('hipanel:client', 'Referer'),
 
             'create_time' => Yii::t('hipanel', 'Registered'),
             'update_time' => Yii::t('hipanel', 'Last update'),
