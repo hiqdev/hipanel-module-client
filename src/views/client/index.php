@@ -15,8 +15,8 @@ use hipanel\widgets\AjaxModal;
 use hipanel\widgets\gridLegend\GridLegend;
 use hipanel\widgets\IndexPage;
 use hipanel\widgets\Pjax;
-use yii\bootstrap\Dropdown;
 use hiqdev\assets\flagiconcss\FlagIconCssAsset;
+use yii\bootstrap\Dropdown;
 use yii\helpers\Html;
 
 FlagIconCssAsset::register($this);
@@ -99,7 +99,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 array_push($dropDownItems, [
                     'label' => '<i class="fa fa-trash"></i> ' . Yii::t('hipanel', 'Delete'),
                     'url' => '#bulk-delete-modal',
-                    'linkOptions' => ['data-toggle' => 'modal']
+                    'linkOptions' => ['data-toggle' => 'modal'],
                 ]);
                 array_push($ajaxModals, [
                     'id' => 'bulk-delete-modal',

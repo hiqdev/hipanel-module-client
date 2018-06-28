@@ -3,13 +3,11 @@
 use hipanel\modules\client\models\Contact;
 use yii\bootstrap\Html;
 
-
 /**
- * @var \yii\web\View $this
+ * @var \yii\web\View
  * @var Contact $model
  * @var \yii\bootstrap\ActiveForm $form
  */
-
 ?>
 
 <?php \yii\bootstrap\Modal::begin([
@@ -70,7 +68,7 @@ use yii\bootstrap\Html;
 
 <p>
     <?= $form->field($model, 'policy_consent')->checkbox()->label(
-        'Я согласен с ' .  Html::a('Политикой Конфиденциальности', Yii::$app->params['legals.privacyPolicyUrl'])
+        'Я согласен с ' . Html::a('Политикой Конфиденциальности', Yii::$app->params['legals.privacyPolicyUrl'])
     ) ?>
     <?= $form->field($model, 'gdpr_consent')->checkbox()->label(
         'Я соглашаюсь предоставить любые Личные данные для целей, указанных в настоящей '

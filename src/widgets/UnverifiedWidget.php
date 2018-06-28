@@ -1,24 +1,23 @@
 <?php
 /**
- * HiPanel core package
+ * Client module for HiPanel
  *
- * @link      https://hipanel.com/
- * @package   hipanel-core
+ * @link      https://github.com/hiqdev/hipanel-module-client
+ * @package   hipanel-module-client
  * @license   BSD-3-Clause
- * @copyright Copyright (c) 2014-2017, HiQDev (http://hiqdev.com/)
+ * @copyright Copyright (c) 2015-2018, HiQDev (http://hiqdev.com/)
  */
 
 namespace hipanel\modules\client\widgets;
 
 use hipanel\modules\client\models\Contact;
 use hipanel\modules\client\models\Verification;
-use yii\base\InvalidConfigException;
-use yii\helpers\Html;
 use hipanel\widgets\VerificationMark;
 use Yii;
+use yii\base\InvalidConfigException;
+use yii\helpers\Html;
 
 /**
- *
  * Usage:
  * ```php
  * echo UnverifiedWidget::widget([
@@ -29,7 +28,7 @@ use Yii;
  *      'tagOptions' => ['class' => 'danger'],
  *      'checkPermissionsForConfirmedValue' => true,
  * ]);
- *```
+ *```.
  *
  * @var string
  */
@@ -112,8 +111,9 @@ class UnverifiedWidget extends \yii\base\Widget
             return $this->getValue();
         }
 
-        if (in_array($this->tag, ['a', 'mailto'])) {
+        if (in_array($this->tag, ['a', 'mailto'], true)) {
             $tag = $this->tag;
+
             return Html::$tag($this->getValue(), $this->getValue(), $this->tagOptions);
         }
 

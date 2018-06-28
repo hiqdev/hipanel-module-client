@@ -1,16 +1,12 @@
 <?php
 
-use yii\bootstrap\Html;
-use yii\bootstrap\Modal;
-use yii\web\JsExpression;
 use yii\web\View;
 
 /**
- * @var View $this
+ * @var View
  * @var boolean $askPincode
  */
-
-$notClient = !(bool)Yii::$app->user->can('role:client');
+$notClient = !(bool) Yii::$app->user->can('role:client');
 ?>
 
 <?php $this->registerJs(<<<"JS"

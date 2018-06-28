@@ -5,12 +5,11 @@
  * @link      https://github.com/hiqdev/hipanel-module-client
  * @package   hipanel-module-client
  * @license   BSD-3-Clause
- * @copyright Copyright (c) 2015-2017, HiQDev (http://hiqdev.com/)
+ * @copyright Copyright (c) 2015-2018, HiQDev (http://hiqdev.com/)
  */
-
 use hipanel\grid\GridView;
-use yii\helpers\Html;
 use hipanel\widgets\Pjax;
+use yii\helpers\Html;
 
 $this->title = 'Set credit';
 $this->params['breadcrumbs'][] = ['label' => 'Client', 'url' => ['index']];

@@ -1,4 +1,12 @@
 <?php
+/**
+ * Client module for HiPanel
+ *
+ * @link      https://github.com/hiqdev/hipanel-module-client
+ * @package   hipanel-module-client
+ * @license   BSD-3-Clause
+ * @copyright Copyright (c) 2015-2018, HiQDev (http://hiqdev.com/)
+ */
 
 namespace hipanel\modules\client\grid;
 
@@ -30,7 +38,7 @@ class ClientRepresentations extends RepresentationCollection
                     'checkbox',
                     'login',
                     'name_language', 'seller_id',
-                    $user->can('client.read') ? 'type' :null,
+                    $user->can('client.read') ? 'type' : null,
                     'registered_and_last_update', 'state',
                     'servers',
                     'accounts_count',

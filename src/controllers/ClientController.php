@@ -5,7 +5,7 @@
  * @link      https://github.com/hiqdev/hipanel-module-client
  * @package   hipanel-module-client
  * @license   BSD-3-Clause
- * @copyright Copyright (c) 2015-2017, HiQDev (http://hiqdev.com/)
+ * @copyright Copyright (c) 2015-2018, HiQDev (http://hiqdev.com/)
  */
 
 namespace hipanel\modules\client\controllers;
@@ -293,6 +293,7 @@ class ClientController extends \hipanel\base\CrudController
                         'class' => RenderJsonAction::class,
                         'return' => function ($action) {
                             $message = Yii::$app->session->removeFlash('success');
+
                             return [
                                 'success' => true,
                                 'text' => Yii::t('hipanel:client', reset($message)['text']),
@@ -303,6 +304,7 @@ class ClientController extends \hipanel\base\CrudController
                         'class' => RenderJsonAction::class,
                         'return' => function ($action) {
                             $message = Yii::$app->session->removeFlash('error');
+
                             return [
                                 'success' => false,
                                 'text' => reset($message)['text'],

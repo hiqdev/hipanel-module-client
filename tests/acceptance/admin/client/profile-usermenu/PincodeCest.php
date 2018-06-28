@@ -1,10 +1,18 @@
 <?php
+/**
+ * Client module for HiPanel
+ *
+ * @link      https://github.com/hiqdev/hipanel-module-client
+ * @package   hipanel-module-client
+ * @license   BSD-3-Clause
+ * @copyright Copyright (c) 2015-2018, HiQDev (http://hiqdev.com/)
+ */
 
 namespace hipanel\modules\client\tests\acceptance\admin\client\profile\usermenu;
 
 use Codeception\Example;
-use hipanel\tests\_support\Step\Acceptance\Admin;
 use hipanel\helpers\Url;
+use hipanel\tests\_support\Step\Acceptance\Admin;
 
 class PincodeCest
 {
@@ -77,7 +85,7 @@ class PincodeCest
                 'question' => [
                     'selector' => "//select/option[@value='own']",
                     'own' => true,
-                    'value' => ''
+                    'value' => '',
                 ],
                 'answer' => 'test answer',
                 'message' => 'wrong input: Question',
@@ -128,11 +136,11 @@ JS;
         return [
             [
                 'pin' => '123',
-                'message' => 'Enter pincode should contain at least 4 characters.'
+                'message' => 'Enter pincode should contain at least 4 characters.',
             ],
             [
                 'pin' => '12345',
-                'message' => 'Enter pincode should contain at most 4 characters.'
+                'message' => 'Enter pincode should contain at most 4 characters.',
             ],
         ];
     }
@@ -158,7 +166,7 @@ JS;
                 'question' => [
                     'selector' => "//select/option[@value='own']",
                     'own' => true,
-                    'value' => 'test question'
+                    'value' => 'test question',
                 ],
                 'answer' => 'test answer',
             ],
@@ -172,7 +180,7 @@ JS;
                 'question' => [
                     'selector' => "//select/option[@value='What is your grandmother’s maiden name?']",
                     'own' => false,
-                    'value' => 'What is your grandmother’s maiden name?'
+                    'value' => 'What is your grandmother’s maiden name?',
                 ],
                 'answer' => 'test answer',
             ],
@@ -261,6 +269,7 @@ In case you forget the PIN code or answer to a secret question,
 you can disconnect the PIN code only through the support service!
 (You will need to verify your account by providing a copy of the documents)
 MSG;
+
         return $views;
     }
 

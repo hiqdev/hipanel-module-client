@@ -5,7 +5,7 @@
  * @link      https://github.com/hiqdev/hipanel-module-client
  * @package   hipanel-module-client
  * @license   BSD-3-Clause
- * @copyright Copyright (c) 2015-2017, HiQDev (http://hiqdev.com/)
+ * @copyright Copyright (c) 2015-2018, HiQDev (http://hiqdev.com/)
  */
 
 namespace hipanel\modules\client\grid;
@@ -24,7 +24,6 @@ use hipanel\modules\finance\grid\BalanceColumn;
 use hipanel\modules\finance\grid\CreditColumn;
 use hipanel\modules\finance\widgets\ColoredBalance;
 use hipanel\widgets\ArraySpoiler;
-use hipanel\widgets\DatePicker;
 use hiqdev\yii2\menus\grid\MenuColumn;
 use Yii;
 use yii\helpers\Html;
@@ -68,7 +67,7 @@ class ClientGridView extends BoxedGridView
                     $html = '';
                     if ($model->purses) {
                         foreach ($model->purses as $purse) {
-                            if ($purse->currency == 'eur') {
+                            if ($purse->currency === 'eur') {
                                 $html = ColoredBalance::widget(['model' => $purse]);
                             }
                         }
@@ -85,7 +84,7 @@ class ClientGridView extends BoxedGridView
                     $html = '';
                     if ($model->purses) {
                         foreach ($model->purses as $purse) {
-                            if (!in_array($purse->currency, ['usd', 'eur'])) {
+                            if (!in_array($purse->currency, ['usd', 'eur'], true)) {
                                 $html .= ColoredBalance::widget(['model' => $purse]);
                                 $html .= '<br>';
                             }
@@ -131,7 +130,7 @@ class ClientGridView extends BoxedGridView
                 'label' => Yii::t('hipanel', 'Client'),
                 'format' => 'raw',
                 'value' => function ($model) {
-                    $flag = Html::tag('span', $model->getLanguage(), ['class' => "label bg-olive"]);
+                    $flag = Html::tag('span', $model->getLanguage(), ['class' => 'label bg-olive']);
 
                     return sprintf('<div style="display: flex; justify-content: space-between;"><div>%s</div><div>%s</div></div>', $model->name, $flag);
                 },
@@ -160,7 +159,7 @@ class ClientGridView extends BoxedGridView
             ],
             'balance' => [
                 'class' => BalanceColumn::class,
-                'format' => 'raw'
+                'format' => 'raw',
             ],
             'balances' => [
                 'label' => Yii::t('hipanel:client', 'Balances'),
@@ -368,13 +367,14 @@ class ClientGridView extends BoxedGridView
                 'label' => Yii::t('hipanel:client', 'Messengers'),
                 'value' => function ($model) {
                     return $model->contact->messengers;
-                }
+                },
             ],
             'registered_and_last_update' => [
                 'format' => 'html',
                 'label' => Yii::t('hipanel:client', 'Registered / Last Update'),
                 'value' => function ($model) {
                     $formatter = Yii::$app->formatter;
+
                     return Yii::t('hipanel:client', '{registered}<br>{last_update}', [
                         'registered' => $formatter->asDatetime($model->create_time),
                         'last_update' => $formatter->asDatetime($model->update_time),
@@ -438,14 +438,15 @@ class ClientGridView extends BoxedGridView
                 'format' => 'html',
                 'value' => function ($model) {
                     $language = $model->getLanguage();
-                    return Html::tag('span', strtoupper($language), ['class' => "label bg-olive"]) . '&nbsp;&nbsp;' . Yii::t('hipanel:client', $language);
+
+                    return Html::tag('span', strtoupper($language), ['class' => 'label bg-olive']) . '&nbsp;&nbsp;' . Yii::t('hipanel:client', $language);
                 },
                 'filter' => false,
             ],
             'debt_depth' => [
                 'filter' => false,
                 'format' => 'html',
-                'value' => function($model) {
+                'value' => function ($model) {
                     if ($model->balance >= 0) {
                         return '';
                     }
@@ -453,14 +454,14 @@ class ClientGridView extends BoxedGridView
                         return Html::tag('span', Yii::t('hipanel:client', '&#8734;'), ['class' => 'text-red']);
                     }
 
-                    return Html::tag('span', sprintf("%01.2f", "{$model->debt_depth}"), ['class' => 'text-blue']);
+                    return Html::tag('span', sprintf('%01.2f', "{$model->debt_depth}"), ['class' => 'text-blue']);
                 },
             ],
             'lang' => [
                 'format' => 'html',
                 'label' => Yii::t('hipanel', 'Language'),
                 'value' => function ($model) {
-                    return Html::tag('span', strtoupper($model->getLanguage()), ['class' => "label bg-olive"]);
+                    return Html::tag('span', strtoupper($model->getLanguage()), ['class' => 'label bg-olive']);
                 },
                 'filter' => false,
             ],
@@ -468,11 +469,11 @@ class ClientGridView extends BoxedGridView
                 'format' => 'html',
                 'filter' => false,
                 'label' => Yii::t('hipanel:client', 'SubType'),
-                'value' => function($model) {
+                'value' => function ($model) {
                     foreach (json_decode($model->sold_services, true) as $sold_service => $value) {
-
                         $sold_services[] = Html::tag('span', strtoupper(substr($sold_service, 0, 1)), ['class' => $value ? 'text-green text-bold' : 'text-red']);
                     }
+
                     return implode(' / ', $sold_services);
                 },
             ],

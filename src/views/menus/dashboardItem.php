@@ -1,8 +1,8 @@
 <?php
 
 use hipanel\modules\client\models\ClientSearch;
-use hipanel\modules\dashboard\widgets\SmallBox;
 use hipanel\modules\dashboard\widgets\SearchForm;
+use hipanel\modules\dashboard\widgets\SmallBox;
 use yii\helpers\Html;
 use yii\helpers\Url;
 

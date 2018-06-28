@@ -5,7 +5,7 @@
  * @link      https://github.com/hiqdev/hipanel-module-client
  * @package   hipanel-module-client
  * @license   BSD-3-Clause
- * @copyright Copyright (c) 2015-2017, HiQDev (http://hiqdev.com/)
+ * @copyright Copyright (c) 2015-2018, HiQDev (http://hiqdev.com/)
  */
 
 namespace hipanel\modules\client\models\query;
@@ -74,10 +74,11 @@ class ClientQuery extends ActiveQuery
 
         return $this;
     }
+
     public function withPaymentTicket()
     {
         return $this->joinWith([
-            'payment_ticket'
+            'payment_ticket',
         ]);
     }
 }

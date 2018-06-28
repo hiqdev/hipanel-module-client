@@ -9,7 +9,7 @@ use yii\helpers\Html;
 use yii\web\View;
 
 /**
- * @var string $scenario
+ * @var string
  * @var array $countries
  * @var \hipanel\modules\client\models\Contact $model
  * @var \yii\bootstrap\ActiveForm $form
@@ -79,7 +79,7 @@ use yii\web\View;
 
     <div class="col-md-6">
         <?php Box::begin([
-            'collapsed' => !in_array($model->scenario, ['create-require-passport', 'update-require-passport'])
+            'collapsed' => !in_array($model->scenario, ['create-require-passport', 'update-require-passport'], true)
                 && empty($model->birth_date) && empty($model->passport_no)
                 && empty($model->passport_date) && empty($model->passport_by),
             'title' => Yii::t('hipanel:client', 'Passport data'),
@@ -135,7 +135,7 @@ use yii\web\View;
     <div class="col-md-6">
         <?php Box::begin([
             'collapsed' => true,
-            'title' => Yii::t('hipanel:client', 'Registration data')
+            'title' => Yii::t('hipanel:client', 'Registration data'),
         ]) ?>
         <fieldset id="tax_info">
             <?= $form->field($model, 'vat_number')->textArea() ?>
@@ -147,7 +147,7 @@ use yii\web\View;
     <div class="col-md-6">
         <?php Box::begin([
             'collapsed' => true,
-            'title' => Yii::t('hipanel:client', 'Bank details')
+            'title' => Yii::t('hipanel:client', 'Bank details'),
         ]) ?>
         <fieldset id="bank_info">
             <?= $form->field($model, 'bank_account')->textArea() ?>

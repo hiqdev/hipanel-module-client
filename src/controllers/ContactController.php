@@ -5,14 +5,13 @@
  * @link      https://github.com/hiqdev/hipanel-module-client
  * @package   hipanel-module-client
  * @license   BSD-3-Clause
- * @copyright Copyright (c) 2015-2017, HiQDev (http://hiqdev.com/)
+ * @copyright Copyright (c) 2015-2018, HiQDev (http://hiqdev.com/)
  */
 
 namespace hipanel\modules\client\controllers;
 
 use hipanel\actions\ComboSearchAction;
 use hipanel\actions\IndexAction;
-use hipanel\actions\RenderAction;
 use hipanel\actions\SmartDeleteAction;
 use hipanel\actions\SmartPerformAction;
 use hipanel\actions\SmartUpdateAction;
@@ -24,8 +23,8 @@ use hipanel\helpers\ArrayHelper;
 use hipanel\modules\client\actions\ContactCreateAction;
 use hipanel\modules\client\actions\ContactUpdateAction;
 use hipanel\modules\client\forms\EmployeeForm;
-use hipanel\modules\client\logic\EmailConfirmer;
 use hipanel\modules\client\forms\PhoneConfirmationForm;
+use hipanel\modules\client\logic\EmailConfirmer;
 use hipanel\modules\client\logic\PhoneConfirmationException;
 use hipanel\modules\client\logic\PhoneConfirmer;
 use hipanel\modules\client\models\Client;
@@ -115,7 +114,7 @@ class ContactController extends CrudController
                 'success' => Yii::t('hipanel:client', 'Contact was deleted'),
             ],
             'update' => [
-                'class' => ContactUpdateAction::class
+                'class' => ContactUpdateAction::class,
             ],
             'copy' => [
                 'class' => SmartUpdateAction::class,
@@ -204,6 +203,7 @@ class ContactController extends CrudController
 
             try {
                 $confirmer->submitCode();
+
                 return ['success' => Yii::t('hipanel:client', 'The phone number was verified successfully')];
             } catch (PhoneConfirmationException $e) {
                 return ['error' => $e->getMessage()];
@@ -226,6 +226,7 @@ class ContactController extends CrudController
             $confirmer = Yii::createObject(PhoneConfirmer::class, [$model, $tries]);
             try {
                 $confirmer->requestCode();
+
                 return ['success' => true];
             } catch (PhoneConfirmationException $e) {
                 return ['error' => $e->getMessage()];
@@ -284,6 +285,7 @@ class ContactController extends CrudController
             $saveResult = $model->save();
             if ($saveResult === true) {
                 Yii::$app->session->addFlash('success', Yii::t('hipanel:client', 'Employee contact was save successfully'));
+
                 return $this->redirect(['@client/view', 'id' => $model->getId()]);
             }
 
@@ -302,6 +304,7 @@ class ContactController extends CrudController
     {
         return Yii::$app->cache->getOrSet(['user-pincode-enabled', Yii::$app->user->id], function () {
             $pincodeData = Client::perform('has-pincode', ['id' => Yii::$app->user->id]);
+
             return $pincodeData['pincode_enabled'];
         }, 3600);
     }

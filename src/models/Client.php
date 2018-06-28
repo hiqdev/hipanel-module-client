@@ -5,7 +5,7 @@
  * @link      https://github.com/hiqdev/hipanel-module-client
  * @package   hipanel-module-client
  * @license   BSD-3-Clause
- * @copyright Copyright (c) 2015-2017, HiQDev (http://hiqdev.com/)
+ * @copyright Copyright (c) 2015-2018, HiQDev (http://hiqdev.com/)
  */
 
 namespace hipanel\modules\client\models;
@@ -18,7 +18,7 @@ use hipanel\validators\DomainValidator;
 use Yii;
 
 /**
- * Class Client
+ * Class Client.
  *
  * @property Contact $contact the primary contact
  * @property Purse[] $purses
@@ -45,7 +45,7 @@ class Client extends \hipanel\base\Model
             [['login', 'seller', 'state', 'type', 'tariff', 'profile', 'referer'], 'safe'],
             [['state_label', 'type_label'], 'safe'],
             [['balance', 'credit', 'full_balance'], 'number'],
-            [['count', 'confirm_url', 'language', 'comment', 'name', 'currency' ], 'safe'],
+            [['count', 'confirm_url', 'language', 'comment', 'name', 'currency'], 'safe'],
             [['create_time', 'update_time', 'create_date'], 'date'],
             [['id', 'note'], 'safe', 'on' => 'set-note'],
             [['id', 'description'], 'safe', 'on' => 'set-description'],
@@ -86,7 +86,7 @@ class Client extends \hipanel\base\Model
                 'on' => 'domain-settings',
             ],
             [['nss'], 'each', 'rule' => [DomainValidator::class], 'on' => 'domain-settings'],
-            [['autorenewal' ], 'boolean', 'on' => 'domain-settings'],
+            [['autorenewal'], 'boolean', 'on' => 'domain-settings'],
             [['registrant', 'admin', 'tech', 'billing'], 'safe', 'on' => 'domain-settings'],
 
             // Mailings/Notification settings
@@ -248,7 +248,6 @@ class Client extends \hipanel\base\Model
             'pincode' => Yii::t('hipanel:client', 'Enter pincode'),
             'question' => Yii::t('hipanel:client', 'Choose question'),
             'answer' => Yii::t('hipanel:client', 'Answer'),
-
         ]);
     }
 
@@ -360,6 +359,7 @@ class Client extends \hipanel\base\Model
 
         $getOrder = function ($currency) {
             $order = ['usd' => 0, 'eur' => 1];
+
             return $order[$currency] ?? 100;
         };
 
@@ -372,6 +372,6 @@ class Client extends \hipanel\base\Model
 
     public function getLanguage($default = 'ru')
     {
-        return $this->language ? : $default;
+        return $this->language ?: $default;
     }
 }

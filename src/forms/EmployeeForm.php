@@ -1,4 +1,12 @@
 <?php
+/**
+ * Client module for HiPanel
+ *
+ * @link      https://github.com/hiqdev/hipanel-module-client
+ * @package   hipanel-module-client
+ * @license   BSD-3-Clause
+ * @copyright Copyright (c) 2015-2018, HiQDev (http://hiqdev.com/)
+ */
 
 namespace hipanel\modules\client\forms;
 
@@ -9,12 +17,12 @@ use hiqdev\hiart\ResponseErrorException;
 use Yii;
 
 /**
- * Class EmployeeForm represents form for employee management
+ * Class EmployeeForm represents form for employee management.
  */
 class EmployeeForm
 {
     /**
-     * Default contact language
+     * Default contact language.
      */
     const LANGUAGE_DEFAULT = 'en';
 
@@ -52,7 +60,7 @@ class EmployeeForm
     }
 
     /**
-     * Extracts all the contacts available in the $contact model
+     * Extracts all the contacts available in the $contact model.
      *
      * @param Contact $contact
      * @return array
@@ -69,7 +77,7 @@ class EmployeeForm
     }
 
     /**
-     * Extracts contract out of documents array
+     * Extracts contract out of documents array.
      *
      * @param Contact $contact
      * @return null|Document
@@ -104,7 +112,7 @@ class EmployeeForm
     }
 
     /**
-     * Returns primary contact
+     * Returns primary contact.
      *
      * @return Contact|mixed
      */
@@ -156,7 +164,7 @@ class EmployeeForm
     }
 
     /**
-     * Validates all models of the form
+     * Validates all models of the form.
      *
      * @return true|string
      */
@@ -177,7 +185,7 @@ class EmployeeForm
     }
 
     /**
-     * Saves all model of the form
+     * Saves all model of the form.
      *
      * @return bool
      */
@@ -200,7 +208,7 @@ class EmployeeForm
     }
 
     /**
-     * Returns fields available for editing in the contract information
+     * Returns fields available for editing in the contract information.
      *
      * @return array
      */
@@ -216,7 +224,7 @@ class EmployeeForm
 
     /**
      * Loads contact from the $data array.
-     * Sets $pincode to each model
+     * Sets $pincode to each model.
      *
      * @param array $data
      * @param string $pincode
@@ -249,7 +257,7 @@ class EmployeeForm
     }
 
     /**
-     * Gets localized version of this contact
+     * Gets localized version of this contact.
      *
      * @param $originalContact
      * @param $language
@@ -290,7 +298,7 @@ class EmployeeForm
     }
 
     /**
-     * Loads contract from the data array
+     * Loads contract from the data array.
      *
      * @param array $datum
      * @return bool
@@ -303,7 +311,7 @@ class EmployeeForm
     }
 
     /**
-     * Creates collection of contacts
+     * Creates collection of contacts.
      *
      * @return Collection
      */

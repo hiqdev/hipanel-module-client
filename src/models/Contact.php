@@ -5,7 +5,7 @@
  * @link      https://github.com/hiqdev/hipanel-module-client
  * @package   hipanel-module-client
  * @license   BSD-3-Clause
- * @copyright Copyright (c) 2015-2017, HiQDev (http://hiqdev.com/)
+ * @copyright Copyright (c) 2015-2018, HiQDev (http://hiqdev.com/)
  */
 
 namespace hipanel\modules\client\models;
@@ -15,7 +15,7 @@ use hipanel\modules\document\models\Document;
 use Yii;
 
 /**
- * Class Contact
+ * Class Contact.
  *
  * @property Contact[] $localizations
  * @property int|string $id
@@ -115,10 +115,10 @@ class Contact extends \hipanel\base\Model
                 [
                     // Для регистрации доменов в зоне RU в качестве физического лица
                     'passport_no', 'passport_by',
-                    'birth_date', 'passport_date'
+                    'birth_date', 'passport_date',
                 ],
                 'required',
-                'on' => ['create-require-passport', 'update-require-passport']
+                'on' => ['create-require-passport', 'update-require-passport'],
             ],
             [
                 [
@@ -126,8 +126,8 @@ class Contact extends \hipanel\base\Model
                     'voice_phone_confirmed', 'voice_phone_confirm_date',
                     'fax_phone_confirmed', 'fax_phone_confirm_date',
                     'name_confirm_level', 'name_confirm_date',
-                    'address_confirm_level', 'address_confirm_date'
-                ], 'safe'
+                    'address_confirm_level', 'address_confirm_date',
+                ], 'safe',
             ],
             [
                 ['id'],
@@ -141,7 +141,7 @@ class Contact extends \hipanel\base\Model
                 ['gdpr_consent', 'policy_consent'],
                 'required', 'requiredValue' => 1,
                 'on' => ['update'],
-                'when' => function () { return (string)Yii::$app->user->getId() === (string)$this->id; },
+                'when' => function () { return (string) Yii::$app->user->getId() === (string) $this->id; },
                 'message' => Yii::t('hipanel:client', 'We need your permission in order to provide services'),
             ],
         ]);
@@ -289,12 +289,12 @@ class Contact extends \hipanel\base\Model
 
     public function renderBankAddress($address)
     {
-        return $address ? "Bank Address: " . $address : null;
+        return $address ? 'Bank Address: ' . $address : null;
     }
 
     public function renderBankSwift($swift)
     {
-        return $swift ? "SWIFT code: " . $swift : null;
+        return $swift ? 'SWIFT code: ' . $swift : null;
     }
 
     /**
@@ -307,5 +307,4 @@ class Contact extends \hipanel\base\Model
             'options' => $options,
         ]);
     }
-
 }

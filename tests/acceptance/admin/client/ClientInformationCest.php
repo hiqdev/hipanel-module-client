@@ -1,9 +1,17 @@
 <?php
+/**
+ * Client module for HiPanel
+ *
+ * @link      https://github.com/hiqdev/hipanel-module-client
+ * @package   hipanel-module-client
+ * @license   BSD-3-Clause
+ * @copyright Copyright (c) 2015-2018, HiQDev (http://hiqdev.com/)
+ */
 
 namespace hipanel\modules\client\tests\acceptance\admin\client;
 
-use hipanel\tests\_support\Step\Acceptance\Admin;
 use hipanel\helpers\Url;
+use hipanel\tests\_support\Step\Acceptance\Admin;
 
 class ClientInformationCest
 {
@@ -26,7 +34,7 @@ class ClientInformationCest
             [$key => 'contacts',    'text' => 'Contacts',    'td' => '1 contact'],
             [$key => 'hosting',     'text' => 'Hosting',     'td' => ''],
         ];
-        foreach ($tbody as $tr ) {
+        foreach ($tbody as $tr) {
             $I->seeElement(['css' => 'table tbody tr th'], [$key => $tr[$key]]);
             $I->see($tr['text'], "//table/tbody/tr/th[@$key='{$tr[$key]}']");
             if ($tr['td'] !== '') {

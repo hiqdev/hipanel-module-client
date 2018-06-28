@@ -5,7 +5,7 @@
  * @link      https://github.com/hiqdev/hipanel-module-client
  * @package   hipanel-module-client
  * @license   BSD-3-Clause
- * @copyright Copyright (c) 2015-2017, HiQDev (http://hiqdev.com/)
+ * @copyright Copyright (c) 2015-2018, HiQDev (http://hiqdev.com/)
  */
 
 namespace hipanel\modules\client\menus;
@@ -75,7 +75,7 @@ class ClientDetailMenu extends \hipanel\menus\AbstractDetailMenu
             [
                 'label' => ImpersonateButton::widget(['model' => $this->model]),
                 'encode' => false,
-                'visible' => $user->can('client.impersonate') && $user->not($this->model->id)
+                'visible' => $user->can('client.impersonate') && $user->not($this->model->id),
             ],
             [
                 'label' => SettingsModal::widget([

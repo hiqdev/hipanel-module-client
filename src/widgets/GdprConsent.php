@@ -1,4 +1,12 @@
 <?php
+/**
+ * Client module for HiPanel
+ *
+ * @link      https://github.com/hiqdev/hipanel-module-client
+ * @package   hipanel-module-client
+ * @license   BSD-3-Clause
+ * @copyright Copyright (c) 2015-2018, HiQDev (http://hiqdev.com/)
+ */
 
 namespace hipanel\modules\client\widgets;
 
@@ -9,7 +17,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /**
- * Class GdprConsent
+ * Class GdprConsent.
  *
  * @author Dmytro Naumenko <d.naumenko.a@gmail.com>
  */
@@ -27,7 +35,7 @@ class GdprConsent extends Widget
 
     public function run()
     {
-        if ((string)$this->model->id !== (string)Yii::$app->user->getId() || $this->model->gdpr_consent && $this->model->policy_consent) {
+        if ((string) $this->model->id !== (string) Yii::$app->user->getId() || $this->model->gdpr_consent && $this->model->policy_consent) {
             return $this->renderHiddenInputs();
         }
 

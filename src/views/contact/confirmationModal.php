@@ -10,7 +10,6 @@ use yii\helpers\Html;
  * @var \hipanel\modules\client\forms\PhoneConfirmationForm $model
  * @var \hipanel\modules\client\models\NotifyTries $tries
  */
-
 $requestCodeButton = Html::button(Yii::t('hipanel:client', 'Request code'), [
     'id' => 'request-code',
     'class' => 'pull-right btn btn-block btn-info ' . (!$tries->isIntervalSatisfied() ? 'disabled' : ''),

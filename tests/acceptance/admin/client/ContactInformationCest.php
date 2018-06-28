@@ -1,9 +1,17 @@
 <?php
+/**
+ * Client module for HiPanel
+ *
+ * @link      https://github.com/hiqdev/hipanel-module-client
+ * @package   hipanel-module-client
+ * @license   BSD-3-Clause
+ * @copyright Copyright (c) 2015-2018, HiQDev (http://hiqdev.com/)
+ */
 
 namespace hipanel\modules\client\tests\acceptance\admin\client;
 
-use hipanel\tests\_support\Step\Acceptance\Admin;
 use hipanel\helpers\Url;
+use hipanel\tests\_support\Step\Acceptance\Admin;
 
 class ContactInformationCest
 {
@@ -23,7 +31,7 @@ class ContactInformationCest
                                                                                   "ICQ: 888777\n" .
                                                                                   "Jabber: hipanel_test_admin@hiqdev.com\n" .
                                                                                   "Telegram: hipanel_test_admin\n" .
-                                                                                  "WhatsApp: 380932003040"],
+                                                                                  'WhatsApp: 380932003040', ],
             [$key => 'social_net',              'text' => 'Social',       'td' => 'https://facebook.com/hipanel_test_admin'],
             [$key => 'voice_phone',             'text' => 'Phone',        'td' => '380932003040'],
             [$key => 'fax_phone',               'text' => 'Fax',          'td' => '380445203040'],
@@ -33,7 +41,7 @@ class ContactInformationCest
             [$key => 'postal_code',             'text' => 'Postal code',  'td' => '01001'],
             [$key => 'country_name',            'text' => 'Country',      'td' => 'Ukraine'],
         ];
-        foreach ($tbody as $tr ) {
+        foreach ($tbody as $tr) {
             $I->seeElement(['css' => 'table tbody tr th'], [$key => $tr[$key]]);
             $I->see($tr['text'], "//table/tbody/tr/th[@$key='{$tr[$key]}']");
             if ($tr['td'] !== '') {

@@ -1,4 +1,12 @@
 <?php
+/**
+ * Client module for HiPanel
+ *
+ * @link      https://github.com/hiqdev/hipanel-module-client
+ * @package   hipanel-module-client
+ * @license   BSD-3-Clause
+ * @copyright Copyright (c) 2015-2018, HiQDev (http://hiqdev.com/)
+ */
 
 namespace hipanel\modules\client\grid;
 
@@ -10,7 +18,7 @@ use Yii;
 class ClientGridLegend extends BaseGridLegend implements GridLegendInterface
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function items()
     {
@@ -30,12 +38,12 @@ class ClientGridLegend extends BaseGridLegend implements GridLegendInterface
             [
                 'label' => Yii::t('hipanel:client', 'Reseller'),
                 'color' => '#CBFFFF',
-                'rule' => ($this->model->type == Client::TYPE_SELLER),
+                'rule' => ($this->model->type === Client::TYPE_SELLER),
             ],
             [
                 'label' => Yii::t('hipanel:client', 'Administrator'),
                 'color' => '#EBEBCD',
-                'rule' => ($this->model->type == Client::TYPE_ADMIN),
+                'rule' => ($this->model->type === Client::TYPE_ADMIN),
             ],
             [
                 'label' => Yii::t('hipanel:client', 'Manager'),
@@ -43,7 +51,7 @@ class ClientGridLegend extends BaseGridLegend implements GridLegendInterface
             [
                 'label' => Yii::t('hipanel:client', 'Owner'),
                 'color' => '#FFD0CE',
-                'rule' => ($this->model->type == Client::TYPE_OWNER),
+                'rule' => ($this->model->type === Client::TYPE_OWNER),
             ],
             [
                 'label' => Yii::t('hipanel:client', 'Support'),

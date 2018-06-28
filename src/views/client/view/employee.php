@@ -1,11 +1,9 @@
 <?php
 
-use hipanel\modules\client\grid\ClientGridView;
 use hipanel\modules\client\grid\ContactGridView;
 use hipanel\modules\client\menus\ClientDetailMenu;
 use hipanel\modules\client\models\Client;
 use hipanel\modules\client\widgets\ClientSwitcher;
-use hipanel\modules\client\widgets\ForceVerificationBlock;
 use hipanel\modules\document\widgets\StackedDocumentsView;
 use hipanel\widgets\Box;
 use hipanel\widgets\ClientSellerLink;
@@ -13,9 +11,8 @@ use hiqdev\assets\flagiconcss\FlagIconCssAsset;
 use yii\helpers\Html;
 
 /**
- * @var Client $model
+ * @var Client
  */
-
 FlagIconCssAsset::register($this);
 
 $this->registerCss('legend {font-size: 16px;}');
@@ -76,7 +73,7 @@ $form = new \hipanel\modules\client\forms\EmployeeForm($model->contact, $scenari
                             'email', 'voice_phone', 'fax_phone',
                             'street', 'city', 'province', 'postal_code', 'country',
                             'tin_number',
-                            'bank_account', 'bank_name', 'bank_address', 'bank_swift'
+                            'bank_account', 'bank_name', 'bank_address', 'bank_swift',
                         ],
                     ]) ?>
                     <?php $box->endBody() ?>

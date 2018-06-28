@@ -1,14 +1,13 @@
 <?php
 
 /**
- * @var \yii\web\View $this
+ * @var \yii\web\View
  * @var string $scenario
  * @var array $countries
  * @var Contact $model the primary model
  * @var ActiveForm $form
  * @var EmployeeForm $employeeForm
  */
-
 use hipanel\modules\client\forms\EmployeeForm;
 use hipanel\modules\client\models\Contact;
 use hipanel\modules\client\widgets\combo\ClientCombo;
@@ -34,14 +33,14 @@ $contract = $employeeForm->getContract();
     <?php foreach ($employeeForm->getContacts() as $language => $model) : ?>
         <div class="col-md-6">
             <?php Box::begin([
-                'title' => Html::tag('span', $language, ['class' => 'label label-default']) . ' ' . Yii::t('hipanel:client', 'Contact details')
+                'title' => Html::tag('span', $language, ['class' => 'label label-default']) . ' ' . Yii::t('hipanel:client', 'Contact details'),
             ]) ?>
                 <?php if ($model->scenario === 'update') : ?>
                     <?= Html::activeHiddenInput($model, "[$i]id") ?>
                     <?= Html::activeHiddenInput($model, "[$i]localization") ?>
                 <?php else: ?>
                     <?= $form->field($model, 'client_id')->widget(ClientCombo::class, [
-                        'clientType' => 'employee'
+                        'clientType' => 'employee',
                     ]); ?>
                 <?php endif; ?>
                 <?= $form->field($model, "[$i]first_name"); ?>

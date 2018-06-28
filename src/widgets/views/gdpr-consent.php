@@ -4,11 +4,10 @@ use hipanel\modules\client\models\Contact;
 use yii\bootstrap\Html;
 
 /**
- * @var \yii\web\View $this
+ * @var \yii\web\View
  * @var Contact $model
  * @var \yii\bootstrap\ActiveForm $form
  */
-
 ?>
 
 <?php \yii\bootstrap\Modal::begin([

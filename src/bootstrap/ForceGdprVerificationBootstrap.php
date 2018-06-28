@@ -1,4 +1,12 @@
 <?php
+/**
+ * Client module for HiPanel
+ *
+ * @link      https://github.com/hiqdev/hipanel-module-client
+ * @package   hipanel-module-client
+ * @license   BSD-3-Clause
+ * @copyright Copyright (c) 2015-2018, HiQDev (http://hiqdev.com/)
+ */
 
 namespace hipanel\modules\client\bootstrap;
 
@@ -54,6 +62,7 @@ class ForceGdprVerificationBootstrap implements BootstrapInterface
             $contact = Contact::findOne(['id' => $app->user->getId()]);
             if ($contact->gdpr_consent && $contact->policy_consent) {
                 $app->session->set('contact.gdpr.accepted', true);
+
                 return;
             }
 

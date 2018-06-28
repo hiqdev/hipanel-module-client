@@ -1,4 +1,12 @@
 <?php
+/**
+ * Client module for HiPanel
+ *
+ * @link      https://github.com/hiqdev/hipanel-module-client
+ * @package   hipanel-module-client
+ * @license   BSD-3-Clause
+ * @copyright Copyright (c) 2015-2018, HiQDev (http://hiqdev.com/)
+ */
 
 namespace hipanel\modules\client\actions;
 
@@ -53,6 +61,7 @@ class ContactUpdateAction extends SmartUpdateAction
     {
         return Yii::$app->cache->getOrSet(['user-pincode-enabled', Yii::$app->user->id], function () {
             $pincodeData = Client::perform('has-pincode', ['id' => Yii::$app->user->id]);
+
             return $pincodeData['pincode_enabled'];
         }, 3600);
     }

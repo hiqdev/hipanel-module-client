@@ -74,7 +74,7 @@ $this->registerCss('legend {font-size: 16px;}');
                         'language',
                         'type', 'state',
                         'create_time', 'update_time',
-                        'tickets', 'servers', 'domains', 'contacts', 'hosting', 'blocking'
+                        'tickets', 'servers', 'domains', 'contacts', 'hosting', 'blocking',
                     ]),
                 ]) ?>
                 <?php $box->endBody() ?>

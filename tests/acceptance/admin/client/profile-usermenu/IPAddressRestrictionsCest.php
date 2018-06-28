@@ -1,9 +1,17 @@
 <?php
+/**
+ * Client module for HiPanel
+ *
+ * @link      https://github.com/hiqdev/hipanel-module-client
+ * @package   hipanel-module-client
+ * @license   BSD-3-Clause
+ * @copyright Copyright (c) 2015-2018, HiQDev (http://hiqdev.com/)
+ */
 
 namespace hipanel\modules\client\tests\acceptance\admin\client\profile\usermenu;
 
-use hipanel\tests\_support\Step\Acceptance\Admin;
 use hipanel\helpers\Url;
+use hipanel\tests\_support\Step\Acceptance\Admin;
 
 class IPAddressRestrictionsCest
 {
@@ -62,6 +70,7 @@ MSG;
 All of accounts in the hosting panel will use following permit IP addresses list by default. 
 You can reassign permitted IP addresses for each account individually in it's settings.
 MSG;
+
         return [
             ['text' => $firstMessage,                              'selector' => '.modal-body'],
             ['text' => $secondMessage,                             'selector' => '.help-block'],
@@ -151,12 +160,12 @@ MSG;
     private function validInputValues()
     {
         return [
-            ['allowed_ips' => '1.2.3.4',         'sshftp_ips' => '1.2.3.4',],
-            ['allowed_ips' => '172.20.10.1',     'sshftp_ips' => '172.20.10.1',],
-            ['allowed_ips' => '192.168.1.99/24', 'sshftp_ips' => '192.168.1.99/24',],
-            ['allowed_ips' => '192.168.1.99/24', 'sshftp_ips' => '',],
-            ['allowed_ips' => '',                'sshftp_ips' => '192.168.1.99/24',],
-            ['allowed_ips' => '',                'sshftp_ips' => '',],
+            ['allowed_ips' => '1.2.3.4',         'sshftp_ips' => '1.2.3.4'],
+            ['allowed_ips' => '172.20.10.1',     'sshftp_ips' => '172.20.10.1'],
+            ['allowed_ips' => '192.168.1.99/24', 'sshftp_ips' => '192.168.1.99/24'],
+            ['allowed_ips' => '192.168.1.99/24', 'sshftp_ips' => ''],
+            ['allowed_ips' => '',                'sshftp_ips' => '192.168.1.99/24'],
+            ['allowed_ips' => '',                'sshftp_ips' => ''],
         ];
     }
 }

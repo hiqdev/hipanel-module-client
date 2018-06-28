@@ -1,4 +1,12 @@
 <?php
+/**
+ * Client module for HiPanel
+ *
+ * @link      https://github.com/hiqdev/hipanel-module-client
+ * @package   hipanel-module-client
+ * @license   BSD-3-Clause
+ * @copyright Copyright (c) 2015-2018, HiQDev (http://hiqdev.com/)
+ */
 
 namespace hipanel\modules\client\tests\acceptance\client;
 
@@ -13,6 +21,5 @@ class ProfileCest
         $I->amOnPage(Url::to(['@client/view', 'id' => $I->id]));
         $I->see('Client detailed information');
         $I->see('client', '.profile-user-role');
-
     }
 }
