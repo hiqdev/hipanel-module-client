@@ -75,7 +75,7 @@ $form = ActiveForm::begin([
                             </div>
                             <div class="col-md-2">
                                 <?= $form->field($model, "[{$i}]seller_id")->widget(SellerCombo::class, [
-                                    'clientType' => ['owner', 'seller', 'client'],
+                                    'clientType' => ['owner', 'reseller', 'client'],
                                     'pluginOptions' => [
                                         'select2Options' => $model->isNewRecord ? [] : [
                                             'templateSelection' => new \yii\web\JsExpression("
