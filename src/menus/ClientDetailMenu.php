@@ -138,6 +138,17 @@ class ClientDetailMenu extends \hipanel\menus\AbstractDetailMenu
             [
                 'label' => SettingsModal::widget([
                     'model' => $this->model,
+                    'title' => Yii::t('hipanel:client', 'Finance settings'),
+                    'headerOptions' => ['class' => 'label-info'],
+                    'icon' => 'fa fa-fw fa-money',
+                    'scenario' => 'finance-settings',
+                ]),
+                'encode' => false,
+                'visible' => true,
+            ],
+            [
+                'label' => SettingsModal::widget([
+                    'model' => $this->model,
                     'title' => Yii::t('hipanel:ticket', 'Ticket settings'),
                     'headerOptions' => ['class' => 'label-info'],
                     'icon' => 'fa-ticket fa-fw',

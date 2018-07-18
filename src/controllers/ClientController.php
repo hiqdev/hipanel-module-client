@@ -265,6 +265,11 @@ class ClientController extends \hipanel\base\CrudController
                 'valuesClass' => 'client,ticket_settings',
                 'view' => '_ticketSettingsModal',
             ],
+            'finance-settings' => [
+                'class' => ClassValuesAction::class,
+                'valuesClass' => 'client,finance_settings',
+                'view' => '_financeSettingsModal',
+            ],
             'pincode-settings' => [
                 'class' => SmartUpdateAction::class,
                 'view' => '_pincodeSettingsModal',
