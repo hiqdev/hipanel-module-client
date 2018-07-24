@@ -31,6 +31,19 @@ class PincodeCest
             'questionField' => "//input[@name='Client[{$I->id}][question]']",
             'answer' => ['name' => "Client[{$I->id}][answer]"],
         ];
+        $this->ensurePinIsDisabled($I);
+    }
+
+    private function ensurePinIsDisabled(Admin $I)
+    {
+        $this->loadPincodeForm($I);
+        try {
+            $I->waitForText('Disable pincode', 1);
+            $I->click('Cancel');
+            $this->disablePin($I, ['pin' => 1234], 'using pin');
+        } catch (\Exception $e) {
+            $I->click('Cancel');
+        }
     }
 
     private function loadPincodeForm(Admin $I)
