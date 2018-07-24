@@ -17,19 +17,30 @@ use yii\helpers\Url;
     'validationUrl' => Url::toRoute(['validate-form', 'scenario' => $model->scenario]),
 ]) ?>
 
-    <?php
-    $currencies = $this->context->getCurrencyTypes();
-    $currencies = array_combine(array_keys($currencies), array_map(function ($k) {
-        return StringHelper::getCurrencySymbol($k);
-    }, array_keys($currencies)));
-    ?>
+    <?= $form->field($model, 'finance_emails')->label(Yii::t('hipanel:client', 'Financial emails')) ?>
 
-    <?= $form->field($model, 'autoexchange_enabled')->checkbox()->hint(Yii::t('hipanel:client', 'When checked, ....'))->label(Yii::t('hipanel:client', 'Allow exchange currency')) ?>
+    <?php if (count($model->purses) > 1) : ?>
+        <?php
+        $currencies = $this->context->getCurrencyTypes();
+        $purses = array_map(function ($k) {
+            return $k->currency;
+        }, $model->purses);
 
-    <?= $form->field($model, 'autoexchange_to')->dropDownList($currencies)->label(Yii::t('hipanel:client', 'Exchange minus balance to currency')) ?>
+        $currencies = array_filter(
+            array_combine(array_keys($currencies), array_map(function ($k) {
+                return StringHelper::getCurrencySymbol($k);
+            }, array_keys($currencies))), function ($k) use ($purses) {
+            return in_array($k, $purses, true);
+        }, ARRAY_FILTER_USE_KEY);
+        ?>
 
-    <?php if (Yii::$app->user->can('manage')) : ?>
-        <?= $form->field($model, 'autoexchange_force')->checkbox()->hint(Yii::t('hipanel:client', 'When checked, ....'))->label(Yii::t('hipanel:client', 'Allow force exchange currency')) ?>
+        <?= $form->field($model, 'autoexchange_enabled')->checkbox()->hint(Yii::t('hipanel:client', 'When checked, ....'))->label(Yii::t('hipanel:client', 'Allow exchange currency')) ?>
+
+        <?= $form->field($model, 'autoexchange_to')->dropDownList($currencies)->label(Yii::t('hipanel:client', 'Exchange minus balance to currency')) ?>
+
+        <?php if (Yii::$app->user->can('manage')) : ?>
+            <?= $form->field($model, 'autoexchange_force')->checkbox()->hint(Yii::t('hipanel:client', 'When checked, ....'))->label(Yii::t('hipanel:client', 'Allow force exchange currency')) ?>
+        <?php endif ?>
     <?php endif ?>
     <hr>
     <?= Html::submitButton(Yii::t('hipanel', 'Save'), ['class' => 'btn btn-success']) ?> &nbsp;
