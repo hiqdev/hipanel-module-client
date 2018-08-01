@@ -73,9 +73,31 @@ class Client extends \hipanel\base\Model
             [['login', 'email'], 'unique', 'on' => ['create', 'update']],
 
             // Ticket settings
-            [['ticket_emails'], 'string', 'max' => 128, 'on' => 'ticket-settings'],
-            [['ticket_emails'], 'email', 'on' => 'ticket-settings'],
+            [['ticket_emails'], 'string', 'on' => ['ticket-settings']],
+            [
+                ['ticket_emails'],
+                'filter',
+                'filter' => function($value) {
+                    return (mb_strlen($value) > 0) ? StringHelper::mexplode($value) : [];
+                },
+                'on' => ['ticket-settings'],
+            ],
+            [['ticket_emails'], 'each', 'rule' => ['email'], 'on' => ['ticket-settings']],
             [['send_message_text', 'new_messages_first'], 'boolean', 'on' => 'ticket-settings'],
+
+            // Finance settings
+            [['finance_emails'], 'string', 'on' => 'finance-settings'],
+            [
+                ['finance_emails'],
+                'filter',
+                'filter' => function($value) {
+                    return (mb_strlen($value) > 0) ? StringHelper::mexplode($value) : [];
+                },
+                'on' => ['finance-settings'],
+            ],
+            [['finance_emails'], 'each', 'rule' => ['email'], 'on' => ['finance-settings']],
+            [['autoexchange_enabled', 'autoexchange_force'], 'boolean', 'on' => ['finance-settings']],
+            [['autoexchange_to'], 'string', 'on' => ['finance-settings']],
 
             // Domain settings
             [
@@ -119,6 +141,10 @@ class Client extends \hipanel\base\Model
                 'on' => ['ip-restrictions'],
             ],
             [['allowed_ips', 'sshftp_ips'], 'each', 'rule' => ['ip', 'subnet' => null], 'on' => ['ip-restrictions']],
+
+            // Auto exchange settings
+            [['currency'], 'required', 'on' => ['auto-exchange-settings']],
+            [['enable_auto', 'force_exchange'], 'boolean', 'on' => ['auto-exchange-settings']],
 
             // Change password
             [['login', 'old_password', 'new_password', 'confirm_password'], 'required', 'on' => ['change-password']],
@@ -249,6 +275,21 @@ class Client extends \hipanel\base\Model
             'pincode' => Yii::t('hipanel:client', 'Enter pincode'),
             'question' => Yii::t('hipanel:client', 'Choose question'),
             'answer' => Yii::t('hipanel:client', 'Answer'),
+
+            // Finance settings
+            'finance_emails' => Yii::t('hipanel:client', 'Financial emails'),
+            'autoexchange_enabled' => Yii::t('hipanel:client', 'Exchange currency for debts automatically'),
+            'autoexchange_to' => Yii::t('hipanel:client', 'Primary currency for invoices'),
+            'autoexchange_force' =>  Yii::t('hipanel:client', 'Exchange all debts to primary currency'),
+        ]);
+    }
+
+    public function attributeHints()
+    {
+        return array_merge(parent::attributeHints(), [
+            'autoexchange_to' => Yii::t('hipanel:client', 'Select the preferred currency for invoicer'),
+            'autoexchange_enabled' => Yii::t('hipanel:client', 'When the primary currency (say EUR) balance is positive and the secondary currency (say USD) has debts, exchange as much available EUR as possible to close USD debts'),
+            'autoexchange_force' => Yii::t('hipanel:client', 'When "exchange currency for debts automatically" is enabled, this flag indicates that the primary currency CAN be indebted to close debts in other currencies'),
         ]);
     }
 

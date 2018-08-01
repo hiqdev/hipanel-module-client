@@ -258,4 +258,11 @@ return [
     'Perform billing' => 'Пробилить сейчас',
     'Bills were charged successfully!' => 'Билы были пересчитаны успешно',
     'Error during bills charging' => 'Возникла ошибка при пересчете билов',
+    'Financial emails' => 'Финансовые E-mail\'ы',
+    'Exchange currency for debts automatically' => 'Автоматически обменивать валюту для закрытия долгов',
+    'Primary currency for invoices' => 'Основная валюта для инвойсов',
+    'Exchange all debts to primary currency' => 'Переводить все долги в основную валюту',
+    'When the primary currency (say EUR) balance is positive and the secondary currency (say USD) has debts, exchange as much available EUR as possible to close USD debts' => 'При наличии позитивного баланса в основной валюте (допустим EUR), и долга во вторичной валюте (скажем USD), обменивать как можно больше доступных EUR чтобы покрыть долг в USD',
+    'Select the preferred currency for invoicer' => 'Выберете предпочтительную валюту для инвойсов',
+    'When "exchange currency for debts automatically" is enabled, this flag indicates that the primary currency CAN be indebted to close debts in other currencies' => 'Когда включён автоматический обмен валют для закрытия долгов, эта настройка разрешает образование задолженности в основной валюте для полного закрытия долгов в других валютах',
 ];
