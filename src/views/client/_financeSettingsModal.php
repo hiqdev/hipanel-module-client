@@ -9,8 +9,8 @@
  */
 
 /**
- * @var \hipanel\modules\client\models\Client
- * @var \yii\base\View
+ * @var \hipanel\modules\client\models\Client $model
+ * @var \yii\base\View $this
  */
 
 use hipanel\helpers\StringHelper;
