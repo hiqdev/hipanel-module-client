@@ -1,4 +1,17 @@
 <?php
+/**
+ * Client module for HiPanel
+ *
+ * @link      https://github.com/hiqdev/hipanel-module-client
+ * @package   hipanel-module-client
+ * @license   BSD-3-Clause
+ * @copyright Copyright (c) 2015-2018, HiQDev (http://hiqdev.com/)
+ */
+
+/**
+ * @var \hipanel\modules\client\models\Client
+ * @var \yii\base\View
+ */
 
 use hipanel\helpers\StringHelper;
 use yii\bootstrap\ActiveForm;
@@ -17,7 +30,7 @@ use yii\helpers\Url;
     'validationUrl' => Url::toRoute(['validate-form', 'scenario' => $model->scenario]),
 ]) ?>
 
-    <?= $form->field($model, 'finance_emails')->label(Yii::t('hipanel:client', 'Financial emails')) ?>
+    <?= $form->field($model, 'finance_emails')->textInput(['placeholder' => 'finance@acme.org, ceo@acme.org']) ?>
 
     <?php if (count($model->purses) > 1) : ?>
         <?php
@@ -34,12 +47,12 @@ use yii\helpers\Url;
         }, ARRAY_FILTER_USE_KEY);
         ?>
 
-        <?= $form->field($model, 'autoexchange_enabled')->checkbox()->hint(Yii::t('hipanel:client', 'When checked, ....'))->label(Yii::t('hipanel:client', 'Allow exchange currency')) ?>
+        <?= $form->field($model, 'autoexchange_to')->dropDownList($currencies)->hint(Yii::t('hipanel:client', 'Select the preferred currency for invoicer')) ?>
 
-        <?= $form->field($model, 'autoexchange_to')->dropDownList($currencies)->label(Yii::t('hipanel:client', 'Exchange minus balance to currency')) ?>
+        <?= $form->field($model, 'autoexchange_enabled')->checkbox()->hint(Yii::t('hipanel:client', 'When the primary currency (say EUR) balance is positive and the secondary currency (say USD) has debts, exchange as much available EUR as possible to close USD debts')) ?>
 
         <?php if (Yii::$app->user->can('manage')) : ?>
-            <?= $form->field($model, 'autoexchange_force')->checkbox()->hint(Yii::t('hipanel:client', 'When checked, ....'))->label(Yii::t('hipanel:client', 'Allow force exchange currency')) ?>
+            <?= $form->field($model, 'autoexchange_force')->checkbox()->hint(Yii::t('hipanel:client', 'When "exchange currency for debts automatically" is enabled, this flag indicates that the primary currency CAN be indebted to close debts in other currencies')) ?>
         <?php endif ?>
     <?php endif ?>
     <hr>

@@ -275,6 +275,12 @@ class Client extends \hipanel\base\Model
             'pincode' => Yii::t('hipanel:client', 'Enter pincode'),
             'question' => Yii::t('hipanel:client', 'Choose question'),
             'answer' => Yii::t('hipanel:client', 'Answer'),
+
+            // Finance settings
+            'finance_emails' => Yii::t('hipanel:client', 'Financial emails'),
+            'autoexchange_enabled' => Yii::t('hipanel:client', 'Exchange currency for debts automatically'),
+            'autoexchange_to' => Yii::t('hipanel:client', 'Primary currency for invoices'),
+            'autoexchange_force' =>  Yii::t('hipanel:client', 'Exchange all debts to primary currency'),
         ]);
     }
 
