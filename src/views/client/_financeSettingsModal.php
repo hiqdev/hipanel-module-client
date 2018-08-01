@@ -47,12 +47,12 @@ use yii\helpers\Url;
         }, ARRAY_FILTER_USE_KEY);
         ?>
 
-        <?= $form->field($model, 'autoexchange_to')->dropDownList($currencies)->hint(Yii::t('hipanel:client', 'Select the preferred currency for invoicer')) ?>
+        <?= $form->field($model, 'autoexchange_to')->dropDownList($currencies)?>
 
-        <?= $form->field($model, 'autoexchange_enabled')->checkbox()->hint(Yii::t('hipanel:client', 'When the primary currency (say EUR) balance is positive and the secondary currency (say USD) has debts, exchange as much available EUR as possible to close USD debts')) ?>
+        <?= $form->field($model, 'autoexchange_enabled')->checkbox() ?>
 
         <?php if (Yii::$app->user->can('manage')) : ?>
-            <?= $form->field($model, 'autoexchange_force')->checkbox()->hint(Yii::t('hipanel:client', 'When "exchange currency for debts automatically" is enabled, this flag indicates that the primary currency CAN be indebted to close debts in other currencies')) ?>
+            <?= $form->field($model, 'autoexchange_force')->checkbox() ?>
         <?php endif ?>
     <?php endif ?>
     <hr>

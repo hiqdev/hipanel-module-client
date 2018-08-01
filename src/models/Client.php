@@ -284,6 +284,15 @@ class Client extends \hipanel\base\Model
         ]);
     }
 
+    public function attributeHints()
+    {
+        return array_merge(parent::attributeHints(), [
+            'autoexchange_to' => Yii::t('hipanel:client', 'Select the preferred currency for invoicer'),
+            'autoexchange_enabled' => Yii::t('hipanel:client', 'When the primary currency (say EUR) balance is positive and the secondary currency (say USD) has debts, exchange as much available EUR as possible to close USD debts'),
+            'autoexchange_force' => Yii::t('hipanel:client', 'When "exchange currency for debts automatically" is enabled, this flag indicates that the primary currency CAN be indebted to close debts in other currencies'),
+        ]);
+    }
+
     public function getTicketSettings()
     {
         return $this->hasOne(ClientTicketSettings::class, ['id', 'id']);
