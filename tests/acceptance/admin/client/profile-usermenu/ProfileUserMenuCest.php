@@ -20,17 +20,18 @@ class ProfileUserMenuCest
         $I->login();
         $I->needPage(Url::to(['@client/view', 'id' => $I->id]));
         $menu = [
-            ['text' => 'You can change your avatar at Gravatar.com', 'selector' => '//a[@href="http://gravatar.com"]'],
-            ['text' => 'Change password',                            'selector' => '//a[@data-target="#w0"]'],
-            ['text' => 'Enable two factor authorization',            'selector' => '//a[@*]'],
-            ['text' => 'Pincode settings',                           'selector' => '//a[@data-target="#w2"]'],
-            ['text' => 'IP address restrictions',                    'selector' => '//a[@data-target="#w3"]'],
-            ['text' => 'Notification settings',                      'selector' => '//a[@data-target="#w4"]'],
-            ['text' => 'Domain settings',                            'selector' => '//a[@data-target="#w5"]'],
-            ['text' => 'Ticket settings',                            'selector' => '//a[@data-target="#w6"]'],
+            'You can change your avatar at Gravatar.com',
+            'Change password',
+            'Enable two factor authorization',
+            'Pincode settings',
+            'IP address restrictions',
+            'Notification settings',
+            'Domain settings',
+            'Finance settings',
+            'Ticket settings',
         ];
         foreach ($menu as $item) {
-            $I->see($item['text'], $item['selector']);
+            $I->see($item, '//div[@class="profile-usermenu"]/ul/li');
         }
     }
 }
