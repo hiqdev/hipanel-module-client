@@ -35,7 +35,7 @@ class ContactInformationCest
             [$key => 'social_net',              'text' => 'Social',       'td' => 'https://facebook.com/hipanel_test_admin'],
             [$key => 'voice_phone',             'text' => 'Phone',        'td' => '380932003040'],
             [$key => 'fax_phone',               'text' => 'Fax',          'td' => '380445203040'],
-            [$key => 'street',                  'text' => 'Street',       'td' => '42 Foo str.'],
+            [$key => 'street',                  'text' => 'Address',      'td' => '42 Foo str.'],
             [$key => 'city',                    'text' => 'City',         'td' => 'Bar'],
             [$key => 'province',                'text' => 'Province',     'td' => 'Kyiv'],
             [$key => 'postal_code',             'text' => 'Postal code',  'td' => '01001'],

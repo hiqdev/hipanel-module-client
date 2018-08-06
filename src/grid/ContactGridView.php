@@ -119,7 +119,7 @@ class ContactGridView extends BoxedGridView
                 },
             ],
             'street' => [
-                'label' => Yii::t('hipanel:client', 'Street'),
+                'label' => Yii::t('hipanel:client', 'Address'),
                 'format' => 'html',
                 'value' => function ($model) {
                     return $model->street1 . $model->street2 . $model->street3 .
