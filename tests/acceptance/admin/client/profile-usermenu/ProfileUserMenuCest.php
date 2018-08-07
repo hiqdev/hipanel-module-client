@@ -27,7 +27,7 @@ class ProfileUserMenuCest
             'IP address restrictions',
             'Notification settings',
             'Domain settings',
-            'Finance settings',
+            'Financial settings',
             'Ticket settings',
         ];
         foreach ($menu as $item) {
