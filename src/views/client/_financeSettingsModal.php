@@ -51,6 +51,8 @@ use yii\helpers\Url;
 
         <?= $form->field($model, 'autoexchange_enabled')->checkbox() ?>
 
+        <?= $form->field($model, 'autoexchange_prepayments')->checkbox() ?>
+
         <?php if (Yii::$app->user->can('manage')) : ?>
             <?= $form->field($model, 'autoexchange_force')->checkbox() ?>
         <?php endif ?>

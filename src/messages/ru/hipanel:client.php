@@ -249,6 +249,7 @@ return [
     'We need your permission in order to provide services' => 'Нам необходимо ваше разрешение чтобы предоставлять услуги',
 
     'Balances' => 'Балансы',
+    'Finance settings' => 'Финансовые настройки',
     /// Language
     'Language' => 'Язык',
     'RU' => 'Русский',
@@ -263,6 +264,8 @@ return [
     'Primary currency for invoices' => 'Основная валюта для инвойсов',
     'Exchange all debts to primary currency' => 'Переводить все долги в основную валюту',
     'When the primary currency (say EUR) balance is positive and the secondary currency (say USD) has debts, exchange as much available EUR as possible to close USD debts' => 'При наличии позитивного баланса в основной валюте (допустим EUR), и долга во вторичной валюте (скажем USD), обменивать как можно больше доступных EUR чтобы покрыть долг в USD',
+    'Exchange all debs to primary currency including prepayments for expected resource consumption' => 'Переводить все долги в основную валюту, включая предоплату за переборы',
+    'This flag indicates that full invoice sum would be converted into primary currency' => 'Этот флаг указывает, что вся сумма инвоиса будет переведена в основную валюту',
     'Select the preferred currency for invoicer' => 'Выберете предпочтительную валюту для инвойсов',
     'When "exchange currency for debts automatically" is enabled, this flag indicates that the primary currency CAN be indebted to close debts in other currencies' => 'Когда включён автоматический обмен валют для закрытия долгов, эта настройка разрешает образование задолженности в основной валюте для полного закрытия долгов в других валютах',
 ];
