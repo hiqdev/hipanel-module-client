@@ -291,7 +291,7 @@ class Client extends \hipanel\base\Model
             'autoexchange_to' => Yii::t('hipanel:client', 'Select the preferred currency for invoicer'),
             'autoexchange_enabled' => Yii::t('hipanel:client', 'When the primary currency (say EUR) balance is positive and the secondary currency (say USD) has debts, exchange as much available EUR as possible to close USD debts'),
             'autoexchange_force' => Yii::t('hipanel:client', 'When "exchange currency for debts automatically" is enabled, this flag indicates that the primary currency CAN be indebted to close debts in other currencies'),
-            'autoexchange_prepayments' => Yii::t('hipanel:client', 'When "exchange currency for debts automatically" is enabled, this flag indicates that prepayments for the expected resources consumption SHOULD be converted to primary currency immediately. It can be useful to prevent debts in primary currency while the secondary currency balance is positive due to prepayment'),
+            'autoexchange_prepayments' => Yii::t('hipanel:client', 'When "exchange currency for debts automatically" is enabled, this flag indicates that prepayments for the expected resources consumption which present in the invoice would be exchanged too. It can be useful to prevent debts in primary currency while the secondary currency balance is positive due to prepayment'),
         ]);
     }
 
