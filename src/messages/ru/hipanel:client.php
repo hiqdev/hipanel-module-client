@@ -134,6 +134,7 @@ return [
     'Administrator' => 'Администратор',
     'Manager' => 'Менеджер',
     'Owner' => 'Владелец',
+    'Support' => 'Поддержка',
 
     // PIN code
     'Pincode settings' => 'Настройки пин-кода',
