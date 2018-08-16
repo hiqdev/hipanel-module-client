@@ -21,20 +21,21 @@ class ProfileUserMenuCest
         $I->login();
         $I->needPage(Url::to(['@client/view', 'id' => $I->id]));
         $menu = [
-            ['text' => 'You can change your avatar at Gravatar.com', 'visible' => true],
-            ['text' => 'Change password',                            'visible' => true],
-            ['text' => 'Enable two factor authorization',            'visible' => true],
-            ['text' => 'Pincode settings',                           'visible' => true],
-            ['text' => 'IP address restrictions',                    'visible' => true],
-            ['text' => 'Notification settings',                      'visible' => true],
-            ['text' => 'Domain settings',                            'visible' => Yii::getAlias('@domain', false)],
-            ['text' => 'Financial settings',                         'visible' => true],
-            ['text' => 'Ticket settings',                            'visible' => true],
+            ['text' => 'You can change your avatar at Gravatar.com'],
+            ['text' => 'Change password'],
+            ['text' => 'Enable two factor authorization'],
+            ['text' => 'Pincode settings'],
+            ['text' => 'IP address restrictions'],
+            ['text' => 'Notification settings'],
+            ['text' => 'Domain settings', 'visible' => Yii::getAlias('@domain', false)],
+            ['text' => 'Financial settings'],
+            ['text' => 'Ticket settings'],
         ];
         foreach ($menu as $item) {
-            if ($item['visible']) {
-                $I->see($item['text'], '//div[@class="profile-usermenu"]/ul/li');
+            if (array_key_exists('visible', $item) && !$item['visible']) {
+                continue;
             }
+            $I->see($item['text'], '//div[@class="profile-usermenu"]/ul/li');
         }
     }
 }
