@@ -12,6 +12,7 @@ namespace hipanel\modules\client\tests\acceptance\admin\client;
 
 use hipanel\helpers\Url;
 use hipanel\tests\_support\Step\Acceptance\Admin;
+use Yii;
 
 class ClientInformationCest
 {
@@ -26,18 +27,21 @@ class ClientInformationCest
             [$key => 'language',    'text' => 'Language',    'td' => 'English'],
             [$key => 'type',        'text' => 'Type',        'td' => 'Admin'],
             [$key => 'state',       'text' => 'Status',      'td' => 'Ok'],
-            [$key => 'create_time', 'text' => 'Registered',  'td' => 'Feb 27, 2017, 4:56:32 PM'],
+            [$key => 'create_time', 'text' => 'Registered',  'td' => null],
             [$key => 'update_time', 'text' => 'Last update', 'td' => null],
             [$key => 'tickets',     'text' => 'Tickets',     'td' => null],
             [$key => 'servers',     'text' => 'Servers',     'td' => null],
-            [$key => 'domains',     'text' => 'Domains',     'td' => null],
+            [$key => 'domains',     'text' => 'Domains',     'td' => null, 'visible' => Yii::getAlias('@domain', false)],
             [$key => 'contacts',    'text' => 'Contacts',    'td' => '1 contact'],
             [$key => 'hosting',     'text' => 'Hosting',     'td' => null],
         ];
         foreach ($tbody as $tr) {
+            if (isset($tr['visible']) && $tr['visible'] === false) {
+                continue;
+            }
             $I->seeElement(['css' => 'table tbody tr th'], [$key => $tr[$key]]);
             $I->see($tr['text'], "//table/tbody/tr/th[@$key='{$tr[$key]}']");
-            if ($tr['td'] !== '') {
+            if ($tr['td']) {
                 $I->see($tr['td'], "//table/tbody/tr/th[@$key='{$tr[$key]}']/../td");
             }
         }

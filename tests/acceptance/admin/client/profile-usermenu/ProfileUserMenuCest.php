@@ -12,6 +12,7 @@ namespace hipanel\modules\client\tests\acceptance\admin\client\profile\usermenu;
 
 use hipanel\helpers\Url;
 use hipanel\tests\_support\Step\Acceptance\Admin;
+use Yii;
 
 class ProfileUserMenuCest
 {
@@ -20,18 +21,21 @@ class ProfileUserMenuCest
         $I->login();
         $I->needPage(Url::to(['@client/view', 'id' => $I->id]));
         $menu = [
-            'You can change your avatar at Gravatar.com',
-            'Change password',
-            'Enable two factor authorization',
-            'Pincode settings',
-            'IP address restrictions',
-            'Notification settings',
-            'Domain settings',
-            'Financial settings',
-            'Ticket settings',
+            ['text' => 'You can change your avatar at Gravatar.com'],
+            ['text' => 'Change password'],
+            ['text' => 'Enable two factor authorization'],
+            ['text' => 'Pincode settings'],
+            ['text' => 'IP address restrictions'],
+            ['text' => 'Notification settings'],
+            ['text' => 'Domain settings', 'visible' => Yii::getAlias('@domain', false)],
+            ['text' => 'Financial settings'],
+            ['text' => 'Ticket settings'],
         ];
         foreach ($menu as $item) {
-            $I->see($item, '//div[@class="profile-usermenu"]/ul/li');
+            if (isset($item['visible']) && $item['visible'] === false) {
+                continue;
+            }
+            $I->see($item['text'], '//div[@class="profile-usermenu"]/ul/li');
         }
     }
 }
