@@ -37,7 +37,7 @@ class ClientViewSkeletonCest
             ['text' => 'Ticket settings'],
         ];
         foreach ($menu as $item) {
-            if (array_key_exists('visible', $item) && !$item['visible']) {
+            if (isset($item['visible']) && $item['visible'] === false) {
                 continue;
             }
             $I->see($item['text'], '.profile-usermenu');

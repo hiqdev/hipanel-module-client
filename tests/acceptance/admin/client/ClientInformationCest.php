@@ -36,7 +36,7 @@ class ClientInformationCest
             [$key => 'hosting',     'text' => 'Hosting',     'td' => null],
         ];
         foreach ($tbody as $tr) {
-            if (array_key_exists('visible', $tr) && !$tr['visible']) {
+            if (isset($tr['visible']) && $tr['visible'] === false) {
                 continue;
             }
             $I->seeElement(['css' => 'table tbody tr th'], [$key => $tr[$key]]);
