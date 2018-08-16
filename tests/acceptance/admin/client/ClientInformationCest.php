@@ -12,6 +12,7 @@ namespace hipanel\modules\client\tests\acceptance\admin\client;
 
 use hipanel\helpers\Url;
 use hipanel\tests\_support\Step\Acceptance\Admin;
+use Yii;
 
 class ClientInformationCest
 {
@@ -21,24 +22,26 @@ class ClientInformationCest
         $I->needPage(Url::to(['@client/view', 'id' => $I->id]));
         $key = 'data-resizable-column-id';
         $tbody = [
-            [$key => 'seller_id',   'text' => 'Reseller',    'td' => 'hipanel_test_reseller@hiqdev.com'],
-            [$key => 'name',        'text' => 'Name',        'td' => 'Admin HiPanel'],
-            [$key => 'language',    'text' => 'Language',    'td' => 'English'],
-            [$key => 'type',        'text' => 'Type',        'td' => 'Admin'],
-            [$key => 'state',       'text' => 'Status',      'td' => 'Ok'],
-            [$key => 'create_time', 'text' => 'Registered',  'td' => 'Feb 27, 2017, 4:56:32 PM'],
-            [$key => 'update_time', 'text' => 'Last update', 'td' => null],
-            [$key => 'tickets',     'text' => 'Tickets',     'td' => null],
-            [$key => 'servers',     'text' => 'Servers',     'td' => null],
-            [$key => 'domains',     'text' => 'Domains',     'td' => null],
-            [$key => 'contacts',    'text' => 'Contacts',    'td' => '1 contact'],
-            [$key => 'hosting',     'text' => 'Hosting',     'td' => null],
+            [$key => 'seller_id',   'text' => 'Reseller',    'td' => 'hipanel_test_reseller@hiqdev.com', 'visible' => true],
+            [$key => 'name',        'text' => 'Name',        'td' => 'Admin HiPanel',                    'visible' => true],
+            [$key => 'language',    'text' => 'Language',    'td' => 'English',                          'visible' => true],
+            [$key => 'type',        'text' => 'Type',        'td' => 'Admin',                            'visible' => true],
+            [$key => 'state',       'text' => 'Status',      'td' => 'Ok',                               'visible' => true],
+            [$key => 'create_time', 'text' => 'Registered',  'td' => null,                               'visible' => true],
+            [$key => 'update_time', 'text' => 'Last update', 'td' => null,                               'visible' => true],
+            [$key => 'tickets',     'text' => 'Tickets',     'td' => null,                               'visible' => true],
+            [$key => 'servers',     'text' => 'Servers',     'td' => null,                               'visible' => true],
+            [$key => 'domains',     'text' => 'Domains',     'td' => null,                               'visible' => Yii::getAlias('@domain', false)],
+            [$key => 'contacts',    'text' => 'Contacts',    'td' => '1 contact',                        'visible' => true],
+            [$key => 'hosting',     'text' => 'Hosting',     'td' => null,                               'visible' => true],
         ];
         foreach ($tbody as $tr) {
-            $I->seeElement(['css' => 'table tbody tr th'], [$key => $tr[$key]]);
-            $I->see($tr['text'], "//table/tbody/tr/th[@$key='{$tr[$key]}']");
-            if ($tr['td'] !== '') {
-                $I->see($tr['td'], "//table/tbody/tr/th[@$key='{$tr[$key]}']/../td");
+            if ($tr['visible']) {
+                $I->seeElement(['css' => 'table tbody tr th'], [$key => $tr[$key]]);
+                $I->see($tr['text'], "//table/tbody/tr/th[@$key='{$tr[$key]}']");
+                if ($tr['td']) {
+                    $I->see($tr['td'], "//table/tbody/tr/th[@$key='{$tr[$key]}']/../td");
+                }
             }
         }
         $I->click('1 contact');
