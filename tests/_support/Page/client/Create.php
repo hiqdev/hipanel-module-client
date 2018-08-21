@@ -2,6 +2,7 @@
 
 namespace hipanel\modules\client\tests\_support\Page\client;
 
+use Codeception\Example;
 use hipanel\helpers\Url;
 use hipanel\tests\_support\AcceptanceTester;
 use hipanel\tests\_support\Page\Authenticated;
@@ -22,10 +23,10 @@ class Create extends Authenticated
     /**
      * Tries to create a new client and expects for the successful creation
      *
-     * @param $clientData
+     * @param Example $clientData
      * @throws \Exception
      */
-    public function createValidClient($clientData): void
+    public function createValidClient(Example $clientData): void
     {
         $this->createClient($clientData);
 
@@ -33,41 +34,9 @@ class Create extends Authenticated
     }
 
     /**
-     * Tries to create a new client and expects for the error due blank field
-     *
-     * @throws \Exception
-     */
-    public function createEmptyDataClient(): void
-    {
-        $I = $this->tester;
-
-        $I->needPage(Url::to('@client/create'));
-        $I->click('Save', '#client-form');
-
-        $this->seeClientWasNotCreatedDueBlank();
-    }
-
-
-    /**
-     * Tries to create a new client and expects for the error due taken value
-     *
-     * @param $clientData
-     * @throws \Exception
-     */
-    public function createExistingClient($clientData)
-    {
-        $existingLogin = $clientData['login'];
-        $existingEmail = $clientData['email'];
-
-        $this->createClient($clientData);
-
-        $this->seeClientWasNotCreatedDueTaken($existingLogin, $existingEmail);
-    }
-
-    /**
      * Creates a new client
      *
-     * @param $clientData
+     * @param Example/array $clientData
      */
     protected function createClient($clientData): void
     {
@@ -91,6 +60,37 @@ class Create extends Authenticated
         $this->select2->chooseOption($clientData['reseller']);
 
         $I->click('Save', '#client-form');
+    }
+
+    /**
+     * Tries to create a new client and expects for the error due blank field
+     *
+     * @throws \Exception
+     */
+    public function createEmptyDataClient(): void
+    {
+        $I = $this->tester;
+
+        $I->needPage(Url::to('@client/create'));
+        $I->click('Save', '#client-form');
+
+        $this->seeClientWasNotCreatedDueBlank();
+    }
+
+    /**
+     * Tries to create a new client and expects for the error due taken value
+     *
+     * @param array $clientData
+     * @throws \Exception
+     */
+    public function createExistingClient(array $clientData)
+    {
+        $existingLogin = $clientData['login'];
+        $existingEmail = $clientData['email'];
+
+        $this->createClient($clientData);
+
+        $this->seeClientWasNotCreatedDueTaken($existingLogin, $existingEmail);
     }
 
     /**
