@@ -26,17 +26,17 @@ class ContactsCest
         $I->needPage(Url::to('@contact'));
         $I->see('Contact', 'h1');
         $I->seeLink('Create', Url::to('create'));
-        $this->ensureICanSeeAdvancedSearchBox();
+        $this->ensureICanSeeAdvancedSearchBox($I);
         $this->ensureICanSeeBulkSearchBox();
     }
 
-    private function ensureICanSeeAdvancedSearchBox()
+    private function ensureICanSeeAdvancedSearchBox(Seller $I)
     {
         $this->index->containsFilters([
-            new Input('Name'),
-            new Input('Email'),
-            new Select2('Client'),
-            new Select2('Reseller'),
+            Input::asAdvancedSearch($I, 'Name'),
+            Input::asAdvancedSearch($I, 'Email'),
+            Select2::asAdvancedSearch($I, 'Client'),
+            Select2::asAdvancedSearch($I, 'Reseller'),
         ]);
     }
 
