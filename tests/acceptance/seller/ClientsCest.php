@@ -25,22 +25,22 @@ class ClientsCest
         $I->login();
         $I->needPage(Url::to('@client'));
         $I->see('Clients', 'h1');
-        $this->ensureICanSeeAdvancedSearchBox();
+        $this->ensureICanSeeAdvancedSearchBox($I);
         $this->ensureICanSeeLegendBox();
         $this->ensureICanSeeBulkSearchBox();
     }
 
-    private function ensureICanSeeAdvancedSearchBox()
+    private function ensureICanSeeAdvancedSearchBox(Seller $I)
     {
         $this->index->containsFilters([
-            new Input('Login'),
-            new Input('Note'),
-            new Input('Name'),
-            new Input('Email'),
-            new Input('Reseller'),
-            new Select2('Reseller'),
-            new Input('Types'),
-            new Input('States'),
+            Input::asAdvancedSearch($I,'Login'),
+            Input::asAdvancedSearch($I, 'Note'),
+            Input::asAdvancedSearch($I, 'Name'),
+            Input::asAdvancedSearch($I, 'Email'),
+            Input::asAdvancedSearch($I, 'Reseller'),
+            Select2::asAdvancedSearch($I,'Reseller'),
+            Select2::asAdvancedSearch($I, 'Types'),
+            Select2::asAdvancedSearch($I, 'States'),
         ]);
     }
 
