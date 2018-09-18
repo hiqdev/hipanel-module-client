@@ -26,18 +26,18 @@ class DocumentsCest
         $I->needPage(Url::to('@document'));
         $I->see('Documents', 'h1');
         $I->seeLink('Create document', Url::to('create'));
-        $this->ensureICanSeeAdvancedSearchBox();
+        $this->ensureICanSeeAdvancedSearchBox($I);
         $this->ensureICanSeeBulkSearchBox();
     }
 
-    private function ensureICanSeeAdvancedSearchBox()
+    private function ensureICanSeeAdvancedSearchBox(Seller $I)
     {
         $this->index->containsFilters([
-            new Input('Title'),
-            new Input('Type'),
-            new Input('State'),
-            new Select2('Client'),
-            new Select2('Reseller'),
+            Input::asAdvancedSearch($I, 'Title'),
+            Select2::asAdvancedSearch($I, 'Type'),
+            Select2::asAdvancedSearch($I, 'State'),
+            Select2::asAdvancedSearch($I, 'Client'),
+            Select2::asAdvancedSearch($I, 'Reseller'),
         ]);
     }
 
