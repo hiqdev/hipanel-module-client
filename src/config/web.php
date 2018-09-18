@@ -60,5 +60,8 @@ return [
                 ],
             ],
         ],
+        'singletons' => [
+            \hipanel\modules\client\helpers\HasPINCode::class => \hipanel\modules\client\helpers\HasPINCode::class,
+        ],
     ],
 ];
