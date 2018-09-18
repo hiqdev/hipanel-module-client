@@ -18,14 +18,14 @@ use yii\base\Event;
 class ContactUpdateAction extends SmartUpdateAction
 {
     /**
-     * @var bool
+     * @var HasPINCode
      */
     private $hasPINCode;
 
     public function __construct($id, $controller, HasPINCode $hasPINCode, $config = [])
     {
         parent::__construct($id, $controller, $config);
-        $this->hasPINCode = $hasPINCode();
+        $this->hasPINCode = $hasPINCode;
     }
 
     public function init()
@@ -55,7 +55,7 @@ class ContactUpdateAction extends SmartUpdateAction
             'data' => function ($action) {
                 return [
                     'countries' => $action->controller->getRefs('country_code'),
-                    'askPincode' => $this->hasPINCode,
+                    'askPincode' => $this->hasPINCode->__invoke(),
                     'action' => 'update',
                 ];
             },

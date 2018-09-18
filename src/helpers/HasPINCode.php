@@ -29,7 +29,7 @@ class HasPINCode
         $this->user = $user;
     }
 
-    public function __invoke()
+    public function __invoke(): bool
     {
         return $this->cache->getOrSet(['user-pincode-enabled', $this->user->id], function () {
             $pincodeData = Client::perform('has-pincode', ['id' => $this->user->id]);

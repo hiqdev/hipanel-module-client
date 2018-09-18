@@ -47,7 +47,7 @@ class ContactController extends CrudController
      */
     private $notifyTriesRepository;
     /**
-     * @var bool
+     * @var HasPINCode
      */
     private $hasPINCode;
 
@@ -56,7 +56,7 @@ class ContactController extends CrudController
         parent::__construct($id, $module, $config);
 
         $this->notifyTriesRepository = $notifyTriesRepository;
-        $this->hasPINCode = $hasPINCode();
+        $this->hasPINCode = $hasPINCode;
     }
 
     /**
@@ -301,7 +301,7 @@ class ContactController extends CrudController
         return $this->render('update-employee', [
             'employeeForm' => $model,
             'model' => $model->getPrimaryContact(),
-            'askPincode' => $this->hasPINCode,
+            'askPincode' => $this->hasPINCode->__invoke(),
             'countries' => $this->getRefs('country_code'),
         ]);
     }
