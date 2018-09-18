@@ -24,6 +24,7 @@ use hipanel\modules\client\actions\ContactCreateAction;
 use hipanel\modules\client\actions\ContactUpdateAction;
 use hipanel\modules\client\forms\EmployeeForm;
 use hipanel\modules\client\forms\PhoneConfirmationForm;
+use hipanel\modules\client\helpers\HasPINCode;
 use hipanel\modules\client\logic\EmailConfirmer;
 use hipanel\modules\client\logic\PhoneConfirmationException;
 use hipanel\modules\client\logic\PhoneConfirmer;
@@ -45,12 +46,17 @@ class ContactController extends CrudController
      * @var NotifyTriesRepository
      */
     private $notifyTriesRepository;
+    /**
+     * @var HasPINCode
+     */
+    private $hasPINCode;
 
-    public function __construct($id, $module, NotifyTriesRepository $notifyTriesRepository, $config = [])
+    public function __construct($id, $module, NotifyTriesRepository $notifyTriesRepository, HasPINCode $hasPINCode, $config = [])
     {
         parent::__construct($id, $module, $config);
 
         $this->notifyTriesRepository = $notifyTriesRepository;
+        $this->hasPINCode = $hasPINCode;
     }
 
     /**
@@ -295,17 +301,8 @@ class ContactController extends CrudController
         return $this->render('update-employee', [
             'employeeForm' => $model,
             'model' => $model->getPrimaryContact(),
-            'askPincode' => $this->getUserHasPincode(),
+            'askPincode' => $this->hasPINCode->__invoke(),
             'countries' => $this->getRefs('country_code'),
         ]);
-    }
-
-    protected function getUserHasPincode()
-    {
-        return Yii::$app->cache->getOrSet(['user-pincode-enabled', Yii::$app->user->id], function () {
-            $pincodeData = Client::perform('has-pincode', ['id' => Yii::$app->user->id]);
-
-            return $pincodeData['pincode_enabled'];
-        }, 3600);
     }
 }

@@ -11,12 +11,23 @@
 namespace hipanel\modules\client\actions;
 
 use hipanel\actions\SmartUpdateAction;
-use hipanel\modules\client\models\Client;
+use hipanel\modules\client\helpers\HasPINCode;
 use Yii;
 use yii\base\Event;
 
 class ContactUpdateAction extends SmartUpdateAction
 {
+    /**
+     * @var HasPINCode
+     */
+    private $hasPINCode;
+
+    public function __construct($id, $controller, HasPINCode $hasPINCode, $config = [])
+    {
+        parent::__construct($id, $controller, $config);
+        $this->hasPINCode = $hasPINCode;
+    }
+
     public function init()
     {
         Yii::configure($this, [
@@ -44,7 +55,7 @@ class ContactUpdateAction extends SmartUpdateAction
             'data' => function ($action) {
                 return [
                     'countries' => $action->controller->getRefs('country_code'),
-                    'askPincode' => $this->getUserHasPincode(),
+                    'askPincode' => $this->hasPINCode->__invoke(),
                     'action' => 'update',
                 ];
             },
@@ -55,14 +66,5 @@ class ContactUpdateAction extends SmartUpdateAction
         }
 
         parent::init();
-    }
-
-    protected function getUserHasPincode()
-    {
-        return Yii::$app->cache->getOrSet(['user-pincode-enabled', Yii::$app->user->id], function () {
-            $pincodeData = Client::perform('has-pincode', ['id' => Yii::$app->user->id]);
-
-            return $pincodeData['pincode_enabled'];
-        }, 3600);
     }
 }
