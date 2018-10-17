@@ -28,6 +28,9 @@ use yii\helpers\Url;
     <?php $box->endBody() ?>
     <?php $box->beginFooter() ?>
     <?= Html::a(Yii::t('hipanel', 'View') . $box->icon(), '@client/index', ['class' => 'small-box-footer']) ?>
+    <?php if (Yii::$app->user->can('client.create')) : ?>
+        <?= Html::a(Yii::t('hipanel', 'Create') . $box->icon('fa-plus'), '@client/create', ['class' => 'small-box-footer']) ?>
+    <?php endif ?>
     <?php $box->endFooter() ?>
     <?php $box::end() ?>
 </div>
