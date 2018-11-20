@@ -106,7 +106,11 @@ class ContactController extends CrudController
 
                     /** @var ContactQuery $query */
                     $query = $action->getDataProvider()->query;
-                    $query->withDocuments()->withLocalizations();
+
+                    if (Yii::getAlias('@document', false)) {
+                        $query->withDocuments();
+                    }
+                    $query->withLocalizations();
                 },
             ],
             'validate-form' => [
