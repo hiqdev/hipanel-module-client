@@ -65,7 +65,7 @@ class ClientController extends \hipanel\base\CrudController
                 'class' => IndexAction::class,
                 'on beforePerform' => function (Event $event) {
                     $user = Yii::$app->user;
-                    if (!$user->isGuest && !$user->can('support')) {
+                    if (!$user->isGuest && !$user->can('client.list')) {
                         Yii::$app->response->redirect(Url::to(['@client/view', 'id' => $user->id]))->send();
                     }
 

@@ -37,7 +37,7 @@ class ClientColumn extends DataColumn
     {
         parent::init();
 
-        $this->visible = Yii::$app->user->can('support');
+        $this->visible = Yii::$app->user->can('access-subclients');
         if (!$this->visible) {
             return null;
         }
