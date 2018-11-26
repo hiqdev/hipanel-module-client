@@ -22,13 +22,13 @@ class SidebarMenu extends \hiqdev\yii2\menus\Menu
                 'url'     => ['/client/client/index'],
                 'icon'    => 'fa-group',
                 'visible' => function () {
-                    return Yii::$app->user->can('client.force-read');
+                    return Yii::$app->user->can('client.list');
                 },
                 'items'   => [
                     'clients' => [
                         'label' => Yii::t('hipanel', 'Clients'),
                         'url'   => ['/client/client/index'],
-                        'visible' => Yii::$app->user->can('client.force-read'),
+                        'visible' => Yii::$app->user->can('client.list'),
                     ],
 //                  'mailing' => [
 //                      'label' => Yii::t('hipanel', 'Mailing'),
