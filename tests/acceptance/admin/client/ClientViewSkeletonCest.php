@@ -24,7 +24,6 @@ class ClientViewSkeletonCest
         $I->see('admin', '.profile-user-role');
         $I->see('Client information');
         $I->see('Contact information');
-        $I->see('USD account');
         $menu = [
             ['text' => 'You can change your avatar at Gravatar.com'],
             ['text' => 'Change password'],

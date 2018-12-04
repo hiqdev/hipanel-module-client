@@ -11,75 +11,24 @@ use hipanel\tests\_support\Page\Widget\Input\Select2;
 class Create extends Authenticated
 {
     /**
-     * Tries to create a new client and expects for the successful creation
-     *
-     * @param Example $clientData
-     * @throws \Exception
-     */
-    public function createValidClient(Example $clientData): void
-    {
-        $this->createClient($clientData);
-
-        $this->seeClientWasCreated($clientData['login'], $clientData['type']);
-    }
-
-    /**
-     * Creates a new client
-     *
      * @param Example/array $clientData
      * @throws \Exception
      */
-    protected function createClient($clientData): void
+    public function fillClientData($clientData): void
     {
         $I = $this->tester;
-
-        $I->needPage(Url::to('@client/create'));
 
         $I->fillField(['name' => 'Client[0][login]'], $clientData['login']);
         $I->fillField(['name' => 'Client[0][email]'], $clientData['email']);
         $I->fillField(['name' => 'Client[0][password]'], $clientData['password']);
-
-
         $I->selectOption('#client-0-type', ['value' => $clientData['type']]);
 
-        (new Select2($I, '#client-0-referer_id'))
-            ->setValue($clientData['referer']);
-
-        (new Select2($I, '#client-0-seller_id'))
-            ->setValue($clientData['reseller']);
-
-        $I->pressButton('Save');
-    }
-
-    /**
-     * Tries to create a new client and expects for the error due blank field
-     *
-     * @throws \Exception
-     */
-    public function createEmptyDataClient(): void
-    {
-        $I = $this->tester;
-
-        $I->needPage(Url::to('@client/create'));
-        $I->click('Save', '#client-form');
-
-        $this->seeClientWasNotCreatedDueBlank();
-    }
-
-    /**
-     * Tries to create a new client and expects for the error due taken value
-     *
-     * @param array $clientData
-     * @throws \Exception
-     */
-    public function createExistingClient(array $clientData)
-    {
-        $existingLogin = $clientData['login'];
-        $existingEmail = $clientData['email'];
-
-        $this->createClient($clientData);
-
-        $this->seeClientWasNotCreatedDueTaken($existingLogin, $existingEmail);
+        foreach (['referer', 'reseller'] as $fieldName) {
+            if (!is_null($clientData[$fieldName])) {
+                (new Select2($I, "#client-0-${fieldName}_id"))
+                    ->setValue($clientData[$fieldName]);
+            }
+        }
     }
 
     /**
@@ -89,7 +38,7 @@ class Create extends Authenticated
      * @param string $type
      * @throws \Exception
      */
-    protected function seeClientWasCreated(string $login, string $type): void
+    public function seeClientWasCreated(string $login, string $type): void
     {
         $I = $this->tester;
 
@@ -97,8 +46,7 @@ class Create extends Authenticated
         $I->seeInCurrentUrl('/client/view?id=');
         $I->see($login);
 
-// TODO: При создании Seller на его страничке отображается неверный тип
-//        $I->see($type, 'th[data-resizable-column-id="type"] +  td > *');
+        $I->see($type, 'th[data-resizable-column-id="type"] +  td > *');
     }
 
     /**
@@ -106,7 +54,7 @@ class Create extends Authenticated
      *
      * @throws \Exception
      */
-    protected function seeClientWasNotCreatedDueBlank(): void
+    public function seeBlankFieldErrors(): void
     {
         $I = $this->tester;
 
@@ -124,7 +72,7 @@ class Create extends Authenticated
      * @param string $existingEmail
      * @throws \Exception
      */
-    protected function seeClientWasNotCreatedDueTaken(
+    public function seeTakenDataErrors(
         string $existingLogin,
         string $existingEmail
     ): void {
