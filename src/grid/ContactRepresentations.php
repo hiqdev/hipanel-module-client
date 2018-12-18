@@ -27,13 +27,13 @@ class ContactRepresentations extends RepresentationCollection
                     Yii::$app->user->can('client.read') ? 'seller_id' : null,
                 ]),
             ],
-            'requisites' => [
+            'requisites' => Yii::$app->user->can('requisites.read') ? [
                 'label' => Yii::t('hipanel:client', 'Requisites'),
                 'columns' => [
-                    'checkbox',
+                    'checkbox', 'client_like',
                     'name', 'actions', 'requisites',
                 ],
-            ],
+            ] : null,
         ]);
     }
 }

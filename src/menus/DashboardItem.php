@@ -29,7 +29,7 @@ class DashboardItem extends \hiqdev\yii2\menus\Menu
             'clients' => [
                 'label' => $this->render('dashboardItem', $this->dashboard->mget(['model'])),
                 'encode' => false,
-                'visible' => Yii::$app->user->can('client.read'),
+                'visible' => Yii::$app->user->can('client.list'),
             ],
         ];
     }
