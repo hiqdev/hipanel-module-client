@@ -74,16 +74,16 @@ class Client extends \hipanel\base\Model
             [['login', 'email'], 'unique', 'on' => ['create', 'update']],
 
             // Ticket settings
-            [['ticket_emails'], 'string', 'on' => ['ticket-settings']],
+            [['ticket_emails', 'create_from_emails'], 'string', 'on' => ['ticket-settings']],
             [
-                ['ticket_emails'],
+                ['ticket_emails', 'create_from_emails'],
                 'filter',
                 'filter' => function($value) {
                     return (mb_strlen($value) > 0) ? StringHelper::mexplode($value) : [];
                 },
                 'on' => ['ticket-settings'],
             ],
-            [['ticket_emails'], 'each', 'rule' => ['email'], 'on' => ['ticket-settings']],
+            [['ticket_emails', 'create_from_emails'], 'each', 'rule' => ['email'], 'on' => ['ticket-settings']],
             [['send_message_text', 'new_messages_first'], 'boolean', 'on' => 'ticket-settings'],
 
             // Finance settings
@@ -244,6 +244,7 @@ class Client extends \hipanel\base\Model
             'update_time' => Yii::t('hipanel', 'Last update'),
 
             'ticket_emails' => Yii::t('hipanel:client', 'Email for tickets'),
+            'create_from_emails' => Yii::t('hipanel:client', 'Allowed emails for creating tickets'),
             'send_message_text' => Yii::t('hipanel:client', 'Send message text'),
 
             'allowed_ips' => Yii::t('hipanel:client', 'Allowed IPs for panel login'),
