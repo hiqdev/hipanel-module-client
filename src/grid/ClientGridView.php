@@ -412,9 +412,6 @@ class ClientGridView extends BoxedGridView
                     return  Html::a($model->payment_ticket_id, Url::to(['@ticket/view', 'id' => $model->payment_ticket_id]), compact('class'));
                 },
             ],
-            'language' => [
-                'filter' => false,
-            ],
             'description' => [
                 'class' => XEditableColumn::class,
                 'label' => Yii::t('hipanel','Description'),
