@@ -23,23 +23,23 @@ class ContactInformationCest
         $I->seeLink('Change', Url::to(['@contact/update',  'id' => $I->id]));
         $key = 'data-resizable-column-id';
         $tbody = [
-            [$key => 'name_with_verification',  'text' => 'Name',         'td' => 'Admin HiPanel'],
+            [$key => 'name_with_verification',  'text' => 'Name',         'td' => 'Test Admin'],
             [$key => 'organization',            'text' => 'Organization', 'td' => 'HiQDev'],
             [$key => 'email_with_verification', 'text' => 'Email',        'td' => 'hipanel_test_admin@hiqdev.com'],
             [$key => 'abuse_email',             'text' => 'Abuse email',  'td' => 'hipanel_test_admin+abuse@hiqdev.com'],
             [$key => 'messengers',              'text' => 'Messengers',   'td' => "Skype: hipanel_test_admin\n" .
-                                                                                  "ICQ: 888777\n" .
+                                                                                  "ICQ: {$I->id}\n" .
                                                                                   "Jabber: hipanel_test_admin@hiqdev.com\n" .
                                                                                   "Telegram: hipanel_test_admin\n" .
-                                                                                  'WhatsApp: 380932003040', ],
+                                                                                  'WhatsApp: 123456789012', ],
             [$key => 'social_net',              'text' => 'Social',       'td' => 'https://facebook.com/hipanel_test_admin'],
-            [$key => 'voice_phone',             'text' => 'Phone',        'td' => '380932003040'],
-            [$key => 'fax_phone',               'text' => 'Fax',          'td' => '380445203040'],
-            [$key => 'street',                  'text' => 'Address',      'td' => '42 Foo str.'],
-            [$key => 'city',                    'text' => 'City',         'td' => 'Bar'],
-            [$key => 'province',                'text' => 'Province',     'td' => 'Kyiv'],
-            [$key => 'postal_code',             'text' => 'Postal code',  'td' => '01001'],
-            [$key => 'country_name',            'text' => 'Country',      'td' => 'Ukraine'],
+            [$key => 'voice_phone',             'text' => 'Phone',        'td' => '123456789012'],
+            [$key => 'fax_phone',               'text' => 'Fax',          'td' => '987654321098'],
+            [$key => 'street',                  'text' => 'Address',      'td' => '42 Test str.'],
+            [$key => 'city',                    'text' => 'City',         'td' => 'Test'],
+            [$key => 'province',                'text' => 'Province',     'td' => 'Testing'],
+            [$key => 'postal_code',             'text' => 'Postal code',  'td' => 'TEST'],
+            [$key => 'country_name',            'text' => 'Country',      'td' => 'Trinidad And Tobago'],
         ];
         foreach ($tbody as $tr) {
             $I->seeElement(['css' => 'table tbody tr th'], [$key => $tr[$key]]);

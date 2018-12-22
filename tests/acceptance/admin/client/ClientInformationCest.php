@@ -22,8 +22,8 @@ class ClientInformationCest
         $I->needPage(Url::to(['@client/view', 'id' => $I->id]));
         $key = 'data-resizable-column-id';
         $tbody = [
-            [$key => 'seller_id',   'text' => 'Reseller',    'td' => 'hipanel_test_reseller@hiqdev.com'],
-            [$key => 'name',        'text' => 'Name',        'td' => 'Admin HiPanel'],
+            [$key => 'seller_id',   'text' => 'Reseller',    'td' => 'hipanel_test_reseller'],
+            [$key => 'name',        'text' => 'Name',        'td' => 'Test Admin'],
             [$key => 'language',    'text' => 'Language',    'td' => 'English'],
             [$key => 'type',        'text' => 'Type',        'td' => 'Admin'],
             [$key => 'state',       'text' => 'Status',      'td' => 'Ok'],
