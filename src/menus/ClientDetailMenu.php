@@ -97,7 +97,7 @@ class ClientDetailMenu extends \hipanel\menus\AbstractDetailMenu
                     'scenario' => 'ip-restrictions',
                 ]),
                 'encode' => false,
-                'visible' => $user->is($this->model->id),
+                'visible' => $user->is($this->model->id) || $user->can('client.set-others-allowed-ips'),
             ],
             [
                 'label' => SettingsModal::widget([

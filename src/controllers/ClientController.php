@@ -239,6 +239,7 @@ class ClientController extends \hipanel\base\CrudController
             ],
             'ip-restrictions' => [
                 'class' => ClassValuesAction::class,
+                'setApiCommand' => 'set-allowed-ips',
                 'valuesClass' => 'client,access',
                 'view' => '_ipRestrictionsModal',
             ],
