@@ -122,7 +122,7 @@ class ClientDetailMenu extends \hipanel\menus\AbstractDetailMenu
                 'icon' => 'fa-edit fa-fw',
                 'url' => ['@client/update', 'id' => $this->model->id],
                 'encode' => false,
-                'visible' => Yii::$app->user->can('manage'),
+                'visible' => $user->can('manage'),
             ],
             [
                 'label' => SettingsModal::widget([
