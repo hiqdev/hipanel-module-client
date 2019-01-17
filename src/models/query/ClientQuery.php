@@ -15,17 +15,12 @@ use Yii;
 
 class ClientQuery extends ActiveQuery
 {
-    public function withServers()
+    public function withServersCount()
     {
         if (Yii::getAlias('@server', false)) {
             $this->andWhere([
                 'with_servers_count' => 1,
                 'with_hosting_count' => 1,
-            ]);
-            $this->with([
-                'servers' => function ($query) {
-                    $query->limit(21);
-                },
             ]);
         }
 
