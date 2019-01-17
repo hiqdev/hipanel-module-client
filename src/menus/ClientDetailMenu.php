@@ -97,7 +97,7 @@ class ClientDetailMenu extends \hipanel\menus\AbstractDetailMenu
                     'scenario' => 'ip-restrictions',
                 ]),
                 'encode' => false,
-                'visible' => $user->is($this->model->id),
+                'visible' => $user->is($this->model->id) || $user->can('client.set-others-allowed-ips'),
             ],
             [
                 'label' => SettingsModal::widget([
@@ -122,7 +122,7 @@ class ClientDetailMenu extends \hipanel\menus\AbstractDetailMenu
                 'icon' => 'fa-edit fa-fw',
                 'url' => ['@client/update', 'id' => $this->model->id],
                 'encode' => false,
-                'visible' => Yii::$app->user->can('manage'),
+                'visible' => $user->can('manage'),
             ],
             [
                 'label' => SettingsModal::widget([
