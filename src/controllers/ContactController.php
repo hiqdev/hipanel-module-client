@@ -253,7 +253,7 @@ class ContactController extends CrudController
         if ($confirmer->confirm()) {
             Yii::$app->getSession()->setFlash('success', Yii::t('hipanel:client', 'Email was confirmed successfully'));
         } else {
-            Yii::$app->getSession()->setFlash('error', Yii::t('hipanel:client', 'Error happen during email confirmation'));
+            Yii::$app->getSession()->setFlash('error', Yii::t('hipanel:client', 'Error happened during email confirmation'));
         }
 
         $to = $id ? ['@contact/view', 'id' => $id] : ['/site/profile'];

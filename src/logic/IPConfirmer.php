@@ -24,6 +24,5 @@ class IPConfirmer
         return Client::perform('add-allowed-i-p', [
             'confirm_data' => Yii::$app->request->get(),
         ]);
-
     }
 }
