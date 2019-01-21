@@ -20,7 +20,7 @@ class EmailConfirmer
      */
     public function confirm()
     {
-        Contact::perform('confirm-email', [
+        $result = Contact::perform('confirm-email', [
             'confirm_data' => Yii::$app->request->get(),
         ]);
 

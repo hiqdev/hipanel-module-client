@@ -73,6 +73,7 @@ class ContactController extends CrudController
                     'delete' => 'contact.delete',
                     'update-employee' => 'employee.update',
                     'set-confirmation' => 'contact.force-verify',
+                    'confirm-email' => true,
                     '*' => 'contact.read',
                 ],
             ],
@@ -248,6 +249,7 @@ class ContactController extends CrudController
 
     public function actionConfirmEmail($id = null)
     {
+        Yii::$app->get('hiart')->disableAuth();
         $confirmer = Yii::createObject(EmailConfirmer::class);
         $confirmer->confirm();
         Yii::$app->getSession()->setFlash('success', Yii::t('hipanel:client', 'Email was confirmed successfully'));

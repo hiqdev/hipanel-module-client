@@ -25,6 +25,7 @@ use hipanel\actions\ViewAction;
 use hipanel\filters\EasyAccessControl;
 use hipanel\helpers\Url;
 use hipanel\modules\client\models\Client;
+use hipanel\modules\client\logic\IPConfirmer;
 use Yii;
 use yii\base\Event;
 use yii\filters\VerbFilter;
@@ -46,6 +47,7 @@ class ClientController extends \hipanel\base\CrudController
                     'set-description, set-note' => 'client.update',
                     'set-tmp-pwd' => 'client.update',
                     'index, search' => ['client.read', 'employee.read'],
+                    'allow-i-p' => true,
                     '*' => '@',
                 ],
             ],
@@ -325,5 +327,16 @@ class ClientController extends \hipanel\base\CrudController
                 'error' => Yii::t('hipanel', 'Failed to change description'),
             ],
         ]);
+    }
+
+    public function actionAllowIP($id = null)
+    {
+        Yii::$app->get('hiart')->disableAuth();
+        $confirmer = Yii::createObject(IPConfirmer::class);
+        $confirmer->confirm();
+        Yii::$app->getSession()->setFlash('success', Yii::t('hipanel:client', 'IP was add successfully'));
+
+        $to = $id ? ['@contact/view', 'id' => $id] : ['/site/profile'];
+        return $this->redirect($to);
     }
 }
