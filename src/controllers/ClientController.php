@@ -331,10 +331,12 @@ class ClientController extends \hipanel\base\CrudController
 
     public function actionAllowIP($id = null)
     {
-        Yii::$app->get('hiart')->disableAuth();
         $confirmer = Yii::createObject(IPConfirmer::class);
-        $confirmer->confirm();
-        Yii::$app->getSession()->setFlash('success', Yii::t('hipanel:client', 'IP was add successfully'));
+        if ($confirmer->confirm() {
+            Yii::$app->getSession()->setFlash('success', Yii::t('hipanel:client', 'IP was add successfully'));
+        } else {
+            Yii::$app->getSession()->setFlash('error', Yii::t('hipanel:client', 'Error happen during adding IP'));
+        }
 
         $to = $id ? ['@contact/view', 'id' => $id] : ['/site/profile'];
         return $this->redirect($to);

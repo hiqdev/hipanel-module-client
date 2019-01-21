@@ -249,10 +249,12 @@ class ContactController extends CrudController
 
     public function actionConfirmEmail($id = null)
     {
-        Yii::$app->get('hiart')->disableAuth();
         $confirmer = Yii::createObject(EmailConfirmer::class);
-        $confirmer->confirm();
-        Yii::$app->getSession()->setFlash('success', Yii::t('hipanel:client', 'Email was confirmed successfully'));
+        if ($confirmer->confirm()) {
+            Yii::$app->getSession()->setFlash('success', Yii::t('hipanel:client', 'Email was confirmed successfully'));
+        } else {
+            Yii::$app->getSession()->setFlash('error', Yii::t('hipanel:client', 'Error happen during email confirmation'));
+        }
 
         $to = $id ? ['@contact/view', 'id' => $id] : ['/site/profile'];
 
