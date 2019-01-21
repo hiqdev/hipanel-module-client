@@ -31,6 +31,7 @@ class Client extends \hipanel\base\Model
     const TYPE_SELLER = 'reseller';
     const TYPE_ADMIN = 'admin';
     const TYPE_MANAGER = 'manager';
+    const TYPE_JUNIOR_MANAGER = 'junior-manager';
     const TYPE_CLIENT = 'client';
     const TYPE_OWNER = 'owner';
     const TYPE_EMPLOYEE = 'employee';
@@ -381,6 +382,7 @@ class Client extends \hipanel\base\Model
             self::TYPE_CLIENT => Yii::t('hipanel:client', 'Client'),
             self::TYPE_SELLER => Yii::t('hipanel:client', 'Reseller'),
             self::TYPE_MANAGER => Yii::t('hipanel:client', 'Manager'),
+            self::TYPE_JUNIOR_MANAGER => Yii::t('hipanel:client', 'Junior manager'),
             self::TYPE_ADMIN => Yii::t('hipanel:client', 'Administrator'),
             self::TYPE_SUPPORT => Yii::t('hipanel:client', 'Support'),
         ];

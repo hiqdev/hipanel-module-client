@@ -10,10 +10,10 @@
 
 namespace hipanel\modules\client\logic;
 
-use hipanel\modules\client\models\Contact;
+use hipanel\modules\client\models\Client;
 use Yii;
 
-class EmailConfirmer
+class IPConfirmer
 {
     /**
      * Sends confirmation data from request to API.
@@ -21,7 +21,7 @@ class EmailConfirmer
     public function confirm()
     {
         Yii::$app->get('hiart')->disableAuth();
-        return Contact::perform('confirm-email', [
+        return Client::perform('add-allowed-i-p', [
             'confirm_data' => Yii::$app->request->get(),
         ]);
     }
