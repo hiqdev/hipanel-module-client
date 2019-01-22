@@ -347,6 +347,6 @@ class ClientController extends \hipanel\base\CrudController
     {
         Yii::$app->get('hiart')->disableAuth();
         $url = 'https://' . Yii::$app->params['hiam.site'] . Url::to(array_merge(['/site/reset-password'], Yii::$app->request->get()));
-        $this->redirect($url);
+        return $this->redirect($url);
     }
 }
