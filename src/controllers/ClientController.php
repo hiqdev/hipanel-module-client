@@ -48,6 +48,7 @@ class ClientController extends \hipanel\base\CrudController
                     'set-tmp-pwd' => 'client.update',
                     'index, search' => ['client.read', 'employee.read'],
                     'allow-i-p' => true,
+                    'restore-password' => true,
                     '*' => '@',
                 ],
             ],
@@ -332,7 +333,7 @@ class ClientController extends \hipanel\base\CrudController
     public function actionAllowIP($id = null)
     {
         $confirmer = Yii::createObject(IPConfirmer::class);
-        if ($confirmer->confirm() {
+        if ($confirmer->confirm()) {
             Yii::$app->getSession()->setFlash('success', Yii::t('hipanel:client', 'IP was allowed successfully'));
         } else {
             Yii::$app->getSession()->setFlash('error', Yii::t('hipanel:client', 'Error happened during adding IP'));
@@ -340,5 +341,12 @@ class ClientController extends \hipanel\base\CrudController
 
         $to = $id ? ['@contact/view', 'id' => $id] : ['/site/profile'];
         return $this->redirect($to);
+    }
+
+    public function actionRestorePassword($id = null)
+    {
+        Yii::$app->get('hiart')->disableAuth();
+        $url = 'https://' . Yii::$app->params['hiam.site'] . Url::to(array_merge(['/site/reset-password'], Yii::$app->request->get()));
+        return $this->redirect($url);
     }
 }
