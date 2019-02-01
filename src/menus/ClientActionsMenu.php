@@ -47,7 +47,7 @@ class ClientActionsMenu extends \hiqdev\yii2\menus\Menu
                     ],
                 ],
                 'encode' => false,
-                'visible' => Yii::$app->user->can('bill.create'),
+                'visible' => Yii::$app->user->can('bill.create') && !$this->model->isDeleted(),
             ],
         ];
     }

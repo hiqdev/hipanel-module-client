@@ -39,6 +39,7 @@ class Client extends \hipanel\base\Model
 
     const STATE_OK = 'ok';
     const STATE_DELETED = 'deleted';
+    const STATE_WIPED = 'wiped';
     const STATE_BLOCKED = 'blocked';
 
     public function rules()
@@ -338,6 +339,36 @@ class Client extends \hipanel\base\Model
     public static function canBeSelf($model)
     {
         return Yii::$app->user->is($model->id) || (!Yii::$app->user->can('resell') && Yii::$app->user->can('support') && Yii::$app->user->identity->seller_id === $model->id);
+    }
+
+    public function isBlocked()
+    {
+        return $this->state === self::STATE_BLOCKED;
+    }
+
+    public function canBeBlocked()
+    {
+        return !$this->isDeleted() && !$this->isBlocked() && Yii::$app->user->can('client.block') && Yii::$app->user->not($this->id);
+    }
+
+    public function canBeUnblocked()
+    {
+        return !$this->isDeleted() && $this->isBlocked() && Yii::$app->user->can('client.unblock') && Yii::$app->user->not($this->id);
+    }
+
+    public function isDeleted()
+    {
+        return in_array($this->state, [self::STATE_WIPED, self::STATE_DELETED], true);
+    }
+
+    public function canBeDeleted()
+    {
+        return !$this->isDeleted() && Yii::$app->user->not($this->id) && Yii::$app->user->can('client.delete');
+    }
+
+    public function canBeRestored()
+    {
+        return $this->isDeleted() && Yii::$app->user->can('client.restore');
     }
 
     public static function makeTranslateQuestionList(array $questionList)

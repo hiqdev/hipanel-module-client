@@ -70,12 +70,12 @@ class ClientDetailMenu extends \hipanel\menus\AbstractDetailMenu
                     'scenario' => 'set-tmp-password',
                 ]),
                 'encode' => false,
-                'visible' => $user->not($this->model->id) && $user->can('manage'),
+                'visible' => $user->not($this->model->id) && $user->can('client.set-tmp-pwd') && !$this->model->isDeleted(),
             ],
             [
                 'label' => ImpersonateButton::widget(['model' => $this->model]),
                 'encode' => false,
-                'visible' => $user->can('client.impersonate') && $user->not($this->model->id),
+                'visible' => $user->can('client.impersonate') && $user->not($this->model->id) && !$this->model->isDeleted(),
             ],
             [
                 'label' => SettingsModal::widget([
@@ -97,7 +97,7 @@ class ClientDetailMenu extends \hipanel\menus\AbstractDetailMenu
                     'scenario' => 'ip-restrictions',
                 ]),
                 'encode' => false,
-                'visible' => $user->is($this->model->id) || $user->can('client.set-others-allowed-ips'),
+                'visible' => $user->is($this->model->id) || ($user->can('client.set-others-allowed-ips') && !$this->model->isDeleted()),
             ],
             [
                 'label' => SettingsModal::widget([
@@ -108,7 +108,7 @@ class ClientDetailMenu extends \hipanel\menus\AbstractDetailMenu
                     'scenario' => 'mailing-settings',
                 ]),
                 'encode' => false,
-                'visible' => $this->model->type !== Client::TYPE_EMPLOYEE,
+                'visible' => $this->model->type !== Client::TYPE_EMPLOYEE && !$this->model->isDeleted(),
             ],
             [
                 'label' => Yii::t('hipanel:client', 'Change contact information'),
@@ -122,7 +122,7 @@ class ClientDetailMenu extends \hipanel\menus\AbstractDetailMenu
                 'icon' => 'fa-edit fa-fw',
                 'url' => ['@client/update', 'id' => $this->model->id],
                 'encode' => false,
-                'visible' => $user->can('manage'),
+                'visible' => $user->can('client.update') && !$this->model->isDeleted(),
             ],
             [
                 'label' => SettingsModal::widget([
@@ -133,7 +133,7 @@ class ClientDetailMenu extends \hipanel\menus\AbstractDetailMenu
                     'scenario' => 'domain-settings',
                 ]),
                 'encode' => false,
-                'visible' => Yii::getAlias('@domain', false),
+                'visible' => Yii::getAlias('@domain', false) && !$this->model->isDeleted(),
             ],
             [
                 'label' => SettingsModal::widget([
@@ -144,7 +144,7 @@ class ClientDetailMenu extends \hipanel\menus\AbstractDetailMenu
                     'scenario' => 'finance-settings',
                 ]),
                 'encode' => false,
-                'visible' => true,
+                'visible' => !$this->model->isDeleted(),
             ],
             [
                 'label' => SettingsModal::widget([
@@ -155,12 +155,12 @@ class ClientDetailMenu extends \hipanel\menus\AbstractDetailMenu
                     'scenario' => 'ticket-settings',
                 ]),
                 'encode' => false,
-                'visible' => Yii::getAlias('@ticket', false) && $this->model->type !== Client::TYPE_EMPLOYEE,
+                'visible' => Yii::getAlias('@ticket', false) && $this->model->type !== Client::TYPE_EMPLOYEE && !$this->model->isDeleted(),
             ],
             [
                 'label' => BlockModalButton::widget(['model' => $this->model]),
                 'encode' => false,
-                'visible' => $user->can('support') && $user->not($this->model->id),
+                'visible' => $this->model->canBeBlocked() || $this->model->canBeUnblocked(),
             ],
             [
                 'label' => SimpleOperation::widget([
@@ -176,7 +176,23 @@ class ClientDetailMenu extends \hipanel\menus\AbstractDetailMenu
                     'modalFooterClass' => 'btn btn-danger',
                 ]),
                 'encode' => false,
-                'visible' => $user->can('manage') && $user->not($this->model->id),
+                'visible' => $this->model->canBeDeleted(),
+            ],
+            [
+                'label' => SimpleOperation::widget([
+                    'model' => $this->model,
+                    'scenario' => 'restore',
+                    'buttonLabel' => '<i class="fa fa-fw fa-trash-o"></i>' . Yii::t('hipanel', 'Restore'),
+                    'buttonClass' => '',
+                    'body' => Yii::t('hipanel:client', 'Are you sure you want to restore client {name}?', ['name' => $this->model->client]),
+                    'modalHeaderLabel' => Yii::t('hipanel:client', 'Confirm client restoring'),
+                    'modalHeaderOptions' => ['class' => 'label-danger'],
+                    'modalFooterLabel' => Yii::t('hipanel:client', 'Restore client'),
+                    'modalFooterLoading' => Yii::t('hipanel:client', 'Restoring client'),
+                    'modalFooterClass' => 'btn btn-danger',
+                ]),
+                'encode' => false,
+                'visible' => $this->model->canBeRestored(),
             ],
         ], $actions);
 
