@@ -21,8 +21,18 @@ class EmailConfirmer
     public function confirm()
     {
         Yii::$app->get('hiart')->disableAuth();
-        return Contact::perform('confirm-email', [
-            'confirm_data' => Yii::$app->request->get(),
-        ]);
+        try {
+            $confirmation = Contact::perform('confirm-email', [
+                'confirm_data' => Yii::$app->request->get(),
+            ]);
+            return [
+                'success' => true,
+            ];
+        } catch (\hiqdev\hiart\ResponseErrorException $e) {
+            return [
+                'success' => false,
+                'message' => $e->getMessage(),
+            ];
+        }
     }
 }
