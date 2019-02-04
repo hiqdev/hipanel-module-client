@@ -250,7 +250,8 @@ class ContactController extends CrudController
     public function actionConfirmEmail($id = null)
     {
         $confirmer = Yii::createObject(EmailConfirmer::class);
-        if ($confirmer->confirm()) {
+        $confirm = $confirmer->confirm();
+        if ($confirm['success']) {
             Yii::$app->getSession()->setFlash('success', Yii::t('hipanel:client', 'Email was confirmed successfully'));
         } else {
             Yii::$app->getSession()->setFlash('error', Yii::t('hipanel:client', 'Error happened during email confirmation'));
