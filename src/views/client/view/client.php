@@ -128,3 +128,26 @@ $this->registerCss('legend {font-size: 16px;}');
         </div>
     </div>
 </div>
+
+<?php
+    $this->registerJs(<<<JS
+window.addEventListener('load', function() {
+    var anchor = location.hash.slice(1);
+    if (!anchor) {
+        return;
+    }
+
+    var menuItem = $('[data-anchor=' + anchor + ']');
+    if (!menuItem) {
+        return;
+    }
+
+    var modal = $(menuItem.data('target'));
+    if (modal.length === 0) {
+        return;
+    }
+    modal.modal();
+})
+JS
+);
+?>

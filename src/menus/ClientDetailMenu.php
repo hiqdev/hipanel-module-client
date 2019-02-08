@@ -106,6 +106,9 @@ class ClientDetailMenu extends \hipanel\menus\AbstractDetailMenu
                     'headerOptions' => ['class' => 'label-info'],
                     'icon' => 'fa-envelope fa-fw',
                     'scenario' => 'mailing-settings',
+                    'toggleButton' => [
+                        'data-anchor' => 'notification_settings',
+                    ]
                 ]),
                 'encode' => false,
                 'visible' => $this->model->type !== Client::TYPE_EMPLOYEE && !$this->model->isDeleted(),
