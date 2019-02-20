@@ -144,6 +144,7 @@ class Contact extends \hipanel\base\Model
                 'when' => function () { return (string) Yii::$app->user->getId() === (string) $this->id; },
                 'message' => Yii::t('hipanel:client', 'We need your permission in order to provide services'),
             ],
+            [['registrant', 'admin', 'tech', 'billing'], 'boolean'],
         ]);
     }
 

@@ -31,6 +31,26 @@ class ContactGridView extends BoxedGridView
                 'filterAttribute' => 'name_like',
                 'extraAttribute' => 'organization',
                 'format' => 'raw',
+                'value' => function ($model) {
+                    $str = Html::a($model->name, ['@contact/view', 'id' => $model->id]);
+
+                    $additional = "";
+                    if ($model->id === $model->client_id) {
+                        $additional .= Html::tag('li', Html::tag('span', Yii::t('hipanel:client', 'Main contact'), ['class' => 'label label-success']));
+                    }
+
+                    foreach (['registrant', 'admin', 'tech', 'billing'] as $useAs) {
+                        if ($model->$useAs) {
+                            $additional .= Html::tag('li', Html::tag('span', Yii::t('hipanel:client', ucfirst($useAs)), ['class' => 'label label-info']));
+                        }
+                    }
+
+                    if (!empty($additional)) {
+                        $str .= Html::tag('ul', $additional, ['class' => 'list-inline']);
+                    }
+
+                    return $str;
+                },
             ],
             'name_with_verification' => [
                 'class' => MainColumn::class,
