@@ -57,12 +57,12 @@ use yii\web\View;
         <?= $form->field($model, 'postal_code'); ?>
         <?= $form->field($model, 'voice_phone')->widget(PhoneInput::class, [
             'jsOptions' => [
-                'preferredCountries' => ['nl', 'us'],
+                'preferredCountries' => array_filter(['us', 'ru', 'ua', 'by', 'gb', $model->country]),
             ],
         ]) ?>
         <?= $form->field($model, 'fax_phone')->widget(PhoneInput::class, [
             'jsOptions' => [
-                'preferredCountries' => ['nl', 'us'],
+                'preferredCountries' => array_filter(['us', 'ru', 'ua', 'by', 'gb', $model->country]),
             ],
         ]) ?>
         <?= $form->field($model, 'xxx_token'); ?>
