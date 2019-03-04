@@ -62,7 +62,6 @@ use yii\web\View;
         ]) ?>
         <?= $form->field($model, 'fax_phone')->widget(PhoneInput::class, [
             'jsOptions' => [
-
                 'preferredCountries' => array_values(array_unique(array_filter([$model->country, 'us', 'ru', 'ua', 'by', 'gb']))),
             ],
         ]) ?>
