@@ -45,7 +45,7 @@
     "require": {
         "hiqdev/hipanel-core": "<2.0 || dev-master",
         "hiqdev/yii2-asset-flag-icon-css": "^1.0 || ^2.0 || dev-master",
-        "borales/yii2-phone-input": "0.1.2"
+        "borales/yii2-phone-input": "^0.1.2"
     },
     "require-dev": {
         "hiqdev/hidev-php": "<2.0",
