@@ -12,6 +12,7 @@ namespace hipanel\modules\client\models;
 
 use hipanel\modules\client\models\query\ContactQuery;
 use hipanel\modules\document\models\Document;
+use borales\extensions\phoneInput\PhoneInputValidator;
 use Yii;
 
 /**
@@ -78,6 +79,7 @@ class Contact extends \hipanel\base\Model
                 'pattern' => '/^[+]?[()0-9 .-]{3,20}$/',
                 'message' => Yii::t('hipanel:client', 'This field must contains phone number in international format.'),
             ],
+            [['voice_phone', 'fax_phone'], PhoneInputValidator::className()],
 
             Yii::$app->user->can('manage') ? null : [
                 [

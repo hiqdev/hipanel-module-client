@@ -5,6 +5,7 @@ use hipanel\widgets\BackButton;
 use hipanel\widgets\Box;
 use hipanel\widgets\DatePicker;
 use hiqdev\combo\StaticCombo;
+use borales\extensions\phoneInput\PhoneInput;
 use yii\helpers\Html;
 use yii\web\View;
 
@@ -54,8 +55,16 @@ use yii\web\View;
         ]); ?>
         <?= $form->field($model, 'province'); ?>
         <?= $form->field($model, 'postal_code'); ?>
-        <?= $form->field($model, 'voice_phone'); ?>
-        <?= $form->field($model, 'fax_phone'); ?>
+        <?= $form->field($model, 'voice_phone')->widget(PhoneInput::className(), [
+            'jsOptions' => [
+                'preferredCountries' => ['nl', 'us'],
+            ],
+        ]) ?>
+        <?= $form->field($model, 'fax_phone')->widget(PhoneInput::className(), [
+            'jsOptions' => [
+                'preferredCountries' => ['nl', 'us'],
+            ],
+        ]) ?>
         <?= $form->field($model, 'xxx_token'); ?>
 
         <?php Box::end() ?>
