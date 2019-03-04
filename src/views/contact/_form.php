@@ -55,12 +55,12 @@ use yii\web\View;
         ]); ?>
         <?= $form->field($model, 'province'); ?>
         <?= $form->field($model, 'postal_code'); ?>
-        <?= $form->field($model, 'voice_phone')->widget(PhoneInput::className(), [
+        <?= $form->field($model, 'voice_phone')->widget(PhoneInput::class, [
             'jsOptions' => [
                 'preferredCountries' => ['nl', 'us'],
             ],
         ]) ?>
-        <?= $form->field($model, 'fax_phone')->widget(PhoneInput::className(), [
+        <?= $form->field($model, 'fax_phone')->widget(PhoneInput::class, [
             'jsOptions' => [
                 'preferredCountries' => ['nl', 'us'],
             ],

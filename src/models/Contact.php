@@ -79,7 +79,7 @@ class Contact extends \hipanel\base\Model
                 'pattern' => '/^[+]?[()0-9 .-]{3,20}$/',
                 'message' => Yii::t('hipanel:client', 'This field must contains phone number in international format.'),
             ],
-            [['voice_phone', 'fax_phone'], PhoneInputValidator::className()],
+            [['voice_phone', 'fax_phone'], PhoneInputValidator::class],
 
             Yii::$app->user->can('manage') ? null : [
                 [
