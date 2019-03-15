@@ -12,8 +12,6 @@ class ClientCreationCest
 {
     private $existingClient;
 
-    private $userCreateFailMessage = 'User creating is possible only after API FileStorage (`path` variable is error) repaired.';
-
     public function ensureClientCreationPageWorks(Manager $I): void
     {
         $I->login();
@@ -28,9 +26,8 @@ class ClientCreationCest
      * @param Example $clientData
      * @throws \Exception
      */
-    public function ensureICanCreateNewClient(Manager $I, Scenario $scenario, Example $clientData): void
+    public function ensureICanCreateNewClient(Manager $I, Example $clientData): void
     {
-        $scenario->incomplete($this->userCreateFailMessage);
         $page = new Create($I);
 
         $I->needPage(Url::to('@client/create'));
@@ -62,9 +59,8 @@ class ClientCreationCest
      * @param Manager $I
      * @throws \Exception
      */
-    public function ensureICantCreateClientWithTakenData(Manager $I, Scenario $scenario): void
+    public function ensureICantCreateClientWithTakenData(Manager $I): void
     {
-        $scenario->incomplete($this->userCreateFailMessage);
         $page = new Create($I);
 
         $I->needPage(Url::to('@client/create'));
