@@ -46,6 +46,7 @@ class Client extends \hipanel\base\Model
     {
         return [
             [['id', 'seller_id', 'state_id', 'type_id', 'tariff_id', 'profile_id', 'payment_ticket_id', 'referer_id'], 'integer'],
+            [['hipanel_forced'], 'boolean', 'trueValue' => 1],
             [['login', 'seller', 'state', 'type', 'tariff', 'profile', 'referer'], 'safe'],
             [['state_label', 'type_label'], 'safe'],
             [['balance', 'credit', 'full_balance'], 'number'],
@@ -453,5 +454,12 @@ class Client extends \hipanel\base\Model
     public function getLanguage($default = 'ru')
     {
         return $this->language ?: $default;
+    }
+
+    public function afterFind(): void
+    {
+        parent::afterFind();
+
+        Yii::$app->session->set('hipanel_forced', (bool) $this->hipanel_forced);
     }
 }
