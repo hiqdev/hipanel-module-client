@@ -460,7 +460,7 @@ class Client extends \hipanel\base\Model
     {
         parent::afterFind();
 
-        if ($this->id === Yii::$app->user->identity->id) {
+        if ((int) $this->id === (int) Yii::$app->user->identity->id) {
             Yii::$app->session->set('hipanel_forced', (bool) $this->hipanel_forced);
         }
     }
