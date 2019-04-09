@@ -216,6 +216,7 @@ class ContactGridView extends BoxedGridView
                         $model->organization,
                         $model->renderAddress(),
                         $model->vat_number,
+                        $model->requisite_last_no,
                     ])) . "\n\n";
                     $res .= $model->renderBankDetails();
 

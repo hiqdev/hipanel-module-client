@@ -74,6 +74,7 @@ class ContactController extends CrudController
                     'update-employee' => 'employee.update',
                     'set-confirmation' => 'contact.force-verify',
                     'confirm-email' => true,
+                    'reserve-number' => 'requisites.update',
                     '*' => 'contact.read',
                 ],
             ],
@@ -156,6 +157,10 @@ class ContactController extends CrudController
             'request-email-confirmation' => [
                 'class' => SmartPerformAction::class,
                 'success' => Yii::t('hipanel:client', 'Confirmation message was sent to your email'),
+            ],
+            'reserve-number' => [
+                'class' => SmartPerformAction::class,
+                'success' => Yii::t('hipanel:client', 'Document number was reserved'),
             ],
         ]);
     }
