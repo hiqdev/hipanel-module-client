@@ -80,9 +80,7 @@ $this->registerCss('legend {font-size: 16px;}');
                 <?php $box->endBody() ?>
                 <?php $box->end() ?>
                 <?php foreach ($model->sortedPurses as $purse) : ?>
-                    <?php if (isset($purse['balance'])) : ?>
-                        <?= $this->render('@hipanel/modules/finance/views/purse/_client-view', ['model' => $purse]) ?>
-                    <?php endif ?>
+                    <?= $this->render('@hipanel/modules/finance/views/purse/_client-view', ['model' => $purse]) ?>
                 <?php endforeach ?>
             </div>
             <div class="col-md-6">

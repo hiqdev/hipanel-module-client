@@ -95,7 +95,7 @@ FlagIconCssAsset::register($this);
                         <?= ContactGridView::detailView([
                             'boxed'   => false,
                             'model'   => $model,
-                            'columns' => ['reg_data', 'vat_rate'],
+                            'columns' => ['reg_data', 'vat_rate', 'requisite_last_no'],
                         ]) ?>
                     <?php $box->endBody() ?>
                 <?php $box->end() ?>

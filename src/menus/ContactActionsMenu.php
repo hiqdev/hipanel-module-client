@@ -51,6 +51,25 @@ class ContactActionsMenu extends \hiqdev\yii2\menus\Menu
                 'encode' => false,
                 'visible' => $this->model->id !== $this->model->client_id,
             ],
+            'reserve-number' => [
+                'label' => Yii::t('hipanel:client', 'Reserve number'),
+                'icon' => 'fa-ticket',
+                'url' => ['@contact/reserve-number', 'id' => $this->model->id],
+                'linkOptions' => [
+                    'data' => [
+                        'confirm' => Yii::t('hipanel:client', 'Are you sure you want reserve document number for this requisite?'),
+                        'method' => 'POST',
+                        'pjax' => '0',
+                        'params' => [
+                            'Contact[id]' => $this->model->id,
+                            'Contact[client_id]' => $this->model->client_id,
+                            'Contact[client]' => $this->model->client,
+                        ],
+                    ],
+                ],
+                'encode' => false,
+                'visible' => Yii::$app->user->can('requisites.update'),
+            ],
         ];
     }
 }

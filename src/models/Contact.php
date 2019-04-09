@@ -65,6 +65,7 @@ class Contact extends \hipanel\base\Model
             [['birth_date', 'passport_date'], 'safe'],
             [['passport_no', 'passport_by', 'organization', 'password', 'xxx_token'], 'safe'],
             [['localization'], 'safe'],
+            [['requisite_last_no'], 'safe'],
 
             [['reg_data', 'vat_number', 'tax_comment', 'bank_details'], 'trim'],
             [['bank_account', 'bank_name', 'bank_address', 'bank_swift'], 'trim'],
@@ -146,6 +147,7 @@ class Contact extends \hipanel\base\Model
                 'when' => function () { return (string) Yii::$app->user->getId() === (string) $this->id; },
                 'message' => Yii::t('hipanel:client', 'We need your permission in order to provide services'),
             ],
+            [['id', 'client_id'], 'required', 'on' => ['reserve-number']],
         ]);
     }
 
@@ -191,7 +193,8 @@ class Contact extends \hipanel\base\Model
             'localization'      => Yii::t('hipanel:client', 'Localization'),
             'xxx_token'         => Yii::t('hipanel:client', 'XXX Token'),
             'policy_consent'    => Yii::t('hipanel:client', 'Privacy policy agreement'),
-            'gdpr_consent'    => Yii::t('hipanel:client', 'GDPR policy agreement'),
+            'gdpr_consent'      => Yii::t('hipanel:client', 'GDPR policy agreement'),
+            'requisite_last_no' => Yii::t('hipanel:client', 'Last document number'),
         ]);
     }
 
