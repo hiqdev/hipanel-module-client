@@ -1,11 +1,11 @@
 <?php
 
+use borales\extensions\phoneInput\PhoneInput;
 use hipanel\modules\client\widgets\combo\ClientCombo;
 use hipanel\widgets\BackButton;
 use hipanel\widgets\Box;
 use hipanel\widgets\DatePicker;
 use hiqdev\combo\StaticCombo;
-use borales\extensions\phoneInput\PhoneInput;
 use yii\helpers\Html;
 use yii\web\View;
 

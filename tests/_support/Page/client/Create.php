@@ -1,12 +1,18 @@
 <?php
+/**
+ * Client module for HiPanel
+ *
+ * @link      https://github.com/hiqdev/hipanel-module-client
+ * @package   hipanel-module-client
+ * @license   BSD-3-Clause
+ * @copyright Copyright (c) 2015-2019, HiQDev (http://hiqdev.com/)
+ */
 
 namespace hipanel\modules\client\tests\_support\Page\client;
 
 use Codeception\Example;
-use hipanel\helpers\Url;
 use hipanel\tests\_support\Page\Authenticated;
 use hipanel\tests\_support\Page\Widget\Input\Select2;
-
 
 class Create extends Authenticated
 {
@@ -32,7 +38,7 @@ class Create extends Authenticated
     }
 
     /**
-     * Checks whether the client was successfully created
+     * Checks whether the client was successfully created.
      *
      * @param string $login
      * @param string $type
@@ -50,7 +56,7 @@ class Create extends Authenticated
     }
 
     /**
-     * Checks whether the blank field error appear
+     * Checks whether the blank field error appear.
      *
      * @throws \Exception
      */
@@ -66,7 +72,7 @@ class Create extends Authenticated
     }
 
     /**
-     * Checks whether the taken field error appear
+     * Checks whether the taken field error appear.
      *
      * @param string $existingLogin
      * @param string $existingEmail

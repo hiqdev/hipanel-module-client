@@ -7,9 +7,9 @@ use hipanel\modules\document\widgets\StackedDocumentsView;
 use hipanel\widgets\Box;
 use hipanel\widgets\ClientSellerLink;
 use hiqdev\assets\flagiconcss\FlagIconCssAsset;
+use yii\base\ViewNotFoundException;
 use yii\helpers\Html;
 use yii\helpers\Inflector;
-use yii\base\ViewNotFoundException;
 
 /**
  * @var \hipanel\modules\client\models\Contact
@@ -33,12 +33,16 @@ FlagIconCssAsset::register($this);
                 'class' => 'no-padding',
             ],
         ]) ?>
-            <?php try { ?>
+            <?php try {
+            ?>
                 <div class="profile-user-img text-center">
                     <?= $this->render('//layouts/gravatar', ['email' => $model->email, 'size' => 120]) ?>
                 </div>
-            <?php } catch (ViewNotFoundException $e) { ?>
-            <?php } ?>
+            <?php
+        } catch (ViewNotFoundException $e) {
+            ?>
+            <?php
+        } ?>
             <p class="text-center">
                 <span class="profile-user-role"><?= $this->title ?></span>
                 <br>

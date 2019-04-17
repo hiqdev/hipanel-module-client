@@ -5,7 +5,7 @@
  * @link      https://github.com/hiqdev/hipanel-module-client
  * @package   hipanel-module-client
  * @license   BSD-3-Clause
- * @copyright Copyright (c) 2015-2018, HiQDev (http://hiqdev.com/)
+ * @copyright Copyright (c) 2015-2019, HiQDev (http://hiqdev.com/)
  */
 
 namespace hipanel\modules\client\logic;
@@ -25,6 +25,7 @@ class EmailConfirmer
             $confirmation = Contact::perform('confirm-email', [
                 'confirm_data' => Yii::$app->request->get(),
             ]);
+
             return [
                 'success' => true,
             ];

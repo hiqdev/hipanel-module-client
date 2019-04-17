@@ -5,7 +5,7 @@
  * @link      https://github.com/hiqdev/hipanel-module-client
  * @package   hipanel-module-client
  * @license   BSD-3-Clause
- * @copyright Copyright (c) 2015-2018, HiQDev (http://hiqdev.com/)
+ * @copyright Copyright (c) 2015-2019, HiQDev (http://hiqdev.com/)
  */
 
 namespace hipanel\modules\client\menus;
@@ -108,7 +108,7 @@ class ClientDetailMenu extends \hipanel\menus\AbstractDetailMenu
                     'scenario' => 'mailing-settings',
                     'toggleButton' => [
                         'data-anchor' => 'notification_settings',
-                    ]
+                    ],
                 ]),
                 'encode' => false,
                 'visible' => $this->model->type !== Client::TYPE_EMPLOYEE && !$this->model->isDeleted(),

@@ -7,7 +7,6 @@
 [![Build Status](https://img.shields.io/travis/hiqdev/hipanel-module-client.svg)](https://travis-ci.org/hiqdev/hipanel-module-client)
 [![Scrutinizer Code Coverage](https://img.shields.io/scrutinizer/coverage/g/hiqdev/hipanel-module-client.svg)](https://scrutinizer-ci.com/g/hiqdev/hipanel-module-client/)
 [![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/hiqdev/hipanel-module-client.svg)](https://scrutinizer-ci.com/g/hiqdev/hipanel-module-client/)
-[![Dependency Status](https://www.versioneye.com/php/hiqdev:hipanel-module-client/dev-master/badge.svg)](https://www.versioneye.com/php/hiqdev:hipanel-module-client/dev-master)
 
 [![Logo](https://raw.githubusercontent.com/hiqdev/hipanel-core/master/docs/logo.png)](https://hipanel.com/)
 
@@ -41,4 +40,4 @@ to the require section of your composer.json.
 This project is released under the terms of the BSD-3-Clause [license](LICENSE).
 Read more [here](http://choosealicense.com/licenses/bsd-3-clause).
 
-Copyright © 2015-2018, HiQDev (http://hiqdev.com/)
+Copyright © 2015-2019, HiQDev (http://hiqdev.com/)

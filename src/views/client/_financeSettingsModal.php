@@ -1,9 +1,8 @@
 <?php
 /**
- * Client module for HiPanel
+ * Client module for HiPanel.
  *
  * @link      https://github.com/hiqdev/hipanel-module-client
- * @package   hipanel-module-client
  * @license   BSD-3-Clause
  * @copyright Copyright (c) 2015-2018, HiQDev (http://hiqdev.com/)
  */
@@ -12,7 +11,6 @@
  * @var \hipanel\modules\client\models\Client $model
  * @var \yii\base\View $this
  */
-
 use hipanel\helpers\StringHelper;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
@@ -43,8 +41,8 @@ use yii\helpers\Url;
             array_combine(array_keys($currencies), array_map(function ($k) {
                 return StringHelper::getCurrencySymbol($k);
             }, array_keys($currencies))), function ($k) use ($purses) {
-            return in_array($k, $purses, true);
-        }, ARRAY_FILTER_USE_KEY);
+                return in_array($k, $purses, true);
+            }, ARRAY_FILTER_USE_KEY);
         ?>
 
         <?= $form->field($model, 'autoexchange_to')->dropDownList($currencies)?>

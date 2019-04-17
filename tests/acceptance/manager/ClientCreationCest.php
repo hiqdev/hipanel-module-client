@@ -1,9 +1,16 @@
 <?php
+/**
+ * Client module for HiPanel
+ *
+ * @link      https://github.com/hiqdev/hipanel-module-client
+ * @package   hipanel-module-client
+ * @license   BSD-3-Clause
+ * @copyright Copyright (c) 2015-2019, HiQDev (http://hiqdev.com/)
+ */
 
 namespace hipanel\modules\client\tests\acceptance\manager;
 
 use Codeception\Example;
-use Codeception\Scenario;
 use hipanel\helpers\Url;
 use hipanel\modules\client\tests\_support\Page\client\Create;
 use hipanel\tests\_support\Step\Acceptance\Manager;
@@ -19,7 +26,7 @@ class ClientCreationCest
     }
 
     /**
-     * Tries to create a new client and expects for the successful creation
+     * Tries to create a new client and expects for the successful creation.
      *
      * @dataProvider provideValidClientData
      * @param Manager $I
@@ -38,7 +45,7 @@ class ClientCreationCest
     }
 
     /**
-     * Tries to create a new client and expects for the error due blank field
+     * Tries to create a new client and expects for the error due blank field.
      *
      * @param Manager $I
      * @throws \Exception
@@ -54,7 +61,7 @@ class ClientCreationCest
     }
 
     /**
-     * Tries to create a new client and expects for the error due taken value
+     * Tries to create a new client and expects for the error due taken value.
      *
      * @param Manager $I
      * @throws \Exception
@@ -70,11 +77,11 @@ class ClientCreationCest
 
         $page->fillClientData($this->existingClient);
         $I->pressButton('Save');
-        $page->seeTakenDataErrors($existingLogin, $existingEmail);;
+        $page->seeTakenDataErrors($existingLogin, $existingEmail);
     }
 
     /**
-     * Returns array of valid information for each type of client
+     * Returns array of valid information for each type of client.
      *
      * @return array
      */

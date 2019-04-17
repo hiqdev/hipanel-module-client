@@ -5,7 +5,7 @@
  * @link      https://github.com/hiqdev/hipanel-module-client
  * @package   hipanel-module-client
  * @license   BSD-3-Clause
- * @copyright Copyright (c) 2015-2018, HiQDev (http://hiqdev.com/)
+ * @copyright Copyright (c) 2015-2019, HiQDev (http://hiqdev.com/)
  */
 
 namespace hipanel\modules\client\menus;
@@ -41,7 +41,7 @@ class SidebarMenu extends \hiqdev\yii2\menus\Menu
                     'contacts' => [
                         'label' => Yii::t('hipanel', 'Contacts'),
                         'url'   => ['/client/contact/index'],
-                        'visible' => Yii::$app->user->can('contact.read')
+                        'visible' => Yii::$app->user->can('contact.read'),
                     ],
                 ],
             ],

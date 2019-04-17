@@ -5,14 +5,14 @@
  * @link      https://github.com/hiqdev/hipanel-module-client
  * @package   hipanel-module-client
  * @license   BSD-3-Clause
- * @copyright Copyright (c) 2015-2018, HiQDev (http://hiqdev.com/)
+ * @copyright Copyright (c) 2015-2019, HiQDev (http://hiqdev.com/)
  */
 
 namespace hipanel\modules\client\models;
 
+use borales\extensions\phoneInput\PhoneInputValidator;
 use hipanel\modules\client\models\query\ContactQuery;
 use hipanel\modules\document\models\Document;
-use borales\extensions\phoneInput\PhoneInputValidator;
 use Yii;
 
 /**

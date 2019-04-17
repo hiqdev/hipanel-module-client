@@ -9,7 +9,6 @@
  * @copyright Copyright (c) 2015-2016, HiQDev (http://hiqdev.com/)
  */
 
-use hipanel\helpers\Url;
 use hipanel\modules\document\widgets\StackedDocumentsView;
 use hipanel\widgets\Box;
 use hipanel\widgets\FileInput;

@@ -5,7 +5,7 @@
  * @link      https://github.com/hiqdev/hipanel-module-client
  * @package   hipanel-module-client
  * @license   BSD-3-Clause
- * @copyright Copyright (c) 2015-2018, HiQDev (http://hiqdev.com/)
+ * @copyright Copyright (c) 2015-2019, HiQDev (http://hiqdev.com/)
  */
 
 namespace hipanel\modules\client\controllers;
@@ -24,8 +24,8 @@ use hipanel\actions\ValidateFormAction;
 use hipanel\actions\ViewAction;
 use hipanel\filters\EasyAccessControl;
 use hipanel\helpers\Url;
-use hipanel\modules\client\models\Client;
 use hipanel\modules\client\logic\IPConfirmer;
+use hipanel\modules\client\models\Client;
 use Yii;
 use yii\base\Event;
 use yii\filters\VerbFilter;
@@ -342,6 +342,7 @@ class ClientController extends \hipanel\base\CrudController
         }
 
         $to = $id ? ['@contact/view', 'id' => $id] : ['/site/profile'];
+
         return $this->redirect($to);
     }
 
@@ -349,6 +350,7 @@ class ClientController extends \hipanel\base\CrudController
     {
         Yii::$app->get('hiart')->disableAuth();
         $url = 'https://' . Yii::$app->params['hiam.site'] . Url::to(array_merge(['/site/reset-password'], Yii::$app->request->get()));
+
         return $this->redirect($url);
     }
 }

@@ -5,7 +5,7 @@
  * @link      https://github.com/hiqdev/hipanel-module-client
  * @package   hipanel-module-client
  * @license   BSD-3-Clause
- * @copyright Copyright (c) 2015-2018, HiQDev (http://hiqdev.com/)
+ * @copyright Copyright (c) 2015-2019, HiQDev (http://hiqdev.com/)
  */
 
 namespace hipanel\modules\client\models;
@@ -81,7 +81,7 @@ class Client extends \hipanel\base\Model
             [
                 ['ticket_emails', 'create_from_emails'],
                 'filter',
-                'filter' => function($value) {
+                'filter' => function ($value) {
                     return (mb_strlen($value) > 0) ? StringHelper::mexplode($value) : [];
                 },
                 'on' => ['ticket-settings'],
@@ -94,7 +94,7 @@ class Client extends \hipanel\base\Model
             [
                 ['finance_emails'],
                 'filter',
-                'filter' => function($value) {
+                'filter' => function ($value) {
                     return (mb_strlen($value) > 0) ? StringHelper::mexplode($value) : [];
                 },
                 'on' => ['finance-settings'],

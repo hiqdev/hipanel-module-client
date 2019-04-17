@@ -5,7 +5,7 @@
  * @link      https://github.com/hiqdev/hipanel-module-client
  * @package   hipanel-module-client
  * @license   BSD-3-Clause
- * @copyright Copyright (c) 2015-2018, HiQDev (http://hiqdev.com/)
+ * @copyright Copyright (c) 2015-2019, HiQDev (http://hiqdev.com/)
  */
 
 namespace hipanel\modules\client\grid;
@@ -13,7 +13,6 @@ namespace hipanel\modules\client\grid;
 use hipanel\grid\BoxedGridView;
 use hipanel\grid\MainColumn;
 use hipanel\modules\client\menus\ContactActionsMenu;
-use hipanel\modules\client\models\Contact;
 use hipanel\modules\client\widgets\UnverifiedWidget;
 use hipanel\modules\document\widgets\StackedDocumentsView;
 use hipanel\widgets\VerificationMark;
