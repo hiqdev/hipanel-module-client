@@ -68,7 +68,7 @@ class ContactActionsMenu extends \hiqdev\yii2\menus\Menu
                     ],
                 ],
                 'encode' => false,
-                'visible' => Yii::$app->user->can('requisites.update'),
+                'visible' => Yii::$app->user->can('requisites.update') && $this->model->isRequisite(),
             ],
         ];
     }
