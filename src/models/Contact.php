@@ -98,7 +98,7 @@ class Contact extends \hipanel\base\Model
 
             [['pincode', 'oldEmail'], 'safe', 'on' => ['update', 'update-require-passport']],
 
-            [['isresident'], 'boolean', 'trueValue' => true, 'falseValue' => false],
+            [['isresident', 'is_requisite'], 'boolean', 'trueValue' => true, 'falseValue' => false],
             [['birth_date', 'passport_date'], 'safe', 'on' => ['update', 'create', 'create-require-passport', 'update-require-passport']],
             [
                 [
@@ -311,5 +311,10 @@ class Contact extends \hipanel\base\Model
         return new ContactQuery(get_called_class(), [
             'options' => $options,
         ]);
+    }
+
+    public function isRequisite()
+    {
+        return (boolean) $this->is_requisite;
     }
 }
