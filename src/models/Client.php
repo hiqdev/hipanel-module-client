@@ -23,24 +23,28 @@ use Yii;
  *
  * @property Contact $contact the primary contact
  * @property Purse[] $purses
+ * @property int $id
+ * @property-read string $balance
+ * @property-read string $credit
+ * @property-read string $currency
  */
 class Client extends \hipanel\base\Model
 {
     use \hipanel\base\ModelTrait;
 
-    const TYPE_SELLER = 'reseller';
-    const TYPE_ADMIN = 'admin';
-    const TYPE_MANAGER = 'manager';
-    const TYPE_JUNIOR_MANAGER = 'junior-manager';
-    const TYPE_CLIENT = 'client';
-    const TYPE_OWNER = 'owner';
-    const TYPE_EMPLOYEE = 'employee';
-    const TYPE_SUPPORT = 'support';
+    public const TYPE_SELLER = 'reseller';
+    public const TYPE_ADMIN = 'admin';
+    public const TYPE_MANAGER = 'manager';
+    public const TYPE_JUNIOR_MANAGER = 'junior-manager';
+    public const TYPE_CLIENT = 'client';
+    public const TYPE_OWNER = 'owner';
+    public const TYPE_EMPLOYEE = 'employee';
+    public const TYPE_SUPPORT = 'support';
 
-    const STATE_OK = 'ok';
-    const STATE_DELETED = 'deleted';
-    const STATE_WIPED = 'wiped';
-    const STATE_BLOCKED = 'blocked';
+    public const STATE_OK = 'ok';
+    public const STATE_DELETED = 'deleted';
+    public const STATE_WIPED = 'wiped';
+    public const STATE_BLOCKED = 'blocked';
 
     public function rules()
     {
