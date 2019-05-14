@@ -42,7 +42,7 @@ class Create extends Authenticated
         return $I->grabFromCurrentUrl('~id=(\d+)~');
     }
 
-    public function seeErrorInAdress(): void
+    public function seeErrorInAddress(): void
     {
         $I = $this->tester;
 

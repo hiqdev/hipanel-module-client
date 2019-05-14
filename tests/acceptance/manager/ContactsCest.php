@@ -1,11 +1,11 @@
 <?php
 
-namespace hipanel\modules\client\tests\acceptance\seller;
+namespace hipanel\modules\client\tests\acceptance\admin;
 
 use hipanel\helpers\Url;
 use hipanel\modules\client\tests\_support\Page\contact\Create;
 use hipanel\modules\client\tests\_support\Page\contact\Index;
-use hipanel\tests\_support\Step\Acceptance\Seller;
+use hipanel\tests\_support\Step\Acceptance\Manager;
 
 class ContactsCest
 {
@@ -22,13 +22,13 @@ class ContactsCest
      */
     private $contactId;
 
-    public function _before(Seller $I): void
+    public function _before(Manager $I): void
     {
         $this->index = new Index($I);
         $this->create = new Create($I);
     }
 
-    public function ensureIndexPageWorks(Seller $I): void
+    public function ensureIndexPageWorks(Manager $I): void
     {
         $I->needPage(Url::to('@contact'));
         $I->see('Contact', 'h1');
@@ -37,7 +37,7 @@ class ContactsCest
         $this->index->ensureICanSeeBulkSearchBox();
     }
 
-    public function ensureICanCreateContact(Seller $I): void
+    public function ensureICanCreateContact(Manager $I): void
     {
         $I->needPage(Url::to('@contact/create'));
         $I->see('Create contact', 'h1');
@@ -47,7 +47,7 @@ class ContactsCest
         $this->contactId = $this->create->seeContactWasCreated();
     }
 
-    public function ensureICantCreateIncorrectContact(Seller $I): void
+    public function ensureICantCreateIncorrectContact(Manager $I): void
     {
         $I->needPage(Url::to('@contact/create'));
         $testContact = $this->testContactData();
@@ -59,7 +59,7 @@ class ContactsCest
         $this->create->seeErrorInAddress();
     }
 
-    public function ensureICanDeleteContact(Seller $I): void
+    public function ensureICanDeleteContact(Manager $I): void
     {
         $testContact = $this->testContactData()['inputs'];
         $I->needPage(Url::to('@contact/index'));
@@ -79,7 +79,7 @@ class ContactsCest
         return [
             'inputs' => [
                 'first_name'    => 'Test',
-                'last_name'     => 'Reseller',
+                'last_name'     => 'Manager',
                 'email'         => 'hipanel_test_manager@hiqdev.com',
                 'abuse_email'   => 'hipanel_test_manager+abuse@hiqdev.com',
                 'organization'  => 'HiQDev',
