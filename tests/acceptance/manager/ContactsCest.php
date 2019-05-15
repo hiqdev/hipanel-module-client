@@ -63,12 +63,12 @@ class ContactsCest
     {
         $testContact = $this->testContactData()['inputs'];
         $I->needPage(Url::to('@contact/index'));
-        $this->index->getCreatedContactOnIndexPage($testContact['first_name']);
+        $this->index->showCreatedContactOnIndexPage($testContact['first_name']);
         $this->index->checkBoxClick((string)$this->contactId);
         $I->click('Delete');
         $I->acceptPopup();
         $I->waitForPageUpdate();
-        $I->waitForText('Contact was deleted');
+        $I->closeNotification('Contact was deleted');
     }
 
     /**

@@ -7,8 +7,6 @@ use hipanel\tests\_support\Page\IndexPage;
 use hipanel\tests\_support\Page\Widget\Input\CheckBox;
 use hipanel\tests\_support\Page\Widget\Input\Input;
 use hipanel\tests\_support\Page\Widget\Input\Select2;
-use WebDriverKeys;
-
 
 class Index extends Authenticated
 {
@@ -41,6 +39,9 @@ class Index extends Authenticated
         ], 'Requisites');
     }
 
+    /**
+     * @param string $zoneId
+     */
     public function checkBoxClick(string $zoneId): void
     {
         $I = $this->tester;
@@ -53,13 +54,12 @@ class Index extends Authenticated
      * @param $name
      * @throws \Codeception\Exception\ModuleException
      */
-    public function getCreatedContactOnIndexPage($name)
+    public function showCreatedContactOnIndexPage($name)
     {
         $I = $this->tester;
-        $sortinputSelector = "td input[name*=name]";
-        (new Input($I, $sortinputSelector))
-            ->setValue($name);
-        $I->pressKey($sortinputSelector, WebDriverKeys::ENTER);
-        $I->waitForPageUpdate();
+        $filterInputSelector = "td input[name*=name]";
+
+        $input = new Input($I, $filterInputSelector);
+        (new IndexPage($I))->filterBy($input, $name);
     }
 }
