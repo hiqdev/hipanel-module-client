@@ -9,17 +9,14 @@
  */
 namespace hipanel\modules\client\tests\_support\Page\contact;
 
-class Create extends FormPage
-{
-    /**
-     * @return string
-     */
-    public function seeContactWasCreated(): string
-    {
-        $I = $this->tester;
-        $I->closeNotification('Contact was created');
-        $I->seeInCurrentUrl('/client/contact/view?id=');
+use hipanel\tests\_support\Page\Authenticated;
 
-        return $I->grabFromCurrentUrl('~id=(\d+)~');
+class View extends Authenticated
+{
+    public function clickAction(string $action): void
+    {
+        $selector = "//div[contains(@class, 'profile-usermenu')]//ul//" .
+            "a[contains(text(), '{$action}')]";
+        $this->tester->click($selector);
     }
 }
