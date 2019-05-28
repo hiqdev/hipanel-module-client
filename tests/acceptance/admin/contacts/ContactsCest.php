@@ -7,14 +7,14 @@
  * @license   BSD-3-Clause
  * @copyright Copyright (c) 2015-2019, HiQDev (http://hiqdev.com/)
  */
-namespace hipanel\modules\client\tests\acceptance\manager;
+namespace hipanel\modules\client\tests\acceptance\admin\contacts;
 
 use Codeception\Example;
 use hipanel\helpers\Url;
 use hipanel\modules\client\tests\_support\Page\contact\Create;
 use hipanel\tests\_support\Page\IndexPage;
 use hipanel\tests\_support\Page\Widget\Input\Input;
-use hipanel\tests\_support\Step\Acceptance\Manager;
+use hipanel\tests\_support\Step\Acceptance\Admin;
 
 class ContactsCest
 {
@@ -27,7 +27,7 @@ class ContactsCest
     /** @var array */
     private $createdContacts;
 
-    public function _before(Manager $I): void
+    public function _before(Admin $I): void
     {
         $this->indexPage = new IndexPage($I);
         $this->createPage = new Create($I);
@@ -36,11 +36,11 @@ class ContactsCest
     /**
      * @dataProvider testContactData
      *
-     * @param Manager $I
+     * @param Admin $I
      * @param Example $data
      * @throws \Exception
      */
-    public function ensureICanCreateContact(Manager $I, Example $data): void
+    public function ensureICanCreateContact(Admin $I, Example $data): void
     {
         $I->needPage(Url::to('@contact/create'));
         $I->see('Create contact', 'h1');
@@ -51,10 +51,10 @@ class ContactsCest
     }
 
     /**
-     * @param Manager $I
+     * @param Admin $I
      * @throws \Exception
      */
-    public function ensureICantCreateIncorrectContact(Manager $I): void
+    public function ensureICantCreateIncorrectContact(Admin $I): void
     {
         $I->needPage(Url::to('@contact/create'));
         $testContact = $this->testContactData()[0];
@@ -67,10 +67,10 @@ class ContactsCest
     }
 
     /**
-     * @param Manager $I
+     * @param Admin $I
      * @throws \Codeception\Exception\ModuleException
      */
-    public function ensureICanDeleteContact(Manager $I): void
+    public function ensureICanDeleteContact(Admin $I): void
     {
         foreach ($this->createdContacts as $id => $name) {
             $I->needPage(Url::to('@contact/index'));
