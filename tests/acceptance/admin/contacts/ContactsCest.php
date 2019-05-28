@@ -12,6 +12,8 @@ namespace hipanel\modules\client\tests\acceptance\admin\contacts;
 use Codeception\Example;
 use hipanel\helpers\Url;
 use hipanel\modules\client\tests\_support\Page\contact\Create;
+use hipanel\modules\client\tests\_support\Page\contact\Update;
+use hipanel\modules\client\tests\_support\Page\contact\View;
 use hipanel\tests\_support\Page\IndexPage;
 use hipanel\tests\_support\Page\Widget\Input\Input;
 use hipanel\tests\_support\Step\Acceptance\Admin;
@@ -52,6 +54,30 @@ class ContactsCest
 
     /**
      * @param Admin $I
+     * @throws \Codeception\Exception\ModuleException
+     */
+    public function ensureICanUpdateContact(Admin $I): void
+    {
+        $updatePage = new Update($I);
+
+        foreach ($this->createdContacts as $id => $name) {
+            $I->needPage(Url::to('@contact'));
+
+            $this->indexPage->gridView->filterBy(
+                Input::asTableFilter($I, 'Name'), $name
+            );
+            $this->indexPage->gridView->openRowMenuById($id);
+            $this->indexPage->gridView->chooseRowMenuOption('Edit');
+
+            $data['inputs']['last_name'] = 'edited';
+            $updatePage->fillFormData($data);
+            $I->pressButton('Save');
+            $I->closeNotification('Contact was updated');
+        }
+    }
+
+    /**
+     * @param Admin $I
      * @throws \Exception
      */
     public function ensureICantCreateIncorrectContact(Admin $I): void
@@ -73,7 +99,7 @@ class ContactsCest
     public function ensureICanDeleteContact(Admin $I): void
     {
         foreach ($this->createdContacts as $id => $name) {
-            $I->needPage(Url::to('@contact/index'));
+            $I->needPage(Url::to('@contact'));
             $this->indexPage->gridView->filterBy(
                 Input::asTableFilter($I, 'Name'), $name
             );
