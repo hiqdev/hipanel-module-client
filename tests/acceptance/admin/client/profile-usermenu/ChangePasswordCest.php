@@ -40,6 +40,7 @@ class ChangePasswordCest
     {
         $I->login();
         $I->needPage(Url::to(['@client/view', 'id' => $I->id]));
+//        $I->wait(2);
         $I->click('Change password');
         $I->waitForElement('#change-password-form');
 
