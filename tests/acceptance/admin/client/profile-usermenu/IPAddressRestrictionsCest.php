@@ -12,7 +12,6 @@ namespace hipanel\modules\client\tests\acceptance\admin\client\profile\usermenu;
 
 use hipanel\helpers\Url;
 use hipanel\tests\_support\Step\Acceptance\Admin;
-use yii\db\Exception;
 
 class IPAddressRestrictionsCest
 {
@@ -146,13 +145,7 @@ MSG;
                     $value !== '' ? ($value . ', 0.0.0.0/0') : $value);
             }
             $I->click('Save');
-//            try {
-                $I->closeNotification('Settings saved');
-//            }
-//            catch (Exception $e) {
-//                $I->wait(1);
-//                $I->closeNotification('Settings saved');
-//            }
+            $I->closeNotification('Settings saved');
             $this->openForm($I);
             foreach ($example as $name => $value) {
                 $I->seeInField("//input[@name='Client[{$I->id}][{$name}]']",

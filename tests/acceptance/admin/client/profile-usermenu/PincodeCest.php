@@ -48,7 +48,6 @@ class PincodeCest
 
     private function loadPincodeForm(Admin $I)
     {
-
         $I->click('Pincode settings');
         $I->waitForElement('#pincode-settings-form', 120);
     }
@@ -128,7 +127,7 @@ class PincodeCest
         $examples = $this->inputErrorValues();
         foreach ($examples as $example) {
             $this->fillInputError($I, $example['pin']);
-            $I->waitForText($example['message']);
+            $I->see($example['message']);
             $this->fillInputError($I, '');
         }
     }
