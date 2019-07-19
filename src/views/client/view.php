@@ -12,7 +12,9 @@ use hipanel\modules\client\models\Client;
 
 $this->title = $model->login;
 $this->params['subtitle'] = sprintf('%s %s', Yii::t('hipanel:client', 'Client detailed information'), (Yii::$app->user->can('mange') ? ' #' . $model->id : ''));
-$this->params['breadcrumbs'][] = ['label' => Yii::t('hipanel', 'Clients'), 'url' => ['index']];
+if (Yii::$app->user->can('client.read')) {
+    $this->params['breadcrumbs'][] = ['label' => Yii::t('hipanel', 'Clients'), 'url' => ['index']];
+}
 $this->params['breadcrumbs'][] = $this->title;
 
 if ($model->type === Client::TYPE_EMPLOYEE) {
