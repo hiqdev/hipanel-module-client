@@ -15,7 +15,7 @@ use yii\helpers\Inflector;
  * @var \hipanel\modules\client\models\Contact
  */
 $this->title = Inflector::titleize($model->name, true);
-$this->params['subtitle'] = sprintf('%s %s', Yii::t('hipanel:client', 'Contact detailed information'), (Yii::$app->user->can('mange') ? ' #' . $model->id : ''));
+$this->params['subtitle'] = sprintf('%s %s', Yii::t('hipanel:client', 'Contact detailed information'), (Yii::$app->user->can('support') ? ' #' . $model->id : ''));
 if (Yii::$app->user->can('contact.read')) {
     $this->params['breadcrumbs'][] = ['label' => Yii::t('hipanel:client', 'Contacts'), 'url' => ['index']];
 }
