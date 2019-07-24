@@ -11,7 +11,7 @@ use yii\helpers\Html;
 ?>
 
 <div class="col-md-4 col-sm-6 col-xs-12">
-    <?= $search->field('login_like') ?>
+    <?= $search->field('login_ilike') ?>
 </div>
 
 <?php if (Yii::$app->user->can('support')) : ?>

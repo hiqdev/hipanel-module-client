@@ -97,7 +97,7 @@ class ClientGridView extends BoxedGridView
             'login' => [
                 'class' => MainColumn::class,
                 'attribute' => 'login',
-                'filterAttribute' => 'login_like',
+                'filterAttribute' => 'login_ilike',
                 'format' => 'raw',
                 'note' => Yii::$app->user->can('manage') ? 'note' : null,
                 'noteOptions' => [
@@ -107,7 +107,7 @@ class ClientGridView extends BoxedGridView
             'login_without_note' => [
                 'class' => MainColumn::class,
                 'attribute' => 'login',
-                'filterAttribute' => 'login_like',
+                'filterAttribute' => 'login_ilike',
                 'format' => 'raw',
             ],
             'note' => [
