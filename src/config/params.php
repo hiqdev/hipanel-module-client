@@ -10,5 +10,4 @@
 
 return [
     'legals.privacyPolicyUrl' => '#',
-    'module.client.twoFactorAuth' => true,
 ];
