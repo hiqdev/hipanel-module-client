@@ -118,6 +118,7 @@ return [
     'In this field you can specify to receive email notifications of ticket. By default, the notification is used for editing the main e-mail' => 'В этом поле вы можете указать адреса электронной почты, на которые Вы желате получать уведомления о тикетах. По умолчанию, уведомление используется для редактирования основной электронной почты',
     'In this field you can specify to create ticket' => 'В этом поле Вы можете указать адреса электронной почты, с которых разрешено создавать тикеты',
     'Email for tickets' => 'E-mail для тикетов',
+    'Allowed emails for creating tickets' => 'Разрешенные e-mail для создания тикетов',
     'Send message text' => 'Отправлять текст сообщения',
     'Social' => 'Соцсети',
 
