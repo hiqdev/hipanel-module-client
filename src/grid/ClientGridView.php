@@ -14,6 +14,7 @@ use hipanel\grid\BoxedGridView;
 use hipanel\grid\MainColumn;
 use hipanel\grid\RefColumn;
 use hipanel\grid\XEditableColumn;
+use hipanel\helpers\StringHelper;
 use hipanel\helpers\Url;
 use hipanel\modules\client\menus\ClientActionsMenu;
 use hipanel\modules\client\models\Client;
@@ -27,6 +28,7 @@ use hipanel\widgets\ArraySpoiler;
 use hiqdev\yii2\menus\grid\MenuColumn;
 use Yii;
 use yii\helpers\Html;
+use yii\helpers\Inflector;
 
 class ClientGridView extends BoxedGridView
 {
@@ -473,6 +475,23 @@ class ClientGridView extends BoxedGridView
 
                     return implode(' / ', $sold_services);
                 },
+            ],
+            'assignments' => [
+                'format' => 'raw',
+                'filter' => false,
+                'label' => Yii::t('hipanel:client', 'Assignments'),
+                'value' => function (Client $model): string {
+                    $html = '';
+                    foreach ($model->assignments as $assignment) {
+                        $typeLabel = Yii::t('hipanel', Inflector::titleize($assignment->type));
+                        $html .= "<b>$typeLabel</b>: ";
+                        if ($assignment->isInherited()) {
+                            $html .= Yii::t('hipanel:client', 'Inherited from seller\'s defaults');
+                        }
+                    }
+
+                    return $html;
+                }
             ],
         ]);
     }

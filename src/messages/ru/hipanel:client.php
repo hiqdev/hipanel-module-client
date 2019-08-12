@@ -277,4 +277,6 @@ return [
     'When "exchange currency for debts automatically" is enabled, this flag indicates that prepayment for the expected resources consumption that was listed in the invoice should be exchanged too. It can be useful to prevent debts in primary currency while the secondary currency balance is positive due to prepayment' => 'Когда включён автоматический обмен валют для закрытия долгов, этот флаг указывает, что предоплата за переборы, указанная в инвоисе, тоже будет сконвертирована в основную валюту. Это может быть полезно для избежания образования задолженности на основном счету, в то время как на вторичном будет оставаться неиспользованный аванс',
     'Select the preferred currency for invoicer' => 'Выберете предпочтительную валюту для инвойсов',
     'When "exchange currency for debts automatically" is enabled, this flag indicates that the primary currency CAN be indebted to close debts in other currencies' => 'Когда включён автоматический обмен валют для закрытия долгов, эта настройка разрешает образование задолженности в основной валюте для полного закрытия долгов в других валютах',
+
+    'Inherited from seller\'s defaults' => 'Наследуется от настроек реселлера по умолчанию',
 ];

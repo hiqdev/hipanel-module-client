@@ -14,7 +14,6 @@ use hipanel\helpers\StringHelper;
 use hipanel\modules\client\models\query\ClientQuery;
 use hipanel\modules\domain\models\Domain;
 use hipanel\modules\finance\models\Purse;
-use hipanel\modules\server\models\Server;
 use hipanel\validators\DomainValidator;
 use Yii;
 
@@ -27,6 +26,7 @@ use Yii;
  * @property-read string $balance
  * @property-read string $credit
  * @property-read string $currency
+ * @property-read Assignment[] $assignments
  */
 class Client extends \hipanel\base\Model
 {
@@ -330,6 +330,11 @@ class Client extends \hipanel\base\Model
         }
 
         return $this->hasMany(Server::class, ['client_id' => 'id']);
+    }
+
+    public function getAssignments()
+    {
+        return $this->hasMany(Assignment::class, ['client_id' => 'id']);
     }
 
     public function getPurses()

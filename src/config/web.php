@@ -13,6 +13,7 @@ return [
         '@client' => '/client/client',
         '@contact' => '/client/contact',
         '@article' => '/client/article',
+        '@client/assignments' => '/client/assignments',
     ],
     'modules' => [
         'client' => [
