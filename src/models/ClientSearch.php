@@ -12,6 +12,7 @@ namespace hipanel\modules\client\models;
 
 use hipanel\base\SearchModelTrait;
 use hipanel\helpers\ArrayHelper;
+use Yii;
 
 class ClientSearch extends Client
 {
@@ -23,7 +24,14 @@ class ClientSearch extends Client
     {
         return ArrayHelper::merge($this->defaultSearchAttributes(), [
             'created_from', 'created_till',
-            'types', 'states',
+            'types', 'states', 'login_email_like',
+        ]);
+    }
+
+    public function attributeLabels()
+    {
+        return array_merge(parent::attributeLabels(), [
+            'login_email_like' => Yii::t('hipanel:client', 'Login or Email'),
         ]);
     }
 }
