@@ -279,4 +279,5 @@ return [
     'When "exchange currency for debts automatically" is enabled, this flag indicates that the primary currency CAN be indebted to close debts in other currencies' => 'Когда включён автоматический обмен валют для закрытия долгов, эта настройка разрешает образование задолженности в основной валюте для полного закрытия долгов в других валютах',
 
     'Inherited from seller\'s defaults' => 'Наследуется от настроек реселлера по умолчанию',
+    'Login or Email' => 'Логин или Email',
 ];
