@@ -400,10 +400,9 @@ class Client extends \hipanel\base\Model
      */
     public static function find($options = [])
     {
-        $clientQuery = new ClientQuery(get_called_class(), [
+        return new ClientQuery(get_called_class(), [
             'options' => $options,
         ]);
-        return $clientQuery;
     }
 
     public function scenarioActions()
