@@ -16,7 +16,6 @@ use hipanel\modules\domain\models\Domain;
 use hipanel\modules\finance\models\Purse;
 use hipanel\modules\server\models\Server;
 use hipanel\validators\DomainValidator;
-use Money\MoneyParser;
 use Yii;
 
 /**
