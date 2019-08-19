@@ -16,6 +16,7 @@ use hipanel\modules\domain\models\Domain;
 use hipanel\modules\finance\models\Purse;
 use hipanel\modules\server\models\Server;
 use hipanel\validators\DomainValidator;
+use Money\MoneyParser;
 use Yii;
 
 /**
@@ -399,9 +400,10 @@ class Client extends \hipanel\base\Model
      */
     public static function find($options = [])
     {
-        return new ClientQuery(get_called_class(), [
+        $clientQuery = new ClientQuery(get_called_class(), [
             'options' => $options,
         ]);
+        return $clientQuery;
     }
 
     public function scenarioActions()
@@ -458,5 +460,16 @@ class Client extends \hipanel\base\Model
     public function getLanguage($default = 'ru')
     {
         return $this->language ?: $default;
+    }
+
+    public function getBudget(): string
+    {
+        return $this->balance + $this->credit;
+    }
+    public function getBudgetMoney(): string
+    {
+        // TODO: decide how to get MoneyParser correctly
+        return Yii::$container->get(MoneyParser::class)
+            ->parse((string)$this->getBudget(), strtoupper($this->currency));
     }
 }
