@@ -465,10 +465,4 @@ class Client extends \hipanel\base\Model
     {
         return $this->balance + $this->credit;
     }
-    public function getBudgetMoney(): string
-    {
-        // TODO: decide how to get MoneyParser correctly
-        return Yii::$container->get(MoneyParser::class)
-            ->parse((string)$this->getBudget(), strtoupper($this->currency));
-    }
 }
