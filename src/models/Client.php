@@ -14,6 +14,7 @@ use hipanel\helpers\StringHelper;
 use hipanel\modules\client\models\query\ClientQuery;
 use hipanel\modules\domain\models\Domain;
 use hipanel\modules\finance\models\Purse;
+use hipanel\modules\server\models\Server;
 use hipanel\validators\DomainValidator;
 use Yii;
 
