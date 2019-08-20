@@ -464,4 +464,9 @@ class Client extends \hipanel\base\Model
     {
         return $this->language ?: $default;
     }
+
+    public function getBudget(): string
+    {
+        return $this->balance + $this->credit;
+    }
 }
