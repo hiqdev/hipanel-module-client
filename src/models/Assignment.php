@@ -28,7 +28,7 @@ class Assignment extends ActiveRecord
     public function rules()
     {
         return [
-            [['tariff_ids', 'profile_ids', 'type'], 'safe'],
+            [['tariff_ids', 'profile_ids', 'type', 'tariff_names'], 'safe'],
             [['seller_id'], 'int'],
         ];
     }

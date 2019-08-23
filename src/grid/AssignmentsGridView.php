@@ -2,11 +2,8 @@
 
 namespace hipanel\modules\client\grid;
 
-use hipanel\grid\ActionColumn;
 use hipanel\grid\BoxedGridView;
 use hipanel\grid\MainColumn;
-use Yii;
-use yii\helpers\Html;
 
 class AssignmentsGridView extends BoxedGridView
 {
@@ -18,16 +15,6 @@ class AssignmentsGridView extends BoxedGridView
             ],
             'post_date' => [
                 'format' => 'date',
-            ],
-            'action' => [
-                'class' => ActionColumn::class,
-                'template' => '{view} {block} {delete}', // {state}
-                'header' => Yii::t('hipanel', 'Actions'),
-                'buttons' => [
-                    'block' => function ($url, $model, $key) {
-                        return Html::a('Close', ['block', 'id' => $model->id]);
-                    },
-                ],
             ],
         ]);
     }

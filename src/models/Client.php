@@ -54,6 +54,10 @@ class Client extends \hipanel\base\Model
             [['hipanel_forced'], 'boolean', 'trueValue' => 1],
             [['login', 'seller', 'state', 'type', 'tariff', 'profile', 'referer'], 'safe'],
             [['state_label', 'type_label'], 'safe'],
+
+            [['profile_ids', 'tariff_ids'], 'safe', 'on' => ['update', 'set-tariffs']],
+            [['ids'], 'required', 'on' => ['update', 'set-tariffs']],
+
             [['balance', 'credit', 'full_balance'], 'number'],
             [['count', 'confirm_url', 'language', 'comment', 'name', 'currency'], 'safe'],
             [['create_time', 'update_time', 'create_date'], 'date'],
