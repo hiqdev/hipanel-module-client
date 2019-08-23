@@ -33,6 +33,10 @@ use hipanel\widgets\Pjax; ?>
         ]) ?>
     <?php $page->endContent() ?>
 
+    <?php $page->beginContent('bulk-actions') ?>
+        <?= $page->renderBulkButton('update', Yii::t('hipanel', 'Set assignments'), ['color' => 'success']) ?>
+    <?php $page->endContent() ?>
+
     <?php $page->beginContent('table') ?>
         <?php $page->beginBulkForm() ?>
             <?= ClientGridView::widget([
@@ -40,6 +44,7 @@ use hipanel\widgets\Pjax; ?>
                 'dataProvider' => $dataProvider,
                 'filterModel'  => $model,
                 'columns' => [
+                    'checkbox',
                     'login',
                     'assignments',
                 ]

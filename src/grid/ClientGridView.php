@@ -487,6 +487,8 @@ class ClientGridView extends BoxedGridView
                         $html .= "<b>$typeLabel</b>: ";
                         if ($assignment->isInherited()) {
                             $html .= Yii::t('hipanel:client', 'Inherited from seller\'s defaults');
+                        } else {
+                            $html .= $assignment->tariff_names;
                         }
                     }
 

@@ -48,7 +48,7 @@ class SidebarMenu extends \hiqdev\yii2\menus\Menu
                     'assignments' => [
                         'label'   => Yii::t('hipanel:client', 'Assignments'),
                         'url'     => ['@client/assignments/index'],
-                        'visible' => $user->can('plan.create') && $user->can('test.alpha'),
+                        'visible' => $user->can('plan.create'),
                     ],
                 ],
             ],
