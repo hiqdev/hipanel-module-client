@@ -38,7 +38,7 @@ class Assignment extends ActiveRecord
      */
     public function isInherited(): bool
     {
-        return empty($this->tariff_ids) && $this->profile_ids == [$this->seller_id];
+        return empty($this->tariff_ids) && $this->profile_ids === [(string)$this->seller_id];
     }
 
     public function getProfileIds(): ?array
