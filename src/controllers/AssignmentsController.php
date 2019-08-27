@@ -85,7 +85,6 @@ class AssignmentsController extends CrudController
 
         if ($model->validate()) {
             $tariff_ids = [];
-            $profile_ids = [];
             if ($model->tariff_ids) {
                 foreach ($model->tariff_ids as $tariffIds) {
                     $tariff_ids = array_merge($tariff_ids, $tariffIds);
@@ -100,7 +99,7 @@ class AssignmentsController extends CrudController
             }
             try {
                 $resp = Client::batchPerform('set-tariffs', $data);
-                $session->addFlash('success', Yii::t('hipanel', 'Tariff plans have been successfully assigned.'));
+                $session->addFlash('success', Yii::t('hipanel', 'Assignments have been successfully applied.'));
             } catch (\Exception $e) {
                 $session->addFlash('error', $e->getMessage());
             }

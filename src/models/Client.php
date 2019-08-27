@@ -10,9 +10,11 @@
 
 namespace hipanel\modules\client\models;
 
+use hipanel\helpers\ArrayHelper;
 use hipanel\helpers\StringHelper;
 use hipanel\modules\client\models\query\ClientQuery;
 use hipanel\modules\domain\models\Domain;
+use hipanel\modules\finance\models\Plan;
 use hipanel\modules\finance\models\Purse;
 use hipanel\modules\server\models\Server;
 use hipanel\validators\DomainValidator;
@@ -473,5 +475,28 @@ class Client extends \hipanel\base\Model
     public function getBudget(): string
     {
         return $this->balance + $this->credit;
+    }
+
+    public function getPlans()
+    {
+        return $this->hasMany(Plan::class, ['client_id' => 'id']);
+    }
+
+    public function getProfileIds()
+    {
+        if ($this->isRelationPopulated('assignments')) {
+            return ArrayHelper::index($this->assignments, 'type')['tariff']->profile_ids;
+        }
+
+        return null;
+    }
+
+    public function getPlanIds()
+    {
+        if ($this->isRelationPopulated('assignments')) {
+            return ArrayHelper::index($this->assignments, 'type')['tariff']->tariff_ids;
+        }
+
+        return null;
     }
 }
