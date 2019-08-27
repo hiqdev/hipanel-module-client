@@ -18,6 +18,7 @@ use hipanel\modules\finance\models\Plan;
 use hipanel\modules\finance\models\Purse;
 use hipanel\modules\server\models\Server;
 use hipanel\validators\DomainValidator;
+use hiqdev\hiart\ActiveQuery;
 use Yii;
 
 /**
@@ -477,12 +478,12 @@ class Client extends \hipanel\base\Model
         return $this->balance + $this->credit;
     }
 
-    public function getPlans()
+    public function getPlans(): ActiveQuery
     {
         return $this->hasMany(Plan::class, ['client_id' => 'id']);
     }
 
-    public function getProfileIds()
+    public function getProfileIds(): ?array
     {
         if ($this->isRelationPopulated('assignments')) {
             return ArrayHelper::index($this->assignments, 'type')['tariff']->profile_ids;
@@ -491,7 +492,7 @@ class Client extends \hipanel\base\Model
         return null;
     }
 
-    public function getPlanIds()
+    public function getPlanIds(): ?array
     {
         if ($this->isRelationPopulated('assignments')) {
             return ArrayHelper::index($this->assignments, 'type')['tariff']->tariff_ids;
