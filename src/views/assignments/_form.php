@@ -130,17 +130,17 @@ $allTheSame = true;
 $profiles = [];
 $plans = [];
 foreach ($models as $client) {
-    $profiles = array_merge($profiles, $client->getProfileIds());
-    $plans = array_merge($plans, $client->getPlanIds());
-    if (array_diff($profiles, $client->getProfileIds()) || array_diff($plans, $client->getPlanIds())) {
+    $profiles = array_merge($profiles, $client->tariffAssignment->profileIds);
+    $plans = array_merge($plans, $client->tariffAssignment->planIds);
+    if (array_diff($profiles, $client->tariffAssignment->profileIds) || array_diff($plans, $client->tariffAssignment->planIds)) {
         $allTheSame = false;
         break;
     }
 }
 
 if ($allTheSame) {
-    $this->registerJsVar('currentProfile', $model->profileIds);
-    $this->registerJsVar('currentPlans', $model->planIds);
+    $this->registerJsVar('currentProfile', $model->tariffAssignment->profileIds);
+    $this->registerJsVar('currentPlans', $model->tariffAssignment->planIds);
     $this->registerJs(/** @lang JavaScript */ "
 if (currentProfile.length) {
     $('.box-with-profiles').click();

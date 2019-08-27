@@ -40,4 +40,14 @@ class Assignment extends ActiveRecord
     {
         return empty($this->tariff_ids) && $this->profile_ids == [$this->seller_id];
     }
+
+    public function getProfileIds(): ?array
+    {
+        return $this->profile_ids;
+    }
+
+    public function getPlanIds(): ?array
+    {
+        return $this->tariff_ids;
+    }
 }

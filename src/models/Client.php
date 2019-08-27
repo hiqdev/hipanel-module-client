@@ -10,7 +10,7 @@
 
 namespace hipanel\modules\client\models;
 
-use hipanel\helpers\ArrayHelper;
+use yii\helpers\ArrayHelper;
 use hipanel\helpers\StringHelper;
 use hipanel\modules\client\models\query\ClientQuery;
 use hipanel\modules\domain\models\Domain;
@@ -478,24 +478,10 @@ class Client extends \hipanel\base\Model
         return $this->balance + $this->credit;
     }
 
-    public function getPlans(): ActiveQuery
-    {
-        return $this->hasMany(Plan::class, ['client_id' => 'id']);
-    }
-
-    public function getProfileIds(): ?array
+    public function getTariffAssignment(): ?Assignment
     {
         if ($this->isRelationPopulated('assignments')) {
-            return ArrayHelper::index($this->assignments, 'type')['tariff']->profile_ids;
-        }
-
-        return null;
-    }
-
-    public function getPlanIds(): ?array
-    {
-        if ($this->isRelationPopulated('assignments')) {
-            return ArrayHelper::index($this->assignments, 'type')['tariff']->tariff_ids;
+            return ArrayHelper::index($this->assignments, 'type')['tariff'];
         }
 
         return null;

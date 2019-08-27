@@ -77,13 +77,4 @@ class ClientQuery extends ActiveQuery
             'payment_ticket',
         ]);
     }
-
-    public function withPlans()
-    {
-        return $this->with([
-            'plans' => function (ActiveQuery $query) {
-                $query->andWhere(['your_tariff' => true])->limit(-1);
-            }
-        ]);
-    }
 }
