@@ -20,7 +20,7 @@ $profilesWithPlans = [];
 foreach ($profiles as $profile) {
     $profilesWithPlans[$profile->id] = ArrayHelper::csplit($profile->items['tariff']);
 }
-
+$profilesWithPlans = sprintf('var %s = %s;', 'profilesWithPlans', Json::htmlEncode($profilesWithPlans));
 ?>
 
     <div class="row">
@@ -96,10 +96,10 @@ foreach ($profiles as $profile) {
 <?php
 
 $this->registerCss('.box .overlay, .overlay-wrapper .overlay { opacity: 0.6; }');
-$this->registerJsVar('profilesWithPlans', $profilesWithPlans);
 
 $this->registerJs(/** @lang JavaScript */ "
 (function () {
+    $profilesWithPlans
     function handleActiveBox() {
         $('#assignments-form').find('div.box').removeClass('box-success').find('.overlay').removeClass('hidden');
         $(this).addClass('box-success').find('.overlay').addClass('hidden');
