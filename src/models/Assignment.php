@@ -42,7 +42,7 @@ class Assignment extends ActiveRecord
     }
 
     /**
-     * @return string[]|int[]|null
+     * @return string[]|null
      */
     public function getProfileIds(): ?array
     {
@@ -50,7 +50,7 @@ class Assignment extends ActiveRecord
     }
 
     /**
-     * @return string[]|int[]|null
+     * @return string[]|null
      */
     public function getPlanIds(): ?array
     {
