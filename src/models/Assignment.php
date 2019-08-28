@@ -41,6 +41,9 @@ class Assignment extends ActiveRecord
         return empty($this->tariff_ids) && $this->profile_ids === [(string)$this->seller_id];
     }
 
+    /**
+     * @return какой там тип?
+     */
     public function getProfileIds(): ?array
     {
         return $this->profile_ids;
