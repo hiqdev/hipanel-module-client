@@ -16,11 +16,6 @@ use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 use yii\helpers\Json;
 
-$profilesWithPlans = [];
-foreach ($profiles as $profile) {
-    $profilesWithPlans[$profile->id] = ArrayHelper::csplit($profile->items['tariff']);
-}
-$profilesWithPlans = sprintf('var %s = %s;', 'profilesWithPlans', Json::htmlEncode($profilesWithPlans));
 ?>
 
     <div class="row">
@@ -96,7 +91,11 @@ $profilesWithPlans = sprintf('var %s = %s;', 'profilesWithPlans', Json::htmlEnco
 <?php
 
 $this->registerCss('.box .overlay, .overlay-wrapper .overlay { opacity: 0.6; }');
-
+$profilesWithPlans = [];
+foreach ($profiles as $profile) {
+    $profilesWithPlans[$profile->id] = ArrayHelper::csplit($profile->items['tariff']);
+}
+$profilesWithPlans = sprintf('var %s = %s;', 'profilesWithPlans', Json::htmlEncode($profilesWithPlans));
 $this->registerJs(/** @lang JavaScript */ "
 (function () {
     $profilesWithPlans
