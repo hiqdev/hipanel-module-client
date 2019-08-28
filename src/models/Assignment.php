@@ -28,7 +28,7 @@ class Assignment extends ActiveRecord
     public function rules()
     {
         return [
-            [['tariff_ids', 'profile_ids', 'type', 'tariff_names'], 'safe'],
+            [['tariff_ids', 'profile_ids', 'type', 'tariff_names', 'profile_name'], 'safe'],
             [['seller_id'], 'int'],
         ];
     }
@@ -38,6 +38,22 @@ class Assignment extends ActiveRecord
      */
     public function isInherited(): bool
     {
-        return empty($this->tariff_ids) && $this->profile_ids === [$this->seller_id];
+        return empty($this->tariff_ids) && $this->profile_ids === [(string)$this->seller_id];
+    }
+
+    /**
+     * @return string[]|null
+     */
+    public function getProfileIds(): ?array
+    {
+        return $this->profile_ids;
+    }
+
+    /**
+     * @return string[]|null
+     */
+    public function getPlanIds(): ?array
+    {
+        return $this->tariff_ids;
     }
 }

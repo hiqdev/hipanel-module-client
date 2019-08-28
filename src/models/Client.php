@@ -10,12 +10,15 @@
 
 namespace hipanel\modules\client\models;
 
+use yii\helpers\ArrayHelper;
 use hipanel\helpers\StringHelper;
 use hipanel\modules\client\models\query\ClientQuery;
 use hipanel\modules\domain\models\Domain;
+use hipanel\modules\finance\models\Plan;
 use hipanel\modules\finance\models\Purse;
 use hipanel\modules\server\models\Server;
 use hipanel\validators\DomainValidator;
+use hiqdev\hiart\ActiveQuery;
 use Yii;
 
 /**
@@ -473,5 +476,14 @@ class Client extends \hipanel\base\Model
     public function getBudget(): string
     {
         return $this->balance + $this->credit;
+    }
+
+    public function getTariffAssignment(): ?Assignment
+    {
+        if ($this->isRelationPopulated('assignments')) {
+            return ArrayHelper::index($this->assignments, 'type')['tariff'];
+        }
+
+        return null;
     }
 }
