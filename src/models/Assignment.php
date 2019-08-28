@@ -42,13 +42,16 @@ class Assignment extends ActiveRecord
     }
 
     /**
-     * @return какой там тип?
+     * @return array|null
      */
     public function getProfileIds(): ?array
     {
         return $this->profile_ids;
     }
 
+    /**
+     * @return array|null
+     */
     public function getPlanIds(): ?array
     {
         return $this->tariff_ids;

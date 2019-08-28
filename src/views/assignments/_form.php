@@ -8,11 +8,13 @@
 /* @var $profiles TariffProfile[] */
 
 use hipanel\helpers\ArrayHelper;
+use hipanel\modules\client\models\Client;
 use hipanel\modules\finance\models\Plan;
 use hipanel\modules\finance\models\TariffProfile;
 use hipanel\widgets\ArraySpoiler;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
+use yii\helpers\Json;
 
 $profilesWithPlans = [];
 foreach ($profiles as $profile) {
@@ -37,7 +39,7 @@ foreach ($profiles as $profile) {
                     <?= ArraySpoiler::widget([
                         'data' => $models,
                         'visibleCount' => count($models),
-                        'formatter' => function ($client) {
+                        'formatter' => function (Client $client) {
                             return Html::tag('strong', $client->login);
                         },
                         'delimiter' => ',&nbsp;',
@@ -97,33 +99,35 @@ $this->registerCss('.box .overlay, .overlay-wrapper .overlay { opacity: 0.6; }')
 $this->registerJsVar('profilesWithPlans', $profilesWithPlans);
 
 $this->registerJs(/** @lang JavaScript */ "
-function handleActiveBox() {
-    $('#assignments-form').find('div.box').removeClass('box-success').find('.overlay').removeClass('hidden');
-    $(this).addClass('box-success').find('.overlay').addClass('hidden');
-    $('.box-with-plans :input').each(function () {
-        this.disabled = false;
-    });
-}
-function handleIfProfileSelected() {
-    $('.box-with-profiles :radio').each(function () {
-        this.checked = false;
-    });
-}
-function handleIfPlanSelected() {
-    var selectedPlans = profilesWithPlans[this.value];
-    $('.box-with-plans :input').each(function () {
-        this.disabled = true;
-        if (selectedPlans.includes(this.value) && $(this).not(':checked')) {
-            this.checked = true;
-        } else {
+(function () {
+    function handleActiveBox() {
+        $('#assignments-form').find('div.box').removeClass('box-success').find('.overlay').removeClass('hidden');
+        $(this).addClass('box-success').find('.overlay').addClass('hidden');
+        $('.box-with-plans :input').each(function () {
+            this.disabled = false;
+        });
+    }
+    function handleIfProfileSelected() {
+        $('.box-with-profiles :radio').each(function () {
             this.checked = false;
-        }
-    });
-}
+        });
+    }
+    function handleIfPlanSelected() {
+        var selectedPlans = profilesWithPlans[this.value];
+        $('.box-with-plans :input').each(function () {
+            this.disabled = true;
+            if (selectedPlans.includes(this.value) && $(this).not(':checked')) {
+                this.checked = true;
+            } else {
+                this.checked = false;
+            }
+        });
+    }
 
-$('#assignments-form .box').on('click', handleActiveBox);
-$('#assignments-form .box.box-with-plans :input').on('change', handleIfProfileSelected);
-$('#assignments-form .box.box-with-profiles :radio').on('change', handleIfPlanSelected);
+    $('#assignments-form .box').on('click', handleActiveBox);
+    $('#assignments-form .box.box-with-plans :input').on('change', handleIfProfileSelected);
+    $('#assignments-form .box.box-with-profiles :radio').on('change', handleIfPlanSelected);
+})();
 ");
 
 $allTheSame = true;
@@ -139,16 +143,20 @@ foreach ($models as $client) {
 }
 
 if ($allTheSame) {
-    $this->registerJsVar('currentProfile', $model->tariffAssignment->profileIds);
-    $this->registerJsVar('currentPlans', $model->tariffAssignment->planIds);
+    $currentProfile = sprintf('var %s = %s;', 'currentProfile', Json::htmlEncode($model->tariffAssignment->profileIds));
+    $currentPlans = sprintf('var %s = %s;', 'currentPlans', Json::htmlEncode($model->tariffAssignment->planIds));
     $this->registerJs(/** @lang JavaScript */ "
-if (currentProfile.length) {
-    $('.box-with-profiles').click();
-    $('.box-with-profiles :radio').val(currentProfile).change();
-} else if (currentPlans.length) {
-    $('.box-with-plans').click();
-    $('.box-with-plans :input').val(currentPlans).change();
-}
+(function () {
+    $currentProfile
+    $currentPlans
+    if (currentProfile.length) {
+        $('.box-with-profiles').click();
+        $('.box-with-profiles :radio').val(currentProfile).change();
+    } else if (currentPlans.length) {
+        $('.box-with-plans').click();
+        $('.box-with-plans :input').val(currentPlans).change();
+    }
+})();
     ");
 } else {
     $this->registerJs("$('.difference-assignation').removeClass('hidden');");
