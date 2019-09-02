@@ -95,6 +95,9 @@ class ClientDetailMenu extends \hipanel\menus\AbstractDetailMenu
                     'headerOptions' => ['class' => 'label-warning'],
                     'icon' => 'fa-arrows-alt fa-fw',
                     'scenario' => 'ip-restrictions',
+                    'toggleButton' => [
+                        'data-anchor' => 'ip_restriction_settings',
+                    ],
                 ]),
                 'encode' => false,
                 'visible' => $user->is($this->model->id) || ($user->can('client.set-others-allowed-ips') && !$this->model->isDeleted()),
