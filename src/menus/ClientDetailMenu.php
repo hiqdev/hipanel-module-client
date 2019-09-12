@@ -86,7 +86,7 @@ class ClientDetailMenu extends \hipanel\menus\AbstractDetailMenu
                     'scenario' => 'pincode-settings',
                 ]),
                 'encode' => false,
-                'visible' => $user->is($this->model->id),
+                'visible' => $user->is($this->model->id) && Yii::$app->params['pincode.forced'] !== false,
             ],
             [
                 'label' => SettingsModal::widget([
