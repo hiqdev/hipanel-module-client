@@ -11,6 +11,7 @@
 namespace hipanel\modules\client\helpers;
 
 use hipanel\modules\client\models\Client;
+use Yii;
 use yii\caching\CacheInterface;
 use yii\web\User;
 
@@ -41,8 +42,9 @@ class HasPINCode
     {
         return $this->cache->getOrSet(['user-pincode-enabled', $this->user->id], function () {
             $pincodeData = Client::perform('has-pincode', ['id' => $this->user->id]);
+            $pincodeEnabled = (bool) $pincodeData['pincode_enabled'] && Yii::$app->params['pincode.forced'];
 
-            return (bool) $pincodeData['pincode_enabled'];
+            return $pincodeEnabled;
         }, 3600);
     }
 }
