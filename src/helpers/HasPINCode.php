@@ -42,9 +42,13 @@ class HasPINCode
     {
         return $this->cache->getOrSet(['user-pincode-enabled', $this->user->id], function () {
             $pincodeData = Client::perform('has-pincode', ['id' => $this->user->id]);
-            $pincodeEnabled = (bool) $pincodeData['pincode_enabled'] && Yii::$app->params['pincode.forced'];
 
-            return $pincodeEnabled;
+            return $this->isPincodeEnabled($pincodeData);
         }, 3600);
+    }
+
+    private function isPincodeEnabled(array $pincodeData): bool
+    {
+        return (bool) $pincodeData['pincode_enabled'] && $this->user->can('support') && Yii::$app->params['pincode.forced'] !== false;
     }
 }
