@@ -244,7 +244,7 @@ class ContactController extends CrudController
 
                 return [
                     'success' => true,
-                    'message' => Yii::t('hipanel:client', 'Code was sended successfully'),
+                    'message' => Yii::t('hipanel:client', 'Code was sent successfully'),
                 ];
             } catch (PhoneConfirmationException $e) {
                 return ['error' => $e->getMessage()];
