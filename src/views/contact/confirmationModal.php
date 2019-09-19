@@ -84,6 +84,8 @@ $submitButton = Html::submitButton(Yii::t('hipanel', 'Confirm'), [
             return false;
         }
 
+        var \$button = $(this);
+
         $.post({
             url: $(this).data('url'),
             data: form.serialize(),
@@ -92,11 +94,12 @@ $submitButton = Html::submitButton(Yii::t('hipanel', 'Confirm'), [
             }.bind(this),
             success: function (response) {
                 if (response.success) {
+                    hipanel.notify.success(response.message);
                     return form.trigger('reload');
                 }
                 
                 hipanel.notify.error(response.error);
-                $(this).button('reset');
+                \$button.button('reset');
             }
         });
     });
