@@ -15,6 +15,7 @@ use yii\base\InvalidConfigException;
 use yii\base\Widget;
 use yii\helpers\Html;
 use yii\helpers\Inflector;
+use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 
 class VerificationIndicator extends Widget
@@ -62,7 +63,7 @@ class VerificationIndicator extends Widget
     protected function renderVerificationButton()
     {
         $form = ActiveForm::begin([
-            'action' => ['@contact/request-' . Inflector::camel2id($this->type) . '-confirmation'],
+            'action' => $this->getVerificationUrl(),
             'class' => 'form-inline',
         ]);
 
@@ -74,5 +75,16 @@ class VerificationIndicator extends Widget
         );
 
         $form->end();
+    }
+
+    private function getVerificationUrl()
+    {
+        if ($this->type === 'email' && (string)$this->model->id === (string)Yii::$app->user->id) {
+            $back = Yii::$app->request->absoluteUrl;
+
+            return Yii::getAlias('@HIAM_SITE') . Url::to(["/site/resend-verification-email", 'back' => $back]);
+        }
+
+        return ['@contact/request-' . Inflector::camel2id($this->type) . '-confirmation'];
     }
 }
