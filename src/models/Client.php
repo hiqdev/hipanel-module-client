@@ -354,6 +354,36 @@ class Client extends \hipanel\base\Model
         return $this->hasMany(Purse::class, ['client_id' => 'id']);
     }
 
+    public function getPurseByCurrency(string $currency): ?Purse
+    {
+        if (!$this->isRelationPopulated('purses')) {
+            return null;
+        }
+
+        foreach ($this->purses as $purse) {
+            if ($purse->currency === strtolower($currency)) {
+                return $purse;
+            }
+        }
+
+        return null;
+    }
+
+    public function getPrimaryPurse(): ?Purse
+    {
+        if (!$this->isRelationPopulated('purses')) {
+            return null;
+        }
+
+        foreach ($this->purses as $purse) {
+            if ($purse->id === $this->id) {
+                return $purse;
+            }
+        }
+
+        return null;
+    }
+
     public static function canBeSelf($model)
     {
         return Yii::$app->user->is($model->id) || (!Yii::$app->user->can('resell') && Yii::$app->user->can('support') && Yii::$app->user->identity->seller_id === $model->id);
