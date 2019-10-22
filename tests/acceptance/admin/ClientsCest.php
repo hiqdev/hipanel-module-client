@@ -41,7 +41,7 @@ class ClientsCest
     private function ensureICanSeeAdvancedSearchBox(Admin $I)
     {
         $this->index->containsFilters([
-            Input::asAdvancedSearch($I,'Login'),
+            Input::asAdvancedSearch($I, 'Login or Email'),
             Input::asAdvancedSearch($I, 'Note'),
             Input::asAdvancedSearch($I, 'Name'),
             Input::asAdvancedSearch($I, 'Email'),
