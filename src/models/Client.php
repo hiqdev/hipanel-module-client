@@ -59,7 +59,7 @@ class Client extends \hipanel\base\Model
             [['state_label', 'type_label'], 'safe'],
 
             [['profile_ids', 'tariff_ids'], 'safe', 'on' => ['update', 'set-tariffs']],
-            [['ids'], 'required', 'on' => ['update', 'set-tariffs']],
+            [['ids'], 'required', 'on' => ['set-tariffs']],
 
             [['balance', 'credit', 'full_balance'], 'number'],
             [['count', 'confirm_url', 'language', 'comment', 'name', 'currency'], 'safe'],
