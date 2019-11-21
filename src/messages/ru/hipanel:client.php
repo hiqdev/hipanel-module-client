@@ -281,4 +281,6 @@ return [
     'Inherited from seller\'s defaults' => 'Наследуется от настроек реселлера по умолчанию',
     'Login or Email' => 'Логин или Email',
     'Code was sent successfully' => 'Код успешно отправлен',
+
+    'Assignments' => 'Назначения',
 ];

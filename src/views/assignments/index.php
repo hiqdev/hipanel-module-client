@@ -3,10 +3,9 @@
 /**
  * @var \yii\web\View $this
  * @var \hiqdev\hiart\ActiveDataProvider $dataProvider
+ * @var \hipanel\modules\client\models\Client $model
+ * @var \hipanel\modules\client\models\Client[] $models
  */
-
-// @var \hipanel\modules\client\models\Client $model
-// @var \hipanel\modules\client\models\Client[] $models
 
 $this->title = Yii::t('hipanel:client', 'Assignments');
 $this->params['subtitle'] = array_filter(Yii::$app->request->get($model->formName(), [])) ? Yii::t('hipanel', 'filtered list') : Yii::t('hipanel', 'full list');
@@ -45,7 +44,11 @@ use hipanel\widgets\Pjax; ?>
                 'filterModel'  => $model,
                 'columns' => [
                     'checkbox',
-                    'login',
+                    [
+                        'attribute' => 'login',
+                    ],
+                    'seller',
+                    'type',
                     'assignments',
                 ]
             ]) ?>
