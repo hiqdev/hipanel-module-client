@@ -24,6 +24,7 @@ use hipanel\modules\finance\controllers\BillController;
 use hipanel\modules\finance\grid\BalanceColumn;
 use hipanel\modules\finance\grid\CreditColumn;
 use hipanel\modules\finance\widgets\ColoredBalance;
+use hipanel\modules\stock\helpers\ProfitColumns;
 use hipanel\widgets\ArraySpoiler;
 use hiqdev\yii2\menus\grid\MenuColumn;
 use Yii;
@@ -32,9 +33,20 @@ use yii\helpers\Inflector;
 
 class ClientGridView extends BoxedGridView
 {
+    /**
+     * @return array
+     */
+    private function getProfitColumns(): array
+    {
+        return ProfitColumns::getGridColumns($this, 'order_id');
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function columns()
     {
-        return array_merge(parent::columns(), [
+        return array_merge(parent::columns(), $this->getProfitColumns(), [
             'id' => [
                 'class' => ClientColumn::class,
                 'attribute' => 'id',
