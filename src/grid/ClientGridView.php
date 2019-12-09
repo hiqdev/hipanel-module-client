@@ -14,7 +14,6 @@ use hipanel\grid\BoxedGridView;
 use hipanel\grid\MainColumn;
 use hipanel\grid\RefColumn;
 use hipanel\grid\XEditableColumn;
-use hipanel\helpers\StringHelper;
 use hipanel\helpers\Url;
 use hipanel\modules\client\menus\ClientActionsMenu;
 use hipanel\modules\client\models\Client;
@@ -38,7 +37,7 @@ class ClientGridView extends BoxedGridView
      */
     private function getProfitColumns(): array
     {
-        return ProfitColumns::getGridColumns($this, 'order_id');
+        return ProfitColumns::getGridColumns($this, 'client_id');
     }
 
     /**
