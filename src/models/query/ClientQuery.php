@@ -77,4 +77,15 @@ class ClientQuery extends ActiveQuery
             'payment_ticket',
         ]);
     }
+
+    /**
+     * @return $this
+     */
+    public function withProfit(): self
+    {
+        $this->joinWith('profit');
+        $this->andWhere(['with_profit' => true]);
+
+        return $this;
+    }
 }

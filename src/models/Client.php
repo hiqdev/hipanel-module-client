@@ -10,6 +10,7 @@
 
 namespace hipanel\modules\client\models;
 
+use hipanel\modules\stock\models\ClientWithProfit;
 use yii\helpers\ArrayHelper;
 use hipanel\helpers\StringHelper;
 use hipanel\modules\client\models\query\ClientQuery;
@@ -30,6 +31,7 @@ use Yii;
  * @property-read string $balance
  * @property-read string $credit
  * @property-read string $currency
+ * @property-read ClientWithProfit[] $profit
  * @property-read Assignment[] $assignments
  */
 class Client extends \hipanel\base\Model
@@ -311,6 +313,15 @@ class Client extends \hipanel\base\Model
             'autoexchange_force' => Yii::t('hipanel:client', 'When "exchange currency for debts automatically" is enabled, this flag indicates that the primary currency CAN be indebted to close debts in other currencies'),
             'autoexchange_prepayments' => Yii::t('hipanel:client', 'When "exchange currency for debts automatically" is enabled, this flag indicates that prepayment for the expected resources consumption that was listed in the invoice should be exchanged too. It can be useful to prevent debts in primary currency while the secondary currency balance is positive due to prepayment'),
         ]);
+    }
+
+    public function getProfit()
+    {
+        if (!class_exists(ClientWithProfit::class)) {
+            return null;
+        }
+
+        return $this->hasMany(ClientWithProfit::class, ['id' => 'id'])->indexBy('currency');
     }
 
     public function getTicketSettings()

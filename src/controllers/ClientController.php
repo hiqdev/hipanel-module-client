@@ -26,6 +26,7 @@ use hipanel\filters\EasyAccessControl;
 use hipanel\helpers\Url;
 use hipanel\modules\client\logic\IPConfirmer;
 use hipanel\modules\client\models\Client;
+use hipanel\modules\client\models\query\ClientQuery;
 use Yii;
 use yii\base\Event;
 use yii\filters\VerbFilter;
@@ -75,6 +76,7 @@ class ClientController extends \hipanel\base\CrudController
                     }
 
                     $action = $event->sender;
+                    /** @var ClientQuery $query */
                     $query = $action->getDataProvider()->query;
                     $representation = $action->controller->indexPageUiOptionsModel->representation;
 
@@ -88,6 +90,9 @@ class ClientController extends \hipanel\base\CrudController
                             break;
                         case 'documents':
                             $query->addSelect(['documents']);
+                            break;
+                        case 'profit-report':
+                            $query->withProfit();
                             break;
                     }
                 },

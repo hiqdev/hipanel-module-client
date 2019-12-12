@@ -11,6 +11,7 @@
 
 use hipanel\modules\client\grid\ClientGridLegend;
 use hipanel\modules\client\grid\ClientGridView;
+use hipanel\modules\stock\helpers\ProfitColumns;
 use hipanel\widgets\AjaxModal;
 use hipanel\widgets\gridLegend\GridLegend;
 use hipanel\widgets\IndexPage;
@@ -19,11 +20,23 @@ use hiqdev\assets\flagiconcss\FlagIconCssAsset;
 use yii\bootstrap\Dropdown;
 use yii\helpers\Html;
 
+/**
+ * @var \yii\web\View $this
+ * @var \hipanel\modules\client\grid\ClientRepresentations $representationCollection
+ * @var \yii\data\ActiveDataProvider $dataProvider
+ * @var \hipanel\models\IndexPageUiOptions $uiModel
+ * @var \hipanel\modules\client\models\ClientSearch $model
+ */
+
 FlagIconCssAsset::register($this);
 
 $this->title = Yii::t('hipanel', 'Clients');
 $this->params['subtitle'] = array_filter(Yii::$app->request->get($model->formName(), [])) ? Yii::t('hipanel', 'filtered list') : Yii::t('hipanel', 'full list');
 $this->params['breadcrumbs'][] = $this->title;
+
+$showFooter = ($uiModel->representation === 'profit-report')
+    && (Yii::$app->user->can('order.read-profits'))
+    && (class_exists(ProfitColumns::class));
 
 ?>
 
@@ -146,6 +159,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
                 'dataProvider' => $dataProvider,
                 'filterModel'  => $model,
+                'showFooter' => $showFooter,
                 'columns' => $representationCollection->getByName($uiModel->representation)->getColumns(),
             ]) ?>
         <?php $page->endBulkForm() ?>

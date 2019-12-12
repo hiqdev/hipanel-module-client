@@ -14,7 +14,6 @@ use hipanel\grid\BoxedGridView;
 use hipanel\grid\MainColumn;
 use hipanel\grid\RefColumn;
 use hipanel\grid\XEditableColumn;
-use hipanel\helpers\StringHelper;
 use hipanel\helpers\Url;
 use hipanel\modules\client\menus\ClientActionsMenu;
 use hipanel\modules\client\models\Client;
@@ -24,6 +23,7 @@ use hipanel\modules\finance\controllers\BillController;
 use hipanel\modules\finance\grid\BalanceColumn;
 use hipanel\modules\finance\grid\CreditColumn;
 use hipanel\modules\finance\widgets\ColoredBalance;
+use hipanel\modules\stock\helpers\ProfitColumns;
 use hipanel\widgets\ArraySpoiler;
 use hiqdev\yii2\menus\grid\MenuColumn;
 use Yii;
@@ -32,9 +32,20 @@ use yii\helpers\Inflector;
 
 class ClientGridView extends BoxedGridView
 {
+    /**
+     * @return array
+     */
+    private function getProfitColumns(): array
+    {
+        return ProfitColumns::getGridColumns($this, 'client_id');
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function columns()
     {
-        return array_merge(parent::columns(), [
+        return array_merge(parent::columns(), $this->getProfitColumns(), [
             'id' => [
                 'class' => ClientColumn::class,
                 'attribute' => 'id',
@@ -105,6 +116,7 @@ class ClientGridView extends BoxedGridView
                 'noteOptions' => [
                     'url' => Url::to('@client/set-note'),
                 ],
+                'footer' => '<b>' . Yii::t('hipanel:stock', 'TOTAL on screen') . '</b>',
             ],
             'login_without_note' => [
                 'class' => MainColumn::class,
