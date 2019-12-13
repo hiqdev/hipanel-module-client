@@ -88,4 +88,15 @@ class ClientQuery extends ActiveQuery
 
         return $this;
     }
+
+    /**
+     * @return $this
+     */
+    public function withTypedProfit(): self
+    {
+        $this->joinWith('typedProfit');
+        $this->andWhere(['with_typedProfit' => true]);
+
+        return $this;
+    }
 }

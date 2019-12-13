@@ -92,7 +92,9 @@ class ClientController extends \hipanel\base\CrudController
                             $query->addSelect(['documents']);
                             break;
                         case 'profit-report':
-                            $query->withProfit();
+                            $query
+                                ->withProfit()
+                                ->withTypedProfit();
                             break;
                     }
                 },

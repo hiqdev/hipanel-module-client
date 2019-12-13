@@ -324,6 +324,15 @@ class Client extends \hipanel\base\Model
         return $this->hasMany(ClientWithProfit::class, ['id' => 'id'])->indexBy('currency');
     }
 
+    public function getTypedProfit()
+    {
+        if (!class_exists(ClientWithProfit::class)) {
+            return null;
+        }
+
+        return $this->hasMany(ClientWithTypedProfit::class, ['id' => 'id'])->indexBy('currency');
+    }
+
     public function getTicketSettings()
     {
         return $this->hasOne(ClientTicketSettings::class, ['id', 'id']);
