@@ -21,10 +21,9 @@ use hipanel\modules\stock\models\ProfitModelInterface;
  * Class Client
  * @package hipanel\modules\client\models
  *
- * @property string $currency
- * @property string $rack_unit_sum
- * @property string $support_time_sum
- * @property string $overuse_traf_sum
+ * @property string $rack_charge
+ * @property string $support_charge
+ * @property string $overuse_charge
  */
 class ClientWithTypedProfit extends Client implements ProfitModelInterface
 {
@@ -39,12 +38,12 @@ class ClientWithTypedProfit extends Client implements ProfitModelInterface
             [
                 [
                     'currency',
-                    'rack_unit_sum',
-                    'support_time_sum',
-                    'overuse_traf_sum',
+                    'rack_charge',
+                    'support_charge',
+                    'overuse_charge',
                 ],
                 'safe',
-            ]
+            ],
         ]);
     }
 

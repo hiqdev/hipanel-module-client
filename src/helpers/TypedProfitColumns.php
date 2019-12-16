@@ -7,6 +7,10 @@ namespace hipanel\modules\client\helpers;
 use hipanel\modules\stock\helpers\ProfitColumns;
 use Yii;
 
+/**
+ * Class TypedProfitColumns
+ * @package hipanel\modules\client\helpers
+ */
 class TypedProfitColumns extends ProfitColumns
 {
     protected static $profitAttribute = 'typedProfit';
@@ -17,9 +21,9 @@ class TypedProfitColumns extends ProfitColumns
     public static function getColumnNames(array $commonColumns = []): array
     {
         $columns = [];
-        foreach (['rack_unit_sum', 'support_time_sum', 'overuse_traf_sum'] as $attr) {
+        foreach (['rack', 'support', 'overuse'] as $attr) {
             foreach (['usd', 'eur'] as $cur) {
-                $columns[] = "$attr.$cur";
+                $columns[] = "{$attr}_charge.$cur";
             }
         }
 
@@ -33,12 +37,12 @@ class TypedProfitColumns extends ProfitColumns
     {
         $labels = [];
         foreach ([
-            'rack_unit_sum'     => 'rack_unit_sum',
-            'support_time_sum'    => 'support_time_sum',
-            'overuse_traf_sum'     => 'overuse_traf_sum',
+            'rack'     => 'rack',
+            'support'  => 'support',
+            'overuse'  => 'overuse',
         ] as $name => $label) {
             foreach (['usd', 'eur'] as $cur) {
-                $labels["$name.$cur"] = Yii::t('hipanel.stock.order', $label.' '.strtoupper($cur));
+                $labels["$name.$cur"] = Yii::t('hipanel.stock.order', $label.' Charge '.strtoupper($cur));
             }
         }
 
