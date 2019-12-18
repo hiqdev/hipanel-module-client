@@ -57,12 +57,7 @@ class ClientRepresentations extends RepresentationCollection
             ] : null,
             'profit-report' => Yii::$app->user->can('order.read-profits') && class_exists(ProfitColumns::class) ? [
                 'label' => Yii::t('hipanel', 'profit report'),
-                'columns' => ProfitColumns::getColumnNames(
-                    array_merge(
-                        ['login'],
-                        TypedProfitColumns::getColumnNames()
-                    )
-                ),
+                'columns' => TypedProfitColumns::getColumnNames(['login']),
             ] : null,
         ]);
     }

@@ -25,7 +25,7 @@ class TypedProfitColumns extends ProfitColumns
             }
         }
 
-        return array_merge($commonColumns, $columns);
+        return array_merge($commonColumns, $columns, parent::getColumnNames());
     }
 
     /**
@@ -44,6 +44,6 @@ class TypedProfitColumns extends ProfitColumns
             }
         }
 
-        return $labels;
+        return array_merge($labels, parent::getLabels());
     }
 }
