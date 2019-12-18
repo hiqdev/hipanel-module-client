@@ -13,8 +13,6 @@ use Yii;
  */
 class TypedProfitColumns extends ProfitColumns
 {
-    protected static $profitAttribute = 'typedProfit';
-
     /**
      * @inheritDoc
      */
