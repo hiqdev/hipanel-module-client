@@ -10,7 +10,7 @@
 
 namespace hipanel\modules\client\models;
 
-use hipanel\modules\stock\models\ClientWithProfit;
+use hipanel\modules\stock\helpers\ProfitColumns;
 use yii\helpers\ArrayHelper;
 use hipanel\helpers\StringHelper;
 use hipanel\modules\client\models\query\ClientQuery;
@@ -317,7 +317,7 @@ class Client extends \hipanel\base\Model
 
     public function getProfit()
     {
-        if (!class_exists(ClientWithProfit::class)) {
+        if (!class_exists(ProfitColumns::class)) {
             return null;
         }
 
