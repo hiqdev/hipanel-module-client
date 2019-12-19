@@ -10,7 +10,7 @@
 
 namespace hipanel\modules\client\grid;
 
-use hipanel\modules\client\helpers\TypedProfitColumns;
+use hipanel\modules\client\helpers\ClientProfitColumns;
 use hipanel\modules\stock\helpers\ProfitColumns;
 use hiqdev\higrid\representations\RepresentationCollection;
 use Yii;
@@ -57,7 +57,7 @@ class ClientRepresentations extends RepresentationCollection
             ] : null,
             'profit-report' => Yii::$app->user->can('order.read-profits') && class_exists(ProfitColumns::class) ? [
                 'label' => Yii::t('hipanel', 'profit report'),
-                'columns' => TypedProfitColumns::getColumnNames(['login']),
+                'columns' => ClientProfitColumns::getColumnNames(['login']),
             ] : null,
         ]);
     }

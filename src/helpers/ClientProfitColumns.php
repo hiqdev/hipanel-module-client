@@ -8,10 +8,10 @@ use hipanel\modules\stock\helpers\ProfitColumns;
 use Yii;
 
 /**
- * Class TypedProfitColumns
+ * Class ClientProfitColumns
  * @package hipanel\modules\client\helpers
  */
-class TypedProfitColumns extends ProfitColumns
+class ClientProfitColumns extends ProfitColumns
 {
     /**
      * @inheritDoc
