@@ -26,6 +26,8 @@ use yii\helpers\Html;
  * @var \yii\data\ActiveDataProvider $dataProvider
  * @var \hipanel\models\IndexPageUiOptions $uiModel
  * @var \hipanel\modules\client\models\ClientSearch $model
+ * @var array $types
+ * @var array $states
  */
 
 FlagIconCssAsset::register($this);
