@@ -121,6 +121,7 @@ return [
     'Allowed emails for creating tickets' => 'Разрешенные e-mail для создания тикетов',
     'Send message text' => 'Отправлять текст сообщения',
     'Social' => 'Соцсети',
+    'Profit period' => 'Период профита',
 
     // Статусы клиентов
     'Active' => 'Активен',
