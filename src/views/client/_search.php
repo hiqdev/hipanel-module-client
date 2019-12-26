@@ -6,7 +6,11 @@ use hiqdev\yii2\daterangepicker\DateRangePicker;
 use yii\helpers\Html;
 
 /**
- * @var \hipanel\widgets\AdvancedSearch
+ * @var \hipanel\widgets\AdvancedSearch $search
+ * @var \hipanel\models\IndexPageUiOptions $uiModel
+ * @var array $types
+ * @var array $states
+ * @var \yii\web\View $this
  */
 ?>
 
@@ -68,3 +72,20 @@ use yii\helpers\Html;
         ]) ?>
     </div>
 </div>
+
+<?php if ($uiModel->representation === 'profit-report'): ?>
+    <div class="col-md-4 col-sm-6 col-xs-12">
+        <div class="form-group">
+            <?= Html::tag('label', Yii::t('hipanel', 'Charge time'), ['class' => 'control-label']); ?>
+            <?= DateRangePicker::widget([
+                'model' => $search->model,
+                'attribute' => 'profit_time_from',
+                'attribute2' => 'profit_time_till',
+                'options' => [
+                    'class' => 'form-control',
+                ],
+                'dateFormat' => 'yyyy-mm-dd',
+            ]) ?>
+        </div>
+    </div>
+<?php endif ?>
