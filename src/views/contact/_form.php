@@ -4,7 +4,7 @@ use borales\extensions\phoneInput\PhoneInput;
 use hipanel\modules\client\widgets\combo\ClientCombo;
 use hipanel\widgets\BackButton;
 use hipanel\widgets\Box;
-use hipanel\widgets\DatePicker;
+use hipanel\widgets\DateTimePicker;
 use hiqdev\combo\StaticCombo;
 use yii\helpers\Html;
 use yii\web\View;
@@ -96,30 +96,28 @@ use yii\web\View;
             'title' => Yii::t('hipanel:client', 'Passport data'),
         ]) ?>
         <fieldset id="fiz_domain">
-            <?= $form->field($model, 'birth_date')->widget(DatePicker::class, [
-                'removeButton' => false,
-                'pluginOptions' => [
+            <?= $form->field($model, 'birth_date')->widget(DateTimePicker::class, [
+                'clientOptions' => [
                     'format' => 'yyyy-mm-dd', // TODO: get format from user settings
                     'autoclose' => true,
                     'clearBtn' => true,
                 ],
                 'options' => [
                     'readonly' => 'readonly',
-                    'class' => 'datepicker',
+                    'class' => 'DateTimePicker',
                     'placeholder' => Yii::t('hipanel', 'Select date'),
                 ],
             ]); ?>
             <?= $form->field($model, 'passport_no'); ?>
-            <?= $form->field($model, 'passport_date')->widget(DatePicker::class, [
-                'removeButton' => false,
-                'pluginOptions' => [
+            <?= $form->field($model, 'passport_date')->widget(DateTimePicker::class, [
+                'clientOptions' => [
                     'format' => 'yyyy-mm-dd',  // TODO: get format from user settings
                     'autoclose' => true,
                     'clearBtn' => true,
                 ],
                 'options' => [
                     'readonly' => 'readonly',
-                    'class' => 'datepicker',
+                    'class' => 'DateTimePicker',
                     'placeholder' => Yii::t('hipanel', 'Select date'),
                 ],
             ]); ?>
@@ -206,13 +204,10 @@ jQuery('#jur_domain input').change(function() {
     });
     jQuery('#contact-passport_date, #contact-birth_date').each(function(i, e) {
         var elem = jQuery(e);
-        var opts = elem.data('krajee-datepicker');
         if (disable) {
-            elem.parent().kvDatepicker('remove');
-            elem.parent().addClass('disabled');
+            elem.prop('disabled', true);
         } else {
-            elem.parent().kvDatepicker(opts);
-            elem.parent().removeClass('disabled');
+            elem.prop('disabled', false);
         }
     });
     jQuery('#fiz_domain').prop('disabled', disable);
