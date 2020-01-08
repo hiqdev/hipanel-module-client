@@ -101,6 +101,7 @@ use yii\web\View;
                     'format' => 'yyyy-mm-dd', // TODO: get format from user settings
                     'autoclose' => true,
                     'clearBtn' => true,
+                    'minView' => 2,
                 ],
                 'options' => [
                     'readonly' => 'readonly',
