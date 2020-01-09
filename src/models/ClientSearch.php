@@ -26,7 +26,7 @@ class ClientSearch extends Client
             'created_from', 'created_till',
             'types', 'states', 'login_email_like',
             'profit_time_from', 'profit_time_till',
-            'profit_filter',
+            'profit_not_empty',
         ]);
     }
 
@@ -34,7 +34,7 @@ class ClientSearch extends Client
     {
         return array_merge(parent::attributeLabels(), [
             'login_email_like' => Yii::t('hipanel:client', 'Login or Email'),
-            'profit_filter' => Yii::t('hipanel:client', 'Show not empty'),
+            'profit_not_empty' => Yii::t('hipanel:client', 'Show not empty'),
         ]);
     }
 }
