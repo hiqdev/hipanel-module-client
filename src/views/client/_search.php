@@ -56,6 +56,12 @@ use yii\helpers\Html;
     ]) ?>
 </div>
 
+<?php if ($uiModel->representation === 'profit-report'): ?>
+    <div class="col-md-4 col-sm-6 col-xs-12">
+        <?= $search->field('profit_filter')->checkbox() ?>
+    </div>
+<?php endif; ?>
+
 <div class="row top-buffer"></div>
 
 <div class="col-md-4 col-sm-6 col-xs-12">
