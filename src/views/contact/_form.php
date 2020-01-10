@@ -94,6 +94,9 @@ use yii\web\View;
                 && empty($model->birth_date) && empty($model->passport_no)
                 && empty($model->passport_date) && empty($model->passport_by),
             'title' => Yii::t('hipanel:client', 'Passport data'),
+            'options' => [
+                'id' => 'passport-data-box',
+            ],
         ]) ?>
         <fieldset id="fiz_domain">
             <?= $form->field($model, 'birth_date')->widget(DateTimePicker::class, [
@@ -115,6 +118,7 @@ use yii\web\View;
                     'format' => 'yyyy-mm-dd',  // TODO: get format from user settings
                     'autoclose' => true,
                     'clearBtn' => true,
+                    'minView' => 2,
                 ],
                 'options' => [
                     'readonly' => 'readonly',
@@ -131,6 +135,9 @@ use yii\web\View;
         <?php Box::begin([
             'collapsed' => true,
             'title' => Yii::t('hipanel:client', 'Legal entity information'),
+            'options' => [
+                'id' => 'legal-entity-box',
+            ],
         ]) ?>
         <fieldset id="jur_domain">
             <?= $form->field($model, 'organization_ru'); ?>
