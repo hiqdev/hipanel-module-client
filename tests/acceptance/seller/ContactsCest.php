@@ -7,7 +7,7 @@
  * @license   BSD-3-Clause
  * @copyright Copyright (c) 2015-2019, HiQDev (http://hiqdev.com/)
  */
-namespace hipanel\modules\client\tests\acceptance\admin\contacts;
+namespace hipanel\modules\client\tests\acceptance\seller;
 
 use Codeception\Example;
 use hipanel\modules\client\tests\acceptance\CommonContactActions;
