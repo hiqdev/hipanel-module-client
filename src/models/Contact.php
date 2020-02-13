@@ -70,6 +70,7 @@ class Contact extends \hipanel\base\Model
 
             [['reg_data', 'vat_number', 'tax_comment', 'bank_details'], 'trim'],
             [['bank_account', 'bank_name', 'bank_address', 'bank_swift'], 'trim'],
+            [['bank_correspondent', 'bank_correspondent_swift'], 'trim'],
             [['vat_number', 'tax_comment'], 'string'],
             [['vat_rate'], 'number', 'max' => 99],
 
@@ -191,6 +192,8 @@ class Contact extends \hipanel\base\Model
             'bank_name'         => Yii::t('hipanel:client', 'Bank name'),
             'bank_address'      => Yii::t('hipanel:client', 'Bank address'),
             'bank_swift'        => Yii::t('hipanel:client', 'SWIFT code'),
+            'bank_correspondent'=> Yii::t('hipanel:client', 'Correspondent bank'),
+            'bank_correspondent_swift'=> Yii::t('hipanel:client', 'Correspondent bank SWIFT code'),
             'localization'      => Yii::t('hipanel:client', 'Localization'),
             'xxx_token'         => Yii::t('hipanel:client', 'XXX Token'),
             'policy_consent'    => Yii::t('hipanel:client', 'Privacy policy agreement'),
@@ -276,6 +279,8 @@ class Contact extends \hipanel\base\Model
             $this->renderBankName($this->bank_name),
             $this->renderBankAddress($this->bank_address),
             $this->renderBankSwift($this->bank_swift),
+            $this->renderCorrespondentBank($this->bank_correspondent),
+            $this->renderCorrespondentBankSwift($this->bank_correspondent_swift),
         ]));
     }
 
@@ -301,6 +306,16 @@ class Contact extends \hipanel\base\Model
     public function renderBankSwift($swift)
     {
         return $swift ? 'SWIFT code: ' . $swift : null;
+    }
+
+    public function renderCorrespondentBank(string $name = null): ?string
+    {
+        return $name ? 'Correspondent bank: ' . $name : null;
+    }
+
+    public function renderCorrespondentBankSwift(string $swift = null): ?string
+    {
+        return $swift ? 'Correspondent bank SWIFT: ' . $swift : null;
     }
 
     /**

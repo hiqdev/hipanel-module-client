@@ -47,6 +47,13 @@ class ContactCombo extends Combo
                     return markup; // Allows HTML
                 }'),
             ],
+            'clearWhen' => ['client/client'],
+            /***
+            'affects'   => [
+                'client/seller' => 'seller',
+                'client/client' => 'client',
+            ],
+            ***/
         ]);
     }
 
@@ -54,7 +61,8 @@ class ContactCombo extends Combo
     public function getFilter()
     {
         return ArrayHelper::merge(parent::getFilter(), [
-            'select'    => ['format' => 'min'],
+            'client' => 'client/client',
+            'select' => ['format' => 'min'],
         ]);
     }
 }

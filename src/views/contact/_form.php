@@ -165,6 +165,8 @@ use yii\web\View;
             <?= $form->field($model, 'bank_name') ?>
             <?= $form->field($model, 'bank_address') ?>
             <?= $form->field($model, 'bank_swift') ?>
+            <?= $form->field($model, 'bank_correspondent') ?>
+            <?= $form->field($model, 'bank_correspondent_swift') ?>
         </fieldset>
         <?php Box::end() ?>
     </div>
