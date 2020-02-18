@@ -4,6 +4,8 @@ use hipanel\modules\client\grid\ContactGridView;
 use hipanel\widgets\IndexPage;
 use hipanel\widgets\Pjax;
 use yii\helpers\Html;
+use hipanel\widgets\AjaxModal;
+use yii\bootstrap\Modal;
 
 $this->title = Yii::t('hipanel', 'Contact');
 $this->params['subtitle'] = array_filter(Yii::$app->request->get($model->formName(), [])) ? Yii::t('hipanel', 'filtered list') : Yii::t('hipanel', 'full list');
@@ -34,6 +36,16 @@ $this->params['breadcrumbs'][] = $this->title;
         <?php $page->endContent() ?>
 
         <?php $page->beginContent('bulk-actions') ?>
+            <?= AjaxModal::widget([
+                    'id' => 'bulk-set-templates-modal',
+                    'bulkPage' => true,
+                    'header' => Html::tag('h4', Yii::t('hipanel:finance', 'Set templates'), ['class' => 'modal-title']),
+                    'scenario' => 'bulk-set-templates',
+                    'actionUrl' => ['@requisite/bulk-set-templates'],
+                    'size' => Modal::SIZE_LARGE,
+                    'toggleButton' => ['label' => Yii::t('hipanel:finance', 'Set templates'), 'class' => 'btn btn-sm btn-default'],
+            ]) ?>
+
             <?= $page->renderBulkDeleteButton('@contact/delete')?>
         <?php $page->endContent() ?>
 
