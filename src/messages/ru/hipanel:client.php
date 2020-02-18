@@ -258,6 +258,7 @@ return [
     'Other balances' => 'Другие балансы',
     'Requisites' => 'Реквизиты',
     'We need your permission in order to provide services' => 'Нам необходимо ваше разрешение чтобы предоставлять услуги',
+    'TOTAL on screen' => 'ИТОГО на экране',
 
     'Balances' => 'Балансы',
     'Financial settings' => 'Финансовые настройки',

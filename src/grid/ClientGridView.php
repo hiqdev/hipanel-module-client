@@ -24,6 +24,7 @@ use hipanel\modules\finance\controllers\BillController;
 use hipanel\modules\finance\grid\BalanceColumn;
 use hipanel\modules\finance\grid\CreditColumn;
 use hipanel\modules\finance\widgets\ColoredBalance;
+use hipanel\modules\stock\helpers\ProfitColumns;
 use hipanel\widgets\ArraySpoiler;
 use hiqdev\yii2\menus\grid\MenuColumn;
 use Yii;
@@ -37,7 +38,7 @@ class ClientGridView extends BoxedGridView
      */
     private function getProfitColumns(): array
     {
-        return ClientProfitColumns::getGridColumns($this, 'client_id');
+        return class_exists(ProfitColumns::class) ? ClientProfitColumns::getGridColumns($this, 'client_id') : [];
     }
 
     /**
@@ -116,7 +117,7 @@ class ClientGridView extends BoxedGridView
                 'noteOptions' => [
                     'url' => Url::to('@client/set-note'),
                 ],
-                'footer' => '<b>' . Yii::t('hipanel:stock', 'TOTAL on screen') . '</b>',
+                'footer' => '<b>' . Yii::t('hipanel:client', 'TOTAL on screen') . '</b>',
             ],
             'login_without_note' => [
                 'class' => MainColumn::class,
