@@ -19,6 +19,13 @@ return [
         'client' => [
             'class' => \hipanel\modules\client\Module::class,
         ],
+        'language' => [
+            'on ' . \hiqdev\yii2\language\events\LanguageWasChanged::EVENT_NAME =>
+                function (\hiqdev\yii2\language\events\LanguageWasChanged $event) {
+                    $handler = Yii::$container->get(\hipanel\modules\client\event\handler\PersistUiLanguageChange::class);
+                    $handler->handle($event);
+                }
+        ],
     ],
     'bootstrap' => [
         \hipanel\modules\client\bootstrap\ContactAttributesVerificationBootstrap::class,
