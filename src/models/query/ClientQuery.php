@@ -46,7 +46,7 @@ class ClientQuery extends ActiveQuery
     {
         $this->joinWith([
             'contact' => function ($query) {
-                if (Yii::$app->user->can('document.read')) {
+                if (Yii::getAlias('@document', false) && Yii::$app->user->can('document.read')) {
                     $query->joinWith('documents');
                 }
 
@@ -62,7 +62,7 @@ class ClientQuery extends ActiveQuery
         $this->joinWith([
             'purses' => function ($query) {
                 $query->joinWith('contact')->joinWith('requisite');
-                if (Yii::$app->user->can('document.read')) {
+                if (Yii::getAlias('@document', false) && Yii::$app->user->can('document.read')) {
                     $query->joinWith('documents');
                 }
             },
