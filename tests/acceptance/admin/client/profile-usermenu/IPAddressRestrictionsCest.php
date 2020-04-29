@@ -10,6 +10,7 @@
 
 namespace hipanel\modules\client\tests\acceptance\admin\client\profile\usermenu;
 
+use Codeception\Example;
 use hipanel\helpers\Url;
 use hipanel\tests\_support\Step\Acceptance\Admin;
 
@@ -84,21 +85,20 @@ MSG;
     /**
      * @before openForm
      * @after closeForm
+     * @dataProvider invalidInputValues
      * @param Admin $I
+     * @param Example $example
      */
-    public function testInvalidInputs(Admin $I)
+    public function testInvalidInputs(Admin $I, Example $example)
     {
-        $examples = $this->invalidInputValues();
-        foreach ($examples as $example) {
-            $name = "Client[{$I->id}][{$example['name']}]";
-            $I->fillField(['name' => $name], $example['text']);
-            $I->clickWithLeftButton("//div[contains(@class, 'callout')]");
-            $I->waitForJS("return $(\"[name='{$name}']\").parent().find('p.help-block-error').text() !== '';", 10);
-            $I->see($example['message']);
-            $I->fillField(['name' => $name], '');
-            $I->clickWithLeftButton("//div[contains(@class, 'callout')]");
-            $I->waitForJS("return $(\"[name='{$name}']\").parent().find('p.help-block-error').text() === '';", 10);
-        }
+        $name = "Client[{$I->id}][{$example['name']}]";
+        $I->fillField(['name' => $name], $example['text']);
+        $I->clickWithLeftButton("//div[contains(@class, 'callout')]");
+        $I->waitForJS("return $(\"[name='{$name}']\").parent().find('p.help-block-error').text() !== '';", 10);
+        $I->waitForText($example['message']);
+        $I->fillField(['name' => $name], '');
+        $I->clickWithLeftButton("//div[contains(@class, 'callout')]");
+        $I->waitForJS("return $(\"[name='{$name}']\").parent().find('p.help-block-error').text() === '';", 10);
     }
 
     /**
@@ -133,24 +133,23 @@ MSG;
     /**
      * @before openForm
      * @after closeForm
+     * @dataProvider validInputValues
      * @param Admin $I
+     * @param Example $example
      * @throws \Exception
      */
-    public function testValidInputs(Admin $I)
+    public function testValidInputs(Admin $I, Example $example)
     {
-        $examples = $this->validInputValues();
-        foreach ($examples as $example) {
-            foreach ($example as $name => $value) {
-                $I->fillField(['name' => "Client[{$I->id}][{$name}]"],
-                    $value !== '' ? ($value . ', 0.0.0.0/0') : $value);
-            }
-            $I->click('Save');
-            $I->closeNotification('Settings saved');
-            $this->openForm($I);
-            foreach ($example as $name => $value) {
-                $I->seeInField("//input[@name='Client[{$I->id}][{$name}]']",
-                    $value !== '' ? ($value . ', 0.0.0.0/0') : $value);
-            }
+        foreach ($example as $name => $value) {
+            $I->fillField(['name' => "Client[{$I->id}][{$name}]"],
+                $value !== '' ? ($value . ', 0.0.0.0/0') : $value);
+        }
+        $I->click('Save');
+        $I->closeNotification('Settings saved');
+        $this->openForm($I);
+        foreach ($example as $name => $value) {
+            $I->seeInField("//input[@name='Client[{$I->id}][{$name}]']",
+                $value !== '' ? ($value . ', 0.0.0.0/0') : $value);
         }
     }
 
