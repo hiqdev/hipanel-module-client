@@ -64,7 +64,7 @@ class Create extends Authenticated
     {
         $I = $this->tester;
 
-        $fieldsForCheck = ['Login', 'Email', 'Password'];
+        $fieldsForCheck = ['Email', 'Password'];
 
         foreach ($fieldsForCheck as $field) {
             $I->waitForText("{$field} cannot be blank.");
