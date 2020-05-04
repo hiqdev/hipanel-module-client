@@ -10,7 +10,7 @@
 namespace hipanel\modules\client\tests\acceptance\admin\contacts;
 
 use Codeception\Example;
-use Facebook\WebDriver\Exception\ElementNotInteractableException;
+use Facebook\WebDriver\Exception\InvalidElementStateException;
 use hipanel\modules\client\tests\_support\Page\contact\Create;
 use hipanel\tests\_support\Step\Acceptance\Admin;
 use yii\helpers\Url;
@@ -32,10 +32,10 @@ class CreatePageCest
         $I->executeJS('scroll(0,1000);');
         $I->click('#passport-data-box button');
         $createPage->fillFormData($data['passport']);
-        $I->expectThrowable(ElementNotInteractableException::class, function () use ($createPage, $data) {
+        $I->click('#legal-entity-box button');
+        $I->expectThrowable(InvalidElementStateException::class, function () use ($createPage, $data) {
             $createPage->fillFormData($data['entity']);
         });
-        $I->reloadPage();
     }
 
     /**
@@ -53,7 +53,8 @@ class CreatePageCest
         $I->executeJS('scroll(0,1000);');
         $I->click('#legal-entity-box button');
         $createPage->fillFormData($data['entity']);
-        $I->expectThrowable(ElementNotInteractableException::class, function () use ($createPage, $data) {
+        $I->click('#passport-data-box button');
+        $I->expectThrowable(InvalidElementStateException::class, function () use ($createPage, $data) {
             $createPage->fillFormData($data['passport']);
         });
     }
