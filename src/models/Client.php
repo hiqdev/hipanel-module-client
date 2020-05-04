@@ -170,7 +170,7 @@ class Client extends \hipanel\base\Model
             [
                 ['old_password'],
                 function ($attribute, $params) {
-                    $response = $this->perform('CheckPassword', [
+                    $response = $this->perform('check-password', [
                         'password' => $this->{$attribute},
                         'login' => $this->login,
                     ]);
