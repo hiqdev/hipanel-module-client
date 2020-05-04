@@ -36,6 +36,7 @@ class CreatePageCest
         $I->expectThrowable(InvalidElementStateException::class, function () use ($createPage, $data) {
             $createPage->fillFormData($data['entity']);
         });
+        $I->reloadPage();
     }
 
     /**
