@@ -30,6 +30,7 @@ use hipanel\modules\client\models\query\ClientQuery;
 use Yii;
 use yii\base\Event;
 use yii\filters\VerbFilter;
+use hipanel\actions\RenderAction;
 
 class ClientController extends \hipanel\base\CrudController
 {
@@ -52,6 +53,7 @@ class ClientController extends \hipanel\base\CrudController
                     'index, search' => ['client.read', 'employee.read'],
                     'allow-i-p' => true,
                     'restore-password' => true,
+                    'my-test' => true,
                     '*' => '@',
                 ],
             ],
@@ -333,6 +335,12 @@ class ClientController extends \hipanel\base\CrudController
                 'class' => SmartUpdateAction::class,
                 'success' => Yii::t('hipanel', 'Description was changed'),
                 'error' => Yii::t('hipanel', 'Failed to change description'),
+            ],
+            'my-test' => [
+                'class' => RenderAction::class,
+                'on beforeRun' => function (Event $event) {
+                    Yii::$app->get('hiart')->disableAuth();
+                },
             ],
         ]);
     }
