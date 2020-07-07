@@ -36,7 +36,7 @@ return [
             'translations' => [
                 'hipanel:client' => [
                     'class' => \yii\i18n\PhpMessageSource::class,
-                    'basePath' => '@hipanel/modules/client/messages',
+                    'basePath' => dirname(__DIR__) . '/src/messages',
                 ],
             ],
         ],

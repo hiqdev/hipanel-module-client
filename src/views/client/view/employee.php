@@ -84,7 +84,7 @@ $form = new \hipanel\modules\client\forms\EmployeeForm($model->contact, $scenari
         <div class="row">
             <div class="col-md-6">
                 <?php foreach ($model->sortedPurses as $purse) : ?>
-                    <?= $this->render('@hipanel/modules/finance/views/purse/_client-view', ['model' => $purse]) ?>
+                    <?= $this->render('@vendor/hiqdev/hipanel-module-finance/src/views/purse/_client-view', ['model' => $purse]) ?>
                 <?php endforeach ?>
             </div>
             <div class="col-md-6">
