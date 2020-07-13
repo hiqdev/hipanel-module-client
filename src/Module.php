@@ -10,6 +10,23 @@
 
 namespace hipanel\modules\client;
 
-class Module extends \hipanel\base\Module
+use hipanel\grid\RepresentationCollectionFinder;
+use hipanel\grid\RepresentationCollectionFinderInterface;
+use hipanel\grid\RepresentationCollectionFinderProviderInterface;
+use Yii;
+
+class Module extends \hipanel\base\Module implements RepresentationCollectionFinderProviderInterface
 {
+    public function getRepresentationCollectionFinder(): RepresentationCollectionFinderInterface
+    {
+        return new class(
+            $this, Yii::$app->controller, '\hipanel\modules\%s\grid\%sRepresentations'
+        ) extends RepresentationCollectionFinder {
+            protected function buildClassName()
+            {
+                // Override
+                return parent::buildClassName();
+            }
+        };
+    }
 }
