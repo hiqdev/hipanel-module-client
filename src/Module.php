@@ -20,7 +20,7 @@ class Module extends \hipanel\base\Module implements RepresentationCollectionFin
     public function getRepresentationCollectionFinder(): RepresentationCollectionFinderInterface
     {
         return new class(
-            $this, Yii::$app->controller, '\hipanel\modules\%s\grid\%sRepresentations'
+            $this->id, Yii::$app->controller->id, '\hipanel\modules\%s\grid\%sRepresentations'
         ) extends RepresentationCollectionFinder {
             protected function buildClassName()
             {
