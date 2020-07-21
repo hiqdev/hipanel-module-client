@@ -1,5 +1,6 @@
 <?php
 
+use hipanel\modules\client\widgets\combo\RefererCombo;
 use hipanel\modules\client\widgets\combo\SellerCombo;
 use hiqdev\combo\StaticCombo;
 use hiqdev\yii2\daterangepicker\DateRangePicker;
@@ -39,6 +40,12 @@ use yii\helpers\Html;
 <div class="col-md-4 col-sm-6 col-xs-12">
     <?= $search->field('seller_id')->widget(SellerCombo::class) ?>
 </div>
+
+<?php if (Yii::$app->user->can('support')) : ?>
+    <div class="col-md-4 col-sm-6 col-xs-12">
+        <?= $search->field('referer_id')->widget(RefererCombo::class) ?>
+    </div>
+<?php endif ?>
 
 <div class="col-md-4 col-sm-6 col-xs-12">
     <?= $search->field('types')->widget(StaticCombo::class, [
