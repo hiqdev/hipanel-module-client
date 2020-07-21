@@ -13,6 +13,7 @@ namespace hipanel\modules\client;
 use hipanel\grid\RepresentationCollectionFinder;
 use hipanel\grid\RepresentationCollectionFinderInterface;
 use hipanel\grid\RepresentationCollectionFinderProviderInterface;
+use yii\helpers\Inflector;
 use Yii;
 
 class Module extends \hipanel\base\Module implements RepresentationCollectionFinderProviderInterface
@@ -20,7 +21,7 @@ class Module extends \hipanel\base\Module implements RepresentationCollectionFin
     public function getRepresentationCollectionFinder(): RepresentationCollectionFinderInterface
     {
         return new class(
-            $this->id, Yii::$app->controller->id, '\hipanel\modules\%s\grid\%sRepresentations'
+            $this->id, Inflector::id2camel(Yii::$app->controller->id), '\hipanel\modules\%s\grid\%sRepresentations'
         ) extends RepresentationCollectionFinder {
             protected function buildClassName()
             {
