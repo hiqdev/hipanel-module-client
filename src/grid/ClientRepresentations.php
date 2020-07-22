@@ -34,7 +34,8 @@ class ClientRepresentations extends RepresentationCollection
                     $user->can('bill.read') ? 'credit' : null,
                 ]),
             ],
-            'servers' => $user->can('support') ? [
+            'servers' =>  [
+                'visible' => $user->can('support'),
                 'label' => Yii::t('hipanel:client', 'Servers'),
                 'columns' => [
                     'checkbox',
@@ -46,19 +47,21 @@ class ClientRepresentations extends RepresentationCollection
                     'accounts_count',
                     'balances',
                 ],
-            ] : null,
-            'documents' => $user->can('support')  && $user->can('document.read') ? [
+            ],
+            'documents' => [
+                'visible' => $user->can('support') && $user->can('document.read'),
                 'label' => Yii::t('hipanel:client', 'Documents'),
                 'columns' => [
                     'checkbox', 'login',
                     'seller', 'requisites',
                     'language',
                 ],
-            ] : null,
-            'profit-report' => Yii::$app->user->can('order.read-profits') && class_exists(ProfitColumns::class) ? [
+            ],
+            'profit-report' => [
+                'visible' => Yii::$app->user->can('order.read-profits') && class_exists(ProfitColumns::class),
                 'label' => Yii::t('hipanel', 'profit report'),
                 'columns' => ClientProfitColumns::getColumnNames(['login']),
-            ] : null,
+            ],
         ]);
     }
 }
