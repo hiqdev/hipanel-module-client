@@ -18,7 +18,6 @@ class ContactCreateAction extends SmartCreateAction
     public function init()
     {
         Yii::configure($this, [
-            'view' => dirname(__DIR__) . '/views/contact/create',
             'success' => Yii::t('hipanel:client', 'Contact was created'),
             'data' => function ($action) {
                 return [
