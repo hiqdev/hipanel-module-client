@@ -32,7 +32,6 @@ class ContactUpdateAction extends SmartUpdateAction
     {
         Yii::configure($this, [
             'success' => Yii::t('hipanel:client', 'Contact was updated'),
-            'view' => dirname(__DIR__) . '/views/contact/update',
             'on beforeFetch' => function ($event) {
                 /** @var SmartUpdateAction $action */
                 $action = $event->sender;
