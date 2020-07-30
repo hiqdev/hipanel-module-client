@@ -14,6 +14,7 @@ return [
         '@contact' => '/client/contact',
         '@article' => '/client/article',
         '@client/assignments' => '/client/assignments',
+        '@client/debt' => '/debt/debt',
     ],
     'modules' => [
         'client' => [
