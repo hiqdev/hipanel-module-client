@@ -51,7 +51,7 @@ class Contact extends \hipanel\base\Model
             [['id', 'obj_id', 'client_id', 'seller_id'], 'integer'],
             [['type_id', 'state_id'], 'integer'],
             [['client_name', 'client_type'], 'safe'],
-            [['create_time', 'update_time', 'created_date', 'updated_date'], 'date'],
+            [['create_time', 'update_time', 'created_date', 'updated_date'], 'datetime', 'format' => 'php:Y-m-d H:i:s'],
             [['client', 'seller', 'state', 'type'], 'safe'],
             [['email', 'abuse_email', 'email_new'], 'email'],
             [['emails'], 'trim'],
