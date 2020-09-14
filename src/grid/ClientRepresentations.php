@@ -62,6 +62,18 @@ class ClientRepresentations extends RepresentationCollection
                 'label' => Yii::t('hipanel', 'profit report'),
                 'columns' => ClientProfitColumns::getColumnNames(['login']),
             ] : null,
+            'referral' => [
+                'visible' => Yii::$app->user->can('manage'),
+                'label' => Yii::t('hipanel', 'Referral'),
+                'columns' => array_filter([
+                    'checkbox',
+                    'login_without_note',
+                    'seller_id',
+                    'referer_id',
+                    'state',
+                    'balance',
+                ]),
+            ],
         ]);
     }
 }
