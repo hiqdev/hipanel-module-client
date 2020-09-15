@@ -3,6 +3,7 @@
 use hipanel\modules\client\grid\ClientGridView;
 use hipanel\modules\client\grid\ContactGridView;
 use hipanel\modules\client\menus\ClientDetailMenu;
+use hipanel\modules\client\widgets\ClientReferralDetailView;
 use hipanel\modules\client\widgets\ClientSwitcher;
 use hipanel\modules\client\widgets\ForceVerificationBlock;
 use hipanel\modules\document\widgets\StackedDocumentsView;
@@ -48,6 +49,8 @@ $this->registerCss('legend {font-size: 16px;}');
             <?= ClientDetailMenu::widget(['model' => $model]) ?>
         </div>
         <?php Box::end() ?>
+
+        <?= ClientReferralDetailView::widget(['client' => $model]) ?>
 
         <?= ForceVerificationBlock::widget([
             'client' => $model,

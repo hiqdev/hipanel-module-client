@@ -10,7 +10,9 @@
 
 namespace hipanel\modules\client\grid;
 
+use DateTime;
 use hipanel\grid\BoxedGridView;
+use hipanel\grid\DataColumn;
 use hipanel\grid\MainColumn;
 use hipanel\grid\RefColumn;
 use hipanel\grid\XEditableColumn;
@@ -46,6 +48,9 @@ class ClientGridView extends BoxedGridView
      */
     public function columns()
     {
+        $formatter = Yii::$app->formatter;
+        $thisMonthDt = (new DateTime())->modify('first day of this month')->format('Y-m-d 00:00:00');
+
         return array_merge(parent::columns(), $this->getProfitColumns(), [
             'id' => [
                 'class' => ClientColumn::class,
@@ -424,14 +429,14 @@ class ClientGridView extends BoxedGridView
                         $class = 'text-blue';
                     }
 
-                    return  Html::a($model->payment_ticket_id, Url::to(['@ticket/view', 'id' => $model->payment_ticket_id]), compact('class'));
+                    return Html::a($model->payment_ticket_id, Url::to(['@ticket/view', 'id' => $model->payment_ticket_id]), compact('class'));
                 },
             ],
             'description' => [
                 'class' => XEditableColumn::class,
-                'label' => Yii::t('hipanel','Description'),
+                'label' => Yii::t('hipanel', 'Description'),
                 'pluginOptions' => [
-                    'url'       => Url::to('@client/set-description'),
+                    'url' => Url::to('@client/set-description'),
                 ],
                 'widgetOptions' => [
                     'linkOptions' => [
@@ -462,7 +467,7 @@ class ClientGridView extends BoxedGridView
                     if ($model->balance >= 0) {
                         return '';
                     }
-                    if ($model->debt_depth === null || (int) $model->debt_depth > 1000) {
+                    if ($model->debt_depth === null || (int)$model->debt_depth > 1000) {
                         return Html::tag('span', Yii::t('hipanel:client', '&#8734;'), ['class' => 'text-red']);
                     }
 
@@ -508,6 +513,37 @@ class ClientGridView extends BoxedGridView
 
                     return $html;
                 },
+            ],
+            'referrals' => [
+                'class' => DataColumn::class,
+                'label' => Yii::t('hipanel:client', 'Referrals'),
+                'format' => 'raw',
+                'value' => static fn(Client $client): ?string => Yii::t('hipanel:client', '{this_month} / {total}', [
+                    'this_month' => $client->referral['history'][$thisMonthDt]['registered'] ?? 0,
+                    'total' => $client->referral['totals']['referrals'] ?? 0,
+                ]),
+            ],
+            'earnings' => [
+                'class' => DataColumn::class,
+                'label' => Yii::t('hipanel:client', 'Earning'),
+                'format' => 'raw',
+                'value' => static function (Client $client) use ($formatter, $thisMonthDt): ?string {
+                    $currency = $client->referral['totals']['currency'] ?? null;
+                    $total = $client->referral['totals']['earnings'] ?? 0;
+                    $thisMonth = $client->referral['history'][$thisMonthDt] ?? [];
+
+                    return Yii::t('hipanel:client', '{this_month} / {total}', [
+                        'this_month' => $formatter->asCurrency($thisMonth['earnings'] ?? 0, $thisMonth['currency'] ?? null),
+                        'total' => $formatter->asCurrency($total, $currency),
+                    ]);
+                },
+            ],
+            'referral_tariff' => [
+                'class' => DataColumn::class,
+                'label' => Yii::t('hipanel:client', 'Referral tariff'),
+                'format' => 'raw',
+                'value' => static fn(Client $client): ?string =>
+                    Html::a($client->referral['tariff'], ['@plan/view', 'id' => $client->referral['tariff_id']]),
             ],
         ]);
     }

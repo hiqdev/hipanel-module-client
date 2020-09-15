@@ -58,7 +58,7 @@ class Client extends \hipanel\base\Model
             [['id', 'seller_id', 'state_id', 'type_id', 'tariff_id', 'profile_id', 'payment_ticket_id', 'referer_id'], 'integer'],
             [['hipanel_forced'], 'boolean', 'trueValue' => 1],
             [['login', 'seller', 'state', 'type', 'tariff', 'profile', 'referer'], 'string'],
-            [['state_label', 'type_label'], 'safe'],
+            [['state_label', 'type_label', 'referral'], 'safe'],
 
             [['profile_ids', 'tariff_ids', 'ids'], 'safe', 'on' => ['update', 'set-tariffs']],
             [['ids'], 'required', 'on' => ['set-tariffs']],
@@ -76,6 +76,8 @@ class Client extends \hipanel\base\Model
             [['comment'], 'safe', 'on' => ['disable-block']],
             [['id', 'language'], 'required', 'on' => 'set-language'],
             [['id', 'seller_id'], 'required', 'on' => 'set-seller'],
+
+            [['id', 'tariff_ids'], 'required', 'on' => 'set-referral-tariff'],
 
             [['password', 'email'], 'required', 'on' => ['create']],
             [['type'], 'default', 'value' => self::TYPE_CLIENT, 'on' => ['create', 'update']],

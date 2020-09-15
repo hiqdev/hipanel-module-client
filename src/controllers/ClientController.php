@@ -10,6 +10,7 @@
 
 namespace hipanel\modules\client\controllers;
 
+use hipanel\actions\Action;
 use hipanel\actions\ClassValuesAction;
 use hipanel\actions\ComboSearchAction;
 use hipanel\actions\IndexAction;
@@ -22,17 +23,19 @@ use hipanel\actions\SmartPerformAction;
 use hipanel\actions\SmartUpdateAction;
 use hipanel\actions\ValidateFormAction;
 use hipanel\actions\ViewAction;
+use hipanel\base\CrudController;
 use hipanel\filters\EasyAccessControl;
 use hipanel\helpers\Url;
 use hipanel\modules\client\logic\IPConfirmer;
 use hipanel\modules\client\models\Client;
 use hipanel\modules\client\models\query\ClientQuery;
+use RuntimeException;
 use Yii;
 use yii\base\Event;
 use yii\filters\VerbFilter;
 use hipanel\actions\RenderAction;
 
-class ClientController extends \hipanel\base\CrudController
+class ClientController extends CrudController
 {
     public function behaviors()
     {
@@ -96,6 +99,9 @@ class ClientController extends \hipanel\base\CrudController
                         case 'profit-report':
                             $query->withProfit();
                             break;
+                        case 'referral':
+                            $query->withReferral();
+                            break;
                     }
                 },
                 'data' => function ($action) {
@@ -138,7 +144,7 @@ class ClientController extends \hipanel\base\CrudController
                 'success' => Yii::t('hipanel:client', 'Client(s) were blocked successfully'),
                 'error' => Yii::t('hipanel:client', 'Failed to block client(s)'),
                 'on beforeSave' => function (Event $event) {
-                    /** @var \hipanel\actions\Action $action */
+                    /** @var Action $action */
                     $action = $event->sender;
                     $type = Yii::$app->request->post('type');
                     $comment = Yii::$app->request->post('comment');
@@ -157,7 +163,7 @@ class ClientController extends \hipanel\base\CrudController
                 'success' => Yii::t('hipanel:client', 'Client(s) were unblocked successfully'),
                 'error' => Yii::t('hipanel:client', 'Failed to unblock client(s)'),
                 'on beforeSave' => function (Event $event) {
-                    /** @var \hipanel\actions\Action $action */
+                    /** @var Action $action */
                     $action = $event->sender;
                     $type = Yii::$app->request->post('type');
                     $comment = Yii::$app->request->post('comment');
@@ -216,6 +222,7 @@ class ClientController extends \hipanel\base\CrudController
                         ]))
                         ->joinWith(['blocking'])
                         ->withContact()
+                        ->withReferral()
                         ->withPurses();
                 },
             ],
@@ -365,5 +372,25 @@ class ClientController extends \hipanel\base\CrudController
         $url = 'https://' . Yii::$app->params['hiam.site'] . Url::to(array_merge(['/site/reset-password'], Yii::$app->request->get()));
 
         return $this->redirect($url);
+    }
+
+    public function actionSetReferralTariff($id)
+    {
+        $request = Yii::$app->request;
+        $session = Yii::$app->session;
+        $client = new Client(['id' => $id, 'scenario' => 'set-referral-tariff']);
+        if ($request->isAjax) {
+            return $this->renderAjax('modals/set-referral-tariff', ['client' => $client]);
+        }
+        if ($client->load($request->post()) && $client->validate()) {
+            try {
+                Client::batchPerform('set-tariffs', [$id => $client->attributes]);
+                $session->addFlash('success', Yii::t('hipanel:client', 'Referral tariff have been successfully changed'));
+            } catch (RuntimeException $e) {
+                $session->addFlash('error', $e->getMessage());
+            }
+        }
+
+        return $this->redirect(['@client/view', 'id' => $id]);
     }
 }

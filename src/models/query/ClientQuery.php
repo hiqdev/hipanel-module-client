@@ -88,4 +88,11 @@ class ClientQuery extends ActiveQuery
 
         return $this;
     }
+
+    public function withReferral(): self
+    {
+        $this->addSelect('referral');
+
+        return $this;
+    }
 }
