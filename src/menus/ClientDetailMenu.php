@@ -216,7 +216,7 @@ class ClientDetailMenu extends \hipanel\menus\AbstractDetailMenu
                         'header' => Html::tag('h4', Yii::t('hipanel:client', 'Set referral tariff'), ['class' => 'modal-title']),
                         'toggleButton' => [
                             'tag' => 'a',
-                            'label' => '<i class="fa fa-fw fa-gift"></i>' . Yii::t('hipanel:client', 'Set referral tariff'),
+                            'label' => '<i class="fa fa-fw fa-gift"></i>' . Yii::t('hipanel:client', 'Enable referral program'),
                             'class' => 'clickable',
                         ],
                     ],
