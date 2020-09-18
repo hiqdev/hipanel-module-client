@@ -203,8 +203,8 @@ class ClientDetailMenu extends \hipanel\menus\AbstractDetailMenu
                 'encode' => false,
                 'visible' => $this->model->canBeRestored(),
             ],
-            [
-                'label'=> AjaxModalWithTemplatedButton::widget([
+            !$this->model->hasReferralTariff() ? [
+                'label' => AjaxModalWithTemplatedButton::widget([
                     'ajaxModalOptions' => [
                         'bulkPage' => false,
                         'usePost' => true,
@@ -213,7 +213,7 @@ class ClientDetailMenu extends \hipanel\menus\AbstractDetailMenu
                         'actionUrl' => ['set-referral-tariff', 'id' => $this->model->id],
                         'handleSubmit' => Url::toRoute(['set-referral-tariff']),
                         'size' => Modal::SIZE_SMALL,
-                        'header' => Html::tag('h4', Yii::t('hipanel:client', 'Set referral tariff'), ['class' => 'modal-title']),
+                        'header' => Html::tag('h4', Yii::t('hipanel:client', 'Referral program'), ['class' => 'modal-title']),
                         'toggleButton' => [
                             'tag' => 'a',
                             'label' => '<i class="fa fa-fw fa-gift"></i>' . Yii::t('hipanel:client', 'Enable referral program'),
@@ -224,7 +224,7 @@ class ClientDetailMenu extends \hipanel\menus\AbstractDetailMenu
                 ]),
                 'encode' => false,
                 'visible' => !$this->model->hasReferralTariff(),
-            ]
+            ] : [],
         ], $actions);
 
         unset($items['view']);
