@@ -14,7 +14,7 @@ $referral = $client->referral;
 ?>
 
 <?php if (isset($referral['tariff_id'])) : ?>
-    <div class="box box-widget">
+    <div class="box box-default">
         <div class="box-header">
             <h4 class="box-title">
                 <?= Yii::t('hipanel:client', 'Referrals') ?>
