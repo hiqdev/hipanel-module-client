@@ -286,4 +286,14 @@ return [
     'Code was sent successfully' => 'Код успешно отправлен',
 
     'Assignments' => 'Назначения',
+
+    'Enable referral program' => 'Включить реферальную программу',
+    'Referrals' => 'Рефералы',
+    'Set referral tariff' => 'Установить реферальный тариф',
+    'Total' => 'Всего',
+    'This month' => 'В этом месяце',
+    'Referral tariff' => 'Реферальный тариф',
+    'Earning' => 'Заработок',
+    'Referral program' => 'Реферальная программа',
+    'Set tariff plan' => 'Установить тарифный план',
 ];

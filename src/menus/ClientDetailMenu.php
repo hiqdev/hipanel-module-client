@@ -11,11 +11,14 @@
 namespace hipanel\modules\client\menus;
 
 use hipanel\modules\client\models\Client;
+use hipanel\widgets\AjaxModalWithTemplatedButton;
 use hipanel\widgets\BlockModalButton;
 use hipanel\widgets\ImpersonateButton;
 use hipanel\widgets\SettingsModal;
 use hipanel\widgets\SimpleOperation;
 use Yii;
+use yii\bootstrap\Html;
+use yii\bootstrap\Modal;
 use yii\helpers\Url;
 
 class ClientDetailMenu extends \hipanel\menus\AbstractDetailMenu
@@ -200,6 +203,28 @@ class ClientDetailMenu extends \hipanel\menus\AbstractDetailMenu
                 'encode' => false,
                 'visible' => $this->model->canBeRestored(),
             ],
+            !$this->model->hasReferralTariff() ? [
+                'label' => AjaxModalWithTemplatedButton::widget([
+                    'ajaxModalOptions' => [
+                        'bulkPage' => false,
+                        'usePost' => true,
+                        'id' => 'client-set-referral-tariff',
+                        'scenario' => 'sell',
+                        'actionUrl' => ['set-referral-tariff', 'id' => $this->model->id],
+                        'handleSubmit' => Url::toRoute(['set-referral-tariff']),
+                        'size' => Modal::SIZE_SMALL,
+                        'header' => Html::tag('h4', Yii::t('hipanel:client', 'Referral program'), ['class' => 'modal-title']),
+                        'toggleButton' => [
+                            'tag' => 'a',
+                            'label' => '<i class="fa fa-fw fa-percent"></i>' . Yii::t('hipanel:client', 'Enable referral program'),
+                            'class' => 'clickable',
+                        ],
+                    ],
+                    'toggleButtonTemplate' => '{toggleButton}',
+                ]),
+                'encode' => false,
+                'visible' => !$this->model->hasReferralTariff(),
+            ] : [],
         ], $actions);
 
         unset($items['view']);

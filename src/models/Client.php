@@ -428,6 +428,11 @@ class Client extends \hipanel\base\Model
         return !$this->isDeleted() && Yii::$app->user->not($this->id) && Yii::$app->user->can('client.delete');
     }
 
+    public function hasReferralTariff(): bool
+    {
+        return $this->referral && $this->referral['tariff_id'];
+    }
+
     public function canBeRestored()
     {
         return $this->isDeleted() && Yii::$app->user->can('client.restore');

@@ -61,7 +61,7 @@ $this->registerCss('legend {font-size: 16px;}');
     <div class="col-md-9">
         <div class="row">
             <div class="col-md-6">
-                <?php $box = Box::begin(['renderBody' => false]) ?>
+                <?php $box = Box::begin(['renderBody' => false, 'bodyOptions' => ['class' => 'no-padding']]) ?>
                 <?php $box->beginHeader() ?>
                 <?= $box->renderTitle(Yii::t('hipanel:client', 'Client information'), '&nbsp;') ?>
                 <?php $box->beginTools() ?>
@@ -88,7 +88,7 @@ $this->registerCss('legend {font-size: 16px;}');
                 <?php endforeach ?>
             </div>
             <div class="col-md-6">
-                <?php $box = Box::begin(['renderBody' => false]) ?>
+                <?php $box = Box::begin(['renderBody' => false, 'bodyOptions' => ['class' => 'no-padding']]) ?>
                 <?php $box->beginHeader() ?>
                 <?= $box->renderTitle(Yii::t('hipanel:client', 'Contact information')) ?>
                 <?php $box->beginTools() ?>
