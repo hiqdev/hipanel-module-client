@@ -321,4 +321,20 @@ class ContactController extends CrudController
             'countries' => $this->getRefs('country_code'),
         ]);
     }
+
+    public function actionShortView($id)
+    {
+        $contact = Contact::find()
+            ->where(['id' => $id])
+            ->one();
+
+        if ($contact === null) {
+            throw new NotFoundHttpException('Contact was not found');
+        }
+
+        return Yii::$app->request->isAjax
+            ? $this->renderPartial('short-view', ['model' => $contact])
+            : $this->render('short-view', ['model' => $contact])
+        ;
+    }
 }
