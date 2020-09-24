@@ -48,12 +48,6 @@ class ContactCombo extends Combo
                 }'),
             ],
             'clearWhen' => ['client/client'],
-            /***
-            'affects'   => [
-                'client/seller' => 'seller',
-                'client/client' => 'client',
-            ],
-            ***/
         ]);
     }
 
