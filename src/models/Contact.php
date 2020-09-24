@@ -58,11 +58,15 @@ class Contact extends \hipanel\base\Model
             [['country', 'country_name', 'province', 'province_name'], 'safe'],
             [['postal_code'], 'safe'],
             [['city', 'street1', 'street2', 'street3', 'address'], 'safe'],
+            [['city', 'street1', 'street2', 'street3', 'address'], 'trim'],
             [['street1', 'street2', 'street3'], 'string', 'max' => 60],
             [['voice_phone', 'fax_phone'], 'safe'],
             [['icq', 'skype', 'jabber', 'viber', 'telegram', 'whatsapp', 'social_net'], 'safe'],
+            [['icq', 'skype', 'jabber', 'viber', 'telegram', 'whatsapp', 'social_net'], 'trim'],
             [['roid', 'epp_id', 'remoteid', 'other_messenger'], 'safe'],
+            [['roid', 'epp_id', 'remoteid', 'other_messenger'], 'trim'],
             [['name', 'first_name', 'last_name'], 'string'],
+            [['name', 'first_name', 'last_name'], 'trim'],
             [['birth_date', 'passport_date'], 'safe'],
             [['passport_no', 'passport_by', 'organization', 'password', 'xxx_token'], 'safe'],
             [['localization'], 'safe'],
@@ -95,10 +99,14 @@ class Contact extends \hipanel\base\Model
                     'postal_code',
                     'voice_phone',
                 ],
-                'required', 'on' => ['create', 'create-require-passport', 'update', 'update-require-passport'],
+                'required',
+                'on' => [
+                    'create', 'create-require-passport', 'create-require-organization', 'create-ru-contact',
+                    'update', 'update-require-passport', 'update-require-organization', 'update-ru-contact'
+                ],
             ],
 
-            [['pincode', 'oldEmail'], 'safe', 'on' => ['update', 'update-require-passport']],
+            [['pincode', 'oldEmail'], 'safe', 'on' => ['update', 'update-require-passport', 'update-require-organization', 'update-ru-contact']],
 
             [['isresident', 'is_requisite'], 'boolean', 'trueValue' => true, 'falseValue' => false],
             [['birth_date', 'passport_date'], 'safe', 'on' => ['update', 'create', 'create-require-passport', 'update-require-passport']],
@@ -119,11 +127,72 @@ class Contact extends \hipanel\base\Model
             [
                 [
                     // Для регистрации доменов в зоне RU в качестве физического лица
+                    'passport_no',
+                    'passport_by',
+
+                    // Для регистрации доменов в зоне RU в качестве юридического лица
+                    'organization_ru',
+                    'director_name',
+                    'inn',
+                    'kpp',
+                ],
+                'trim',
+            ],
+            [
+                [
+                    // Для регистрации доменов в зоне RU в качестве физического лица
                     'passport_no', 'passport_by',
                     'birth_date', 'passport_date',
                 ],
                 'required',
                 'on' => ['create-require-passport', 'update-require-passport'],
+            ],
+            [
+                [
+                    'organization_ru',
+                    'director_name',
+                    'inn',
+                    'kpp',
+                ],
+                'required',
+                'on' => ['create-require-organization', 'update-require-organization'],
+            ],
+            [
+                [
+                    'passport_no', 'passport_by',
+                    'birth_date', 'passport_date',
+                ],
+                'required',
+                'on' => ['create-ru-contact', 'update-ru-contact'],
+                'when' => function($model) {
+                    return empty($model->organization);
+                },
+                'whenClient' => "function (attribute, value) {
+                    if (!$('#contact-organization').val()) {
+                        return true;
+                    }
+
+                    return false;
+                }",
+            ],
+            [
+                [
+                    'organization_ru',
+                    'director_name',
+                    'inn',
+                    'kpp',
+                ],
+                'required',
+                'on' => ['create-ru-contact', 'update-ru-contact'],
+                'when' => function($model) {
+                    return !empty($model->organization);
+                },
+                'whenClient' => "function (attribute, value) {
+                    if (!$('#contact-organization').val()) {
+                        return false;
+                    }
+                    return true;
+                }",
             ],
             [
                 [
