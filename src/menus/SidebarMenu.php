@@ -50,6 +50,11 @@ class SidebarMenu extends \hiqdev\yii2\menus\Menu
                         'url'     => ['@client/assignments/index'],
                         'visible' => $user->can('plan.create'),
                     ],
+                    'client-resource' => [
+                        'label'   => Yii::t('hipanel:server', 'Client resources'),
+                        'url'     => ['@client/resource-list'],
+                        'visible' => $user->can('test.beta'),
+                    ],
                 ],
             ],
         ];
