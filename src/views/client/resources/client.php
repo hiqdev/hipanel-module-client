@@ -1,7 +1,6 @@
 <?php
 
 use hipanel\models\IndexPageUiOptions;
-use hipanel\modules\client\helpers\ClientHelper;
 use hipanel\modules\finance\widgets\ResourceDetailViewer;
 use hiqdev\hiart\ActiveDataProvider;
 use yii\db\ActiveRecordInterface;
@@ -22,6 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
     'dataProvider' => $dataProvider,
     'originalContext' => $this->context,
     'originalModel' => $originalModel,
+    'originalSearchModel' => $model,
     'uiModel' => $uiModel,
-    'configurator' => ClientHelper::getReferralResourceConfig(),
+    'configurator' => Yii::$container->get('client-referral-resource-configuration'),
 ]) ?>

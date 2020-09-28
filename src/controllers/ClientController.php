@@ -367,7 +367,7 @@ class ClientController extends CrudController
             ],
             'fetch-resources' => [
                 'class' => ResourceFetchDataAction::class,
-                'configurator' => ClientHelper::getReferralResourceConfig(),
+                'configurator' => Yii::$container->get('client-referral-resource-configuration'),
             ],
         ]);
     }

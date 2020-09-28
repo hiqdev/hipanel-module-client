@@ -8,6 +8,11 @@
  * @copyright Copyright (c) 2015-2019, HiQDev (http://hiqdev.com/)
  */
 
+use hipanel\modules\client\grid\ClientGridView;
+use hipanel\modules\client\models\Client;
+use hipanel\modules\client\models\ClientSearch;
+use hipanel\modules\finance\models\ClientResource;
+
 return [
     'aliases' => [
         '@client' => '/client/client',
@@ -71,6 +76,14 @@ return [
         ],
         'singletons' => [
             \hipanel\modules\client\helpers\HasPINCode::class => \hipanel\modules\client\helpers\HasPINCode::class,
+            'client-referral-resource-configuration' => fn(\yii\di\Container $container) => \hipanel\modules\finance\helpers\ResourceConfigurator::build()
+                ->setToObjectUrl('@client/resource-detail')
+                ->setModelClassName(Client::class)
+                ->setSearchModelClassName(ClientSearch::class)
+                ->setGridClassName(ClientGridView::class)
+                ->setResourceModelClassName(ClientResource::class)
+                ->setSearchView('@vendor/hiqdev/hipanel-module-client/src/views/client/_search')
+                ->setColumns(['referral']),
         ],
     ],
 ];
