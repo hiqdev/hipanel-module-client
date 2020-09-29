@@ -26,9 +26,14 @@ use hipanel\actions\ViewAction;
 use hipanel\base\CrudController;
 use hipanel\filters\EasyAccessControl;
 use hipanel\helpers\Url;
+use hipanel\modules\client\helpers\ClientHelper;
 use hipanel\modules\client\logic\IPConfirmer;
 use hipanel\modules\client\models\Client;
+use hipanel\modules\client\models\ClientSearch;
 use hipanel\modules\client\models\query\ClientQuery;
+use hipanel\modules\finance\actions\ResourceDetailAction;
+use hipanel\modules\finance\actions\ResourceFetchDataAction;
+use hipanel\modules\finance\actions\ResourceListAction;
 use RuntimeException;
 use Yii;
 use yii\base\Event;
@@ -348,6 +353,21 @@ class ClientController extends CrudController
                 'on beforeRun' => function (Event $event) {
                     Yii::$app->get('hiart')->disableAuth();
                 },
+            ],
+            'resource-list' => [
+                'class' => ResourceListAction::class,
+                'model' => Client::class,
+                'searchModel' => ClientSearch::class,
+                'view' => 'resources/clients',
+            ],
+            'resource-detail' => [
+                'class' => ResourceDetailAction::class,
+                'model' => Client::class,
+                'view' => 'resources/client',
+            ],
+            'fetch-resources' => [
+                'class' => ResourceFetchDataAction::class,
+                'configurator' => Yii::$container->get('client-referral-resource-configuration'),
             ],
         ]);
     }
