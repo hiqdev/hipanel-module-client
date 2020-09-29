@@ -76,7 +76,7 @@ return [
         ],
         'singletons' => [
             \hipanel\modules\client\helpers\HasPINCode::class => \hipanel\modules\client\helpers\HasPINCode::class,
-            'client-referral-resource-configuration' => fn(\yii\di\Container $container) => \hipanel\modules\finance\helpers\ResourceConfigurator::build()
+            'client-referral-resource-configuration' => static fn() => \hipanel\modules\finance\helpers\ResourceConfigurator::build()
                 ->setToObjectUrl('@client/resource-detail')
                 ->setModelClassName(Client::class)
                 ->setSearchModelClassName(ClientSearch::class)

@@ -51,9 +51,9 @@ class SidebarMenu extends \hiqdev\yii2\menus\Menu
                         'visible' => $user->can('plan.create'),
                     ],
                     'client-resource' => [
-                        'label'   => Yii::t('hipanel:server', 'Client resources'),
+                        'label'   => Yii::t('hipanel:client', 'Client resources'),
                         'url'     => ['@client/resource-list'],
-                        'visible' => $user->can('test.beta'),
+                        'visible' => $user->can('client.list'),
                     ],
                 ],
             ],
