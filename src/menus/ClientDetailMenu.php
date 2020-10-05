@@ -73,7 +73,10 @@ class ClientDetailMenu extends \hipanel\menus\AbstractDetailMenu
                     'scenario' => 'set-tmp-password',
                 ]),
                 'encode' => false,
-                'visible' => $user->not($this->model->id) && $user->can('client.set-tmp-pwd') && !$this->model->isDeleted(),
+                'visible' => $user->not($this->model->id)
+                                && $user->can('client.set-tmp-pwd')
+                                && !$this->model->isDeleted()
+                                && $this->model->type === 'client',
             ],
             [
                 'label' => ImpersonateButton::widget(['model' => $this->model]),
