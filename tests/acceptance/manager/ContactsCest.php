@@ -60,7 +60,6 @@ class ContactsCest extends CommonContactActions
                 'street1'       => 'Test address',
                 'city'          => 'Test',
                 'province'      => 'Testing',
-                'postal_code'   => 'TEST',
                 'voice_phone'   => null,
                 'icq'           => '1002893',
                 'skype'         => 'hipanel_test_manager',
@@ -70,7 +69,6 @@ class ContactsCest extends CommonContactActions
                 'social_net'    => 'https://facebook.com/hipanel_test_manager',
             ],
             'selects' => [
-                'country'       => 'Algeria',
                 'client'        => 'hipanel_test_manager',
             ],
             'phoneCountryCode'  => null,
@@ -80,14 +78,20 @@ class ContactsCest extends CommonContactActions
             [
                 'voice_phone'       => '(965) 449-99-99',
                 'phoneCountryCode'  => 'ru',
+                'postal_code'   => '123445',
+                'country'       => 'Russian Federation',
             ],
             [
                 'voice_phone'       => '093 000-1122',
                 'phoneCountryCode'  => 'ua',
+                'postal_code'   => '12344',
+                'country'       => 'Ukraine',
             ],
             [
                 'voice_phone'       => '+3 8 093 000-1122',
                 'phoneCountryCode'  => 'ua',
+                'postal_code'   => '12345',
+                'country'       => 'Ukraine',
             ],
         ];
 
@@ -97,6 +101,8 @@ class ContactsCest extends CommonContactActions
             $tmp = $basicData;
             $tmp['inputs']['first_name'] = 'Test' . uniqid();
             $tmp['inputs']['voice_phone'] = $varItem['voice_phone'];
+            $tmp['inputs']['postal_code'] = $varItem['postal_code'];
+            $tmp['selects']['country'] = $varItem['country'];
             $tmp['phoneCountryCode'] = $varItem['phoneCountryCode'];
 
             $data[] = $tmp;
