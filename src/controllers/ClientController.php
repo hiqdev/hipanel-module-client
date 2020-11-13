@@ -22,6 +22,7 @@ use hipanel\actions\SmartDeleteAction;
 use hipanel\actions\SmartPerformAction;
 use hipanel\actions\SmartUpdateAction;
 use hipanel\actions\ValidateFormAction;
+use hipanel\actions\VariantsAction;
 use hipanel\actions\ViewAction;
 use hipanel\base\CrudController;
 use hipanel\filters\EasyAccessControl;
@@ -79,6 +80,9 @@ class ClientController extends CrudController
         return array_merge(parent::actions(), [
             'index' => [
                 'class' => IndexAction::class,
+                'responseVariants' => [
+                    'get-total-count' => fn(VariantsAction $action): int => Client::find()->count(),
+                ],
                 'on beforePerform' => function (Event $event) {
                     $user = Yii::$app->user;
                     if (!$user->isGuest && !$user->can('client.list')) {
