@@ -75,6 +75,7 @@ return [
             ],
         ],
         'singletons' => [
+            \hipanel\modules\client\ClientWithCounters::class => \hipanel\modules\client\ClientWithCounters::class,
             \hipanel\modules\client\helpers\HasPINCode::class => \hipanel\modules\client\helpers\HasPINCode::class,
             'client-referral-resource-configuration' => static fn() => \hipanel\modules\finance\helpers\ResourceConfigurator::build()
                 ->setToObjectUrl('@client/resource-detail')
