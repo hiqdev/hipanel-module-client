@@ -41,6 +41,7 @@ class ClientCreationCest
 
         $page->fillClientData($clientData);
         $I->pressButton('Save');
+        $I->waitForPageUpdate();
         $page->seeClientWasCreated($clientData['login'], $clientData['type']);
     }
 

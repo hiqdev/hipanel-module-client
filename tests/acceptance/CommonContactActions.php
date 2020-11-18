@@ -33,6 +33,7 @@ abstract class CommonContactActions
         $I->see('Create contact', 'h1');
         $createPage->fillFormData($data);
         $I->click('Create contact');
+        $I->waitForPageUpdate();
         $contactId = $createPage->seeContactWasCreated();
         $this->createdContacts[$contactId] = $data['inputs']['first_name'];
     }
