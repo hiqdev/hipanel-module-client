@@ -43,9 +43,9 @@
         }
     ],
     "require": {
-        "hiqdev/hipanel-core": "<2.0 || dev-master",
+        "hiqdev/hipanel-core": "dev-master",
         "hiqdev/hipanel-module-document": "dev-master",
-        "hiqdev/yii2-asset-flag-icon-css": "^1.0 || ^2.0 || dev-master",
+        "hiqdev/yii2-asset-flag-icon-css": "dev-master",
         "borales/yii2-phone-input": "^0.1.2"
     },
     "require-dev": {
