@@ -532,7 +532,7 @@ class ClientGridView extends BoxedGridView
                     $total = $client->referral['totals']['earnings'] ?? 0;
                     $thisMonth = $client->referral['history'][$thisMonthDt] ?? [];
 
-                    return Yii::t('hipanel:client', '{this_month} / {total}', [
+                    return empty($total) && empty($thisMonth) ? '' : Yii::t('hipanel:client', '{this_month} / {total}', [
                         'this_month' => $formatter->asCurrency($thisMonth['earnings'] ?? 0, $thisMonth['currency'] ?? null),
                         'total' => $formatter->asCurrency($total, $currency),
                     ]);
