@@ -45,7 +45,7 @@ $showFooter = ($uiModel->representation === 'profit-report')
 <?php Pjax::begin(array_merge(Yii::$app->params['pjax'], ['enablePushState' => true])) ?>
 <?php $page = IndexPage::begin(compact('model', 'dataProvider')) ?>
 
-    <?= $page->setSearchFormData(compact(['types', 'states', 'uiModel', 'sold_services'])) ?>
+    <?= $page->setSearchFormData(@compact(['types', 'states', 'uiModel', 'sold_services'])) ?>
 
     <?php if (Yii::$app->user->can('client.create') || Yii::$app->user->can('employee.create')) : ?>
         <?php $page->beginContent('main-actions') ?>

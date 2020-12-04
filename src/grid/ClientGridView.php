@@ -543,7 +543,7 @@ class ClientGridView extends BoxedGridView
                 'label' => Yii::t('hipanel:client', 'Referral tariff'),
                 'format' => 'raw',
                 'value' => static fn(Client $client): ?string =>
-                    Html::a($client->referral['tariff'], ['@plan/view', 'id' => $client->referral['tariff_id']]),
+                    Html::a($client->referral['tariff'] ?? '', ['@plan/view', 'id' => $client->referral['tariff_id'] ?? null]),
             ],
         ]);
     }

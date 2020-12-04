@@ -27,7 +27,6 @@ use hipanel\actions\ViewAction;
 use hipanel\base\CrudController;
 use hipanel\filters\EasyAccessControl;
 use hipanel\helpers\Url;
-use hipanel\modules\client\helpers\ClientHelper;
 use hipanel\modules\client\logic\IPConfirmer;
 use hipanel\modules\client\models\Client;
 use hipanel\modules\client\models\ClientSearch;
