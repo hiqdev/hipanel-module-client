@@ -208,6 +208,7 @@ class ZipValidator extends \yii\validators\RegularExpressionValidator
         'tm' => '\d{6}',
         'tn' => '\d{4}',
         'tr' => '\d{5}',
+        'tt' => '\d{6}',
         'tw' => '\d{3}(?:\d{2})?',
         'tz' => '\d{4,5}',
         'ua' => '\d{5}',
