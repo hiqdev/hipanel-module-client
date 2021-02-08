@@ -96,7 +96,6 @@ abstract class CommonContactActions
             $indexPage->gridView->selectRowById($id);
             $I->pressButton('Delete');
             $I->acceptPopup();
-            $I->waitForPageUpdate();
             $I->closeNotification('Contact was deleted');
         }
     }
