@@ -48,6 +48,12 @@ class ClientDetailMenu extends \hipanel\menus\AbstractDetailMenu
                 'visible' => $user->is($this->model->id),
             ],
             [
+                'label' => Yii::t('hipanel:client', 'Edit Permissions'),
+                'url' => ['/client/permission/view', 'id' => $this->model->id],
+                'icon' => 'fa-users',
+                'visible' => $user->can('test.alpha'),
+            ],
+            [
                 'label' => SettingsModal::widget([
                     'model' => $this->model,
                     'title' => Yii::t('hipanel', 'Change password'),

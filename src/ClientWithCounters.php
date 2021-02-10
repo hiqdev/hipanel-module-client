@@ -2,7 +2,6 @@
 
 namespace hipanel\modules\client;
 
-use Box\Spout\Common\Helper\StringHelper;
 use hipanel\modules\client\models\Client;
 use yii\helpers\Inflector;
 use yii\web\Application;
@@ -10,7 +9,7 @@ use Yii;
 
 class ClientWithCounters
 {
-    private Client $client;
+    private ?Client $client;
 
     private Application $app;
 
@@ -21,7 +20,7 @@ class ClientWithCounters
 
     private function initClientCounters(): void
     {
-        $client = $this->app->cache->getOrSet([__CLASS__, __METHOD__, $this->app->user->identity->id], fn(): Client => Client::findOne([
+        $client = $this->app->cache->getOrSet([__CLASS__, __METHOD__, $this->app->user->identity->id], fn(): ?Client => Client::findOne([
             'id' => $this->app->user->identity->id,
             'with_tickets_count' => true,
             'with_domains_count' => Yii::getAlias('@domain', false) ? true : false,
@@ -32,12 +31,12 @@ class ClientWithCounters
         $this->setClient($client);
     }
 
-    public function setClient(Client $client): void
+    public function setClient(?Client $client): void
     {
         $this->client = $client;
     }
 
-    public function getClient(): Client
+    public function getClient(): ?Client
     {
         if (empty($this->client)) {
             $this->initClientCounters();
