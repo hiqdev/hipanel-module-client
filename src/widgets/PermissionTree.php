@@ -93,12 +93,12 @@ class PermissionTree extends Widget
   $({$selector}).change(() => {
     clearTable();
     const items = [];
-    $({$selector} + " option:selected").each(function () {
-      const name = $(this).text();
+    const selected = Array.prototype.slice.call(document.querySelectorAll({$selector} + " option:checked"), 0).map((v) => v.value);
+    selected.forEach(name => {
       const elem = _pt_opts.roles[name] || _pt_opts.permissions[name];
       items.push(renderNode(name, elem, nodeHasChildren(name)));
     });
-    for (let idx in items) {
+    for (let idx = 0; idx < items.length; idx++) {
       table.treetable("loadBranch", null, items[idx]);
     }
   });
