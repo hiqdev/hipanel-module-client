@@ -533,4 +533,9 @@ class Client extends \hipanel\base\Model
 
         return null;
     }
+
+    public function notMyself(): bool
+    {
+        return (string)$this->id !== (string)Yii::$app->user->identity->id;
+    }
 }

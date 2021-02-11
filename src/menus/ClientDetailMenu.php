@@ -212,7 +212,7 @@ class ClientDetailMenu extends \hipanel\menus\AbstractDetailMenu
                 'encode' => false,
                 'visible' => $this->model->canBeRestored(),
             ],
-            !$this->model->hasReferralTariff() ? [
+            !$this->model->hasReferralTariff() && $this->model->notMyself() ? [
                 'label' => AjaxModalWithTemplatedButton::widget([
                     'ajaxModalOptions' => [
                         'bulkPage' => false,
@@ -232,7 +232,6 @@ class ClientDetailMenu extends \hipanel\menus\AbstractDetailMenu
                     'toggleButtonTemplate' => '{toggleButton}',
                 ]),
                 'encode' => false,
-                'visible' => !$this->model->hasReferralTariff(),
             ] : [],
         ], $actions);
 
