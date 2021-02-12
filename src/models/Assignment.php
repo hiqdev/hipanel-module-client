@@ -4,6 +4,7 @@ namespace hipanel\modules\client\models;
 
 use hipanel\base\ModelTrait;
 use hiqdev\hiart\ActiveRecord;
+use Yii;
 
 /**
  * Class Assignment.

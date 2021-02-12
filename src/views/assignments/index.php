@@ -46,6 +46,7 @@ use hipanel\widgets\Pjax; ?>
                     'checkbox',
                     [
                         'attribute' => 'login',
+                        'filterAttribute' => 'login_like',
                     ],
                     'seller',
                     'type',
