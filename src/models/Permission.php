@@ -3,7 +3,6 @@
 namespace hipanel\modules\client\models;
 
 use hipanel\rbac\AuthManager;
-use RuntimeException;
 use Yii;
 use yii\base\BaseObject;
 
@@ -23,16 +22,6 @@ class Permission extends BaseObject
         $this->manager->setAssignments($client->roles, $client->id);
 
         parent::__construct($config);
-    }
-
-    public function assign(array $items): bool
-    {
-        throw new RuntimeException('not implemented');
-    }
-
-    public function revoke(array $items): bool
-    {
-        throw new RuntimeException('not implemented');
     }
 
     public function getItems(): array
