@@ -24,21 +24,18 @@ class PermissionController extends Controller
     {
         $this->response->format = Response::FORMAT_JSON;
         $roles = $this->request->post('roles', []);
-        $permissionModel =  $this->findModel($id);
-        $defaultRole = 'role:' . $permissionModel->client->type;
-        $roles = array_diff($roles, [$defaultRole]);
-        $validateModel = DynamicModel::validateData(['id' => $id, 'roles' => $roles], [
-            [['id', 'roles'], 'required'],
-        ]);
-        if ($validateModel->hasErrors()) {
-            $error = $validateModel->getFirstErrors();
-
-            return [
-                'success' => false,
-                'message' => reset($error),
-            ];
-        }
         try {
+            $validateModel = DynamicModel::validateData(['id' => $id, 'roles' => $roles], [
+                [['id', 'roles'], 'required'],
+            ]);
+            if ($validateModel->hasErrors()) {
+                $error = $validateModel->getFirstErrors();
+
+                return [
+                    'success' => false,
+                    'message' => reset($error),
+                ];
+            }
             Client::perform('set-roles', $validateModel->attributes);
 
             return [
