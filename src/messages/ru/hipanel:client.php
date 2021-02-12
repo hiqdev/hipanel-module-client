@@ -286,6 +286,8 @@ return [
     'Code was sent successfully' => 'Код успешно отправлен',
 
     'Assignments' => 'Назначения',
+    'To manage the assigned tariffs of this client, enter under the seller of this client!' => 'Для управления назначенными тарифами этого клиента, войдите под селлером этого клиента!',
+    'You cannot manage more than one reseller\'s assignments, select records with the same reseller' => 'Вы не можете управлять назначениями более чем одного реселлера, выберите записи с одинаковым реселлером',
 
     'Enable referral program' => 'Включить реферальную программу',
     'Referrals' => 'Рефералы',

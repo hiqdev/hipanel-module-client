@@ -35,6 +35,7 @@ class ClientSearch extends Client
         return array_merge(parent::attributeLabels(), [
             'login_email_like' => Yii::t('hipanel:client', 'Login or Email'),
             'profit_not_empty' => Yii::t('hipanel:client', 'Show not empty'),
+            'client_id' => Yii::t('hipanel:client', 'Client'),
         ]);
     }
 }
