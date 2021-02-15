@@ -22,7 +22,6 @@ class Permission extends BaseObject
         $this->clientId = $client->id;
         $this->clientRoles = explode(',', $this->client->roles);
         $this->manager = Yii::$app->authManager;
-        $this->manager->setAssignments($client->roles, $client->id);
 
         parent::__construct($config);
     }
@@ -46,15 +45,16 @@ class Permission extends BaseObject
             $assigned[$roleName] = $available[$roleName];
             unset($available[$roleName]);
         }
-//        foreach ($this->manager->getAssignments($this->clientId) as $item) {
-//            $assigned[$item->roleName] = $available[$item->roleName];
-//            unset($available[$item->roleName]);
-//        }
 
         return [
-            'available' => $available,
+            'available' => $this->reduceToAllowed($available),
             'assigned' => $assigned,
         ];
+    }
+
+    public function reduceToAllowed(array $items = []): array
+    {
+        return array_filter($items, fn($group, $name) => $this->manager->checkAccess(Yii::$app->user->id, $name), ARRAY_FILTER_USE_BOTH);
     }
 
     public function getChildren(): array
