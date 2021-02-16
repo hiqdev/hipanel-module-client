@@ -3,7 +3,6 @@
 namespace hipanel\modules\client\models;
 
 use hipanel\rbac\AuthManager;
-use RuntimeException;
 use Yii;
 use yii\base\BaseObject;
 
@@ -15,24 +14,16 @@ class Permission extends BaseObject
 
     public int $clientId;
 
+    public array $clientRoles = [];
+
     public function __construct(Client $client, $config = [])
     {
         $this->client = $client;
         $this->clientId = $client->id;
+        $this->clientRoles = explode(',', $this->client->roles);
         $this->manager = Yii::$app->authManager;
-        $this->manager->setAssignments($client->roles, $client->id);
 
         parent::__construct($config);
-    }
-
-    public function assign(array $items): bool
-    {
-        throw new RuntimeException('not implemented');
-    }
-
-    public function revoke(array $items): bool
-    {
-        throw new RuntimeException('not implemented');
     }
 
     public function getItems(): array
@@ -50,15 +41,20 @@ class Permission extends BaseObject
             }
         }
 
-        foreach ($this->manager->getAssignments($this->clientId) as $item) {
-            $assigned[$item->roleName] = $available[$item->roleName];
-            unset($available[$item->roleName]);
+        foreach ($this->clientRoles as $roleName) {
+            $assigned[$roleName] = $available[$roleName];
+            unset($available[$roleName]);
         }
 
         return [
-            'available' => $available,
+            'available' => $this->reduceToAllowed($available),
             'assigned' => $assigned,
         ];
+    }
+
+    public function reduceToAllowed(array $items = []): array
+    {
+        return array_filter($items, fn($group, $name) => $this->manager->checkAccess(Yii::$app->user->id, $name), ARRAY_FILTER_USE_BOTH);
     }
 
     public function getChildren(): array

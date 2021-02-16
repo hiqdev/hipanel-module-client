@@ -2,12 +2,14 @@
 
 namespace hipanel\modules\client\controllers;
 
+use Exception;
 use hipanel\modules\client\models\Client;
 use hipanel\modules\client\models\Permission;
-use RuntimeException;
 use Yii;
+use yii\base\DynamicModel;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\web\Response;
 
 class PermissionController extends Controller
 {
@@ -20,12 +22,32 @@ class PermissionController extends Controller
 
     public function actionAssign(int $id)
     {
-        throw new RuntimeException('not implemented');
-    }
+        $this->response->format = Response::FORMAT_JSON;
+        $roles = $this->request->post('roles', []);
+        try {
+            $validateModel = DynamicModel::validateData(['id' => $id, 'roles' => $roles], [
+                [['id', 'roles'], 'required'],
+            ]);
+            if ($validateModel->hasErrors()) {
+                $error = $validateModel->getFirstErrors();
 
-    public function actionRevoke(int $id)
-    {
-        throw new RuntimeException('not implemented');
+                return [
+                    'success' => false,
+                    'message' => reset($error),
+                ];
+            }
+            Client::perform('set-roles', $validateModel->attributes);
+
+            return [
+                'success' => true,
+                'message' => Yii::t('hipanel:client', 'Permissions assigned successfully'),
+            ];
+        } catch (Exception $e) {
+            return [
+                'success' => false,
+                'message' => $e->getMessage(),
+            ];
+        }
     }
 
     protected function findModel(int $id): ?Permission

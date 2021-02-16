@@ -3,6 +3,7 @@
 use hipanel\modules\client\models\Permission;
 use hipanel\modules\client\widgets\PermissionTree;
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\web\View;
 
 /* @var $this yii\web\View */
@@ -19,27 +20,46 @@ $this->params['breadcrumbs'][] = Yii::t('hipanel:client', 'Assign permissions');
 
 $this->registerJsVar('_opts', ['items' => $model->getItems()], View::POS_BEGIN);
 $this->registerJs(<<<'JS'
-function updateItems(response) {
-    // todo
-    // _opts.items.available = response.available;
-    // _opts.items.assigned = response.assigned;
-    search('available');
-    search('assigned');
-}
+const saveBtn = document.querySelector('.btn-save');
+var confirmIt = e => {
+    if (!confirm(saveBtn.dataset.confirmText)) {
+        e.preventDefault();
+
+        return false;
+    }
+    const assigned = Array.prototype.slice.call(document.querySelectorAll("select.list[data-target=assigned] option"), 0).map((v) => v.value);
+    const inputs = $(':input');
+    inputs.attr('disabled', 'disabled');
+    $(saveBtn).button('loading');
+    $.post(saveBtn.dataset.assignUrl, {roles: assigned}, resp => {
+        if (resp.success === true) {
+            hipanel.notify.success(resp.message);
+        } else {
+            hipanel.notify.error(resp.message);
+        }
+    }).fail(resp => {
+        hipanel.notify.error('Something went wrong');
+        console.log(resp);
+    }).always(() => {
+        inputs.attr('disabled', false);
+        $(saveBtn).button('reset');
+    });
+};
+saveBtn.addEventListener('click', confirmIt, false);
 
 $('.btn-assign').click(function () {
     const $this = $(this);
     const target = $this.data('target');
-    const url = $this.data('url');
     const items = $('select.list[data-target="' + target + '"]').val();
-    let data = {};
-
-    if (items && items.length) {
-        data[target] = items;
-        // $.post(url, {items: items}, function (r) {
-        //     updateItems(r);
-        // });
+    for (let idx = 0; idx < items.length; idx++) {
+      if (target === "available") {
+        _opts.items['assigned'][items[idx]] = _opts.items["available"][items[idx]];
+      }
+      if (target === "assigned") {
+        delete _opts.items['assigned'][items[idx]];
+      }
     }
+    search('assigned');
 
     return false;
 });
@@ -104,16 +124,23 @@ JS
     </div>
     <div class="col-lg-2">
         <div class="move-buttons">
+            <?= Html::button(Yii::t('hipanel:client', 'Save changes'), [
+                'class' => 'btn btn-success btn-block btn-save',
+                'style' => ['margin-bottom' => '6em'],
+                'data' => [
+                    'assign-url' => Url::to(['/client/permission/assign', 'id' => $model->clientId]),
+                    'confirm-text' => Yii::t('hipanel', 'Are you sure you want to assign this roles and permissions?'),
+                    'loading-text' => '<i class="fa fa-fw fa-refresh fa-spin"></i>',
+                ],
+            ]) ?>
             <?= Html::button('&gt;&gt;', [
-                'class' => 'btn btn-success btn-block btn-assign',
+                'class' => 'btn btn-info btn-block btn-assign',
                 'data-target' => 'available',
-                'data-url' => $assignUrl,
                 'title' => Yii::t('hipanel:client', 'Assign'),
             ]) ?>
             <?= Html::button('&lt;&lt;', [
                 'class' => 'btn btn-danger btn-block btn-assign',
                 'data-target' => 'assigned',
-                'data-url' => $revokeUrl,
                 'title' => Yii::t('hipanel:client', 'Remove'),
             ]) ?>
         </div>

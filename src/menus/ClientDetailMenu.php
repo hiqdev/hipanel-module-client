@@ -50,8 +50,8 @@ class ClientDetailMenu extends \hipanel\menus\AbstractDetailMenu
             [
                 'label' => Yii::t('hipanel:client', 'Edit Permissions'),
                 'url' => ['/client/permission/view', 'id' => $this->model->id],
-                'icon' => 'fa-users',
-                'visible' => $user->can('test.alpha'),
+                'icon' => 'fa-id-card-o',
+                'visible' => $user->can('client.set-roles'),
             ],
             [
                 'label' => SettingsModal::widget([
