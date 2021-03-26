@@ -13,6 +13,7 @@ namespace hipanel\modules\client\grid;
 use hipanel\grid\BoxedGridView;
 use hipanel\grid\MainColumn;
 use hipanel\modules\client\menus\ContactActionsMenu;
+use hipanel\modules\client\models\Contact;
 use hipanel\modules\client\widgets\UnverifiedWidget;
 use hipanel\modules\document\widgets\StackedDocumentsView;
 use hipanel\widgets\VerificationMark;
@@ -29,15 +30,14 @@ class ContactGridView extends BoxedGridView
                 'class' => MainColumn::class,
                 'filterAttribute' => 'name_like',
                 'extraAttribute' => 'organization',
-                'format' => 'raw',
             ],
             'name_with_verification' => [
                 'class' => MainColumn::class,
                 'filterAttribute' => 'name_like',
                 'label' => Yii::t('hipanel', 'Name'),
                 'format' => 'raw',
-                'value' => function ($model) {
-                    return $model->name . VerificationMark::widget(['model' => $model->getVerification('name')]);
+                'value' => function (Contact $model) {
+                    return Html::encode($model->name) . VerificationMark::widget(['model' => $model->getVerification('name')]);
                 },
             ],
             'name_link_with_verification' => [
@@ -48,7 +48,7 @@ class ContactGridView extends BoxedGridView
                 'format' => 'raw',
                 'value' => function ($model) {
                     return VerificationMark::widget(['model' => $model->getVerification('name')]) .
-                    Html::a($model->name, ['@contact/view', 'id' => $model->id], ['class' => 'text-bold']);
+                    Html::a(Html::encode($model->name), ['@contact/view', 'id' => $model->id], ['class' => 'text-bold']);
                 },
             ],
             'email_link_with_verification' => [
