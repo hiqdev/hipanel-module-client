@@ -11,8 +11,8 @@ use yii\db\ActiveRecordInterface;
 /** @var IndexPageUiOptions $uiModel */
 
 $this->title = $originalModel->name;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('hipanel:server', 'Clients'), 'url' => ['@client/index']];
-$this->params['breadcrumbs'][] = ['label' => Yii::t('hipanel:server', 'Clients resources'), 'url' => ['@client/resource-list']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('hipanel:client', 'Clients'), 'url' => ['@client/index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('hipanel:client', 'Clients resources'), 'url' => ['@client/resource-list']];
 $this->params['breadcrumbs'][] = $this->title;
 
 ?>

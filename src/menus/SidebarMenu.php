@@ -53,7 +53,7 @@ class SidebarMenu extends \hiqdev\yii2\menus\Menu
                     'client-resource' => [
                         'label'   => Yii::t('hipanel:client', 'Client resources'),
                         'url'     => ['@client/resource-list'],
-                        'visible' => $user->can('client.list'),
+                        'visible' => $user->can('support'),
                     ],
                 ],
             ],
