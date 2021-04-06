@@ -10,6 +10,7 @@
 
 return [
     'Referer' => 'Реферер',
+    'Partner' => 'Партнер',
     'Enable two factor authorization' => 'Включить двухфакторную авторизацию',
     'Disable two factor authorization' => 'Отключить двухфакторную авторизацию',
     'change is not confirmed' => 'изменение не подтверждено',
