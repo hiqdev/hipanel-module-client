@@ -482,6 +482,7 @@ class Client extends \hipanel\base\Model
             self::TYPE_JUNIOR_MANAGER => Yii::t('hipanel:client', 'Junior manager'),
             self::TYPE_ADMIN => Yii::t('hipanel:client', 'Administrator'),
             self::TYPE_SUPPORT => Yii::t('hipanel:client', 'Support'),
+            self::TYPE_PARTNER => Yii::t('hipanel:client', 'Partner'),
         ];
 
         if (Yii::$app->user->can('employee.read')) {
