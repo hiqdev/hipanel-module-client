@@ -44,6 +44,7 @@ class Client extends \hipanel\base\Model
     public const TYPE_OWNER = 'owner';
     public const TYPE_EMPLOYEE = 'employee';
     public const TYPE_SUPPORT = 'support';
+    public const TYPE_PARTNER = 'partner';
 
     public const STATE_OK = 'ok';
     public const STATE_DELETED = 'deleted';
