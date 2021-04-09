@@ -175,13 +175,15 @@ class ContactController extends CrudController
         $model = new DocumentUploadForm(['id' => $contact->id]);
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             $session = Yii::$app->session;
-            if ($model->save()) {
+            try {
+                if (!$model->save()) {
+                    throw new \RuntimeException($model->getFirstError('title'));
+                }
                 $session->addFlash('success', Yii::t('hipanel:client', 'Documents were saved'));
-
                 return $this->redirect(['attach-documents', 'id' => $id]);
+            } catch (\Throwable $e) {
+                $session->addFlash('error', $e->getMessage());
             }
-
-            $session->addFlash('error', $model->getFirstError('title'));
         }
 
         return $this->render('attach-documents', [
