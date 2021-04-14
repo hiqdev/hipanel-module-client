@@ -35,9 +35,9 @@ class ContactGridView extends BoxedGridView
                 'class' => MainColumn::class,
                 'filterAttribute' => 'name_like',
                 'label' => Yii::t('hipanel', 'Name'),
-                'format' => 'raw',
+                'format' => 'html',
                 'value' => function (Contact $model) {
-                    return Html::encode($model->name) . VerificationMark::widget(['model' => $model->getVerification('name')]);
+                    return $model->name . VerificationMark::widget(['model' => $model->getVerification('name')]);
                 },
             ],
             'name_link_with_verification' => [
@@ -45,17 +45,17 @@ class ContactGridView extends BoxedGridView
                 'filterAttribute' => 'name_like',
                 'extraAttribute' => 'organization',
                 'label' => Yii::t('hipanel', 'Name'),
-                'format' => 'raw',
-                'value' => function ($model) {
+                'format' => 'html',
+                'value' => function (Contact $model) {
                     return VerificationMark::widget(['model' => $model->getVerification('name')]) .
                     Html::a(Html::encode($model->name), ['@contact/view', 'id' => $model->id], ['class' => 'text-bold']);
                 },
             ],
             'email_link_with_verification' => [
-                'format' => 'raw',
+                'format' => 'html',
                 'attribute' => 'email',
                 'label' => Yii::t('hipanel', 'Email'),
-                'value' => function ($model) {
+                'value' => function (Contact $model) {
                     return UnverifiedWidget::widget([
                         'model' => $model,
                         'attribute' => 'email',
@@ -66,7 +66,7 @@ class ContactGridView extends BoxedGridView
                 },
             ],
             'voice_phone' => [
-                'format' => 'raw',
+                'format' => 'html',
                 'value' => function ($model) {
                     return UnverifiedWidget::widget([
                         'model' => $model,
@@ -75,7 +75,7 @@ class ContactGridView extends BoxedGridView
                 },
             ],
             'fax_phone' => [
-                'format' => 'raw',
+                'format' => 'html',
                 'value' => function ($model) {
                     return UnverifiedWidget::widget([
                         'model' => $model,
@@ -84,7 +84,7 @@ class ContactGridView extends BoxedGridView
                 },
             ],
             'email' => [
-                'format' => 'raw',
+                'format' => 'html',
                 'value' => function ($model) {
                     $result = $model->email;
                     if ($model->email_new) {
@@ -99,7 +99,7 @@ class ContactGridView extends BoxedGridView
             ],
             'email_with_verification' => [
                 'label' => Yii::t('hipanel', 'Email'),
-                'format' => 'raw',
+                'format' => 'html',
                 'value' => function ($model) {
                     return UnverifiedWidget::widget([
                         'model' => $model,
@@ -192,6 +192,7 @@ class ContactGridView extends BoxedGridView
                 },
             ],
             'documents' => [
+                /** todo: refactor */
                 'format' => 'raw',
                 'label' => Yii::t('hipanel:client', 'Documents'),
                 'value' => function ($model) {
