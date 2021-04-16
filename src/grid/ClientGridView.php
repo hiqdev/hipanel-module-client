@@ -282,7 +282,6 @@ class ClientGridView extends BoxedGridView
                 },
             ],
             'domains_spoiler' => [
-                /** todo: refactor */
                 'format' => 'raw',
                 'visible' => Yii::getAlias('@domain', false) !== false,
                 'label' => Yii::t('hipanel', 'Domains'),
@@ -314,7 +313,6 @@ class ClientGridView extends BoxedGridView
                 },
             ],
             'servers_spoiler' => [
-                /** todo: refactor */
                 'format' => 'raw',
                 'label' => Yii::t('hipanel', 'Servers'),
                 'value' => function ($model) {
