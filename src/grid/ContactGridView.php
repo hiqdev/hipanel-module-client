@@ -192,7 +192,6 @@ class ContactGridView extends BoxedGridView
                 },
             ],
             'documents' => [
-                /** todo: refactor */
                 'format' => 'raw',
                 'label' => Yii::t('hipanel:client', 'Documents'),
                 'value' => function ($model) {
