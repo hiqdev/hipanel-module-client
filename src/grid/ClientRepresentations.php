@@ -27,6 +27,7 @@ class ClientRepresentations extends RepresentationCollection
                     'checkbox',
                     'login',
                     'name_language',
+                    'description',
                     $user->can('client.read') ? 'seller_id' : null,
                     $user->can('client.read') ? 'type' : null,
                     'state',

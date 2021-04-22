@@ -74,6 +74,7 @@ $this->registerCss('legend {font-size: 16px;}');
                     'columns' => array_filter([
                         'seller_id', 'referer_id', 'name',
                         Yii::$app->user->not($model->id) ? 'note' : null,
+                        Yii::$app->user->not($model->id) ? 'description' : null,
                         'language',
                         'type', 'state',
                         'create_time', 'update_time',
