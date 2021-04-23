@@ -117,7 +117,7 @@ class ClientGridView extends BoxedGridView
                 'class' => MainColumn::class,
                 'attribute' => 'login',
                 'filterAttribute' => 'login_like',
-                'format' => 'raw',
+                'format' => 'html',
                 'note' => Yii::$app->user->can('manage') ? 'note' : null,
                 'noteOptions' => [
                     'url' => Url::to('@client/set-note'),
@@ -128,7 +128,7 @@ class ClientGridView extends BoxedGridView
                 'class' => MainColumn::class,
                 'attribute' => 'login',
                 'filterAttribute' => 'login_ilike',
-                'format' => 'raw',
+                'format' => 'html',
             ],
             'note' => [
                 'class' => XEditableColumn::class,
@@ -148,7 +148,7 @@ class ClientGridView extends BoxedGridView
             'name_language' => [
                 'filterAttribute' => 'name_ilike',
                 'label' => Yii::t('hipanel', 'Client'),
-                'format' => 'raw',
+                'format' => 'html',
                 'value' => function ($model) {
                     $flag = Html::tag('span', $model->getLanguage(), ['class' => 'label bg-olive']);
 
@@ -159,7 +159,7 @@ class ClientGridView extends BoxedGridView
                 'class' => RefColumn::class,
                 'filterAttribute' => 'states',
                 'filterOptions' => ['class' => 'narrow-filter'],
-                'format' => 'raw',
+                'format' => 'html',
                 'gtype' => 'state,client',
                 'i18nDictionary' => 'hipanel:client',
                 'value' => function ($model) {
@@ -170,7 +170,7 @@ class ClientGridView extends BoxedGridView
                 'class' => RefColumn::class,
                 'filterAttribute' => 'types',
                 'filterOptions' => ['class' => 'narrow-filter'],
-                'format' => 'raw',
+                'format' => 'html',
                 'gtype' => 'type,client',
                 'i18nDictionary' => 'hipanel:client',
                 'value' => function ($model) {
@@ -179,11 +179,11 @@ class ClientGridView extends BoxedGridView
             ],
             'balance' => [
                 'class' => BalanceColumn::class,
-                'format' => 'raw',
+                'format' => 'html',
             ],
             'balances' => [
                 'label' => Yii::t('hipanel:client', 'Balances'),
-                'format' => 'raw',
+                'format' => 'html',
                 'value' => function ($model) {
                     $balances = [];
                     if ($model->purses) {
@@ -248,7 +248,7 @@ class ClientGridView extends BoxedGridView
                 },
             ],
             'servers' => [
-                'format' => 'raw',
+                'format' => 'html',
                 'visible' => Yii::getAlias('@server', false) !== false,
                 'label' => Yii::t('hipanel', 'Servers'),
                 'value' => function ($model) {
@@ -285,7 +285,7 @@ class ClientGridView extends BoxedGridView
                 },
             ],
             'domains_spoiler' => [
-                'format' => 'raw',
+                'format' => 'html',
                 'visible' => Yii::getAlias('@domain', false) !== false,
                 'label' => Yii::t('hipanel', 'Domains'),
                 'value' => function ($model) {
@@ -316,7 +316,7 @@ class ClientGridView extends BoxedGridView
                 },
             ],
             'servers_spoiler' => [
-                'format' => 'raw',
+                'format' => 'html',
                 'label' => Yii::t('hipanel', 'Servers'),
                 'value' => function ($model) {
                     return ArraySpoiler::widget([
@@ -495,7 +495,7 @@ class ClientGridView extends BoxedGridView
                 },
             ],
             'assignments' => [
-                'format' => 'raw',
+                'format' => 'html',
                 'filter' => false,
                 'label' => Yii::t('hipanel:client', 'Assignments'),
                 'value' => function (Client $model): string {
@@ -517,7 +517,7 @@ class ClientGridView extends BoxedGridView
             'referrals' => [
                 'class' => DataColumn::class,
                 'label' => Yii::t('hipanel:client', 'Referrals'),
-                'format' => 'raw',
+                'format' => 'html',
                 'value' => static fn(Client $client): ?string => Yii::t('hipanel:client', '{this_month} / {total}', [
                     'this_month' => $client->referral['history'][$thisMonthDt]['registered'] ?? 0,
                     'total' => $client->referral['totals']['referrals'] ?? 0,
@@ -526,7 +526,7 @@ class ClientGridView extends BoxedGridView
             'earnings' => [
                 'class' => DataColumn::class,
                 'label' => Yii::t('hipanel:client', 'Earning'),
-                'format' => 'raw',
+                'format' => 'html',
                 'value' => static function (Client $client) use ($formatter, $thisMonthDt): ?string {
                     $currency = $client->referral['totals']['currency'] ?? null;
                     $total = $client->referral['totals']['earnings'] ?? 0;
@@ -541,7 +541,7 @@ class ClientGridView extends BoxedGridView
             'referral_tariff' => [
                 'class' => DataColumn::class,
                 'label' => Yii::t('hipanel:client', 'Referral tariff'),
-                'format' => 'raw',
+                'format' => 'html',
                 'value' => static fn(Client $client): ?string =>
                     Html::a($client->referral['tariff'] ?? '', ['@plan/view', 'id' => $client->referral['tariff_id'] ?? null]),
             ],
