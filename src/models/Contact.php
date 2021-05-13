@@ -15,6 +15,7 @@ use hipanel\modules\client\models\query\ContactQuery;
 use hipanel\modules\document\models\Document;
 use hipanel\modules\client\validators\ZipValidator;
 use Yii;
+use yii\helpers\Html;
 
 /**
  * Class Contact.
@@ -325,7 +326,7 @@ class Contact extends \hipanel\base\Model
         ];
         foreach ($messengers as $k => $label) {
             if ($this->{$k}) {
-                $res[] = "<b>$label:</b>&nbsp;" . $this->{$k};
+                $res[] = "<b>$label:</b>&nbsp;" . Html::encode($this->{$k});
             }
         }
 
