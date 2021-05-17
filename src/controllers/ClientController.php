@@ -121,6 +121,7 @@ class ClientController extends CrudController
                 'filterStorageMap' => [
                     'login_ilike' => 'client.client.login_ilike',
                     'state' => 'client.client.state',
+                    'states' => 'client.client.states',
                     'type' => 'client.client.type',
                     'seller' => 'client.client.seller',
                     'seller_id' => 'client.client.seller_id',
