@@ -33,6 +33,7 @@ use hipanel\modules\client\models\DocumentUploadForm;
 use hipanel\modules\client\models\query\ContactQuery;
 use hipanel\modules\client\models\Verification;
 use hipanel\modules\client\repositories\NotifyTriesRepository;
+use hipanel\modules\document\models\Document;
 use Yii;
 use yii\base\Event;
 use yii\filters\VerbFilter;
@@ -117,6 +118,10 @@ class ContactController extends CrudController
             'validate-form' => [
                 'class' => ValidateFormAction::class,
             ],
+            'validate-single-form' => [
+                'class' => ValidateFormAction::class,
+                'validatedInputId' => false,
+            ],
             'create' => [
                 'class' => ContactCreateAction::class,
             ],
@@ -172,14 +177,23 @@ class ContactController extends CrudController
             throw new NotFoundHttpException();
         }
 
-        $model = new DocumentUploadForm(['id' => $contact->id]);
+        $model = new Document([
+            'client_id' => $contact->client_id,
+            'client' => $contact->client,
+            'sender_id' => $contact->id,
+            'object_id' => $contact->id,
+            'scenario' => 'create',
+        ]);
+
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             $session = Yii::$app->session;
             try {
                 if (!$model->save()) {
-                    throw new \RuntimeException($model->getFirstError('title'));
+                    throw new \RuntimeException(Yii::t('hipanel:client', 'Document could not be saved'));
                 }
+
                 $session->addFlash('success', Yii::t('hipanel:client', 'Documents were saved'));
+
                 return $this->redirect(['attach-documents', 'id' => $id]);
             } catch (\Throwable $e) {
                 $session->addFlash('error', $e->getMessage());
