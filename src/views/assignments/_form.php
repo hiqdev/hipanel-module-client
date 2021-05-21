@@ -35,7 +35,7 @@ use yii\helpers\Json;
                         'data' => $models,
                         'visibleCount' => count($models),
                         'formatter' => function (Client $client) {
-                            return Html::tag('strong', $client->login);
+                            return Html::tag('strong', Html::encode($client->login));
                         },
                         'delimiter' => ',&nbsp;',
                     ]); ?>
