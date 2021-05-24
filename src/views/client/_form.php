@@ -33,7 +33,7 @@ $form = ActiveForm::begin([
         'password',
         'type',
         'seller_id',
-        'currencies_id',
+        'currencies',
     ],
 ]) ?>
 
