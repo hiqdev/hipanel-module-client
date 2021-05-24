@@ -8,7 +8,7 @@ use hipanel\tests\_support\Page\Widget\Input\Select2;
 use hipanel\tests\_support\Page\Widget\Input\Input;
 use hipanel\tests\_support\Step\Acceptance\Admin;
 
-class DNSzoneCest
+class ClientResourcesCest
 {
     /**
      * @var IndexPage
