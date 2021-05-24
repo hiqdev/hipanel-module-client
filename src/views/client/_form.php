@@ -4,6 +4,7 @@ use hipanel\helpers\Url;
 use hipanel\modules\client\models\Client;
 use hipanel\modules\client\widgets\combo\ClientCombo;
 use hipanel\modules\client\widgets\combo\SellerCombo;
+use hiqdev\combo\StaticCombo;
 use hipanel\widgets\DynamicFormWidget;
 use hipanel\widgets\PasswordInput;
 use yii\bootstrap\ActiveForm;
@@ -32,6 +33,7 @@ $form = ActiveForm::begin([
         'password',
         'type',
         'seller_id',
+        'currencies_id',
     ],
 ]) ?>
 
@@ -95,6 +97,14 @@ $form = ActiveForm::begin([
                             </div>
                         <?php endif ?>
                     </div>
+                    <?php if (Yii::$app->user->can('purse.update')): ?>
+                        <div class="row">
+                            <?= $form->field($model, "[{$i}]currencies")->widget(StaticCombo::class, [
+                                'multiple' => true,
+                                'data' => $currencies,
+                            ]) ?>
+                        </div>
+                    <?php endif ?>
                 </div>
             </div>
         </div>
