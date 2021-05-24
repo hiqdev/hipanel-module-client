@@ -301,7 +301,7 @@ class ClientGridView extends BoxedGridView
                             static $index = 0;
                             ++$index;
 
-                            $value = Html::a($item->domain, ['@domain/view', 'id' => $item->id]);
+                            $value = Html::a(Html::encode($item->domain), ['@domain/view', 'id' => $item->id]);
                             if ($model->count['domains'] > count($model->domains) && $index === count($model->domains)) {
                                 $text = Yii::t('hipanel:client', 'and {n} more', ['n' => $model->count['domains'] - count($model->domains)]);
                                 $value .= ' ' . Html::a($text, Url::toSearch('domain', ['client_id' => $model->id]), ['class' => 'border-bottom-dashed']);
@@ -330,7 +330,7 @@ class ClientGridView extends BoxedGridView
                             static $index;
                             ++$index;
 
-                            $value = Html::a($item->name, ['@server/view', 'id' => $item->id]);
+                            $value = Html::a(Html::encode($item->name), ['@server/view', 'id' => $item->id]);
                             if ($model->count['servers'] > count($model->servers) && $index === count($model->servers)) {
                                 $text = Yii::t('hipanel:client', 'and {n} more', ['n' => $model->count['servers'] - count($model->servers)]);
                                 $value .= ' ' . Html::a($text, Url::toSearch('server', ['client_id' => $model->id]), ['class' => 'border-bottom-dashed']);
