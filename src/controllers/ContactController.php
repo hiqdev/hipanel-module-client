@@ -29,11 +29,11 @@ use hipanel\modules\client\logic\EmailConfirmer;
 use hipanel\modules\client\logic\PhoneConfirmationException;
 use hipanel\modules\client\logic\PhoneConfirmer;
 use hipanel\modules\client\models\Contact;
-use hipanel\modules\client\models\DocumentUploadForm;
 use hipanel\modules\client\models\query\ContactQuery;
 use hipanel\modules\client\models\Verification;
 use hipanel\modules\client\repositories\NotifyTriesRepository;
 use hipanel\modules\document\models\Document;
+use hiqdev\hiart\ResponseErrorException;
 use Yii;
 use yii\base\Event;
 use yii\filters\VerbFilter;
@@ -191,6 +191,7 @@ class ContactController extends CrudController
                 if (!$model->save()) {
                     throw new \RuntimeException(Yii::t('hipanel:client', 'Document could not be saved'));
                 }
+                Contact::perform('attach-document', $model->getAttributes());
 
                 $session->addFlash('success', Yii::t('hipanel:client', 'Documents were saved'));
 
