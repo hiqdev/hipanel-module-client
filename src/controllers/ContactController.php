@@ -33,7 +33,6 @@ use hipanel\modules\client\models\query\ContactQuery;
 use hipanel\modules\client\models\Verification;
 use hipanel\modules\client\repositories\NotifyTriesRepository;
 use hipanel\modules\document\models\Document;
-use hiqdev\hiart\ResponseErrorException;
 use Yii;
 use yii\base\Event;
 use yii\filters\VerbFilter;
