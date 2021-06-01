@@ -11,15 +11,12 @@
 
 use hipanel\modules\document\widgets\StackedDocumentsView;
 use hipanel\widgets\Box;
-use hipanel\widgets\FileInput;
-use yii\helpers\Html;
 use yii\helpers\Inflector;
-use yii\widgets\ActiveForm;
 use hipanel\modules\document\widgets\DocumentFormWidget;
 
 /**
- * @var \hipanel\modules\client\models\Contact
- * @var \hipanel\modules\client\models\DocumentUploadForm $model
+ * @var \hipanel\modules\client\models\Contact $contact
+ * @var \hipanel\modules\document\models\Document $model
  */
 $this->title = Yii::t('hipanel:client', 'Attached documents');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('hipanel:client', 'Contacts'), 'url' => ['index']];
