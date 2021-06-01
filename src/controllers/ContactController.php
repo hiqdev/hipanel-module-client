@@ -190,7 +190,10 @@ class ContactController extends CrudController
                 if (!$model->save()) {
                     throw new \RuntimeException(Yii::t('hipanel:client', 'Document could not be saved'));
                 }
-                Contact::perform('attach-document', $model->getAttributes());
+                Contact::perform('attach-document', array_merge($model->getAttributes(), [
+                    'id' => $contact->id,
+                    'file_id' => $model->file->id,
+                ]));
 
                 $session->addFlash('success', Yii::t('hipanel:client', 'Documents were saved'));
 
