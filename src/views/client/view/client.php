@@ -78,7 +78,12 @@ $this->registerCss('legend {font-size: 16px;}');
                         'language',
                         'type', 'state',
                         'create_time', 'update_time',
-                        'tickets', 'servers', 'domains', 'contacts', 'hosting', 'blocking',
+                        class_exists(\hipanel\modules\ticket\Module::class) ? 'tickets' : null,
+                        class_exists(\hipanel\modules\server\Module::class) ? 'servers' : null,
+                        class_exists(\hipanel\modules\domain\Module::class) ? 'domains' : null,
+                        'contacts',
+                        class_exists(\hipanel\modules\hosting\Module::class) ? 'hosting' : null,
+                        'blocking',
                     ]),
                 ]) ?>
                 <?php $box->endBody() ?>
