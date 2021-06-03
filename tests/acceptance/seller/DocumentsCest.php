@@ -54,10 +54,12 @@ class DocumentsCest
         $this->index->containsColumns([
             'Reseller',
             'Client',
+            'Number',
             'Title',
             'Statuses',
+            'Sender',
+            'Receiver',
             'Related object',
-            'Create time',
         ]);
     }
 }
