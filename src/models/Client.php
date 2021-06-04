@@ -68,6 +68,7 @@ class Client extends \hipanel\base\Model
             [['create_time', 'update_time', 'create_date'], 'date'],
             [['id', 'note'], 'safe', 'on' => 'set-note'],
             [['id', 'description'], 'safe', 'on' => 'set-description'],
+            [['id', 'remote_id'], 'safe', 'on' => 'set-remote-id'],
 
             [['id', 'credit'], 'required', 'on' => 'set-credit'],
             [['id', 'type', 'comment'], 'required', 'on' => ['set-block', 'enable-block']],
@@ -257,6 +258,7 @@ class Client extends \hipanel\base\Model
         return $this->mergeAttributeLabels([
             'login' => Yii::t('hipanel:client', 'Login'),
             'referer_id' => Yii::t('hipanel:client', 'Referer'),
+            'remote_id' => Yii::t('hipanel:client', 'Remote Id'),
             'referer' => Yii::t('hipanel:client', 'Referer'),
 
             'create_time' => Yii::t('hipanel', 'Registered'),

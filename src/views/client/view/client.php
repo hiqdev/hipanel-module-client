@@ -75,6 +75,7 @@ $this->registerCss('legend {font-size: 16px;}');
                         'seller_id', 'referer_id', 'name',
                         Yii::$app->user->not($model->id) ? 'note' : null,
                         Yii::$app->user->not($model->id) ? 'description' : null,
+                        Yii::$app->user->not($model->id) ? 'remote_id' : null,
                         'language',
                         'type', 'state',
                         'create_time', 'update_time',

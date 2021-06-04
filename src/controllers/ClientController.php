@@ -57,6 +57,7 @@ class ClientController extends CrudController
                     'perform-billing, set-credit' => 'bill.create',
                     'set-description' => 'client.set-description',
                     'set-note' => 'client.set-note',
+                    'set-remote-id' => 'client.set-note',
                     'set-tmp-pwd' => 'client.set-tmp-pwd',
                     'index, search' => ['client.read', 'employee.read'],
                     'allow-i-p' => true,
@@ -246,6 +247,11 @@ class ClientController extends CrudController
                 'class' => SmartUpdateAction::class,
                 'success' => Yii::t('hipanel', 'Note was changed'),
                 'error' => Yii::t('hipanel', 'Failed to change note'),
+            ],
+            'set-remote-id' => [
+                'class' => SmartUpdateAction::class,
+                'success' => Yii::t('hipanel:client', 'Remote Id was changed'),
+                'error' => Yii::t('hipanel:client', 'Failed to change Remote Id'),
             ],
             'bulk-enable-block-modal' => [
                 'class' => PrepareBulkAction::class,

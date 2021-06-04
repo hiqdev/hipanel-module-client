@@ -138,7 +138,19 @@ class ClientGridView extends BoxedGridView
                         'data-type' => 'textarea',
                     ],
                 ],
-                'visible' => Yii::$app->user->can('support'),
+                'visible' => Yii::$app->user->can('client.set-note'),
+            ],
+            'remote_id' => [
+                'class' => XEditableColumn::class,
+                'pluginOptions' => [
+                    'url' => Url::to('@client/set-remote-id'),
+                ],
+                'widgetOptions' => [
+                    'linkOptions' => [
+                        'data-type' => 'textarea',
+                    ],
+                ],
+                'visible' => Yii::$app->user->can('client.set-note'),
             ],
             'name' => [
                 'filterAttribute' => 'name_ilike',
