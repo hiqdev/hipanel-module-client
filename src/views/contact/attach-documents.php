@@ -18,10 +18,12 @@ use hipanel\modules\document\widgets\DocumentFormWidget;
  * @var \hipanel\modules\client\models\Contact $contact
  * @var \hipanel\modules\document\models\Document $model
  */
+
+$label = $contact->name !== '' ? $contact->name : $contact->email;
 $this->title = Yii::t('hipanel:client', 'Attached documents');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('hipanel:client', 'Contacts'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = [
-    'label' => Inflector::titleize($contact->name, true),
+    'label' => Inflector::titleize($label, true),
     'url' => ['view', 'id' => $contact->id],
 ];
 $this->params['breadcrumbs'][] = $this->title;
