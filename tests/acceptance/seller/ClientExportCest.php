@@ -12,30 +12,28 @@ class ClientExportCest
     /**
      * @dataProvider provideDataView
      */
-    public function ensureExportIsAvailable(Seller $I, Example $example)
+    public function ensureExportIsAvailable(Seller $I, Example $example): void
     {
         $I->login();
         $I->needPage(Url::to('@client/index'));
-        $this->ensureICanSeeExportOption($I, $example);
+        $exampleArray = iterator_to_array($example->getIterator());
+        $this->ensureICanSeeExportOption($I, $exampleArray);
     }
 
-    private function ensureICanSeeExportOption(Seller $I, Example $exportExample): void
+    private function ensureICanSeeExportOption(Seller $I, array $exportOption): void
     {
         $indexPage = new IndexPage($I);
 
-        $test = iterator_to_array($exportExample->getIterator());
-        $indexPage->openAndSeeBulkOptionByName($test);
+        $indexPage->openAndSeeBulkOptionByName('Export', $exportOption);
     }
 
     private function provideDataView(): array
     {
         return [
             'export' => [
-                'Export' => [
-                    'CSV',
-                    'TSV',
-                    'Excel XLSX',
-                ],
+                'CSV',
+                'TSV',
+                'Excel XLSX',
             ],
         ];
     }
