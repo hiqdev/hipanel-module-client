@@ -39,6 +39,7 @@ use Yii;
 use yii\base\Event;
 use yii\filters\VerbFilter;
 use hipanel\actions\RenderAction;
+use hipanel\models\Ref;
 
 class ClientController extends CrudController
 {
@@ -134,10 +135,20 @@ class ClientController extends CrudController
             'create' => [
                 'class' => SmartCreateAction::class,
                 'success' => Yii::t('hipanel:client', 'Client was created'),
+                'data' => function ($action, $data) {
+                    return array_merge($data, [
+                        'currencies' => Ref::getList('type,currency'),
+                    ]);
+                },
             ],
             'update' => [
                 'class' => SmartUpdateAction::class,
                 'success' => Yii::t('hipanel:client', 'Client was updated'),
+                'data' => function ($action, $data) {
+                    return array_merge($data, [
+                        'currencies' => Ref::getList('type,currency'),
+                    ]);
+                },
             ],
             'delete' => [
                 'class' => SmartDeleteAction::class,
