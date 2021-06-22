@@ -269,6 +269,24 @@ class ClientGridView extends BoxedGridView
                     return implode(', ', $result);
                 },
             ],
+            'targets' => [
+                'format' => 'raw',
+                'visible' => Yii::getAlias('@target', false) !== false,
+                'label' => Yii::t('hipanel', 'Targets'),
+                'value' => function ($model) {
+                    /** @var Client $model */
+                    $result = [];
+
+                    if ($num = $model->count['targets']) {
+                        $result[] = Html::a(
+                            Yii::t('hipanel', '{0, plural, one{# target} other{# targets}}', $num),
+                            Url::toSearch('target', ['client_id' => $model->id])
+                        );
+                    }
+
+                    return implode(', ', $result);
+                },
+            ],
             'domains' => [
                 'format' => 'raw',
                 'visible' => Yii::getAlias('@domain', false) !== false,
@@ -334,6 +352,35 @@ class ClientGridView extends BoxedGridView
                             if ($model->count['servers'] > count($model->servers) && $index === count($model->servers)) {
                                 $text = Yii::t('hipanel:client', 'and {n} more', ['n' => $model->count['servers'] - count($model->servers)]);
                                 $value .= ' ' . Html::a($text, Url::toSearch('server', ['client_id' => $model->id]), ['class' => 'border-bottom-dashed']);
+                            }
+
+                            return $value;
+                        },
+                    ]);
+                },
+            ],
+            'targets_spoiler' => [
+                'format' => 'raw',
+                'label' => Yii::t('hipanel', 'Targets'),
+                'value' => function ($model) {
+                    return ArraySpoiler::widget([
+                        'id' => uniqid('ss'),
+                        'data' => $model->targets,
+                        'visibleCount' => 1,
+                        'button' => [
+                            'label' => '+' . ($model->count['targets'] - 1),
+                            'popoverOptions' => [
+                                'html' => true,
+                            ],
+                        ],
+                        'formatter' => function ($item, $key) use ($model) {
+                            static $index;
+                            ++$index;
+
+                            $value = Html::a(Html::encode($item->name), ['@target/view', 'id' => $item->id]);
+                            if ($model->count['targets'] > count($model->targets) && $index === count($model->servers)) {
+                                $text = Yii::t('hipanel:client', 'and {n} more', ['n' => $model->count['targets'] - count($model->targets)]);
+                                $value .= ' ' . Html::a($text, Url::toSearch('target', ['client_id' => $model->id]), ['class' => 'border-bottom-dashed']);
                             }
 
                             return $value;
