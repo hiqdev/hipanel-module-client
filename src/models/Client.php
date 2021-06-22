@@ -17,6 +17,7 @@ use hipanel\modules\client\models\query\ClientQuery;
 use hipanel\modules\domain\models\Domain;
 use hipanel\modules\finance\models\Purse;
 use hipanel\modules\server\models\Server;
+use hipanel\modules\finance\models\Target;
 use hipanel\validators\DomainValidator;
 use Yii;
 
@@ -353,6 +354,15 @@ class Client extends \hipanel\base\Model
         }
 
         return $this->hasMany(Server::class, ['client_id' => 'id']);
+    }
+
+    public function getTargets()
+    {
+        if (!Yii::getAlias('@target', false)) {
+            return null;
+        }
+
+        return $this->hasMany(Target::class, ['client_id' => 'id']);
     }
 
     public function getAssignments()
