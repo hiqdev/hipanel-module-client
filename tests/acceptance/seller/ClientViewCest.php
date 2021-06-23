@@ -9,26 +9,24 @@ use hipanel\tests\_support\Step\Acceptance\Seller;
 
 class ClientViewCest
 {
-    /**
-     * @dataProvider provideDataView
-     */
-    public function ensureViewModeWorks(Seller $I, Example $example)
+    public function ensureViewModeWorks(Seller $I)
     {
         $I->login();
         $I->needPage(Url::to('@client/index'));
-        $this->ensureViewFilterWorks($I, $example);
+        $filters = $this->getDataForViewPage();
+        $this->ensureViewFilterWorks($I, $filters['view']);
     }
 
-    private function ensureViewFilterWorks(Seller $I, Example $viewExample): void
+    private function ensureViewFilterWorks(Seller $I, $options): void
     {
         $indexPage = new IndexPage($I);
 
-        foreach ($viewExample as $key => $element) {
+        foreach ($options as $key => $element) {
             $indexPage->containsColumns($element, $key);
         }
     }
 
-    private function provideDataView(): array
+    private function getDataForViewPage(): array
     {
         return [
             'view' => [
