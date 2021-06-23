@@ -12,7 +12,6 @@ class Create extends Authenticated
     public function fillMainDocumentFields(array $documentData): void
     {
         $I = $this->tester;
-        $I->needPage(Url::to('@document/create'));
 
         (new Select2($I, '#document-client'))
                 ->setValue($documentData['client']);
