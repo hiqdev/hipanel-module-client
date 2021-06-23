@@ -3,7 +3,6 @@
 namespace hipanel\modules\client\tests\acceptance\seller;
 
 use hipanel\helpers\Url;
-use Codeception\Example;
 use hipanel\tests\_support\Page\IndexPage;
 use hipanel\tests\_support\Step\Acceptance\Seller;
 
