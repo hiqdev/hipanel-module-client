@@ -21,7 +21,7 @@ class DocumentsFieldsCest
     {
         $I->login();
         $I->needPage(Url::to('@document/create'));
-        $I->click('Save');;
+        $I->click('Save');
         $this->create->containsBlankFieldsError(['Title', 'Sender', 'Receiver', 'Type']);
     }
 
@@ -32,8 +32,7 @@ class DocumentsFieldsCest
     {
         $I->needPage(Url::to('@document/create'));
         $exampeArray = iterator_to_array($example->getIterator());
-        $I->needPage(Url::to('@document/create'));
-        $this->create->fillMainDocumentFields($exampeArray['document']);
+        $this->create->fillMainDocumentFields($exampeArray);
         $I->wait(3);
         $I->click('Save');
 
@@ -44,16 +43,14 @@ class DocumentsFieldsCest
     {
         $account = 'Test Reseller';
         return [
-            'documents' => [
-                'document' => [
-                    'client'   => 'hipanel_test_reseller',
-                    'title'    => 'Docoument #' . uniqid(),
-                    'sender'   => $account,
-                    'receiver' => $account,
-                    'type'     => 'Invoice',
-                    'class'    => 'Client',
-                    'objectId' => 'hipanel_test_reseller',
-                ],
+            'document' => [
+                'client'   => 'hipanel_test_reseller',
+                'title'    => 'Docoument #' . uniqid(),
+                'sender'   => $account,
+                'receiver' => $account,
+                'type'     => 'Invoice',
+                'class'    => 'Client',
+                'objectId' => 'hipanel_test_reseller',
             ],
         ];
     }
