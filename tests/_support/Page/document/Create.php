@@ -9,7 +9,7 @@ use hipanel\tests\_support\Page\Widget\Input\Input;
 
 class Create extends Authenticated
 {
-    public function fillMainDocumentFields($documentData): void
+    public function fillMainDocumentFields(array $documentData): void
     {
         $I = $this->tester;
         $I->needPage(Url::to('@document/create'));

@@ -6,22 +6,18 @@ use hipanel\helpers\Url;
 use Codeception\Example;
 use hipanel\modules\client\tests\_support\Page\document\Create;
 use hipanel\tests\_support\Page\Widget\Input\Input;
-use hipanel\tests\_support\Page\Widget\Input\Select2;
 use hipanel\tests\_support\Step\Acceptance\Seller;
 
 class DocumentsFieldsCest
 {
-    /**
-     * @var Create
-     */
-    private $create;
+    private Create $create;
 
-    public function _before(Seller $I)
+    public function _before(Seller $I): void
     {
         $this->create = new Create($I);
     }
 
-    public function ensureICantCreateDocumentWithoutData(Seller $I)
+    public function ensureICantCreateDocumentWithoutData(Seller $I): void
     {
         $I->login();
         $I->needPage(Url::to('@document/create'));
@@ -32,10 +28,11 @@ class DocumentsFieldsCest
     /**
      * @dataProvider provideDocumentData
      */
-    public function ensureICanFillMainDocumentsFields(Seller $I, Example $example)
+    public function ensureICanFillMainDocumentsFields(Seller $I, Example $example): void
     {
         $I->needPage(Url::to('@document/create'));
         $exampeArray = iterator_to_array($example->getIterator());
+        $I->needPage(Url::to('@document/create'));
         $this->create->fillMainDocumentFields($exampeArray['document']);
         $I->wait(3);
         $I->click('Save');
@@ -43,10 +40,10 @@ class DocumentsFieldsCest
         $this->create->dontContainsBlankFieldsError(['Sender']);
     }
     
-    private function provideDocumentData()
+    private function provideDocumentData(): array
     {
         $account = 'Test Reseller';
-        return  [
+        return [
             'documents' => [
                 'document' => [
                     'client'   => 'hipanel_test_reseller',
