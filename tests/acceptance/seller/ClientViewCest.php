@@ -8,15 +8,15 @@ use hipanel\tests\_support\Step\Acceptance\Seller;
 
 class ClientViewCest
 {
-    public function ensureViewModeWorks(Seller $I)
+    public function ensureViewModeWorks(Seller $I): void
     {
         $I->login();
         $I->needPage(Url::to('@client/index'));
         $filters = $this->getDataForViewPage();
-        $this->ensureViewFilterWorks($I, $filters['view']);
+        $this->ensureViewFilterWorks($I, $filters);
     }
 
-    private function ensureViewFilterWorks(Seller $I, $options): void
+    private function ensureViewFilterWorks(Seller $I, array $options): void
     {
         $indexPage = new IndexPage($I);
 
@@ -28,43 +28,41 @@ class ClientViewCest
     private function getDataForViewPage(): array
     {
         return [
-            'view' => [
-                'Common'     => [
-                    'Login',
-                    'Client',
-                    'Description',
-                    'Reseller',
-                    'Type',
-                    'Status',
-                    'Balance',
-                    'Credit',
-                ],
-                'Servers'    => [
-                    'Login',
-                    'Client',
-                    'Reseller',
-                    'Type',
-                    'Registered / Last Update',
-                    'Status',
-                    'Accounts',
-                    'Balances',
-                ],
-                'Documents'  => [
-                    'Login',
-                    'Reseller',
-                    'Requisites',
-                    'Language',
-                ],
-                'Referral'   => [
-                    'Login',
-                    'Reseller',
-                    'Referer',
-                    'Referrals',
-                    'Earning',
-                    'Referral tariff',
-                    'Status',
-                    'Balance',
-                ],
+            'Common'     => [
+                'Login',
+                'Client',
+                'Description',
+                'Reseller',
+                'Type',
+                'Status',
+                'Balance',
+                'Credit',
+            ],
+            'Servers'    => [
+                'Login',
+                'Client',
+                'Reseller',
+                'Type',
+                'Registered / Last Update',
+                'Status',
+                'Accounts',
+                'Balances',
+            ],
+            'Documents'  => [
+                'Login',
+                'Reseller',
+                'Requisites',
+                'Language',
+            ],
+            'Referral'   => [
+                'Login',
+                'Reseller',
+                'Referer',
+                'Referrals',
+                'Earning',
+                'Referral tariff',
+                'Status',
+                'Balance',
             ],
         ];
     }
