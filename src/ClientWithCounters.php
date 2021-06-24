@@ -20,14 +20,14 @@ class ClientWithCounters
 
     private function initClientCounters(): void
     {
-        $client = $this->app->cache->getOrSet([__CLASS__, __METHOD__, $this->app->user->identity->id], fn(): ?Client => Client::findOne([
+        $client = $this->app->cache->getOrSet([__CLASS__, __METHOD__, $this->app->user->identity->id], fn(): ?Client => Client::findOne(array_filter([
             'id' => $this->app->user->identity->id,
-            'with_tickets_count' => true,
-            'with_domains_count' => Yii::getAlias('@domain', false) ? true : false,
-            'with_servers_count' => true,
-            'with_hosting_count' => true,
+            'with_tickets_count' => class_exists(\hipanel\modules\ticket\Module::class) ? true : null,
+            'with_domains_count' => class_exists(\hipanel\modules\domain\Module::class) ? true : null,
+            'with_servers_count' => class_exists(\hipanel\modules\server\Module::class) ? true : null,
+            'with_hosting_count' => class_exists(\hipanel\modules\hosting\Module::class) ? true : null,
             'with_contacts_count' => true,
-        ]), 180);
+        ])), 180);
         $this->setClient($client);
     }
 

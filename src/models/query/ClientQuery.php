@@ -15,20 +15,35 @@ use Yii;
 
 class ClientQuery extends ActiveQuery
 {
-    public function withServers()
+    public function withServers(): self
     {
         if (Yii::getAlias('@server', false)) {
-            $this->andWhere([
-                'with_servers_count' => 1,
-                'with_hosting_count' => 1,
-            ]);
             $this->joinWith('servers');
+            $this->andWhere(['with_servers_count' => 1]);
         }
 
         return $this;
     }
 
-    public function withDomains()
+    public function withServersCount(): self
+    {
+        if (Yii::getAlias('@server', false)) {
+            $this->andWhere(['with_servers_count' => 1]);
+        }
+
+        return $this;
+    }
+
+    public function withHostingCount(): self
+    {
+        if (class_exists(\hipanel\modules\hosting\Module::class)) {
+            $this->andWhere(['with_hosting_count' => 1]);
+        }
+
+        return $this;
+    }
+
+    public function withDomains(): self
     {
         if (Yii::getAlias('@domain', false)) {
             $this->andWhere(['with_domains_count' => 1]);
@@ -42,7 +57,17 @@ class ClientQuery extends ActiveQuery
         return $this;
     }
 
-    public function withContact()
+
+    public function withDomainsCount(): self
+    {
+        if (Yii::getAlias('@domain', false)) {
+            $this->andWhere(['with_domains_count' => 1]);
+        }
+
+        return $this;
+    }
+
+    public function withContact(): self
     {
         $this->joinWith([
             'contact' => function ($query) {
@@ -57,7 +82,7 @@ class ClientQuery extends ActiveQuery
         return $this;
     }
 
-    public function withPurses()
+    public function withPurses(): self
     {
         $this->joinWith([
             'purses' => function ($query) {
@@ -71,7 +96,7 @@ class ClientQuery extends ActiveQuery
         return $this;
     }
 
-    public function withPaymentTicket()
+    public function withPaymentTicket(): self
     {
         return $this->joinWith([
             'payment_ticket',
