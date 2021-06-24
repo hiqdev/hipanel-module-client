@@ -200,15 +200,8 @@ class ClientController extends CrudController
             'change-password' => [
                 'class' => SmartUpdateAction::class,
                 'view' => '_changePasswordModal',
-                'POST' => [
-                    'save' => true,
-                    'success' => [
-                        'class' => RenderJsonAction::class,
-                        'return' => function ($action) {
-                            return ['success' => !$action->collection->hasErrors()];
-                        },
-                    ],
-                ],
+                'success' => Yii::t('hipanel:client', 'Password changed'),
+                'error' => Yii::t('hipanel:client', 'Error during password change'),
             ],
             'set-tmp-password' => [
                 'class' => SmartUpdateAction::class,
