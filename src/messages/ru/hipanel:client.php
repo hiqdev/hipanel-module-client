@@ -70,6 +70,7 @@ return [
     'Contact information' => 'Контактная информация',
     'Postal information' => 'Почтовая информация',
     'Additional information' => 'Дополнительная информация',
+    'Set additional information' => 'Изменить доп. инф.',
     'Additional contacts' => 'Дополнительные контакты',
     'Additional fields' => 'Дополнительные поля',
     'Tax information' => 'Налоговая информация',

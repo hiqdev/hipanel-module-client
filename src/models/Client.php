@@ -10,6 +10,7 @@
 
 namespace hipanel\modules\client\models;
 
+use hipanel\behaviors\CustomAttributes;
 use hipanel\modules\stock\helpers\ProfitColumns;
 use yii\helpers\ArrayHelper;
 use hipanel\helpers\StringHelper;
@@ -52,6 +53,13 @@ class Client extends \hipanel\base\Model
     public const STATE_WIPED = 'wiped';
     public const STATE_BLOCKED = 'blocked';
 
+    public function behaviors()
+    {
+        return array_merge(parent::behaviors(), [
+            'as customAttributes' => CustomAttributes::class,
+        ]);
+    }
+
     public function rules()
     {
         return [
@@ -63,6 +71,7 @@ class Client extends \hipanel\base\Model
             [['profile_ids', 'tariff_ids', 'ids'], 'safe', 'on' => ['update', 'set-tariffs']],
             [['ids'], 'required', 'on' => ['set-tariffs']],
             [['id'], 'required', 'on' => ['update']],
+            [['custom_attributes'], 'safe', 'on' => ['update']],
 
             [['balance', 'credit', 'full_balance'], 'number'],
             [['count', 'confirm_url', 'language', 'comment', 'name', 'currency'], 'safe'],
@@ -277,6 +286,7 @@ class Client extends \hipanel\base\Model
             'confirm_password' => Yii::t('hipanel', 'Confirm password'),
 
             'is_verified' => Yii::t('hipanel:client', 'Is verified'),
+            'custom_attributes' => Yii::t('hipanel:client', 'Additional information'),
 
             // Mailing/Notification settings
             'notify_important_actions' => Yii::t('hipanel:client', 'Notify important actions'),

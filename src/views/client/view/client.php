@@ -9,6 +9,7 @@ use hipanel\modules\client\widgets\ForceVerificationBlock;
 use hipanel\modules\document\widgets\StackedDocumentsView;
 use hipanel\widgets\Box;
 use hipanel\widgets\ClientSellerLink;
+use hipanel\widgets\CustomAttributesViewer;
 use hiqdev\assets\flagiconcss\FlagIconCssAsset;
 use yii\helpers\Html;
 
@@ -48,6 +49,7 @@ $this->registerCss('legend {font-size: 16px;}');
         <div class="profile-usermenu">
             <?= ClientDetailMenu::widget(['model' => $model]) ?>
         </div>
+        <?= $this->render('./../_custom-attributes', compact('model')) ?>
         <?php Box::end() ?>
 
         <?= ClientReferralDetailView::widget(['client' => $model]) ?>
