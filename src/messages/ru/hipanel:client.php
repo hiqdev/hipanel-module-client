@@ -299,4 +299,6 @@ return [
     'Earning' => 'Заработок',
     'Referral program' => 'Реферальная программа',
     'Set tariff plan' => 'Установить тарифный план',
+    'Error during password change' => 'Возникли проблемы при смене пароля',
+    'Password changed' => 'Пароль изменен',
 ];
