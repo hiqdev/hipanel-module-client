@@ -63,11 +63,12 @@ return [
             ],
             \hiqdev\thememanager\menus\AbstractSidebarMenu::class => [
                 'add' => [
-                    'client' => [
+                    'clients' => [
                         'menu' => [
                             'class' => \hipanel\modules\client\menus\SidebarMenu::class,
                         ],
                         'where' => [
+                            'before' => ['finance'],
                             'after' => ['dashboard'],
                         ],
                     ],
