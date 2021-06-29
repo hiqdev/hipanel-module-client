@@ -300,4 +300,17 @@ return [
     'Earning' => 'Заработок',
     'Referral program' => 'Реферальная программа',
     'Set tariff plan' => 'Установить тарифный план',
+
+    // Custom Attributes
+    'Special Conditions' => 'Специальные условия',
+    'Rent' => 'Аренда',
+    'Buyout' => 'Выкуп',
+    'Buyout by installment' => 'Выкуп в рассрочку',
+    'Support service' => 'Администрирование',
+    'IP-addresses' => 'IP-адреса',
+    'Rack' => 'Стойка',
+    'Network' => 'Сеть',
+    'vCDN' => 'vCDN',
+    'aCDN' => 'aCDN',
+    'Other information/Links' => 'Другая информация/Ссылки',
 ];

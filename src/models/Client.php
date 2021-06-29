@@ -562,4 +562,21 @@ class Client extends \hipanel\base\Model
     {
         return (string)$this->id !== (string)Yii::$app->user->identity->id;
     }
+
+    public function getCustomAttributesList()
+    {
+        return [
+            'special_conditions' => Yii::t('hipanel:client', 'Special Conditions'),
+            'rent' => Yii::t('hipanel:client', 'Rent'),
+            'buyout' => Yii::t('hipanel:client', 'Buyout'),
+            'buyout_by_installment' => Yii::t('hipanel:client', 'Buyout by installment'),
+            'support_service' => Yii::t('hipanel:client', 'Support service'),
+            'ip_addresses' => Yii::t('hipanel:client', 'IP-addresses'),
+            'rack' => Yii::t('hipanel:client', 'Rack'),
+            'network' => Yii::t('hipanel:client', 'Network'),
+            'vcdn' => Yii::t('hipanel:client', 'vCDN'),
+            'acdn' => Yii::t('hipanel:client', 'aCDN'),
+            'other_information_links' => Yii::t('hipanel:client', 'Other information/Links'),
+        ];
+    }
 }
