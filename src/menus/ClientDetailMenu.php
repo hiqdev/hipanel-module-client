@@ -247,7 +247,7 @@ class ClientDetailMenu extends \hipanel\menus\AbstractDetailMenu
                     ],
                 ]),
                 'encode' => false,
-                'visible' => $user->can('support'),
+                'visible' => $user->can('client.update'),
             ],
         ], $actions);
 

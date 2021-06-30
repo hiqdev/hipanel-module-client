@@ -9,7 +9,7 @@ use hipanel\modules\client\models\Client;
 
 ?>
 
-<?php if (Yii::$app->user->can('support')) : ?>
+<?php if (Yii::$app->user->can('access-subclients')) : ?>
     <div class="box-header">
         <h4 class="box-title">
             <?= Yii::t('hipanel:client', 'Additional information') ?>
