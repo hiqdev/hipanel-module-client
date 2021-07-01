@@ -67,7 +67,7 @@ class ClientDetailMenu extends \hipanel\menus\AbstractDetailMenu
             [
                 'label' => $totp_enabled ? Yii::t('hipanel:client', 'Disable two factor authorization') : Yii::t('hipanel:client', 'Enable two factor authorization'),
                 'icon' => 'fa-lock',
-                'url' => 'http://' . Yii::$app->params['hiam.site'] . Url::to(['/mfa/totp/' . ($totp_enabled ? 'disable' : 'enable'), 'back' => Url::to('', true)]),
+                'url' => Yii::getAlias('@HIAM_SITE', false) . Url::to(['/mfa/totp/' . ($totp_enabled ? 'disable' : 'enable'), 'back' => Url::to('', true)]),
                 'visible' => $user->is($this->model->id),
             ],
             [
