@@ -304,6 +304,11 @@ class ClientController extends CrudController
                 'valuesClass' => 'client,finance_settings',
                 'view' => '_financeSettingsModal',
             ],
+            'set-attributes' => [
+                'class' => SmartUpdateAction::class,
+                'view' => '_set-attributes-form',
+                'success' => Yii::t('hipanel:client', 'Set additional information'),
+            ],
             'pincode-settings' => [
                 'class' => SmartUpdateAction::class,
                 'view' => '_pincodeSettingsModal',

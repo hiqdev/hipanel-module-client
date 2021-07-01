@@ -10,7 +10,9 @@
 
 namespace hipanel\modules\client\menus;
 
+use hipanel\helpers\FontIcon;
 use hipanel\modules\client\models\Client;
+use hipanel\widgets\AjaxModal;
 use hipanel\widgets\AjaxModalWithTemplatedButton;
 use hipanel\widgets\BlockModalButton;
 use hipanel\widgets\ImpersonateButton;
@@ -233,6 +235,20 @@ class ClientDetailMenu extends \hipanel\menus\AbstractDetailMenu
                 ]),
                 'encode' => false,
             ] : [],
+            [
+                'label' => AjaxModal::widget([
+                    'actionUrl' => ['@client/set-attributes', 'id'=> $this->model->id],
+                    'header' => Html::tag('h4', Yii::t('hipanel:client', 'Additional information'), ['class' => 'model-title']),
+                    'scenario' => 'update',
+                    'toggleButton' => [
+                        'tag' => 'a',
+                        'label' => FontIcon::i('fa-edit fa-fw') . " " . Yii::t('hipanel:client', 'Set additional information'),
+                        'class' => 'clickable',
+                    ],
+                ]),
+                'encode' => false,
+                'visible' => $user->can('client.update'),
+            ],
         ], $actions);
 
         unset($items['view']);

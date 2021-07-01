@@ -70,6 +70,7 @@ return [
     'Contact information' => 'Контактная информация',
     'Postal information' => 'Почтовая информация',
     'Additional information' => 'Дополнительная информация',
+    'Set additional information' => 'Изменить доп. инф.',
     'Additional contacts' => 'Дополнительные контакты',
     'Additional fields' => 'Дополнительные поля',
     'Tax information' => 'Налоговая информация',
@@ -299,6 +300,19 @@ return [
     'Earning' => 'Заработок',
     'Referral program' => 'Реферальная программа',
     'Set tariff plan' => 'Установить тарифный план',
+
+    // Custom Attributes
+    'Special Conditions' => 'Специальные условия',
+    'Rent' => 'Аренда',
+    'Buyout' => 'Выкуп',
+    'Buyout by installment' => 'Выкуп в рассрочку',
+    'Support service' => 'Администрирование',
+    'IP-addresses' => 'IP-адреса',
+    'Rack' => 'Стойка',
+    'Network' => 'Сеть',
+    'vCDN' => 'vCDN',
+    'aCDN' => 'aCDN',
+    'Other information/Links' => 'Другая информация/Ссылки',
     'Error during password change' => 'Возникли проблемы при смене пароля',
     'Password changed' => 'Пароль изменен',
 ];

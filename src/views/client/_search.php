@@ -1,18 +1,22 @@
 <?php
 
+use hipanel\models\IndexPageUiOptions;
 use hipanel\modules\client\widgets\combo\RefererCombo;
 use hipanel\modules\client\widgets\combo\SellerCombo;
+use hipanel\widgets\AdvancedSearch;
 use hiqdev\combo\StaticCombo;
 use hiqdev\yii2\daterangepicker\DateRangePicker;
 use yii\helpers\Html;
+use yii\web\View;
 
 /**
- * @var \hipanel\widgets\AdvancedSearch $search
- * @var \hipanel\models\IndexPageUiOptions $uiModel
+ * @var AdvancedSearch $search
+ * @var IndexPageUiOptions $uiModel
  * @var array $types
  * @var array $states
- * @var \yii\web\View $this
+ * @var View $this
  */
+
 ?>
 
 <div class="col-md-4 col-sm-6 col-xs-12">
@@ -22,6 +26,9 @@ use yii\helpers\Html;
 <?php if (Yii::$app->user->can('support')) : ?>
     <div class="col-md-4 col-sm-6 col-xs-12">
         <?= $search->field('note_ilike') ?>
+    </div>
+    <div class="col-md-4 col-sm-6 col-xs-12">
+        <?= $search->field('custom_attributes') ?>
     </div>
 <?php endif ?>
 
@@ -49,17 +56,17 @@ use yii\helpers\Html;
 
 <div class="col-md-4 col-sm-6 col-xs-12">
     <?= $search->field('types')->widget(StaticCombo::class, [
-        'data'      => $types,
-        'hasId'     => true,
-        'multiple'  => true,
+        'data' => $types,
+        'hasId' => true,
+        'multiple' => true,
     ]) ?>
 </div>
 
 <div class="col-md-4 col-sm-6 col-xs-12">
     <?= $search->field('states')->widget(StaticCombo::class, [
-        'data'      => $states,
-        'hasId'     => true,
-        'multiple'  => true,
+        'data' => $states,
+        'hasId' => true,
+        'multiple' => true,
     ]) ?>
 </div>
 
