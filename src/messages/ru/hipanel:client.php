@@ -313,4 +313,6 @@ return [
     'vCDN' => 'vCDN',
     'aCDN' => 'aCDN',
     'Other information/Links' => 'Другая информация/Ссылки',
+    'Error during password change' => 'Возникли проблемы при смене пароля',
+    'Password changed' => 'Пароль изменен',
 ];
