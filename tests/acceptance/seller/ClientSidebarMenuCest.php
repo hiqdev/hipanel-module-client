@@ -21,7 +21,6 @@ class ClientSidebarMenuCest
             'Clients' => '@client/index',
             'Contacts' => '@contact/index',
             'Documents' => '@document/index',
-            'Mailing preparation' => '/mailing/prepare/index',
         ]);
     }
 }
