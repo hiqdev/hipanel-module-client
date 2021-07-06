@@ -33,7 +33,6 @@ class DocumentsFieldsCest
         $I->needPage(Url::to('@document/create'));
         $exampeArray = iterator_to_array($example->getIterator());
         $this->create->fillMainDocumentFields($exampeArray);
-        $I->wait(3);
         $I->click('Save');
 
         $this->create->dontContainsBlankFieldsError(['Sender']);
