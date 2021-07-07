@@ -27,6 +27,7 @@ use hipanel\actions\ViewAction;
 use hipanel\base\CrudController;
 use hipanel\filters\EasyAccessControl;
 use hipanel\helpers\Url;
+use hipanel\modules\client\actions\DeleteClientsByLoginsAction;
 use hipanel\modules\client\logic\IPConfirmer;
 use hipanel\modules\client\models\Client;
 use hipanel\modules\client\models\ClientSearch;
@@ -149,6 +150,9 @@ class ClientController extends CrudController
                         'currencies' => Ref::getList('type,currency'),
                     ]);
                 },
+            ],
+            'delete-by-logins' => [
+                'class' => DeleteClientsByLoginsAction::class,
             ],
             'delete' => [
                 'class' => SmartDeleteAction::class,

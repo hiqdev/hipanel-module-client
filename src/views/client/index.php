@@ -9,8 +9,12 @@
  * @copyright Copyright (c) 2014-2015, HiQDev (https://hiqdev.com/)
  */
 
+use hipanel\models\IndexPageUiOptions;
 use hipanel\modules\client\grid\ClientGridLegend;
 use hipanel\modules\client\grid\ClientGridView;
+use hipanel\modules\client\grid\ClientRepresentations;
+use hipanel\modules\client\models\ClientSearch;
+use hipanel\modules\client\widgets\DeleteClientsByLoginsModal;
 use hipanel\modules\stock\helpers\ProfitColumns;
 use hipanel\widgets\AjaxModal;
 use hipanel\widgets\gridLegend\GridLegend;
@@ -18,14 +22,16 @@ use hipanel\widgets\IndexPage;
 use hipanel\widgets\Pjax;
 use hiqdev\assets\flagiconcss\FlagIconCssAsset;
 use yii\bootstrap\Dropdown;
+use yii\data\ActiveDataProvider;
 use yii\helpers\Html;
+use yii\web\View;
 
 /**
- * @var \yii\web\View $this
- * @var \hipanel\modules\client\grid\ClientRepresentations $representationCollection
- * @var \yii\data\ActiveDataProvider $dataProvider
- * @var \hipanel\models\IndexPageUiOptions $uiModel
- * @var \hipanel\modules\client\models\ClientSearch $model
+ * @var View $this
+ * @var ClientRepresentations $representationCollection
+ * @var ActiveDataProvider $dataProvider
+ * @var IndexPageUiOptions $uiModel
+ * @var ClientSearch $model
  * @var array $types
  * @var array $states
  */
@@ -50,6 +56,7 @@ $showFooter = ($uiModel->representation === 'profit-report')
     <?php if (Yii::$app->user->can('client.create') || Yii::$app->user->can('employee.create')) : ?>
         <?php $page->beginContent('main-actions') ?>
             <?= Html::a(Yii::t('hipanel:client', 'Create client'), ['@client/create'], ['class' => 'btn btn-sm btn-success']) ?>
+            <?= DeleteClientsByLoginsModal::widget() ?>
         <?php $page->endContent() ?>
     <?php endif ?>
 
