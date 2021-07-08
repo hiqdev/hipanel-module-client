@@ -35,8 +35,6 @@ final class DeleteClientsByLoginsForm extends Model
 
     private function findClients(array $logins): array
     {
-        return Yii::$app->cache->getOrSet([__CLASS__, __METHOD__, $logins], fn(): array => Client::find()->where([
-            'logins' => $logins,
-        ])->limit(-1)->all(), 3600);
+        return Client::find()->where(['logins' => $logins])->limit(-1)->all();
     }
 }

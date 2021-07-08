@@ -29,7 +29,7 @@ final class DeleteClientsByLoginsAction extends Action
         $form = new DeleteClientsByLoginsForm();
         $controller = $this->controller;
         try {
-            if ($controller->request->isPost && $form->load($controller->request->post())) {
+            if ($controller->request->isPost && $form->load($controller->request->post()) ?? $form->validate()) {
                 $clients = $form->getClients();
                 $payload = [];
                 foreach ($clients as $client) {
