@@ -404,7 +404,7 @@ class ClientController extends CrudController
     public function actionRestorePassword($id = null)
     {
         Yii::$app->get('hiart')->disableAuth();
-        $url = 'https://' . Yii::$app->params['hiam.site'] . Url::to(array_merge(['/site/reset-password'], Yii::$app->request->get()));
+        $url = Yii::getAlias('@HIAM_SITE', false) . Url::to(array_merge(['/site/reset-password'], Yii::$app->request->get()));
 
         return $this->redirect($url);
     }
