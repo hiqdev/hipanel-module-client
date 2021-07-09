@@ -37,7 +37,7 @@ final class DeleteClientsByLoginsAction extends Action
                     $payload[$id] = ['id' => $id];
                 }
                 Client::batchPerform('delete', $payload);
-                $this->session->setFlash('success', Yii::t('hipanel:client', '{0} clients has been deleted', count($clients)));
+                $this->session->setFlash('success', Yii::t('hipanel:client', '{0, plural, one{# client} few{# clients} other{# clients}} clients has been deleted', count($clients)));
             } else {
                 throw new RuntimeException('The from data is broken, try again please');
             }

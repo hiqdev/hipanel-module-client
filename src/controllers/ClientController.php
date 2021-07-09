@@ -52,6 +52,7 @@ class ClientController extends CrudController
                 'actions' => [
                     'update' => 'client.update',
                     'delete' => 'client.delete',
+                    'delete-by-logins' => 'client.delete',
                     'create' => ['employee.create', 'client.create'],
                     'enable-block' => 'client.block',
                     'disable-block' => 'client.unblock',

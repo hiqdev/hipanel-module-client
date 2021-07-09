@@ -29,7 +29,7 @@ class DeleteClientsByLoginsModal extends Widget
                 'action' => Url::to(['@client/delete-by-logins']),
             ]);
 
-            echo $form->field($model, 'logins')->textarea()->hint(Yii::t('hipanel:client', 'Type client logins using a space, comma or on a new line'));
+            echo $form->field($model, 'logins')->textarea()->hint(Yii::t('hipanel:client', 'Type client logins, delimited with a space, comma or a new line'));
             echo Html::submitButton(Yii::t('hipanel:client', 'Delete clients'), ['class' => 'btn btn-danger btn-block']);
 
             ActiveForm::end();
