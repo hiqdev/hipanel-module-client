@@ -315,4 +315,10 @@ return [
     'Other information/Links' => 'Другая информация/Ссылки',
     'Error during password change' => 'Возникли проблемы при смене пароля',
     'Password changed' => 'Пароль изменен',
+
+    'Type client logins, delimited with a space, comma or a new line' => 'Введите логины клиента, разделяя пробелом, запятой или новой строкой',
+    '{0, plural, one{# client} few{# clients} other{# clients}} clients has been deleted' => '{0, plural, one{# клиент} few{# клиента} other{# клиентов}} было удалено',
+    'Delete by logins' => 'Массовое удаление по логину',
+    'Logins' => 'Логины клиентов',
+    'Delete clients' => 'Удалить клиентов',
 ];
