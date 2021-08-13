@@ -78,14 +78,6 @@ return [
         'singletons' => [
             \hipanel\modules\client\ClientWithCounters::class => \hipanel\modules\client\ClientWithCounters::class,
             \hipanel\modules\client\helpers\HasPINCode::class => \hipanel\modules\client\helpers\HasPINCode::class,
-            'client-referral-resource-configuration' => static fn() => \hipanel\modules\finance\helpers\ResourceConfigurator::build()
-                ->setToObjectUrl('@client/resource-detail')
-                ->setModelClassName(Client::class)
-                ->setSearchModelClassName(ClientSearch::class)
-                ->setGridClassName(ClientGridView::class)
-                ->setResourceModelClassName(ClientResource::class)
-                ->setSearchView('@vendor/hiqdev/hipanel-module-client/src/views/client/_search')
-                ->setColumns(['referral']),
         ],
     ],
 ];
