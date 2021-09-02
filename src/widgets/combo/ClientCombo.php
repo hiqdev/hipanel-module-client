@@ -46,6 +46,7 @@ class ClientCombo extends Combo
     {
         return ArrayHelper::merge(parent::getFilter(), [
             'type_in'  => ['format' => $this->clientType],
+            'hide_deleted'  => ['format' => 1],
             'limit' => ['format' => '50'],
         ]);
     }
