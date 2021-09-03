@@ -18,6 +18,7 @@ class ClientSearch extends Client
 {
     const DEBT_LABEL_CREDITOR = 'creditor';
     const DEBT_LABEL_DEBTOR = 'debtor';
+    const DEBT_LABEL_NEUTRAL = 'neutral';
 
     use SearchModelTrait {
         searchAttributes as defaultSearchAttributes;
@@ -52,6 +53,7 @@ class ClientSearch extends Client
         return [
             self::DEBT_LABEL_DEBTOR => Yii::t('hipanel:client', 'Debtor'),
             self::DEBT_LABEL_CREDITOR => Yii::t('hipanel:client', 'Creditor'),
+            self::DEBT_LABEL_NEUTRAL => Yii::t('hipanel:client', 'Neutral'),
         ];
     }
 }

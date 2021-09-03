@@ -82,14 +82,6 @@ use yii\web\View;
     ]) ?>
 </div>
 
-<div class="col-md-4 col-sm-6 col-xs-12">
-    <?= $search->field('total_balance_gt') ?>
-</div>
-
-<div class="col-md-4 col-sm-6 col-xs-12">
-    <?= $search->field('total_balance_lt') ?>
-</div>
-
 <div class="row top-buffer"></div>
 
 <div class="col-md-4 col-sm-6 col-xs-12">

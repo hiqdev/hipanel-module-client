@@ -23,7 +23,7 @@ class DebtRepresentations extends RepresentationCollection
                 'columns' => [
                     'checkbox', 'login_without_note', 'note', 'seller',
                     'sold_services',
-                    'balance',
+                    'total_balance',
                     'last_deposit',
                     'debt_depth',
                     'payment_ticket',
@@ -35,7 +35,7 @@ class DebtRepresentations extends RepresentationCollection
                 'columns' => [
                     'checkbox', 'login_without_note', 'note', 'seller',
                     'sold_services',
-                    'balance',
+                    'total_balance',
                     'last_deposit',
                     'debt_depth',
                     'payment_ticket',
