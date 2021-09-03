@@ -119,6 +119,7 @@ class ClientController extends CrudController
                     return [
                         'types' => $this->getRefs('type,client', 'hipanel:client'),
                         'states' => $this->getRefs('state,client', 'hipanel:client'),
+                        'debt_label' => ClientSearch::getDebtLabels(),
                     ];
                 },
                 'filterStorageMap' => [

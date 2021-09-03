@@ -74,38 +74,50 @@ use yii\web\View;
     <div class="col-md-4 col-sm-6 col-xs-12">
         <?= $search->field('profit_not_empty')->checkbox() ?>
     </div>
-<?php endif; ?>
+<?php endif ?>
 
-<div class="row top-buffer"></div>
-
-<div class="col-md-4 col-sm-6 col-xs-12">
-    <div class="form-group">
-        <?= Html::tag('label', Yii::t('hipanel:client', 'Registered range'), ['class' => 'control-label']); ?>
-        <?= DateRangePicker::widget([
-            'model' => $search->model,
-            'attribute' => 'create_date_ge',
-            'attribute2' => 'create_date_le',
-            'options' => [
-                'class' => 'form-control',
-            ],
-            'dateFormat' => 'yyyy-MM-dd',
+<?php if (Yii::$app->user->can('support')) : ?>
+    <div class="col-md-4 col-sm-6 col-xs-12">
+        <?= $search->field('debt_label')->widget(StaticCombo::class, [
+            'data' => $debt_label,
         ]) ?>
     </div>
-</div>
 
-<?php if ($uiModel->representation === 'profit-report'): ?>
+    <div class="row top-buffer"></div>
+
     <div class="col-md-4 col-sm-6 col-xs-12">
         <div class="form-group">
-            <?= Html::tag('label', Yii::t('hipanel:client', 'Profit period'), ['class' => 'control-label']); ?>
+            <?= Html::tag('label', Yii::t('hipanel:client', 'Registered range'), ['class' => 'control-label']); ?>
             <?= DateRangePicker::widget([
                 'model' => $search->model,
-                'attribute' => 'profit_time_from',
-                'attribute2' => 'profit_time_till',
+                'attribute' => 'create_date_ge',
+                'attribute2' => 'create_date_le',
                 'options' => [
                     'class' => 'form-control',
                 ],
-                'dateFormat' => 'yyyy-mm-dd',
+                'dateFormat' => 'yyyy-MM-dd',
             ]) ?>
         </div>
     </div>
+
+    <div class="col-md-4 col-sm-6 col-xs-12">
+        <?= $search->field('hide_internal')->checkbox() ?>
+    </div>
+
+    <?php if ($uiModel->representation === 'profit-report'): ?>
+        <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="form-group">
+                <?= Html::tag('label', Yii::t('hipanel:client', 'Profit period'), ['class' => 'control-label']); ?>
+                <?= DateRangePicker::widget([
+                    'model' => $search->model,
+                    'attribute' => 'profit_time_from',
+                    'attribute2' => 'profit_time_till',
+                    'options' => [
+                        'class' => 'form-control',
+                    ],
+                    'dateFormat' => 'yyyy-mm-dd',
+                ]) ?>
+            </div>
+        </div>
+    <?php endif ?>
 <?php endif ?>
