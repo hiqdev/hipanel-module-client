@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * Client module for HiPanel
  *
@@ -18,29 +19,28 @@ use hipanel\tests\_support\Step\Acceptance\Seller;
 
 class ClientsCest
 {
-    /**
-     * @var IndexPage
-     */
-    private $index;
-
-    public function _before(Seller $I)
-    {
-        $this->index = new IndexPage($I);
-    }
-
-    public function ensureIndexPageWorks(Seller $I)
+    public function ensureIndexPageWorks(Seller $I): void
     {
         $I->login();
         $I->needPage(Url::to('@client'));
         $I->see('Clients', 'h1');
+        $this->ensureICanSeeMainButtons($I);
         $this->ensureICanSeeAdvancedSearchBox($I);
-        $this->ensureICanSeeLegendBox();
-        $this->ensureICanSeeBulkSearchBox();
+        $this->ensureICanSeeLegendBox($I);
+        $this->ensureICanSeeBulkSearchBox($I);
     }
 
-    private function ensureICanSeeAdvancedSearchBox(Seller $I)
+    private function ensureICanSeeMainButtons(Seller $I): void
     {
-        $this->index->containsFilters([
+        $I->seeLink('Create client', Url::to('@client/create'));
+        $I->seeLink('Delete by logins');
+    }
+
+    private function ensureICanSeeAdvancedSearchBox(Seller $I): void
+    {
+        $index = new IndexPage($I);
+
+        $index->containsFilters([
             Input::asAdvancedSearch($I, 'Login or Email'),
             Input::asAdvancedSearch($I, 'Note'),
             Input::asAdvancedSearch($I, 'Name'),
@@ -52,9 +52,11 @@ class ClientsCest
         ]);
     }
 
-    private function ensureICanSeeLegendBox()
+    private function ensureICanSeeLegendBox(Seller $I): void
     {
-        $this->index->containsLegend([
+        $index = new IndexPage($I);
+
+        $index->containsLegend([
             'Partner',
             'Copy',
             'Client',
@@ -67,12 +69,14 @@ class ClientsCest
         ]);
     }
 
-    private function ensureICanSeeBulkSearchBox()
+    private function ensureICanSeeBulkSearchBox(Seller $I): void
     {
-        $this->index->containsBulkButtons([
+        $index = new IndexPage($I);
+
+        $index->containsBulkButtons([
             'Basic actions',
         ]);
-        $this->index->containsColumns([
+        $index->containsColumns([
             'Login',
             'Client',
             'Reseller',
@@ -81,7 +85,7 @@ class ClientsCest
             'Balance',
             'Credit',
         ], 'Common');
-        $this->index->containsColumns([
+        $index->containsColumns([
             'Login',
             'Client',
             'Reseller',
@@ -92,7 +96,7 @@ class ClientsCest
             'Accounts',
             'Balances',
         ], 'Servers');
-        $this->index->containsColumns([
+        $index->containsColumns([
             'Login',
             'Reseller',
             'Requisites',
