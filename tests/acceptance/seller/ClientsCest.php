@@ -21,13 +21,15 @@ class ClientsCest
 {
     public function ensureIndexPageWorks(Seller $I): void
     {
+        $index = new IndexPage($I);
+
         $I->login();
         $I->needPage(Url::to('@client'));
         $I->see('Clients', 'h1');
         $this->ensureICanSeeMainButtons($I);
-        $this->ensureICanSeeAdvancedSearchBox($I);
-        $this->ensureICanSeeLegendBox($I);
-        $this->ensureICanSeeBulkSearchBox($I);
+        $this->ensureICanSeeAdvancedSearchBox($index, $I);
+        $this->ensureICanSeeLegendBox($index);
+        $this->ensureICanSeeBulkSearchBox($index);
     }
 
     private function ensureICanSeeMainButtons(Seller $I): void
@@ -36,10 +38,8 @@ class ClientsCest
         $I->seeLink('Delete by logins');
     }
 
-    private function ensureICanSeeAdvancedSearchBox(Seller $I): void
+    private function ensureICanSeeAdvancedSearchBox(IndexPage $index, Seller $I): void
     {
-        $index = new IndexPage($I);
-
         $index->containsFilters([
             Input::asAdvancedSearch($I, 'Login or Email'),
             Input::asAdvancedSearch($I, 'Note'),
@@ -52,10 +52,8 @@ class ClientsCest
         ]);
     }
 
-    private function ensureICanSeeLegendBox(Seller $I): void
+    private function ensureICanSeeLegendBox(IndexPage $index): void
     {
-        $index = new IndexPage($I);
-
         $index->containsLegend([
             'Partner',
             'Copy',
@@ -69,10 +67,8 @@ class ClientsCest
         ]);
     }
 
-    private function ensureICanSeeBulkSearchBox(Seller $I): void
+    private function ensureICanSeeBulkSearchBox(IndexPage $index): void
     {
-        $index = new IndexPage($I);
-
         $index->containsBulkButtons([
             'Basic actions',
         ]);
