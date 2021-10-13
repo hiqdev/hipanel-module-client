@@ -92,8 +92,9 @@ class ClientController extends CrudController
                     /** @var ClientQuery $query */
                     $query = $action->getDataProvider()->query;
                     $representation = $action->controller->indexPageUiOptionsModel->representation;
+                    $query->addSelect(['contact'])->withContact();
 
-                    if (in_array($representation, ['servers'], true)) {
+                    if (in_array($representation, ['servers', 'documents'], true)) {
                         $query->addSelect(['purses'])->withPurses();
                     }
 
