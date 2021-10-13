@@ -81,6 +81,7 @@ class ChangePasswordCest
         $I->click('Save');
         $I->waitForText('incorrect');
         $I->see('The password is incorrect', $this->warningSelector);
+        $I->waitForText('must be equal');
         $I->see('Confirm password must be equal to "New password".', $this->warningSelector);
     }
 

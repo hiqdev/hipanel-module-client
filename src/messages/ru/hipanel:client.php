@@ -10,6 +10,7 @@
 
 return [
     'Referer' => 'Реферер',
+    'Partner' => 'Партнер',
     'Enable two factor authorization' => 'Включить двухфакторную авторизацию',
     'Disable two factor authorization' => 'Отключить двухфакторную авторизацию',
     'change is not confirmed' => 'изменение не подтверждено',
@@ -69,6 +70,7 @@ return [
     'Contact information' => 'Контактная информация',
     'Postal information' => 'Почтовая информация',
     'Additional information' => 'Дополнительная информация',
+    'Set additional information' => 'Изменить доп. инф.',
     'Additional contacts' => 'Дополнительные контакты',
     'Additional fields' => 'Дополнительные поля',
     'Tax information' => 'Налоговая информация',
@@ -121,6 +123,8 @@ return [
     'Allowed emails for creating tickets' => 'Разрешенные e-mail для создания тикетов',
     'Send message text' => 'Отправлять текст сообщения',
     'Social' => 'Соцсети',
+    'Profit period' => 'Период профита',
+    'Show not empty' => 'Показать не пустых',
 
     // Статусы клиентов
     'Active' => 'Активен',
@@ -256,6 +260,7 @@ return [
     'Other balances' => 'Другие балансы',
     'Requisites' => 'Реквизиты',
     'We need your permission in order to provide services' => 'Нам необходимо ваше разрешение чтобы предоставлять услуги',
+    'TOTAL on screen' => 'ИТОГО на экране',
 
     'Balances' => 'Балансы',
     'Financial settings' => 'Финансовые настройки',
@@ -283,4 +288,38 @@ return [
     'Code was sent successfully' => 'Код успешно отправлен',
 
     'Assignments' => 'Назначения',
+    'To manage the assigned tariffs of this client, enter under the seller of this client!' => 'Для управления назначенными тарифами этого клиента, войдите под селлером этого клиента!',
+    'You cannot manage more than one reseller\'s assignments, select records with the same reseller' => 'Вы не можете управлять назначениями более чем одного реселлера, выберите записи с одинаковым реселлером',
+
+    'Enable referral program' => 'Включить реферальную программу',
+    'Referrals' => 'Рефералы',
+    'Set referral tariff' => 'Установить реферальный тариф',
+    'Total' => 'Всего',
+    'This month' => 'В этом месяце',
+    'Referral tariff' => 'Реферальный тариф',
+    'Earning' => 'Заработок',
+    'Referral program' => 'Реферальная программа',
+    'Set tariff plan' => 'Установить тарифный план',
+
+    // Custom Attributes
+    'Special Conditions' => 'Специальные условия',
+    'Rent' => 'Аренда',
+    'Buyout' => 'Выкуп',
+    'Buyout by installment' => 'Выкуп в рассрочку',
+    'Support service' => 'Администрирование',
+    'IP-addresses' => 'IP-адреса',
+    'Rack' => 'Стойка',
+    'Network' => 'Сеть',
+    'vCDN' => 'vCDN',
+    'aCDN' => 'aCDN',
+    'Other information/Links' => 'Другая информация/Ссылки',
+    'Error during password change' => 'Возникли проблемы при смене пароля',
+    'Password changed' => 'Пароль изменен',
+
+    'Type client logins, delimited with a space, comma or a new line' => 'Введите логины клиента, разделяя пробелом, запятой или новой строкой',
+    '{0, plural, one{# client} few{# clients} other{# clients}} clients has been deleted' => '{0, plural, one{# клиент} few{# клиента} other{# клиентов}} было удалено',
+    'Delete by logins' => 'Массовое удаление по логину',
+    'Logins' => 'Логины клиентов',
+    'Delete clients' => 'Удалить клиентов',
+    'Hide system' => 'Скрыть системных',
 ];

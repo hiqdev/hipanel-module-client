@@ -8,16 +8,27 @@
  * @copyright Copyright (c) 2015-2019, HiQDev (http://hiqdev.com/)
  */
 
+use hipanel\modules\client\models\Client;
+use hipanel\modules\finance\models\ClientResource;
+
 return [
     'aliases' => [
         '@client' => '/client/client',
         '@contact' => '/client/contact',
         '@article' => '/client/article',
         '@client/assignments' => '/client/assignments',
+        '@client/debt' => '/debt/debt',
     ],
     'modules' => [
         'client' => [
             'class' => \hipanel\modules\client\Module::class,
+        ],
+        'language' => [
+            'on ' . \hiqdev\yii2\language\events\LanguageWasChanged::EVENT_NAME =>
+                function (\hiqdev\yii2\language\events\LanguageWasChanged $event) {
+                    $handler = Yii::$container->get(\hipanel\modules\client\event\handler\PersistUiLanguageChange::class);
+                    $handler->handle($event);
+                }
         ],
     ],
     'bootstrap' => [
@@ -29,13 +40,25 @@ return [
             'translations' => [
                 'hipanel:client' => [
                     'class' => \yii\i18n\PhpMessageSource::class,
-                    'basePath' => '@hipanel/modules/client/messages',
+                    'basePath' => dirname(__DIR__) . '/src/messages',
                 ],
             ],
         ],
     ],
     'container' => [
         'definitions' => [
+            \hipanel\modules\finance\helpers\ConsumptionConfigurator::class => [
+                'class' => \hipanel\modules\finance\helpers\ConsumptionConfigurator::class,
+                'configurations' => [
+                    'client' => [
+                        'label' => ['hipanel:finance', 'Client resources'],
+                        'columns' => ['referral'],
+                        'groups' => [],
+                        'model' => Client::class,
+                        'resourceModel' => ClientResource::class,
+                    ],
+                ]
+            ],
             \hipanel\modules\dashboard\menus\DashboardMenu::class => [
                 'add' => [
                     'client' => [
@@ -50,11 +73,12 @@ return [
             ],
             \hiqdev\thememanager\menus\AbstractSidebarMenu::class => [
                 'add' => [
-                    'client' => [
+                    'clients' => [
                         'menu' => [
                             'class' => \hipanel\modules\client\menus\SidebarMenu::class,
                         ],
                         'where' => [
+                            'before' => ['finance'],
                             'after' => ['dashboard'],
                         ],
                     ],
@@ -62,6 +86,7 @@ return [
             ],
         ],
         'singletons' => [
+            \hipanel\modules\client\ClientWithCounters::class => \hipanel\modules\client\ClientWithCounters::class,
             \hipanel\modules\client\helpers\HasPINCode::class => \hipanel\modules\client\helpers\HasPINCode::class,
         ],
     ],

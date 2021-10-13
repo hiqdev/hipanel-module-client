@@ -10,15 +10,16 @@
 
 namespace hipanel\modules\client\models;
 
+use hipanel\behaviors\CustomAttributes;
+use hipanel\modules\stock\helpers\ProfitColumns;
 use yii\helpers\ArrayHelper;
 use hipanel\helpers\StringHelper;
 use hipanel\modules\client\models\query\ClientQuery;
 use hipanel\modules\domain\models\Domain;
-use hipanel\modules\finance\models\Plan;
 use hipanel\modules\finance\models\Purse;
 use hipanel\modules\server\models\Server;
+use hipanel\modules\finance\models\Target;
 use hipanel\validators\DomainValidator;
-use hiqdev\hiart\ActiveQuery;
 use Yii;
 
 /**
@@ -30,6 +31,7 @@ use Yii;
  * @property-read string $balance
  * @property-read string $credit
  * @property-read string $currency
+ * @property-read ClientWithProfit[] $profit
  * @property-read Assignment[] $assignments
  */
 class Client extends \hipanel\base\Model
@@ -44,23 +46,32 @@ class Client extends \hipanel\base\Model
     public const TYPE_OWNER = 'owner';
     public const TYPE_EMPLOYEE = 'employee';
     public const TYPE_SUPPORT = 'support';
+    public const TYPE_PARTNER = 'partner';
 
     public const STATE_OK = 'ok';
     public const STATE_DELETED = 'deleted';
     public const STATE_WIPED = 'wiped';
     public const STATE_BLOCKED = 'blocked';
 
+    public function behaviors()
+    {
+        return array_merge(parent::behaviors(), [
+            'as customAttributes' => CustomAttributes::class,
+        ]);
+    }
+
     public function rules()
     {
         return [
             [['id', 'seller_id', 'state_id', 'type_id', 'tariff_id', 'profile_id', 'payment_ticket_id', 'referer_id'], 'integer'],
             [['hipanel_forced'], 'boolean', 'trueValue' => 1],
-            [['login', 'seller', 'state', 'type', 'tariff', 'profile', 'referer'], 'safe'],
-            [['state_label', 'type_label'], 'safe'],
+            [['login', 'seller', 'state', 'type', 'tariff', 'profile', 'referer'], 'string'],
+            [['state_label', 'type_label', 'referral', 'roles', 'debt_label'], 'safe'],
 
             [['profile_ids', 'tariff_ids', 'ids'], 'safe', 'on' => ['update', 'set-tariffs']],
             [['ids'], 'required', 'on' => ['set-tariffs']],
             [['id'], 'required', 'on' => ['update']],
+            [['custom_attributes'], 'safe', 'on' => ['update']],
 
             [['balance', 'credit', 'full_balance'], 'number'],
             [['count', 'confirm_url', 'language', 'comment', 'name', 'currency'], 'safe'],
@@ -75,7 +86,9 @@ class Client extends \hipanel\base\Model
             [['id', 'language'], 'required', 'on' => 'set-language'],
             [['id', 'seller_id'], 'required', 'on' => 'set-seller'],
 
-            [['password', 'login', 'email'], 'required', 'on' => ['create']],
+            [['id', 'tariff_ids'], 'required', 'on' => 'set-referral-tariff'],
+
+            [['password', 'email'], 'required', 'on' => ['create']],
             [['type'], 'default', 'value' => self::TYPE_CLIENT, 'on' => ['create', 'update']],
             [['type'], 'in', 'range' => array_keys(self::getTypeOptions()), 'on' => ['create', 'update']],
             [['email'], 'email', 'on' => ['create', 'update']],
@@ -125,7 +138,9 @@ class Client extends \hipanel\base\Model
                 },
                 'on' => 'domain-settings',
             ],
+
             [['nss'], 'each', 'rule' => [DomainValidator::class, 'enableIdn' => true], 'on' => 'domain-settings'],
+
             [['autorenewal'], 'boolean', 'on' => 'domain-settings'],
             [['registrant', 'admin', 'tech', 'billing'], 'safe', 'on' => 'domain-settings'],
 
@@ -168,7 +183,7 @@ class Client extends \hipanel\base\Model
             [
                 ['old_password'],
                 function ($attribute, $params) {
-                    $response = $this->perform('CheckPassword', [
+                    $response = $this->perform('check-password', [
                         'password' => $this->{$attribute},
                         'login' => $this->login,
                     ]);
@@ -236,6 +251,8 @@ class Client extends \hipanel\base\Model
             ],
 
             [['is_verified'], 'boolean', 'on' => ['set-verified']],
+
+            [['currencies'], 'safe', 'on' => ['create', 'update']],
         ];
     }
 
@@ -271,6 +288,7 @@ class Client extends \hipanel\base\Model
             'confirm_password' => Yii::t('hipanel', 'Confirm password'),
 
             'is_verified' => Yii::t('hipanel:client', 'Is verified'),
+            'custom_attributes' => Yii::t('hipanel:client', 'Additional information'),
 
             // Mailing/Notification settings
             'notify_important_actions' => Yii::t('hipanel:client', 'Notify important actions'),
@@ -313,6 +331,15 @@ class Client extends \hipanel\base\Model
         ]);
     }
 
+    public function getProfit()
+    {
+        if (!class_exists(ProfitColumns::class)) {
+            return null;
+        }
+
+        return $this->hasMany(ClientWithProfit::class, ['id' => 'id'])->indexBy('currency');
+    }
+
     public function getTicketSettings()
     {
         return $this->hasOne(ClientTicketSettings::class, ['id', 'id']);
@@ -339,6 +366,15 @@ class Client extends \hipanel\base\Model
         }
 
         return $this->hasMany(Server::class, ['client_id' => 'id']);
+    }
+
+    public function getTargets()
+    {
+        if (!Yii::getAlias('@target', false)) {
+            return null;
+        }
+
+        return $this->hasMany(Target::class, ['client_id' => 'id']);
     }
 
     public function getAssignments()
@@ -415,6 +451,11 @@ class Client extends \hipanel\base\Model
         return !$this->isDeleted() && Yii::$app->user->not($this->id) && Yii::$app->user->can('client.delete');
     }
 
+    public function hasReferralTariff(): bool
+    {
+        return $this->referral && $this->referral['tariff_id'];
+    }
+
     public function canBeRestored()
     {
         return $this->isDeleted() && Yii::$app->user->can('client.restore');
@@ -465,6 +506,7 @@ class Client extends \hipanel\base\Model
             self::TYPE_JUNIOR_MANAGER => Yii::t('hipanel:client', 'Junior manager'),
             self::TYPE_ADMIN => Yii::t('hipanel:client', 'Administrator'),
             self::TYPE_SUPPORT => Yii::t('hipanel:client', 'Support'),
+            self::TYPE_PARTNER => Yii::t('hipanel:client', 'Partner'),
         ];
 
         if (Yii::$app->user->can('employee.read')) {
@@ -516,5 +558,27 @@ class Client extends \hipanel\base\Model
         }
 
         return null;
+    }
+
+    public function notMyself(): bool
+    {
+        return (string)$this->id !== (string)Yii::$app->user->identity->id;
+    }
+
+    public function getCustomAttributesList()
+    {
+        return [
+            'special_conditions' => Yii::t('hipanel:client', 'Special Conditions'),
+            'rent' => Yii::t('hipanel:client', 'Rent'),
+            'buyout' => Yii::t('hipanel:client', 'Buyout'),
+            'buyout_by_installment' => Yii::t('hipanel:client', 'Buyout by installment'),
+            'support_service' => Yii::t('hipanel:client', 'Support service'),
+            'ip_addresses' => Yii::t('hipanel:client', 'IP-addresses'),
+            'rack' => Yii::t('hipanel:client', 'Rack'),
+            'network' => Yii::t('hipanel:client', 'Network'),
+            'vcdn' => Yii::t('hipanel:client', 'vCDN'),
+            'acdn' => Yii::t('hipanel:client', 'aCDN'),
+            'other_information_links' => Yii::t('hipanel:client', 'Other information/Links'),
+        ];
     }
 }

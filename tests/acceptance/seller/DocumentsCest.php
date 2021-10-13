@@ -41,11 +41,14 @@ class DocumentsCest
     private function ensureICanSeeAdvancedSearchBox(Seller $I)
     {
         $this->index->containsFilters([
+            Input::asAdvancedSearch($I, 'Number'),
             Input::asAdvancedSearch($I, 'Title'),
             Select2::asAdvancedSearch($I, 'Type'),
             Select2::asAdvancedSearch($I, 'State'),
             Select2::asAdvancedSearch($I, 'Client'),
             Select2::asAdvancedSearch($I, 'Reseller'),
+            Select2::asAdvancedSearch($I, 'Sender'),
+            Select2::asAdvancedSearch($I, 'Receiver'),
         ]);
     }
 
@@ -54,10 +57,12 @@ class DocumentsCest
         $this->index->containsColumns([
             'Reseller',
             'Client',
+            'Number',
             'Title',
             'Statuses',
+            'Sender',
+            'Receiver',
             'Related object',
-            'Create time',
         ]);
     }
 }

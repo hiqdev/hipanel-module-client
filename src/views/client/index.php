@@ -9,15 +9,32 @@
  * @copyright Copyright (c) 2014-2015, HiQDev (https://hiqdev.com/)
  */
 
+use hipanel\models\IndexPageUiOptions;
 use hipanel\modules\client\grid\ClientGridLegend;
 use hipanel\modules\client\grid\ClientGridView;
+use hipanel\modules\client\grid\ClientRepresentations;
+use hipanel\modules\client\models\ClientSearch;
+use hipanel\modules\client\widgets\DeleteClientsByLoginsModal;
+use hipanel\modules\stock\helpers\ProfitColumns;
 use hipanel\widgets\AjaxModal;
 use hipanel\widgets\gridLegend\GridLegend;
 use hipanel\widgets\IndexPage;
 use hipanel\widgets\Pjax;
 use hiqdev\assets\flagiconcss\FlagIconCssAsset;
 use yii\bootstrap\Dropdown;
+use yii\data\ActiveDataProvider;
 use yii\helpers\Html;
+use yii\web\View;
+
+/**
+ * @var View $this
+ * @var ClientRepresentations $representationCollection
+ * @var ActiveDataProvider $dataProvider
+ * @var IndexPageUiOptions $uiModel
+ * @var ClientSearch $model
+ * @var array $types
+ * @var array $states
+ */
 
 FlagIconCssAsset::register($this);
 
@@ -25,16 +42,21 @@ $this->title = Yii::t('hipanel', 'Clients');
 $this->params['subtitle'] = array_filter(Yii::$app->request->get($model->formName(), [])) ? Yii::t('hipanel', 'filtered list') : Yii::t('hipanel', 'full list');
 $this->params['breadcrumbs'][] = $this->title;
 
+$showFooter = ($uiModel->representation === 'profit-report')
+    && (Yii::$app->user->can('order.read-profits'))
+    && (class_exists(ProfitColumns::class));
+
 ?>
 
 <?php Pjax::begin(array_merge(Yii::$app->params['pjax'], ['enablePushState' => true])) ?>
 <?php $page = IndexPage::begin(compact('model', 'dataProvider')) ?>
 
-    <?= $page->setSearchFormData(compact(['types', 'states', 'uiModel', 'sold_services'])) ?>
+    <?= $page->setSearchFormData(@compact(['types', 'states', 'uiModel', 'sold_services', 'debt_label'])) ?>
 
     <?php if (Yii::$app->user->can('client.create') || Yii::$app->user->can('employee.create')) : ?>
         <?php $page->beginContent('main-actions') ?>
             <?= Html::a(Yii::t('hipanel:client', 'Create client'), ['@client/create'], ['class' => 'btn btn-sm btn-success']) ?>
+            <?= DeleteClientsByLoginsModal::widget() ?>
         <?php $page->endContent() ?>
     <?php endif ?>
 
@@ -146,6 +168,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
                 'dataProvider' => $dataProvider,
                 'filterModel'  => $model,
+                'showFooter' => $showFooter,
                 'columns' => $representationCollection->getByName($uiModel->representation)->getColumns(),
             ]) ?>
         <?php $page->endBulkForm() ?>

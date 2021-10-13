@@ -29,10 +29,10 @@ use hipanel\modules\client\logic\EmailConfirmer;
 use hipanel\modules\client\logic\PhoneConfirmationException;
 use hipanel\modules\client\logic\PhoneConfirmer;
 use hipanel\modules\client\models\Contact;
-use hipanel\modules\client\models\DocumentUploadForm;
 use hipanel\modules\client\models\query\ContactQuery;
 use hipanel\modules\client\models\Verification;
 use hipanel\modules\client\repositories\NotifyTriesRepository;
+use hipanel\modules\document\models\Document;
 use Yii;
 use yii\base\Event;
 use yii\filters\VerbFilter;
@@ -117,6 +117,10 @@ class ContactController extends CrudController
             'validate-form' => [
                 'class' => ValidateFormAction::class,
             ],
+            'validate-single-form' => [
+                'class' => ValidateFormAction::class,
+                'validatedInputId' => false,
+            ],
             'create' => [
                 'class' => ContactCreateAction::class,
             ],
@@ -172,16 +176,31 @@ class ContactController extends CrudController
             throw new NotFoundHttpException();
         }
 
-        $model = new DocumentUploadForm(['id' => $contact->id]);
+        $model = new Document([
+            'client_id' => $contact->client_id,
+            'client' => $contact->client,
+            'sender_id' => $contact->id,
+            'object_id' => $contact->id,
+            'scenario' => 'create',
+        ]);
+
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             $session = Yii::$app->session;
-            if ($model->save()) {
+            try {
+                if (!$model->save()) {
+                    throw new \RuntimeException(Yii::t('hipanel:client', 'Document could not be saved'));
+                }
+                Contact::perform('attach-document', array_merge($model->getAttributes(), [
+                    'id' => $contact->id,
+                    'file_id' => $model->file->id,
+                ]));
+
                 $session->addFlash('success', Yii::t('hipanel:client', 'Documents were saved'));
 
                 return $this->redirect(['attach-documents', 'id' => $id]);
+            } catch (\Throwable $e) {
+                $session->addFlash('error', $e->getMessage());
             }
-
-            $session->addFlash('error', $model->getFirstError('title'));
         }
 
         return $this->render('attach-documents', [
@@ -302,16 +321,17 @@ class ContactController extends CrudController
         }
 
         $model = new EmployeeForm($contact, 'update');
-
-        if (Yii::$app->request->isPost && $model->load(Yii::$app->request->post()) && $model->validate()) {
+        $validationResult = $model->validate();
+        if (Yii::$app->request->isPost && $validationResult === true && $model->load(Yii::$app->request->post())) {
             $saveResult = $model->save();
             if ($saveResult === true) {
                 Yii::$app->session->addFlash('success', Yii::t('hipanel:client', 'Employee contact was save successfully'));
 
                 return $this->redirect(['@client/view', 'id' => $model->getId()]);
             }
-
             Yii::$app->session->addFlash('error', $saveResult);
+        } else {
+            Yii::$app->session->addFlash('error', $validationResult);
         }
 
         return $this->render('update-employee', [
@@ -320,5 +340,21 @@ class ContactController extends CrudController
             'askPincode' => $this->hasPINCode->__invoke(),
             'countries' => $this->getRefs('country_code'),
         ]);
+    }
+
+    public function actionShortView($id)
+    {
+        $contact = Contact::find()
+            ->where(['id' => $id])
+            ->one();
+
+        if ($contact === null) {
+            throw new NotFoundHttpException('Contact was not found');
+        }
+
+        return Yii::$app->request->isAjax
+            ? $this->renderPartial('short-view', ['model' => $contact])
+            : $this->render('short-view', ['model' => $contact])
+        ;
     }
 }

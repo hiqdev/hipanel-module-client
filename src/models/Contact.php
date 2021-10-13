@@ -13,7 +13,9 @@ namespace hipanel\modules\client\models;
 use borales\extensions\phoneInput\PhoneInputValidator;
 use hipanel\modules\client\models\query\ContactQuery;
 use hipanel\modules\document\models\Document;
+use hipanel\modules\client\validators\ZipValidator;
 use Yii;
+use yii\helpers\Html;
 
 /**
  * Class Contact.
@@ -51,18 +53,22 @@ class Contact extends \hipanel\base\Model
             [['id', 'obj_id', 'client_id', 'seller_id'], 'integer'],
             [['type_id', 'state_id'], 'integer'],
             [['client_name', 'client_type'], 'safe'],
-            [['create_time', 'update_time', 'created_date', 'updated_date'], 'date'],
+            [['create_time', 'update_time', 'created_date', 'updated_date'], 'datetime', 'format' => 'php:Y-m-d H:i:s'],
             [['client', 'seller', 'state', 'type'], 'safe'],
             [['email', 'abuse_email', 'email_new'], 'email'],
             [['emails'], 'trim'],
             [['country', 'country_name', 'province', 'province_name'], 'safe'],
             [['postal_code'], 'safe'],
             [['city', 'street1', 'street2', 'street3', 'address'], 'safe'],
+            [['city', 'street1', 'street2', 'street3', 'address'], 'trim'],
             [['street1', 'street2', 'street3'], 'string', 'max' => 60],
             [['voice_phone', 'fax_phone'], 'safe'],
             [['icq', 'skype', 'jabber', 'viber', 'telegram', 'whatsapp', 'social_net'], 'safe'],
+            [['icq', 'skype', 'jabber', 'viber', 'telegram', 'whatsapp', 'social_net'], 'trim'],
             [['roid', 'epp_id', 'remoteid', 'other_messenger'], 'safe'],
+            [['roid', 'epp_id', 'remoteid', 'other_messenger'], 'trim'],
             [['name', 'first_name', 'last_name'], 'string'],
+            [['name', 'first_name', 'last_name'], 'trim'],
             [['birth_date', 'passport_date'], 'safe'],
             [['passport_no', 'passport_by', 'organization', 'password', 'xxx_token'], 'safe'],
             [['localization'], 'safe'],
@@ -70,6 +76,7 @@ class Contact extends \hipanel\base\Model
 
             [['reg_data', 'vat_number', 'tax_comment', 'bank_details'], 'trim'],
             [['bank_account', 'bank_name', 'bank_address', 'bank_swift'], 'trim'],
+            [['bank_correspondent', 'bank_correspondent_swift'], 'trim'],
             [['vat_number', 'tax_comment'], 'string'],
             [['vat_rate'], 'number', 'max' => 99],
 
@@ -82,6 +89,7 @@ class Contact extends \hipanel\base\Model
                 'message' => Yii::t('hipanel:client', 'This field must contains phone number in international format.'),
             ],
             [['voice_phone', 'fax_phone'], PhoneInputValidator::class],
+            [['postal_code'], ZipValidator::class, 'on' => ['create', 'update']],
 
             Yii::$app->user->can('manage') ? null : [
                 [
@@ -94,10 +102,14 @@ class Contact extends \hipanel\base\Model
                     'postal_code',
                     'voice_phone',
                 ],
-                'required', 'on' => ['create', 'create-require-passport', 'update', 'update-require-passport'],
+                'required',
+                'on' => [
+                    'create', 'create-require-passport', 'create-require-organization', 'create-ru-contact',
+                    'update', 'update-require-passport', 'update-require-organization', 'update-ru-contact'
+                ],
             ],
 
-            [['pincode', 'oldEmail'], 'safe', 'on' => ['update', 'update-require-passport']],
+            [['pincode', 'oldEmail'], 'safe', 'on' => ['update', 'update-require-passport', 'update-require-organization', 'update-ru-contact']],
 
             [['isresident', 'is_requisite'], 'boolean', 'trueValue' => true, 'falseValue' => false],
             [['birth_date', 'passport_date'], 'safe', 'on' => ['update', 'create', 'create-require-passport', 'update-require-passport']],
@@ -118,11 +130,72 @@ class Contact extends \hipanel\base\Model
             [
                 [
                     // Для регистрации доменов в зоне RU в качестве физического лица
+                    'passport_no',
+                    'passport_by',
+
+                    // Для регистрации доменов в зоне RU в качестве юридического лица
+                    'organization_ru',
+                    'director_name',
+                    'inn',
+                    'kpp',
+                ],
+                'trim',
+            ],
+            [
+                [
+                    // Для регистрации доменов в зоне RU в качестве физического лица
                     'passport_no', 'passport_by',
                     'birth_date', 'passport_date',
                 ],
                 'required',
                 'on' => ['create-require-passport', 'update-require-passport'],
+            ],
+            [
+                [
+                    'organization_ru',
+                    'director_name',
+                    'inn',
+                    'kpp',
+                ],
+                'required',
+                'on' => ['create-require-organization', 'update-require-organization'],
+            ],
+            [
+                [
+                    'passport_no', 'passport_by',
+                    'birth_date', 'passport_date',
+                ],
+                'required',
+                'on' => ['create-ru-contact', 'update-ru-contact'],
+                'when' => function($model) {
+                    return empty($model->organization);
+                },
+                'whenClient' => "function (attribute, value) {
+                    if (!$('#contact-organization').val()) {
+                        return true;
+                    }
+
+                    return false;
+                }",
+            ],
+            [
+                [
+                    'organization_ru',
+                    'director_name',
+                    'inn',
+                    'kpp',
+                ],
+                'required',
+                'on' => ['create-ru-contact', 'update-ru-contact'],
+                'when' => function($model) {
+                    return !empty($model->organization);
+                },
+                'whenClient' => "function (attribute, value) {
+                    if (!$('#contact-organization').val()) {
+                        return false;
+                    }
+                    return true;
+                }",
             ],
             [
                 [
@@ -191,6 +264,8 @@ class Contact extends \hipanel\base\Model
             'bank_name'         => Yii::t('hipanel:client', 'Bank name'),
             'bank_address'      => Yii::t('hipanel:client', 'Bank address'),
             'bank_swift'        => Yii::t('hipanel:client', 'SWIFT code'),
+            'bank_correspondent'=> Yii::t('hipanel:client', 'Correspondent bank'),
+            'bank_correspondent_swift'=> Yii::t('hipanel:client', 'Correspondent bank SWIFT code'),
             'localization'      => Yii::t('hipanel:client', 'Localization'),
             'xxx_token'         => Yii::t('hipanel:client', 'XXX Token'),
             'policy_consent'    => Yii::t('hipanel:client', 'Privacy policy agreement'),
@@ -251,7 +326,7 @@ class Contact extends \hipanel\base\Model
         ];
         foreach ($messengers as $k => $label) {
             if ($this->{$k}) {
-                $res[] = "<b>$label:</b>&nbsp;" . $this->{$k};
+                $res[] = "<b>$label:</b>&nbsp;" . Html::encode($this->{$k});
             }
         }
 
@@ -276,6 +351,8 @@ class Contact extends \hipanel\base\Model
             $this->renderBankName($this->bank_name),
             $this->renderBankAddress($this->bank_address),
             $this->renderBankSwift($this->bank_swift),
+            $this->renderCorrespondentBank($this->bank_correspondent),
+            $this->renderCorrespondentBankSwift($this->bank_correspondent_swift),
         ]));
     }
 
@@ -301,6 +378,16 @@ class Contact extends \hipanel\base\Model
     public function renderBankSwift($swift)
     {
         return $swift ? 'SWIFT code: ' . $swift : null;
+    }
+
+    public function renderCorrespondentBank(string $name = null): ?string
+    {
+        return $name ? 'Correspondent bank: ' . $name : null;
+    }
+
+    public function renderCorrespondentBankSwift(string $swift = null): ?string
+    {
+        return $swift ? 'Correspondent bank SWIFT: ' . $swift : null;
     }
 
     /**

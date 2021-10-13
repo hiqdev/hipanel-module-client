@@ -187,7 +187,7 @@ class EmployeeForm
     /**
      * Saves all model of the form.
      *
-     * @return bool
+     * @return string|bool
      */
     public function save()
     {

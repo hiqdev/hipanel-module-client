@@ -16,6 +16,10 @@ use Yii;
 
 class ClientSearch extends Client
 {
+    const DEBT_LABEL_CREDITOR = 'creditor';
+    const DEBT_LABEL_DEBTOR = 'debtor';
+    const DEBT_LABEL_NEUTRAL = 'neutral';
+
     use SearchModelTrait {
         searchAttributes as defaultSearchAttributes;
     }
@@ -23,8 +27,13 @@ class ClientSearch extends Client
     public function searchAttributes()
     {
         return ArrayHelper::merge($this->defaultSearchAttributes(), [
-            'created_from', 'created_till',
+            'created_from', 'created_till', 'hide_deleted',
             'types', 'states', 'login_email_like',
+            'profit_time_from', 'profit_time_till',
+            'profit_not_empty', 'hide_internal',
+            'debt_type',
+            'total_balance_gt', 'total_balance_lt', 'total_balance',
+            'balance_gt', 'balance_lt',
         ]);
     }
 
@@ -32,6 +41,19 @@ class ClientSearch extends Client
     {
         return array_merge(parent::attributeLabels(), [
             'login_email_like' => Yii::t('hipanel:client', 'Login or Email'),
+            'profit_not_empty' => Yii::t('hipanel:client', 'Show not empty'),
+            'client_id' => Yii::t('hipanel:client', 'Client'),
+            'hide_internal' => Yii::t('hipanel:client', 'Hide system'),
+            'debt_type' => Yii::t('hipanel:client', 'Financial type'),
         ]);
+    }
+
+    public static function getDebtLabels(): array
+    {
+        return [
+            self::DEBT_LABEL_DEBTOR => Yii::t('hipanel:client', 'Debtor'),
+            self::DEBT_LABEL_CREDITOR => Yii::t('hipanel:client', 'Creditor'),
+            self::DEBT_LABEL_NEUTRAL => Yii::t('hipanel:client', 'Neutral'),
+        ];
     }
 }

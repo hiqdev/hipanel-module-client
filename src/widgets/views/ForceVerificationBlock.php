@@ -8,7 +8,7 @@ use hipanel\widgets\Box;
  * @var \hipanel\modules\client\widgets\verification\ForceVerificationWidgetInterface[] $widgets
  */
 ?>
-<?php $box = Box::begin(['renderBody' => false]) ?>
+<?php $box = Box::begin(['renderBody' => false, 'bodyOptions' => ['class' => 'no-padding']]) ?>
     <?php $box->beginHeader() ?>
         <?= $box->renderTitle($title) ?>
     <?php $box->endHeader() ?>

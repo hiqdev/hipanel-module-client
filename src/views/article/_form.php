@@ -10,7 +10,7 @@
  */
 
 use hipanel\models\Ref;
-use hipanel\widgets\DatePicker;
+use hipanel\widgets\DateTimePicker;
 use hipanel\widgets\SwitchInput;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\ArrayHelper;
@@ -26,7 +26,7 @@ $modelReflacion = new \ReflectionClass(get_class($model));
     <?= $form->field($model, 'is_published')->widget(SwitchInput::class) ?>
 
     <?= $form->field($model, 'name') ?>
-    <?= $form->field($model, 'post_date')->widget(DatePicker::class, [
+    <?= $form->field($model, 'post_date')->widget(DateTimePicker::class, [
         'value' => date('d-M-Y', strtotime('+2 days')),
     ]) ?>
 

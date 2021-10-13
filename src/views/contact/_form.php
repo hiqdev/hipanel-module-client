@@ -4,7 +4,7 @@ use borales\extensions\phoneInput\PhoneInput;
 use hipanel\modules\client\widgets\combo\ClientCombo;
 use hipanel\widgets\BackButton;
 use hipanel\widgets\Box;
-use hipanel\widgets\DatePicker;
+use hipanel\widgets\DateTimePicker;
 use hiqdev\combo\StaticCombo;
 use yii\helpers\Html;
 use yii\web\View;
@@ -90,36 +90,41 @@ use yii\web\View;
 
     <div class="col-md-6">
         <?php Box::begin([
-            'collapsed' => !in_array($model->scenario, ['create-require-passport', 'update-require-passport'], true)
+            'collapsed' => !in_array($model->scenario, ['create-require-passport', 'update-require-passport', 'create-ru-contact', 'update-ru-contact'], true)
                 && empty($model->birth_date) && empty($model->passport_no)
-                && empty($model->passport_date) && empty($model->passport_by),
+                && empty($model->passport_date) && empty($model->passport_by)
+                && empty($model->organization),
+            'collapsable' => true,
             'title' => Yii::t('hipanel:client', 'Passport data'),
+            'options' => [
+                'id' => 'passport-data-box',
+            ],
         ]) ?>
         <fieldset id="fiz_domain">
-            <?= $form->field($model, 'birth_date')->widget(DatePicker::class, [
-                'removeButton' => false,
-                'pluginOptions' => [
+            <?= $form->field($model, 'birth_date')->widget(DateTimePicker::class, [
+                'clientOptions' => [
                     'format' => 'yyyy-mm-dd', // TODO: get format from user settings
                     'autoclose' => true,
                     'clearBtn' => true,
+                    'minView' => 2,
                 ],
                 'options' => [
                     'readonly' => 'readonly',
-                    'class' => 'datepicker',
+                    'class' => 'DateTimePicker',
                     'placeholder' => Yii::t('hipanel', 'Select date'),
                 ],
             ]); ?>
             <?= $form->field($model, 'passport_no'); ?>
-            <?= $form->field($model, 'passport_date')->widget(DatePicker::class, [
-                'removeButton' => false,
-                'pluginOptions' => [
+            <?= $form->field($model, 'passport_date')->widget(DateTimePicker::class, [
+                'clientOptions' => [
                     'format' => 'yyyy-mm-dd',  // TODO: get format from user settings
                     'autoclose' => true,
                     'clearBtn' => true,
+                    'minView' => 2,
                 ],
                 'options' => [
                     'readonly' => 'readonly',
-                    'class' => 'datepicker',
+                    'class' => 'DateTimePicker',
                     'placeholder' => Yii::t('hipanel', 'Select date'),
                 ],
             ]); ?>
@@ -130,8 +135,14 @@ use yii\web\View;
 
     <div class="col-md-6">
         <?php Box::begin([
-            'collapsed' => true,
+            'collapsed' => !in_array($model->scenario, ['create-require-organization', 'update-require-organization', 'create-ru-contact', 'update-ru-contact'], true)
+                && empty($model->organization_ru) && empty($model->director_name) && empty($model->organization)
+                && empty($model->kpp) && empty($model->inn),
+            'collapsable' => true,
             'title' => Yii::t('hipanel:client', 'Legal entity information'),
+            'options' => [
+                'id' => 'legal-entity-box',
+            ],
         ]) ?>
         <fieldset id="jur_domain">
             <?= $form->field($model, 'organization_ru'); ?>
@@ -165,6 +176,8 @@ use yii\web\View;
             <?= $form->field($model, 'bank_name') ?>
             <?= $form->field($model, 'bank_address') ?>
             <?= $form->field($model, 'bank_swift') ?>
+            <?= $form->field($model, 'bank_correspondent') ?>
+            <?= $form->field($model, 'bank_correspondent_swift') ?>
         </fieldset>
         <?php Box::end() ?>
     </div>
@@ -185,38 +198,39 @@ use yii\web\View;
 <?php
 
 $this->registerJs(<<<JS
-jQuery('#fiz_domain input').change(function() {
-    var disable = false;
-    jQuery('#fiz_domain input').each(function(i, e) {
-        var elem = jQuery(e);
-        if (elem.prop('type') == 'text' && elem.val() != '') {
-            disable = true;
+
+jQuery('#contact-organization').on('change', function() {
+    var triggerInput = function(selector, disable) {
+        jQuery(selector + ' input').each(function(i, e) {
+            if (disable == true) {
+                jQuery(this).prop('disabled', 'disabled');
+            } else {
+                jQuery(this).prop('disabled', false);
+            }
+        });
+
+        if (disable == true) {
+            jQuery(selector).prop('disabled', disable);
+        } else {
+            jQuery(selector).prop('disabled', false);
         }
-    });
-    jQuery('#jur_domain').prop('disabled', disable);
+    }
+
+    if (!jQuery(this).val()) {
+        jQuery('#passport-data-box').removeClass('collapsed-box');
+        jQuery('#legal-entity-box').addClass('collapsed-box');
+        triggerInput('#fiz_domain', false);
+        triggerInput('#jur_domain', true);
+        return false;
+    }
+
+    jQuery('#passport-data-box').addClass('collapsed-box');
+    jQuery('#legal-entity-box').removeClass('collapsed-box');
+    triggerInput('#fiz_domain', true);
+    triggerInput('#jur_domain', false);
 });
 
-jQuery('#jur_domain input').change(function() {
-    var disable = false;
-    jQuery('#jur_domain input').each(function(i, e) {
-        var elem = jQuery(e);
-        if ((elem.prop('type') == 'checkbox' && elem.is(':checked')) || (elem.prop('type') == 'text' && elem.val() != '')) {
-            disable = true;
-        }
-    });
-    jQuery('#contact-passport_date, #contact-birth_date').each(function(i, e) {
-        var elem = jQuery(e);
-        var opts = elem.data('krajee-datepicker');
-        if (disable) {
-            elem.parent().kvDatepicker('remove');
-            elem.parent().addClass('disabled');
-        } else {
-            elem.parent().kvDatepicker(opts);
-            elem.parent().removeClass('disabled');
-        }
-    });
-    jQuery('#fiz_domain').prop('disabled', disable);
-});
+jQuery('#contact-organization').trigger('change');
 JS
     , View::POS_READY);
 ?>

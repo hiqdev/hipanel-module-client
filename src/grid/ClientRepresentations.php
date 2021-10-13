@@ -10,6 +10,8 @@
 
 namespace hipanel\modules\client\grid;
 
+use hipanel\modules\client\helpers\ClientProfitColumns;
+use hipanel\modules\stock\helpers\ProfitColumns;
 use hiqdev\higrid\representations\RepresentationCollection;
 use Yii;
 
@@ -25,6 +27,7 @@ class ClientRepresentations extends RepresentationCollection
                     'checkbox',
                     'login',
                     'name_language',
+                    'description',
                     $user->can('client.read') ? 'seller_id' : null,
                     $user->can('client.read') ? 'type' : null,
                     'state',
@@ -32,7 +35,8 @@ class ClientRepresentations extends RepresentationCollection
                     $user->can('bill.read') ? 'credit' : null,
                 ]),
             ],
-            'servers' => $user->can('support') ? [
+            'servers' =>  [
+                'visible' => $user->can('support'),
                 'label' => Yii::t('hipanel:client', 'Servers'),
                 'columns' => [
                     'checkbox',
@@ -44,15 +48,36 @@ class ClientRepresentations extends RepresentationCollection
                     'accounts_count',
                     'balances',
                 ],
-            ] : null,
-            'documents' => $user->can('support')  && $user->can('document.read') ? [
+            ],
+            'documents' => [
+                'visible' => $user->can('support') && $user->can('document.read'),
                 'label' => Yii::t('hipanel:client', 'Documents'),
                 'columns' => [
                     'checkbox', 'login',
                     'seller', 'requisites',
                     'language',
                 ],
+            ],
+            'profit-report' => class_exists(ProfitColumns::class) ? [
+                'visible' => Yii::$app->user->can('order.read-profits'),
+                'label' => Yii::t('hipanel', 'profit report'),
+                'columns' => ClientProfitColumns::getColumnNames(['login']),
             ] : null,
+            'referral' => [
+                'visible' => Yii::$app->user->can('manage'),
+                'label' => Yii::t('hipanel', 'Referral'),
+                'columns' => array_filter([
+                    'checkbox',
+                    'login_without_note',
+                    'seller_id',
+                    'referer_id',
+                    'referrals',
+                    'earnings',
+                    'referral_tariff',
+                    'state',
+                    'balance',
+                ]),
+            ],
         ]);
     }
 }

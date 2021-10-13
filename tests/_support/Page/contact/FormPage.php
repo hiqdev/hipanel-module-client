@@ -11,6 +11,7 @@ namespace hipanel\modules\client\tests\_support\Page\contact;
 
 use Codeception\Example;
 use hipanel\tests\_support\Page\Authenticated;
+use hipanel\tests\_support\Page\Widget\Input\CheckBox;
 use hipanel\tests\_support\Page\Widget\Input\Input;
 use hipanel\tests\_support\Page\Widget\Input\Select2;
 
@@ -24,12 +25,10 @@ class FormPage extends Authenticated
     {
         $I = $this->tester;
 
-        if (isset($values['phoneCountryCode'])) {
-            $this->choosePhoneCountry($values['phoneCountryCode']);
-        }
-
-        foreach ($values['inputs'] as $type => $value) {
-            (new Input($I, "input[id$=$type]"))->setValue($value);
+        if (!empty($values['inputs'])) {
+            foreach ($values['inputs'] as $type => $value) {
+                (new Input($I, "input[id$=$type]"))->setValue($value);
+            }
         }
 
         if (isset($values['selects']['client'])) {
@@ -42,6 +41,16 @@ class FormPage extends Authenticated
                 ->setValue($values['selects']['country']);
         }
 
+        if (!empty($values['checkboxes'])) {
+            foreach ($values['checkboxes'] as $type => $value) {
+                (new CheckBox($I, "input[id$=$type]"))
+                    ->setValue($value);
+            }
+        }
+
+        if (isset($values['phoneCountryCode'])) {
+            $this->choosePhoneCountry($values['phoneCountryCode']);
+        }
     }
 
     public function seeErrorInAddress(): void
@@ -57,8 +66,7 @@ class FormPage extends Authenticated
     {
         $I = $this->tester;
 
-        $I->click("//*[contains(@class, 'voice_phone')]//*[@class='flag-container']");
-        $I->click("(//*[contains(@class, 'voice_phone')]" .
-            "//*[contains(@data-country-code, '{$phoneCountryCode}')])[1]");
+        $I->click("//*[contains(@class, 'voice_phone')]//*[contains(@class,'flag-container')]");
+        $I->click("(//*[contains(@class, 'voice_phone')]//*[contains(@data-country-code, '$phoneCountryCode')])[1]");
     }
 }

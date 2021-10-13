@@ -10,12 +10,17 @@
 
 namespace hipanel\modules\client\menus;
 
+use hipanel\helpers\FontIcon;
 use hipanel\modules\client\models\Client;
+use hipanel\widgets\AjaxModal;
+use hipanel\widgets\AjaxModalWithTemplatedButton;
 use hipanel\widgets\BlockModalButton;
 use hipanel\widgets\ImpersonateButton;
 use hipanel\widgets\SettingsModal;
 use hipanel\widgets\SimpleOperation;
 use Yii;
+use yii\bootstrap\Html;
+use yii\bootstrap\Modal;
 use yii\helpers\Url;
 
 class ClientDetailMenu extends \hipanel\menus\AbstractDetailMenu
@@ -45,6 +50,12 @@ class ClientDetailMenu extends \hipanel\menus\AbstractDetailMenu
                 'visible' => $user->is($this->model->id),
             ],
             [
+                'label' => Yii::t('hipanel:client', 'Edit Permissions'),
+                'url' => ['/client/permission/view', 'id' => $this->model->id],
+                'icon' => 'fa-id-card-o',
+                'visible' => $user->can('client.set-roles'),
+            ],
+            [
                 'label' => SettingsModal::widget([
                     'model' => $this->model,
                     'title' => Yii::t('hipanel', 'Change password'),
@@ -58,7 +69,7 @@ class ClientDetailMenu extends \hipanel\menus\AbstractDetailMenu
             [
                 'label' => $totp_enabled ? Yii::t('hipanel:client', 'Disable two factor authorization') : Yii::t('hipanel:client', 'Enable two factor authorization'),
                 'icon' => 'fa-lock',
-                'url' => 'https://' . Yii::$app->params['hiam.site'] . Url::to(['/mfa/totp/' . ($totp_enabled ? 'disable' : 'enable'), 'back' => Url::to('', true)]),
+                'url' => Yii::getAlias('@HIAM_SITE', false) . Url::to(['/mfa/totp/' . ($totp_enabled ? 'disable' : 'enable'), 'back' => Url::to('', true)]),
                 'visible' => $user->is($this->model->id),
             ],
             [
@@ -70,7 +81,10 @@ class ClientDetailMenu extends \hipanel\menus\AbstractDetailMenu
                     'scenario' => 'set-tmp-password',
                 ]),
                 'encode' => false,
-                'visible' => $user->not($this->model->id) && $user->can('client.set-tmp-pwd') && !$this->model->isDeleted(),
+                'visible' => $user->not($this->model->id)
+                                && $user->can('client.set-tmp-pwd')
+                                && !$this->model->isDeleted()
+                                && $this->model->type === 'client',
             ],
             [
                 'label' => ImpersonateButton::widget(['model' => $this->model]),
@@ -199,6 +213,41 @@ class ClientDetailMenu extends \hipanel\menus\AbstractDetailMenu
                 ]),
                 'encode' => false,
                 'visible' => $this->model->canBeRestored(),
+            ],
+            !$this->model->hasReferralTariff() && $this->model->notMyself() ? [
+                'label' => AjaxModalWithTemplatedButton::widget([
+                    'ajaxModalOptions' => [
+                        'bulkPage' => false,
+                        'usePost' => true,
+                        'id' => 'client-set-referral-tariff',
+                        'scenario' => 'sell',
+                        'actionUrl' => ['set-referral-tariff', 'id' => $this->model->id],
+                        'handleSubmit' => Url::toRoute(['set-referral-tariff']),
+                        'size' => Modal::SIZE_SMALL,
+                        'header' => Html::tag('h4', Yii::t('hipanel:client', 'Referral program'), ['class' => 'modal-title']),
+                        'toggleButton' => [
+                            'tag' => 'a',
+                            'label' => '<i class="fa fa-fw fa-percent"></i>' . Yii::t('hipanel:client', 'Enable referral program'),
+                            'class' => 'clickable',
+                        ],
+                    ],
+                    'toggleButtonTemplate' => '{toggleButton}',
+                ]),
+                'encode' => false,
+            ] : [],
+            [
+                'label' => AjaxModal::widget([
+                    'actionUrl' => ['@client/set-attributes', 'id'=> $this->model->id],
+                    'header' => Html::tag('h4', Yii::t('hipanel:client', 'Additional information'), ['class' => 'model-title']),
+                    'scenario' => 'update',
+                    'toggleButton' => [
+                        'tag' => 'a',
+                        'label' => FontIcon::i('fa-edit fa-fw') . " " . Yii::t('hipanel:client', 'Set additional information'),
+                        'class' => 'clickable',
+                    ],
+                ]),
+                'encode' => false,
+                'visible' => $user->can('client.update'),
             ],
         ], $actions);
 

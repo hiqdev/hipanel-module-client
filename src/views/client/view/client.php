@@ -3,11 +3,13 @@
 use hipanel\modules\client\grid\ClientGridView;
 use hipanel\modules\client\grid\ContactGridView;
 use hipanel\modules\client\menus\ClientDetailMenu;
+use hipanel\modules\client\widgets\ClientReferralDetailView;
 use hipanel\modules\client\widgets\ClientSwitcher;
 use hipanel\modules\client\widgets\ForceVerificationBlock;
 use hipanel\modules\document\widgets\StackedDocumentsView;
 use hipanel\widgets\Box;
 use hipanel\widgets\ClientSellerLink;
+use hipanel\widgets\CustomAttributesViewer;
 use hiqdev\assets\flagiconcss\FlagIconCssAsset;
 use yii\helpers\Html;
 
@@ -47,7 +49,10 @@ $this->registerCss('legend {font-size: 16px;}');
         <div class="profile-usermenu">
             <?= ClientDetailMenu::widget(['model' => $model]) ?>
         </div>
+        <?= $this->render('./../_custom-attributes', compact('model')) ?>
         <?php Box::end() ?>
+
+        <?= ClientReferralDetailView::widget(['client' => $model]) ?>
 
         <?= ForceVerificationBlock::widget([
             'client' => $model,
@@ -58,7 +63,7 @@ $this->registerCss('legend {font-size: 16px;}');
     <div class="col-md-9">
         <div class="row">
             <div class="col-md-6">
-                <?php $box = Box::begin(['renderBody' => false]) ?>
+                <?php $box = Box::begin(['renderBody' => false, 'bodyOptions' => ['class' => 'no-padding']]) ?>
                 <?php $box->beginHeader() ?>
                 <?= $box->renderTitle(Yii::t('hipanel:client', 'Client information'), '&nbsp;') ?>
                 <?php $box->beginTools() ?>
@@ -71,21 +76,27 @@ $this->registerCss('legend {font-size: 16px;}');
                     'columns' => array_filter([
                         'seller_id', 'referer_id', 'name',
                         Yii::$app->user->not($model->id) ? 'note' : null,
+                        Yii::$app->user->not($model->id) ? 'description' : null,
                         'language',
                         'type', 'state',
                         'create_time', 'update_time',
-                        'tickets', 'servers', 'domains', 'contacts', 'hosting', 'blocking',
+                        class_exists(\hipanel\modules\ticket\Module::class) ? 'tickets' : null,
+                        class_exists(\hipanel\modules\server\Module::class) ? 'servers' : null,
+                        class_exists(\hipanel\modules\domain\Module::class) ? 'domains' : null,
+                        'contacts',
+                        class_exists(\hipanel\modules\hosting\Module::class) ? 'hosting' : null,
+                        class_exists(\hipanel\modules\finance\Module::class) ? 'targets' : null,
+                        'blocking',
                     ]),
                 ]) ?>
                 <?php $box->endBody() ?>
                 <?php $box->end() ?>
                 <?php foreach ($model->sortedPurses as $purse) : ?>
-                    <?php if (empty($purse->count)) continue ?>
-                    <?= $this->render('@hipanel/modules/finance/views/purse/_client-view', ['model' => $purse]) ?>
+                    <?= $this->render('@vendor/hiqdev/hipanel-module-finance/src/views/purse/_client-view', ['model' => $purse]) ?>
                 <?php endforeach ?>
             </div>
             <div class="col-md-6">
-                <?php $box = Box::begin(['renderBody' => false]) ?>
+                <?php $box = Box::begin(['renderBody' => false, 'bodyOptions' => ['class' => 'no-padding']]) ?>
                 <?php $box->beginHeader() ?>
                 <?= $box->renderTitle(Yii::t('hipanel:client', 'Contact information')) ?>
                 <?php $box->beginTools() ?>

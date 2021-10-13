@@ -13,6 +13,7 @@ namespace hipanel\modules\client\grid;
 use hipanel\grid\BoxedGridView;
 use hipanel\grid\MainColumn;
 use hipanel\modules\client\menus\ContactActionsMenu;
+use hipanel\modules\client\models\Contact;
 use hipanel\modules\client\widgets\UnverifiedWidget;
 use hipanel\modules\document\widgets\StackedDocumentsView;
 use hipanel\widgets\VerificationMark;
@@ -29,15 +30,14 @@ class ContactGridView extends BoxedGridView
                 'class' => MainColumn::class,
                 'filterAttribute' => 'name_like',
                 'extraAttribute' => 'organization',
-                'format' => 'raw',
             ],
             'name_with_verification' => [
                 'class' => MainColumn::class,
                 'filterAttribute' => 'name_like',
                 'label' => Yii::t('hipanel', 'Name'),
                 'format' => 'raw',
-                'value' => function ($model) {
-                    return $model->name . VerificationMark::widget(['model' => $model->getVerification('name')]);
+                'value' => function (Contact $model) {
+                    return Html::encode($model->name) . VerificationMark::widget(['model' => $model->getVerification('name')]);
                 },
             ],
             'name_link_with_verification' => [
@@ -46,16 +46,16 @@ class ContactGridView extends BoxedGridView
                 'extraAttribute' => 'organization',
                 'label' => Yii::t('hipanel', 'Name'),
                 'format' => 'raw',
-                'value' => function ($model) {
+                'value' => function (Contact $model) {
                     return VerificationMark::widget(['model' => $model->getVerification('name')]) .
-                    Html::a($model->name, ['@contact/view', 'id' => $model->id], ['class' => 'text-bold']);
+                    Html::a(Html::encode($model->name), ['@contact/view', 'id' => $model->id], ['class' => 'text-bold']);
                 },
             ],
             'email_link_with_verification' => [
                 'format' => 'raw',
                 'attribute' => 'email',
                 'label' => Yii::t('hipanel', 'Email'),
-                'value' => function ($model) {
+                'value' => function (Contact $model) {
                     return UnverifiedWidget::widget([
                         'model' => $model,
                         'attribute' => 'email',
@@ -91,7 +91,7 @@ class ContactGridView extends BoxedGridView
                         $result .= '<br>' . Html::tag('b', Yii::t('hipanel:client', 'change is not confirmed'), ['class' => 'text-warning']);
                     }
                     if ($model->email_new !== $model->email) {
-                        $result .= '<br>' . Html::tag('span', $model->email_new, ['class' => 'text-muted']);
+                        $result .= '<br>' . Html::tag('span', Html::encode($model->email_new), ['class' => 'text-muted']);
                     }
 
                     return $result;
@@ -111,53 +111,53 @@ class ContactGridView extends BoxedGridView
             ],
             'country' => [
                 'attribute' => 'country_name',
-                'format' => 'html',
+                'format' => 'raw',
                 'value' => function ($model) {
                     return Html::tag('span', '',
-                        ['class' => 'flag-icon flag-icon-' . $model->country]) . '&nbsp;&nbsp;' . $model->country_name;
+                        ['class' => 'flag-icon flag-icon-' . Html::encode($model->country)]) . '&nbsp;&nbsp;' . Html::encode($model->country_name);
                 },
             ],
             'street' => [
                 'label' => Yii::t('hipanel:client', 'Address'),
-                'format' => 'html',
+                'format' => 'raw',
                 'value' => function ($model) {
-                    return $model->street1 . $model->street2 . $model->street3 .
+                    return Html::encode($model->street1 . $model->street2 . $model->street3) .
                         VerificationMark::widget(['model' => $model->getVerification('address')]);
                 },
             ],
             'street1' => [
                 'attribute' => 'street1',
-                'format' => 'html',
+                'format' => 'raw',
                 'value' => function ($model) {
-                    return Html::tag('span', $model->street1, ['class' => 'bold']);
+                    return Html::tag('span', Html::encode($model->street1), ['class' => 'bold']);
                 },
             ],
             'street2' => [
                 'attribute' => 'street2',
-                'format' => 'html',
+                'format' => 'raw',
                 'value' => function ($model) {
-                    return Html::tag('span', $model->street2, ['class' => 'bold']);
+                    return Html::tag('span', Html::encode($model->street2), ['class' => 'bold']);
                 },
             ],
             'street3' => [
                 'attribute' => 'street3',
-                'format' => 'html',
+                'format' => 'raw',
                 'value' => function ($model) {
-                    return Html::tag('span', $model->street3, ['class' => 'bold']);
+                    return Html::tag('span', Html::encode($model->street3), ['class' => 'bold']);
                 },
             ],
             'other' => [
                 'attribute' => 'other_messenger',
             ],
             'messengers' => [
-                'format' => 'html',
+                'format' => 'raw',
             ],
             'social_net' => [
-                'format' => 'html',
+                'format' => 'raw',
                 'value' => function ($model) {
                     $url = $model->social_net;
 
-                    return filter_var($url, FILTER_VALIDATE_URL) ? "<a href=\"$url\">$url</a>" : $url;
+                    return filter_var($url, FILTER_VALIDATE_URL) ? "<a href=\"$url\">$url</a>" : Html::encode($url);
                 },
             ],
             'birth_date' => [
@@ -180,15 +180,15 @@ class ContactGridView extends BoxedGridView
                 },
             ],
             'reg_data' => [
-                'format' => 'html',
+                'format' => 'raw',
                 'value' => function ($model) {
-                    return nl2br($model->reg_data);
+                    return nl2br(Html::encode($model->reg_data));
                 },
             ],
             'bank_account' => [
-                'format' => 'html',
+                'format' => 'raw',
                 'value' => function ($model) {
-                    return nl2br($model->bank_account);
+                    return nl2br(Html::encode($model->bank_account));
                 },
             ],
             'documents' => [
@@ -209,7 +209,7 @@ class ContactGridView extends BoxedGridView
                 },
             ],
             'requisites' => [
-                'format' => 'html',
+                'format' => 'raw',
                 'value' => function ($model) {
                     $res = implode("\n", array_filter([
                         $model->organization,
@@ -219,7 +219,7 @@ class ContactGridView extends BoxedGridView
                     ])) . "\n\n";
                     $res .= $model->renderBankDetails();
 
-                    return nl2br($res);
+                    return nl2br(Html::encode($res));
                 },
             ],
         ]);

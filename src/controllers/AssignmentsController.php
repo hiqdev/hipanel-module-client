@@ -13,6 +13,7 @@ use hipanel\modules\finance\models\Plan;
 use hipanel\modules\finance\models\TariffProfile;
 use Yii;
 use yii\base\Event;
+use function Webmozart\Assert\Tests\StaticAnalysis\string;
 
 class AssignmentsController extends CrudController
 {
@@ -60,13 +61,25 @@ class AssignmentsController extends CrudController
                         ->joinWith(['assignments'])
                         ->addSelect('assignments');
                 },
-                'data' => function ($action) {
+                'data' => function ($action, array $data) {
+                    $errorMassage = null;
+                    $sellers = array_unique(array_column($data['models'], 'seller_id'));
+                    if (count($sellers) > 1) {
+                        $errorMassage = Yii::t('hipanel:client', 'You cannot manage more than one reseller\'s assignments, select records with the same reseller');
+
+                        return compact('errorMassage');
+                    }
+                    if (implode("", $sellers) !== (string)Yii::$app->user->identity->seller_id) {
+                        $errorMassage = Yii::t('hipanel:client', 'To manage the assigned tariffs of this client, enter under the seller of this client!');
+
+                        return compact('errorMassage');
+                    }
                     /** @var Client $client */
                     $plans = ArrayHelper::index(Plan::find()->where(['client_id' => Yii::$app->user->id])->limit(-1)->all(), 'id', 'type');
                     unset($plans['template']);
                     $profiles = TariffProfile::find()->where(['client' => Yii::$app->user->identity->username])->limit(-1)->all();
 
-                    return compact('plans', 'profiles');
+                    return compact('plans', 'profiles', 'errorMassage');
                 },
             ],
             'view' => [

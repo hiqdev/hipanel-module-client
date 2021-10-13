@@ -10,6 +10,7 @@
 
 namespace hipanel\modules\client\controllers;
 
+use hipanel\actions\Action;
 use hipanel\actions\ClassValuesAction;
 use hipanel\actions\ComboSearchAction;
 use hipanel\actions\IndexAction;
@@ -21,16 +22,24 @@ use hipanel\actions\SmartDeleteAction;
 use hipanel\actions\SmartPerformAction;
 use hipanel\actions\SmartUpdateAction;
 use hipanel\actions\ValidateFormAction;
+use hipanel\actions\VariantsAction;
 use hipanel\actions\ViewAction;
+use hipanel\base\CrudController;
 use hipanel\filters\EasyAccessControl;
 use hipanel\helpers\Url;
+use hipanel\modules\client\actions\DeleteClientsByLoginsAction;
 use hipanel\modules\client\logic\IPConfirmer;
 use hipanel\modules\client\models\Client;
+use hipanel\modules\client\models\ClientSearch;
+use hipanel\modules\client\models\query\ClientQuery;
+use RuntimeException;
 use Yii;
 use yii\base\Event;
 use yii\filters\VerbFilter;
+use hipanel\actions\RenderAction;
+use hipanel\models\Ref;
 
-class ClientController extends \hipanel\base\CrudController
+class ClientController extends CrudController
 {
     public function behaviors()
     {
@@ -40,6 +49,7 @@ class ClientController extends \hipanel\base\CrudController
                 'actions' => [
                     'update' => 'client.update',
                     'delete' => 'client.delete',
+                    'delete-by-logins' => 'client.delete',
                     'create' => ['employee.create', 'client.create'],
                     'enable-block' => 'client.block',
                     'disable-block' => 'client.unblock',
@@ -51,6 +61,7 @@ class ClientController extends \hipanel\base\CrudController
                     'index, search' => ['client.read', 'employee.read'],
                     'allow-i-p' => true,
                     'restore-password' => true,
+                    'my-test' => true,
                     '*' => '@',
                 ],
             ],
@@ -68,6 +79,9 @@ class ClientController extends \hipanel\base\CrudController
         return array_merge(parent::actions(), [
             'index' => [
                 'class' => IndexAction::class,
+                'responseVariants' => [
+                    'get-total-count' => fn(VariantsAction $action): int => Client::find()->count(),
+                ],
                 'on beforePerform' => function (Event $event) {
                     $user = Yii::$app->user;
                     if (!$user->isGuest && !$user->can('client.list')) {
@@ -75,6 +89,7 @@ class ClientController extends \hipanel\base\CrudController
                     }
 
                     $action = $event->sender;
+                    /** @var ClientQuery $query */
                     $query = $action->getDataProvider()->query;
                     $representation = $action->controller->indexPageUiOptionsModel->representation;
                     $query->addSelect(['contact'])->withContact();
@@ -85,10 +100,16 @@ class ClientController extends \hipanel\base\CrudController
 
                     switch ($representation) {
                         case 'servers':
-                            $query->addSelect(['accounts_count', Yii::getAlias('@server', false) ? 'servers_count' : null]);
+                            $query->addSelect(['accounts_count', Yii::getAlias('@server', false) ? 'servers_count' : null, 'targets_count']);
                             break;
                         case 'documents':
                             $query->addSelect(['documents']);
+                            break;
+                        case 'profit-report':
+                            $query->withProfit();
+                            break;
+                        case 'referral':
+                            $query->withReferral();
                             break;
                     }
                 },
@@ -96,11 +117,13 @@ class ClientController extends \hipanel\base\CrudController
                     return [
                         'types' => $this->getRefs('type,client', 'hipanel:client'),
                         'states' => $this->getRefs('state,client', 'hipanel:client'),
+                        'debt_label' => ClientSearch::getDebtLabels(),
                     ];
                 },
                 'filterStorageMap' => [
                     'login_ilike' => 'client.client.login_ilike',
                     'state' => 'client.client.state',
+                    'states' => 'client.client.states',
                     'type' => 'client.client.type',
                     'seller' => 'client.client.seller',
                     'seller_id' => 'client.client.seller_id',
@@ -113,10 +136,23 @@ class ClientController extends \hipanel\base\CrudController
             'create' => [
                 'class' => SmartCreateAction::class,
                 'success' => Yii::t('hipanel:client', 'Client was created'),
+                'data' => function ($action, $data) {
+                    return array_merge($data, [
+                        'currencies' => Ref::getList('type,currency'),
+                    ]);
+                },
             ],
             'update' => [
                 'class' => SmartUpdateAction::class,
                 'success' => Yii::t('hipanel:client', 'Client was updated'),
+                'data' => function ($action, $data) {
+                    return array_merge($data, [
+                        'currencies' => Ref::getList('type,currency'),
+                    ]);
+                },
+            ],
+            'delete-by-logins' => [
+                'class' => DeleteClientsByLoginsAction::class,
             ],
             'delete' => [
                 'class' => SmartDeleteAction::class,
@@ -132,7 +168,7 @@ class ClientController extends \hipanel\base\CrudController
                 'success' => Yii::t('hipanel:client', 'Client(s) were blocked successfully'),
                 'error' => Yii::t('hipanel:client', 'Failed to block client(s)'),
                 'on beforeSave' => function (Event $event) {
-                    /** @var \hipanel\actions\Action $action */
+                    /** @var Action $action */
                     $action = $event->sender;
                     $type = Yii::$app->request->post('type');
                     $comment = Yii::$app->request->post('comment');
@@ -151,7 +187,7 @@ class ClientController extends \hipanel\base\CrudController
                 'success' => Yii::t('hipanel:client', 'Client(s) were unblocked successfully'),
                 'error' => Yii::t('hipanel:client', 'Failed to unblock client(s)'),
                 'on beforeSave' => function (Event $event) {
-                    /** @var \hipanel\actions\Action $action */
+                    /** @var Action $action */
                     $action = $event->sender;
                     $type = Yii::$app->request->post('type');
                     $comment = Yii::$app->request->post('comment');
@@ -168,15 +204,8 @@ class ClientController extends \hipanel\base\CrudController
             'change-password' => [
                 'class' => SmartUpdateAction::class,
                 'view' => '_changePasswordModal',
-                'POST' => [
-                    'save' => true,
-                    'success' => [
-                        'class' => RenderJsonAction::class,
-                        'return' => function ($action) {
-                            return ['success' => !$action->collection->hasErrors()];
-                        },
-                    ],
-                ],
+                'success' => Yii::t('hipanel:client', 'Password changed'),
+                'error' => Yii::t('hipanel:client', 'Error during password change'),
             ],
             'set-tmp-password' => [
                 'class' => SmartUpdateAction::class,
@@ -207,9 +236,11 @@ class ClientController extends \hipanel\base\CrudController
                             Yii::getAlias('@server', false) ? 'servers_count' : null,
                             Yii::getAlias('@hosting', false) ? 'hosting_count' : null,
                             Yii::getAlias('@server', false) && Yii::$app->user->can('resell') ? 'pre_ordered_servers_count' : null,
+                            Yii::getAlias('@target', false) ? 'targets_count' : null,
                         ]))
                         ->joinWith(['blocking'])
                         ->withContact()
+                        ->withReferral()
                         ->withPurses();
                 },
             ],
@@ -277,6 +308,11 @@ class ClientController extends \hipanel\base\CrudController
                 'valuesClass' => 'client,finance_settings',
                 'view' => '_financeSettingsModal',
             ],
+            'set-attributes' => [
+                'class' => SmartUpdateAction::class,
+                'view' => '_set-attributes-form',
+                'success' => Yii::t('hipanel:client', 'Set additional information'),
+            ],
             'pincode-settings' => [
                 'class' => SmartUpdateAction::class,
                 'view' => '_pincodeSettingsModal',
@@ -330,6 +366,12 @@ class ClientController extends \hipanel\base\CrudController
                 'success' => Yii::t('hipanel', 'Description was changed'),
                 'error' => Yii::t('hipanel', 'Failed to change description'),
             ],
+            'my-test' => [
+                'class' => RenderAction::class,
+                'on beforeRun' => function (Event $event) {
+                    Yii::$app->get('hiart')->disableAuth();
+                },
+            ],
         ]);
     }
 
@@ -350,8 +392,28 @@ class ClientController extends \hipanel\base\CrudController
     public function actionRestorePassword($id = null)
     {
         Yii::$app->get('hiart')->disableAuth();
-        $url = 'https://' . Yii::$app->params['hiam.site'] . Url::to(array_merge(['/site/reset-password'], Yii::$app->request->get()));
+        $url = Yii::getAlias('@HIAM_SITE', false) . Url::to(array_merge(['/site/reset-password'], Yii::$app->request->get()));
 
         return $this->redirect($url);
+    }
+
+    public function actionSetReferralTariff($id)
+    {
+        $request = Yii::$app->request;
+        $session = Yii::$app->session;
+        $client = new Client(['id' => $id, 'scenario' => 'set-referral-tariff']);
+        if ($request->isAjax) {
+            return $this->renderAjax('modals/set-referral-tariff', ['client' => $client]);
+        }
+        if ($client->load($request->post()) && $client->validate()) {
+            try {
+                Client::batchPerform('set-tariffs', [$id => $client->attributes]);
+                $session->addFlash('success', Yii::t('hipanel:client', 'Referral tariff have been successfully changed'));
+            } catch (RuntimeException $e) {
+                $session->addFlash('error', $e->getMessage());
+            }
+        }
+
+        return $this->redirect(['@client/view', 'id' => $id]);
     }
 }
