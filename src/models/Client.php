@@ -125,7 +125,7 @@ class Client extends \hipanel\base\Model
                 },
                 'on' => 'domain-settings',
             ],
-            [['nss'], 'each', 'rule' => [DomainValidator::class], 'on' => 'domain-settings'],
+            [['nss'], 'each', 'rule' => [DomainValidator::class, 'enableIdn' => true], 'on' => 'domain-settings'],
             [['autorenewal'], 'boolean', 'on' => 'domain-settings'],
             [['registrant', 'admin', 'tech', 'billing'], 'safe', 'on' => 'domain-settings'],
 
