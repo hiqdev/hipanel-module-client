@@ -20,8 +20,6 @@ use hipanel\tests\_support\Step\Acceptance\Manager;
 
 class ClientActionCest
 {
-    private $existingClient;
-
     public function ensureClientCreationPageWorks(Manager $I): void
     {
         $I->login();
@@ -36,9 +34,10 @@ class ClientActionCest
      * @param Example $clientData
      * @throws \Exception
      */
-    public function ensureICanCreateNewClient(Manager $I, Example $clientData): void
+    public function ensureICanCreateAndDeleteNewClient(Manager $I, Example $clientData): void
     {
         $page = new Create($I);
+        $clientData = iterator_to_array($clientData->getIterator());
 
         $I->needPage(Url::to('@client/create'));
 
@@ -46,6 +45,11 @@ class ClientActionCest
         $I->pressButton('Save');
         $I->waitForPageUpdate();
         $page->seeClientWasCreated($clientData['login'], $clientData['type']);
+
+        if ($clientData['type'] === 'client') {
+            $this->ensureICantCreateClientWithTakenData($I, $clientData);
+            $this->ensureDeleteByLoginsButtonWorksCorrectly($I, $clientData);
+        }
     }
 
     /**
@@ -70,21 +74,21 @@ class ClientActionCest
      * @param Manager $I
      * @throws \Exception
      */
-    public function ensureICantCreateClientWithTakenData(Manager $I): void
+    private function ensureICantCreateClientWithTakenData(Manager $I, array $client): void
     {
         $page = new Create($I);
 
         $I->needPage(Url::to('@client/create'));
 
-        $existingLogin = $this->existingClient[0]['login'];
-        $existingEmail = $this->existingClient[0]['email'];
+        $existingLogin = $client['login'];
+        $existingEmail = $client['email'];
 
-        $page->fillClientData($this->existingClient[0]);
+        $page->fillClientData($client);
         $I->pressButton('Save');
         $page->seeTakenDataErrors($existingLogin, $existingEmail);
     }
 
-    public function ensureDeleteByLoginsButtonWorksCorrectly(Manager $I): void
+    private function ensureDeleteByLoginsButtonWorksCorrectly(Manager $I, $client): void
     {
         $I->needPage(Url::to('@client'));
 
@@ -92,30 +96,22 @@ class ClientActionCest
 
         $I->waitForText('Type client logins, delimited with a space, comma or a new line');
 
-        $logins = '';
-        foreach ($this->existingClient as $client) {
-            $logins = $logins . $client['login'] . ' ';
-        }
-
-        (new Input($I, '#deleteclientsbyloginsform-logins'))->setValue($logins);
+        (new Input($I, '#deleteclientsbyloginsform-logins'))->setValue($client['login']);
 
         $I->pressButton('Delete clients');
         $I->waitForPageUpdate();
 
-        $this->ensureClientsWasDeleted($I, $logins);
+        $this->ensureClientsWasDeleted($I, $client['login']);
     }
 
-    private function ensureClientsWasDeleted(Manager $I, string $logins): void
+    private function ensureClientsWasDeleted(Manager $I, string $login): void
     {
         $index = new IndexPage($I);
         $I->needPage(Url::to('@client'));
 
         $column = $index->getColumnNumber('Status');
-        $logins = explode(" ", substr_replace($logins ,"", -1));
-        foreach ($logins as $login) {
-            $row = $index->getRowNumberInColumnByValue('Login', $login);
-            $I->see('Deleted', "//tbody/tr[$row]/td[$column]");
-        }
+        $row = $index->getRowNumberInColumnByValue('Client', $login);
+        $I->see('Deleted', "//tbody/tr[$row]/td[$column]");
     }
 
     /**
@@ -123,12 +119,10 @@ class ClientActionCest
      *
      * @return array
      */
-    protected function provideValidClientData(): array
+    protected function provideValidClientData(): iterable
     {
-        $clientData = [];
-
         foreach (['client', 'reseller', 'manager', 'admin', 'support'] as $type) {
-            $clientData[] = [
+            yield [
                 'login'     => 'test_login' . uniqid(),
                 'email'     => 'test_email@test.test' . uniqid(),
                 'password'  => 'test_pass',
@@ -137,8 +131,5 @@ class ClientActionCest
                 'reseller'  => null,
             ];
         }
-        $this->existingClient = $clientData;
-
-        return $clientData;
     }
 }
