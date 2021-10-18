@@ -46,10 +46,8 @@ class ClientActionCest
         $I->waitForPageUpdate();
         $page->seeClientWasCreated($clientData['login'], $clientData['type']);
 
-        if ($clientData['type'] === 'client') {
-            $this->ensureICantCreateClientWithTakenData($I, $clientData);
-            $this->ensureDeleteByLoginsButtonWorksCorrectly($I, $clientData);
-        }
+        $this->ensureICantCreateClientWithTakenData($I, $clientData);
+        $this->ensureDeleteByLoginsButtonWorksCorrectly($I, $clientData);
     }
 
     /**
@@ -80,15 +78,12 @@ class ClientActionCest
 
         $I->needPage(Url::to('@client/create'));
 
-        $existingLogin = $client['login'];
-        $existingEmail = $client['email'];
-
         $page->fillClientData($client);
         $I->pressButton('Save');
-        $page->seeTakenDataErrors($existingLogin, $existingEmail);
+        $page->seeTakenDataErrors($client['login'], $client['email']);
     }
 
-    private function ensureDeleteByLoginsButtonWorksCorrectly(Manager $I, $client): void
+    private function ensureDeleteByLoginsButtonWorksCorrectly(Manager $I, array $client): void
     {
         $I->needPage(Url::to('@client'));
 
