@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * Client module for HiPanel
  *
@@ -12,13 +13,13 @@ namespace hipanel\modules\client\tests\acceptance\manager;
 
 use Codeception\Example;
 use hipanel\helpers\Url;
+use hipanel\tests\_support\Page\IndexPage;
+use hipanel\tests\_support\Page\Widget\Input\Input;
 use hipanel\modules\client\tests\_support\Page\client\Create;
 use hipanel\tests\_support\Step\Acceptance\Manager;
 
-class ClientCreationCest
+class ClientActionCest
 {
-    private $existingClient;
-
     public function ensureClientCreationPageWorks(Manager $I): void
     {
         $I->login();
@@ -33,9 +34,10 @@ class ClientCreationCest
      * @param Example $clientData
      * @throws \Exception
      */
-    public function ensureICanCreateNewClient(Manager $I, Example $clientData): void
+    public function ensureICanCreateAndDeleteNewClient(Manager $I, Example $clientData): void
     {
         $page = new Create($I);
+        $clientData = iterator_to_array($clientData->getIterator());
 
         $I->needPage(Url::to('@client/create'));
 
@@ -43,6 +45,9 @@ class ClientCreationCest
         $I->pressButton('Save');
         $I->waitForPageUpdate();
         $page->seeClientWasCreated($clientData['login'], $clientData['type']);
+
+        $this->ensureICantCreateClientWithTakenData($I, $clientData);
+        $this->ensureDeleteByLoginsButtonWorksCorrectly($I, $clientData);
     }
 
     /**
@@ -67,18 +72,41 @@ class ClientCreationCest
      * @param Manager $I
      * @throws \Exception
      */
-    public function ensureICantCreateClientWithTakenData(Manager $I): void
+    private function ensureICantCreateClientWithTakenData(Manager $I, array $client): void
     {
         $page = new Create($I);
 
         $I->needPage(Url::to('@client/create'));
 
-        $existingLogin = $this->existingClient['login'];
-        $existingEmail = $this->existingClient['email'];
-
-        $page->fillClientData($this->existingClient);
+        $page->fillClientData($client);
         $I->pressButton('Save');
-        $page->seeTakenDataErrors($existingLogin, $existingEmail);
+        $page->seeTakenDataErrors($client['login'], $client['email']);
+    }
+
+    private function ensureDeleteByLoginsButtonWorksCorrectly(Manager $I, array $client): void
+    {
+        $I->needPage(Url::to('@client'));
+
+        $I->clickLink('Delete by logins');
+
+        $I->waitForText('Type client logins, delimited with a space, comma or a new line');
+
+        (new Input($I, '#deleteclientsbyloginsform-logins'))->setValue($client['login']);
+
+        $I->pressButton('Delete clients');
+        $I->waitForPageUpdate();
+
+        $this->ensureClientsWasDeleted($I, $client['login']);
+    }
+
+    private function ensureClientsWasDeleted(Manager $I, string $login): void
+    {
+        $index = new IndexPage($I);
+        $I->needPage(Url::to('@client'));
+
+        $column = $index->getColumnNumber('Status');
+        $row = $index->getRowNumberInColumnByValue('Client', $login);
+        $I->see('Deleted', "//tbody/tr[$row]/td[$column]");
     }
 
     /**
@@ -86,12 +114,10 @@ class ClientCreationCest
      *
      * @return array
      */
-    protected function provideValidClientData(): array
+    protected function provideValidClientData(): iterable
     {
-        $clientData = [];
-
         foreach (['client', 'reseller', 'manager', 'admin', 'support'] as $type) {
-            $clientData[] = [
+            yield [
                 'login'     => 'test_login' . uniqid(),
                 'email'     => 'test_email@test.test' . uniqid(),
                 'password'  => 'test_pass',
@@ -100,8 +126,5 @@ class ClientCreationCest
                 'reseller'  => null,
             ];
         }
-        $this->existingClient = $clientData[0];
-
-        return $clientData;
     }
 }
