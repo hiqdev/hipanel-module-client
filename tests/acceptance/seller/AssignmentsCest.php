@@ -43,6 +43,6 @@ class AssignmentsCest
             'Reseller',
             'Type',
             'Assignments',
-        ],);
+        ]);
     }
 }
