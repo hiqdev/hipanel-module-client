@@ -84,7 +84,7 @@ class Create extends Authenticated
     ): void {
         $I = $this->tester;
 
-        $I->waitForText("Login \"$existingLogin\" has already been taken.", 30);
-        $I->waitForText("Email \"$existingEmail\" has already been taken.", 30);
+        $I->waitForText("Login \"$existingLogin\" has already been taken.");
+        $I->waitForText("Email \"$existingEmail\" has already been taken.");
     }
 }
