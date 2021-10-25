@@ -42,7 +42,7 @@ class AssignmentsCest
             'Reseller',
             'Type',
             'Assignments',
-        ],);
+        ]);
     }
 
     private function ensureICanAssignUser(Manager $I, IndexPage $index): void
