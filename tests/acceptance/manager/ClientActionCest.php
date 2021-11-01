@@ -39,15 +39,19 @@ class ClientActionCest
         $page = new Create($I);
         $clientData = iterator_to_array($clientData->getIterator());
 
+        if (!isset($clientData['login'])) {
+            $this->ensureDeleteByLoginsButtonWorksCorrectly($I, $clientData);
+            return;
+        }
+
+
         $I->needPage(Url::to('@client/create'));
 
         $page->fillClientData($clientData);
         $I->pressButton('Save');
         $I->waitForPageUpdate();
         $page->seeClientWasCreated($clientData['login'], $clientData['type']);
-
         $this->ensureICantCreateClientWithTakenData($I, $clientData);
-        $this->ensureDeleteByLoginsButtonWorksCorrectly($I, $clientData);
     }
 
     /**
@@ -91,12 +95,15 @@ class ClientActionCest
 
         $I->waitForText('Type client logins, delimited with a space, comma or a new line');
 
-        (new Input($I, '#deleteclientsbyloginsform-logins'))->setValue($client['login']);
+        $usernames = implode(' ', $client);
+        (new Input($I, '#deleteclientsbyloginsform-logins'))->setValue($usernames);
 
         $I->pressButton('Delete clients');
         $I->waitForPageUpdate();
 
-        $this->ensureClientsWasDeleted($I, $client['login']);
+        foreach ($client as $username) {
+            $this->ensureClientsWasDeleted($I, $username);
+        }
     }
 
     private function ensureClientsWasDeleted(Manager $I, string $login): void
@@ -118,7 +125,7 @@ class ClientActionCest
     {
         foreach (['client', 'reseller', 'manager', 'admin', 'support'] as $type) {
             yield [
-                'login'     => 'test_login' . uniqid(),
+                'login'     => $usernames[] = 'test_login' . uniqid(),
                 'email'     => 'test_email@test.test' . uniqid(),
                 'password'  => 'test_pass',
                 'type'      =>  $type,
@@ -126,5 +133,6 @@ class ClientActionCest
                 'reseller'  => null,
             ];
         }
+        yield $usernames;
     }
 }
