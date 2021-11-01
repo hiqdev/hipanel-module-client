@@ -9,6 +9,7 @@
  * @var EmployeeForm $employeeForm
  */
 use hipanel\modules\client\forms\EmployeeForm;
+use borales\extensions\phoneInput\PhoneInput;
 use hipanel\modules\client\models\Contact;
 use hipanel\modules\client\widgets\combo\ClientCombo;
 use hipanel\widgets\BackButton;
@@ -57,7 +58,12 @@ $contract = $employeeForm->getContract();
                 ]); ?>
                 <?= $form->field($model, "[$i]province"); ?>
                 <?= $form->field($model, "[$i]postal_code"); ?>
-                <?= $form->field($model, "[$i]voice_phone"); ?>
+                <?= $form->field($model, "[$i]voice_phone")->widget(PhoneInput::class, [
+                    'jsOptions' => [
+                        'preferredCountries' => array_values(array_unique(array_filter([$model->country, 'ua','us', 'gb', 'nl']))),
+                        'initialCountry' => 'auto',
+                    ],
+                ]) ?>
             <?php Box::end() ?>
 
             <?php Box::begin(['title' => Yii::t('hipanel:client', 'Bank details')]) ?>
