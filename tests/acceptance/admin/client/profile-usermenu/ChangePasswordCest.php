@@ -95,10 +95,20 @@ class ChangePasswordCest
 
     private function testDropDownMenu(Admin $I)
     {
-        $I->click('Random');
-        $I->waitForElement('//button[@aria-expanded="true"]');
-        $I->see('Weak', '//ul[@class="dropdown-menu"]/li/a[@class="random-passgen"]');
-        $I->see('Medium', '//ul[@class="dropdown-menu"]/li/a[@class="random-passgen"]');
-        $I->see('Strong', '//ul[@class="dropdown-menu"]/li/a[@class="random-passgen"]');
+        $security = [
+            'Weak'   => 8,
+            'Medium' => 10,
+            'Strong' => 14,
+        ];
+        $selector = "div[class*='new_password'] ";
+        foreach ($security as $level => $lenght) {
+            $I->click($selector . "button[class*='dropdown']");
+            $I->see($level, '//ul[@class="dropdown-menu"]/li/a[@class="random-passgen"]');
+            $I->clickLink($level);
+            $randomPassword = $I->grabTextFrom($selector . 'input');
+            if (strlen($randomPassword) == $lenght) {
+                throw new \Exception("$columnName-password generation error");
+            }
+        }
     }
 }
