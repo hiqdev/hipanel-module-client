@@ -12,9 +12,9 @@ use hipanel\tests\_support\Page\Widget\Input\Select2;
 class DomainSettingsCest
 {
     /**
-     * @dataProvider provideNotification
+     * @dataProvider provideDomainSettings
      */
-    public function ensureNotificationSettingsWorksCorrectly(Admin $I, Example $example): void
+    public function ensureDomainSettingsWorksCorrectly(Admin $I, Example $example): void
     {
         $example = iterator_to_array($example->getIterator());
         $I->login();
@@ -42,7 +42,7 @@ class DomainSettingsCest
         }
     }
 
-    protected function provideNotification(): array
+    protected function provideDomainSettings(): array
     {
         return [
             [
