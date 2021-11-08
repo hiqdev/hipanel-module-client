@@ -47,7 +47,7 @@ class FinancialSettingsCest
         $I->closeNotification('Settings saved');
         $I->clickLink('Financial settings');
 
-        $I->waitForText('Select the preferred currency for invoicer');
+        $I->waitForText('Select the preferred currency for invoices');
 
         $inputSelector = (new Input($I, "input[id*=finance_emails]"))->getSelector();
         $I->seeCheckboxIsChecked("input[id*='autoexchange_enabled']");
