@@ -69,7 +69,7 @@ use yii\helpers\Json;
                 <div class="box-body">
                     <?php foreach ($plans as $planType => $items) : ?>
                         <?php $planOptions = ArrayHelper::map($items, 'id', 'plan'); ?>
-                        <?php if (in_array($planType, [Plan::TYPE_CERTIFICATE, Plan::TYPE_DOMAIN])) : ?>
+                        <?php if (in_array($planType, [Plan::TYPE_CERTIFICATE, Plan::TYPE_DOMAIN], true)) : ?>
                             <?= $form->field($model, "tariff_ids[$planType][]")->radioList($planOptions)->label(strtoupper($planType)) ?>
                         <?php else : ?>
                             <?= $form->field($model, "tariff_ids[$planType][]")->checkboxList($planOptions)->label(strtoupper($planType)) ?>
@@ -153,7 +153,7 @@ if ($allTheSame) {
         $('.box-with-profiles :radio').val(currentProfile).change();
     } else if (currentPlans.length) {
         $('.box-with-plans').click();
-        $('.box-with-plans :input').val(currentPlans).change();
+        $('.box-with-plans :input:not(:input[type=hidden])').val(currentPlans).change();
     }
 })();
     ");
