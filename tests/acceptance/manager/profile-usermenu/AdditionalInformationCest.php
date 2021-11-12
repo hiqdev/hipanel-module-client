@@ -32,7 +32,6 @@ class AdditionalInformationCest
 
         $I->see('Clients', 'h1');
 
-
         $username = $I->grabTextFrom($this->getSelector());
         $selector = $this->getSelector();
 
@@ -95,11 +94,11 @@ class AdditionalInformationCest
             $I->cantSee($selector . ' //td');
 
             return;
-        }
-
-        foreach ($data as $row => $value) {
-            $I->see($row, $selector . ' //td[1]');
-            $I->see($value, $selector . ' //td[2]');
+        } else {
+            foreach ($data as $row => $value) {
+                $I->see($row, $selector . ' //td[1]');
+                $I->see($value, $selector . ' //td[2]');
+            }
         }
     }
 
