@@ -63,14 +63,15 @@ class AssignmentsController extends CrudController
                 },
                 'data' => function ($action, array $data) {
                     $errorMassage = null;
+                    $identity = Yii::$app->user->identity;
                     $sellers = array_unique(array_column($data['models'], 'seller_id'));
                     if (count($sellers) > 1) {
                         $errorMassage = Yii::t('hipanel:client', 'You cannot manage more than one reseller\'s assignments, select records with the same reseller');
 
                         return compact('errorMassage');
                     }
-                    if (implode("", $sellers) !== (string)Yii::$app->user->identity->seller_id) {
-                        $errorMassage = Yii::t('hipanel:client', 'To manage the assigned tariffs of this client, enter under the seller of this client!');
+                    if (!in_array(implode("", $sellers), [(string)$identity->seller_id, (string)$identity->id]) ) {
+                        $errorMassage = Yii::t('hipanel:client', 'To manage the assigned tariffs of this client, login as the seller of this client!');
 
                         return compact('errorMassage');
                     }
@@ -100,7 +101,7 @@ class AssignmentsController extends CrudController
             $tariff_ids = [];
             if ($model->tariff_ids) {
                 foreach ($model->tariff_ids as $tariffIds) {
-                    $tariff_ids = array_merge($tariff_ids, $tariffIds);
+                    $tariff_ids = array_merge($tariff_ids, ($tariffIds ?: []));
                 }
             }
             $profile_ids = $model->profile_ids ?? [];
@@ -111,9 +112,9 @@ class AssignmentsController extends CrudController
                 $data[$id] = array_filter($model->attributes);
             }
             try {
-                $resp = Client::batchPerform('set-tariffs', $data);
+                Client::batchPerform('set-tariffs', $data);
                 $session->addFlash('success', Yii::t('hipanel', 'Assignments have been successfully applied.'));
-            } catch (\Exception $e) {
+            } catch (\RuntimeException $e) {
                 $session->addFlash('error', $e->getMessage());
             }
 
