@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace hipanel\modules\client\tests\acceptance\admin\client\profile\usermenu;
+namespace hipanel\modules\client\tests\acceptance\manager\profile\usermenu;
 
 use Codeception\Example;
 use hipanel\helpers\Url;
@@ -44,14 +44,14 @@ class AdditionalInformationCest
 
         $I->see('Client detailed information', 'small');
         $I->clickLink('Set additional information');
-        $I->waitForElementVisible("//button[contains(text(),'Confirm')]");
+        $I->waitForElementVisible("//button[contains(normalize-space(text()),'Confirm')]");
 
         $this->ensureAdditionalInformationPopupWorksCorrectly($I, $example);
     }
 
     private function ensureAdditionalInformationPopupWorksCorrectly(Manager $I, array $data): void
     {
-        $formSelector = "//div[@class='modal-body']/form";
+        $formSelector = "//div[contains(@class, 'modal-body')]/form";
         $tableSelector = "//tbody//tr";
 
         $this->deleteAdditionalInformationIfExists($I, $formSelector . $tableSelector);
@@ -69,7 +69,7 @@ class AdditionalInformationCest
         $rows = count($I->grabMultiple($selector));
 
         for (;$rows >= 1; $rows--) {
-            $I->click("//div[@class='modal-body']/form //tbody//tr[last()] //button");
+            $I->click("//div[contains(@class, 'modal-body')]/form //tbody//tr[last()] //button");
         }
     }
 
@@ -84,7 +84,7 @@ class AdditionalInformationCest
 
     private function saveAndCheckForSavedAdditionalInformation(Manager $I, array $data = NULL): void
     {
-        $selector = "//table[@class='table table-striped']";
+        $selector = "//table[contains(@class, 'table table-striped')]";
 
         $I->pressButton('Confirm');
         $I->waitForPageUpdate();
