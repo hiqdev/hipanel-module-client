@@ -58,7 +58,7 @@ class AdditionalInformationCest
         $this->saveAndCheckForSavedAdditionalInformation($I);
 
         $I->clickLink('Set additional information');
-        $I->waitForElementVisible("//button[contains(text(),'Confirm')]");
+        $I->waitForElementVisible("//button[contains(normalize-space(text()),'Confirm')]");
 
         $this->addAdditionalInformation($I, $data, $formSelector . $tableSelector . '[last()]');
         $this->saveAndCheckForSavedAdditionalInformation($I, $data);
