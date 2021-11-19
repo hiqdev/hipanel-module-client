@@ -91,7 +91,7 @@ class ClientActionCest
     {
         $I->needPage(Url::to('@client'));
 
-        $I->clickLink('Delete by logins');
+        $I->pressButton('Delete by logins');
 
         $I->waitForText('Type client logins, delimited with a space, comma or a new line');
 
