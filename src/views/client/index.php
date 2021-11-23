@@ -56,7 +56,6 @@ $showFooter = ($uiModel->representation === 'profit-report')
     <?php if (Yii::$app->user->can('client.create') || Yii::$app->user->can('employee.create')) : ?>
         <?php $page->beginContent('main-actions') ?>
             <?= Html::a(Yii::t('hipanel:client', 'Create client'), ['@client/create'], ['class' => 'btn btn-sm btn-success']) ?>
-            <?= DeleteClientsByLoginsModal::widget() ?>
         <?php $page->endContent() ?>
     <?php endif ?>
 
@@ -80,6 +79,10 @@ $showFooter = ($uiModel->representation === 'profit-report')
     <?php $page->endContent() ?>
     <?php $page->beginContent('representation-actions') ?>
         <?= $page->renderRepresentations($representationCollection) ?>
+    <?php $page->endContent() ?>
+
+    <?php $page->beginContent('alt-actions') ?>
+        <?= DeleteClientsByLoginsModal::widget() ?>
     <?php $page->endContent() ?>
 
     <?php $page->beginContent('bulk-actions') ?>
