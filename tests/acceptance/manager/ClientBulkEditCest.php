@@ -9,7 +9,7 @@ use hipanel\tests\_support\Step\Acceptance\Manager;
 use hipanel\tests\_support\Page\Widget\Input\Dropdown;
 use hipanel\tests\_support\Page\Widget\Input\Input;
 
-class CleintBulkEditCest
+class ClientBulkEditCest
 {
     public function ensureICanDoBulkActionSeveralClients(Manager $I): void
     {
