@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace hipanel\modules\client\tests\acceptance\manager;
 
 use hipanel\helpers\Url;
+use hipanel\tests\_support\Page\IndexPage;
 use hipanel\tests\_support\Step\Acceptance\Manager;
 use hipanel\tests\_support\Page\Widget\Input\Input;
 
@@ -11,6 +12,8 @@ class VerifyUserCest
 {
     public function ensureICanVerifyUser(Manager $I): void
     {
+        $index = new IndexPage($I);
+
         $user = 'hipanel_test_user';
 
         $I->login();
@@ -24,8 +27,9 @@ class VerifyUserCest
         $I->waitForPageUpdate();
 
         $I->clickLink($user);
+        $I->waitForPageUpdate();
 
-        $this->verifyUser();
+        $this->verifyUser($I);
     }
 
     private function verifyUser(Manager $I): void
@@ -35,5 +39,4 @@ class VerifyUserCest
         $I->click("//span[contains(@class, 'bootstrap-switch-label')]");
         $I->closeNotification('Client verification status has been changed');
     }
-
 }
