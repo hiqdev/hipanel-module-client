@@ -90,9 +90,7 @@ class ClientBulkEditCest
             foreach ($clients as $key => $client) {
                 $login = $I->grabTextFrom($selector . "//tr[$client]" . "//td[$row]//a[1]");
                 foreach ($restrictedLogins as $restricteLogin) {
-                    echo "\t$login and $restricteLogin\n";
                     if (!strcmp($login, $restricteLogin)) {
-                        echo "\t\tequal\n";
                         $clients[$key] += 3;
                         $availableLogins = true;
                         break;
