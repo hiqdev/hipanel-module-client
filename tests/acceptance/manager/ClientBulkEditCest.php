@@ -39,8 +39,6 @@ class ClientBulkEditCest
 
     private function ensureICanEditSelectedUsers(Manager $I, array $clients): void
     {
-        $type = 'partner';
-
         $I->pressButton('Edit');
         $I->waitForPageUpdate();
 
@@ -83,7 +81,7 @@ class ClientBulkEditCest
     private function checkIfClientsCanBeDeleted(Manager $I, array $clients, string $selector): array
     {
         $indexPage = new IndexPage($I);
-        $restrictedLogins = array('hipanel_test_user', 'hipanel_test_reseller', 'hipanel_test_manager', 'hipanel_test_admin', 'test_user619924aa32dbcref', 'test_user619923ecf34fdref', 'test_user619923ecf34fd');
+        $restrictedLogins = array('hipanel_test_user', 'hipanel_test_reseller', 'hipanel_test_manager', 'hipanel_test_admin');
 
         $row = $indexPage->getColumnNumber('Login');
 
@@ -92,7 +90,9 @@ class ClientBulkEditCest
             foreach ($clients as $key => $client) {
                 $login = $I->grabTextFrom($selector . "//tr[$client]" . "//td[$row]//a[1]");
                 foreach ($restrictedLogins as $restricteLogin) {
+                    echo "\t$login and $restricteLogin\n";
                     if (!strcmp($login, $restricteLogin)) {
+                        echo "\t\tequal\n";
                         $clients[$key] += 3;
                         $availableLogins = true;
                         break;
