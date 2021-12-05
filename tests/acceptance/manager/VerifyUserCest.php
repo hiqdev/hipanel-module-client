@@ -20,7 +20,6 @@ class VerifyUserCest
         $I->needPage(Url::to('@client'));
 
         Input::asAdvancedSearch($I, 'Login or Email')->setValue($user);
-
         $I->waitForPageUpdate();
 
         $index->sortBy('Login');
