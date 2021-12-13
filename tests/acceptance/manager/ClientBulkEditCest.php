@@ -18,7 +18,7 @@ class ClientBulkEditCest
         $I->needPage(Url::to('@client'));
         $selector = "//table[contains(@class, 'striped')]//tbody";
 
-        $clients = $this->checkIfClientsCanBeDeleted($I, array(1, 2, 3), $selector);
+        $clients = $this->checkIfClientsCanBeDeleted($I, [1, 2, 3], $selector);
         $this->ensureICanDoBulkActionOnSelectedUsers($I, $clients, $selector);
     }
 
@@ -76,7 +76,7 @@ class ClientBulkEditCest
     private function checkIfClientsCanBeDeleted(Manager $I, array $clients, string $selector): array
     {
         $indexPage = new IndexPage($I);
-        $restrictedLogins = array('hipanel_test_user', 'hipanel_test_reseller', 'hipanel_test_manager', 'hipanel_test_admin');
+        $restrictedLogins = ['hipanel_test_user', 'hipanel_test_reseller', 'hipanel_test_manager', 'hipanel_test_admin'];
 
         $row = $indexPage->getColumnNumber('Login');
 
