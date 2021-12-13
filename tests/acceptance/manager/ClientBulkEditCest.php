@@ -73,11 +73,6 @@ class ClientBulkEditCest
         $I->pressButton('Enable block');
     }
 
-    private function ensureUsersWereSuccessfullyBlocked(): void
-    {
-
-    }
-
     private function checkIfClientsCanBeDeleted(Manager $I, array $clients, string $selector): array
     {
         $indexPage = new IndexPage($I);
