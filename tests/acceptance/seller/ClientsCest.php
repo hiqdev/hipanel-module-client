@@ -35,7 +35,7 @@ class ClientsCest
     private function ensureICanSeeMainButtons(Seller $I): void
     {
         $I->seeLink('Create client', Url::to('@client/create'));
-        $I->seeLink('Delete by logins');
+        $I->seeElement("//button[contains(text(), 'Delete by logins')]");
     }
 
     private function ensureICanSeeAdvancedSearchBox(IndexPage $index, Seller $I): void
