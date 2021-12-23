@@ -10,4 +10,5 @@
 
 return [
     'legals.privacyPolicyUrl' => '#',
+    'module.client.user.creation.disabled' => null,
 ];

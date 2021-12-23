@@ -46,6 +46,9 @@ $showFooter = ($uiModel->representation === 'profit-report')
     && (Yii::$app->user->can('order.read-profits'))
     && (class_exists(ProfitColumns::class));
 
+$user = Yii::$app->user;
+$canCreateClients = !$this->context->module->userCreationIsDisabled && ($user->can('client.create') || $user->can('employee.create'));
+
 ?>
 
 <?php Pjax::begin(array_merge(Yii::$app->params['pjax'], ['enablePushState' => true])) ?>
@@ -53,7 +56,7 @@ $showFooter = ($uiModel->representation === 'profit-report')
 
     <?= $page->setSearchFormData(@compact(['types', 'states', 'uiModel', 'sold_services', 'debt_label'])) ?>
 
-    <?php if (Yii::$app->user->can('client.create') || Yii::$app->user->can('employee.create')) : ?>
+    <?php if ($canCreateClients) : ?>
         <?php $page->beginContent('main-actions') ?>
             <?= Html::a(Yii::t('hipanel:client', 'Create client'), ['@client/create'], ['class' => 'btn btn-sm btn-success']) ?>
         <?php $page->endContent() ?>
