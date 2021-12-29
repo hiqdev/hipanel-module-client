@@ -16,14 +16,34 @@ use hipanel\helpers\Url;
 use hipanel\tests\_support\Page\IndexPage;
 use hipanel\tests\_support\Page\Widget\Input\Input;
 use hipanel\modules\client\tests\_support\Page\client\Create;
+use hipanel\modules\client\tests\_support\Helper\UserCreationHelper;
 use hipanel\tests\_support\Step\Acceptance\Manager;
 
 class ClientActionCest
 {
+    private UserCreationHelper $userCreationHelper;
+
+    protected function _inject(UserCreationHelper $userCreationHelper): void
+    {
+        $this->userCreationHelper = $userCreationHelper;
+    }
+
+    public function _before(Manager $I, $scenario): void
+    {
+        if (!$this->userCreationHelper->canCreateUsers()) {
+            $scenario->skip($this->userCreationHelper->getDisabledMessage());
+        }
+    }
+
     public function ensureClientCreationPageWorks(Manager $I): void
     {
         $I->login();
-        $I->needPage(Url::to('@client/create'));
+        $I->needPage(Url::to('@client/index'));
+        $createButtonSelector = "//a[normalize-space(.)='Create client'][contains(@class, 'btn-success')]";
+        $I->seeElement($createButtonSelector);
+        $I->click($createButtonSelector);
+        $I->waitForPageUpdate();
+        $I->seeElement("//h1[normalize-space(.)='Create client']");
     }
 
     /**

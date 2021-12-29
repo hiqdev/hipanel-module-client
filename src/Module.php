@@ -18,6 +18,8 @@ use Yii;
 
 class Module extends \hipanel\base\Module implements RepresentationCollectionFinderProviderInterface
 {
+    public bool $userCreationIsDisabled = false;
+
     public function getRepresentationCollectionFinder(): RepresentationCollectionFinderInterface
     {
         return new class(
