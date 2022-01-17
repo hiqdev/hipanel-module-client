@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace hipanel\modules\client\tests\acceptance\manager;
 
+use Exception;
 use hipanel\helpers\Url;
 use hipanel\tests\_support\Page\IndexPage;
 use hipanel\tests\_support\Page\Widget\Input\Input;
@@ -11,33 +12,27 @@ use hipanel\tests\_support\Step\Acceptance\Manager;
 
 class AssignmentsCest
 {
-    public function ensureIndexPageWorks(Manager $I): void
-    {
-        $index = new IndexPage($I);
+    private IndexPage $index;
 
+    public function _before(Manager $I): void
+    {
         $I->login();
         $I->needPage(Url::to('@client/assignments/index'));
-        $I->see('Assignments', 'h1');
-        $this->ensureICanSeeAdvancedSearchBox($I, $index);
-        $this->ensureICanSeeBulkSearchBox($I, $index);
-        $this->ensureICanAssignUser($I, $index);
+        $this->index = new IndexPage($I);
     }
 
-    private function ensureICanSeeAdvancedSearchBox(Manager $I, IndexPage $index): void
+    public function ensureIndexPageWorks(Manager $I): void
     {
-        $index->containsFilters([
+        $I->see('Assignments', 'h1');
+        $this->index->containsFilters([
             Input::asAdvancedSearch($I, 'Login'),
             Select2::asAdvancedSearch($I, 'Client'),
             Select2::asAdvancedSearch($I, 'Reseller'),
         ]);
-    }
-
-    private function ensureICanSeeBulkSearchBox(Manager $I, IndexPage $index): void
-    {
-        $index->containsBulkButtons([
+        $this->index->containsBulkButtons([
             'Set assignments',
         ]);
-        $index->containsColumns([
+        $this->index->containsColumns([
             'Login',
             'Reseller',
             'Type',
@@ -45,25 +40,26 @@ class AssignmentsCest
         ]);
     }
 
-    private function ensureICanAssignUser(Manager $I, IndexPage $index): void
+    public function ensureAssignUserFormIsWork(Manager $I, $scenario): void
     {
-        $I->needPage(Url::to('@client/assignments/index'));
-        $login = $I->grabTextFrom('//tbody//tr[1]//td[2]');
+        $login = 'hipanel_test_user';
+        Input::asTableFilter($I, 'Login')->setValue($login);
+        $I->click('//body');
+        $I->waitForPageUpdate();
 
-        $row = $index->getRowNumberInColumnByValue('Login', $login);
+        try {
+            $row = $this->index->getRowNumberInColumnByValue('Login', $login);
+        } catch (Exception $exception) {
+            $scenario->skip('No test client found whose seller is `hipanel_test_reseller`');
+        }
 
         $I->checkOption("//tbody/tr[$row]/td[1]/input");
         $I->pressButton('Set assignments');
-
         $I->waitForPageUpdate();
-
         $I->see('Set assignments', 'h1');
         $I->see($login, 'strong');
-
         $I->pressButton('Assign');
-
         $I->waitForPageUpdate();
-
         $I->closeNotification('Assignments have been successfully applied.');
         $I->seeInCurrentUrl('/assignments/index');
     }
