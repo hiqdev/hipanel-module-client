@@ -10,6 +10,12 @@ use hipanel\tests\_support\Page\Widget\Input\Select2;
 
 class DomainSettingsCest
 {
+    // todo: this test need to be moved to Domain module
+    public function _before(Admin $I, $scenario): void
+    {
+        $scenario->skip('This test should to be moved to the Domain module');
+    }
+
     /**
      * @dataProvider provideDomainSettings
      */
@@ -45,8 +51,8 @@ class DomainSettingsCest
     {
         return [
             [
-                'input'   => 'Name servers',
-                'select2' =>[
+                'input' => 'Name servers',
+                'select2' => [
                     'Registrant contact',
                     'Tech contact',
                     'Admin contact',

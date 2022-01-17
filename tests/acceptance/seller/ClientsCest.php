@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace hipanel\modules\client\tests\acceptance\seller;
 
 use hipanel\helpers\Url;
+use hipanel\modules\client\tests\_support\Helper\UserCreationHelper;
 use hipanel\tests\_support\Page\IndexPage;
 use hipanel\tests\_support\Page\Widget\Input\Input;
 use hipanel\tests\_support\Page\Widget\Input\Select2;
@@ -19,6 +20,13 @@ use hipanel\tests\_support\Step\Acceptance\Seller;
 
 class ClientsCest
 {
+    private UserCreationHelper $userCreationHelper;
+
+    protected function _inject(UserCreationHelper $userCreationHelper): void
+    {
+        $this->userCreationHelper = $userCreationHelper;
+    }
+
     public function ensureIndexPageWorks(Seller $I): void
     {
         $index = new IndexPage($I);
@@ -26,7 +34,9 @@ class ClientsCest
         $I->login();
         $I->needPage(Url::to('@client'));
         $I->see('Clients', 'h1');
-        $this->ensureICanSeeMainButtons($I);
+        if ($this->userCreationHelper->canCreateUsers()) {
+            $this->ensureICanSeeMainButtons($I);
+        }
         $this->ensureICanSeeAdvancedSearchBox($index, $I);
         $this->ensureICanSeeLegendBox($index);
         $this->ensureICanSeeBulkSearchBox($index);
@@ -46,7 +56,7 @@ class ClientsCest
             Input::asAdvancedSearch($I, 'Name'),
             Input::asAdvancedSearch($I, 'Email'),
             Input::asAdvancedSearch($I, 'Reseller'),
-            Select2::asAdvancedSearch($I,'Reseller'),
+            Select2::asAdvancedSearch($I, 'Reseller'),
             Select2::asAdvancedSearch($I, 'Types'),
             Select2::asAdvancedSearch($I, 'States'),
         ]);
