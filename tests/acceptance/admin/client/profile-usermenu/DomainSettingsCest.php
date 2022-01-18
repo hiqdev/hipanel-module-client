@@ -7,13 +7,15 @@ use Codeception\Example;
 use hipanel\helpers\Url;
 use hipanel\tests\_support\Step\Acceptance\Admin;
 use hipanel\tests\_support\Page\Widget\Input\Select2;
+use Yii;
 
 class DomainSettingsCest
 {
-    // todo: this test need to be moved to Domain module
     public function _before(Admin $I, $scenario): void
     {
-        $scenario->skip('This test should to be moved to the Domain module');
+        if (Yii::getAlias('@domain', false) === false) {
+            $scenario->skip('This test will only work if there is the Domain module');
+        }
     }
 
     /**
