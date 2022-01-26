@@ -15,7 +15,7 @@ use yii\helpers\Url;
 
 class ProfileCest
 {
-    public function ensureThatProfilePageWorks(Seller $I)
+    public function ensureThatProfilePageWorks(Seller $I): void
     {
         $I->login();
         $I->amOnPage(Url::to('@client'));
