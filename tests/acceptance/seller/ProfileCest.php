@@ -18,8 +18,15 @@ class ProfileCest
     public function ensureThatProfilePageWorks(Seller $I)
     {
         $I->login();
-        $I->amOnPage(Url::to(['@client/view', 'id' => $I->id]));
+        $I->amOnPage(Url::to('@client'));
+        $I->click($this->elementContains('span', 'hipanel_test_reseller'));
+        $I->click($this->elementContains('a', 'Profile'));
         $I->see('Client detailed information');
         $I->see('reseller', '.profile-user-role');
+    }
+
+    private function elementContains(string $element, string $text): ?string
+    {
+        return "//{$element}[contains(text(), '{$text}')]";
     }
 }
