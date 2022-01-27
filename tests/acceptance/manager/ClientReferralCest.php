@@ -5,13 +5,27 @@ namespace hipanel\modules\client\tests\acceptance\manager;
 
 use Codeception\Example;
 use hipanel\helpers\Url;
-use hipanel\tests\_support\Page\IndexPage;
+use hipanel\modules\client\tests\_support\Helper\UserCreationHelper;
 use hipanel\tests\_support\Step\Acceptance\Manager;
 use hipanel\tests\_support\Page\Widget\Input\Select2;
 use hipanel\modules\client\tests\_support\Page\client\Create;
 
 class ClientReferralCest
 {
+    private UserCreationHelper $userCreationHelper;
+
+    protected function _inject(UserCreationHelper $userCreationHelper): void
+    {
+        $this->userCreationHelper = $userCreationHelper;
+    }
+
+    public function _before(Manager $I, $scenario): void
+    {
+        if (!$this->userCreationHelper->canCreateUsers()) {
+            $scenario->skip($this->userCreationHelper->getDisabledMessage());
+        }
+    }
+
     private function getUserId(Manager $I): ?string
     {
         return $I->grabFromCurrentUrl('~(\d+)~');
