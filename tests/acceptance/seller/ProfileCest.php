@@ -22,9 +22,4 @@ class ProfileCest
         $I->see('Client detailed information');
         $I->see('reseller', '.profile-user-role');
     }
-
-    private function elementContains(string $element, string $text): ?string
-    {
-        return "//{$element}[contains(text(), '{$text}')]";
-    }
 }
