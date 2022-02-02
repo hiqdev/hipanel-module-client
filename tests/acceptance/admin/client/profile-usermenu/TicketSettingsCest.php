@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace hipanel\modules\client\tests\acceptance\admin\client\profile\usermenu;
 
 use Codeception\Example;
+use Codeception\Exception\ModuleException;
 use hipanel\helpers\Url;
 use hipanel\tests\_support\Step\Acceptance\Admin;
 use hipanel\tests\_support\Page\Widget\Input\Input;
@@ -11,25 +12,24 @@ use hipanel\tests\_support\Page\Widget\Input\Input;
 class TicketSettingsCest
 {
     /**
-     * @dataProvider provideTicketSettings
+     * @throws ModuleException
      */
-    public function ensureTicketSettingsWorksCorrectly(Admin $I, Example $example): void
+    public function _before(Admin $I): void
     {
-        $example = iterator_to_array($example->getIterator());
         $I->login();
+
         $I->needPage(Url::to(['@client/view', 'id' => $I->id]));
-
-        $I->see('Client detailed information', 'small');
-        $I->see('Ticket settings');
         $I->clickLink('Ticket settings');
-
-        $this->ensureTicketSettingsPopupWorksCorrectly($I, $example);
-        $this->enusreTicketSettingsWereSaved($I, $example);
+        $I->waitForText('In this field you can specify to receive email notifications of ticket');
     }
 
-    private function ensureTicketSettingsPopupWorksCorrectly(Admin $I, array $ticket): void
+    /**
+     * @dataProvider provideTicketSettings
+     * @throws ModuleException
+     */
+    public function ensureTicketSettingsPopupFormWorksCorrectly(Admin $I, Example $example): void
     {
-        $I->waitForText('In this field you can specify to receive email notifications of ticket');
+        $ticket = iterator_to_array($example->getIterator());
 
         foreach ($ticket['labels'] as $label) {
             $I->see($label, 'label');
@@ -44,15 +44,15 @@ class TicketSettingsCest
         }
 
         $I->pressButton('Save');
+        $I->waitForPageUpdate();
     }
 
-    private function enusreTicketSettingsWereSaved(Admin $I, array $ticket): void
+    /**
+     * @dataProvider provideTicketSettings
+     */
+    public function ensureTicketSettingsWereSaved(Admin $I, Example $example): void
     {
-        $I->waitForPageUpdate();
-        $I->closeNotification('Settings saved');
-        $I->clickLink('Ticket settings');
-
-        $I->waitForText('In this field you can specify to receive email notifications of ticket');
+        $ticket = iterator_to_array($example->getIterator());
 
         foreach ($ticket['inputs'] as $fieldId => $value) {
             $I->seeInField("input[id*='$fieldId']", $value);
@@ -73,7 +73,6 @@ class TicketSettingsCest
                 ],
                 'inputs' => [
                     'client-ticket_emails' => 'ticketEmail@hiqdev.com',
-                    'client-create_from_emails' => 'allowedEmail@hiqdev.com',
                 ],
                 'checkboxes' => [
                     'Send message text',
