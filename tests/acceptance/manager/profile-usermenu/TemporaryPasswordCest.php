@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace hipanel\modules\client\tests\acceptance\manager\profile\usermenu;
 
-use Codeception\Example;
 use hipanel\helpers\Url;
 use hipanel\tests\_support\Page\IndexPage;
 use hipanel\tests\_support\Step\Acceptance\Manager;
@@ -11,13 +10,16 @@ use hipanel\tests\_support\Page\Widget\Input\Input;
 
 class TemporaryPasswordCest
 {
-   public function ensureTemporaryPasswordWorksCorrectly(Manager $I): void
+    public function _before(Manager $I): void
+    {
+        $I->login();
+        $I->needPage(Url::to('@client/index'));
+    }
+
+    public function ensureTemporaryPasswordWorksCorrectly(Manager $I): void
     {
         $index = new IndexPage($I);
         $user = 'hipanel_test_user';
-
-        $I->login();
-        $I->needPage(Url::to('@client'));
 
         $I->see('Clients', 'h1');
         Input::asAdvancedSearch($I, 'Login or Email')->setValue($user);

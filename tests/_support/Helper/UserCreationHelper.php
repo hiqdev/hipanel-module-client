@@ -6,9 +6,9 @@ use Codeception\Module;
 
 class UserCreationHelper extends Module
 {
-    protected $requiredFields = ['user_creation_disabled'];
+    protected array $requiredFields = ['user_creation_disabled'];
 
-    protected $config = ['user_creation_disabled' => '0'];
+    protected array $config = ['user_creation_disabled' => '0'];
 
     public function canCreateUsers(): bool
     {
