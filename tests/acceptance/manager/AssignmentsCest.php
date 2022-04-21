@@ -49,7 +49,7 @@ class AssignmentsCest
 
         try {
             $row = $this->index->getRowNumberInColumnByValue('Login', $login);
-        } catch (Exception $exception) {
+        } catch (Exception) {
             $scenario->skip('No test client found whose seller is `hipanel_test_reseller`');
         }
 
@@ -57,7 +57,7 @@ class AssignmentsCest
         $I->pressButton('Set assignments');
         $I->waitForPageUpdate();
         $I->see('Set assignments', 'h1');
-        $I->see($login, 'strong');
+        $I->see($login, 'a');
         $I->pressButton('Assign');
         $I->waitForPageUpdate();
         $I->closeNotification('Assignments have been successfully applied.');

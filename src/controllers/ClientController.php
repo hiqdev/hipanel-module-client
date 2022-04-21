@@ -59,7 +59,7 @@ class ClientController extends CrudController
                     'perform-billing, set-credit' => 'bill.create',
                     'set-description' => 'client.set-description',
                     'set-note' => 'client.set-note',
-                    'set-tmp-pwd' => 'client.set-tmp-pwd',
+                    'set-tmp-password' => 'client.set-tmp-pwd',
                     'index, search' => ['client.read', 'employee.read'],
                     'allow-i-p' => true,
                     'restore-password' => true,
