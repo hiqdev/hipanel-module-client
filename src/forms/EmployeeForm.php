@@ -50,7 +50,7 @@ class EmployeeForm
      * @param Contact $contact
      * @param $scenario
      */
-    public function __construct(Contact $contact, $scenario)
+    public function __construct(Contact $contact, $scenario = 'default')
     {
         $this->scenario = $scenario;
         $this->contacts = $this->extractContacts($contact);
