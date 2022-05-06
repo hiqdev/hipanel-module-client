@@ -43,10 +43,11 @@ class DeleteClientsByLoginsModal extends Widget
         if (!Yii::$app->user->can('client.delete')) {
             return '';
         }
+        $this->view->registerCss(".box-bulk-actions { display: flex; } .box-bulk-actions > button { margin-right: .3rem; }");
 
-        return Html::a(Yii::t('hipanel:client', 'Delete by logins'), ['#'], [
+        return Html::button(Yii::t('hipanel:client', 'Delete by logins'), [
             'data' => ['toggle' => 'modal', 'target' => '#' . $this->getId()],
-            'class' => 'btn btn-block btn-danger',
+            'class' => 'btn btn-danger btn-sm',
         ]);
     }
 }

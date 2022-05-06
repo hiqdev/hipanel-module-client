@@ -11,6 +11,7 @@
 namespace hipanel\modules\client\grid;
 
 use hipanel\modules\client\widgets\combo\ClientCombo;
+use hiqdev\hiart\ActiveRecord;
 use hiqdev\higrid\DataColumn;
 use Yii;
 use yii\helpers\Html;
@@ -46,12 +47,16 @@ class ClientColumn extends DataColumn
             $this->sortAttribute = $this->nameAttribute;
         }
         if ($this->value === null) {
-            $this->value = function ($model) {
-                if (Yii::$app->user->identity->hasSeller($model->{$this->idAttribute})) {
-                    return $model->{$this->nameAttribute};
-                } else {
-                    return Html::a($model->{$this->nameAttribute}, ['@client/view', 'id' => $model->{$this->idAttribute}]);
+            $this->value = function (ActiveRecord $model): string {
+                $identity = Yii::$app->user->identity;
+                if (!isset($model->{$this->nameAttribute})) {
+                    return '';
                 }
+                if ($identity->hasSeller($model->{$this->idAttribute})) {
+                    return $model->{$this->nameAttribute};
+                }
+
+                return Html::a($model->{$this->nameAttribute}, ['@client/view', 'id' => $model->{$this->idAttribute}]);
             };
         }
         if (!empty($this->grid->filterModel)) {

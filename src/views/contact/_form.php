@@ -41,7 +41,7 @@ use yii\web\View;
         <?= $form->field($model, 'first_name'); ?>
         <?= $form->field($model, 'last_name'); ?>
         <?= $form->field($model, 'email'); ?>
-        <?= Html::activeHiddenInput($model, 'oldEmail', ['value' => $model->oldAttributes['email'] ?: $model->oldEmail]) ?>
+        <?= Html::activeHiddenInput($model, 'oldEmail', ['value' => $model->oldAttributes['email'] ?? $model->oldEmail]) ?>
 
         <?= $form->field($model, 'abuse_email'); ?>
         <?= $form->field($model, 'organization'); ?>

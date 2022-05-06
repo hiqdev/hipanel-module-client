@@ -28,11 +28,11 @@ class ClientRepresentations extends RepresentationCollection
                     'login',
                     'name_language',
                     'description',
+                    $user->can('bill.read') ? 'balance' : null,
+                    $user->can('bill.read') ? 'credit' : null,
                     $user->can('client.read') ? 'seller_id' : null,
                     $user->can('client.read') ? 'type' : null,
                     'state',
-                    $user->can('bill.read') ? 'balance' : null,
-                    $user->can('bill.read') ? 'credit' : null,
                 ]),
             ],
             'servers' =>  [

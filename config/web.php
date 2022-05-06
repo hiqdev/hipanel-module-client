@@ -22,6 +22,7 @@ return [
     'modules' => [
         'client' => [
             'class' => \hipanel\modules\client\Module::class,
+            'userCreationIsDisabled' => $params['module.client.user.creation.disabled'] ?? false,
         ],
         'language' => [
             'on ' . \hiqdev\yii2\language\events\LanguageWasChanged::EVENT_NAME =>

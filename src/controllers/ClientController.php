@@ -43,6 +43,8 @@ class ClientController extends CrudController
 {
     public function behaviors()
     {
+        $createUserPermissions = $this->module->userCreationIsDisabled ? false : ['employee.create', 'client.create'];
+
         return array_merge(parent::behaviors(), [
             [
                 'class' => EasyAccessControl::class,
@@ -50,14 +52,14 @@ class ClientController extends CrudController
                     'update' => 'client.update',
                     'delete' => 'client.delete',
                     'delete-by-logins' => 'client.delete',
-                    'create' => ['employee.create', 'client.create'],
+                    'create' => $createUserPermissions,
                     'enable-block' => 'client.block',
                     'disable-block' => 'client.unblock',
                     'set-verified' => 'contact.force-verify',
                     'perform-billing, set-credit' => 'bill.create',
                     'set-description' => 'client.set-description',
                     'set-note' => 'client.set-note',
-                    'set-tmp-pwd' => 'client.set-tmp-pwd',
+                    'set-tmp-password' => 'client.set-tmp-pwd',
                     'index, search' => ['client.read', 'employee.read'],
                     'allow-i-p' => true,
                     'restore-password' => true,

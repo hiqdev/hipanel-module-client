@@ -7,6 +7,7 @@
  * @license   BSD-3-Clause
  * @copyright Copyright (c) 2015-2019, HiQDev (http://hiqdev.com/)
  */
+
 namespace hipanel\modules\client\tests\acceptance\admin\contacts;
 
 use Codeception\Example;
@@ -27,8 +28,8 @@ class CreatePageCest
         $I->see('Create contact', 'button');
         $I->executeJS('scroll(0,1000);');
         $createPage->fillFormData($data['passport']);
-        $I->click('#legal-entity-box button');
-        $I->expectThrowable(InvalidElementStateException::class, fn () => $createPage->fillFormData($data['entity']));
+        $I->click('#legal-entity-box button.btn-box-tool');
+        $I->expectThrowable(InvalidElementStateException::class, fn() => $createPage->fillFormData($data['entity']));
         $I->reloadPage();
     }
 
@@ -42,10 +43,11 @@ class CreatePageCest
         $I->see('Create contact', 'button');
         $I->executeJS('scroll(0,1000);');
         $createPage->fillFormData($data['organization']);
-        $I->click('#legal-entity-box button');
+        $I->executeJS('scroll(0,2000);');
+        $I->click('#legal-entity-box button.btn-box-tool');
         $createPage->fillFormData($data['entity']);
-        $I->click('#passport-data-box button');
-        $I->expectThrowable(InvalidElementStateException::class, fn () => $createPage->fillFormData($data['passport']));
+        $I->click('#passport-data-box button.btn-box-tool');
+        $I->expectThrowable(InvalidElementStateException::class, fn() => $createPage->fillFormData($data['passport']));
     }
 
     protected function testContactData(): iterable
@@ -53,7 +55,7 @@ class CreatePageCest
         yield [
             'organization' => [
                 'inputs' => [
-                    'organization'  => 'HiQDev',
+                    'organization' => 'HiQDev',
                 ],
             ],
             'passport' => [

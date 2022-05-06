@@ -1,20 +1,20 @@
 <?php
+declare(strict_types=1);
+
+use hipanel\helpers\ArrayHelper;
+use hipanel\modules\finance\models\Plan;
+use hipanel\modules\finance\models\PlanType;
+use hipanel\modules\finance\models\TariffProfile;
+use hipanel\modules\finance\widgets\combo\PlanCombo;
+use yii\bootstrap\ActiveForm;
+use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model hipanel\modules\client\models\Client */
 /* @var $models hipanel\modules\client\models\Client[] */
-/* @var $plans Plan[] */
-
+/* @var $planTypes PlanType[] */
 /* @var $profiles TariffProfile[] */
-
-use hipanel\helpers\ArrayHelper;
-use hipanel\modules\client\models\Client;
-use hipanel\modules\finance\models\Plan;
-use hipanel\modules\finance\models\TariffProfile;
-use hipanel\widgets\ArraySpoiler;
-use yii\bootstrap\ActiveForm;
-use yii\helpers\Html;
-use yii\helpers\Json;
+/* @var $plansByType [] */
 
 ?>
 
@@ -30,15 +30,14 @@ use yii\helpers\Json;
                 <div class="box-header with-border">
                     <h3 class="box-title"><?= Yii::t('hipanel', 'Clients') ?></h3>
                 </div>
-                <div class="box-body">
-                    <?= ArraySpoiler::widget([
-                        'data' => $models,
-                        'visibleCount' => count($models),
-                        'formatter' => function (Client $client) {
-                            return Html::tag('strong', Html::encode($client->login));
-                        },
-                        'delimiter' => ',&nbsp;',
-                    ]); ?>
+                <div class="box-body" style="columns: 4 auto">
+                    <?php foreach (ArrayHelper::map($models, 'id', 'login') as $id => $login): ?>
+                        <?= Html::a(
+                            '<i class="fa fa-external-link fa-fw"></i> ' . Html::encode($login),
+                            ['@client/view', 'id' => $id], ['target' => '_blank']
+                        ) ?>
+                        <br/>
+                    <?php endforeach ?>
                 </div>
             </div>
         </div>
@@ -61,21 +60,29 @@ use yii\helpers\Json;
                 <div class="overlay hidden"></div>
             </div>
         </div>
-        <div class="col-lg-6">
+        <div class="col-lg-6 col-sm-12">
             <div class="box box-with-plans">
+
                 <div class="box-header with-border">
                     <h3 class="box-title"><?= Yii::t('hipanel', 'Tariffs') ?></h3>
                 </div>
-                <div class="box-body">
-                    <?php foreach ($plans as $planType => $items) : ?>
-                        <?php $planOptions = ArrayHelper::map($items, 'id', 'plan'); ?>
-                        <?php if (in_array($planType, [Plan::TYPE_CERTIFICATE, Plan::TYPE_DOMAIN])) : ?>
-                            <?= $form->field($model, "tariff_ids[$planType][]")->radioList($planOptions)->label(strtoupper($planType)) ?>
+
+                <?php foreach ($planTypes as $planType) : ?>
+                    <div class="box-body">
+                        <?php if (in_array($planType->name, [Plan::TYPE_CERTIFICATE, Plan::TYPE_DOMAIN], true)) : ?>
+                            <?= $form
+                                ->field($model, "tariff_ids[$planType->name][]")
+                                ->widget(PlanCombo::class, ['hasId' => true, 'tariffType' => $planType->name, 'multiple' => false])
+                                ->label(strtoupper($planType->label)) ?>
                         <?php else : ?>
-                            <?= $form->field($model, "tariff_ids[$planType][]")->checkboxList($planOptions)->label(strtoupper($planType)) ?>
-                        <?php endif; ?>
-                    <?php endforeach; ?>
-                </div>
+                            <?= $form
+                                ->field($model, "tariff_ids[$planType->name][]")
+                                ->widget(PlanCombo::class, ['hasId' => true, 'tariffType' => $planType->name, 'multiple' => true, 'current' => []])
+                                ->label(strtoupper($planType->label)) ?>
+                        <?php endif ?>
+                    </div>
+                <?php endforeach ?>
+
                 <div class="overlay hidden"></div>
             </div>
         </div>
@@ -86,19 +93,21 @@ use yii\helpers\Json;
         </div>
     </div>
 
-<?php $form->end(); ?>
+<?php ActiveForm::end() ?>
 
 <?php
 
 $this->registerCss('.box .overlay, .overlay-wrapper .overlay { opacity: 0.6; }');
+
 $profilesWithPlans = [];
+
 foreach ($profiles as $profile) {
     $profilesWithPlans[$profile->id] = ArrayHelper::csplit($profile->items['tariff']);
 }
-$profilesWithPlans = sprintf('var %s = %s;', 'profilesWithPlans', Json::htmlEncode($profilesWithPlans));
+
+$this->registerJsVar('profilesWithPlans', $profilesWithPlans);
 $this->registerJs(/** @lang JavaScript */ "
 (function () {
-    $profilesWithPlans
     function handleActiveBox() {
         $('#assignments-form').find('div.box').removeClass('box-success').find('.overlay').removeClass('hidden');
         $(this).addClass('box-success').find('.overlay').addClass('hidden');
@@ -112,7 +121,7 @@ $this->registerJs(/** @lang JavaScript */ "
         });
     }
     function handleIfPlanSelected() {
-        var selectedPlans = profilesWithPlans[this.value];
+        const selectedPlans = profilesWithPlans[this.value];
         $('.box-with-plans :input').each(function () {
             this.disabled = true;
             if (selectedPlans.includes(this.value) && $(this).not(':checked')) {
@@ -132,6 +141,7 @@ $this->registerJs(/** @lang JavaScript */ "
 $allTheSame = true;
 $profiles = [];
 $plans = [];
+
 foreach ($models as $client) {
     $profiles = array_merge($profiles, $client->tariffAssignment->profileIds);
     $plans = array_merge($plans, $client->tariffAssignment->planIds);
@@ -142,20 +152,28 @@ foreach ($models as $client) {
 }
 
 if ($allTheSame) {
-    $currentProfile = sprintf('var %s = %s;', 'currentProfile', Json::htmlEncode($model->tariffAssignment->profileIds));
-    $currentPlans = sprintf('var %s = %s;', 'currentPlans', Json::htmlEncode($model->tariffAssignment->planIds));
+    $this->registerJsVar('currentProfiles', $model->tariffAssignment->profileIds);
+    $this->registerJsVar('currentPlans', $model->tariffAssignment->planIds);
+    $this->registerJsVar('plansByType', $plansByType);
     $this->registerJs(/** @lang JavaScript */ "
-(function () {
-    $currentProfile
-    $currentPlans
-    if (currentProfile.length) {
-        $('.box-with-profiles').click();
-        $('.box-with-profiles :radio').val(currentProfile).change();
-    } else if (currentPlans.length) {
-        $('.box-with-plans').click();
-        $('.box-with-plans :input').val(currentPlans).change();
-    }
-})();
+        (function () {
+            if (currentProfiles.length) {
+              $('.box-with-profiles').click();
+              $('.box-with-profiles :radio').val(currentProfiles).change();
+            } else if (currentPlans.length) {
+              $('.box-with-plans').click();
+              Object.entries(plansByType).forEach(entry => {
+                const [type, plans] = entry;
+                Object.entries(plans).forEach(entry => {
+                  const [planId, planName] = entry;
+                  if (currentPlans.includes(planId)) {
+                    const newOption = new Option(planName, planId, true, true);
+                    $(`:input[id*=\"-\${type}\"]`).append(newOption).trigger('change select2:select')
+                  }
+                });
+              });
+            }
+        })();
     ");
 } else {
     $this->registerJs("$('.difference-assignation').removeClass('hidden');");

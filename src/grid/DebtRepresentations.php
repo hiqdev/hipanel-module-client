@@ -36,6 +36,8 @@ class DebtRepresentations extends RepresentationCollection
                     'checkbox', 'login_without_note', 'note', 'seller',
                     'sold_services',
                     'total_balance',
+                    'balance_usd',
+                    'balance_eur',
                     'last_deposit',
                     'debt_depth',
                     'payment_ticket',

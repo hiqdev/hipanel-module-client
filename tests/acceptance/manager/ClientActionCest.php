@@ -16,14 +16,34 @@ use hipanel\helpers\Url;
 use hipanel\tests\_support\Page\IndexPage;
 use hipanel\tests\_support\Page\Widget\Input\Input;
 use hipanel\modules\client\tests\_support\Page\client\Create;
+use hipanel\modules\client\tests\_support\Helper\UserCreationHelper;
 use hipanel\tests\_support\Step\Acceptance\Manager;
 
 class ClientActionCest
 {
+    private UserCreationHelper $userCreationHelper;
+
+    protected function _inject(UserCreationHelper $userCreationHelper): void
+    {
+        $this->userCreationHelper = $userCreationHelper;
+    }
+
+    public function _before(Manager $I, $scenario): void
+    {
+        if (!$this->userCreationHelper->canCreateUsers()) {
+            $scenario->skip($this->userCreationHelper->getDisabledMessage());
+        }
+    }
+
     public function ensureClientCreationPageWorks(Manager $I): void
     {
         $I->login();
-        $I->needPage(Url::to('@client/create'));
+        $I->needPage(Url::to('@client/index'));
+        $createButtonSelector = "//a[normalize-space(.)='Create client'][contains(@class, 'btn-success')]";
+        $I->seeElement($createButtonSelector);
+        $I->click($createButtonSelector);
+        $I->waitForPageUpdate();
+        $I->seeElement("//h1[normalize-space(.)='Create client']");
     }
 
     /**
@@ -39,15 +59,19 @@ class ClientActionCest
         $page = new Create($I);
         $clientData = iterator_to_array($clientData->getIterator());
 
+        if (!isset($clientData['login'])) {
+            $this->ensureDeleteByLoginsButtonWorksCorrectly($I, $clientData);
+            return;
+        }
+
+
         $I->needPage(Url::to('@client/create'));
 
         $page->fillClientData($clientData);
         $I->pressButton('Save');
         $I->waitForPageUpdate();
         $page->seeClientWasCreated($clientData['login'], $clientData['type']);
-
         $this->ensureICantCreateClientWithTakenData($I, $clientData);
-        $this->ensureDeleteByLoginsButtonWorksCorrectly($I, $clientData);
     }
 
     /**
@@ -87,16 +111,19 @@ class ClientActionCest
     {
         $I->needPage(Url::to('@client'));
 
-        $I->clickLink('Delete by logins');
+        $I->pressButton('Delete by logins');
 
         $I->waitForText('Type client logins, delimited with a space, comma or a new line');
 
-        (new Input($I, '#deleteclientsbyloginsform-logins'))->setValue($client['login']);
+        $usernames = implode(' ', $client);
+        (new Input($I, '#deleteclientsbyloginsform-logins'))->setValue($usernames);
 
         $I->pressButton('Delete clients');
         $I->waitForPageUpdate();
 
-        $this->ensureClientsWasDeleted($I, $client['login']);
+        foreach ($client as $username) {
+            $this->ensureClientsWasDeleted($I, $username);
+        }
     }
 
     private function ensureClientsWasDeleted(Manager $I, string $login): void
@@ -118,7 +145,7 @@ class ClientActionCest
     {
         foreach (['client', 'reseller', 'manager', 'admin', 'support'] as $type) {
             yield [
-                'login'     => 'test_login' . uniqid(),
+                'login'     => $usernames[] = 'test_login' . uniqid(),
                 'email'     => 'test_email@test.test' . uniqid(),
                 'password'  => 'test_pass',
                 'type'      =>  $type,
@@ -126,5 +153,6 @@ class ClientActionCest
                 'reseller'  => null,
             ];
         }
+        yield $usernames;
     }
 }

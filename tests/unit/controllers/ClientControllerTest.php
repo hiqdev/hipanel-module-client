@@ -17,10 +17,7 @@ use hipanel\modules\client\controllers\ClientController;
  */
 class ClientControllerTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @var ClientController
-     */
-    protected $object;
+    protected ClientController $object;
 
     protected function setUp(): void
     {
@@ -31,7 +28,7 @@ class ClientControllerTest extends \PHPUnit\Framework\TestCase
     {
     }
 
-    public function testActions()
+    public function testActions(): void
     {
         $this->assertInstanceOf(ClientController::class, $this->object);
     }

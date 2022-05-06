@@ -34,6 +34,7 @@ class DocumentsCest
         $I->needPage(Url::to('@document'));
         $I->see('Documents', 'h1');
         $I->seeLink('Create document', Url::to('create'));
+        $I->seeLink('Get documents as compressed file', Url::to('/document/document/archive'));
         $this->ensureICanSeeAdvancedSearchBox($I);
         $this->ensureICanSeeBulkSearchBox();
     }

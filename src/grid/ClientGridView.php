@@ -259,7 +259,7 @@ class ClientGridView extends BoxedGridView
                         );
                     }
 
-                    if (Yii::$app->user->can('resell') && $num = $model->count['pre_ordered_servers']) {
+                    if (Yii::$app->user->can('resell') && $num = ($model->count['pre_ordered_servers'] ?? 0)) {
                         $result[] = Html::a(
                             Yii::t('hipanel:client', '{0, plural, one{# pre-ordered server} other{# pre-ordered servers}}', $num),
                             Url::to(['@pre-order', 'ChangeSearch' => ['client_id' => $model->id]])
@@ -277,7 +277,7 @@ class ClientGridView extends BoxedGridView
                     /** @var Client $model */
                     $result = [];
 
-                    if ($num = $model->count['targets']) {
+                    if ($num = ($model->count['targets'] ?? 0)) {
                         $result[] = Html::a(
                             Yii::t('hipanel', '{0, plural, one{# target} other{# targets}}', $num),
                             Url::toSearch('target', ['client_id' => $model->id])
@@ -339,7 +339,7 @@ class ClientGridView extends BoxedGridView
                         'data' => $model->servers,
                         'visibleCount' => 1,
                         'button' => [
-                            'label' => '+' . ($model->count['servers'] - 1),
+                            'label' => !empty($model->count['servers']) ? '+' . ($model->count['servers'] - 1) : '',
                             'popoverOptions' => [
                                 'html' => true,
                             ],
@@ -368,7 +368,7 @@ class ClientGridView extends BoxedGridView
                         'data' => $model->targets,
                         'visibleCount' => 1,
                         'button' => [
-                            'label' => '+' . ($model->count['targets'] - 1),
+                            'label' => !empty($model->count['targets']) ? '+' . ($model->count['targets'] - 1) : '',
                             'popoverOptions' => [
                                 'html' => true,
                             ],
@@ -378,7 +378,7 @@ class ClientGridView extends BoxedGridView
                             ++$index;
 
                             $value = Html::a(Html::encode($item->name), ['@target/view', 'id' => $item->id]);
-                            if ($model->count['targets'] > count($model->targets) && $index === count($model->servers)) {
+                            if (!empty($model->count['targets']) && $model->count['targets'] > count($model->targets) && $index === count($model->servers)) {
                                 $text = Yii::t('hipanel:client', 'and {n} more', ['n' => $model->count['targets'] - count($model->targets)]);
                                 $value .= ' ' . Html::a($text, Url::toSearch('target', ['client_id' => $model->id]), ['class' => 'border-bottom-dashed']);
                             }
@@ -413,6 +413,9 @@ class ClientGridView extends BoxedGridView
                 'label' => Yii::t('hipanel', 'Hosting'),
                 'value' => function ($model) {
                     $res = '';
+                    if (empty($model->count['accounts'])) {
+                        return '';
+                    }
                     $num = $model->count['accounts'];
                     $url = Url::toSearch('account', ['client_id' => $model->id]);
                     $res .= $num ? Html::a(Yii::t('hipanel', '{0, plural, one{# account} other{# accounts}}', $num), $url) : '';
@@ -544,12 +547,17 @@ class ClientGridView extends BoxedGridView
                 'label' => Yii::t('hipanel:client', 'Assignments'),
                 'value' => function (Client $model): string {
                     $html = '';
+                    $user = Yii::$app->user;
                     foreach ($model->assignments as $assignment) {
                         $typeLabel = Yii::t('hipanel', Inflector::titleize($assignment->type));
-                        $html .= "<b>$typeLabel</b>: ";
+                        $html .= Html::tag('strong', $typeLabel) . '&nbsp;';
                         if ($assignment->isInherited()) {
-                            $route = ['@tariffprofile/view', 'id' => Yii::$app->user->id];
-                            $html .= Html::a(Yii::t('hipanel:client', 'Inherited from seller\'s defaults'), $route);
+                            if ($user->can('resell')) {
+                                $route = ['@tariffprofile/view', 'id' => $user->id];
+                                $html .= Html::a(Yii::t('hipanel:client', 'Inherited from seller\'s defaults'), $route);
+                            } else {
+                                $html .= Yii::t('hipanel:client', 'Inherited from seller\'s defaults');
+                            }
                         } else {
                             $html .= Html::encode($assignment->tariff_names ?? $assignment->profile_name);
                         }
@@ -585,8 +593,12 @@ class ClientGridView extends BoxedGridView
                 'label' => Yii::t('hipanel:client', 'Referral tariff'),
                 'format' => 'raw',
                 'value' => static function(Client $client): ?string {
+                    if (!isset($client->referral['tariff'])) {
+                        return '';
+                    }
                     $tariff = Html::encode($client->referral['tariff']);
-                    return $tariff && $client->referral['tariff_id']
+
+                    return $tariff && isset($client->referral['tariff_id'])
                         ? Html::a($tariff, ['@plan/view', 'id' => $client->referral['tariff_id']])
                         : '';
                 },
