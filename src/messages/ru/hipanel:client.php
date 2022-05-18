@@ -322,4 +322,6 @@ return [
     'Logins' => 'Логины клиентов',
     'Delete clients' => 'Удалить клиентов',
     'Hide system' => 'Скрыть системных',
+
+    'Total balance' => 'Общий баланс',
 ];
