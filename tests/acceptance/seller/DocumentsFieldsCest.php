@@ -34,7 +34,7 @@ class DocumentsFieldsCest
         $exampeArray = iterator_to_array($example->getIterator());
         $this->create->fillMainDocumentFields($exampeArray);
         $I->click('Save');
-
+        $I->wait(1);
         $this->create->dontContainsBlankFieldsError(['Sender']);
     }
     

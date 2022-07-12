@@ -29,7 +29,7 @@ class TemporaryPasswordCest
         $index->sortBy('Login');
         $I->waitForPageUpdate();
 
-        $I->clickLink($user);
+        $I->click($user);
         $I->waitForPageUpdate();
         $I->see($user, 'h1');
 
