@@ -17,18 +17,9 @@ use yii\web\View;
  */
 ?>
 
+<?= Html::hiddenInput('pincode', null, ['id' => 'contact-pincode']) ?>
+
 <div class="row">
-    <div class="col-md-12">
-        <?php Box::begin(['options' => ['class' => 'box-widget']]); ?>
-        <?php if ($model->scenario === 'create') : ?>
-            <?= Html::submitButton(Yii::t('hipanel:client', 'Create contact'), ['class' => 'btn btn-success']); ?>
-        <?php else : ?>
-            <?= Html::submitButton(Yii::t('hipanel', 'Save'), ['class' => 'btn btn-success']); ?>
-        <?php endif; ?>
-        <?= BackButton::widget() ?>
-        <?php Box::end(); ?>
-        <?= Html::hiddenInput('pincode', null, ['id' => 'contact-pincode']) ?>
-    </div>
 
     <div class="col-md-6">
         <?php Box::begin(['title' => Yii::t('hipanel:client', 'Contact details')]) ?>
@@ -182,16 +173,6 @@ use yii\web\View;
         <?php Box::end() ?>
     </div>
 
-    <div class="col-md-12">
-        <?php Box::begin(['options' => ['class' => 'box-widget']]); ?>
-        <?php if ($model->scenario === 'create') : ?>
-            <?= Html::submitButton(Yii::t('hipanel:client', 'Create contact'), ['class' => 'btn btn-success']); ?>
-        <?php else : ?>
-            <?= Html::submitButton(Yii::t('hipanel', 'Save'), ['class' => 'btn btn-success']); ?>
-        <?php endif; ?>
-        <?= BackButton::widget() ?>
-        <?php Box::end(); ?>
-    </div>
 </div>
 <!-- /.row -->
 

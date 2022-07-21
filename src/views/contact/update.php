@@ -8,6 +8,7 @@
  */
 use hipanel\helpers\Url;
 use yii\bootstrap\ActiveForm;
+use yii\helpers\Html;
 use yii\helpers\Inflector;
 
 /**
@@ -37,6 +38,12 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <?= \hipanel\modules\client\widgets\GdprConsent::widget(compact('model', 'form')) ?>
 <?= $this->render('_form', compact('model', 'countries', 'model', 'form')) ?>
+
+<?php if ($model->scenario === 'create') : ?>
+    <?= Html::submitButton(Yii::t('hipanel:client', 'Create contact'), ['class' => 'btn btn-success']); ?>
+<?php else : ?>
+    <?= Html::submitButton(Yii::t('hipanel', 'Save'), ['class' => 'btn btn-success']); ?>
+<?php endif; ?>
 
 <?php ActiveForm::end() ?>
 

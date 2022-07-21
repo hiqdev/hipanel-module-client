@@ -8,6 +8,7 @@
  */
 use hipanel\helpers\Url;
 use yii\bootstrap\ActiveForm;
+use yii\bootstrap\Html;
 
 /**
  * @var \yii\web\View
@@ -31,5 +32,11 @@ $this->params['breadcrumbs'][] = $this->title;
 ]) ?>
 
 <?= $this->render('_form', compact('model', 'countries', 'form')); ?>
+
+<?php if ($model->scenario === 'create') : ?>
+    <?= Html::submitButton(Yii::t('hipanel:client', 'Create contact'), ['class' => 'btn btn-success']); ?>
+<?php else : ?>
+    <?= Html::submitButton(Yii::t('hipanel', 'Save'), ['class' => 'btn btn-success']); ?>
+<?php endif; ?>
 
 <?php ActiveForm::end() ?>
