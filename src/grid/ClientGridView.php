@@ -310,7 +310,7 @@ class ClientGridView extends BoxedGridView
                         'data' => $model->domains,
                         'visibleCount' => 1,
                         'button' => [
-                            'label' => '+' . ($model->count['domains'] - 1),
+                            'label' => !empty($model->count['domains']) ? ('+' . ($model->count['domains'] - 1)) : '',
                             'popoverOptions' => [
                                 'html' => true,
                             ],
