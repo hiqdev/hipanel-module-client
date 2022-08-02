@@ -70,7 +70,7 @@ class Contact extends \hipanel\base\Model
             [['name', 'first_name', 'last_name'], 'string'],
             [['name', 'first_name', 'last_name'], 'trim'],
             [['birth_date', 'passport_date'], 'safe'],
-            [['passport_no', 'passport_by', 'organization', 'password', 'xxx_token'], 'safe'],
+            [['passport_no', 'passport_by', 'organization', 'password', 'xxx_token', 'ua_tm'], 'safe'],
             [['localization'], 'safe'],
             [['invoice_last_no'], 'safe'],
 
@@ -268,6 +268,7 @@ class Contact extends \hipanel\base\Model
             'bank_correspondent_swift'=> Yii::t('hipanel:client', 'Correspondent bank SWIFT code'),
             'localization'      => Yii::t('hipanel:client', 'Localization'),
             'xxx_token'         => Yii::t('hipanel:client', 'XXX Token'),
+            'ua_tm'             => Yii::t('hipanel:client', 'UA TM'),
             'policy_consent'    => Yii::t('hipanel:client', 'Privacy policy agreement'),
             'gdpr_consent'      => Yii::t('hipanel:client', 'GDPR policy agreement'),
             'invoice_last_no' => Yii::t('hipanel:client', 'Last document number'),
