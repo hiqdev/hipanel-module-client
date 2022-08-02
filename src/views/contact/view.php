@@ -82,6 +82,7 @@ FlagIconCssAsset::register($this);
                                 'voice_phone', 'fax_phone',
                                 'messengers', 'other', 'social_net',
                                 'xxx_token',
+                                'ua_tm',
                             ],
                         ]) ?>
                     <?php $box->endBody() ?>
