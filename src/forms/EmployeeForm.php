@@ -45,6 +45,7 @@ class EmployeeForm
      * @var Document the contract
      */
     protected $contract;
+    private ?string $error = null;
 
     /**
      * @param Contact $contact
@@ -163,33 +164,25 @@ class EmployeeForm
         return $this->contract;
     }
 
-    /**
-     * Validates all models of the form.
-     *
-     * @return true|string
-     */
-    public function validate()
+    public function validate(): bool
     {
         $contacts = $this->getContactsCollection();
         if (!$contacts->validate()) {
-            return $contacts->getFirstError();
+            $this->error = $contacts->getFirstError();
         }
 
         if ($this->getContract() !== null) {
             if (!$this->getContract()->validate()) {
-                return reset($this->getContract()->getFirstErrors());
+                $errors = $this->getContract()->getFirstErrors();
+
+                $this->error = reset($errors);
             }
         }
 
-        return true;
+        return $this->error === null;
     }
 
-    /**
-     * Saves all model of the form.
-     *
-     * @return string|bool
-     */
-    public function save()
+    public function save(): bool
     {
         $collection = $this->getContactsCollection();
 
@@ -198,13 +191,15 @@ class EmployeeForm
             $contactsSaved = $collection->save();
 
             if ($this->getContract() !== null) {
-                $this->getContract()->save();
+                $contractSaved = $this->getContract()->save();
             }
 
             return $contactsSaved && $contractSaved;
         } catch (ResponseErrorException $e) {
-            return $e->getMessage();
+            $this->error = $e->getMessage();
         }
+
+        return false;
     }
 
     /**
@@ -220,6 +215,11 @@ class EmployeeForm
             'provided_services_en' => Yii::t('hipanel:client', 'Provided services (en)'),
             'provided_services_uk' => Yii::t('hipanel:client', 'Provided services (uk)'),
         ];
+    }
+
+    public function getError(): ?string
+    {
+        return $this->error;
     }
 
     /**
