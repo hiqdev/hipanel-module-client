@@ -322,13 +322,16 @@ class ContactController extends CrudController
 
         $model = new EmployeeForm($contact, 'update');
         if (Yii::$app->request->isPost) {
-            if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->save()) {
+            $model->load(Yii::$app->request->post());
+            $validate = $model->validate();
+            $save = $model->save();
+            if ($validate === true && $save === true) {
                 Yii::$app->session->addFlash('success', Yii::t('hipanel:client', 'Employee contact was saved successfully'));
+
                 return $this->redirect(['@client/view', 'id' => $model->getId()]);
             }
 
-            $errors = $model->getFirstErrors();
-            Yii::$app->session->addFlash('error', implode("\n", $errors));
+            Yii::$app->session->addFlash('error', $model->getError());
         }
 
         return $this->render('update-employee', [
