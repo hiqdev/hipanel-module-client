@@ -17,6 +17,7 @@ class ContactInformationCest
 {
     public function ensureThatContactInformationBlockWorks(Admin $I): void
     {
+        $I->markTestSkipped('Moved to Playwright');
         $I->login();
         $I->needPage(Url::to(['@client/view', 'id' => $I->id]));
         $I->seeLink('Details', Url::to(['@contact/view', 'id' => $I->id]));
