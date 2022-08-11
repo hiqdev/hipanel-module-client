@@ -18,6 +18,7 @@ class TemporaryPasswordCest
 
     public function ensureTemporaryPasswordWorksCorrectly(Manager $I): void
     {
+        $I->markTestSkipped('Moved to Playwright');
         $index = new IndexPage($I);
         $user = 'hipanel_test_user';
 

@@ -51,7 +51,6 @@ $canCreateClients = !$this->context->module->userCreationIsDisabled && ($user->c
 
 ?>
 
-<?php Pjax::begin(array_merge(Yii::$app->params['pjax'], ['enablePushState' => true])) ?>
 <?php $page = IndexPage::begin(compact('model', 'dataProvider')) ?>
 
     <?= $page->setSearchFormData(@compact(['types', 'states', 'uiModel', 'sold_services', 'debt_label'])) ?>
@@ -181,4 +180,3 @@ $canCreateClients = !$this->context->module->userCreationIsDisabled && ($user->c
     <?php $page->endContent() ?>
 
 <?php $page->end() ?>
-<?php Pjax::end() ?>

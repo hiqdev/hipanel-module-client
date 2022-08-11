@@ -21,7 +21,7 @@ const assumptions = [
   { "country_name": "Trinidad And Tobago" },
 ];
 
-test("Test the Document page is work @hipanel-module-client @admin", async ({ adminPage }) => {
+test("Test the admin contact information is correct @hipanel-module-client @admin", async ({ adminPage }) => {
   await adminPage.goto("/site/profile");
   assumptions.map(
     async assumption => {
