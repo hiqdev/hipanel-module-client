@@ -1,4 +1,4 @@
-import { test } from "@hipanel-core/tests/fixtures";
+import { test } from "@hipanel-core/fixtures";
 import { expect } from "@playwright/test";
 
 const assumptions = [
