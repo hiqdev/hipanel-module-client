@@ -1,4 +1,4 @@
-import { test } from "@hipanel-core/tests/fixtures";
+import { test } from "@hipanel-core/fixtures";
 import { expect } from "@playwright/test";
 
 test("Test the temporary password pop-up is work @hipanel-module-client @manager", async ({ managerPage }) => {
