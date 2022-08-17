@@ -9,11 +9,9 @@ test("Test the temporary password pop-up is work @hipanel-module-client @manager
     managerPage.waitForNavigation(),
     managerPage.locator("[placeholder=\"Login or Email\"]").press("Enter"),
   ]);
-  await managerPage.locator("a:has-text(\"hipanel_test_user\")").first().click();
-  await Promise.all([
-    managerPage.waitForNavigation(),
-    expect(managerPage).toHaveTitle("hipanel_test_user"),
-  ]);
+  const user = managerPage.locator("//a[normalize-space(text())=\"hipanel_test_user\"]");
+  await user.first().click();
+  await expect(managerPage).toHaveTitle("hipanel_test_user");
   await managerPage.locator("a:has-text(\"Temporary password\")").click();
   await expect(managerPage.locator("h4:has-text(\"Temporary password\")")).toBeVisible();
   await managerPage.waitForSelector("#tmp-password-form >> text=Confirm");
