@@ -21,6 +21,7 @@ class IPAddressRestrictionsCest
      */
     public function _before(Admin $I)
     {
+        $I->markTestSkipped('Moved to Playwright');
         $I->login();
         $I->needPage(Url::to(['@client/view', 'id' => $I->id]));
     }
