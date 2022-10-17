@@ -86,7 +86,13 @@ $contract = $employeeForm->getContract();
                 <?php $box->beginHeader() ?>
                     <?= $box->renderTitle(Yii::t('hipanel:client', 'Contract information')) ?>
                 <?php $box->endHeader() ?>
-                <?php $box->beginBody() ?>
+                <?php $box->beginBody() ?>a
+                    <?php foreach (['sender_id', 'receiver_id'] as $cKey) : ?>                                                                                                                                                                                                  
+                        <?php if (empty($contract->{$cKey})) : ?>
+                            <?php $contract->{$cKey} = $cKey === 'sender_id' ? $model->seller_id : $model->client_id ?>
+                            <?= $form->field($contract, $cKey)->hiddenInput()->label(false) ?>
+                        <?php endif ?>
+                    <?php endforeach ?>
                     <?php foreach ($employeeForm->getContractFields() as $name => $label) : ?>
                         <?= $form->field($contract, "data[$name]")->label($label) ?>
                     <?php endforeach; ?>
