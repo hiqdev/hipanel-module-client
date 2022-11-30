@@ -490,7 +490,7 @@ class ClientGridView extends BoxedGridView
                         'data-type' => 'textarea',
                     ],
                 ],
-                'visible' => Yii::$app->user->can('support'),
+                'visible' => Yii::$app->user->can('client.set-description'),
             ],
             'last_deposit' => [
                 'label' => Yii::t('hipanel:client', 'Last deposit'),
