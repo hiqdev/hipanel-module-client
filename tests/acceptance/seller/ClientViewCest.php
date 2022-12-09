@@ -31,7 +31,6 @@ class ClientViewCest
             'Common'     => [
                 'Login',
                 'Client',
-                'Description',
                 'Reseller',
                 'Type',
                 'Status',
