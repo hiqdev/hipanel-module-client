@@ -104,9 +104,11 @@ use yii\web\View;
         <?= $search->field('hide_internal')->checkbox() ?>
     </div>
 
-    <div class="col-md-4 col-sm-6 col-xs-12 checkbox">
-        <?= $search->field('only_with_note')->checkbox() ?>
-    </div>
+    <?php if (Yii::$app->user->can('manage')): ?>
+        <div class="col-md-4 col-sm-6 col-xs-12 checkbox">
+            <?= $search->field('only_with_note')->checkbox() ?>
+        </div>
+    <?php endif ?>
 
     <?php if ($uiModel->representation === 'profit-report'): ?>
         <div class="col-md-4 col-sm-6 col-xs-12">
