@@ -322,4 +322,5 @@ return [
     'Logins' => 'Логины клиентов',
     'Delete clients' => 'Удалить клиентов',
     'Hide system' => 'Скрыть системных',
+    'Only with note' => 'Только с заметками',
 ];
