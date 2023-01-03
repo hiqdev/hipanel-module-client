@@ -34,6 +34,7 @@ class ClientSearch extends Client
             'debt_type',
             'total_balance_gt', 'total_balance_lt', 'total_balance',
             'balance_gt', 'balance_lt',
+            'only_with_note',
         ]);
     }
 
@@ -45,6 +46,7 @@ class ClientSearch extends Client
             'client_id' => Yii::t('hipanel:client', 'Client'),
             'hide_internal' => Yii::t('hipanel:client', 'Hide system'),
             'debt_type' => Yii::t('hipanel:client', 'Financial type'),
+            'only_with_note' => Yii::t('hipanel:client', 'Only with note'),
         ]);
     }
 
