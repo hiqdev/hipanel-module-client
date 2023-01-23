@@ -12,7 +12,6 @@ use yii\bootstrap\ActiveForm;
 use yii\helpers\Inflector;
 
 /**
- * @var string
  * @var array $countries
  * @var boolean $askPincode
  * @var Contact $model the primary contact
@@ -35,8 +34,13 @@ $this->params['breadcrumbs'][] = $this->title;
     'layout' => 'horizontal',
 ]) ?>
 
-<?= $this->render('_employee-form', compact('scenario', 'countries', 'model', 'form', 'employeeForm')) ?>
+<?= $this->render('_employee-form', [
+    'countries' => $countries,
+    'model' => $model,
+    'form' => $form,
+    'employeeForm' => $employeeForm
+]) ?>
 
 <?php ActiveForm::end() ?>
 
-<?= $this->render('_pincode', compact('askPincode')) ?>
+<?= $this->render('_pincode', ['askPincode' => $askPincode]) ?>

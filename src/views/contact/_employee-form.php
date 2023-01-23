@@ -1,13 +1,5 @@
 <?php
 
-/**
- * @var \yii\web\View
- * @var string $scenario
- * @var array $countries
- * @var Contact $model the primary model
- * @var ActiveForm $form
- * @var EmployeeForm $employeeForm
- */
 use hipanel\modules\client\forms\EmployeeForm;
 use borales\extensions\phoneInput\PhoneInput;
 use hipanel\modules\client\models\Contact;
@@ -17,6 +9,15 @@ use hipanel\widgets\Box;
 use hiqdev\combo\StaticCombo;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use yii\widgets\MaskedInput;
+
+/**
+ * @var \yii\web\View
+ * @var array $countries
+ * @var Contact $model the primary model
+ * @var ActiveForm $form
+ * @var EmployeeForm $employeeForm
+ */
 
 $i = 0;
 $contract = $employeeForm->getContract();
@@ -91,9 +92,16 @@ $contract = $employeeForm->getContract();
                     <?= Html::activeHiddenInput($contract, 'sender_id', ['value' => $model->seller_id]) ?>
                     <?= Html::activeHiddenInput($contract, 'receiver_id', ['value' => $model->client_id]) ?>
 
-                    <?php foreach ($employeeForm->getContractFields() as $name => $label) : ?>
-                        <?= $form->field($contract, "data[$name]")->label($label) ?>
-                    <?php endforeach; ?>
+                    <?php
+                        foreach ($employeeForm->getContractFields() as $name => $label) {
+                            if ($name === 'date') {
+                                $form->field($contract, "data[date]")->widget(MaskedInput::class, [
+                                        'mask' => '99.99.9999',
+                                    ])->label($label);
+                            }
+                            echo $form->field($contract, "data[$name]")->label($label);
+                        }
+                    ?>
                 <?php $box->endBody() ?>
             <?php $box::end(); ?>
         </div>
