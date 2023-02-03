@@ -13,12 +13,8 @@ use hipanel\tests\_support\Page\Widget\Input\Input;
 
 abstract class CommonContactActions
 {
-    /** @var array */
-    protected $createdContacts;
+    protected array $createdContacts;
 
-    /**
-     * @return array
-     */
     abstract protected function testContactData(): array;
 
     /**
@@ -42,7 +38,7 @@ abstract class CommonContactActions
      * @param AcceptanceTester $I
      * @throws \Codeception\Exception\ModuleException
      */
-    protected function update(AcceptanceTester $I): void
+    protected function update(AcceptanceTester $I, Example $data): void
     {
         $indexPage = new IndexPage($I);
         $updatePage = new Update($I);
@@ -50,15 +46,14 @@ abstract class CommonContactActions
         foreach ($this->createdContacts as $id => $name) {
             $I->needPage(Url::to('@contact'));
 
-            $indexPage->gridView->filterBy(
-                Input::asTableFilter($I, 'Name'), $name
-            );
+            $indexPage->gridView->filterBy(Input::asTableFilter($I, 'Name'), $name);
             $indexPage->gridView->openRowMenuById($id);
             $indexPage->gridView->chooseRowMenuOption('Edit');
 
-            $data['inputs']['last_name'] = 'edited';
             $updatePage->fillFormData($data);
             $I->pressButton('Save');
+            $I->wait(0.5);
+            $updatePage->sendPincode($I, $data['pincode']);
             $I->closeNotification('Contact was updated');
         }
     }

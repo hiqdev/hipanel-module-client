@@ -49,7 +49,7 @@ $form = new \hipanel\modules\client\forms\EmployeeForm($model->contact, $scenari
                 'model' => $model,
             ]) ?>
         </div>
-        <?= $this->render('./../_custom-attributes', compact('model')) ?>
+        <?= $this->render('./../_custom-attributes', ['model' => $model]) ?>
         <?php Box::end() ?>
     </div>
 

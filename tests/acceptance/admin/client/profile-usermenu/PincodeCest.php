@@ -230,6 +230,25 @@ JS;
         $this->testContentVisibilityWithPinOff($I, $content['pinOff']);
     }
 
+    /**
+     * @dataProvider providerPincodeData
+     */
+    public function testSetPincode(Admin $I, Example $pincodeInfo)
+    {
+        $this->enablePin($I, $pincodeInfo);
+    }
+
+    private function providerPincodeData()
+    {
+        return [
+            [
+                'pin' => '1234',
+                'question' => null,
+                'answer' => 'test answer',
+            ]
+        ];
+    }
+
     private function visibleContent()
     {
         $views = [

@@ -24,6 +24,7 @@ class ClientReferralCest
         if (!$this->userCreationHelper->canCreateUsers()) {
             $scenario->skip($this->userCreationHelper->getDisabledMessage());
         }
+        $scenario->skip('Skip the referral test because this program is not in use');
     }
 
     private function getUserId(Manager $I): ?string

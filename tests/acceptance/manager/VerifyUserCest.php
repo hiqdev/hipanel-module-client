@@ -22,7 +22,7 @@ class VerifyUserCest
         Input::asAdvancedSearch($I, 'Login or Email')->setValue($user);
         $I->waitForPageUpdate();
 
-        $index->sortBy('Login');
+        $index->filterBy(Input::asTableFilter($I, 'Login'), $user);
         $I->waitForPageUpdate();
 
         $I->clickLink($user);

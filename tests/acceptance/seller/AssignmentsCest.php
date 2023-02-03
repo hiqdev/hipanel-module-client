@@ -1,27 +1,27 @@
 <?php
 declare(strict_types=1);
 
-namespace hipanel\modules\client\tests\acceptance\manager;
+namespace hipanel\modules\client\tests\acceptance\seller;
 
 use Exception;
 use hipanel\helpers\Url;
 use hipanel\tests\_support\Page\IndexPage;
 use hipanel\tests\_support\Page\Widget\Input\Input;
 use hipanel\tests\_support\Page\Widget\Input\Select2;
-use hipanel\tests\_support\Step\Acceptance\Manager;
+use hipanel\tests\_support\Step\Acceptance\Seller;
 
 class AssignmentsCest
 {
     private IndexPage $index;
 
-    public function _before(Manager $I): void
+    public function _before(Seller $I): void
     {
         $I->login();
         $I->needPage(Url::to('@client/assignments/index'));
         $this->index = new IndexPage($I);
     }
 
-    public function ensureIndexPageWorks(Manager $I): void
+    public function ensureIndexPageWorks(Seller $I): void
     {
         $I->see('Assignments', 'h1');
         $this->index->containsFilters([
@@ -40,7 +40,7 @@ class AssignmentsCest
         ]);
     }
 
-    public function ensureAssignUserFormIsWork(Manager $I, $scenario): void
+    public function ensureAssignUserFormIsWork(Seller $I, $scenario): void
     {
         $login = 'hipanel_test_user';
         Input::asTableFilter($I, 'Login')->setValue($login);

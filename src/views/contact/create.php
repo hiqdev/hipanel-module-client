@@ -6,15 +6,18 @@
  * @license   BSD-3-Clause
  * @copyright Copyright (c) 2015-2017, HiQDev (http://hiqdev.com/)
  */
+
 use hipanel\helpers\Url;
+use hipanel\modules\client\models\Contact;
 use yii\bootstrap\ActiveForm;
 use yii\bootstrap\Html;
+use yii\web\View;
 
 /**
- * @var \yii\web\View
+ * @var View $this
  * @var string $action
  * @var array $countries
- * @var \hipanel\modules\client\models\Contact $model
+ * @var Contact $model
  */
 $this->title = Yii::t('hipanel:client', 'Create contact');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('hipanel', 'Contact'), 'url' => ['index']];
@@ -31,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
     'validationUrl' => Url::toRoute(['validate-form', 'scenario' => $model->scenario]),
 ]) ?>
 
-<?= $this->render('_form', compact('model', 'countries', 'form')); ?>
+<?= $this->render('_form', ['model' => $model, 'countries' => $countries, 'form' => $form]); ?>
 
 <?php if ($model->scenario === 'create') : ?>
     <?= Html::submitButton(Yii::t('hipanel:client', 'Create contact'), ['class' => 'btn btn-success']); ?>

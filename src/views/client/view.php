@@ -10,6 +10,10 @@
 
 use hipanel\modules\client\models\Client;
 
+/**
+ * @var Client $model
+ */
+
 $this->title = $model->login;
 $this->params['subtitle'] = sprintf('%s %s', Yii::t('hipanel:client', 'Client detailed information'), (Yii::$app->user->can('support') ? ' #' . $model->id : ''));
 if (Yii::$app->user->can('client.read')) {
@@ -18,7 +22,7 @@ if (Yii::$app->user->can('client.read')) {
 $this->params['breadcrumbs'][] = $this->title;
 
 if ($model->type === Client::TYPE_EMPLOYEE) {
-    echo $this->render('view/employee', compact('model'));
+    echo $this->render('view/employee', ['model' => $model]);
 } else {
-    echo $this->render('view/client', compact('model'));
+    echo $this->render('view/client', ['model' => $model]);
 }

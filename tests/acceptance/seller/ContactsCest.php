@@ -28,12 +28,12 @@ class ContactsCest extends CommonContactActions
     }
 
     /**
-     * @param Seller $I
+     * @dataProvider testUpdateContactData
      * @throws \Codeception\Exception\ModuleException
      */
-    public function ensureICanUpdateContact(Seller $I): void
+    public function ensureICanUpdateContact(Seller $I, Example $data): void
     {
-        parent::update($I);
+        parent::update($I, $data);
     }
 
     /**
@@ -118,5 +118,17 @@ class ContactsCest extends CommonContactActions
         }
 
         return $data;
+    }
+
+    protected function testUpdateContactData()
+    {
+        return [
+            [
+                'inputs' => [
+                    'last_name' => 'edited',
+                ],
+                'pincode' => 1234,
+            ]
+        ];
     }
 }
