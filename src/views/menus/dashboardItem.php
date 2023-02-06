@@ -7,7 +7,14 @@ use hipanel\modules\dashboard\widgets\SmallBox;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
+/**
+ * @var string $route
+ * @var int $ownCount
+ * @var string $entityName
+ */
+
 ?>
+
 <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12">
     <?php $box = SmallBox::begin([
         'boxTitle' => Yii::t('hipanel', 'Clients'),
@@ -15,7 +22,7 @@ use yii\helpers\Url;
         'boxColor' => SmallBox::COLOR_FUCHSIA,
     ]) ?>
     <?php $box->beginBody() ?>
-    <?= ObjectsCountWidget::widget(compact('route', 'ownCount', 'entityName')) ?>
+    <?= ObjectsCountWidget::widget(['route' => $route, 'ownCount' => $ownCount, 'entityName' => $entityName]) ?>
     <?= SearchForm::widget([
         'formOptions' => [
             'id' => 'client-search',

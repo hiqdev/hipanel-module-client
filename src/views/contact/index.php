@@ -1,11 +1,22 @@
 <?php
 
 use hipanel\modules\client\grid\ContactGridView;
+use hipanel\modules\client\models\Contact;
 use hipanel\widgets\IndexPage;
 use hipanel\widgets\Pjax;
+use hiqdev\hiart\ActiveDataProvider;
 use yii\helpers\Html;
 use hipanel\widgets\AjaxModal;
 use yii\bootstrap\Modal;
+use hipanel\modules\client\grid\ContactRepresentations;
+use hipanel\models\IndexPageUiOptions;
+
+/**
+ * @var Contact $model
+ * @var ActiveDataProvider $dataProvider
+ * @var ContactRepresentations $representationCollection
+ * @var IndexPageUiOptions $uiModel
+ */
 
 $this->title = Yii::t('hipanel', 'Contact');
 $this->params['subtitle'] = array_filter(Yii::$app->request->get($model->formName(), [])) ? Yii::t('hipanel', 'filtered list') : Yii::t('hipanel', 'full list');
@@ -13,7 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 ?>
 <?php Pjax::begin(array_merge(Yii::$app->params['pjax'], ['enablePushState' => true])) ?>
-    <?php $page = IndexPage::begin(compact('model', 'dataProvider')) ?>
+    <?php $page = IndexPage::begin(['model' => $model, 'dataProvider' => $dataProvider]) ?>
 
         <?php $page->setSearchFormData() ?>
 

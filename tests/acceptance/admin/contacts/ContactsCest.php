@@ -28,12 +28,12 @@ class ContactsCest extends CommonContactActions
     }
 
     /**
-     * @param Admin $I
+     * @dataProvider testUpdateContactData
      * @throws \Codeception\Exception\ModuleException
      */
-    public function ensureICanUpdateContact(Admin $I): void
+    public function ensureICanUpdateContact(Admin $I, Example $data): void
     {
-        parent::update($I);
+        parent::update($I, $data);
     }
 
     /**
@@ -85,10 +85,10 @@ class ContactsCest extends CommonContactActions
 
         $varData = [
             [
-                'voice_phone'       => '(965) 449-99-99',
-                'phoneCountryCode'  => 'ru',
-                'postal_code'   => '123445',
-                'country'       => 'Russian Federation',
+                'voice_phone'       => '+4407400 555554',
+                'phoneCountryCode'  => 'gb',
+                'postal_code'   => 'AL3 8QE',
+                'country'       => 'United Kingdom',
             ],
             [
                 'voice_phone'       => '093 000-1122',
@@ -118,5 +118,17 @@ class ContactsCest extends CommonContactActions
         }
 
         return $data;
+    }
+
+    protected function testUpdateContactData()
+    {
+        return [
+            [
+                'inputs' => [
+                    'last_name' => 'edited',
+                ],
+                'pincode' => 1234,
+            ]
+        ];
     }
 }

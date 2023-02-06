@@ -1,26 +1,29 @@
 <?php
 
-/**
- * @var \yii\web\View $this
- * @var \hiqdev\hiart\ActiveDataProvider $dataProvider
- * @var \hipanel\modules\client\models\Client $model
- * @var \hipanel\modules\client\models\Client[] $models
- */
-
-$this->title = Yii::t('hipanel:client', 'Assignments');
-$this->params['subtitle'] = array_filter(Yii::$app->request->get($model->formName(), [])) ? Yii::t('hipanel', 'filtered list') : Yii::t('hipanel', 'full list');
-$this->params['breadcrumbs'][] = $this->title;
-
 use hipanel\grid\DataColumn;
 use hipanel\helpers\Url;
 use hipanel\modules\client\grid\ClientGridView;
 use hipanel\modules\client\models\Client;
 use hipanel\widgets\IndexPage;
 use hipanel\widgets\Pjax;
-use yii\helpers\Html; ?>
+use hiqdev\hiart\ActiveDataProvider;
+use yii\helpers\Html;
+use yii\web\View;
+
+/**
+ * @var View $this
+ * @var ActiveDataProvider $dataProvider
+ * @var Client $model
+ * @var Client[] $models
+ */
+
+$this->title = Yii::t('hipanel:client', 'Assignments');
+$this->params['subtitle'] = array_filter(Yii::$app->request->get($model->formName(), [])) ? Yii::t('hipanel', 'filtered list') : Yii::t('hipanel', 'full list');
+$this->params['breadcrumbs'][] = $this->title;
+?>
 
 <?php Pjax::begin(array_merge(Yii::$app->params['pjax'], ['enablePushState' => true])) ?>
-<?php $page = IndexPage::begin(compact('model', 'dataProvider')) ?>
+<?php $page = IndexPage::begin(['model' => $model, 'dataProvider' => $dataProvider]) ?>
     <?php $page->beginContent('sorter-actions') ?>
         <?= $page->renderSorter([
             'attributes' => [

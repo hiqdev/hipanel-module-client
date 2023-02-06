@@ -34,6 +34,7 @@ use yii\web\View;
  * @var ClientSearch $model
  * @var array $types
  * @var array $states
+ * @var array $debt_label
  */
 
 FlagIconCssAsset::register($this);
@@ -51,9 +52,14 @@ $canCreateClients = !$this->context->module->userCreationIsDisabled && ($user->c
 
 ?>
 
-<?php $page = IndexPage::begin(compact('model', 'dataProvider')) ?>
+<?php $page = IndexPage::begin(['model' => $model, 'dataProvider' => $dataProvider]) ?>
 
-    <?= $page->setSearchFormData(@compact(['types', 'states', 'uiModel', 'sold_services', 'debt_label'])) ?>
+    <?php $page->setSearchFormData([
+            'types' => $types,
+            'states' => $states,
+            'uiModel' => $uiModel,
+            'debt_label' => $debt_label,
+    ]) ?>
 
     <?php if ($canCreateClients) : ?>
         <?php $page->beginContent('main-actions') ?>
