@@ -21,7 +21,7 @@ class DebtRepresentations extends RepresentationCollection
             'common' => [
                 'label' => Yii::t('hipanel', 'Common'),
                 'columns' => [
-                    'checkbox', 'login_without_note', 'note', 'seller',
+                    'checkbox', 'login_without_note', 'description', 'seller',
                     'sold_services',
                     'total_balance',
                     'last_deposit',
@@ -33,7 +33,7 @@ class DebtRepresentations extends RepresentationCollection
             'advanced' => [
                 'label' => Yii::t('hipanel', 'Advanced'),
                 'columns' => [
-                    'checkbox', 'login_without_note', 'note', 'seller',
+                    'checkbox', 'login_without_note', 'description', 'seller',
                     'sold_services',
                     'total_balance',
                     'balance_usd',
