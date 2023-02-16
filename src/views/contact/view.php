@@ -2,6 +2,7 @@
 
 use hipanel\modules\client\grid\ContactGridView;
 use hipanel\modules\client\menus\ContactDetailMenu;
+use hipanel\modules\client\models\Contact;
 use hipanel\modules\client\widgets\ForceVerificationBlock;
 use hipanel\modules\document\widgets\StackedDocumentsView;
 use hipanel\widgets\Box;
@@ -12,8 +13,9 @@ use yii\helpers\Html;
 use yii\helpers\Inflector;
 
 /**
- * @var \hipanel\modules\client\models\Contact
+ * @var Contact $model
  */
+
 $this->title = Inflector::titleize($model->name, true);
 $this->params['subtitle'] = sprintf('%s %s', Yii::t('hipanel:client', 'Contact detailed information'), (Yii::$app->user->can('support') ? ' #' . $model->id : ''));
 if (Yii::$app->user->can('contact.read')) {
