@@ -53,7 +53,6 @@ abstract class CommonContactActions
             $updatePage->fillFormData($data);
             $I->pressButton('Save');
             $I->wait(0.5);
-            $updatePage->sendPincode($I, $data['pincode']);
             $I->closeNotification('Contact was updated');
         }
     }
