@@ -46,6 +46,7 @@ class EmployeeForm
      */
     protected $contract;
     private ?string $error = null;
+    private ?array $errorOPS = [];
 
     /**
      * @param Contact $contact
@@ -197,6 +198,7 @@ class EmployeeForm
             return $contactsSaved && $contractSaved;
         } catch (ResponseErrorException $e) {
             $this->error = $e->getMessage();
+            $this->errorOPS = $e->getResponse()->getData()['_error_ops'] ?? null;
         }
 
         return false;
@@ -220,6 +222,11 @@ class EmployeeForm
     public function getError(): ?string
     {
         return $this->error;
+    }
+
+    public function getErrorOPS(): ?array
+    {
+        return $this->errorOPS;
     }
 
     /**
