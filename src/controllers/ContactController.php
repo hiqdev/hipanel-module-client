@@ -38,9 +38,12 @@ use yii\base\Event;
 use yii\filters\VerbFilter;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
+use yii\helpers\Html;
+use hipanel\helpers\Url;
 
 class ContactController extends CrudController
 {
+    private const CONTRACT_TEMPLATE_ERROR = 'failed find document template';
     /**
      * @var NotifyTriesRepository
      */
@@ -331,7 +334,23 @@ class ContactController extends CrudController
                 return $this->redirect(['@client/view', 'id' => $model->getId()]);
             }
 
-            Yii::$app->session->addFlash('error', $model->getError());
+            $errorMessage = $model->getError();
+            if ($errorMessage === self::CONTRACT_TEMPLATE_ERROR) {
+                if (Yii::$app->user->can('requisites.update')) {
+                    $errorData = $model->getErrorOPS();
+                    $contractURL = Html::a(
+                        Url::toRoute(['@requisite/view', 'id' => $errorData['requisite_id']], true),
+                        ['@requisite/view', 'id' => $errorData['requisite_id']]
+                    );
+                    $errorMessage = Yii::t('hipanel:finance',  "No templates for requisite. Follow this link {contactUrl} and set template of type '{type}'", [
+                        'contactUrl' => $contractURL,
+                        'type' => $errorData['type'],
+                    ]);
+                } else {
+                    $errorMessage = Yii::t('hipanel:finance', 'No templates for requisite. Please contact finance department');
+                }
+            }
+            Yii::$app->session->addFlash('error', $errorMessage);
         }
 
         return $this->render('update-employee', [
