@@ -25,7 +25,7 @@ test("Test the admin contact information is correct @hipanel-module-client @admi
   await adminPage.goto("/site/profile");
   assumptions.map(
     async assumption => {
-      const id = Object.keys(assumption)[0], text = assumption[id];
-      await expect(adminPage.locator(`th[data-resizable-column-id=${id}] + td:has-text("${text}")`)).toBeVisible();
+      let id = Object.keys(assumption)[0], text = assumption[id];
+      await expect(adminPage.locator(`th[data-resizable-column-id=${id}] + td`)).toContainText(text);
     });
 });
