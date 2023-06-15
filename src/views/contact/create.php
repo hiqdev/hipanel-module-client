@@ -26,7 +26,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <?php $form = ActiveForm::begin([
     'id' => 'contact-form',
-    'action' => $action ?: $model->scenario,
     'enableClientValidation' => true,
     'validateOnBlur' => true,
     'enableAjaxValidation' => true,

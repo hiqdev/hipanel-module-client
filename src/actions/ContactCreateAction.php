@@ -11,6 +11,7 @@
 namespace hipanel\modules\client\actions;
 
 use hipanel\actions\SmartCreateAction;
+use hipanel\modules\client\models\BankDetails;
 use Yii;
 
 class ContactCreateAction extends SmartCreateAction
@@ -19,6 +20,12 @@ class ContactCreateAction extends SmartCreateAction
     {
         Yii::configure($this, [
             'success' => Yii::t('hipanel:client', 'Contact was created'),
+            'collectionLoader' => function ($action) {
+                $requestData = $action->controller->request->post($action->collection->formName);
+                $bankDetails = $action->controller->request->post('BankDetails');
+                $requestData['setBankDetails'] = $bankDetails;
+                $action->collection->load([$requestData]);
+            },
             'data' => function ($action) {
                 return [
                     'countries' => $action->controller->getRefs('country_code'),

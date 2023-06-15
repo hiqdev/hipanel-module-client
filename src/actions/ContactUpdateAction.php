@@ -12,6 +12,7 @@ namespace hipanel\modules\client\actions;
 
 use hipanel\actions\SmartUpdateAction;
 use hipanel\modules\client\helpers\HasPINCode;
+use hipanel\modules\client\models\BankDetails;
 use Yii;
 use yii\base\Event;
 
@@ -38,7 +39,8 @@ class ContactUpdateAction extends SmartUpdateAction
 
                 $action->getDataProvider()->query
                     ->andFilterWhere(['with_localizations' => true])
-                    ->joinWith('localizations');
+                    ->joinWith(['localizations'])
+                    ->joinWith(['bankDetails']);
             },
             'on beforeSave' => function (Event $event) {
                 /** @var \hipanel\actions\Action $action */
@@ -51,9 +53,16 @@ class ContactUpdateAction extends SmartUpdateAction
                     }
                 }
             },
+            'collectionLoader' => function ($action) {
+                $requestData = $action->controller->request->post($action->collection->formName);
+                $bankDetails = $action->controller->request->post('BankDetails');
+                $requestData['setBankDetails'] = $bankDetails;
+                $action->collection->load([$requestData]);
+            },
             'data' => function ($action) {
                 return [
                     'countries' => $action->controller->getRefs('country_code'),
+                    'currencies' => $action->controller->getRefs('type,currency'),
                     'askPincode' => $this->hasPINCode->__invoke(),
                     'action' => 'update',
                 ];

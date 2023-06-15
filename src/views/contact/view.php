@@ -100,7 +100,7 @@ FlagIconCssAsset::register($this);
                         <?= ContactGridView::detailView([
                             'boxed'   => false,
                             'model'   => $model,
-                            'columns' => ['reg_data', 'vat_rate', 'invoice_last_no'],
+                            'columns' => ['reg_data', 'vat_rate', 'invoice_last_no', 'registration_number', 'tic'],
                         ]) ?>
                     <?php $box->endBody() ?>
                 <?php $box->end() ?>
@@ -110,12 +110,13 @@ FlagIconCssAsset::register($this);
                     'collapsed' => empty($model->bank_details),
                     'collapsable' => true,
                     'title' => Yii::t('hipanel:client', 'Bank details'),
+                    'bodyOptions' => ['class' => 'no-padding'],
                 ]) ?>
                     <?php $box->beginBody() ?>
                         <?= ContactGridView::detailView([
                             'boxed'   => false,
                             'model'   => $model,
-                            'columns' => ['bank_account', 'bank_name', 'bank_address', 'bank_swift'],
+                            'columns' => ['requisites'],
                         ]) ?>
                     <?php $box->endBody() ?>
                 <?php $box->end() ?>

@@ -34,19 +34,6 @@ class Contact extends \hipanel\base\Model
 
     public $oldEmail;
 
-    public function init()
-    {
-        parent::init();
-
-        $this->on(self::EVENT_BEFORE_INSERT, [$this, 'setBankDetails']);
-        $this->on(self::EVENT_BEFORE_UPDATE, [$this, 'setBankDetails']);
-    }
-
-    public function setBankDetails($insert)
-    {
-        $this->bank_details = $this->renderBankDetails();
-    }
-
     public function rules()
     {
         return array_filter([
@@ -77,7 +64,7 @@ class Contact extends \hipanel\base\Model
             [['reg_data', 'vat_number', 'tax_comment', 'bank_details'], 'trim'],
             [['bank_account', 'bank_name', 'bank_address', 'bank_swift'], 'trim'],
             [['bank_correspondent', 'bank_correspondent_swift'], 'trim'],
-            [['vat_number', 'tax_comment'], 'string'],
+            [['vat_number', 'tax_comment', 'registration_number', 'tic'], 'string'],
             [['vat_rate'], 'number', 'max' => 99],
 
             [['remote', 'file'], 'safe'],
@@ -222,56 +209,53 @@ class Contact extends \hipanel\base\Model
                 'message' => Yii::t('hipanel:client', 'We need your permission in order to provide services'),
             ],
             [['id', 'client_id'], 'required', 'on' => ['reserve-number']],
+            [['setBankDetails'], 'safe'],
         ]);
     }
 
     public function attributeLabels()
     {
         return $this->mergeAttributeLabels([
-            'name'              => Yii::t('hipanel', 'Name'),
-            'first_name'        => Yii::t('hipanel:client', 'First name'),
-            'last_name'         => Yii::t('hipanel:client', 'Last name'),
-            'organization'      => Yii::t('hipanel:client', 'Organization'),
-            'abuse_email'       => Yii::t('hipanel:client', 'Abuse email'),
-            'passport_no'       => Yii::t('hipanel:client', 'Passport number'),
-            'icq'               => 'ICQ',
-            'voice_phone'       => Yii::t('hipanel:client', 'Phone'),
-            'fax_phone'         => Yii::t('hipanel:client', 'Fax'),
-            'country_name'      => Yii::t('hipanel:client', 'Country'),
-            'country'           => Yii::t('hipanel:client', 'Country'),
-            'isresident'        => Yii::t('hipanel:client', 'RF resident'),
-            'street1'           => Yii::t('hipanel:client', 'Address'),
-            'street2'           => Yii::t('hipanel:client', 'Address 2'),
-            'street3'           => Yii::t('hipanel:client', 'Address 3'),
-            'inn'               => Yii::t('hipanel:client', 'Taxpayer identification number'),
-            'kpp'               => Yii::t('hipanel:client', 'Code of reason for registration'),
-            'organization_ru'   => Yii::t('hipanel:client', 'Organization (Russian title)'),
-            'director_name'     => Yii::t('hipanel:client', 'Director\'s full name'),
-            'address'           => Yii::t('hipanel:client', 'Address'),
-            'city'              => Yii::t('hipanel:client', 'City'),
-            'province'          => Yii::t('hipanel:client', 'Province'),
-            'postal_code'       => Yii::t('hipanel:client', 'Postal code'),
-            'birth_date'        => Yii::t('hipanel:client', 'Birth date'),
-            'messengers'        => Yii::t('hipanel:client', 'Messengers'),
-            'other_messenger'   => Yii::t('hipanel:client', 'Other messenger'),
-            'passport_date'     => Yii::t('hipanel:client', 'Passport issue date'),
-            'passport_by'       => Yii::t('hipanel:client', 'Issued by'),
-            'social_net'        => Yii::t('hipanel:client', 'Social'),
-            'reg_data'          => Yii::t('hipanel:client', 'Registration data'),
-            'vat_number'        => Yii::t('hipanel:client', 'VAT number'),
-            'vat_rate'          => Yii::t('hipanel:client', 'VAT rate'),
-            'bank_account'      => Yii::t('hipanel:client', 'Bank account'),
-            'bank_name'         => Yii::t('hipanel:client', 'Bank name'),
-            'bank_address'      => Yii::t('hipanel:client', 'Bank address'),
-            'bank_swift'        => Yii::t('hipanel:client', 'SWIFT code'),
-            'bank_correspondent'=> Yii::t('hipanel:client', 'Correspondent bank'),
-            'bank_correspondent_swift'=> Yii::t('hipanel:client', 'Correspondent bank SWIFT code'),
-            'localization'      => Yii::t('hipanel:client', 'Localization'),
-            'xxx_token'         => Yii::t('hipanel:client', 'XXX Token'),
-            'ua_tm'             => Yii::t('hipanel:client', 'UA TM'),
-            'policy_consent'    => Yii::t('hipanel:client', 'Privacy policy agreement'),
-            'gdpr_consent'      => Yii::t('hipanel:client', 'GDPR policy agreement'),
-            'invoice_last_no' => Yii::t('hipanel:client', 'Last document number'),
+            'name'                => Yii::t('hipanel', 'Name'),
+            'first_name'          => Yii::t('hipanel:client', 'First name'),
+            'last_name'           => Yii::t('hipanel:client', 'Last name'),
+            'organization'        => Yii::t('hipanel:client', 'Organization'),
+            'abuse_email'         => Yii::t('hipanel:client', 'Abuse email'),
+            'passport_no'         => Yii::t('hipanel:client', 'Passport number'),
+            'icq'                 => 'ICQ',
+            'voice_phone'         => Yii::t('hipanel:client', 'Phone'),
+            'fax_phone'           => Yii::t('hipanel:client', 'Fax'),
+            'country_name'        => Yii::t('hipanel:client', 'Country'),
+            'country'             => Yii::t('hipanel:client', 'Country'),
+            'isresident'          => Yii::t('hipanel:client', 'RF resident'),
+            'street1'             => Yii::t('hipanel:client', 'Address'),
+            'street2'             => Yii::t('hipanel:client', 'Address 2'),
+            'street3'             => Yii::t('hipanel:client', 'Address 3'),
+            'inn'                 => Yii::t('hipanel:client', 'Taxpayer identification number'),
+            'kpp'                 => Yii::t('hipanel:client', 'Code of reason for registration'),
+            'organization_ru'     => Yii::t('hipanel:client', 'Organization (Russian title)'),
+            'director_name'       => Yii::t('hipanel:client', 'Director\'s full name'),
+            'address'             => Yii::t('hipanel:client', 'Address'),
+            'city'                => Yii::t('hipanel:client', 'City'),
+            'province'            => Yii::t('hipanel:client', 'Province'),
+            'postal_code'         => Yii::t('hipanel:client', 'Postal code'),
+            'birth_date'          => Yii::t('hipanel:client', 'Birth date'),
+            'messengers'          => Yii::t('hipanel:client', 'Messengers'),
+            'other_messenger'     => Yii::t('hipanel:client', 'Other messenger'),
+            'passport_date'       => Yii::t('hipanel:client', 'Passport issue date'),
+            'passport_by'         => Yii::t('hipanel:client', 'Issued by'),
+            'social_net'          => Yii::t('hipanel:client', 'Social'),
+            'reg_data'            => Yii::t('hipanel:client', 'Registration data'),
+            'vat_number'          => Yii::t('hipanel:client', 'VAT number'),
+            'vat_rate'            => Yii::t('hipanel:client', 'VAT rate'),
+            'registration_number' => Yii::t('hipanel:client', 'Registration number'),
+            'tic'                 => Yii::t('hipanel:client', 'TIC'),
+            'localization'        => Yii::t('hipanel:client', 'Localization'),
+            'xxx_token'           => Yii::t('hipanel:client', 'XXX Token'),
+            'ua_tm'               => Yii::t('hipanel:client', 'UA TM'),
+            'policy_consent'      => Yii::t('hipanel:client', 'Privacy policy agreement'),
+            'gdpr_consent'        => Yii::t('hipanel:client', 'GDPR policy agreement'),
+            'invoice_last_no'     => Yii::t('hipanel:client', 'Last document number'),
         ]);
     }
 
@@ -309,6 +293,11 @@ class Contact extends \hipanel\base\Model
         return $this->hasMany(self::class, ['id' => 'id']);
     }
 
+    public function getBankDetails()
+    {
+        return $this->hasMany(BankDetails::class, ['requisite_id' => 'id']);
+    }
+
     public function getName()
     {
         return $this->name ?: $this->first_name . ' ' . $this->last_name;
@@ -343,52 +332,6 @@ class Contact extends \hipanel\base\Model
         $res .= $this->country_name;
 
         return preg_replace('/ +/', ' ', $res);
-    }
-
-    public function renderBankDetails()
-    {
-        return implode("\n", array_filter([
-            $this->renderBankAccount($this->bank_account),
-            $this->renderBankName($this->bank_name),
-            $this->renderBankAddress($this->bank_address),
-            $this->renderBankSwift($this->bank_swift),
-            $this->renderCorrespondentBank($this->bank_correspondent),
-            $this->renderCorrespondentBankSwift($this->bank_correspondent_swift),
-        ]));
-    }
-
-    public function renderBankAccount($iban)
-    {
-        if (empty($iban)) {
-            return null;
-        }
-
-        return strpos($iban, "\n")===false ? "IBAN: $iban" : $iban;
-    }
-
-    public function renderBankName($name)
-    {
-        return $name ? "Bank Name: $name" : null;
-    }
-
-    public function renderBankAddress($address)
-    {
-        return $address ? 'Bank Address: ' . $address : null;
-    }
-
-    public function renderBankSwift($swift)
-    {
-        return $swift ? 'SWIFT code: ' . $swift : null;
-    }
-
-    public function renderCorrespondentBank(string $name = null): ?string
-    {
-        return $name ? 'Correspondent bank: ' . $name : null;
-    }
-
-    public function renderCorrespondentBankSwift(string $swift = null): ?string
-    {
-        return $swift ? 'Correspondent bank SWIFT: ' . $swift : null;
     }
 
     /**

@@ -115,6 +115,7 @@ class ContactController extends CrudController
                         $query->withDocuments();
                     }
                     $query->withLocalizations();
+                    $query->joinWith('bankDetails');
                 },
             ],
             'validate-form' => [
