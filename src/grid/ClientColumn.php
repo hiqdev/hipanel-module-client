@@ -37,8 +37,8 @@ class ClientColumn extends DataColumn
     public function init()
     {
         parent::init();
-
-        $this->visible = Yii::$app->user->can('access-subclients');
+        $user = Yii::$app->user;
+        $this->visible = $user->can('access-subclients');
         if (!$this->visible) {
             return null;
         }
@@ -47,16 +47,15 @@ class ClientColumn extends DataColumn
             $this->sortAttribute = $this->nameAttribute;
         }
         if ($this->value === null) {
-            $this->value = function (ActiveRecord $model): string {
-                $identity = Yii::$app->user->identity;
+            $this->value = function (ActiveRecord $model) use ($user): string {
                 if (!isset($model->{$this->nameAttribute})) {
                     return '';
                 }
-                if ($identity->hasSeller($model->{$this->idAttribute})) {
-                    return $model->{$this->nameAttribute};
+                if ($user->can('access-reseller') && $user->identity->hasOwnSeller($model->{$this->idAttribute})) {
+                    return Html::a($model->{$this->nameAttribute}, ['@client/view', 'id' => $model->{$this->idAttribute}]);
                 }
 
-                return Html::a($model->{$this->nameAttribute}, ['@client/view', 'id' => $model->{$this->idAttribute}]);
+                return $model->{$this->nameAttribute};
             };
         }
         if (!empty($this->grid->filterModel)) {
