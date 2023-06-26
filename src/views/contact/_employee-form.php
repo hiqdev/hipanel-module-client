@@ -3,35 +3,29 @@
 use hipanel\modules\client\forms\EmployeeForm;
 use borales\extensions\phoneInput\PhoneInput;
 use hipanel\modules\client\models\Contact;
+use hipanel\modules\client\widgets\BankDetailsFormWidget;
 use hipanel\modules\client\widgets\combo\ClientCombo;
 use hipanel\widgets\BackButton;
 use hipanel\widgets\Box;
 use hiqdev\combo\StaticCombo;
 use yii\helpers\Html;
+use yii\web\View;
 use yii\widgets\ActiveForm;
 use yii\widgets\MaskedInput;
 
 /**
- * @var \yii\web\View
+ * @var View $this
  * @var array $countries
  * @var Contact $model the primary model
  * @var ActiveForm $form
  * @var EmployeeForm $employeeForm
  */
 
-$i = 0;
-$contract = $employeeForm->getContract();
 ?>
 
+<?= Html::hiddenInput('pincode', null, ['id' => 'contact-pincode']) ?>
 <div class="row">
-    <div class="col-md-12">
-        <?php Box::begin(); ?>
-            <?= Html::submitButton(Yii::t('hipanel', 'Save'), ['class' => 'btn btn-success']); ?>
-            <?= BackButton::widget() ?>
-        <?php Box::end(); ?>
-        <?= Html::hiddenInput('pincode', null, ['id' => 'contact-pincode']) ?>
-    </div>
-
+    <?php $i = 0; ?>
     <?php foreach ($employeeForm->getContacts() as $language => $model) : ?>
         <div class="col-md-6">
             <?php Box::begin([
@@ -67,20 +61,28 @@ $contract = $employeeForm->getContract();
                 ]) ?>
             <?php Box::end() ?>
 
-            <?php Box::begin(['title' => Yii::t('hipanel:client', 'Bank details')]) ?>
             <fieldset id="bank_info">
-                <?= $form->field($model, "[$i]vat_number") ?>
-                <?= $form->field($model, "[$i]bank_account") ?>
-                <?= $form->field($model, "[$i]bank_name") ?>
-                <?= $form->field($model, "[$i]bank_address") ?>
-                <?= $form->field($model, "[$i]bank_swift") ?>
+                <?php if ($model->isMainContact()) : ?>
+                    <?= BankDetailsFormWidget::widget([
+                        'form' => $form,
+                        'parentModel' => $model,
+                        'controller' => $this->context,
+                    ]) ?>
+                <?php else : ?>
+                    <?php Box::begin(['title' => Yii::t('hipanel:client', 'Bank details')]) ?>
+                    <?= $form->field($model, "[$i]vat_number") ?>
+                    <?= $form->field($model, "[$i]bank_account") ?>
+                    <?= $form->field($model, "[$i]bank_name") ?>
+                    <?= $form->field($model, "[$i]bank_address") ?>
+                    <?= $form->field($model, "[$i]bank_swift") ?>
+                    <?php Box::end() ?>
+                <?php endif ?>
             </fieldset>
-            <?php Box::end() ?>
         </div>
-    <?php $i++ ?>
-    <?php endforeach; ?>
+        <?php $i++ ?>
+    <?php endforeach ?>
 </div>
-<?php if ($contract) : ?>
+<?php if ($contract = $employeeForm->getContract()) : ?>
     <div class="row">
         <div class="col-md-6">
             <?php $box = Box::begin(['renderBody' => false]) ?>
@@ -103,7 +105,17 @@ $contract = $employeeForm->getContract();
                         }
                     ?>
                 <?php $box->endBody() ?>
-            <?php $box::end(); ?>
+            <?php $box::end() ?>
         </div>
     </div>
-<?php endif; ?>
+<?php endif ?>
+
+<div class="row">
+
+    <div class="col-md-12 md-mb-20">
+        <?= Html::submitButton(Yii::t('hipanel', 'Save'), ['class' => 'btn btn-success']) ?>
+        &nbsp;
+        <?= BackButton::widget() ?>
+    </div>
+
+</div>

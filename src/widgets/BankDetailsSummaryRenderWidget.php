@@ -6,7 +6,7 @@ namespace hipanel\modules\client\widgets;
 use hipanel\modules\client\models\BankDetails;
 use yii\base\Widget;
 
-class BankDetailsRenderWidget extends Widget
+class BankDetailsSummaryRenderWidget extends Widget
 {
     /** @var BankDetails[] */
     public array $models;
@@ -34,7 +34,8 @@ class BankDetailsRenderWidget extends Widget
         if (empty($model->bank_account)) {
             return null;
         }
-        $currency = ''; // todo: adjust currency display $model->currency ? mb_strtoupper($model->currency) : '';
+        $currency = '';
+//        $currency = mb_strtoupper($model->currency);  // todo: adjust currency display
         $iban = $model->bank_account;
 
         return !str_contains($iban, "\n") ? "$currency IBAN: $iban" : $currency . " " . $iban;

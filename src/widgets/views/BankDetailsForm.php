@@ -56,6 +56,7 @@ use yii\widgets\ActiveForm;
                         <?= Html::activeHiddenInput($model, "[$idx]id") ?>
                         <?= Html::activeHiddenInput($model, "[$idx]requisite_id") ?>
                     <?php endif ?>
+                    <?= Html::activeHiddenInput($model, "[$idx]no", ['value' => $idx]) ?>
                     <?= $form->field($model, "[$idx]currency")->dropDownList($currencies, ['prompt' => '--']) ?>
                     <?= $form->field($model, "[$idx]bank_account")->textarea(['rows' => 5]) ?>
                     <?= $form->field($model, "[$idx]bank_name") ?>
@@ -70,6 +71,9 @@ use yii\widgets\ActiveForm;
                         <?= Yii::t('hipanel', 'Remove') ?>
                     </button>
                 </div>
+                <?php if (next($models)) : ?>
+                    <div class="box-footer" style="background-color: #ecf0f5; padding: .5rem;"></div>
+                <?php endif ?>
             </div>
         <?php endforeach ?>
 

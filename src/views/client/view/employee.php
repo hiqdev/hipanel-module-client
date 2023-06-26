@@ -1,5 +1,6 @@
 <?php
 
+use hipanel\modules\client\forms\EmployeeForm;
 use hipanel\modules\client\grid\ContactGridView;
 use hipanel\modules\client\menus\ClientDetailMenu;
 use hipanel\modules\client\models\Client;
@@ -11,13 +12,14 @@ use hiqdev\assets\flagiconcss\FlagIconCssAsset;
 use yii\helpers\Html;
 
 /**
- * @var Client
+ * @var Client $model
  */
+
 FlagIconCssAsset::register($this);
 
 $this->registerCss('legend {font-size: 16px;}');
 
-$form = new \hipanel\modules\client\forms\EmployeeForm($model->contact, $scenario);
+$form = new EmployeeForm($model->contact, $scenario);
 
 ?>
 <div class="row">
@@ -59,10 +61,17 @@ $form = new \hipanel\modules\client\forms\EmployeeForm($model->contact, $scenari
                 <div class="col-md-6">
                     <?php $box = Box::begin(['renderBody' => false]) ?>
                     <?php $box->beginHeader() ?>
-                    <?= $box->renderTitle(Html::tag('span', $language, ['class' => 'label label-default']) . ' ' . Yii::t('hipanel:client', 'Contact information')) ?>
+                    <?= $box->renderTitle(Html::tag('span',
+                            $language,
+                            ['class' => 'label label-default']) . ' ' . Yii::t('hipanel:client',
+                            'Contact information')) ?>
                     <?php $box->beginTools() ?>
-                    <?= Html::a(Yii::t('hipanel', 'Details'), ['@contact/view', 'id' => $contact->id], ['class' => 'btn btn-default btn-xs']) ?>
-                    <?= Html::a(Yii::t('hipanel', 'Change'), ['@contact/update-employee', 'id' => $model->id], ['class' => 'btn btn-default btn-xs']) ?>
+                    <?= Html::a(Yii::t('hipanel', 'Details'),
+                        ['@contact/view', 'id' => $contact->id],
+                        ['class' => 'btn btn-default btn-xs']) ?>
+                    <?= Html::a(Yii::t('hipanel', 'Change'),
+                        ['@contact/update-employee', 'id' => $model->id],
+                        ['class' => 'btn btn-default btn-xs']) ?>
                     <?php $box->endTools() ?>
                     <?php $box->endHeader() ?>
                     <?php $box->beginBody() ?>
@@ -71,10 +80,19 @@ $form = new \hipanel\modules\client\forms\EmployeeForm($model->contact, $scenari
                         'model' => $contact,
                         'columns' => [
                             'name_with_verification',
-                            'email', 'voice_phone', 'fax_phone',
-                            'street', 'city', 'province', 'postal_code', 'country',
+                            'email',
+                            'voice_phone',
+                            'fax_phone',
+                            'street',
+                            'city',
+                            'province',
+                            'postal_code',
+                            'country',
                             'tin_number',
-                            'bank_account', 'bank_name', 'bank_address', 'bank_swift',
+                            'bank_account',
+                            'bank_name',
+                            'bank_address',
+                            'bank_swift',
                         ],
                     ]) ?>
                     <?php $box->endBody() ?>
@@ -85,7 +103,8 @@ $form = new \hipanel\modules\client\forms\EmployeeForm($model->contact, $scenari
         <div class="row">
             <div class="col-md-6">
                 <?php foreach ($model->sortedPurses as $purse) : ?>
-                    <?= $this->render('@vendor/hiqdev/hipanel-module-finance/src/views/purse/_client-view', ['model' => $purse]) ?>
+                    <?= $this->render('@vendor/hiqdev/hipanel-module-finance/src/views/purse/_client-view',
+                        ['model' => $purse]) ?>
                 <?php endforeach ?>
             </div>
             <div class="col-md-6">
@@ -94,8 +113,12 @@ $form = new \hipanel\modules\client\forms\EmployeeForm($model->contact, $scenari
                     <?php $box->beginHeader() ?>
                     <?= $box->renderTitle(Yii::t('hipanel:client', 'Documents')) ?>
                     <?php $box->beginTools() ?>
-                    <?= Html::a(Yii::t('hipanel', 'Details'), ['@contact/attach-documents', 'id' => $model->id], ['class' => 'btn btn-default btn-xs']) ?>
-                    <?= Html::a(Yii::t('hipanel', 'Upload'), ['@contact/attach-documents', 'id' => $model->id], ['class' => 'btn btn-default btn-xs']) ?>
+                    <?= Html::a(Yii::t('hipanel', 'Details'),
+                        ['@contact/attach-documents', 'id' => $model->id],
+                        ['class' => 'btn btn-default btn-xs']) ?>
+                    <?= Html::a(Yii::t('hipanel', 'Upload'),
+                        ['@contact/attach-documents', 'id' => $model->id],
+                        ['class' => 'btn btn-default btn-xs']) ?>
                     <?php $box->endTools() ?>
                     <?php $box->endHeader() ?>
                     <?php $box->beginBody() ?>

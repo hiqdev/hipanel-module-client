@@ -12,7 +12,7 @@ namespace hipanel\modules\client\grid;
 
 use hipanel\grid\DataColumn;
 use hipanel\modules\client\models\Contact;
-use hipanel\modules\client\widgets\BankDetailsRenderWidget;
+use hipanel\modules\client\widgets\BankDetailsSummaryRenderWidget;
 use hipanel\modules\finance\models\Requisite;
 use Yii;
 use yii\helpers\Html;
@@ -39,7 +39,7 @@ class RequisitesColumn extends DataColumn
                     $model->vat_number,
                     $model->invoice_last_no,
                 ])) . "\n\n";
-        $result .= BankDetailsRenderWidget::widget(['models' => $model->bankDetails]);
+        $result .= BankDetailsSummaryRenderWidget::widget(['models' => $model->bankDetails]);
 
         return nl2br(Html::encode($result));
     }

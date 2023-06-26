@@ -14,6 +14,11 @@ use hiqdev\hiart\ActiveQuery;
 
 class ContactQuery extends ActiveQuery
 {
+    public function init()
+    {
+        parent::init();
+        $this->joinWith('bankDetails');
+    }
     public function withLocalizations()
     {
         $this->joinWith('localizations');

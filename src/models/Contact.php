@@ -15,6 +15,7 @@ use hipanel\modules\client\models\query\ContactQuery;
 use hipanel\modules\document\models\Document;
 use hipanel\modules\client\validators\ZipValidator;
 use Yii;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 
 /**
@@ -91,15 +92,29 @@ class Contact extends \hipanel\base\Model
                 ],
                 'required',
                 'on' => [
-                    'create', 'create-require-passport', 'create-require-organization', 'create-ru-contact',
-                    'update', 'update-require-passport', 'update-require-organization', 'update-ru-contact'
+                    'create',
+                    'create-require-passport',
+                    'create-require-organization',
+                    'create-ru-contact',
+                    'update',
+                    'update-require-passport',
+                    'update-require-organization',
+                    'update-ru-contact',
                 ],
             ],
 
-            [['pincode', 'oldEmail'], 'safe', 'on' => ['update', 'update-require-passport', 'update-require-organization', 'update-ru-contact']],
+            [
+                ['pincode', 'oldEmail'],
+                'safe',
+                'on' => ['update', 'update-require-passport', 'update-require-organization', 'update-ru-contact'],
+            ],
 
             [['isresident', 'is_requisite'], 'boolean', 'trueValue' => true, 'falseValue' => false],
-            [['birth_date', 'passport_date'], 'safe', 'on' => ['update', 'create', 'create-require-passport', 'update-require-passport']],
+            [
+                ['birth_date', 'passport_date'],
+                'safe',
+                'on' => ['update', 'create', 'create-require-passport', 'update-require-passport'],
+            ],
             [
                 [
                     // Для регистрации доменов в зоне RU в качестве физического лица
@@ -131,8 +146,10 @@ class Contact extends \hipanel\base\Model
             [
                 [
                     // Для регистрации доменов в зоне RU в качестве физического лица
-                    'passport_no', 'passport_by',
-                    'birth_date', 'passport_date',
+                    'passport_no',
+                    'passport_by',
+                    'birth_date',
+                    'passport_date',
                 ],
                 'required',
                 'on' => ['create-require-passport', 'update-require-passport'],
@@ -149,12 +166,14 @@ class Contact extends \hipanel\base\Model
             ],
             [
                 [
-                    'passport_no', 'passport_by',
-                    'birth_date', 'passport_date',
+                    'passport_no',
+                    'passport_by',
+                    'birth_date',
+                    'passport_date',
                 ],
                 'required',
                 'on' => ['create-ru-contact', 'update-ru-contact'],
-                'when' => function($model) {
+                'when' => function ($model) {
                     return empty($model->organization);
                 },
                 'whenClient' => "function (attribute, value) {
@@ -174,7 +193,7 @@ class Contact extends \hipanel\base\Model
                 ],
                 'required',
                 'on' => ['create-ru-contact', 'update-ru-contact'],
-                'when' => function($model) {
+                'when' => function ($model) {
                     return !empty($model->organization);
                 },
                 'whenClient' => "function (attribute, value) {
@@ -186,26 +205,44 @@ class Contact extends \hipanel\base\Model
             ],
             [
                 [
-                    'email_confirmed', 'email_confirm_date',
-                    'voice_phone_confirmed', 'voice_phone_confirm_date',
-                    'fax_phone_confirmed', 'fax_phone_confirm_date',
-                    'name_confirm_level', 'name_confirm_date',
-                    'address_confirm_level', 'address_confirm_date',
-                ], 'safe',
+                    'email_confirmed',
+                    'email_confirm_date',
+                    'voice_phone_confirmed',
+                    'voice_phone_confirm_date',
+                    'fax_phone_confirmed',
+                    'fax_phone_confirm_date',
+                    'name_confirm_level',
+                    'name_confirm_date',
+                    'address_confirm_level',
+                    'address_confirm_date',
+                ],
+                'safe',
             ],
             [
                 ['id'],
                 'required',
-                'on' => ['request-email-confirmation', 'request-phone-confirmation', 'delete', 'update', 'update-require-passport'],
-            ],
-            [
-                ['gdpr_consent', 'policy_consent'], 'default', 'value' => 1, 'on' => ['create'],
+                'on' => [
+                    'request-email-confirmation',
+                    'request-phone-confirmation',
+                    'delete',
+                    'update',
+                    'update-require-passport',
+                ],
             ],
             [
                 ['gdpr_consent', 'policy_consent'],
-                'required', 'requiredValue' => 1,
+                'default',
+                'value' => 1,
+                'on' => ['create'],
+            ],
+            [
+                ['gdpr_consent', 'policy_consent'],
+                'required',
+                'requiredValue' => 1,
                 'on' => ['update'],
-                'when' => function () { return (string) Yii::$app->user->getId() === (string) $this->id; },
+                'when' => function () {
+                    return (string)Yii::$app->user->getId() === (string)$this->id;
+                },
                 'message' => Yii::t('hipanel:client', 'We need your permission in order to provide services'),
             ],
             [['id', 'client_id'], 'required', 'on' => ['reserve-number']],
@@ -216,46 +253,46 @@ class Contact extends \hipanel\base\Model
     public function attributeLabels()
     {
         return $this->mergeAttributeLabels([
-            'name'                => Yii::t('hipanel', 'Name'),
-            'first_name'          => Yii::t('hipanel:client', 'First name'),
-            'last_name'           => Yii::t('hipanel:client', 'Last name'),
-            'organization'        => Yii::t('hipanel:client', 'Organization'),
-            'abuse_email'         => Yii::t('hipanel:client', 'Abuse email'),
-            'passport_no'         => Yii::t('hipanel:client', 'Passport number'),
-            'icq'                 => 'ICQ',
-            'voice_phone'         => Yii::t('hipanel:client', 'Phone'),
-            'fax_phone'           => Yii::t('hipanel:client', 'Fax'),
-            'country_name'        => Yii::t('hipanel:client', 'Country'),
-            'country'             => Yii::t('hipanel:client', 'Country'),
-            'isresident'          => Yii::t('hipanel:client', 'RF resident'),
-            'street1'             => Yii::t('hipanel:client', 'Address'),
-            'street2'             => Yii::t('hipanel:client', 'Address 2'),
-            'street3'             => Yii::t('hipanel:client', 'Address 3'),
-            'inn'                 => Yii::t('hipanel:client', 'Taxpayer identification number'),
-            'kpp'                 => Yii::t('hipanel:client', 'Code of reason for registration'),
-            'organization_ru'     => Yii::t('hipanel:client', 'Organization (Russian title)'),
-            'director_name'       => Yii::t('hipanel:client', 'Director\'s full name'),
-            'address'             => Yii::t('hipanel:client', 'Address'),
-            'city'                => Yii::t('hipanel:client', 'City'),
-            'province'            => Yii::t('hipanel:client', 'Province'),
-            'postal_code'         => Yii::t('hipanel:client', 'Postal code'),
-            'birth_date'          => Yii::t('hipanel:client', 'Birth date'),
-            'messengers'          => Yii::t('hipanel:client', 'Messengers'),
-            'other_messenger'     => Yii::t('hipanel:client', 'Other messenger'),
-            'passport_date'       => Yii::t('hipanel:client', 'Passport issue date'),
-            'passport_by'         => Yii::t('hipanel:client', 'Issued by'),
-            'social_net'          => Yii::t('hipanel:client', 'Social'),
-            'reg_data'            => Yii::t('hipanel:client', 'Registration data'),
-            'vat_number'          => Yii::t('hipanel:client', 'VAT number'),
-            'vat_rate'            => Yii::t('hipanel:client', 'VAT rate'),
+            'name' => Yii::t('hipanel', 'Name'),
+            'first_name' => Yii::t('hipanel:client', 'First name'),
+            'last_name' => Yii::t('hipanel:client', 'Last name'),
+            'organization' => Yii::t('hipanel:client', 'Organization'),
+            'abuse_email' => Yii::t('hipanel:client', 'Abuse email'),
+            'passport_no' => Yii::t('hipanel:client', 'Passport number'),
+            'icq' => 'ICQ',
+            'voice_phone' => Yii::t('hipanel:client', 'Phone'),
+            'fax_phone' => Yii::t('hipanel:client', 'Fax'),
+            'country_name' => Yii::t('hipanel:client', 'Country'),
+            'country' => Yii::t('hipanel:client', 'Country'),
+            'isresident' => Yii::t('hipanel:client', 'RF resident'),
+            'street1' => Yii::t('hipanel:client', 'Address'),
+            'street2' => Yii::t('hipanel:client', 'Address 2'),
+            'street3' => Yii::t('hipanel:client', 'Address 3'),
+            'inn' => Yii::t('hipanel:client', 'Taxpayer identification number'),
+            'kpp' => Yii::t('hipanel:client', 'Code of reason for registration'),
+            'organization_ru' => Yii::t('hipanel:client', 'Organization (Russian title)'),
+            'director_name' => Yii::t('hipanel:client', 'Director\'s full name'),
+            'address' => Yii::t('hipanel:client', 'Address'),
+            'city' => Yii::t('hipanel:client', 'City'),
+            'province' => Yii::t('hipanel:client', 'Province'),
+            'postal_code' => Yii::t('hipanel:client', 'Postal code'),
+            'birth_date' => Yii::t('hipanel:client', 'Birth date'),
+            'messengers' => Yii::t('hipanel:client', 'Messengers'),
+            'other_messenger' => Yii::t('hipanel:client', 'Other messenger'),
+            'passport_date' => Yii::t('hipanel:client', 'Passport issue date'),
+            'passport_by' => Yii::t('hipanel:client', 'Issued by'),
+            'social_net' => Yii::t('hipanel:client', 'Social'),
+            'reg_data' => Yii::t('hipanel:client', 'Registration data'),
+            'vat_number' => Yii::t('hipanel:client', 'VAT number'),
+            'vat_rate' => Yii::t('hipanel:client', 'VAT rate'),
             'registration_number' => Yii::t('hipanel:client', 'Registration number'),
-            'tic'                 => Yii::t('hipanel:client', 'TIC'),
-            'localization'        => Yii::t('hipanel:client', 'Localization'),
-            'xxx_token'           => Yii::t('hipanel:client', 'XXX Token'),
-            'ua_tm'               => Yii::t('hipanel:client', 'UA TM'),
-            'policy_consent'      => Yii::t('hipanel:client', 'Privacy policy agreement'),
-            'gdpr_consent'        => Yii::t('hipanel:client', 'GDPR policy agreement'),
-            'invoice_last_no'     => Yii::t('hipanel:client', 'Last document number'),
+            'tic' => Yii::t('hipanel:client', 'TIC'),
+            'localization' => Yii::t('hipanel:client', 'Localization'),
+            'xxx_token' => Yii::t('hipanel:client', 'XXX Token'),
+            'ua_tm' => Yii::t('hipanel:client', 'UA TM'),
+            'policy_consent' => Yii::t('hipanel:client', 'Privacy policy agreement'),
+            'gdpr_consent' => Yii::t('hipanel:client', 'GDPR policy agreement'),
+            'invoice_last_no' => Yii::t('hipanel:client', 'Last document number'),
         ]);
     }
 
@@ -295,7 +332,37 @@ class Contact extends \hipanel\base\Model
 
     public function getBankDetails()
     {
-        return $this->hasMany(BankDetails::class, ['requisite_id' => 'id']);
+        return $this->hasMany(BankDetails::class, ['requisite_id' => 'id'])->orderBy(['no' => SORT_ASC]);
+    }
+
+    public function getBankDetailsSummary(): ?string
+    {
+        if (!$this->hasBankDetails()) {
+            return null;
+        }
+        $bankDetails = $this->bankDetails;
+        if (empty($bankDetails)) {
+            return '';
+        }
+
+        return reset($bankDetails)->summary;
+    }
+
+    public function getBankDetailsDropDownOptions(): array
+    {
+        return ArrayHelper::map($this->bankDetails,
+            'no',
+            fn($bankDetails) => $bankDetails->summary ?? $bankDetails->bank_account);
+    }
+
+    public function hasBankDetails(): bool
+    {
+        return !empty($this->bankDetails);
+    }
+
+    public function hasMoreThenOneBankDetailsOptions(): bool
+    {
+        return $this->hasBankDetails() && count($this->bankDetails) > 1;
     }
 
     public function getName()
@@ -347,6 +414,11 @@ class Contact extends \hipanel\base\Model
 
     public function isRequisite()
     {
-        return (boolean) $this->is_requisite;
+        return (boolean)$this->is_requisite;
+    }
+
+    public function isMainContact(): bool
+    {
+        return (string)$this->client_id === (string)$this->id;
     }
 }

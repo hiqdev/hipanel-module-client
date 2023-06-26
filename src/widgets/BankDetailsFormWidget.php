@@ -19,7 +19,6 @@ class BankDetailsFormWidget extends Widget
     public function run()
     {
         $currencies = array_keys($this->controller->getCurrencyTypes());
-        $isParentModelNew = $this->parentModel->isNewRecord;
         $models = $this->parentModel->isNewRecord || empty($this->parentModel->bankDetails) ? [new BankDetails()] : $this->parentModel->bankDetails;
 
         return $this->render('BankDetailsForm', [
