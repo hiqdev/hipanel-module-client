@@ -28,6 +28,7 @@ use yii\widgets\ActiveForm;
     'formId' => $form->id,
     'formFields' => [
         'id',
+        'no',
         'requisite_id',
         'currency',
         'bank_account',
