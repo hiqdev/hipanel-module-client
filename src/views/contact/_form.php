@@ -1,7 +1,9 @@
 <?php
 
 use borales\extensions\phoneInput\PhoneInput;
+use hipanel\modules\client\models\BankDetails;
 use hipanel\modules\client\models\Contact;
+use hipanel\modules\client\widgets\BankDetailsFormWidget;
 use hipanel\modules\client\widgets\combo\ClientCombo;
 use hipanel\widgets\Box;
 use hipanel\widgets\DateTimePicker;
@@ -14,6 +16,8 @@ use yii\web\View;
  * @var array $countries
  * @var Contact $model
  * @var ActiveForm $form
+ * @var BankDetails[] $bankDetails
+ * @var array $currencies
  */
 ?>
 
@@ -62,6 +66,13 @@ use yii\web\View;
         <?= $form->field($model, 'ua_tm') ?>
 
         <?php Box::end() ?>
+        <fieldset id="bank_details">
+            <?= BankDetailsFormWidget::widget([
+                'form' => $form,
+                'parentModel' => $model,
+                'controller' => $this->context,
+            ]) ?>
+        </fieldset>
     </div>
 
     <div class="col-md-6">
@@ -154,22 +165,8 @@ use yii\web\View;
         <fieldset id="tax_info">
             <?= $form->field($model, 'vat_number')->textArea() ?>
             <?= $form->field($model, 'vat_rate') ?>
-        </fieldset>
-        <?php Box::end() ?>
-    </div>
-
-    <div class="col-md-6">
-        <?php Box::begin([
-            'collapsed' => true,
-            'title' => Yii::t('hipanel:client', 'Bank details'),
-        ]) ?>
-        <fieldset id="bank_info">
-            <?= $form->field($model, 'bank_account')->textArea() ?>
-            <?= $form->field($model, 'bank_name') ?>
-            <?= $form->field($model, 'bank_address') ?>
-            <?= $form->field($model, 'bank_swift') ?>
-            <?= $form->field($model, 'bank_correspondent') ?>
-            <?= $form->field($model, 'bank_correspondent_swift') ?>
+            <?= $form->field($model, 'registration_number') ?>
+            <?= $form->field($model, 'tic') ?>
         </fieldset>
         <?php Box::end() ?>
     </div>

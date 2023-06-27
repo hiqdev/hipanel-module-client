@@ -209,18 +209,7 @@ class ContactGridView extends BoxedGridView
                 },
             ],
             'requisites' => [
-                'format' => 'raw',
-                'value' => function ($model) {
-                    $res = implode("\n", array_filter([
-                        $model->organization,
-                        $model->renderAddress(),
-                        $model->vat_number,
-                        $model->invoice_last_no,
-                    ])) . "\n\n";
-                    $res .= $model->renderBankDetails();
-
-                    return nl2br(Html::encode($res));
-                },
+                'class' => RequisitesColumn::class,
             ],
         ]);
     }

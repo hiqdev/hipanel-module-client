@@ -15,10 +15,18 @@ use Yii;
 
 class ContactCreateAction extends SmartCreateAction
 {
+    use BankDetailsLoaderTrait;
+
     public function init()
     {
         Yii::configure($this, [
             'success' => Yii::t('hipanel:client', 'Contact was created'),
+            'collectionLoader' => function ($action) {
+                $action->collection = $this->loadCollectionWithBankDetails(
+                    $action->collection,
+                    $this->controller->request->post()
+                );
+            },
             'data' => function ($action) {
                 return [
                     'countries' => $action->controller->getRefs('country_code'),
