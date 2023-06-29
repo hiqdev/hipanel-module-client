@@ -19,7 +19,7 @@ FlagIconCssAsset::register($this);
 
 $this->registerCss('legend {font-size: 16px;}');
 
-$form = new EmployeeForm($model->contact, $scenario);
+$form = new EmployeeForm($model->contact, $scenario ?? 'default');
 
 ?>
 <div class="row">
