@@ -28,6 +28,7 @@ use hipanel\modules\finance\grid\CreditColumn;
 use hipanel\modules\finance\widgets\ColoredBalance;
 use hipanel\modules\stock\helpers\ProfitColumns;
 use hipanel\widgets\ArraySpoiler;
+use hipanel\widgets\SettingsModal;
 use hiqdev\yii2\menus\grid\MenuColumn;
 use Yii;
 use yii\helpers\Html;
@@ -480,17 +481,22 @@ class ClientGridView extends BoxedGridView
                 },
             ],
             'description' => [
-                'class' => XEditableColumn::class,
-                'label' => Yii::t('hipanel', 'Description'),
-                'pluginOptions' => [
-                    'url' => Url::to('@client/set-description'),
-                ],
-                'widgetOptions' => [
-                    'linkOptions' => [
-                        'data-type' => 'textarea',
-                    ],
-                ],
+                'label' => Yii::t('hipanel:client', 'Description'),
+                'format' => 'raw',
                 'visible' => Yii::$app->user->can('client.set-description'),
+                'value' => function($model) {
+                    $modalStaticId = $model->id . '_description_modal_form';
+                    $widget = SettingsModal::widget([
+                        'id' => $modalStaticId,
+                        'model' => $model,
+                        'title' => $model->getAttributeLabel('description'),
+                        'toggleText' => $model->description,
+                        'headerOptions' => ['class' => 'label-info'],
+                        'scenario' => 'set-description',
+                    ]);
+
+                    return $widget;
+                },
             ],
             'last_deposit' => [
                 'label' => Yii::t('hipanel:client', 'Last deposit'),

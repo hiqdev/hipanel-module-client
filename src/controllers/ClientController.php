@@ -365,6 +365,7 @@ class ClientController extends CrudController
             ],
             'set-description' => [
                 'class' => SmartUpdateAction::class,
+                'view' => '_setDescriptionModal',
                 'success' => Yii::t('hipanel', 'Description was changed'),
                 'error' => Yii::t('hipanel', 'Failed to change description'),
             ],
