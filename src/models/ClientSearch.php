@@ -34,7 +34,7 @@ class ClientSearch extends Client
             'debt_type',
             'total_balance_gt', 'total_balance_lt', 'total_balance',
             'balance_gt', 'balance_lt',
-            'only_with_note',
+            'only_with_note', 'tags',
         ]);
     }
 

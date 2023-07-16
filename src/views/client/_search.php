@@ -4,6 +4,7 @@ use hipanel\models\IndexPageUiOptions;
 use hipanel\modules\client\widgets\combo\RefererCombo;
 use hipanel\modules\client\widgets\combo\SellerCombo;
 use hipanel\widgets\AdvancedSearch;
+use hipanel\widgets\TagsInput;
 use hiqdev\combo\StaticCombo;
 use hiqdev\yii2\daterangepicker\DateRangePicker;
 use yii\helpers\Html;
@@ -77,6 +78,10 @@ use yii\web\View;
 <?php endif ?>
 
 <?php if (Yii::$app->user->can('support')) : ?>
+    <div class="col-md-4 col-sm-6 col-xs-12">
+        <?= $search->field('tags')->widget(TagsInput::class) ?>
+    </div>
+
     <div class="col-md-4 col-sm-6 col-xs-12">
         <?= $search->field('debt_label')->widget(StaticCombo::class, [
             'data' => $debt_label,

@@ -26,6 +26,7 @@ class ContactSearch extends Contact
     {
         return ArrayHelper::merge($this->defaultSearchAttributes(), [
             'limit',
+            'tags',
         ]);
     }
 }
