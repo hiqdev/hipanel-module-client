@@ -256,7 +256,6 @@ class Client extends \hipanel\base\Model implements TaggableInterface
             [['is_verified'], 'boolean', 'on' => ['set-verified']],
 
             [['currencies'], 'safe', 'on' => ['create', 'update']],
-//            [['tags'], 'safe']
         ];
     }
 
