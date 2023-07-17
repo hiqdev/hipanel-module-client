@@ -11,6 +11,8 @@
 namespace hipanel\modules\client\models;
 
 use borales\extensions\phoneInput\PhoneInputValidator;
+use hipanel\behaviors\TaggableBehavior;
+use hipanel\models\TaggableInterface;
 use hipanel\modules\client\models\query\ContactQuery;
 use hipanel\modules\document\models\Document;
 use hipanel\modules\client\validators\ZipValidator;
@@ -26,12 +28,19 @@ use yii\helpers\Html;
  * @property bool $gdpr_consent
  * @property bool $policy_consent
  */
-class Contact extends \hipanel\base\Model
+class Contact extends \hipanel\base\Model implements TaggableInterface
 {
     /*
      * @return array the list of attributes for this record
      */
     use \hipanel\base\ModelTrait;
+
+    public function behaviors()
+    {
+        return [
+            TaggableBehavior::class
+        ];
+    }
 
     public $oldEmail;
 

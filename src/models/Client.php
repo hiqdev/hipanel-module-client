@@ -10,7 +10,9 @@
 
 namespace hipanel\modules\client\models;
 
+use hipanel\behaviors\TaggableBehavior;
 use hipanel\behaviors\CustomAttributes;
+use hipanel\models\TaggableInterface;
 use hipanel\modules\stock\helpers\ProfitColumns;
 use yii\helpers\ArrayHelper;
 use hipanel\helpers\StringHelper;
@@ -34,7 +36,7 @@ use Yii;
  * @property-read ClientWithProfit[] $profit
  * @property-read Assignment[] $assignments
  */
-class Client extends \hipanel\base\Model
+class Client extends \hipanel\base\Model implements TaggableInterface
 {
     use \hipanel\base\ModelTrait;
 
@@ -57,6 +59,7 @@ class Client extends \hipanel\base\Model
     {
         return array_merge(parent::behaviors(), [
             'as customAttributes' => CustomAttributes::class,
+            TaggableBehavior::class,
         ]);
     }
 

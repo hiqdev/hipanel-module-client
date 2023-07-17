@@ -87,6 +87,7 @@ $this->registerCss('legend {font-size: 16px;}');
                         class_exists(\hipanel\modules\hosting\Module::class) ? 'hosting' : null,
                         class_exists(\hipanel\modules\finance\Module::class) ? 'targets' : null,
                         'blocking',
+                        'tags',
                     ]),
                 ]) ?>
                 <?php $box->endBody() ?>

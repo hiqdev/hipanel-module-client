@@ -22,10 +22,16 @@ class ContactSearch extends Contact
         searchAttributes as defaultSearchAttributes;
     }
 
+    public static function tableName()
+    {
+        return Contact::tableName();
+    }
+
     public function searchAttributes()
     {
         return ArrayHelper::merge($this->defaultSearchAttributes(), [
             'limit',
+            'tags',
         ]);
     }
 }
