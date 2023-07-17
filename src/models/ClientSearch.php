@@ -24,17 +24,32 @@ class ClientSearch extends Client
         searchAttributes as defaultSearchAttributes;
     }
 
+    public static function tableName()
+    {
+        return 'client';
+    }
+
     public function searchAttributes()
     {
         return ArrayHelper::merge($this->defaultSearchAttributes(), [
-            'created_from', 'created_till', 'hide_deleted',
-            'types', 'states', 'login_email_like',
-            'profit_time_from', 'profit_time_till',
-            'profit_not_empty', 'hide_internal',
+            'created_from',
+            'created_till',
+            'hide_deleted',
+            'types',
+            'states',
+            'login_email_like',
+            'profit_time_from',
+            'profit_time_till',
+            'profit_not_empty',
+            'hide_internal',
             'debt_type',
-            'total_balance_gt', 'total_balance_lt', 'total_balance',
-            'balance_gt', 'balance_lt',
-            'only_with_note', 'tags',
+            'total_balance_gt',
+            'total_balance_lt',
+            'total_balance',
+            'balance_gt',
+            'balance_lt',
+            'only_with_note',
+            'tags',
         ]);
     }
 

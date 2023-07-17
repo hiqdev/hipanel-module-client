@@ -22,6 +22,11 @@ class ContactSearch extends Contact
         searchAttributes as defaultSearchAttributes;
     }
 
+    public static function tableName()
+    {
+        return 'contact';
+    }
+
     public function searchAttributes()
     {
         return ArrayHelper::merge($this->defaultSearchAttributes(), [

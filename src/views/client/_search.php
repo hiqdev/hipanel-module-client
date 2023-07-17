@@ -77,11 +77,13 @@ use yii\web\View;
     </div>
 <?php endif ?>
 
-<?php if (Yii::$app->user->can('support')) : ?>
+<?php if (Yii::$app->user->can('client.update')) : ?>
     <div class="col-md-4 col-sm-6 col-xs-12">
         <?= $search->field('tags')->widget(TagsInput::class) ?>
     </div>
+<?php endif ?>
 
+<?php if (Yii::$app->user->can('support')) : ?>
     <div class="col-md-4 col-sm-6 col-xs-12">
         <?= $search->field('debt_label')->widget(StaticCombo::class, [
             'data' => $debt_label,

@@ -26,7 +26,9 @@ use hipanel\widgets\TagsInput;
     <div class="col-md-4 col-sm-6 col-xs-12">
         <?= $search->field('seller_id')->widget(SellerCombo::class) ?>
     </div>
+<?php endif ?>
 
+<?php if (Yii::$app->user->can('contact.update')) : ?>
     <div class="col-md-4 col-sm-6 col-xs-12">
         <?= $search->field('tags')->widget(TagsInput::class) ?>
     </div>
