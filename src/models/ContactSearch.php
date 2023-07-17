@@ -24,7 +24,7 @@ class ContactSearch extends Contact
 
     public static function tableName()
     {
-        return 'contact';
+        return Contact::tableName();
     }
 
     public function searchAttributes()

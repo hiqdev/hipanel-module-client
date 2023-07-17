@@ -26,7 +26,7 @@ class ClientSearch extends Client
 
     public static function tableName()
     {
-        return 'client';
+        return Client::tableName();
     }
 
     public function searchAttributes()
