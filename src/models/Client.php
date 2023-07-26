@@ -59,7 +59,9 @@ class Client extends \hipanel\base\Model implements TaggableInterface
     {
         return array_merge(parent::behaviors(), [
             'as customAttributes' => CustomAttributes::class,
-            TaggableBehavior::class,
+            [
+                'class' => TaggableBehavior::class,
+            ],
         ]);
     }
 
