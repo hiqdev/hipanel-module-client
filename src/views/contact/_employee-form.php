@@ -62,21 +62,18 @@ use yii\widgets\MaskedInput;
             <?php Box::end() ?>
 
             <fieldset id="bank_info">
-                <?php if ($model->isMainContact()) : ?>
-                    <?= BankDetailsFormWidget::widget([
-                        'form' => $form,
-                        'parentModel' => $model,
-                        'controller' => $this->context,
-                    ]) ?>
-                <?php else : ?>
-                    <?php Box::begin(['title' => Yii::t('hipanel:client', 'Bank details')]) ?>
-                    <?= $form->field($model, "[$i]vat_number") ?>
-                    <?= $form->field($model, "[$i]bank_account") ?>
+                <?php Box::begin(['title' => Html::tag('span', $language, ['class' => 'label label-default']) . ' ' . Yii::t('hipanel:client', 'Bank details default')]) ?>
+                    <?= $form->field($model, "[$i]vat_number")->textInput(['readonly' => !$model->isMainContact()]) ?>
+                    <?= $form->field($model, "[$i]bank_account")->textInput(['readonly' => !$model->isMainContact()]) ?>
                     <?= $form->field($model, "[$i]bank_name") ?>
-                    <?= $form->field($model, "[$i]bank_address") ?>
+                    <?= $form->field($model, "[$i]bank_address")->textInput(['readonly' => !$model->isMainContact()]) ?>
                     <?= $form->field($model, "[$i]bank_swift") ?>
-                    <?php Box::end() ?>
-                <?php endif ?>
+                <?php Box::end() ?>
+                <?= BankDetailsFormWidget::widget([
+                    'form' => $form,
+                    'parentModel' => $model,
+                    'controller' => $this->context,
+                ]) ?>
             </fieldset>
         </div>
         <?php $i++ ?>
