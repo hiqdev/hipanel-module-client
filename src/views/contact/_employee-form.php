@@ -24,6 +24,33 @@ use yii\widgets\MaskedInput;
 ?>
 
 <?= Html::hiddenInput('pincode', null, ['id' => 'contact-pincode']) ?>
+<?php if ($contract = $employeeForm->getContract()) : ?>
+    <div class="row">
+        <div class="col-md-12">
+            <?php $box = Box::begin(['renderBody' => false]) ?>
+            <?php $box->beginHeader() ?>
+            <?= $box->renderTitle(Yii::t('hipanel:client', 'Contract information')) ?>
+            <?php $box::endHeader() ?>
+            <?php $box->beginBody() ?>
+
+            <?= Html::activeHiddenInput($contract, 'sender_id', ['value' => $model->seller_id]) ?>
+            <?= Html::activeHiddenInput($contract, 'receiver_id', ['value' => $model->client_id]) ?>
+
+            <?php
+            foreach ($employeeForm->getContractFields() as $name => $label) {
+                if ($name === 'date') {
+                    $form->field($contract, "data[date]")->widget(MaskedInput::class, [
+                        'mask' => '99.99.9999',
+                    ])->label($label);
+                }
+                echo $form->field($contract, "data[$name]")->label($label);
+            }
+            ?>
+            <?php $box->endBody() ?>
+            <?php $box::end() ?>
+        </div>
+    </div>
+<?php endif ?>
 <div class="row">
     <?php $i = 0; ?>
     <?php foreach ($employeeForm->getContacts() as $language => $model) : ?>
@@ -62,53 +89,16 @@ use yii\widgets\MaskedInput;
             <?php Box::end() ?>
 
             <fieldset id="bank_info">
-                <?php if ($model->isMainContact()) : ?>
-                    <?= BankDetailsFormWidget::widget([
-                        'form' => $form,
-                        'parentModel' => $model,
-                        'controller' => $this->context,
-                    ]) ?>
-                <?php else : ?>
-                    <?php Box::begin(['title' => Yii::t('hipanel:client', 'Bank details')]) ?>
-                    <?= $form->field($model, "[$i]vat_number") ?>
-                    <?= $form->field($model, "[$i]bank_account") ?>
-                    <?= $form->field($model, "[$i]bank_name") ?>
-                    <?= $form->field($model, "[$i]bank_address") ?>
-                    <?= $form->field($model, "[$i]bank_swift") ?>
-                    <?php Box::end() ?>
-                <?php endif ?>
+                <?= BankDetailsFormWidget::widget([
+                    'form' => $form,
+                    'parentModel' => $model,
+                    'controller' => $this->context,
+                ]) ?>
             </fieldset>
         </div>
         <?php $i++ ?>
     <?php endforeach ?>
 </div>
-<?php if ($contract = $employeeForm->getContract()) : ?>
-    <div class="row">
-        <div class="col-md-6">
-            <?php $box = Box::begin(['renderBody' => false]) ?>
-                <?php $box->beginHeader() ?>
-                    <?= $box->renderTitle(Yii::t('hipanel:client', 'Contract information')) ?>
-                <?php $box::endHeader() ?>
-                <?php $box->beginBody() ?>
-
-                    <?= Html::activeHiddenInput($contract, 'sender_id', ['value' => $model->seller_id]) ?>
-                    <?= Html::activeHiddenInput($contract, 'receiver_id', ['value' => $model->client_id]) ?>
-
-                    <?php
-                        foreach ($employeeForm->getContractFields() as $name => $label) {
-                            if ($name === 'date') {
-                                $form->field($contract, "data[date]")->widget(MaskedInput::class, [
-                                        'mask' => '99.99.9999',
-                                    ])->label($label);
-                            }
-                            echo $form->field($contract, "data[$name]")->label($label);
-                        }
-                    ?>
-                <?php $box->endBody() ?>
-            <?php $box::end() ?>
-        </div>
-    </div>
-<?php endif ?>
 
 <div class="row">
 

@@ -12,24 +12,45 @@ use yii\widgets\ActiveForm;
  * @var Requisite|Contact $parentModel
  * @var BankDetails[] $models
  * @var array $currencies
+ * @var int $requisiteId
  */
+
+$selector = "df_bd_$parentModel->id";
+$this->registerJs(<<<"JS"
+;(() => {
+  const container = $(".$selector");
+  container.on("afterInsert", function(ev, item) {
+    $(":input[name*='requisite_id']", item).val("$parentModel->id");
+  });
+  container.on("click", ".btn-default", function(ev) {
+    ev.preventDefault();
+
+    const newDefaultInput = $(":input[name$='no]']", $(ev.currentTarget).closest(".item"));
+    const oldDefaultInput = $(`:input[value='0']`, container);
+    oldDefaultInput.val(newDefaultInput.val());
+    newDefaultInput.val("0");
+
+    $(".btn-default:hidden", container).toggle();
+    $(ev.currentTarget).toggle();
+  });
+})();
+JS
+);
 
 ?>
 
 <?php DynamicFormWidget::begin([
-    'widgetContainer' => 'dynamicform_wrapper', // required: only alphanumeric characters plus "_" [A-Za-z0-9_]
+    'widgetContainer' => $selector, // required: only alphanumeric characters plus "_" [A-Za-z0-9_]
     'widgetBody' => '.container-items', // required: css class selector
     'widgetItem' => '.item', // required: css class
     'limit' => 99, // the maximum times, an element can be cloned (default 999)
-    'min' => 0, // 0 or 1 (default 1)
+//    'min' => 0, // 0 or 1 (default 1)
     'insertButton' => '.add-item', // css class
     'deleteButton' => '.remove-item', // css class
     'model' => reset($models),
     'formId' => $form->id,
     'formFields' => [
-        'id',
         'no',
-        'requisite_id',
         'currency',
         'bank_account',
         'bank_name',
@@ -39,6 +60,7 @@ use yii\widgets\ActiveForm;
         'bank_correspondent_swift',
     ],
 ]) ?>
+
 <div class="box box-widget">
     <div class="box-header with-border">
         <h3 class="box-title"><?= Yii::t('hipanel:client', 'Bank details') ?></h3>
@@ -55,9 +77,9 @@ use yii\widgets\ActiveForm;
                 <div class="box-body">
                     <?php if (!$model->isNewRecord) : ?>
                         <?= Html::activeHiddenInput($model, "[$idx]id") ?>
-                        <?= Html::activeHiddenInput($model, "[$idx]requisite_id") ?>
                     <?php endif ?>
                     <?= Html::activeHiddenInput($model, "[$idx]no", ['value' => $idx]) ?>
+                    <?= Html::activeHiddenInput($model, "[$idx]requisite_id", ['value' => $parentModel->id]) ?>
                     <?= $form->field($model, "[$idx]currency")->dropDownList($currencies, ['prompt' => '--']) ?>
                     <?= $form->field($model, "[$idx]bank_account")->textarea(['rows' => 5]) ?>
                     <?= $form->field($model, "[$idx]bank_name") ?>
@@ -67,10 +89,16 @@ use yii\widgets\ActiveForm;
                     <?= $form->field($model, "[$idx]bank_correspondent_swift") ?>
                 </div>
                 <div class="box-footer text-center" style="background-color: rgba(221,75,57,0.11);">
-                    <button type="button" class="btn btn-danger btn-xs btn-block remove-item">
-                        <i class="fa fa-trash-o"></i>
-                        <?= Yii::t('hipanel', 'Remove') ?>
-                    </button>
+                    <div class="btn-group btn-group-justified" role="group">
+                        <a class="btn btn-danger btn-xs remove-item">
+                            <i class="fa fa-trash-o"></i>
+                            <?= Yii::t('hipanel', 'Remove') ?>
+                        </a>
+                        <?= Html::a(Yii::t('hipanel:client', 'Set as default'), null, [
+                            'class' => ['btn', 'btn-default', 'btn-xs'],
+                            'style' => ['display' => $model->no === 0 ? 'none' : 'table-cell'],
+                        ]) ?>
+                    </div>
                 </div>
                 <?php if (next($models)) : ?>
                     <div class="box-footer" style="background-color: #ecf0f5; padding: .5rem;"></div>
