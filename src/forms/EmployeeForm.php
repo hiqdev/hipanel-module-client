@@ -333,10 +333,14 @@ class EmployeeForm
     private function loadBankDetailsToLoadedContacts(array $data): void
     {
         $contacts = $this->contacts;
+        $bankDetails = $this->extractBankDetails($data);
         foreach ($contacts as $contact) {
-            if ($contact->isMainContact()) {
-                $contact->setBankDetails = $this->extractBankDetails($data);
-            }
+            $contactBankDetails = array_filter(
+                $bankDetails,
+                static fn($model) => (string)$model['requisite_id'] === (string)$contact->id
+            );
+            $contactBankDetails = array_values($contactBankDetails); // reset keys, if `no` attribute does not exist then order matters
+            $contact->setBankDetails = $contactBankDetails;
         }
         $this->contacts = $contacts;
     }

@@ -15,6 +15,11 @@ class BankDetails extends Model
 {
     use ModelTrait;
 
+    public function formName()
+    {
+        return implode('', [$this->requisite_id, parent::formName()]);
+    }
+
     public function fillBankDetailsSummary(): void
     {
         $this->summary = BankDetailsSummaryRenderWidget::widget(['models' => [$this]]);
