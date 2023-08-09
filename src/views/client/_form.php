@@ -40,6 +40,18 @@ $form = ActiveForm::begin([
 <div class="container-items">
     <?php foreach ($models as $i => $model) : ?>
         <div class="item">
+            <?php if (!$model->isNewRecord && (!$model->notMyself() || !$model->notMySeller())): ?>
+                <div class="box box-widget">
+                    <h3 class="box-title"><?= Yii::t('hipanel', 'Error') ?></h3>
+                    <div class="box-body">
+                        <div class="row text-danger">
+                            <?= Yii::t('hipanel', 'You conld not edit your account. Operation is not permitted') ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                <?php continue ?>
+            <?php endif ?>
             <div class="box box-widget">
                 <div class="box-header with-border">
                     <?php if ($model->isNewRecord) : ?>
