@@ -565,6 +565,11 @@ class Client extends \hipanel\base\Model
         return (string)$this->id !== (string)Yii::$app->user->identity->id;
     }
 
+    public function notMySeller(): bool
+    {
+        return (string)$this->seller_id !== (string)Yii::$app->user->identity->seller_id;
+    }
+
     public function getCustomAttributesList()
     {
         return [

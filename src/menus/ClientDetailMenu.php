@@ -142,7 +142,7 @@ class ClientDetailMenu extends \hipanel\menus\AbstractDetailMenu
                 'icon' => 'fa-edit fa-fw',
                 'url' => ['@client/update', 'id' => $this->model->id],
                 'encode' => false,
-                'visible' => $user->can('client.update') && !$this->model->isDeleted(),
+                'visible' => $user->can('client.update') && !$this->model->isDeleted() && $this->model->notMyself() && $this->model->notMySeller(),
             ],
             [
                 'label' => SettingsModal::widget([
