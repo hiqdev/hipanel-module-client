@@ -123,11 +123,13 @@ class ClientGridView extends BoxedGridView
                     'url' => Url::to('@client/set-note'),
                 ],
                 'footer' => '<b>' . Yii::t('hipanel:client', 'TOTAL on screen') . '</b>',
+                'exportedColumns' => ['tags', 'login'],
             ],
             'login_without_note' => [
                 'class' => MainColumn::class,
                 'attribute' => 'login',
                 'filterAttribute' => 'login_ilike',
+                'exportedColumns' => ['tags', 'login_without_note'],
             ],
             'note' => [
                 'class' => XEditableColumn::class,
