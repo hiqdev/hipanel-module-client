@@ -42,10 +42,12 @@ $form = ActiveForm::begin([
         <div class="item">
             <?php if (!$model->isNewRecord && (!$model->notMyself() || !$model->notMySeller())): ?>
                 <div class="box box-widget">
-                    <h3 class="box-title"><?= Yii::t('hipanel', 'Error') ?></h3>
+                    <h3 class="box-title"><?= Yii::t('hipanel', '403 Error') ?></h3>
                     <div class="box-body">
                         <div class="row text-danger">
-                            <?= Yii::t('hipanel', 'You conld not edit your account. Operation is not permitted') ?>
+                            <div class="col-md-12">
+                                <?= Yii::t('hipanel:client', 'You could not edit your account. Operation is not permitted') ?>
+                            </div>
                         </div>
                     </div>
                 </div>

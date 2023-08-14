@@ -325,4 +325,5 @@ return [
     'Delete clients' => 'Удалить клиентов',
     'Hide system' => 'Скрыть системных',
     'Only with note' => 'Только с заметками',
+    'You could not edit your account. Operation is not permitted' => 'Вы не можете редактировать свой аккаунт. Операция не разрешена',
 ];
