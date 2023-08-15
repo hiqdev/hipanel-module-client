@@ -24,7 +24,7 @@ class EmployeeForm
 {
     use BankDetailsLoaderTrait;
 
-    const DEFAULT_SCENARIO = 'default';
+    const DEFAULT_SCENARIO = 'update';
     /**
      * Default contact language.
      */
@@ -56,9 +56,9 @@ class EmployeeForm
      * @param Contact $contact
      * @param string|null $scenario
      */
-    public function __construct(Contact $contact, ?string $scenario)
+    public function __construct(Contact $contact, string $scenario = self::DEFAULT_SCENARIO)
     {
-        $this->scenario = $scenario ?? self::DEFAULT_SCENARIO;
+        $this->scenario = $scenario;
         $this->contacts = $this->extractContacts($contact);
         if (Yii::$app->user->can('document.read')) {
             $this->contract = $this->extractContract($contact);
@@ -167,15 +167,13 @@ class EmployeeForm
 
     public function validate(): bool
     {
-        $contacts = $this->getContactsCollection();
-        if (!$contacts->validate()) {
-            $this->error = $contacts->getFirstError();
-        }
-
-        if ($this->getContract() !== null) {
-            if (!$this->getContract()->validate()) {
+        $collections = $this->getContactsCollections();
+        foreach ($collections as $collection) {
+            if (!$collection->validate()) {
+                $this->error = $collection->getFirstError();
+            }
+            if (($this->getContract() !== null) && !$this->getContract()->validate()) {
                 $errors = $this->getContract()->getFirstErrors();
-
                 $this->error = reset($errors);
             }
         }
@@ -185,12 +183,17 @@ class EmployeeForm
 
     public function save(): bool
     {
-        $collection = $this->getContactsCollection();
+        $collections = $this->getContactsCollections();
 
         try {
             $contractSaved = true;
-            $contactsSaved = $collection->save();
-
+            $contactsSaved = true;
+            foreach ($collections as $collection) {
+                if (!$collection->save()) {
+                    $contactsSaved = false;
+                    break;
+                }
+            }
             if ($this->getContract() !== null) {
                 $contractSaved = $this->getContract()->save();
             }
@@ -300,6 +303,7 @@ class EmployeeForm
             'type' => 'localized',
             'localization' => $language,
         ]);
+        $model->setScenario('create');
 
         return $model;
     }
@@ -320,14 +324,18 @@ class EmployeeForm
     /**
      * Creates collection of contacts.
      *
-     * @return Collection
+     * @return Collection[]
      */
-    protected function getContactsCollection(): Collection
+    protected function getContactsCollections(): array
     {
-        $collection = new Collection();
-        $collection->set($this->contacts);
+        $collections = [];
+        foreach ($this->contacts as $contact) {
+            $collection = new Collection();
+            $collection->set($contact);
+            $collections[] = $collection;
+        }
 
-        return $collection;
+        return $collections;
     }
 
     private function loadBankDetailsToLoadedContacts(array $data): void

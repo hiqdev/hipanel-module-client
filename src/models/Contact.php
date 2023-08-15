@@ -101,7 +101,6 @@ class Contact extends \hipanel\base\Model implements TaggableInterface
                 ],
                 'required',
                 'on' => [
-                    'create',
                     'create-require-passport',
                     'create-require-organization',
                     'create-ru-contact',
@@ -111,6 +110,25 @@ class Contact extends \hipanel\base\Model implements TaggableInterface
                     'update-ru-contact',
                 ],
             ],
+
+            [
+                [
+                    'first_name',
+                    'last_name',
+                    'email',
+                    'street1',
+                    'city',
+                    'country',
+                    'postal_code',
+                    'voice_phone',
+                ],
+                'required',
+                'on' => [
+                    'create',
+                ],
+            ],
+
+            [['first_name'], 'required', 'on' => 'update'],
 
             [
                 ['pincode', 'oldEmail'],
