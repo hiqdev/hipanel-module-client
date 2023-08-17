@@ -58,14 +58,14 @@ use yii\widgets\MaskedInput;
             <?php Box::begin([
                 'title' => Html::tag('span', $language, ['class' => 'label label-default']) . ' ' . Yii::t('hipanel:client', 'Contact details'),
             ]) ?>
-                <?php if ($model->scenario === 'update') : ?>
+                <?php if (!$model->isNewRecord) : ?>
                     <?= Html::activeHiddenInput($model, "[$i]id") ?>
-                    <?= Html::activeHiddenInput($model, "[$i]localization") ?>
                 <?php else: ?>
                     <?= $form->field($model, 'client_id')->widget(ClientCombo::class, [
                         'clientType' => 'employee',
                     ]); ?>
                 <?php endif; ?>
+                <?= Html::activeHiddenInput($model, "[$i]localization") ?>
                 <?= $form->field($model, "[$i]first_name"); ?>
                 <?= $form->field($model, "[$i]last_name"); ?>
                 <?= $form->field($model, "[$i]email"); ?>

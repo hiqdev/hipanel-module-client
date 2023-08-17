@@ -313,6 +313,7 @@ class ContactController extends CrudController
 
     public function actionUpdateEmployee($id)
     {
+        /** @var Contact $contact */
         $contact = Contact::find()
             ->where(['id' => $id])
             ->withDocuments()
@@ -323,21 +324,21 @@ class ContactController extends CrudController
             throw new NotFoundHttpException('Contact was not found');
         }
 
-        $model = new EmployeeForm($contact, 'update');
-        if (Yii::$app->request->isPost) {
-            $model->load(Yii::$app->request->post());
-            $validate = $model->validate();
-            $save = $model->save();
+        $employeeForm = new EmployeeForm($contact);
+        if ($this->request->isPost) {
+            $employeeForm->load($this->request->post());
+            $validate = $employeeForm->validate();
+            $save = $employeeForm->save();
             if ($validate === true && $save === true) {
                 Yii::$app->session->addFlash('success', Yii::t('hipanel:client', 'Employee contact was saved successfully'));
 
-                return $this->redirect(['@client/view', 'id' => $model->getId()]);
+                return $this->redirect(['@client/view', 'id' => $employeeForm->getId()]);
             }
 
-            $errorMessage = $model->getError();
+            $errorMessage = $employeeForm->getError();
             if ($errorMessage === self::CONTRACT_TEMPLATE_ERROR) {
                 if (Yii::$app->user->can('requisites.update')) {
-                    $errorData = $model->getErrorOPS();
+                    $errorData = $employeeForm->getErrorOPS();
                     $contractURL = Html::a(
                         Url::toRoute(['@requisite/view', 'id' => $errorData['requisite_id']], true),
                         ['@requisite/view', 'id' => $errorData['requisite_id']]
@@ -354,8 +355,8 @@ class ContactController extends CrudController
         }
 
         return $this->render('update-employee', [
-            'employeeForm' => $model,
-            'model' => $model->getPrimaryContact(),
+            'employeeForm' => $employeeForm,
+            'model' => $employeeForm->getPrimaryContact(),
             'askPincode' => $this->hasPINCode->__invoke(),
             'countries' => $this->getRefs('country_code'),
         ]);
