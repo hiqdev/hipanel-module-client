@@ -51,7 +51,7 @@ class ClientColumn extends DataColumn
                 if (!isset($model->{$this->nameAttribute})) {
                     return '';
                 }
-                if (($user->can('access-reseller') && $user->identity->hasOwnSeller($model->{$this->idAttribute})) ||
+                if (($user->can('access-reseller') && $model->{$this->idAttribute} && $user->identity->hasOwnSeller($model->{$this->idAttribute})) ||
                   (!empty($model->seller_id) && ($model->seller_id === $user->id || $model->seller_id === $user->identity->seller_id))) {
                     return Html::a($model->{$this->nameAttribute}, ['@client/view', 'id' => $model->{$this->idAttribute}]);
                 }

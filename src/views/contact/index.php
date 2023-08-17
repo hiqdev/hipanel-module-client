@@ -1,7 +1,7 @@
 <?php
 
 use hipanel\modules\client\grid\ContactGridView;
-use hipanel\modules\client\models\Contact;
+use hipanel\modules\client\models\ContactSearch;
 use hipanel\widgets\IndexPage;
 use hipanel\widgets\Pjax;
 use hiqdev\hiart\ActiveDataProvider;
@@ -12,10 +12,10 @@ use hipanel\modules\client\grid\ContactRepresentations;
 use hipanel\models\IndexPageUiOptions;
 
 /**
- * @var Contact $model
- * @var ActiveDataProvider $dataProvider
+ * @var ContactSearch          $model
+ * @var ActiveDataProvider     $dataProvider
  * @var ContactRepresentations $representationCollection
- * @var IndexPageUiOptions $uiModel
+ * @var IndexPageUiOptions     $uiModel
  */
 
 $this->title = Yii::t('hipanel', 'Contact');
