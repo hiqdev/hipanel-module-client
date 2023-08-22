@@ -12,8 +12,10 @@ namespace hipanel\modules\client\tests\_support\Page\contact;
 use Codeception\Example;
 use hipanel\tests\_support\Page\Authenticated;
 use hipanel\tests\_support\Page\Widget\Input\CheckBox;
+use hipanel\tests\_support\Page\Widget\Input\Dropdown;
 use hipanel\tests\_support\Page\Widget\Input\Input;
 use hipanel\tests\_support\Page\Widget\Input\Select2;
+use hipanel\tests\_support\Page\Widget\Input\Textarea;
 
 class FormPage extends Authenticated
 {
@@ -39,6 +41,16 @@ class FormPage extends Authenticated
         if (isset($values['selects']['country'])) {
             (new Select2($I, "#contact-country"))
                 ->setValue($values['selects']['country']);
+        }
+
+        if (isset($values['selects']['currency'])) {
+            (new Dropdown($I, "select[id$=currency]"))
+              ->setValue($values['selects']['currency']);
+        }
+
+        if (isset($values['textarea']['bank_account'])) {
+            (new Textarea($I, "textarea[id$=bank_account]"))
+              ->setValue($values['textarea']['bank_account']);
         }
 
         if (!empty($values['checkboxes'])) {

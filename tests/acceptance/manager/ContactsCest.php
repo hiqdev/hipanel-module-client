@@ -70,6 +70,10 @@ class ContactsCest extends CommonContactActions
             ],
             'selects' => [
                 'client'        => 'hipanel_test_manager',
+                'currency'      => 'usd',
+            ],
+            'textarea' => [
+              'bank_account'    => 'UATEST0123456IBAN',
             ],
             'phoneCountryCode'  => null,
         ];
