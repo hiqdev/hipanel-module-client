@@ -443,4 +443,9 @@ class Contact extends \hipanel\base\Model implements TaggableInterface
     {
         return (boolean)$this->is_requisite;
     }
+
+    public function isMainContact(): bool
+    {
+        return !$this->isNewRecord && (string)$this->client_id === (string)$this->id;
+    }
 }

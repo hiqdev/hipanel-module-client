@@ -58,12 +58,10 @@ use yii\widgets\MaskedInput;
             <?php Box::begin([
                 'title' => Html::tag('span', $language, ['class' => 'label label-default']) . ' ' . Yii::t('hipanel:client', 'Contact details'),
             ]) ?>
-                <?php if (!$model->isNewRecord) : ?>
-                    <?= Html::activeHiddenInput($model, "[$i]id") ?>
+                <?php if ($model->isNewRecord) : ?>
+                    <?= $form->field($model, "[$i]client_id")->widget(ClientCombo::class, ['clientType' => 'employee']) ?>
                 <?php else: ?>
-                    <?= $form->field($model, 'client_id')->widget(ClientCombo::class, [
-                        'clientType' => 'employee',
-                    ]); ?>
+                    <?= Html::activeHiddenInput($model, "[$i]id") ?>
                 <?php endif; ?>
                 <?= Html::activeHiddenInput($model, "[$i]localization") ?>
                 <?= $form->field($model, "[$i]first_name"); ?>
@@ -95,6 +93,16 @@ use yii\widgets\MaskedInput;
                     'controller' => $this->context,
                 ]) ?>
             </fieldset>
+            <?php if ($model->isMainContact()) : ?>
+                <?php Box::begin(['title' => Yii::t('hipanel:client', 'Registration data')]) ?>
+                <fieldset id="tax_info">
+                    <?= $form->field($model, "[$i]vat_number") ?>
+                    <?= $form->field($model, "[$i]vat_rate") ?>
+                    <?= $form->field($model, "[$i]registration_number") ?>
+                    <?= $form->field($model, "[$i]tic") ?>
+                </fieldset>
+                <?php Box::end() ?>
+            <?php endif ?>
         </div>
         <?php $i++ ?>
     <?php endforeach ?>

@@ -300,6 +300,7 @@ class EmployeeForm
         $model = clone $originalContact;
         $model->setAttributes([
             'id' => null,
+            'epp_id' => null,
             'type' => 'localized',
             'localization' => $language,
         ]);
