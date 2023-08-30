@@ -13,7 +13,7 @@ use hipanel\tests\_support\Page\Widget\Input\Input;
 
 abstract class CommonContactActions
 {
-    protected array $createdContacts;
+    protected array $createdContacts = [];
 
     abstract protected function testContactData(): array;
 
