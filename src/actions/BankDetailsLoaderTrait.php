@@ -19,11 +19,12 @@ trait BankDetailsLoaderTrait
 
     public function extractBankDetails(array $requestData): array
     {
-        $model = new BankDetails();
-        $rawBankDetailsData = array_filter($requestData, static fn($k) => str_contains($k, $model->formName()), ARRAY_FILTER_USE_KEY);
+        $defaultModel = new BankDetails();
+        $rawBankDetailsData = array_filter($requestData, static fn($k) => str_contains($k, $defaultModel->formName()), ARRAY_FILTER_USE_KEY);
         $bankDetails = [];
         foreach ($rawBankDetailsData as $contactBankDetailsData) {
             foreach ($contactBankDetailsData as $datum) {
+                $model = clone $defaultModel;
                 $model->hydrateWithData($datum);
                 $bankDetails[] = $model->toArray();
             }
