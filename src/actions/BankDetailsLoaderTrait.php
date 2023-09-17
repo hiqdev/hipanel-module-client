@@ -19,14 +19,16 @@ trait BankDetailsLoaderTrait
 
     public function extractBankDetails(array $requestData): array
     {
-        $defaultModel = new BankDetails();
+        $defaultModel = new BankDetails(['scenario' => 'force-validate']);
         $rawBankDetailsData = array_filter($requestData, static fn($k) => str_contains($k, $defaultModel->formName()), ARRAY_FILTER_USE_KEY);
         $bankDetails = [];
         foreach ($rawBankDetailsData as $contactBankDetailsData) {
             foreach ($contactBankDetailsData as $datum) {
                 $model = clone $defaultModel;
                 $model->hydrateWithData($datum);
-                $bankDetails[] = $model->toArray();
+                if ($model->validate()) {
+                    $bankDetails[] = $model->toArray();
+                }
             }
         }
 
