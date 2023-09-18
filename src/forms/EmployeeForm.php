@@ -348,8 +348,10 @@ class EmployeeForm
                 $bankDetails,
                 static fn($model) => (string)$model['requisite_id'] === (string)$contact->id
             );
-            $contactBankDetails = array_values($contactBankDetails); // reset keys, if `no` attribute does not exist then order matters
-            $contact->setBankDetails = $contactBankDetails;
+            if (!empty($contactBankDetails)) {
+                $contactBankDetails = array_values($contactBankDetails); // reset keys, if `no` attribute does not exist then order matters
+                $contact->setBankDetails = $contactBankDetails;
+            }
         }
         $this->contacts = $contacts;
     }

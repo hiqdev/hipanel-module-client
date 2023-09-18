@@ -7,6 +7,7 @@ use hipanel\base\Model;
 use hipanel\base\ModelTrait;
 use hipanel\modules\client\widgets\BankDetailsSummaryRenderWidget;
 use Yii;
+use yii\web\JsExpression;
 
 /**
  * @property string $summary renamed from old attribute `bank_details`
@@ -53,7 +54,7 @@ class BankDetails extends Model
                 ],
                 'trim',
             ],
-            [['currency', 'bank_account'], 'required'],
+            [['currency', 'bank_account'], 'required', 'on' => 'force-validate'],
         ];
     }
 
