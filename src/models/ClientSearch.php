@@ -32,6 +32,7 @@ class ClientSearch extends Client
     public function searchAttributes()
     {
         return ArrayHelper::merge($this->defaultSearchAttributes(), [
+            'login_email_in',
             'created_from',
             'created_till',
             'hide_deleted',
@@ -57,6 +58,7 @@ class ClientSearch extends Client
     {
         return array_merge(parent::attributeLabels(), [
             'login_email_like' => Yii::t('hipanel:client', 'Login or Email'),
+            'login_email_in' => Yii::t('hipanel:client', 'Logins or E-Mails'),
             'profit_not_empty' => Yii::t('hipanel:client', 'Show not empty'),
             'client_id' => Yii::t('hipanel:client', 'Client'),
             'hide_internal' => Yii::t('hipanel:client', 'Hide system'),

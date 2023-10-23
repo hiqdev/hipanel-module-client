@@ -24,6 +24,10 @@ use yii\web\View;
     <?= $search->field('login_email_like') ?>
 </div>
 
+<div class="col-md-4 col-sm-6 col-xs-12">
+    <?= $search->field('login_email_in')->textarea() ?>
+</div>
+
 <?php if (Yii::$app->user->can('support')) : ?>
     <div class="col-md-4 col-sm-6 col-xs-12">
         <?= $search->field('note_ilike') ?>
