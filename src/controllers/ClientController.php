@@ -32,6 +32,8 @@ use hipanel\modules\client\logic\IPConfirmer;
 use hipanel\modules\client\models\Client;
 use hipanel\modules\client\models\ClientSearch;
 use hipanel\modules\client\models\query\ClientQuery;
+use hipanel\modules\ticket\models\Template;
+use yii\helpers\ArrayHelper;
 use RuntimeException;
 use Yii;
 use yii\base\Event;
@@ -368,6 +370,39 @@ class ClientController extends CrudController
                 'view' => '_setDescriptionModal',
                 'success' => Yii::t('hipanel', 'Description was changed'),
                 'error' => Yii::t('hipanel', 'Failed to change description'),
+            ],
+            'create-notifications' => [
+                'class' => SmartPerformAction::class,
+                'success' => Yii::t('hipanel:client', 'Notification was created'),
+                'on beforeSave' => function(Event $event) {
+                    /** @var Action $action */
+                    $action = $event->sender;
+                    $template_id = Yii::$app->request->post('template_id');
+                    $topic = Yii::$app->request->post('topic');
+                    if (!empty($template_id)) {
+                        foreach ($action->collection->models as $model) {
+                            $model->setAttributes(array_filter([
+                                'template_id' => $template_id,
+                                'topic' => $topic,
+                            ]));
+                        }
+                    }
+                },
+            ],
+            'bulk-create-notification-modal' => [
+                'class' => PrepareBulkAction::class,
+                'view' => 'modals/bulk-notifications',
+                'on beforePerform' => static function (Event $event) {
+                    /** @var Action $action */
+                    $action = $event->sender;
+                    $action->getDataProvider()->query->addSelect(['simple-list']);
+                },
+                'data' => function($action, $data) {
+                    $templates = ArrayHelper::map(Template::find()->all(), 'id', 'name');
+                    return array_merge($data, [
+                        'templates' => $templates,
+                    ]);
+                },
             ],
             'my-test' => [
                 'class' => RenderAction::class,
