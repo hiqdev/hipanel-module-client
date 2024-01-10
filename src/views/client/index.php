@@ -20,6 +20,7 @@ use hipanel\widgets\AjaxModal;
 use hipanel\widgets\gridLegend\GridLegend;
 use hipanel\widgets\IndexPage;
 use hipanel\widgets\Pjax;
+use hipanel\helpers\Url;
 use hiqdev\assets\flagiconcss\FlagIconCssAsset;
 use yii\bootstrap\Dropdown;
 use yii\data\ActiveDataProvider;
@@ -103,6 +104,11 @@ $canCreateClients = !$this->context->module->userCreationIsDisabled && ($user->c
                     'linkOptions' => ['data-toggle' => 'modal'],
                     'url' => '#bulk-enable-block-modal',
                 ],
+                [
+                    'label' => '<i class="fa fa-envelope"></i> ' . Yii::t('hipanel', 'Notification'),
+                    'url' => '#bulk-create-notification-modal',
+                    'linkOptions' => ['data-toggle' => 'modal'],
+                ]
             ];
             $ajaxModals = [
                 [
@@ -110,6 +116,16 @@ $canCreateClients = !$this->context->module->userCreationIsDisabled && ($user->c
                     'scenario' => 'bulk-enable-block-modal',
                     'bulkPage' => true,
                     'header' => Html::tag('h4', Yii::t('hipanel:client', 'Block clients'), ['class' => 'modal-title']),
+                    'headerOptions' => ['class' => 'label-warning'],
+                    'handleSubmit' => false,
+                    'toggleButton' => false,
+                ],
+                [
+                    'id' => 'bulk-create-notification-modal',
+                    'scenario' => Url::to('@client/bulk-create-notification-modal'),
+                    'bulkPage' => true,
+                    'usePost' => true,
+                    'header' => Html::tag('h4', Yii::t('hipanel', 'Notification'), ['class' => 'modal-title']),
                     'headerOptions' => ['class' => 'label-warning'],
                     'handleSubmit' => false,
                     'toggleButton' => false,

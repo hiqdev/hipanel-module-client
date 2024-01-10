@@ -78,7 +78,7 @@ class Client extends \hipanel\base\Model implements TaggableInterface
             [['id'], 'required', 'on' => ['update']],
             [['custom_attributes'], 'safe', 'on' => ['update']],
 
-            [['balance', 'credit', 'full_balance'], 'number'],
+            [['balance', 'credit', 'full_balance', 'template_id'], 'number'],
             [['count', 'confirm_url', 'language', 'comment', 'name', 'currency'], 'safe'],
             [['create_time', 'update_time', 'create_date'], 'date'],
             [['id', 'note'], 'safe', 'on' => 'set-note'],
@@ -258,6 +258,7 @@ class Client extends \hipanel\base\Model implements TaggableInterface
             [['is_verified'], 'boolean', 'on' => ['set-verified']],
 
             [['currencies'], 'safe', 'on' => ['create', 'update']],
+            [['id'], 'safe', 'on' => ['create-notifications']],
         ];
     }
 
