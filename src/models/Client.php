@@ -69,7 +69,7 @@ class Client extends \hipanel\base\Model implements TaggableInterface
     {
         return [
             [['id', 'seller_id', 'state_id', 'type_id', 'tariff_id', 'profile_id', 'payment_ticket_id', 'referer_id'], 'integer'],
-            [['hipanel_forced'], 'boolean', 'trueValue' => 1],
+            [['hipanel_forced', 'can_be_account_owner'], 'boolean', 'trueValue' => 1],
             [['login', 'seller', 'state', 'type', 'tariff', 'profile', 'referer'], 'string'],
             [['state_label', 'type_label', 'referral', 'roles', 'debt_label'], 'safe'],
 
@@ -574,6 +574,11 @@ class Client extends \hipanel\base\Model implements TaggableInterface
     public function notMySeller(): bool
     {
         return (string)$this->id !== (string)Yii::$app->user->identity->seller_id;
+    }
+
+    public function canBeAccountOwner(): bool
+    {
+        return (bool) $this->can_be_account_owner;
     }
 
     public function getCustomAttributesList()
