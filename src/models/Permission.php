@@ -54,7 +54,7 @@ class Permission extends BaseObject
 
     public function reduceToAllowed(array $items = []): array
     {
-        return array_filter($items, fn($group, $name) => $this->manager->checkAccess(Yii::$app->user->id, $name), ARRAY_FILTER_USE_BOTH);
+        return array_filter($items, fn($group, $name) => strpos($name, 'deny:') === 0 || $this->manager->checkAccess(Yii::$app->user->id, $name), ARRAY_FILTER_USE_BOTH);
     }
 
     public function getChildren(): array
