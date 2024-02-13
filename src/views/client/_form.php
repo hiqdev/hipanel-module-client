@@ -111,7 +111,7 @@ $form = ActiveForm::begin([
                             </div>
                         <?php endif ?>
                     </div>
-                    <?php if (Yii::$app->user->can('purse.update') && $this->canBeAccountOwner()): ?>
+                    <?php if (Yii::$app->user->can('purse.update') && $model->canBeAccountOwner()): ?>
                         <div class="row">
                             <?= $form->field($model, "[{$i}]currencies")->widget(StaticCombo::class, [
                                 'multiple' => true,
