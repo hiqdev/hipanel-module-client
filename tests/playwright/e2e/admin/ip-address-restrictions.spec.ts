@@ -89,23 +89,25 @@ test.describe("IP address restrictions @hipanel-module-client @admin", () => {
         await clientViewPage.checkVisibleModalRestrictElements(visibleModalElements);
     });
 
-    test("Invalid inputs @hipanel-module-client @admin", async ({ adminPage }) => {
-        for(let i = 0; i < invalidInputValues.length; i++) {
-            await clientViewPage.checkErrorModalRestrictInputValue(invalidInputValues[i], userId);
-        }
-    });
+    // Other tests not applicable for Nope service
 
-    validInputValues.forEach((inputValue) => {
-        test(`Valid inputs "${inputValue.allowedIpsField}" "${inputValue.sshFtpIpsField}" @hipanel-module-client @admin`, async ({ adminPage }) => {
-            await clientViewPage.fillFormModalRestrictValidInputValue(inputValue, userId);
-            await adminPage.locator('button:has-text("Save")').click();
+    // test("Invalid inputs @hipanel-module-client @admin", async ({ adminPage }) => {
+    //     for(let i = 0; i < invalidInputValues.length; i++) {
+    //         await clientViewPage.checkErrorModalRestrictInputValue(invalidInputValues[i], userId);
+    //     }
+    // });
 
-            await Alert.on(adminPage).hasText('Settings saved');
-
-            await adminPage.locator('a:has-text("IP address restrictions")').click();
-            await clientViewPage.checkFormModalRestrictInputValue(inputValue, userId);
-        });
-    });
+    // validInputValues.forEach((inputValue) => {
+    //     test(`Valid inputs "${inputValue.allowedIpsField}" "${inputValue.sshFtpIpsField}" @hipanel-module-client @admin`, async ({ adminPage }) => {
+    //         await clientViewPage.fillFormModalRestrictValidInputValue(inputValue, userId);
+    //         await adminPage.locator('button:has-text("Save")').click();
+    //
+    //         await Alert.on(adminPage).hasText('Settings saved');
+    //
+    //         await adminPage.locator('a:has-text("IP address restrictions")').click();
+    //         await clientViewPage.checkFormModalRestrictInputValue(inputValue, userId);
+    //     });
+    // });
 
 });
 
