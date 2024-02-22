@@ -578,7 +578,7 @@ class Client extends \hipanel\base\Model implements TaggableInterface
 
     public function isAccountOwner(): bool
     {
-        return (string) $this->id !== (string) $this->account_owner_id;
+        return (string) $this->id === (string) $this->account_owner_id;
     }
 
     public function getCustomAttributesList()
