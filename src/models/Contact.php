@@ -69,7 +69,9 @@ class Contact extends \hipanel\base\Model implements TaggableInterface
             [['birth_date', 'passport_date'], 'safe'],
             [['passport_no', 'passport_by', 'organization', 'password', 'xxx_token', 'ua_tm'], 'safe'],
             [['localization'], 'safe'],
-            [['invoice_last_no'], 'safe'],
+            [['invoice_last_no', 'proforma_last_no'], 'safe'],
+            [['sinvoice_last_no', 'sproforma_last_no'], 'safe'],
+            [['pinvoice_last_no', 'pproforma_last_no'], 'safe'],
 
             [['reg_data', 'vat_number', 'tax_comment', 'bank_details'], 'trim'],
             [['bank_account', 'bank_name', 'bank_address', 'bank_swift'], 'trim'],
@@ -319,7 +321,12 @@ class Contact extends \hipanel\base\Model implements TaggableInterface
             'ua_tm' => Yii::t('hipanel:client', 'UA TM'),
             'policy_consent' => Yii::t('hipanel:client', 'Privacy policy agreement'),
             'gdpr_consent' => Yii::t('hipanel:client', 'GDPR policy agreement'),
-            'invoice_last_no' => Yii::t('hipanel:client', 'Last document number'),
+            'invoice_last_no' => Yii::t('hipanel:client', 'Last invoice number (internal use only)'),
+            'proforma_last_no' => Yii::t('hipanel:client', 'Last payment request number (internal use only)'),
+            'sinvoice_last_no' => Yii::t('hipanel:client', 'Last service invoice number'),
+            'pinvoice_last_no' => Yii::t('hipanel:client', 'Last purchase invoice number'),
+            'sproforma_last_no' => Yii::t('hipanel:client', 'Last service payment request number'),
+            'pproforma_last_no' => Yii::t('hipanel:client', 'Last purchase payment request number'),
         ]);
     }
 
