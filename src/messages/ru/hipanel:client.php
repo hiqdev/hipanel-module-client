@@ -327,4 +327,11 @@ return [
     'Hide system' => 'Скрыть системных',
     'Only with note' => 'Только с заметками',
     'You could not edit your account. Operation is not permitted' => 'Вы не можете редактировать свой аккаунт. Операция не разрешена',
+
+    'Last invoice number (internal use only)' => 'Последний номер инвоиса (только для внутреннего использования)',
+    'Last payment request number (internal use only)' => 'Последний номер запроса на оплату (только для внутреннего использования)',
+    'Last service invoice number' => 'Последний номер инвоиса за услуги',
+    'Last purchase invoice number' => 'Последний номер инвоиса за товары',
+    'Last service payment request number' => 'Последний номер запроса на оплату услуг',
+    'Last purchase payment request number' => 'Последний номер запроса на оплату товаров',
 ];
