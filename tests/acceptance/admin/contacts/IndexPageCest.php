@@ -53,7 +53,6 @@ class IndexPageCest
         ], 'Common');
         $this->indexPage->containsColumns([
             'Name',
-            'Requisites',
         ], 'Requisites');
     }
 }
