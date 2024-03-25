@@ -391,7 +391,7 @@ class Contact extends \hipanel\base\Model implements TaggableInterface
 
     public function hasBankDetails(): bool
     {
-        return !empty($this->bankDetails);
+        return $this->isRelationPopulated('bankDetails') && !empty($this->bankDetails);
     }
 
     public function hasMoreThenOneBankDetailsOptions(): bool
