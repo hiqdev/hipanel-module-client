@@ -50,6 +50,10 @@ class SidebarMenu extends \hiqdev\yii2\menus\Menu
                         'url'     => ['@client/assignments/index'],
                         'visible' => $user->can('plan.create'),
                     ],
+                    'blacklist' => [
+                        'label'   => Yii::t('hipanel:client', 'Blacklist'),
+                        'url'     => ['@client/blacklist/index'],
+                    ],
                 ],
             ],
         ];

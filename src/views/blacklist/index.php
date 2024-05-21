@@ -16,17 +16,19 @@ use hipanel\models\IndexPageUiOptions;
  * @var ActiveDataProvider $dataProvider
  * @var BlacklistRepresentations $representationCollection
  * @var IndexPageUiOptions $uiModel
+ * @var array $types
  */
 
 $this->title = Yii::t('hipanel', 'Blacklist');
 $this->params['subtitle'] = array_filter(Yii::$app->request->get($model->formName(), [])) ? Yii::t('hipanel', 'filtered list') : Yii::t('hipanel', 'full list');
 $this->params['breadcrumbs'][] = $this->title;
-
 ?>
 <?php Pjax::begin(array_merge(Yii::$app->params['pjax'], ['enablePushState' => true])) ?>
     <?php $page = IndexPage::begin(['model' => $model, 'dataProvider' => $dataProvider]) ?>
 
-        <?php $page->setSearchFormData() ?>
+        <?php $page->setSearchFormData([
+            'types' => $types,
+        ]) ?>
 
         <?php $page->beginContent('main-actions') ?>
             <?= Html::a(Yii::t('hipanel', 'Create'), 'create', ['class' => 'btn btn-sm btn-success']) ?>
@@ -56,7 +58,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 ]) ?>
             <?php endif ?>
 
-            <?= $page->renderBulkDeleteButton('@contact/delete')?>
+            <?= $page->renderBulkDeleteButton('@article/delete')?>
         <?php $page->endContent() ?>
 
         <?php $page->beginContent('table') ?>

@@ -12,7 +12,10 @@ namespace hipanel\modules\client\controllers;
 
 use hipanel\actions\ComboSearchAction;
 use hipanel\actions\IndexAction;
+use hipanel\actions\PrepareBulkAction;
+use hipanel\actions\SmartDeleteAction;
 use hipanel\base\CrudController;
+use Yii;
 
 class BlacklistController extends CrudController
 {
@@ -21,9 +24,23 @@ class BlacklistController extends CrudController
         return array_merge(parent::actions(), [
             'index' => [
                 'class' => IndexAction::class,
+                'data' => function ($action) {
+                    return [
+                        'types' => $this->getRefs('type,blacklisted', 'hipanel:client'),
+                    ];
+                },
             ],
             'search' => [
                 'class' => ComboSearchAction::class,
+            ],
+            'delete' => [
+                'class' => SmartDeleteAction::class,
+                'success' => Yii::t('hipanel:client', 'Blacklist(s) were deleted'),
+                'error' => Yii::t('hipanel:client', 'Failed to delete Blacklist(s)'),
+            ],
+            'bulk-delete-modal' => [
+                'class' => PrepareBulkAction::class,
+                'view' => '_bulkDelete',
             ],
         ]);
     }

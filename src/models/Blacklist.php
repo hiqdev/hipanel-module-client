@@ -9,12 +9,17 @@ use Yii;
 
 class Blacklist extends \hipanel\base\Model implements TaggableInterface
 {
+    public const TYPE_DOMAIN = 'domain';
+    public const TYPE_IP = 'ip';
+    public const TYPE_EMAIL = 'email';
+    public const TYPE_PURSE = 'purse';
+
     public static function tableName(): string
     {
         return 'blacklisted';
     }
 
-    public function behaviors()
+    public function behaviors(): array
     {
         return array_merge(parent::behaviors(), [
             'as customAttributes' => CustomAttributes::class,
@@ -31,6 +36,10 @@ class Blacklist extends \hipanel\base\Model implements TaggableInterface
             [['name', 'message'], 'string'],
             [['last_notified'], 'timestamp'],
             [['show_message'], 'boolean'],
+            [['type'], 'default', 'value' => self::TYPE_DOMAIN, 'on' => ['create', 'update']],
+            [['type'], 'in', 'range' => array_keys(self::getTypeOptions()), 'on' => ['create', 'update']],
+            [['client', 'state', 'type'], 'safe'],
+            //[['client_name'], 'safe'],
         ];
     }
 
@@ -41,23 +50,13 @@ class Blacklist extends \hipanel\base\Model implements TaggableInterface
         ]);
     }
 
-    public function getClient()
+    public static function getTypeOptions(): array
     {
-        return $this->hasOne(Client::class, ['obj_id' => 'client_id']);
-    }
-
-    public function getObject()
-    {
-        return $this->hasOne(Obj::class, ['obj_id' => 'object_id']);
-    }
-
-    public function getState()
-    {
-        return $this->hasOne(Type::class, ['obj_id' => 'state_id']);
-    }
-
-    public function getType()
-    {
-        return $this->hasOne(Type::class, ['obj_id' => 'type_id']);
+        return [
+            self::TYPE_DOMAIN => Yii::t('hipanel:client', 'Domain'),
+            self::TYPE_IP => Yii::t('hipanel:client', 'Ip'),
+            self::TYPE_EMAIL => Yii::t('hipanel:client', 'Email'),
+            self::TYPE_PURSE => Yii::t('hipanel:client', 'Purse'),
+        ];
     }
 }

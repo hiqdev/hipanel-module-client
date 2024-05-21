@@ -22,6 +22,7 @@ class BlacklistSearch extends Blacklist
     public function searchAttributes(): array
     {
         return \yii\helpers\ArrayHelper::merge($this->defaultSearchAttributes(), [
+            'types',
             'limit',
             'tags',
         ]);

@@ -9,13 +9,15 @@ class BlacklistRepresentations extends RepresentationCollection
 {
     protected function fillRepresentations(): void
     {
+        $user = Yii::$app->user;
         $this->representations = array_filter([
             'common' => [
                 'label' => Yii::t('hipanel', 'Common'),
                 'columns' => array_filter([
                     'checkbox',
-                    'name', 'actions',
-                    Yii::$app->user->can('blacklist.read') ? 'seller_id' : null,
+                    'name',
+                    $user->can('client.read') ? 'type' : null,
+                    'client_like',
                 ]),
             ],
         ]);
