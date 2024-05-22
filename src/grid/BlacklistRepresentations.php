@@ -19,7 +19,7 @@ class BlacklistRepresentations extends RepresentationCollection
                     $user->can('client.read') ? 'type' : null,
                     'message',
                     'show_message',
-                    'client_like',
+                    'client',
                     //'state',
                     'create_time',
                 ]),

@@ -41,7 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'model' => $model,
                     'columns' => [
                         'name',
-                        'massage',
+                        'message',
                         'show_message',
 
                         'type',

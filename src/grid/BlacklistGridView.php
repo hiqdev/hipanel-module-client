@@ -3,9 +3,9 @@
 namespace hipanel\modules\client\grid;
 
 use hipanel\grid\BoxedGridView;
-use hipanel\grid\DataColumn;
 use hipanel\grid\MainColumn;
 use hipanel\grid\RefColumn;
+use hipanel\modules\client\widgets\BlacklistShowMessage;
 use hipanel\modules\client\widgets\BlacklistState;
 use hipanel\modules\client\widgets\BlacklistType;
 
@@ -17,7 +17,6 @@ class BlacklistGridView extends BoxedGridView
             'name' => [
                 'class' => MainColumn::class,
                 'attribute' => 'name',
-                //'extraAttribute' => 'name',
             ],
             'type' => [
                 'class' => RefColumn::class,
@@ -48,6 +47,23 @@ class BlacklistGridView extends BoxedGridView
                 'label' => 'Created',
                 'filterAttribute' => 'created',
                 'sortAttribute' => 'created',
+            ],
+            'show_message' => [
+                'class' => MainColumn::class,
+                'value' => function ($model) {
+                    return BlacklistShowMessage::widget(compact('model'));
+                },
+                'filter' => false,
+                'enableSorting' => false,
+            ],
+            'client' => [
+                'class' => ClientColumn::class,
+                'attribute' => 'client',
+                'filter' => false,
+                'enableSorting' => false,
+            ],
+            'message' => [
+                'attribute' => 'message',
             ],
         ]);
     }
