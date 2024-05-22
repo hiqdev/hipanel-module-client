@@ -70,13 +70,12 @@ class BlacklistController extends CrudController
             'validate-form' => [
                 'class' => ValidateFormAction::class,
             ],
-
-
             'delete' => [
                 'class' => SmartDeleteAction::class,
                 'success' => Yii::t('hipanel:client', 'Blacklist(s) were deleted'),
                 'error' => Yii::t('hipanel:client', 'Failed to delete Blacklist(s)'),
             ],
+
             'bulk-delete-modal' => [
                 'class' => PrepareBulkAction::class,
                 'view' => '_bulkDelete',

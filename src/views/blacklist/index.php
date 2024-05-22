@@ -49,19 +49,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?php $page->endContent() ?>
 
         <?php $page->beginContent('bulk-actions') ?>
-            <?php if (Yii::$app->user->can('requisites.update')): ?>
-                <?= AjaxModal::widget([
-                        'id' => 'bulk-set-templates-modal',
-                        'bulkPage' => true,
-                        'header' => Html::tag('h4', Yii::t('hipanel:finance', 'Set templates'), ['class' => 'modal-title']),
-                        'scenario' => 'bulk-set-templates',
-                        'actionUrl' => ['@requisite/bulk-set-templates'],
-                        'size' => Modal::SIZE_LARGE,
-                        'toggleButton' => ['label' => Yii::t('hipanel:finance', 'Set templates'), 'class' => 'btn btn-sm btn-default'],
-                ]) ?>
-            <?php endif ?>
-
-            <?= $page->renderBulkDeleteButton('@article/delete')?>
+            <?= $page->renderBulkDeleteButton('/client/blacklist/delete')?>
         <?php $page->endContent() ?>
 
         <?php $page->beginContent('table') ?>

@@ -39,4 +39,6 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= Html::submitButton(Yii::t('hipanel', 'Save'), ['class' => 'btn btn-success']) ?>
 <?php endif; ?>
 
+<?= Html::button(Yii::t('hipanel', 'Cancel'), ['class' => 'btn btn-default', 'onclick' => 'history.go(-1)']) ?>
+
 <?php ActiveForm::end() ?>
