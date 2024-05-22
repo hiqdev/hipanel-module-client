@@ -7,8 +7,6 @@ use hipanel\widgets\IndexPage;
 use hipanel\widgets\Pjax;
 use hiqdev\hiart\ActiveDataProvider;
 use yii\helpers\Html;
-use hipanel\widgets\AjaxModal;
-use yii\bootstrap\Modal;
 use hipanel\models\IndexPageUiOptions;
 
 /**
@@ -17,7 +15,6 @@ use hipanel\models\IndexPageUiOptions;
  * @var BlacklistRepresentations $representationCollection
  * @var IndexPageUiOptions $uiModel
  * @var array $types
- * @var array $states
  */
 
 $this->title = Yii::t('hipanel', 'Blacklist');
@@ -29,7 +26,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <?php $page->setSearchFormData([
             'types' => $types,
-            'states' => $states,
         ]) ?>
 
         <?php $page->beginContent('main-actions') ?>

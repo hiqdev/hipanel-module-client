@@ -20,7 +20,7 @@ class BlacklistRepresentations extends RepresentationCollection
                     'message',
                     'show_message',
                     'client_like',
-                    'state',
+                    //'state',
                 ]),
             ],
         ]);

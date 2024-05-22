@@ -46,7 +46,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                         'type',
                         'client',
-                        'state',
+                        //'state',
 
                         'create_time',
                     ],
