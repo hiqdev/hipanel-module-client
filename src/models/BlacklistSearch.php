@@ -14,9 +14,9 @@ class BlacklistSearch extends Blacklist
     {
         return [
             [['obj_id', 'type_id', 'state_id', 'client_id', 'object_id'], 'integer'],
-            [['name', 'message', 'state', 'type', 'client'], 'string'],
+            [['name', 'message', 'state', 'type', 'client', 'types', 'states'], 'string'],
             [['show_message'], 'boolean'],
-            [['name', 'message', 'create_time'], 'safe'],
+            //[['name', 'message', 'create_time'], 'safe'],
         ];
     }
 

@@ -12,7 +12,7 @@ class BlacklistType extends \hipanel\widgets\Type
 //        'danger'  => ['reseller', 'owner'],
 //        'warning' => ['support', 'admin', 'manager'],
 //        'primary' => ['purse', 'domain', 'ip', 'email'],
-//        'success' => ['partner'],
+//        'success' => ['purse', 'domain', 'ip', 'email'],
     ];
     public $field = 'type';
 }

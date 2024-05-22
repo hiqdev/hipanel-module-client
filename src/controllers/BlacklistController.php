@@ -20,8 +20,6 @@ use hipanel\actions\ValidateFormAction;
 use hipanel\actions\ViewAction;
 use hipanel\base\CrudController;
 use hipanel\models\Ref;
-use hipanel\modules\client\models\query\BlacklistQuery;
-use hipanel\modules\client\models\query\ContactQuery;
 use Yii;
 
 class BlacklistController extends CrudController

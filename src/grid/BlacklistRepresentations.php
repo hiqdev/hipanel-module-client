@@ -21,6 +21,7 @@ class BlacklistRepresentations extends RepresentationCollection
                     'show_message',
                     'client_like',
                     //'state',
+                    'create_time',
                 ]),
             ],
         ]);

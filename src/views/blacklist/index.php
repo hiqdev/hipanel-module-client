@@ -37,6 +37,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attributes' => [
                     'name',
                     'type',
+                    'message',
+                    'client',
+                    'created',
                 ],
             ]) ?>
         <?php $page->endContent() ?>

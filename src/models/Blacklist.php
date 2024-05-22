@@ -5,6 +5,7 @@ namespace hipanel\modules\client\models;
 use hipanel\behaviors\CustomAttributes;
 use hipanel\behaviors\TaggableBehavior;
 use hipanel\models\TaggableInterface;
+use hipanel\modules\client\models\query\BlacklistQuery;
 use Yii;
 
 class Blacklist extends \hipanel\base\Model implements TaggableInterface
@@ -36,7 +37,7 @@ class Blacklist extends \hipanel\base\Model implements TaggableInterface
         return [
             [['id', 'obj_id', 'type_id', 'state_id', 'client_id', 'object_id'], 'integer'],
             [['name', 'message', 'state', 'type', 'client'], 'string'],
-            [['create_time'], 'datetime'],
+            [['create_time'], 'date'],
             [['show_message'], 'boolean'],
 
             [['type', 'name'], 'required', 'on' => ['create']],
@@ -45,9 +46,12 @@ class Blacklist extends \hipanel\base\Model implements TaggableInterface
             // Delete
             [['id'], 'integer', 'on' => ['delete']],
 
-            //[['type'], 'default', 'value' => self::TYPE_DOMAIN, 'on' => ['create', 'update']],
-            //[['type'], 'in', 'range' => array_keys(self::getTypeOptions()), 'on' => ['create', 'update']],
+            [['created'], 'safe'],
+
             //[['client', 'state', 'type', 'message'], 'safe'],
+
+            //[['type'], 'in', 'range' => array_keys(self::getTypeOptions()), 'on' => ['create', 'update']],
+            //[['type'], 'default', 'value' => self::TYPE_DOMAIN, 'on' => ['create', 'update']],
         ];
     }
 
@@ -72,4 +76,15 @@ class Blacklist extends \hipanel\base\Model implements TaggableInterface
             self::TYPE_PURSE => Yii::t('hipanel:client', 'Purse'),
         ];
     }*/
+
+    /**
+     * {@inheritdoc}
+     * @return BlacklistQuery
+     */
+    public static function find($options = [])
+    {
+        return new BlacklistQuery(get_called_class(), [
+            'options' => $options,
+        ]);
+    }
 }

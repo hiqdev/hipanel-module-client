@@ -3,6 +3,7 @@
 namespace hipanel\modules\client\grid;
 
 use hipanel\grid\BoxedGridView;
+use hipanel\grid\DataColumn;
 use hipanel\grid\MainColumn;
 use hipanel\grid\RefColumn;
 use hipanel\modules\client\widgets\BlacklistState;
@@ -16,7 +17,6 @@ class BlacklistGridView extends BoxedGridView
             'name' => [
                 'class' => MainColumn::class,
                 'attribute' => 'name',
-                'filterAttribute' => 'name_like',
                 //'extraAttribute' => 'name',
             ],
             'type' => [
@@ -40,6 +40,14 @@ class BlacklistGridView extends BoxedGridView
                 'value' => function ($model) {
                     return BlacklistState::widget(compact('model'));
                 },
+            ],
+            'create_time' => [
+                'attribute' => 'create_time',
+                'format' => 'datetime',
+                'filter' => false,
+                'label' => 'Created',
+                'filterAttribute' => 'created',
+                'sortAttribute' => 'created',
             ],
         ]);
     }
