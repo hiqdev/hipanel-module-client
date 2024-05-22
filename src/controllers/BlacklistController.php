@@ -13,9 +13,12 @@ namespace hipanel\modules\client\controllers;
 use hipanel\actions\ComboSearchAction;
 use hipanel\actions\IndexAction;
 use hipanel\actions\PrepareBulkAction;
+use hipanel\actions\SmartCreateAction;
 use hipanel\actions\SmartDeleteAction;
+use hipanel\actions\SmartUpdateAction;
 use hipanel\actions\ViewAction;
 use hipanel\base\CrudController;
+use hipanel\models\Ref;
 use hipanel\modules\client\models\query\BlacklistQuery;
 use hipanel\modules\client\models\query\ContactQuery;
 use Yii;
@@ -44,6 +47,24 @@ class BlacklistController extends CrudController
             ],
             'view' => [
                 'class' => ViewAction::class,
+            ],
+            'update' => [
+                'class' => SmartUpdateAction::class,
+                'success' => Yii::t('hipanel:client', 'Blacklist was updated'),
+//                'data' => function ($action, $data) {
+//                    return array_merge($data, [
+//                        'currencies' => Ref::getList('type,currency'),
+//                    ]);
+//                },
+            ],
+            'create' => [
+                'class' => SmartCreateAction::class,
+                'success' => Yii::t('hipanel:client', 'Blacklist was created'),
+                'data' => function ($action, $data) {
+                    return array_merge($data, [
+                        'types' => Ref::getList('type,blacklisted'),
+                    ]);
+                },
             ],
 
 

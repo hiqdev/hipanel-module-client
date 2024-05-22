@@ -39,7 +39,7 @@ class Blacklist extends \hipanel\base\Model implements TaggableInterface
         return [
             [['id', 'obj_id', 'type_id', 'state_id', 'client_id', 'object_id'], 'integer'],
             [['name', 'message', 'state', 'type', 'client'], 'string'],
-            [['create_time'], 'timestamp'],
+            [['create_time'], 'datetime'],
             [['show_message'], 'boolean'],
             //[['type'], 'default', 'value' => self::TYPE_DOMAIN, 'on' => ['create', 'update']],
             //[['type'], 'in', 'range' => array_keys(self::getTypeOptions()), 'on' => ['create', 'update']],

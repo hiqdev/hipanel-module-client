@@ -29,29 +29,29 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="row">
     <div class="col-md-6">
         <?php $box = Box::begin(['renderBody' => false]) ?>
-        <?php $box->beginHeader() ?>
-        <?= $box->renderTitle(Yii::t('hipanel:client', 'Blacklist information')) ?>
-        <?php $box->beginTools() ?>
-        <?= Html::a(Yii::t('hipanel', 'Edit'), ['update', 'id' => $model->id], ['class' => 'btn btn-default btn-xs']) ?>
-        <?php $box->endTools() ?>
-        <?php Box::endHeader() ?>
-        <?php $box->beginBody() ?>
-        <?= BlacklistGridView::detailView([
-            'boxed' => false,
-            'model' => $model,
-            'columns' => [
-                'name',
-                'massage',
-                'show_message',
+            <?php $box->beginHeader() ?>
+                <?= $box->renderTitle(Yii::t('hipanel:client', 'Blacklist information')) ?>
+                <?php $box->beginTools() ?>
+                    <?= Html::a(Yii::t('hipanel', 'Edit'), ['update', 'id' => $model->id], ['class' => 'btn btn-default btn-xs']) ?>
+                <?php $box->endTools() ?>
+            <?php Box::endHeader() ?>
+            <?php $box->beginBody() ?>
+                <?= BlacklistGridView::detailView([
+                    'boxed' => false,
+                    'model' => $model,
+                    'columns' => [
+                        'name',
+                        'massage',
+                        'show_message',
 
-                'type',
-                'client',
-                'state',
+                        'type',
+                        'client',
+                        'state',
 
-                'create_time',
-            ],
-        ]) ?>
-        <?php $box->endBody() ?>
+                        'create_time',
+                    ],
+                ]) ?>
+            <?php $box->endBody() ?>
         <?php Box::end() ?>
     </div>
 </div>
