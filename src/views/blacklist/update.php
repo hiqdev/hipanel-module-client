@@ -27,13 +27,10 @@ $this->params['breadcrumbs'][] = [
     'url' => ['view', 'id' => $model->id],
 ];
 $this->params['breadcrumbs'][] = $this->title;
-
 ?>
 
 <?php $form = ActiveForm::begin([
     'id' => 'contact-form',
-    'enableClientValidation' => true,
-    'validateOnBlur' => true,
     'enableAjaxValidation' => true,
     'layout' => 'horizontal',
     'validationUrl' => Url::toRoute(['validate-form', 'scenario' => $model->scenario]),

@@ -16,6 +16,7 @@ use hipanel\actions\PrepareBulkAction;
 use hipanel\actions\SmartCreateAction;
 use hipanel\actions\SmartDeleteAction;
 use hipanel\actions\SmartUpdateAction;
+use hipanel\actions\ValidateFormAction;
 use hipanel\actions\ViewAction;
 use hipanel\base\CrudController;
 use hipanel\models\Ref;
@@ -65,6 +66,9 @@ class BlacklistController extends CrudController
                         'types' => Ref::getList('type,blacklisted'),
                     ]);
                 },
+            ],
+            'validate-form' => [
+                'class' => ValidateFormAction::class,
             ],
 
 

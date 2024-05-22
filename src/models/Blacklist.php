@@ -26,12 +26,9 @@ class Blacklist extends \hipanel\base\Model implements TaggableInterface
 
     public function behaviors(): array
     {
-        return array_merge(parent::behaviors(), [
-            'as customAttributes' => CustomAttributes::class,
-            [
-                'class' => TaggableBehavior::class,
-            ],
-        ]);
+        return [
+            TaggableBehavior::class
+        ];
     }
 
     public function rules(): array
@@ -41,6 +38,10 @@ class Blacklist extends \hipanel\base\Model implements TaggableInterface
             [['name', 'message', 'state', 'type', 'client'], 'string'],
             [['create_time'], 'datetime'],
             [['show_message'], 'boolean'],
+
+            [['type', 'name'], 'required', 'on' => ['create']],
+            [['name'], 'required', 'on' => 'update'],
+
             //[['type'], 'default', 'value' => self::TYPE_DOMAIN, 'on' => ['create', 'update']],
             //[['type'], 'in', 'range' => array_keys(self::getTypeOptions()), 'on' => ['create', 'update']],
             //[['client', 'state', 'type', 'message'], 'safe'],
