@@ -5,6 +5,7 @@ namespace hipanel\modules\client\grid;
 use hipanel\grid\BoxedGridView;
 use hipanel\grid\MainColumn;
 use hipanel\grid\RefColumn;
+use hipanel\modules\client\widgets\BlacklistState;
 use hipanel\modules\client\widgets\BlacklistType;
 
 class BlacklistGridView extends BoxedGridView
@@ -26,6 +27,17 @@ class BlacklistGridView extends BoxedGridView
                 'i18nDictionary' => 'hipanel:client',
                 'value' => function ($model) {
                     return BlacklistType::widget(compact('model'));
+                },
+            ],
+            'state' => [
+                'class' => RefColumn::class,
+                'filterAttribute' => 'states',
+                'filterOptions' => ['class' => 'narrow-filter'],
+                'format' => 'raw',
+                'gtype' => 'state,blacklisted',
+                'i18nDictionary' => 'hipanel:client',
+                'value' => function ($model) {
+                    return BlacklistState::widget(compact('model'));
                 },
             ],
         ]);

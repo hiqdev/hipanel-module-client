@@ -27,8 +27,14 @@ class BlacklistController extends CrudController
                 'data' => function ($action) {
                     return [
                         'types' => $this->getRefs('type,blacklisted', 'hipanel:client'),
+                        'states' => $this->getRefs('state,blacklisted', 'hipanel:client'),
                     ];
                 },
+                /*'filterStorageMap' => [
+                    'state' => 'client.blacklist.state',
+                    'states' => 'client.blacklist.states',
+                    'type' => 'client.blacklist.type',
+                ],*/
             ],
             'search' => [
                 'class' => ComboSearchAction::class,

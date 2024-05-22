@@ -9,10 +9,15 @@ use Yii;
 
 class Blacklist extends \hipanel\base\Model implements TaggableInterface
 {
+    use \hipanel\base\ModelTrait;
+
     public const TYPE_DOMAIN = 'domain';
     public const TYPE_IP = 'ip';
     public const TYPE_EMAIL = 'email';
     public const TYPE_PURSE = 'purse';
+
+    public const STATE_OK = 'ok';
+    public const STATE_DELETED = 'deleted';
 
     public static function tableName(): string
     {
@@ -33,13 +38,14 @@ class Blacklist extends \hipanel\base\Model implements TaggableInterface
     {
         return [
             [['id', 'obj_id', 'type_id', 'state_id', 'client_id', 'object_id'], 'integer'],
-            [['name', 'message'], 'string'],
+            [['name', 'message', 'state', 'type', 'client'], 'string'],
             [['last_notified'], 'timestamp'],
             [['show_message'], 'boolean'],
-            [['type'], 'default', 'value' => self::TYPE_DOMAIN, 'on' => ['create', 'update']],
-            [['type'], 'in', 'range' => array_keys(self::getTypeOptions()), 'on' => ['create', 'update']],
+            //[['type'], 'default', 'value' => self::TYPE_DOMAIN, 'on' => ['create', 'update']],
+            //[['type'], 'in', 'range' => array_keys(self::getTypeOptions()), 'on' => ['create', 'update']],
             [['client', 'state', 'type'], 'safe'],
-            //[['client_name'], 'safe'],
+            [['client_name'], 'safe'],
+//            [['state_label', 'type_label'], 'safe'],
         ];
     }
 
@@ -50,7 +56,7 @@ class Blacklist extends \hipanel\base\Model implements TaggableInterface
         ]);
     }
 
-    public static function getTypeOptions(): array
+    /*public static function getTypeOptions(): array
     {
         return [
             self::TYPE_DOMAIN => Yii::t('hipanel:client', 'Domain'),
@@ -58,5 +64,5 @@ class Blacklist extends \hipanel\base\Model implements TaggableInterface
             self::TYPE_EMAIL => Yii::t('hipanel:client', 'Email'),
             self::TYPE_PURSE => Yii::t('hipanel:client', 'Purse'),
         ];
-    }
+    }*/
 }

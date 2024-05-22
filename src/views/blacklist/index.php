@@ -17,6 +17,7 @@ use hipanel\models\IndexPageUiOptions;
  * @var BlacklistRepresentations $representationCollection
  * @var IndexPageUiOptions $uiModel
  * @var array $types
+ * @var array $states
  */
 
 $this->title = Yii::t('hipanel', 'Blacklist');
@@ -28,6 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <?php $page->setSearchFormData([
             'types' => $types,
+            'states' => $states,
         ]) ?>
 
         <?php $page->beginContent('main-actions') ?>
@@ -38,6 +40,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <?= $page->renderSorter([
                 'attributes' => [
                     'name',
+                    'type',
                 ],
             ]) ?>
         <?php $page->endContent() ?>
@@ -71,5 +74,5 @@ $this->params['breadcrumbs'][] = $this->title;
                 ]) ?>
             <?php $page->endBulkForm() ?>
         <?php $page->endContent() ?>
-    <?php $page->end() ?>
+    <?php IndexPage::end() ?>
 <?php Pjax::end() ?>

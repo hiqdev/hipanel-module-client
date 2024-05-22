@@ -8,10 +8,10 @@ class BlacklistType extends \hipanel\widgets\Type
     public $model         = [];
     public $values        = [];
     public $defaultValues = [
-//        'none'    => ['client'],
+        'none'    => ['purse', 'domain', 'ip', 'email'],
 //        'danger'  => ['reseller', 'owner'],
 //        'warning' => ['support', 'admin', 'manager'],
-        'primary' => ['purse', 'domain', 'ip', 'email'],
+//        'primary' => ['purse', 'domain', 'ip', 'email'],
 //        'success' => ['partner'],
     ];
     public $field = 'type';

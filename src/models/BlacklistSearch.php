@@ -16,12 +16,14 @@ class BlacklistSearch extends Blacklist
             [['obj_id', 'type_id', 'state_id', 'client_id', 'object_id'], 'integer'],
             [['name', 'message', 'last_notified'], 'safe'],
             [['show_message'], 'boolean'],
+            [['name', 'message', 'state', 'type', 'client'], 'string'],
         ];
     }
 
     public function searchAttributes(): array
     {
         return \yii\helpers\ArrayHelper::merge($this->defaultSearchAttributes(), [
+            'states',
             'types',
             'limit',
             'tags',
