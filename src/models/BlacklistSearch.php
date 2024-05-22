@@ -14,9 +14,9 @@ class BlacklistSearch extends Blacklist
     {
         return [
             [['obj_id', 'type_id', 'state_id', 'client_id', 'object_id'], 'integer'],
-            [['name', 'message', 'last_notified'], 'safe'],
-            [['show_message'], 'boolean'],
             [['name', 'message', 'state', 'type', 'client'], 'string'],
+            [['show_message'], 'boolean'],
+            [['name', 'message', 'create_time'], 'safe'],
         ];
     }
 
@@ -26,7 +26,6 @@ class BlacklistSearch extends Blacklist
             'states',
             'types',
             'limit',
-            'tags',
         ]);
     }
 }

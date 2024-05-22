@@ -39,20 +39,23 @@ class Blacklist extends \hipanel\base\Model implements TaggableInterface
         return [
             [['id', 'obj_id', 'type_id', 'state_id', 'client_id', 'object_id'], 'integer'],
             [['name', 'message', 'state', 'type', 'client'], 'string'],
-            [['last_notified'], 'timestamp'],
+            [['create_time'], 'timestamp'],
             [['show_message'], 'boolean'],
             //[['type'], 'default', 'value' => self::TYPE_DOMAIN, 'on' => ['create', 'update']],
             //[['type'], 'in', 'range' => array_keys(self::getTypeOptions()), 'on' => ['create', 'update']],
-            [['client', 'state', 'type'], 'safe'],
-            [['client_name'], 'safe'],
-//            [['state_label', 'type_label'], 'safe'],
+            //[['client', 'state', 'type', 'message'], 'safe'],
         ];
     }
 
     public function attributeLabels()
     {
         return $this->mergeAttributeLabels([
-            'login' => Yii::t('hipanel:client', 'Login'),
+            'name' => Yii::t('hipanel:client', 'Name'),
+            'type' => Yii::t('hipanel:client', 'Type'),
+            'message' => Yii::t('hipanel:client', 'Message'),
+            'show_message' => Yii::t('hipanel:client', 'Show message'),
+            'client' => Yii::t('hipanel:client', 'Client'),
+            'status' => Yii::t('hipanel:client', 'Status'),
         ]);
     }
 

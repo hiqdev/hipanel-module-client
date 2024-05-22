@@ -13,11 +13,12 @@ class BlacklistGridView extends BoxedGridView
     public function columns(): array
     {
         return array_merge(parent::columns(), [
-            /*'name' => [
+            'name' => [
                 'class' => MainColumn::class,
+                'attribute' => 'name',
                 'filterAttribute' => 'name_like',
-                'extraAttribute' => 'name',
-            ],*/
+                //'extraAttribute' => 'name',
+            ],
             'type' => [
                 'class' => RefColumn::class,
                 'filterAttribute' => 'types',

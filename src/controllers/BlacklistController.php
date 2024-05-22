@@ -14,7 +14,10 @@ use hipanel\actions\ComboSearchAction;
 use hipanel\actions\IndexAction;
 use hipanel\actions\PrepareBulkAction;
 use hipanel\actions\SmartDeleteAction;
+use hipanel\actions\ViewAction;
 use hipanel\base\CrudController;
+use hipanel\modules\client\models\query\BlacklistQuery;
+use hipanel\modules\client\models\query\ContactQuery;
 use Yii;
 
 class BlacklistController extends CrudController
@@ -39,6 +42,11 @@ class BlacklistController extends CrudController
             'search' => [
                 'class' => ComboSearchAction::class,
             ],
+            'view' => [
+                'class' => ViewAction::class,
+            ],
+
+
             'delete' => [
                 'class' => SmartDeleteAction::class,
                 'success' => Yii::t('hipanel:client', 'Blacklist(s) were deleted'),

@@ -15,8 +15,8 @@ class BlacklistRepresentations extends RepresentationCollection
                 'label' => Yii::t('hipanel', 'Common'),
                 'columns' => array_filter([
                     'checkbox',
-                    $user->can('client.read') ? 'type' : null,
                     'name',
+                    $user->can('client.read') ? 'type' : null,
                     'message',
                     'show_message',
                     'client_like',
