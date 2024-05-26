@@ -9,19 +9,21 @@
  * @copyright Copyright (c) 2015-2019, HiQDev (http://hiqdev.com/)
  */
 
-use hipanel\modules\client\grid\BlacklistGridView;
-use hipanel\modules\client\models\Blacklist;
+use hipanel\modules\client\grid\BlacklistedGridView;
+use hipanel\modules\client\helpers\blacklist\BlacklistCategoryInterface;
+use hipanel\modules\client\models\Blacklisted;
 use hipanel\widgets\Box;
 use yii\helpers\Html;
 
 /**
- * @var Blacklist $model
+ * @var Blacklisted $model
+ * @var BlacklistCategoryInterface $blacklistCategory
  */
 
 $this->title = $model->name;
-$this->params['subtitle'] = sprintf('%s %s', Yii::t('hipanel:client', 'Blacklist detailed information'), (Yii::$app->user->can('support') ? ' #' . $model->id : ''));
+$this->params['subtitle'] = sprintf('%s %s', Yii::t('hipanel:client', $blacklistCategory->getLabel() . ' detailed information'), (Yii::$app->user->can('support') ? ' #' . $model->id : ''));
 if (Yii::$app->user->can('client.read')) {
-    $this->params['breadcrumbs'][] = ['label' => Yii::t('hipanel', 'Blacklists'), 'url' => ['index']];
+    $this->params['breadcrumbs'][] = ['label' => Yii::t('hipanel', $blacklistCategory->getLabel()), 'url' => ['index']];
 }
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -30,13 +32,13 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="col-md-6">
         <?php $box = Box::begin(['renderBody' => false]) ?>
             <?php $box->beginHeader() ?>
-                <?= $box->renderTitle(Yii::t('hipanel:client', 'Blacklist information')) ?>
+                <?= $box->renderTitle(Yii::t('hipanel:client', $blacklistCategory->getLabel() . ' information')) ?>
                 <?php $box->beginTools() ?>
                     <?= Html::a(Yii::t('hipanel', 'Edit'), ['update', 'id' => $model->id], ['class' => 'btn btn-default btn-xs']) ?>
                 <?php $box->endTools() ?>
             <?php Box::endHeader() ?>
             <?php $box->beginBody() ?>
-                <?= BlacklistGridView::detailView([
+                <?= BlacklistedGridView::detailView([
                     'boxed' => false,
                     'model' => $model,
                     'columns' => [

@@ -1,8 +1,9 @@
 <?php
 
-use hipanel\modules\client\grid\BlacklistGridView;
-use hipanel\modules\client\grid\BlacklistRepresentations;
-use hipanel\modules\client\models\BlacklistSearch;
+use hipanel\modules\client\grid\BlacklistedGridView;
+use hipanel\modules\client\grid\BlacklistedRepresentations;
+use hipanel\modules\client\helpers\blacklist\BlacklistCategoryInterface;
+use hipanel\modules\client\models\BlacklistedSearch;
 use hipanel\widgets\IndexPage;
 use hipanel\widgets\Pjax;
 use hiqdev\hiart\ActiveDataProvider;
@@ -10,14 +11,15 @@ use yii\helpers\Html;
 use hipanel\models\IndexPageUiOptions;
 
 /**
- * @var BlacklistSearch $model
+ * @var BlacklistedSearch $model
  * @var ActiveDataProvider $dataProvider
- * @var BlacklistRepresentations $representationCollection
+ * @var BlacklistedRepresentations $representationCollection
  * @var IndexPageUiOptions $uiModel
  * @var array $types
+ * @var BlacklistCategoryInterface $blacklistCategory
  */
 
-$this->title = Yii::t('hipanel', 'Blacklist');
+$this->title = Yii::t('hipanel', $blacklistCategory->getLabel());
 $this->params['subtitle'] = array_filter(Yii::$app->request->get($model->formName(), [])) ? Yii::t('hipanel', 'filtered list') : Yii::t('hipanel', 'full list');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -48,12 +50,12 @@ $this->params['breadcrumbs'][] = $this->title;
         <?php $page->endContent() ?>
 
         <?php $page->beginContent('bulk-actions') ?>
-            <?= $page->renderBulkDeleteButton('/client/blacklist/delete')?>
+            <?= $page->renderBulkDeleteButton($blacklistCategory->getUrlAlias() . '/delete')?>
         <?php $page->endContent() ?>
 
         <?php $page->beginContent('table') ?>
             <?php $page->beginBulkForm() ?>
-                <?= BlacklistGridView::widget([
+                <?= BlacklistedGridView::widget([
                     'dataProvider' => $dataProvider,
                     'boxed' => false,
                     'filterModel'  => $model,

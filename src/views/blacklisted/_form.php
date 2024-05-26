@@ -1,14 +1,16 @@
 <?php declare(strict_types=1);
 
-use hipanel\modules\client\models\Blacklist;
+use hipanel\modules\client\helpers\blacklist\BlacklistCategoryInterface;
+use hipanel\modules\client\models\Blacklisted;
 use hipanel\widgets\Box;
 use hiqdev\combo\StaticCombo;
 use yii\bootstrap\ActiveForm;
 
 /**
- * @var Blacklist $model
+ * @var Blacklisted $model
  * @var ActiveForm $form
  * @var array $types
+ * @var BlacklistCategoryInterface $blacklistCategory
  */
 
 $isCreateScenario = $model->scenario === 'create';
@@ -17,9 +19,11 @@ $isCreateScenario = $model->scenario === 'create';
 <div class="row">
 
     <div class="col-md-6">
-        <?php Box::begin(['title' => Yii::t('hipanel:client', 'Blacklist details')]) ?>
+        <?php Box::begin(['title' => Yii::t('hipanel:client', $blacklistCategory->getLabel() . ' details')]) ?>
         <?php if (!$isCreateScenario) : ?>
             <?= $form->field($model, 'id')->hiddenInput()->label(false) ?>
+        <?php else: ?>
+            <?= $form->field($model, 'category')->hiddenInput(['value' => $blacklistCategory->getValue()])->label(false) ?>
         <?php endif; ?>
 
         <?= $form->field($model, 'name') ?>

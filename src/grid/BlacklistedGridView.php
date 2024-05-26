@@ -9,7 +9,7 @@ use hipanel\modules\client\widgets\BlacklistShowMessage;
 use hipanel\modules\client\widgets\BlacklistState;
 use hipanel\modules\client\widgets\BlacklistType;
 
-class BlacklistGridView extends BoxedGridView
+class BlacklistedGridView extends BoxedGridView
 {
     public function columns(): array
     {

@@ -17,6 +17,7 @@ return [
         '@contact' => '/client/contact',
         '@article' => '/client/article',
         '@blacklist' => '/client/blacklist',
+        '@whitelist' => '/client/whitelist',
         '@client/assignments' => '/client/assignments',
         '@client/debt' => '/debt/debt',
     ],
@@ -44,6 +45,11 @@ return [
                     'class' => \yii\i18n\PhpMessageSource::class,
                     'basePath' => dirname(__DIR__) . '/src/messages',
                 ],
+            ],
+        ],
+        'urlManager' => [
+            'rules' => [
+                'client/whitelist/<action:\w+>' => 'client/blacklisted/<action>',
             ],
         ],
     ],

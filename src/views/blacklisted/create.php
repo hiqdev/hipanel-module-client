@@ -8,7 +8,8 @@
  */
 
 use hipanel\helpers\Url;
-use hipanel\modules\client\models\Blacklist;
+use hipanel\modules\client\helpers\blacklist\BlacklistCategoryInterface;
+use hipanel\modules\client\models\Blacklisted;
 use yii\bootstrap\ActiveForm;
 use yii\bootstrap\Html;
 use yii\web\View;
@@ -17,10 +18,11 @@ use yii\web\View;
  * @var View $this
  * @var string $action
  * @var array $types
- * @var Blacklist $model
+ * @var Blacklisted $model
+ * @var BlacklistCategoryInterface $blacklistCategory
  */
-$this->title = Yii::t('hipanel:client', 'Create blacklist item');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('hipanel', 'Blacklist'), 'url' => ['index']];
+$this->title = Yii::t('hipanel:client', sprintf('Create %s item', $blacklistCategory->getLabel()));
+$this->params['breadcrumbs'][] = ['label' => Yii::t('hipanel', $blacklistCategory->getLabel()), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
@@ -31,10 +33,10 @@ $this->params['breadcrumbs'][] = $this->title;
     'validationUrl' => Url::toRoute(['validate-form', 'scenario' => $model->scenario]),
 ]) ?>
 
-<?= $this->render('_form', ['model' => $model, 'types' => $types, 'form' => $form]) ?>
+<?= $this->render('_form', ['model' => $model, 'types' => $types, 'form' => $form, 'blacklistCategory' => $blacklistCategory]) ?>
 
 <?php if ($model->scenario === 'create') : ?>
-    <?= Html::submitButton(Yii::t('hipanel:client', 'Create blacklist item'), ['class' => 'btn btn-success']) ?>
+    <?= Html::submitButton(Yii::t('hipanel:client', sprintf('Create %s item', $blacklistCategory->getLabel())), ['class' => 'btn btn-success']) ?>
 <?php else : ?>
     <?= Html::submitButton(Yii::t('hipanel', 'Save'), ['class' => 'btn btn-success']) ?>
 <?php endif; ?>

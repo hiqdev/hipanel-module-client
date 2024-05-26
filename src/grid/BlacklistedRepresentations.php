@@ -5,7 +5,7 @@ namespace hipanel\modules\client\grid;
 use hiqdev\higrid\representations\RepresentationCollection;
 use Yii;
 
-class BlacklistRepresentations extends RepresentationCollection
+class BlacklistedRepresentations extends RepresentationCollection
 {
     protected function fillRepresentations(): void
     {

@@ -52,7 +52,11 @@ class SidebarMenu extends \hiqdev\yii2\menus\Menu
                     ],
                     'blacklist' => [
                         'label'   => Yii::t('hipanel:client', 'Blacklist'),
-                        'url'     => ['/client/blacklist/index'],
+                        'url'     => ['@blacklist/index'],
+                    ],
+                    'whitelist' => [
+                        'label'   => Yii::t('hipanel:client', 'Whitelist'),
+                        'url'     => ['@whitelist/index'],
                     ],
                 ],
             ],

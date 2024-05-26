@@ -20,21 +20,34 @@ use hipanel\actions\ValidateFormAction;
 use hipanel\actions\ViewAction;
 use hipanel\base\CrudController;
 use hipanel\models\Ref;
+use hipanel\modules\client\helpers\blacklist\BlacklistCategoryFactory;
+use hipanel\modules\client\helpers\blacklist\BlacklistCategoryInterface;
 use Yii;
 
-class BlacklistController extends CrudController
+class BlacklistedController extends CrudController
 {
+    private function getCategory(): BlacklistCategoryInterface
+    {
+        return BlacklistCategoryFactory::getInstance(Yii::$app->request->pathInfo);
+    }
+
     public function actions(): array
     {
+        $category = $this->getCategory();
+
         return array_merge(parent::actions(), [
             'index' => [
                 'class' => IndexAction::class,
-                'data' => function ($action) {
+                'data' => function ($action) use ($category) {
                     return [
-                        'types' => $this->getRefs('type,blacklisted', 'hipanel:client'),
+                        'types' => $this->getRefs($category->getRefsName(), 'hipanel:client'),
                         'states' => $this->getRefs('state,blacklisted', 'hipanel:client'),
+                        'blacklistCategory' => $category,
                     ];
                 },
+                'findOptions' => [
+                    'category' => $category->getValue()
+                ],
                 /*'filterStorageMap' => [
                     'state' => 'client.blacklist.state',
                     'states' => 'client.blacklist.states',
@@ -46,22 +59,25 @@ class BlacklistController extends CrudController
             ],
             'view' => [
                 'class' => ViewAction::class,
+                'group' => $category,
+                'data' => [
+                    'blacklistCategory' => $category,
+                ],
             ],
             'update' => [
                 'class' => SmartUpdateAction::class,
                 'success' => Yii::t('hipanel:client', 'Blacklist was updated'),
-//                'data' => function ($action, $data) {
-//                    return array_merge($data, [
-//                        'currencies' => Ref::getList('type,currency'),
-//                    ]);
-//                },
+                'data' => [
+                    'blacklistCategory' => $category,
+                ],
             ],
             'create' => [
                 'class' => SmartCreateAction::class,
-                'success' => Yii::t('hipanel:client', 'Blacklist was created'),
-                'data' => function ($action, $data) {
+                'success' => Yii::t('hipanel:client', $category->getLabel() . ' was created'),
+                'data' => function ($action, $data) use ($category) {
                     return array_merge($data, [
-                        'types' => Ref::getList('type,blacklisted'),
+                        'types' => Ref::getList($category->getRefsName()),
+                        'blacklistCategory' => $category,
                     ]);
                 },
             ],
@@ -70,13 +86,11 @@ class BlacklistController extends CrudController
             ],
             'delete' => [
                 'class' => SmartDeleteAction::class,
-                'success' => Yii::t('hipanel:client', 'Blacklist(s) were deleted'),
-                'error' => Yii::t('hipanel:client', 'Failed to delete Blacklist(s)'),
-            ],
-
-            'bulk-delete-modal' => [
-                'class' => PrepareBulkAction::class,
-                'view' => '_bulkDelete',
+                'success' => Yii::t('hipanel:client', $category->getLabel() . '(s) were deleted'),
+                'error' => Yii::t(
+                    'hipanel:client',
+                    sprintf('Failed to delete %s(s)', $category->getLabel()),
+                ),
             ],
         ]);
     }

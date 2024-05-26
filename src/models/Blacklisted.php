@@ -8,7 +8,7 @@ use hipanel\models\TaggableInterface;
 use hipanel\modules\client\models\query\BlacklistQuery;
 use Yii;
 
-class Blacklist extends \hipanel\base\Model implements TaggableInterface
+class Blacklisted extends \hipanel\base\Model implements TaggableInterface
 {
     use \hipanel\base\ModelTrait;
 
@@ -46,7 +46,7 @@ class Blacklist extends \hipanel\base\Model implements TaggableInterface
             // Delete
             [['id'], 'integer', 'on' => ['delete']],
 
-            [['created'], 'safe'],
+            [['created', 'category'], 'safe'],
 
             //[['client', 'state', 'type', 'message'], 'safe'],
 
