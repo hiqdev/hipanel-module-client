@@ -17,6 +17,7 @@ class BlacklistedGridView extends BoxedGridView
             'name' => [
                 'class' => MainColumn::class,
                 'attribute' => 'name',
+                'filterAttribute' => 'name_ilike',
             ],
             'type' => [
                 'class' => RefColumn::class,

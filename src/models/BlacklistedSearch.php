@@ -17,7 +17,7 @@ class BlacklistedSearch extends Blacklisted
             [['name', 'message', 'state', 'type', 'client', 'types', 'states'], 'string'],
             [['show_message'], 'boolean'],
 
-            [['category'], 'safe'],
+            [['category', 'name_ilike'], 'safe'],
         ];
     }
 
@@ -26,6 +26,7 @@ class BlacklistedSearch extends Blacklisted
         return \yii\helpers\ArrayHelper::merge($this->defaultSearchAttributes(), [
             'states',
             'types',
+            'name_ilike',
             'limit',
         ]);
     }
