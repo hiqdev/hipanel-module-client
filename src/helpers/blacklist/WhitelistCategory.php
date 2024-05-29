@@ -4,11 +4,7 @@ namespace hipanel\modules\client\helpers\blacklist;
 
 class WhitelistCategory implements BlacklistCategoryInterface
 {
-    /**
-     * The original name of category on API side
-     * @return string
-     */
-    public function getValue(): string
+    public function getExternalValue(): string
     {
         return 'whitelisted';
     }
@@ -25,6 +21,6 @@ class WhitelistCategory implements BlacklistCategoryInterface
 
     public function getRefsName(): string
     {
-        return 'type,' . $this->getValue();
+        return 'type,' . $this->getExternalValue();
     }
 }

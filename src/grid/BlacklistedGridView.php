@@ -5,14 +5,18 @@ namespace hipanel\modules\client\grid;
 use hipanel\grid\BoxedGridView;
 use hipanel\grid\MainColumn;
 use hipanel\grid\RefColumn;
+use hipanel\modules\client\helpers\blacklist\BlacklistCategoryFactory;
 use hipanel\modules\client\widgets\BlacklistShowMessage;
 use hipanel\modules\client\widgets\BlacklistState;
 use hipanel\modules\client\widgets\BlacklistType;
+use Yii;
 
 class BlacklistedGridView extends BoxedGridView
 {
     public function columns(): array
     {
+        $category = BlacklistCategoryFactory::getInstance(Yii::$app->request->get('category'));
+
         return array_merge(parent::columns(), [
             'name' => [
                 'class' => MainColumn::class,
@@ -24,7 +28,7 @@ class BlacklistedGridView extends BoxedGridView
                 'filterAttribute' => 'types',
                 'filterOptions' => ['class' => 'narrow-filter'],
                 'format' => 'raw',
-                'gtype' => 'type,blacklisted',
+                'gtype' => $category->getRefsName(),
                 'i18nDictionary' => 'hipanel:client',
                 'value' => function ($model) {
                     return BlacklistType::widget(compact('model'));

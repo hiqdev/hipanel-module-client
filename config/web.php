@@ -49,7 +49,9 @@ return [
         ],
         'urlManager' => [
             'rules' => [
-                'client/whitelist/<action:\w+>' => 'client/blacklisted/<action>',
+                [
+                    'class' => hipanel\modules\client\web\BlacklistUrlRule::class,
+                ],
             ],
         ],
     ],

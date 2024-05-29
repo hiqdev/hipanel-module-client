@@ -34,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <?php $box->beginHeader() ?>
                 <?= $box->renderTitle(Yii::t('hipanel:client', $blacklistCategory->getLabel() . ' information')) ?>
                 <?php $box->beginTools() ?>
-                    <?= Html::a(Yii::t('hipanel', 'Edit'), ['update', 'id' => $model->id], ['class' => 'btn btn-default btn-xs']) ?>
+                    <?= Html::a(Yii::t('hipanel', 'Edit'), ['update', 'id' => $model->id], ['class' => 'btn btn-default btn-sm']) ?>
                 <?php $box->endTools() ?>
             <?php Box::endHeader() ?>
             <?php $box->beginBody() ?>

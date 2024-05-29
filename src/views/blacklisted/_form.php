@@ -23,7 +23,7 @@ $isCreateScenario = $model->scenario === 'create';
         <?php if (!$isCreateScenario) : ?>
             <?= $form->field($model, 'id')->hiddenInput()->label(false) ?>
         <?php else: ?>
-            <?= $form->field($model, 'category')->hiddenInput(['value' => $blacklistCategory->getValue()])->label(false) ?>
+            <?= $form->field($model, 'category')->hiddenInput(['value' => $blacklistCategory->getExternalValue()])->label(false) ?>
         <?php endif; ?>
 
         <?= $form->field($model, 'name') ?>

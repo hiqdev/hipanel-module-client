@@ -28,7 +28,7 @@ class BlacklistedController extends CrudController
 {
     private function getCategory(): BlacklistCategoryInterface
     {
-        return BlacklistCategoryFactory::getInstance(Yii::$app->request->pathInfo);
+        return BlacklistCategoryFactory::getInstance(Yii::$app->request->get('category', 'blacklist'));
     }
 
     public function actions(): array
@@ -46,7 +46,7 @@ class BlacklistedController extends CrudController
                     ];
                 },
                 'findOptions' => [
-                    'category' => $category->getValue()
+                    'category' => $category->getExternalValue()
                 ],
                 /*'filterStorageMap' => [
                     'state' => 'client.blacklist.state',
