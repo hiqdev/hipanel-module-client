@@ -41,4 +41,14 @@ export default class BlacklistHelper {
         blacklist['created'] = await index.getValueInColumnByNumberRow('Created', numberRow);
         return blacklist;
     }
+
+    async hasMainElementsOnIndexPage() {
+        const indexPage = new Index(this.page);
+        await indexPage.hasAdvancedSearchInputs([
+            "BlacklistedSearch[name]",
+            "BlacklistedSearch[types][]",
+        ]);
+
+        await indexPage.hasColumns(["Name", "Type", "Message", "Show message", "Client", "Created"]);
+    }
 }
