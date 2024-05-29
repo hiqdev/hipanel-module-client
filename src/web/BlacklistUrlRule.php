@@ -34,7 +34,7 @@ class BlacklistUrlRule extends BaseObject implements UrlRuleInterface
     public function parseRequest($manager, $request)
     {
         $pathInfo = $request->getPathInfo();
-        if (preg_match('%^client/(blacklist|whitelist)/[\w-]+$%', $pathInfo, $matches)) {
+        if (preg_match('%^client/(blacklist|whitelist)/([\w-]+)$%', $pathInfo, $matches)) {
             $controller = $matches[1];
             $action = $matches[2];
             return ['client/blacklisted/' . $action, ['category' => $controller]];
