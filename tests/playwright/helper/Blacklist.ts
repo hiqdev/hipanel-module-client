@@ -1,19 +1,24 @@
 import { expect, Page } from "@playwright/test";
 import Index from "@hipanel-core/page/Index";
 import Blacklist from "@hipanel-module-client/model/Blacklist";
+import BlacklistForm from "@hipanel-module-client/page/BlacklistForm";
+import BlacklistView from "@hipanel-module-client/page/BlacklistView";
+import Alert from "@hipanel-core/ui/Alert";
 
 export default class BlacklistHelper {
     private page: Page;
     private index: Index;
+    private blackCategory: BlacklistCategoryInterface;
 
-    public constructor(page: Page) {
+    public constructor(page: Page, blackCategory: BlacklistCategoryInterface) {
         this.page = page;
         this.index = new Index(page);
+        this.blackCategory = blackCategory;
     }
 
-    async gotoIndexBlacklist(blackCategory: BlacklistCategoryInterface) {
-        await this.page.goto('/client/' + blackCategory.getName()  + '/index');
-        await expect(this.page).toHaveTitle(blackCategory.getLabel());
+    async gotoIndexBlacklist() {
+        await this.page.goto('/client/' + this.blackCategory.getName()  + '/index');
+        await expect(this.page).toHaveTitle(this.blackCategory.getLabel());
     }
 
     async gotoBlacklistPage(rowNumber: number) {
@@ -25,8 +30,14 @@ export default class BlacklistHelper {
         await expect(this.page.locator('//table[contains(@class, "detail-view")]//tbody/tr[2]/td')).toContainText(blacklist['message']);
         await expect(this.page.locator('//table[contains(@class, "detail-view")]//tbody/tr[3]/td')).toContainText(blacklist['showMessage']);
         await expect(this.page.locator('//table[contains(@class, "detail-view")]//tbody/tr[4]/td')).toContainText(blacklist['type']);
-        await expect(this.page.locator('//table[contains(@class, "detail-view")]//tbody/tr[5]/td')).toContainText(blacklist['client']);
-        await expect(this.page.locator('//table[contains(@class, "detail-view")]//tbody/tr[6]/td')).toContainText(blacklist['created']);
+
+        if (blacklist['client'].length > 0) {
+            await expect(this.page.locator('//table[contains(@class, "detail-view")]//tbody/tr[5]/td')).toContainText(blacklist['client']);
+        }
+
+        if (blacklist['created'].length > 0) {
+            await expect(this.page.locator('//table[contains(@class, "detail-view")]//tbody/tr[6]/td')).toContainText(blacklist['created']);
+        }
     }
 
     async fillBlacklistFromIndexPage(numberRow: number) {
@@ -50,5 +61,33 @@ export default class BlacklistHelper {
         ]);
 
         await indexPage.hasColumns(["Name", "Type", "Message", "Show message", "Client", "Created"]);
+    }
+
+    async createBlacklist(blackCategory: BlacklistCategoryInterface, blacklist: Blacklist) {
+        await this.gotoCreateBlacklist();
+
+        const form = new BlacklistForm(this.page, blackCategory);
+        await form.fill(blacklist);
+        await form.create();
+        await form.seeSuccessBlacklistCreatingAlert();
+
+        return await form.getSavedBlacklistId();
+    }
+
+    async gotoCreateBlacklist() {
+        await this.page.goto('/client/' + this.blackCategory.getName()  + '/create');
+        await expect(this.page).toHaveTitle('Create ' + this.blackCategory.getLabel() + ' item');
+    }
+
+    async updateBlacklist() {
+
+    }
+
+    async deleteBlacklist(id: string) {
+        const viewPage = await new BlacklistView(this.page, this.blackCategory);
+        await viewPage.gotoViewBlacklist(id);
+        await viewPage.detailMenuItem("Delete").click();
+        await viewPage.acceptDeleteDialog();
+        await Alert.on(this.page).hasText(this.blackCategory.getLabel() + "(s) were deleted");
     }
 }

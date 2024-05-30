@@ -4,9 +4,9 @@ import BlacklistCategory from "@hipanel-module-client/helper/category/BlacklistC
 
 test("Correct view Blacklist @hipanel-module-client @admin", async ({ adminPage }) => {
 
-    const blacklistHelper = new BlacklistHelper(adminPage);
+    const blacklistHelper = new BlacklistHelper(adminPage, new BlacklistCategory());
 
-    await blacklistHelper.gotoIndexBlacklist(new BlacklistCategory());
+    await blacklistHelper.gotoIndexBlacklist();
 
     await blacklistHelper.gotoBlacklistPage(1);
     let blacklist = await blacklistHelper.fillBlacklistFromIndexPage(1);
