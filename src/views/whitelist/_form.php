@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-use hipanel\modules\client\helpers\blacklist\BlacklistCategoryInterface;
+use hipanel\modules\client\helpers\blacklist\WhitelistCategory;
 use hipanel\modules\client\models\Blacklist;
 use hipanel\widgets\Box;
 use hiqdev\combo\StaticCombo;
@@ -10,9 +10,9 @@ use yii\bootstrap\ActiveForm;
  * @var Blacklist $model
  * @var ActiveForm $form
  * @var array $types
- * @var BlacklistCategoryInterface $blacklistCategory
  */
 
+$blacklistCategory = new WhitelistCategory();
 $isCreateScenario = $model->scenario === 'create';
 ?>
 

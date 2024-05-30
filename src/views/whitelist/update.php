@@ -8,7 +8,7 @@
  */
 
 use hipanel\helpers\Url;
-use hipanel\modules\client\helpers\blacklist\BlacklistCategoryInterface;
+use hipanel\modules\client\helpers\blacklist\WhitelistCategory;
 use hipanel\modules\client\models\Contact;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
@@ -19,9 +19,9 @@ use yii\helpers\Inflector;
  * @var boolean $askPincode
  * @var Contact $model
  * @var string $action
- * @var BlacklistCategoryInterface $blacklistCategory
  */
 
+$blacklistCategory = new WhitelistCategory();
 $this->title = Yii::t('hipanel', 'Update');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('hipanel:client', $blacklistCategory->getLabel() . 's'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = [
