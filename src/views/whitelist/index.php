@@ -2,6 +2,7 @@
 
 use hipanel\modules\client\grid\BlacklistRepresentations;
 use hipanel\modules\client\grid\WhitelistGridView;
+use hipanel\modules\client\helpers\blacklist\BlacklistCategoryInterface;
 use hipanel\modules\client\models\BlacklistSearch;
 use hipanel\widgets\IndexPage;
 use hipanel\widgets\Pjax;
@@ -15,9 +16,10 @@ use hipanel\models\IndexPageUiOptions;
  * @var BlacklistRepresentations $representationCollection
  * @var IndexPageUiOptions $uiModel
  * @var array $types
+ * @var BlacklistCategoryInterface $blacklistCategory
  */
 
-$this->title = Yii::t('hipanel', 'Whitelist');
+$this->title = Yii::t('hipanel', $blacklistCategory->getLabel());;
 $this->params['subtitle'] = array_filter(Yii::$app->request->get($model->formName(), [])) ? Yii::t('hipanel', 'filtered list') : Yii::t('hipanel', 'full list');
 $this->params['breadcrumbs'][] = $this->title;
 ?>

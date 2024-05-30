@@ -56,8 +56,8 @@ export default class BlacklistHelper {
     async hasMainElementsOnIndexPage() {
         const indexPage = new Index(this.page);
         await indexPage.hasAdvancedSearchInputs([
-            "BlacklistedSearch[name]",
-            "BlacklistedSearch[types][]",
+            this.blackCategory.getLabel() + "Search[name]",
+            this.blackCategory.getLabel() + "Search[types][]",
         ]);
 
         await indexPage.hasColumns(["Name", "Type", "Message", "Show message", "Client", "Created"]);
