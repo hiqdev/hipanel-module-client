@@ -33,7 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
     'validationUrl' => Url::toRoute(['validate-form', 'scenario' => $model->scenario]),
 ]) ?>
 
-<?= $this->render('_form', ['model' => $model, 'types' => $types, 'form' => $form, 'blacklistCategory' => $blacklistCategory]) ?>
+<?= $this->render('../blacklist/_form', ['model' => $model, 'types' => $types, 'form' => $form, 'blacklistCategory' => $blacklistCategory]) ?>
 
 <?php if ($model->scenario === 'create') : ?>
     <?= Html::submitButton(Yii::t('hipanel:client', sprintf('Create %s item', $blacklistCategory->getLabel())), ['class' => 'btn btn-success']) ?>
