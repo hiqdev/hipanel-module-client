@@ -40,11 +40,11 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ]); ?>
         <div class="profile-user-img text-center">
-            <i class="fa fa-user fa-5x"></i>
+            <i class="fa fa-ban fa-5x"></i>
         </div>
 
         <div class="profile-usermenu">
-            <?= BlacklistDetailMenu::widget(['model' => $model]) ?>
+            <?= BlacklistDetailMenu::widget(['model' => $model, 'category' => $blacklistCategory]) ?>
         </div>
         <?php Box::end() ?>
     </div>
@@ -53,9 +53,6 @@ $this->params['breadcrumbs'][] = $this->title;
         <?php $box = Box::begin(['renderBody' => false]) ?>
             <?php $box->beginHeader() ?>
                 <?= $box->renderTitle(Yii::t('hipanel:client', $blacklistCategory->getLabel() . ' information')) ?>
-                <?php $box->beginTools() ?>
-                    <?= Html::a(Yii::t('hipanel', 'Edit'), ['update', 'id' => $model->id], ['class' => 'btn btn-default btn-sm']) ?>
-                <?php $box->endTools() ?>
             <?php Box::endHeader() ?>
             <?php $box->beginBody() ?>
                 <?= BlacklistGridView::detailView([
