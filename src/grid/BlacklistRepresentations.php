@@ -5,7 +5,7 @@ namespace hipanel\modules\client\grid;
 use hiqdev\higrid\representations\RepresentationCollection;
 use Yii;
 
-class BlacklistedRepresentations extends RepresentationCollection
+class BlacklistRepresentations extends RepresentationCollection
 {
     protected function fillRepresentations(): void
     {
@@ -20,7 +20,6 @@ class BlacklistedRepresentations extends RepresentationCollection
                     'message',
                     'show_message',
                     'client',
-                    //'state',
                     'create_time',
                 ]),
             ],

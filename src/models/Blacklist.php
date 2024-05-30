@@ -2,13 +2,10 @@
 
 namespace hipanel\modules\client\models;
 
-use hipanel\behaviors\CustomAttributes;
-use hipanel\behaviors\TaggableBehavior;
-use hipanel\models\TaggableInterface;
 use hipanel\modules\client\models\query\BlacklistQuery;
 use Yii;
 
-class Blacklisted extends \hipanel\base\Model implements TaggableInterface
+class Blacklist extends \hipanel\base\Model
 {
     use \hipanel\base\ModelTrait;
 
@@ -25,14 +22,7 @@ class Blacklisted extends \hipanel\base\Model implements TaggableInterface
         return 'blacklisted';
     }
 
-    public function behaviors(): array
-    {
-        return [
-            TaggableBehavior::class
-        ];
-    }
-
-    public function rules(): array
+    public function rules()
     {
         return [
             [['id', 'obj_id', 'type_id', 'state_id', 'client_id', 'object_id'], 'integer'],
@@ -83,7 +73,7 @@ class Blacklisted extends \hipanel\base\Model implements TaggableInterface
      */
     public static function find($options = [])
     {
-        return new BlacklistQuery(get_called_class(), [
+        return new BlacklistQuery(static::class, [
             'options' => $options,
         ]);
     }

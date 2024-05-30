@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * Client module for HiPanel.
  *
@@ -9,20 +9,25 @@
 
 use hipanel\helpers\Url;
 use hipanel\modules\client\helpers\blacklist\BlacklistCategoryInterface;
-use hipanel\modules\client\models\Blacklisted;
+use hipanel\modules\client\models\Contact;
 use yii\bootstrap\ActiveForm;
-use yii\bootstrap\Html;
-use yii\web\View;
+use yii\helpers\Html;
+use yii\helpers\Inflector;
 
 /**
- * @var View $this
+ * @var array $countries
+ * @var boolean $askPincode
+ * @var Contact $model
  * @var string $action
- * @var array $types
- * @var Blacklisted $model
  * @var BlacklistCategoryInterface $blacklistCategory
  */
-$this->title = Yii::t('hipanel:client', sprintf('Create %s item', $blacklistCategory->getLabel()));
-$this->params['breadcrumbs'][] = ['label' => Yii::t('hipanel', $blacklistCategory->getLabel()), 'url' => ['index']];
+
+$this->title = Yii::t('hipanel', 'Update');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('hipanel:client', $blacklistCategory->getLabel() . 's'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = [
+    'label' => Inflector::titleize($model->name, true),
+    'url' => ['view', 'id' => $model->id],
+];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
@@ -33,10 +38,10 @@ $this->params['breadcrumbs'][] = $this->title;
     'validationUrl' => Url::toRoute(['validate-form', 'scenario' => $model->scenario]),
 ]) ?>
 
-<?= $this->render('_form', ['model' => $model, 'types' => $types, 'form' => $form, 'blacklistCategory' => $blacklistCategory]) ?>
+<?= $this->render('_form', ['model' => $model, 'types' => [], 'form' => $form, 'blacklistCategory' => $blacklistCategory]) ?>
 
 <?php if ($model->scenario === 'create') : ?>
-    <?= Html::submitButton(Yii::t('hipanel:client', sprintf('Create %s item', $blacklistCategory->getLabel())), ['class' => 'btn btn-success']) ?>
+    <?= Html::submitButton(Yii::t('hipanel:client', 'Create ' . $blacklistCategory->getLabel()), ['class' => 'btn btn-success']) ?>
 <?php else : ?>
     <?= Html::submitButton(Yii::t('hipanel', 'Save'), ['class' => 'btn btn-success']) ?>
 <?php endif; ?>

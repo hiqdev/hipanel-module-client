@@ -11,12 +11,10 @@ use hipanel\modules\client\widgets\BlacklistState;
 use hipanel\modules\client\widgets\BlacklistType;
 use Yii;
 
-class BlacklistedGridView extends BoxedGridView
+class BlacklistGridView extends BoxedGridView
 {
     public function columns(): array
     {
-        $category = BlacklistCategoryFactory::getInstance(Yii::$app->request->get('category'));
-
         return array_merge(parent::columns(), [
             'name' => [
                 'class' => MainColumn::class,
@@ -28,7 +26,7 @@ class BlacklistedGridView extends BoxedGridView
                 'filterAttribute' => 'types',
                 'filterOptions' => ['class' => 'narrow-filter'],
                 'format' => 'raw',
-                'gtype' => $category->getRefsName(),
+                'gtype' => 'type,blacklisted',
                 'i18nDictionary' => 'hipanel:client',
                 'value' => function ($model) {
                     return BlacklistType::widget(compact('model'));

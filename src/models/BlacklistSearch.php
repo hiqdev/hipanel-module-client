@@ -3,11 +3,12 @@
 namespace hipanel\modules\client\models;
 
 use hipanel\base\SearchModelTrait;
+use yii\helpers\ArrayHelper;
 
-class BlacklistedSearch extends Blacklisted
+class BlacklistSearch extends Blacklist
 {
     use SearchModelTrait {
-        searchAttributes as defaultSearchAttributes;
+        SearchModelTrait::searchAttributes as defaultSearchAttributes;
     }
 
     public function rules(): array
@@ -23,7 +24,8 @@ class BlacklistedSearch extends Blacklisted
 
     public function searchAttributes(): array
     {
-        return \yii\helpers\ArrayHelper::merge($this->defaultSearchAttributes(), [
+        return ArrayHelper::merge($this->defaultSearchAttributes(), [
+            'category',
             'states',
             'types',
             'name_ilike',

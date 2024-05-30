@@ -1,13 +1,13 @@
 <?php declare(strict_types=1);
 
 use hipanel\modules\client\helpers\blacklist\BlacklistCategoryInterface;
-use hipanel\modules\client\models\Blacklisted;
+use hipanel\modules\client\models\Blacklist;
 use hipanel\widgets\Box;
 use hiqdev\combo\StaticCombo;
 use yii\bootstrap\ActiveForm;
 
 /**
- * @var Blacklisted $model
+ * @var Blacklist $model
  * @var ActiveForm $form
  * @var array $types
  * @var BlacklistCategoryInterface $blacklistCategory

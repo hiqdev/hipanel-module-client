@@ -47,13 +47,6 @@ return [
                 ],
             ],
         ],
-        'urlManager' => [
-            'rules' => [
-                [
-                    'class' => hipanel\modules\client\web\BlacklistUrlRule::class,
-                ],
-            ],
-        ],
     ],
     'container' => [
         'definitions' => [

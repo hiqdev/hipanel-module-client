@@ -9,14 +9,15 @@
  * @copyright Copyright (c) 2015-2019, HiQDev (http://hiqdev.com/)
  */
 
-use hipanel\modules\client\grid\BlacklistedGridView;
+use hipanel\modules\client\grid\BlacklistGridView;
 use hipanel\modules\client\helpers\blacklist\BlacklistCategoryInterface;
-use hipanel\modules\client\models\Blacklisted;
+use hipanel\modules\client\menus\BlacklistDetailMenu;
+use hipanel\modules\client\models\Blacklist;
 use hipanel\widgets\Box;
 use yii\helpers\Html;
 
 /**
- * @var Blacklisted $model
+ * @var Blacklist $model
  * @var BlacklistCategoryInterface $blacklistCategory
  */
 
@@ -29,6 +30,25 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <div class="row">
+    <div class="col-md-3">
+        <?php Box::begin([
+            'options' => [
+                'class' => 'box-solid',
+            ],
+            'bodyOptions' => [
+                'class' => 'no-padding',
+            ],
+        ]); ?>
+        <div class="profile-user-img text-center">
+            <i class="fa fa-user fa-5x"></i>
+        </div>
+
+        <div class="profile-usermenu">
+            <?= BlacklistDetailMenu::widget(['model' => $model]) ?>
+        </div>
+        <?php Box::end() ?>
+    </div>
+
     <div class="col-md-6">
         <?php $box = Box::begin(['renderBody' => false]) ?>
             <?php $box->beginHeader() ?>
@@ -38,7 +58,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?php $box->endTools() ?>
             <?php Box::endHeader() ?>
             <?php $box->beginBody() ?>
-                <?= BlacklistedGridView::detailView([
+                <?= BlacklistGridView::detailView([
                     'boxed' => false,
                     'model' => $model,
                     'columns' => [
