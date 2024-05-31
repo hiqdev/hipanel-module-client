@@ -11,17 +11,6 @@ class BlacklistSearch extends Blacklist
         SearchModelTrait::searchAttributes as defaultSearchAttributes;
     }
 
-    public function rules(): array
-    {
-        return [
-            [['obj_id', 'type_id', 'state_id', 'client_id', 'object_id'], 'integer'],
-            [['name', 'message', 'state', 'type', 'client', 'types', 'states'], 'string'],
-            [['show_message'], 'boolean'],
-
-            [['category', 'name_ilike'], 'safe'],
-        ];
-    }
-
     public function searchAttributes(): array
     {
         return ArrayHelper::merge($this->defaultSearchAttributes(), [
