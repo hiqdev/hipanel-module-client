@@ -56,7 +56,7 @@ export default class BlacklistHelper {
     async hasMainElementsOnIndexPage() {
         const indexPage = new Index(this.page);
         await indexPage.hasAdvancedSearchInputs([
-            this.blackCategory.getLabel() + "Search[name]",
+            this.blackCategory.getLabel() + "Search[name_ilike]",
             this.blackCategory.getLabel() + "Search[types][]",
             this.blackCategory.getLabel() + "Search[message]",
         ]);
