@@ -8,8 +8,8 @@ test("Correct view Blacklist @hipanel-module-client @osrc", async ({ osrcPage })
 
     await blacklistHelper.gotoIndexBlacklist();
 
-    await blacklistHelper.gotoBlacklistPage(1);
     let blacklist = await blacklistHelper.fillBlacklistFromIndexPage(1);
+    await blacklistHelper.gotoBlacklistPage(1);
 
     await blacklistHelper.checkDetailViewData(blacklist);
 });
