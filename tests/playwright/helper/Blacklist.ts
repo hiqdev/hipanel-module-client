@@ -58,6 +58,7 @@ export default class BlacklistHelper {
         await indexPage.hasAdvancedSearchInputs([
             this.blackCategory.getLabel() + "Search[name]",
             this.blackCategory.getLabel() + "Search[types][]",
+            this.blackCategory.getLabel() + "Search[message]",
         ]);
 
         await indexPage.hasColumns(["Name", "Type", "Message", "Show message", "Client", "Created"]);
