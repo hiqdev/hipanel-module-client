@@ -45,10 +45,16 @@ class BlacklistController extends CrudController
             ],
             'view' => [
                 'class' => ViewAction::class,
+                'data' => [
+                    'blacklistCategory' => $category,
+                ],
             ],
             'update' => [
                 'class' => SmartUpdateAction::class,
                 'success' => Yii::t('hipanel:client', sprintf('%s was updated', $category->getLabel())),
+                'data' => [
+                    'blacklistCategory' => $category,
+                ],
             ],
             'create' => [
                 'class' => SmartCreateAction::class,

@@ -8,7 +8,7 @@
  */
 
 use hipanel\helpers\Url;
-use hipanel\modules\client\helpers\blacklist\WhitelistCategory;
+use hipanel\modules\client\helpers\blacklist\BlacklistCategoryInterface;
 use hipanel\modules\client\models\Blacklist;
 use yii\bootstrap\ActiveForm;
 use yii\bootstrap\Html;
@@ -19,8 +19,8 @@ use yii\web\View;
  * @var string $action
  * @var array $types
  * @var Blacklist $model
+ * @var BlacklistCategoryInterface $blacklistCategory
  */
-$blacklistCategory = new WhitelistCategory();
 $this->title = Yii::t('hipanel:client', sprintf('Create %s item', $blacklistCategory->getLabel()));
 $this->params['breadcrumbs'][] = ['label' => Yii::t('hipanel', $blacklistCategory->getLabel()), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;

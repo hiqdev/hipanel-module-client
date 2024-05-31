@@ -10,17 +10,16 @@
  */
 
 use hipanel\modules\client\grid\BlacklistGridView;
-use hipanel\modules\client\helpers\blacklist\WhitelistCategory;
+use hipanel\modules\client\helpers\blacklist\BlacklistCategoryInterface;
 use hipanel\modules\client\menus\BlacklistDetailMenu;
 use hipanel\modules\client\models\Blacklist;
 use hipanel\widgets\Box;
-use yii\helpers\Html;
 
 /**
  * @var Blacklist $model
+ * @var BlacklistCategoryInterface $blacklistCategory
  */
 
-$blacklistCategory = new WhitelistCategory();
 $this->title = $model->name;
 $this->params['subtitle'] = sprintf('%s %s', Yii::t('hipanel:client', $blacklistCategory->getLabel() . ' detailed information'), (Yii::$app->user->can('support') ? ' #' . $model->id : ''));
 if (Yii::$app->user->can('client.read')) {
