@@ -39,11 +39,6 @@ class BlacklistController extends CrudController
                         'blacklistCategory' => $category,
                     ];
                 },
-                /*'filterStorageMap' => [
-                    'state' => 'client.blacklist.state',
-                    'states' => 'client.blacklist.states',
-                    'type' => 'client.blacklist.type',
-                ],*/
             ],
             'search' => [
                 'class' => ComboSearchAction::class,

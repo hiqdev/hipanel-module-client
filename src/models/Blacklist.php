@@ -37,11 +37,6 @@ class Blacklist extends \hipanel\base\Model
             [['id'], 'integer', 'on' => ['delete']],
 
             [['created', 'category'], 'safe'],
-
-            //[['client', 'state', 'type', 'message'], 'safe'],
-
-            //[['type'], 'in', 'range' => array_keys(self::getTypeOptions()), 'on' => ['create', 'update']],
-            //[['type'], 'default', 'value' => self::TYPE_DOMAIN, 'on' => ['create', 'update']],
         ];
     }
 
@@ -56,16 +51,6 @@ class Blacklist extends \hipanel\base\Model
             'status' => Yii::t('hipanel:client', 'Status'),
         ]);
     }
-
-    /*public static function getTypeOptions(): array
-    {
-        return [
-            self::TYPE_DOMAIN => Yii::t('hipanel:client', 'Domain'),
-            self::TYPE_IP => Yii::t('hipanel:client', 'Ip'),
-            self::TYPE_EMAIL => Yii::t('hipanel:client', 'Email'),
-            self::TYPE_PURSE => Yii::t('hipanel:client', 'Purse'),
-        ];
-    }*/
 
     /**
      * {@inheritdoc}
