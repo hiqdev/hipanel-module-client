@@ -8,7 +8,7 @@ test("Correct view Blacklist @hipanel-module-client @admin", async ({ adminPage 
 
     await blacklistHelper.gotoIndexBlacklist();
 
-    let blacklist = await blacklistHelper.fillBlacklistFromIndexPage(1);
+    const blacklist = await blacklistHelper.fillBlacklistFromIndexPage(1);
     await blacklistHelper.gotoBlacklistPage(1);
 
     await blacklistHelper.checkDetailViewData(blacklist);

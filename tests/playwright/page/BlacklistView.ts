@@ -12,7 +12,7 @@ export default class BlacklistView {
     }
 
     async gotoViewBlacklist(id: string) {
-        await this.page.goto('/client/' + this.blackCategory.getName()  + '/view?id=' + id);
+        await this.page.goto(`/client/${this.blackCategory.getName()}/view?id=${id}`);
     }
 
     detailMenuItem(item: string): Locator {

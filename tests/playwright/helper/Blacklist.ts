@@ -17,7 +17,7 @@ export default class BlacklistHelper {
     }
 
     async gotoIndexBlacklist() {
-        await this.page.goto('/client/' + this.blackCategory.getName()  + '/index');
+        await this.page.goto(`/client/${this.blackCategory.getName()}/index`);
         await expect(this.page).toHaveTitle(this.blackCategory.getLabel());
     }
 
