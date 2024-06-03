@@ -2,7 +2,9 @@
 
 namespace hipanel\modules\client\widgets;
 
-class BlacklistShowMessage extends \hipanel\widgets\Type
+use \hipanel\widgets\Type;
+
+class BlacklistShowMessage extends Type
 {
     /** {@inheritdoc} */
     public $model         = [];
