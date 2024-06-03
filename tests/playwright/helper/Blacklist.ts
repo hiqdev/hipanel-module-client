@@ -89,6 +89,6 @@ export default class BlacklistHelper {
         await viewPage.gotoViewBlacklist(id);
         await viewPage.detailMenuItem("Delete").click();
         await viewPage.acceptDeleteDialog();
-        await Alert.on(this.page).hasText(this.blackCategory.getLabel() + "(s) were deleted");
+        await Alert.on(this.page).hasText(`${this.blackCategory.getLabel()}(s) were deleted`);
     }
 }

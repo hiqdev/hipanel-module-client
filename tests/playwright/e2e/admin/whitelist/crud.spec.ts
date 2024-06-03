@@ -9,8 +9,8 @@ blacklist['type'] = 'Domain';
 blacklist['message'] = 'Test Blacklist';
 blacklist['showMessage'] = 'Yes';
 
-test("Correct CRUD Whitelist @hipanel-module-client @osrc", async ({ osrcPage }) => {
-    const blacklistHelper = new BlacklistHelper(osrcPage, new WhitelistCategory());
+test("Correct CRUD Whitelist @hipanel-module-client @admin", async ({ adminPage }) => {
+    const blacklistHelper = new BlacklistHelper(adminPage, new WhitelistCategory());
     await blacklistHelper.gotoIndexBlacklist();
 
     const blacklistId = await blacklistHelper.createBlacklist(new WhitelistCategory(), blacklist);
