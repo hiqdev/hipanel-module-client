@@ -56,9 +56,9 @@ export default class BlacklistHelper {
     async hasMainElementsOnIndexPage() {
         const indexPage = new Index(this.page);
         await indexPage.hasAdvancedSearchInputs([
-            this.blackCategory.getLabel() + "Search[name_ilike]",
-            this.blackCategory.getLabel() + "Search[types][]",
-            this.blackCategory.getLabel() + "Search[message]",
+            `${this.blackCategory.getLabel()}Search[name_ilike]`,
+            `${this.blackCategory.getLabel()}Search[types][]`,
+            `${this.blackCategory.getLabel()}Search[message]`,
         ]);
 
         await indexPage.hasColumns(["Name", "Type", "Message", "Show message", "Client", "Created"]);
@@ -76,8 +76,8 @@ export default class BlacklistHelper {
     }
 
     async gotoCreateBlacklist() {
-        await this.page.goto('/client/' + this.blackCategory.getName()  + '/create');
-        await expect(this.page).toHaveTitle('Create ' + this.blackCategory.getLabel() + ' item');
+        await this.page.goto(`/client/${this.blackCategory.getName()}/create`);
+        await expect(this.page).toHaveTitle(`Create ${this.blackCategory.getLabel()} item`);
     }
 
     async updateBlacklist() {

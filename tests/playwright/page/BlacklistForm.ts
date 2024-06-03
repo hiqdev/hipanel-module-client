@@ -19,7 +19,7 @@ export default class BlacklistForm {
         await Input.field(this.page, `#${this.blackCategory.getName()}-message`).setValue(blacklist.message);
 
         if (blacklist.showMessage === 'Yes') {
-            await this.page.check(`#` + this.blackCategory.getName() + '-show_message ');
+            await this.page.check(`#${this.blackCategory.getName()}-show_message`);
         }
     }
 
@@ -32,7 +32,7 @@ export default class BlacklistForm {
     }
 
     async seeSuccessBlacklistCreatingAlert() {
-        await Alert.on(this.page).hasText(this.blackCategory.getLabel() + " was created successfully");
+        await Alert.on(this.page).hasText(`${this.blackCategory.getLabel()} was created successfully`);
     }
 
     async getSavedBlacklistId(): Promise<string> {
