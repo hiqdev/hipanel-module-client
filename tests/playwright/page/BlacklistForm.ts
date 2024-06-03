@@ -1,4 +1,4 @@
-import { expect, Locator, Page } from "@playwright/test";
+import { Page } from "@playwright/test";
 import Select2 from "@hipanel-core/input/Select2";
 import Alert from "@hipanel-core/ui/Alert";
 import Input from "@hipanel-core/input/Input";

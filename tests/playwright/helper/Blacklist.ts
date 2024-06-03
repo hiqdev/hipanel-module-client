@@ -1,4 +1,5 @@
-import { expect, Page } from "@playwright/test";
+import { Page } from "@playwright/test";
+import { expect } from "@playwright/test";
 import Index from "@hipanel-core/page/Index";
 import Blacklist from "@hipanel-module-client/model/Blacklist";
 import BlacklistForm from "@hipanel-module-client/page/BlacklistForm";
@@ -26,17 +27,17 @@ export default class BlacklistHelper {
     }
 
     async checkDetailViewData(blacklist: Blacklist) {
-        await expect(this.page.locator('//table[contains(@class, "detail-view")]//tbody/tr[1]/td')).toContainText(blacklist['name']);
-        await expect(this.page.locator('//table[contains(@class, "detail-view")]//tbody/tr[2]/td')).toContainText(blacklist['message']);
-        await expect(this.page.locator('//table[contains(@class, "detail-view")]//tbody/tr[3]/td')).toContainText(blacklist['showMessage']);
-        await expect(this.page.locator('//table[contains(@class, "detail-view")]//tbody/tr[4]/td')).toContainText(blacklist['type']);
+        await expect(this.page.locator('table.detail-view tbody tr:nth-child(1) td')).toContainText(blacklist.name);
+        await expect(this.page.locator('table.detail-view tbody tr:nth-child(2) td')).toContainText(blacklist.message);
+        await expect(this.page.locator('table.detail-view tbody tr:nth-child(3) td')).toContainText(blacklist.showMessage);
+        await expect(this.page.locator('table.detail-view tbody tr:nth-child(4) td')).toContainText(blacklist.type);
 
-        if (blacklist['client'].length > 0) {
-            await expect(this.page.locator('//table[contains(@class, "detail-view")]//tbody/tr[5]/td')).toContainText(blacklist['client']);
+        if (blacklist.client.length > 0) {
+            await expect(this.page.locator('table.detail-view tbody tr:nth-child(5) td')).toContainText(blacklist.client);
         }
 
-        if (blacklist['created'].length > 0) {
-            await expect(this.page.locator('//table[contains(@class, "detail-view")]//tbody/tr[6]/td')).toContainText(blacklist['created']);
+        if (blacklist.created.length > 0) {
+            await expect(this.page.locator('table.detail-view tbody tr:nth-child(6) td')).toContainText(blacklist.created);
         }
     }
 
