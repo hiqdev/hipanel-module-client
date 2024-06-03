@@ -4,10 +4,10 @@ import WhitelistCategory from "@hipanel-module-client/helper/category/WhitelistC
 import Blacklist from "@hipanel-module-client/model/Blacklist";
 
 const blacklist = new Blacklist();
-blacklist['name'] = 'blacklist_test_item';
-blacklist['type'] = 'Domain';
-blacklist['message'] = 'Test Blacklist';
-blacklist['showMessage'] = 'Yes';
+blacklist.name = 'blacklist_test_item';
+blacklist.type = 'Domain';
+blacklist.message = 'Test Blacklist';
+blacklist.showMessage = 'Yes';
 
 test("Correct CRUD Whitelist @hipanel-module-client @admin", async ({ adminPage }) => {
     const blacklistHelper = new BlacklistHelper(adminPage, new WhitelistCategory());

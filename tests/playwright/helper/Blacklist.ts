@@ -43,13 +43,13 @@ export default class BlacklistHelper {
     async fillBlacklistFromIndexPage(numberRow: number) {
         const index = new Index(this.page);
 
-        let blacklist = new Blacklist();
-        blacklist['name'] = await index.getValueInColumnByNumberRow('Name', numberRow);
-        blacklist['type'] = await index.getValueInColumnByNumberRow('Type', numberRow);
-        blacklist['message'] = await index.getValueInColumnByNumberRow('Message', numberRow);
-        blacklist['showMessage'] = await index.getValueInColumnByNumberRow('Show message', numberRow);
-        blacklist['client'] = await index.getValueInColumnByNumberRow('Client', numberRow);
-        blacklist['created'] = await index.getValueInColumnByNumberRow('Created', numberRow);
+        const blacklist = new Blacklist();
+        blacklist.name = await index.getValueInColumnByNumberRow('Name', numberRow);
+        blacklist.type = await index.getValueInColumnByNumberRow('Type', numberRow);
+        blacklist.message = await index.getValueInColumnByNumberRow('Message', numberRow);
+        blacklist.showMessage = await index.getValueInColumnByNumberRow('Show message', numberRow);
+        blacklist.client = await index.getValueInColumnByNumberRow('Client', numberRow);
+        blacklist.created = await index.getValueInColumnByNumberRow('Created', numberRow);
         return blacklist;
     }
 
