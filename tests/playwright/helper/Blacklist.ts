@@ -92,4 +92,12 @@ export default class BlacklistHelper {
         await viewPage.acceptDeleteDialog();
         await Alert.on(this.page).hasText(`${this.blackCategory.getLabel()}(s) were deleted`);
     }
+
+    async getRowsOnIndexPage(){
+        return this.page.locator("input[name=\"selection[]\"]").count();
+    }
+
+    async confirmDelete() {
+        await this.index.clickButton('Delete');
+    }
 }
