@@ -14,13 +14,13 @@ export default class BlacklistForm {
     }
 
     async fill(blacklist: Blacklist) {
-        await Input.field(this.page, `#${this.blackCategory.getName()}-name`).setValue(blacklist.name);
-        await Select2.field(this.page,`#${this.blackCategory.getName()}-type`).setValue(blacklist.type);
-        await Input.field(this.page, `#${this.blackCategory.getName()}-message`).setValue(blacklist.message);
-
         if (blacklist.showMessage === 'Yes') {
             await this.page.check(`#${this.blackCategory.getName()}-show_message`);
         }
+
+        await Input.field(this.page, `#${this.blackCategory.getName()}-name`).setValue(blacklist.name);
+        await Select2.field(this.page,`#${this.blackCategory.getName()}-type`).setValue(blacklist.type);
+        await Input.field(this.page, `#${this.blackCategory.getName()}-message`).setValue(blacklist.message);
     }
 
     async save() {
