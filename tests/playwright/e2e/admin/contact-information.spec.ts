@@ -1,31 +1,36 @@
 import { test } from "@hipanel-core/fixtures";
-import { expect } from "@playwright/test";
+import {expect, Page} from "@playwright/test";
 
-const assumptions = [
-  { "name_with_verification": "Test Admin" },
-  { "organization": "HiQDev" },
-  { "email_with_verification": "hipanel_test_admin@hiqdev.com" },
-  { "abuse_email": "hipanel_test_admin+abuse@hiqdev.com" },
-  { "messengers": "Skype: hipanel_test_admin" },
-  { "messengers": "ICQ:" },
-  { "messengers": "Jabber: hipanel_test_admin@hiqdev.com" },
-  { "messengers": "Telegram: hipanel_test_admin" },
-  { "messengers": "WhatsApp: 123456789012" },
-  { "social_net": "https://facebook.com/hipanel_test_admin" },
-  { "voice_phone": "123456789012" },
-  { "fax_phone": "987654321098" },
-  { "street": "42 Test str." },
-  { "city": "Test" },
-  { "province": "Testing" },
-  { "postal_code": "TEST" },
-  { "country_name": "Trinidad And Tobago" },
+const contactInfoAssumptions = [
+  { id: "name_with_verification", value: "Test Admin" },
+  { id: "organization", value: "HiQDev" },
+  { id: "email_with_verification", value: "hipanel_test_admin@hiqdev.com" },
+  { id: "abuse_email", value: "hipanel_test_admin+abuse@hiqdev.com" },
+  { id: "messengers", value: "Skype: hipanel_test_admin" },
+  { id: "messengers", value: "ICQ:" },
+  { id: "messengers", value: "Jabber: hipanel_test_admin@hiqdev.com" },
+  { id: "messengers", value: "Telegram: hipanel_test_admin" },
+  { id: "messengers", value: "WhatsApp: 123456789012" },
+  { id: "social_net", value: "https://facebook.com/hipanel_test_admin" },
+  { id: "voice_phone", value: "123456789012" },
+  { id: "fax_phone", value: "987654321098" },
+  { id: "street", value: "42 Test str." },
+  { id: "city", value: "Test" },
+  { id: "province", value: "Testing" },
+  { id: "postal_code", value: "TEST" },
+  { id: "country_name", value: "Trinidad And Tobago" },
 ];
 
 test("Test the admin contact information is correct @hipanel-module-client @admin", async ({ adminPage }) => {
   await adminPage.goto("/site/profile");
-  assumptions.map(
-    async assumption => {
-      let id = Object.keys(assumption)[0], text = assumption[id];
-      await expect(adminPage.locator(`th[data-resizable-column-id=${id}] + td`)).toContainText(text);
-    });
+  await verifyContactInfo(adminPage, contactInfoAssumptions);
 });
+
+async function verifyContactInfo(page: Page, assumptions) {
+  for (const assumption of assumptions) {
+    const { id, value } = assumption;
+
+    const locator = page.locator(`th[data-resizable-column-id=${id}] + td`);
+    await expect(locator).toContainText(value);
+  }
+}
