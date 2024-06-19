@@ -453,6 +453,7 @@ class ClientGridView extends BoxedGridView
                 'contentOptions' => [
                     'style' => 'white-space: nowrap;',
                 ],
+                'exportedColumns' => ['create_time', 'update_time'],
             ],
             'actions' => [
                 'class' => MenuColumn::class,
