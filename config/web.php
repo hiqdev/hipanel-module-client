@@ -16,6 +16,8 @@ return [
         '@client' => '/client/client',
         '@contact' => '/client/contact',
         '@article' => '/client/article',
+        '@blacklist' => '/client/blacklist',
+        '@whitelist' => '/client/whitelist',
         '@client/assignments' => '/client/assignments',
         '@client/debt' => '/debt/debt',
     ],
