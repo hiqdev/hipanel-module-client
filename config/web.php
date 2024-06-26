@@ -55,7 +55,13 @@ return [
                 'configurations' => [
                     'client' => [
                         'label' => ['hipanel:finance', 'Client resources'],
-                        'columns' => ['referral'],
+                        'columns' => [
+                            'referral',
+                            'cloud_ip_anycast',
+                            'cloud_ip_public',
+                            'cloud_ip_anycast_max',
+                            'cloud_ip_public_max',
+                        ],
                         'groups' => [],
                         'model' => Client::class,
                         'resourceModel' => ClientResource::class,
