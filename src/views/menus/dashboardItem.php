@@ -29,7 +29,7 @@ use yii\helpers\Url;
             'action' => Url::to('@client/index'),
         ],
         'model' => new ClientSearch(),
-        'attribute' => 'login_email_in',
+        'attribute' => 'login_email_like',
         'buttonColor' => SmallBox::COLOR_FUCHSIA,
     ]) ?>
     <?php $box->endBody() ?>
