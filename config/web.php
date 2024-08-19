@@ -57,6 +57,7 @@ return [
                         'label' => ['hipanel:finance', 'Client resources'],
                         'columns' => [
                             'referral',
+                            'support_time',
                             'cloud_ip_anycast',
                             'cloud_ip_public',
                             'cloud_ip_anycast_max',
