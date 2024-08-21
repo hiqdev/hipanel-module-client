@@ -91,71 +91,73 @@ use yii\web\View;
         <?php Box::end() ?>
     </div>
 
-    <div class="col-md-6">
-        <?php Box::begin([
-            'collapsed' => !in_array($model->scenario, ['create-require-passport', 'update-require-passport', 'create-ru-contact', 'update-ru-contact'], true)
-                && empty($model->birth_date) && empty($model->passport_no)
-                && empty($model->passport_date) && empty($model->passport_by)
-                && empty($model->organization),
-            'collapsable' => true,
-            'title' => Yii::t('hipanel:client', 'Passport data'),
-            'options' => [
-                'id' => 'passport-data-box',
-            ],
-        ]) ?>
-        <fieldset id="fiz_domain">
-            <?= $form->field($model, 'birth_date')->widget(DateTimePicker::class, [
-                'clientOptions' => [
-                    'format' => 'yyyy-mm-dd', // TODO: get format from user settings
-                    'autoclose' => true,
-                    'clearBtn' => true,
-                    'minView' => 2,
-                ],
+    <?php if (Yii::$app->params['module.client.contact.ru-enabled'] === true) : ?>
+        <div class="col-md-6">
+            <?php Box::begin([
+                'collapsed' => !in_array($model->scenario, ['create-require-passport', 'update-require-passport', 'create-ru-contact', 'update-ru-contact'], true)
+                    && empty($model->birth_date) && empty($model->passport_no)
+                    && empty($model->passport_date) && empty($model->passport_by)
+                    && empty($model->organization),
+                'collapsable' => true,
+                'title' => Yii::t('hipanel:client', 'Passport data'),
                 'options' => [
-                    'readonly' => 'readonly',
-                    'class' => 'DateTimePicker',
-                    'placeholder' => Yii::t('hipanel', 'Select date'),
+                    'id' => 'passport-data-box',
                 ],
-            ]); ?>
-            <?= $form->field($model, 'passport_no'); ?>
-            <?= $form->field($model, 'passport_date')->widget(DateTimePicker::class, [
-                'clientOptions' => [
-                    'format' => 'yyyy-mm-dd',  // TODO: get format from user settings
-                    'autoclose' => true,
-                    'clearBtn' => true,
-                    'minView' => 2,
-                ],
-                'options' => [
-                    'readonly' => 'readonly',
-                    'class' => 'DateTimePicker',
-                    'placeholder' => Yii::t('hipanel', 'Select date'),
-                ],
-            ]); ?>
-            <?= $form->field($model, 'passport_by'); ?>
-        </fieldset>
-        <?php Box::end() ?>
-    </div>
+            ]) ?>
+            <fieldset id="fiz_domain">
+                <?= $form->field($model, 'birth_date')->widget(DateTimePicker::class, [
+                    'clientOptions' => [
+                        'format' => 'yyyy-mm-dd', // TODO: get format from user settings
+                        'autoclose' => true,
+                        'clearBtn' => true,
+                        'minView' => 2,
+                    ],
+                    'options' => [
+                        'readonly' => 'readonly',
+                        'class' => 'DateTimePicker',
+                        'placeholder' => Yii::t('hipanel', 'Select date'),
+                    ],
+                ]); ?>
+                <?= $form->field($model, 'passport_no'); ?>
+                <?= $form->field($model, 'passport_date')->widget(DateTimePicker::class, [
+                    'clientOptions' => [
+                        'format' => 'yyyy-mm-dd',  // TODO: get format from user settings
+                        'autoclose' => true,
+                        'clearBtn' => true,
+                        'minView' => 2,
+                    ],
+                    'options' => [
+                        'readonly' => 'readonly',
+                        'class' => 'DateTimePicker',
+                        'placeholder' => Yii::t('hipanel', 'Select date'),
+                    ],
+                ]); ?>
+                <?= $form->field($model, 'passport_by'); ?>
+            </fieldset>
+            <?php Box::end() ?>
+        </div>
 
-    <div class="col-md-6">
-        <?php Box::begin([
-            'collapsed' => !in_array($model->scenario, ['create-require-organization', 'update-require-organization', 'create-ru-contact', 'update-ru-contact'], true)
-                && empty($model->organization_ru) && empty($model->director_name) && empty($model->organization)
-                && empty($model->kpp) && empty($model->inn),
-            'collapsable' => true,
-            'title' => Yii::t('hipanel:client', 'Legal entity information'),
-            'options' => [
-                'id' => 'legal-entity-box',
-            ],
-        ]) ?>
-        <fieldset id="jur_domain">
-            <?= $form->field($model, 'organization_ru'); ?>
-            <?= $form->field($model, 'director_name'); ?>
-            <?= $form->field($model, 'inn'); ?>
-            <?= $form->field($model, 'kpp'); ?>
-            <?= $form->field($model, 'isresident')->checkbox(); ?>
-        </fieldset>
-        <?php Box::end() ?>
-    </div>
+        <div class="col-md-6">
+            <?php Box::begin([
+                'collapsed' => !in_array($model->scenario, ['create-require-organization', 'update-require-organization', 'create-ru-contact', 'update-ru-contact'], true)
+                    && empty($model->organization_ru) && empty($model->director_name) && empty($model->organization)
+                    && empty($model->kpp) && empty($model->inn),
+                'collapsable' => true,
+                'title' => Yii::t('hipanel:client', 'Legal entity information'),
+                'options' => [
+                    'id' => 'legal-entity-box',
+                ],
+            ]) ?>
+            <fieldset id="jur_domain">
+                <?= $form->field($model, 'organization_ru'); ?>
+                <?= $form->field($model, 'director_name'); ?>
+                <?= $form->field($model, 'inn'); ?>
+                <?= $form->field($model, 'kpp'); ?>
+                <?= $form->field($model, 'isresident')->checkbox(); ?>
+            </fieldset>
+            <?php Box::end() ?>
+        </div>
+    <?php endif ?>
 
     <div class="col-md-6">
         <?php Box::begin([
