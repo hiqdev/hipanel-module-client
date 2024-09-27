@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * Client module for HiPanel
  *
@@ -15,7 +15,12 @@ use hiqdev\hiart\ActiveRecord;
 use hiqdev\higrid\DataColumn;
 use Yii;
 use yii\helpers\Html;
+use yii\web\User;
 
+/**
+ *
+ * @property-read mixed $defaultFilter
+ */
 class ClientColumn extends DataColumn
 {
     public $idAttribute = 'client_id';
@@ -47,20 +52,7 @@ class ClientColumn extends DataColumn
             $this->sortAttribute = $this->nameAttribute;
         }
         if ($this->value === null) {
-            $this->value = function (ActiveRecord $model) use ($user): string {
-                if (!isset($model->{$this->nameAttribute})) {
-                    return '';
-                }
-                if (
-                    $user->can('owner-staff') ||
-                    ($user->can('access-reseller') && $model->{$this->idAttribute} && $user->identity->hasOwnSeller($model->{$this->idAttribute})) ||
-                    (!empty($model->seller_id) && ($model->seller_id === $user->id || $model->seller_id === $user->identity->seller_id))
-                ) {
-                    return Html::a($model->{$this->nameAttribute}, ['@client/view', 'id' => $model->{$this->idAttribute}]);
-                }
-
-                return $model->{$this->nameAttribute};
-            };
+            $this->value = fn(ActiveRecord $model): string => $this->getValue($model, $user);
         }
         if (!empty($this->grid->filterModel)) {
             if (!isset($this->filterInputOptions['id'])) {
@@ -74,13 +66,29 @@ class ClientColumn extends DataColumn
         return true;
     }
 
+    public function getValue(ActiveRecord $model, User $user): string
+    {
+        if (!isset($model->{$this->nameAttribute})) {
+            return '';
+        }
+        if (
+            $user->can('owner-staff') ||
+            ($user->can('access-reseller') && $model->{$this->idAttribute} && $user->identity->hasOwnSeller($model->{$this->idAttribute})) ||
+            (!empty($model->seller_id) && ($model->seller_id === $user->id || $model->seller_id === $user->identity->seller_id))
+        ) {
+            return Html::a($model->{$this->nameAttribute}, ['@client/view', 'id' => $model->{$this->idAttribute}]);
+        }
+
+        return $model->{$this->nameAttribute};
+    }
+
     protected function getDefaultFilter()
     {
         return ClientCombo::widget([
-            'attribute'           => $this->attribute,
-            'model'               => $this->grid->filterModel,
+            'attribute' => $this->attribute,
+            'model' => $this->grid->filterModel,
             'formElementSelector' => 'td',
-            'clientType'          => $this->clientType,
+            'clientType' => $this->clientType,
         ]);
     }
 }
