@@ -29,7 +29,7 @@ use yii\web\View;
         <?php Box::begin(['title' => Yii::t('hipanel:client', 'Contact details')]) ?>
         <?php if ($model->scenario !== 'create') : ?>
             <?= $form->field($model, 'id')->hiddenInput()->label(false); ?>
-        <?php elseif (Yii::$app->user->can('support')) : ?>
+        <?php elseif (Yii::$app->user->can('access-subclients')) : ?>
             <?= $form->field($model, 'client_id')->widget(ClientCombo::class); ?>
         <?php endif; ?>
 

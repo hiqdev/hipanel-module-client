@@ -28,7 +28,7 @@ use yii\web\View;
     <?= $search->field('login_email_in')->textarea() ?>
 </div>
 
-<?php if (Yii::$app->user->can('support')) : ?>
+<?php if (Yii::$app->user->can('client.get-note')) : ?>
     <div class="col-md-4 col-sm-6 col-xs-12">
         <?= $search->field('note_ilike') ?>
     </div>
@@ -53,7 +53,7 @@ use yii\web\View;
     <?= $search->field('seller_id')->widget(SellerCombo::class) ?>
 </div>
 
-<?php if (Yii::$app->user->can('support')) : ?>
+<?php if (Yii::$app->user->can('client.read-referral')) : ?>
     <div class="col-md-4 col-sm-6 col-xs-12">
         <?= $search->field('referer_id')->widget(RefererCombo::class) ?>
     </div>
@@ -87,7 +87,7 @@ use yii\web\View;
     </div>
 <?php endif ?>
 
-<?php if (Yii::$app->user->can('support')) : ?>
+<?php if (Yii::$app->user->can('client.read-financial-info')) : ?>
     <div class="col-md-4 col-sm-6 col-xs-12">
         <?= $search->field('debt_label')->widget(StaticCombo::class, [
             'data' => $debt_label,

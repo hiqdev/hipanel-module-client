@@ -429,7 +429,7 @@ class Client extends \hipanel\base\Model implements TaggableInterface
 
     public static function canBeSelf($model)
     {
-        return Yii::$app->user->is($model->id) || (!Yii::$app->user->can('resell') && Yii::$app->user->can('support') && Yii::$app->user->identity->seller_id === $model->id);
+        return Yii::$app->user->is($model->id) || (!Yii::$app->user->can('resell') && Yii::$app->user->can('access-subclients') && Yii::$app->user->identity->seller_id === $model->id);
     }
 
     public function isBlocked()

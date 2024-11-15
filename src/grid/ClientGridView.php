@@ -118,7 +118,7 @@ class ClientGridView extends BoxedGridView
                 'class' => MainColumn::class,
                 'attribute' => 'login',
                 'filterAttribute' => 'login_like',
-                'note' => Yii::$app->user->can('manage') ? 'note' : null,
+                'note' => Yii::$app->user->can('client.set-note') ? 'note' : null,
                 'noteOptions' => [
                     'url' => Url::to('@client/set-note'),
                 ],
@@ -141,7 +141,7 @@ class ClientGridView extends BoxedGridView
                         'data-type' => 'textarea',
                     ],
                 ],
-                'visible' => Yii::$app->user->can('support'),
+                'visible' => Yii::$app->user->can('client.set-note'),
             ],
             'name' => [
                 'filterAttribute' => 'name_ilike',

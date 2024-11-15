@@ -20,7 +20,7 @@ class ClientSwitcher extends Widget
 
     public function run()
     {
-        if (!Yii::$app->user->can('support')) {
+        if (!Yii::$app->user->can('access-subclients')) {
             return '';
         }
 

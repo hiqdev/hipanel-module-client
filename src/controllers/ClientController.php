@@ -233,7 +233,7 @@ class ClientController extends CrudController
                             'blocking',
                             Yii::$app->user->can('document.read') ? 'documents' : null,
                             'purses',
-                            Yii::$app->user->can('manage') ? 'show_deleted' : null,
+                            Yii::$app->user->can('client.read-deleted') ? 'show_deleted' : null,
                             Yii::getAlias('@domain', false) ? 'domains_count' : null,
                             Yii::getAlias('@ticket', false) ? 'tickets_count' : null,
                             Yii::getAlias('@server', false) ? 'servers_count' : null,
