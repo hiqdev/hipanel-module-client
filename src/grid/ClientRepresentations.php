@@ -36,7 +36,7 @@ class ClientRepresentations extends RepresentationCollection
                 ]),
             ],
             'servers' =>  [
-                'visible' => $user->can('support'),
+                'visible' => $user->can('client.read-financial-info'),
                 'label' => Yii::t('hipanel:client', 'Servers'),
                 'columns' => [
                     'checkbox',
@@ -50,7 +50,7 @@ class ClientRepresentations extends RepresentationCollection
                 ],
             ],
             'documents' => [
-                'visible' => $user->can('support') && $user->can('document.read'),
+                'visible' => $user->can('client.read-requisite') && $user->can('document.read'),
                 'label' => Yii::t('hipanel:client', 'Documents'),
                 'columns' => [
                     'checkbox', 'login',
@@ -64,7 +64,7 @@ class ClientRepresentations extends RepresentationCollection
                 'columns' => ClientProfitColumns::getColumnNames(['login']),
             ] : null,
             'referral' => [
-                'visible' => Yii::$app->user->can('manage'),
+                'visible' => Yii::$app->user->can('client.read-referral'),
                 'label' => Yii::t('hipanel', 'Referral'),
                 'columns' => array_filter([
                     'checkbox',

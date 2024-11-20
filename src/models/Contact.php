@@ -90,7 +90,7 @@ class Contact extends \hipanel\base\Model implements TaggableInterface
             [['voice_phone', 'fax_phone'], PhoneInputValidator::class],
             [['postal_code'], ZipValidator::class, 'on' => ['create', 'update']],
 
-            Yii::$app->user->can('manage') ? null : [
+            Yii::$app->user->can('client.create') ? null : [
                 [
                     'first_name',
                     'last_name',

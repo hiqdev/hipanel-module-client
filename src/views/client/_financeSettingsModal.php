@@ -52,7 +52,7 @@ $currencies['eur'] = '€';
 
     <?= $form->field($model, 'autoexchange_prepayments')->checkbox() ?>
 
-    <?php if (Yii::$app->user->can('manage')) : ?>
+    <?php if (Yii::$app->user->can('bill.create-exchange')) : ?>
         <?= $form->field($model, 'autoexchange_force')->checkbox() ?>
     <?php endif ?>
 

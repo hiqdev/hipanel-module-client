@@ -126,7 +126,7 @@ class UnverifiedWidget extends \yii\base\Widget
             return '';
         }
 
-        if (!Yii::$app->user->can('manage') && $this->checkPermissionsForConfirmedValue === false) {
+        if (!Yii::$app->user->can('contact.force-verify') && $this->checkPermissionsForConfirmedValue === false) {
             return '';
         }
 

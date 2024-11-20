@@ -15,7 +15,7 @@ use hipanel\modules\client\models\Client;
  */
 
 $this->title = $model->login;
-$this->params['subtitle'] = sprintf('%s %s', Yii::t('hipanel:client', 'Client detailed information'), (Yii::$app->user->can('support') ? ' #' . $model->id : ''));
+$this->params['subtitle'] = sprintf('%s %s', Yii::t('hipanel:client', 'Client detailed information'), (Yii::$app->user->can('access-subclients') ? ' #' . $model->id : ''));
 if (Yii::$app->user->can('client.read')) {
     $this->params['breadcrumbs'][] = ['label' => Yii::t('hipanel', 'Clients'), 'url' => ['index']];
 }
