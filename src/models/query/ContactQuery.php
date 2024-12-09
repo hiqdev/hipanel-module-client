@@ -34,4 +34,12 @@ class ContactQuery extends ActiveQuery
 
         return $this;
     }
+
+    public function withKyc(): self
+    {
+        $this->addSelect('kyc');
+        $this->joinWith('kyc');
+
+        return $this;
+    }
 }

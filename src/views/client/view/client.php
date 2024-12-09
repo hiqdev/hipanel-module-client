@@ -112,7 +112,7 @@ $this->registerCss('legend {font-size: 16px;}');
                     'columns' => [
                         'name_with_verification', 'organization',
                         'email_with_verification', 'abuse_email', 'messengers', 'social_net',
-                        'voice_phone', 'fax_phone',
+                        'voice_phone', 'fax_phone', 'kyc_status',
                         'street', 'city', 'province', 'postal_code', 'country',
                     ],
                 ]) ?>

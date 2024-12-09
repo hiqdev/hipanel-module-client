@@ -16,6 +16,7 @@ use hipanel\modules\client\menus\ContactActionsMenu;
 use hipanel\modules\client\models\Contact;
 use hipanel\modules\client\widgets\UnverifiedWidget;
 use hipanel\modules\document\widgets\StackedDocumentsView;
+use hipanel\modules\kyc\grid\KycColumn;
 use hipanel\widgets\VerificationMark;
 use hiqdev\yii2\menus\grid\MenuColumn;
 use Yii;
@@ -40,6 +41,10 @@ class ContactGridView extends BoxedGridView
                 'value' => function (Contact $model) {
                     return Html::encode($model->name) . VerificationMark::widget(['model' => $model->getVerification('name')]);
                 },
+            ],
+            'kyc_status' => [
+                'class' => KycColumn::class,
+                'attribute' => 'kyc.state',
             ],
             'name_link_with_verification' => [
                 'class' => MainColumn::class,

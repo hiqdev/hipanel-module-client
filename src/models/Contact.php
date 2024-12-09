@@ -16,6 +16,7 @@ use hipanel\models\TaggableInterface;
 use hipanel\modules\client\models\query\ContactQuery;
 use hipanel\modules\document\models\Document;
 use hipanel\modules\client\validators\ZipValidator;
+use hipanel\modules\kyc\models\Kyc;
 use Yii;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
@@ -367,6 +368,11 @@ class Contact extends \hipanel\base\Model implements TaggableInterface
     public function getBankDetails()
     {
         return $this->hasMany(BankDetails::class, ['requisite_id' => 'id'])->orderBy(['no' => SORT_ASC]);
+    }
+
+    public function getKyc()
+    {
+        return $this->hasOne(Kyc::class, ['contact_id' => 'id']);
     }
 
     public function getBankDetailsSummary(): ?string

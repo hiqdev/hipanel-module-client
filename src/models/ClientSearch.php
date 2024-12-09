@@ -21,7 +21,7 @@ class ClientSearch extends Client
     const DEBT_LABEL_NEUTRAL = 'neutral';
 
     use SearchModelTrait {
-        searchAttributes as defaultSearchAttributes;
+        SearchModelTrait::searchAttributes as defaultSearchAttributes;
     }
 
     public static function tableName()
@@ -51,6 +51,7 @@ class ClientSearch extends Client
             'balance_lt',
             'only_with_note',
             'tags',
+            'kyc_status',
         ]);
     }
 
@@ -64,6 +65,7 @@ class ClientSearch extends Client
             'hide_internal' => Yii::t('hipanel:client', 'Hide system'),
             'debt_type' => Yii::t('hipanel:client', 'Financial type'),
             'only_with_note' => Yii::t('hipanel:client', 'Only with note'),
+            'kyc_status' => Yii::t('hipanel:client', 'KYC status'),
         ]);
     }
 

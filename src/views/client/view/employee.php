@@ -87,6 +87,7 @@ $form = new EmployeeForm($model->contact, $scenario ?? EmployeeForm::DEFAULT_SCE
                             'city',
                             'province',
                             'postal_code',
+                            'kyc_status',
                             'country',
                             'tin_number',
                             'bank_account',

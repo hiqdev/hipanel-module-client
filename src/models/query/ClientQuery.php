@@ -74,6 +74,9 @@ class ClientQuery extends ActiveQuery
                 if (Yii::getAlias('@document', false) && Yii::$app->user->can('document.read')) {
                     $query->joinWith('documents');
                 }
+                if (Yii::getAlias('@kyc', false)) {
+                    $query->withKyc();
+                }
 
                 $query->joinWith('localizations');
             },

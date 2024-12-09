@@ -32,6 +32,7 @@ class ClientRepresentations extends RepresentationCollection
                     $user->can('bill.read') ? 'credit' : null,
                     $user->can('client.read') ? 'seller_id' : null,
                     $user->can('client.read') ? 'type' : null,
+                    'kyc_status',
                     'state',
                 ]),
             ],

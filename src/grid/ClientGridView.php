@@ -26,6 +26,7 @@ use hipanel\modules\finance\controllers\BillController;
 use hipanel\modules\finance\grid\BalanceColumn;
 use hipanel\modules\finance\grid\CreditColumn;
 use hipanel\modules\finance\widgets\ColoredBalance;
+use hipanel\modules\kyc\grid\KycColumn;
 use hipanel\modules\stock\helpers\ProfitColumns;
 use hipanel\widgets\ArraySpoiler;
 use hipanel\widgets\SettingsModal;
@@ -166,6 +167,9 @@ class ClientGridView extends BoxedGridView
                 'value' => function ($model) {
                     return ClientState::widget(compact('model'));
                 },
+            ],
+            'kyc_status' => [
+                'class' => KycColumn::class,
             ],
             'type' => [
                 'class' => RefColumn::class,
