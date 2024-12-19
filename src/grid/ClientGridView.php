@@ -53,7 +53,7 @@ class ClientGridView extends BoxedGridView
         $formatter = Yii::$app->formatter;
         $thisMonthDt = (new DateTime())->modify('first day of this month')->format('Y-m-d 00:00:00');
 
-        return array_merge(parent::columns(), $this->getProfitColumns(), [
+        $columns = array_merge(parent::columns(), $this->getProfitColumns(), [
             'id' => [
                 'class' => ClientColumn::class,
                 'attribute' => 'id',
@@ -167,9 +167,6 @@ class ClientGridView extends BoxedGridView
                 'value' => function ($model) {
                     return ClientState::widget(compact('model'));
                 },
-            ],
-            'kyc_status' => [
-                'class' => KycColumn::class,
             ],
             'type' => [
                 'class' => RefColumn::class,
@@ -617,5 +614,10 @@ class ClientGridView extends BoxedGridView
                 },
             ],
         ]);
+        if (Yii::getAlias("@kyc", false) !== false) {
+            $columns['kyc_status'] = ['class' => KycColumn::class];
+        }
+
+        return $columns;
     }
 }
