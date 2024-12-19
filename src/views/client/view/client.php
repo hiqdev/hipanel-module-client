@@ -109,12 +109,13 @@ $this->registerCss('legend {font-size: 16px;}');
                 <?= ContactGridView::detailView([
                     'boxed' => false,
                     'model' => $model->contact,
-                    'columns' => [
+                    'columns' => array_filter([
                         'name_with_verification', 'organization',
                         'email_with_verification', 'abuse_email', 'messengers', 'social_net',
-                        'voice_phone', 'fax_phone', 'kyc_status',
+                        'voice_phone', 'fax_phone',
+                        (Yii::getAlias("@kyc", false) !== false ? 'kyc_status' : null),
                         'street', 'city', 'province', 'postal_code', 'country',
-                    ],
+                    ]),
                 ]) ?>
                 <?php $box->endBody() ?>
                 <?php $box->end() ?>

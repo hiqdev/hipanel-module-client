@@ -78,7 +78,7 @@ $form = new EmployeeForm($model->contact, $scenario ?? EmployeeForm::DEFAULT_SCE
                     <?= ContactGridView::detailView([
                         'boxed' => false,
                         'model' => $contact,
-                        'columns' => [
+                        'columns' => array_filter([
                             'name_with_verification',
                             'email',
                             'voice_phone',
@@ -87,14 +87,14 @@ $form = new EmployeeForm($model->contact, $scenario ?? EmployeeForm::DEFAULT_SCE
                             'city',
                             'province',
                             'postal_code',
-                            'kyc_status',
+                            (Yii::getAlias("@kyc", false) !== false ? 'kyc_status' : null),
                             'country',
                             'tin_number',
                             'bank_account',
                             'bank_name',
                             'bank_address',
                             'bank_swift',
-                        ],
+                        ]),
                     ]) ?>
                     <?php $box->endBody() ?>
                     <?php $box->end() ?>
