@@ -32,7 +32,7 @@ class ClientRepresentations extends RepresentationCollection
                     $user->can('bill.read') ? 'credit' : null,
                     $user->can('client.read') ? 'seller_id' : null,
                     $user->can('client.read') ? 'type' : null,
-                    'kyc_status',
+                    (Yii::getAlias("@kyc", false) !== false ? 'kyc_status' : null),
                     'state',
                 ]),
             ],
