@@ -27,12 +27,15 @@ use hipanel\actions\ViewAction;
 use hipanel\base\CrudController;
 use hipanel\filters\EasyAccessControl;
 use hipanel\helpers\Url;
+use hipanel\modules\client\actions\ChangePaymentStatusAction;
 use hipanel\modules\client\actions\DeleteClientsByLoginsAction;
+use hipanel\modules\client\forms\ChangePaymentStatusForm;
 use hipanel\modules\client\logic\IPConfirmer;
 use hipanel\modules\client\models\Client;
 use hipanel\modules\client\models\ClientSearch;
 use hipanel\modules\client\models\query\ClientQuery;
 use hipanel\modules\ticket\models\Template;
+use hiqdev\hiart\Collection;
 use yii\helpers\ArrayHelper;
 use RuntimeException;
 use Yii;
@@ -51,7 +54,7 @@ class ClientController extends CrudController
             [
                 'class' => EasyAccessControl::class,
                 'actions' => [
-                    'update' => 'client.update',
+                    'update,merchant-payment' => 'client.update',
                     'delete' => 'client.delete',
                     'delete-by-logins' => 'client.delete',
                     'create' => $createUserPermissions,
@@ -245,7 +248,8 @@ class ClientController extends CrudController
                         ->joinWith(['blocking'])
                         ->withContact()
                         ->withReferral()
-                        ->withPurses();
+                        ->withPurses()
+                        ->andFilterWhere(['with_roles' => true]);
                 },
             ],
             'validate-form' => [
@@ -316,6 +320,27 @@ class ClientController extends CrudController
                 'class' => SmartUpdateAction::class,
                 'view' => '_set-attributes-form',
                 'success' => Yii::t('hipanel:client', 'Set additional information'),
+            ],
+            'merchant-payment' => [
+                'findOptions' => ['with_roles' => true],
+                'class' => ChangePaymentStatusAction::class,
+                'view' => 'modals/merchant-payment',
+                'success' => Yii::t('hipanel:client', 'Merchant payment status has been changed'),
+                'scenario' => 'change-payment-status',
+                'collection' => [
+                    'class' => Collection::class,
+                    'model' => new ChangePaymentStatusForm(['scenario' => 'change-payment-status']),
+                    'scenario' => 'change-payment-status',
+                ],
+                'data' => function (Action $action, array $data) {
+                    $result = [];
+                    foreach ($data['models'] as $model) {
+                        $result['models'][] = new ChangePaymentStatusForm($model);
+                    }
+                    $result['model'] = reset($result['models']);
+
+                    return $result;
+                },
             ],
             'pincode-settings' => [
                 'class' => SmartUpdateAction::class,

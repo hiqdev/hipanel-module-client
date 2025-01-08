@@ -67,9 +67,13 @@ class ClientDetailMenu extends \hipanel\menus\AbstractDetailMenu
                 'visible' => $user->is($this->model->id),
             ],
             [
-                'label' => $totp_enabled ? Yii::t('hipanel:client', 'Disable two factor authorization') : Yii::t('hipanel:client', 'Enable two factor authorization'),
+                'label' => $totp_enabled ? Yii::t('hipanel:client', 'Disable two factor authorization') : Yii::t('hipanel:client',
+                    'Enable two factor authorization'),
                 'icon' => 'fa-lock',
-                'url' => Yii::getAlias('@HIAM_SITE', false) . Url::to(['/mfa/totp/' . ($totp_enabled ? 'disable' : 'enable'), 'back' => Url::to('', true)]),
+                'url' => Yii::getAlias('@HIAM_SITE', false) . Url::to([
+                        '/mfa/totp/' . ($totp_enabled ? 'disable' : 'enable'),
+                        'back' => Url::to('', true),
+                    ]),
                 'visible' => $user->is($this->model->id),
             ],
             [
@@ -82,9 +86,9 @@ class ClientDetailMenu extends \hipanel\menus\AbstractDetailMenu
                 ]),
                 'encode' => false,
                 'visible' => $user->not($this->model->id)
-                                && $user->can('client.set-tmp-pwd')
-                                && !$this->model->isDeleted()
-                                && $this->model->type === 'client',
+                    && $user->can('client.set-tmp-pwd')
+                    && !$this->model->isDeleted()
+                    && $this->model->type === 'client',
             ],
             [
                 'label' => ImpersonateButton::widget(['model' => $this->model]),
@@ -237,12 +241,33 @@ class ClientDetailMenu extends \hipanel\menus\AbstractDetailMenu
             ] : [],
             [
                 'label' => AjaxModal::widget([
-                    'actionUrl' => ['@client/set-attributes', 'id'=> $this->model->id],
-                    'header' => Html::tag('h4', Yii::t('hipanel:client', 'Additional information'), ['class' => 'model-title']),
+                    'actionUrl' => ['@client/set-attributes', 'id' => $this->model->id],
+                    'header' => Html::tag('h4', Yii::t('hipanel:client', 'Additional information'), ['class' => 'modal-title']),
                     'scenario' => 'update',
                     'toggleButton' => [
                         'tag' => 'a',
-                        'label' => FontIcon::i('fa-edit fa-fw') . " " . Yii::t('hipanel:client', 'Set additional information'),
+                        'label' => FontIcon::i('fa-edit fa-fw') . Yii::t('hipanel:client', 'Set additional information'),
+                        'class' => 'clickable',
+                    ],
+                ]),
+                'encode' => false,
+                'visible' => $user->can('client.update'),
+            ],
+            [
+                'label' => AjaxModal::widget([
+                    'actionUrl' => ['@client/merchant-payment', 'id' => $this->model->id],
+                    'header' => Html::tag('h4', Yii::t('hipanel:client', 'Merchant payment status'), ['class' => 'modal-title']),
+                    'size' => Modal::SIZE_SMALL,
+                    'scenario' => 'change-payment-status',
+                    'toggleButton' => [
+                        'tag' => 'a',
+                        'label' => implode('', [
+                            Html::tag('i', null, ['class' => 'fa fa-fw fa-credit-card-alt']),
+                            Yii::t('hipanel:client', 'Change merchant payment status'),
+                            in_array('deny:deposit', explode(',', $this->model->roles)) ?
+                                Html::tag('span', Yii::t('hipanel:client', 'Forbidden'), ['class' => 'badge bg-red pull-right']) :
+                                Html::tag('span', Yii::t('hipanel:client', 'Permitted'), ['class' => 'badge bg-green pull-right']),
+                        ]),
                         'class' => 'clickable',
                     ],
                 ]),
