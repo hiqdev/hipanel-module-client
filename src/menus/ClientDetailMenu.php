@@ -272,7 +272,7 @@ class ClientDetailMenu extends \hipanel\menus\AbstractDetailMenu
                     ],
                 ]),
                 'encode' => false,
-                'visible' => $user->can('client.update'),
+                'visible' => $user->can('client.update') && Yii::getAlias('@domain', false),
             ],
         ], $actions);
 
