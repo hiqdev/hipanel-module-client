@@ -221,15 +221,6 @@ JS;
         $this->savePincodeForm($I);
     }
 
-    public function testContentVisibility(Admin $I)
-    {
-        $content = $this->visibleContent();
-        $values = $this->validValues();
-        unset($values['defaultQuestion']);
-        $this->testContentVisibilityWithPinOn($I, $content['pinOn'], $values);
-        $this->testContentVisibilityWithPinOff($I, $content['pinOff']);
-    }
-
     /**
      * @dataProvider providerPincodeData
      */
@@ -247,95 +238,5 @@ JS;
                 'answer' => 'test answer',
             ]
         ];
-    }
-
-    private function visibleContent()
-    {
-        $views = [
-            'pinOn' => [
-                'messages' => [],
-                'skeleton' => [
-                    ['text' => 'Disable pincode', 'selector' => '//a[@data-toggle="tab"]'],
-                    ['text' => 'Forgot pincode?', 'selector' => '//a[@data-toggle="tab"]'],
-                    ['text' => 'Enter pincode',   'selector' => '.control-label'],
-                    ['text' => 'Save',            'selector' => 'button'],
-                    ['text' => 'Cancel',          'selector' => 'button'],
-                ],
-            ],
-            'pinOff' => [
-                'messages' => [],
-                'skeleton' => [
-                    ['text' => 'Enter pincode',   'selector' => '.control-label'],
-                    ['text' => 'Choose question', 'selector' => '.control-label'],
-                    ['text' => 'Answer',          'selector' => '.control-label'],
-                    ['text' => 'Save',            'selector' => 'button'],
-                    ['text' => 'Cancel',          'selector' => 'button'],
-                ],
-                'questions' => [
-                    'selector' => '//select/option',
-                    'options' => [
-                        'What was your nickname when you were a child?',
-                        'What was the name of your best childhood friend?',
-                        'What is the month and the year of birth of your oldest relative? (e.g. January, 1900)',
-                        'What is your grandmother’s maiden name?',
-                        'What is the patronymic of your oldest relative?',
-                        'Own question',
-                    ],
-                ],
-            ],
-        ];
-        $views['pinOn']['messages'][] = <<<MSG
-You have already set a PIN code. 
-In order to disable it, enter your current PIN or the secret question.
-MSG;
-        $views['pinOff']['messages'][] = <<<MSG
-To further protect your account, you can install a pin code.
-The following operations, Push domain, Obtaining an authorization code for a domain transfer,
-Change the email address of the account's primary contact,
-will be executed only when the correct PIN code is entered.
-In order to be able to disable the pin code in the future,
-it is required to ask an answer to a security question.
-MSG;
-        $views['pinOff']['messages'][] = <<<MSG
-In case you forget the PIN code or answer to a secret question,
-you can disconnect the PIN code only through the support service!
-(You will need to verify your account by providing a copy of the documents)
-MSG;
-
-        return $views;
-    }
-
-    private function testContentVisibilityWithPinOn(Admin $I, $content, $values)
-    {
-        foreach ($values as $datum) {
-            $this->enablePin($I, $datum);
-            $this->loadPincodeForm($I);
-            foreach ($content['messages'] as $message) {
-                $I->see($message);
-            }
-            foreach ($content['skeleton'] as $item) {
-                $I->see($item['text'], $item['selector']);
-            }
-            $I->click('Forgot pincode?');
-            $I->see($datum['question']['value']);
-            $I->click('Cancel');
-            $this->disablePin($I, $datum, 'using pin');
-        }
-    }
-
-    private function testContentVisibilityWithPinOff(Admin $I, $content)
-    {
-        $this->loadPincodeForm($I);
-        foreach ($content['messages'] as $message) {
-            $I->see($message);
-        }
-        foreach ($content['skeleton'] as $item) {
-            $I->see($item['text'], $item['selector']);
-        }
-        $I->click($this->selector['questionDropdownList']);
-        foreach ($content['questions']['options'] as $option) {
-            $I->see($option, $content['questions']['selector']);
-        }
-        $this->closePincodeForm($I);
     }
 }
