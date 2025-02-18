@@ -26,47 +26,72 @@ export default class PincodeForm {
     public async enablePin(pincode: string, question: string, answer: string) {
         this.loadPincodeForm();
 
-        await this.pincode().fill(pincode);
+        await this.fillPincode(pincode);
         await this.chooseQuestion(question, answer);
-        await this.savePincodeForm();
+        await this.savePincodeFormSuccessfully();
     }
 
-    pincode(): Locator {
-        return this.page.getByLabel('Enter pincode');
+    public async fillPincode(pincode: string) {
+        await this.page.getByLabel('Enter pincode').fill(pincode);
     }
 
     public async chooseQuestion(question: string, answer: string) {
         await this.theSecurityQuestionDropdown().selectOption(question);
-        await this.answer().fill(answer);
+        await this.fillAnswer(answer);
     }
 
     public theSecurityQuestionDropdown(): Locator {
         return this.page.getByLabel('Choose question');
     }
 
-    answer(): Locator {
-        return this.page.getByLabel('Answer');
+    public async fillOwnQuestion(ownQuestion) {
+        await this.theSecurityQuestionDropdown().selectOption('Own question');
+        await this.page.locator("input[name^='Client'][name$='[question]']").fill(ownQuestion);
     }
 
-    public async savePincodeForm() {
+    public async fillAnswer(answer: string) {
+        await this.page.getByLabel('Answer').fill(answer);
+    }
+
+    public async savePincodeFormSuccessfully() {
+        await this.savePincodeFormWithMessage('Pincode settings were updated');
+    }
+
+    public async savePincodeFormWithMessage(message: string) {
+        await this.clickSaveButton();
+        await this.hasNotification(message);
+        await this.closeNotification();
+    }
+
+    public async clickSaveButton() {
         await this.page.locator('button:has-text("Save")').click();
-        await this.ensurePincodeWasUpdated();
     }
 
     public async disablePinUsingPincode(pincode: string) {
         this.loadPincodeForm();
-        await this.pincode().fill(pincode);
-        await this.savePincodeForm();
+        await this.fillPincode(pincode);
+        await this.savePincodeFormSuccessfully();
     }
 
-    async ensurePincodeWasUpdated() {
-        const successMessage = this.page.locator('.alert-success', { hasText: 'Pincode settings were updated' });
+    public async hasNotification(message: string) {
+        const notification = this.notification();
+        const successMessage = notification.locator('.alert', { hasText: message });
         await expect(successMessage).toBeVisible();
+    }
+
+    notification(): Locator {
+        return this.page.locator('.ui-pnotify');
+    }
+
+    public async closeNotification() {
+        const notification = this.notification();
+        await notification.hover();
+        await notification.locator('.ui-pnotify-closer').click();
     }
 
     public async disablePinUsingAnswer(answer: string){
         this.loadPincodeForm();
-        await this.answer().fill(answer);
-        await this.savePincodeForm();
+        await this.fillAnswer(answer);
+        await this.savePincodeFormSuccessfully();
     }
 }
