@@ -3,10 +3,9 @@ import {expect} from "@playwright/test";
 import ClientView from "@hipanel-module-client/page/ClientView";
 
 test.describe("Pincode Visibility Tests", () => {
-    const userId = getUserId('admin');
-
     test("Verify content when PIN is enabled @hipanel-module-client @admin", async ({ adminPage}) => {
         const clientViewPage = new ClientView(adminPage);
+        const userId = getUserId('admin');
         await clientViewPage.gotoClientView(userId, 'hipanel_test_admin');
 
         await clientViewPage.openPincodeSettingsWindow();
@@ -40,6 +39,7 @@ test.describe("Pincode Visibility Tests", () => {
 
     test("Verify content when PIN is disabled @hipanel-module-client @admin", async ({ adminPage }) => {
         const clientViewPage = new ClientView(adminPage);
+        const userId = getUserId('admin');
         await clientViewPage.gotoClientView(userId, 'hipanel_test_admin');
 
         await clientViewPage.openPincodeSettingsWindow();
