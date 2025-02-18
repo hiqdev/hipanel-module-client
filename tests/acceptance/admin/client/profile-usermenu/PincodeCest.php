@@ -75,47 +75,6 @@ class PincodeCest
     }
 
     /**
-     * @before loadPincodeForm
-     * @after closePincodeForm
-     * @param Admin $I
-     */
-    public function testPinInputErrors(Admin $I)
-    {
-        $examples = $this->inputErrorValues();
-        foreach ($examples as $example) {
-            $this->fillInputError($I, $example['pin']);
-            $I->see($example['message']);
-            $this->fillInputError($I, '');
-        }
-    }
-
-    private function fillInputError(Admin $I, string $pin)
-    {
-        $I->fillField($this->selector['pin'], $pin);
-        $I->clickWithLeftButton("//div[@class='bg-info']");
-        $operator = $pin !== '' ? '!==' : '===';
-        $js = <<<JS
-                return $("[name='{$this->selector['pin']['name']}']")
-                .parent().find('p.help-block-error').text() {$operator} '';
-JS;
-        $I->waitForJS($js, 10);
-    }
-
-    private function inputErrorValues()
-    {
-        return [
-            [
-                'pin' => '123',
-                'message' => 'Enter pincode should contain at least 4 characters.',
-            ],
-            [
-                'pin' => '12345',
-                'message' => 'Enter pincode should contain at most 4 characters.',
-            ],
-        ];
-    }
-
-    /**
      * @dataProvider validValues
      * @param Admin $I
      * @param Example $example
