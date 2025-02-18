@@ -77,17 +77,18 @@ test.describe("Pincode Visibility Tests", () => {
         }
 
         // Check available security questions
-        await adminPage.locator("text=Choose question").click();
+        const questionDropdown = pincodeForm.theSecurityQuestionDropdown();
         const questions = [
             "What was your nickname when you were a child?",
             "What was the name of your best childhood friend?",
             "What is the month and the year of birth of your oldest relative?",
             "What is your grandmother’s maiden name?",
             "What is the patronymic of your oldest relative?",
-            "Own question"
+            "Own question",
         ];
+
         for (const question of questions) {
-            await expect(adminPage.locator(`text=${question}`)).toBeVisible();
+            await expect(questionDropdown.getByRole('option', { name: question })).toBeEnabled();
         }
 
         await pincodeForm.closePincodeForm();

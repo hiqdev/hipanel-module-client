@@ -47,8 +47,7 @@ export default class PincodeForm {
     }
 
     public async chooseQuestion(question: string, answer: string) {
-        // Open the security question dropdown
-        await this.questionDropdownList().click();
+        await this.openTheSecurityQuestionDropdown();
 
         // Select the provided question
         await this.page.getByRole('option', { name: question }).click();
@@ -57,7 +56,12 @@ export default class PincodeForm {
         await this.page.locator('input[name="securityAnswer"]').fill(answer);
     }
 
-    questionDropdownList(): Locator {
+
+    public async openTheSecurityQuestionDropdown() {
+        await this.theSecurityQuestionDropdown().click();
+    }
+
+    public theSecurityQuestionDropdown(): Locator {
         return this.page.getByLabel('Choose question');
     }
 }
