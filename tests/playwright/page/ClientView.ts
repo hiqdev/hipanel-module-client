@@ -1,12 +1,17 @@
-import {expect, Page} from "@playwright/test";
+import {expect, Locator, Page} from "@playwright/test";
 import {InputValue} from "@hipanel-module-client/e2e/admin/ip-address-restrictions.spec";
+import Index from "@hipanel-core/page/Index";
 
 
 export default class ClientView {
     private page: Page;
+    private index: Index;
+    private detailMenuFunctionsLocator: Locator;
 
     public constructor(page: Page) {
         this.page = page;
+        this.index = new Index(page);
+        this.detailMenuFunctionsLocator = page.locator(".profile-usermenu .nav");
     }
 
     public async gotoClientView(userId: string, userName: string) {
@@ -46,4 +51,12 @@ export default class ClientView {
         await expect(this.page.locator(`input[name="Client[${userId}][sshftp_ips]"]`)).toHaveValue(expectedValue);
     }
 
+    detailMenuItem(item: string): Locator {
+        return this.detailMenuFunctionsLocator.locator(`:scope a:text("${item}")`);
+    }
+
+    async openPincodeSettingsWindow() {
+        await this.detailMenuItem("Pincode settings").click();
+        await this.page.waitForSelector("#pincode-settings-form");
+    }
 }
