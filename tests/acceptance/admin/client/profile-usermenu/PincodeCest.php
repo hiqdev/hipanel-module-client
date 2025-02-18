@@ -52,11 +52,6 @@ class PincodeCest
         $I->waitForElement('#pincode-settings-form', 120);
     }
 
-    private function closePincodeForm(Admin $I)
-    {
-        $I->click('Cancel');
-    }
-
     private function savePincodeForm(Admin $I)
     {
         $I->click('Save');
