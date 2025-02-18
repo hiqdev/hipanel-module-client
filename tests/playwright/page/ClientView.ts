@@ -1,16 +1,13 @@
 import {expect, Locator, Page} from "@playwright/test";
 import {InputValue} from "@hipanel-module-client/e2e/admin/ip-address-restrictions.spec";
-import Index from "@hipanel-core/page/Index";
-
+import PincodeForm from "@hipanel-module-client/helper/PincodeForm";
 
 export default class ClientView {
     private page: Page;
-    private index: Index;
     private detailMenuFunctionsLocator: Locator;
 
     public constructor(page: Page) {
         this.page = page;
-        this.index = new Index(page);
         this.detailMenuFunctionsLocator = page.locator(".profile-usermenu .nav");
     }
 
@@ -55,26 +52,7 @@ export default class ClientView {
         return this.detailMenuFunctionsLocator.locator(`:scope a:text("${item}")`);
     }
 
-    public async loadPincodeForm() {
-        await this.detailMenuItem("Pincode settings").click();
-        await this.page.waitForSelector("#pincode-settings-form");
-    }
-
-    public async disablePin(page: Page) {
-        this.loadPincodeForm();
-
-        // Click the "Disable Pincode" button inside the modal
-        const disableButton = page.getByRole('button', { name: 'Disable Pincode' });
-        await disableButton.click();
-
-        // Confirm the action if a confirmation popup appears
-        const confirmButton = page.getByRole('button', { name: 'OK' });
-        if (await confirmButton.isVisible()) {
-            await confirmButton.click();
-        }
-
-        // Verify that the Pincode has been disabled (adjust selector if needed)
-        const successMessage = page.locator('.alert-success', { hasText: 'Pincode disabled' });
-        await expect(successMessage).toBeVisible();
+    getPincodeForm() {
+        return new PincodeForm(this.page, this);
     }
 }

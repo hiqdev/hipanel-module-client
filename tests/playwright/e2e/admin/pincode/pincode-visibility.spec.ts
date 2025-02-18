@@ -7,8 +7,9 @@ test.describe("Pincode Visibility Tests", () => {
         const clientViewPage = new ClientView(adminPage);
         const userId = getUserId('admin');
         await clientViewPage.gotoClientView(userId, 'hipanel_test_admin');
+        const pincodeForm = clientViewPage.getPincodeForm();
 
-        await clientViewPage.loadPincodeForm();
+        await pincodeForm.loadPincodeForm();
 
         // Check expected messages
         const messages = [
@@ -34,15 +35,18 @@ test.describe("Pincode Visibility Tests", () => {
         // Test question selection
         await adminPage.locator("text=Forgot pincode?").click();
         await expect(adminPage.locator("text=What is your grandmother’s maiden name?")).toBeVisible();
-        await adminPage.locator("text=Cancel").click();
+        await pincodeForm.closePincodeForm();
+
+        await pincodeForm.disablePin(adminPage);
     });
 
     test("Verify content when PIN is disabled @hipanel-module-client @admin", async ({ adminPage }) => {
         const clientViewPage = new ClientView(adminPage);
         const userId = getUserId('admin');
         await clientViewPage.gotoClientView(userId, 'hipanel_test_admin');
+        const pincodeForm = clientViewPage.getPincodeForm();
 
-        await clientViewPage.loadPincodeForm();
+        await pincodeForm.loadPincodeForm();
 
         // Check expected messages
         const messages = [
@@ -62,7 +66,7 @@ test.describe("Pincode Visibility Tests", () => {
 
         // Check UI elements
         const elements = [
-            ['label:has-text("Enter pincode")',],
+            ['label:has-text("Enter pincode")'],
             ['label:has-text("Choose question")'],
             ['label:has-text("Answer")'],
             ['button:has-text("Save")'],
@@ -86,8 +90,6 @@ test.describe("Pincode Visibility Tests", () => {
             await expect(adminPage.locator(`text=${question}`)).toBeVisible();
         }
 
-        await adminPage.locator("text=Cancel").click();
-
-        await clientViewPage.disablePin(adminPage);
+        await pincodeForm.closePincodeForm();
     });
 });
