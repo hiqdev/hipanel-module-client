@@ -1,5 +1,6 @@
 import {expect, Locator, Page} from "@playwright/test";
 import ClientView from "@hipanel-module-client/page/ClientView";
+import {$setUserAgentForTests} from "ace-builds-internal/keyboard/textinput";
 
 export default class PincodeForm {
     private page: Page;
@@ -12,56 +13,61 @@ export default class PincodeForm {
 
     public async loadPincodeForm() {
         await this.view.detailMenuItem("Pincode settings").click();
-        await this.page.waitForSelector("#pincode-settings-form");
+        await this.getForm().isVisible();
     }
 
-    public async disablePin(page: Page) {
-        this.loadPincodeForm();
-
-        // Click the "Disable Pincode" button inside the modal
-        const disableButton = page.getByRole('button', { name: 'Disable Pincode' });
-        await disableButton.click();
-
-        // Confirm the action if a confirmation popup appears
-        const confirmButton = page.getByRole('button', { name: 'OK' });
-        if (await confirmButton.isVisible()) {
-            await confirmButton.click();
-        }
-
-        // Verify that the Pincode has been disabled (adjust selector if needed)
-        const successMessage = page.locator('.alert-success', { hasText: 'Pincode disabled' });
-        await expect(successMessage).toBeVisible();
+    getForm(): Locator {
+        return this.page.locator('#pincode-settings-form');
     }
 
     public async closePincodeForm() {
         await this.page.locator('button:has-text("Cancel")').click();
     }
 
-    public async savePincodeForm() {
-        await this.page.locator('button:has-text("Save")').click();
-        await expect(this.page.locator('text=Pincode settings were updated')).toBeVisible();
+    public async enablePin(pincode: string, question: string, answer: string) {
+        this.loadPincodeForm();
+
+        await this.pincode().fill(pincode);
+        await this.chooseQuestion(question, answer);
+        await this.savePincodeForm();
     }
 
-    public async enablePin() {
-        this.loadPincodeForm();
+    pincode(): Locator {
+        return this.page.getByLabel('Enter pincode');
     }
 
     public async chooseQuestion(question: string, answer: string) {
-        await this.openTheSecurityQuestionDropdown();
-
-        // Select the provided question
-        await this.page.getByRole('option', { name: question }).click();
-
-        // Fill in the answer
-        await this.page.locator('input[name="securityAnswer"]').fill(answer);
-    }
-
-
-    public async openTheSecurityQuestionDropdown() {
-        await this.theSecurityQuestionDropdown().click();
+        await this.theSecurityQuestionDropdown().selectOption(question);
+        await this.answer().fill(answer);
     }
 
     public theSecurityQuestionDropdown(): Locator {
         return this.page.getByLabel('Choose question');
+    }
+
+    answer(): Locator {
+        return this.page.getByLabel('Answer');
+    }
+
+    public async savePincodeForm() {
+        await this.page.locator('button:has-text("Save")').click();
+        await this.ensurePincodeWasUpdated();
+    }
+
+    public async disablePinUsingPincode(pincode: string) {
+        this.loadPincodeForm();
+        await this.pincode().fill(pincode);
+        await this.savePincodeForm();
+    }
+
+    async ensurePincodeWasUpdated() {
+        const successMessage = this.page.locator('.alert-success', { hasText: 'Pincode settings were updated' });
+        await expect(successMessage).toBeVisible();
+    }
+
+    public async disablePinUsingAnswer(answer: string){
+        this.loadPincodeForm();
+        await this.answer().fill(answer);
+        await this.savePincodeForm();
     }
 }

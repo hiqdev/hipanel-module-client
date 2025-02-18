@@ -8,7 +8,9 @@ test.describe("Pincode Visibility Tests", () => {
         const userId = getUserId('admin');
         await clientViewPage.gotoClientView(userId, 'hipanel_test_admin');
         const pincodeForm = clientViewPage.getPincodeForm();
+        const pincode = '1234';
 
+        await pincodeForm.enablePin(pincode, 'What is your grandmother’s maiden name?', 'test answer');
         await pincodeForm.loadPincodeForm();
 
         // Check expected messages
@@ -22,22 +24,23 @@ test.describe("Pincode Visibility Tests", () => {
 
         // Check UI elements
         const elements = [
-            ["text=Disable pincode", '//a[@data-toggle="tab"]'],
-            ["text=Forgot pincode?", '//a[@data-toggle="tab"]'],
-            ["text=Enter pincode", ".control-label"],
-            ["text=Save", "button"],
-            ["text=Cancel", "button"]
+            ['a[data-toggle=tab]:has-text("Disable pincode")'],
+            ['a[data-toggle=tab]:has-text("Forgot pincode?")'],
+            ['label:has-text("Enter pincode")'],
+            ['button:has-text("Save")'],
+            ['button:has-text("Cancel")']
         ];
-        for (const [text, selector] of elements) {
-            await expect(adminPage.locator(selector)).toContainText(text);
+        for (const [selector] of elements) {
+            await expect(adminPage.locator(selector)).toBeVisible();
         }
 
-        // Test question selection
-        await adminPage.locator("text=Forgot pincode?").click();
+        // Check "Forgot pincode" UI elements
+        await adminPage.locator('a[data-toggle=tab]:has-text("Forgot pincode?")').click();
         await expect(adminPage.locator("text=What is your grandmother’s maiden name?")).toBeVisible();
+
         await pincodeForm.closePincodeForm();
 
-        await pincodeForm.disablePin(adminPage);
+        await pincodeForm.disablePinUsingPincode(pincode);
     });
 
     test("Verify content when PIN is disabled @hipanel-module-client @admin", async ({ adminPage }) => {
