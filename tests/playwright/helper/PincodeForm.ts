@@ -1,6 +1,5 @@
 import {expect, Locator, Page} from "@playwright/test";
 import ClientView from "@hipanel-module-client/page/ClientView";
-import {$setUserAgentForTests} from "ace-builds-internal/keyboard/textinput";
 
 export default class PincodeForm {
     private page: Page;
