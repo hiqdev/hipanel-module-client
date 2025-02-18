@@ -8,7 +8,7 @@ test.describe("Pincode Visibility Tests", () => {
         const userId = getUserId('admin');
         await clientViewPage.gotoClientView(userId, 'hipanel_test_admin');
 
-        await clientViewPage.openPincodeSettingsWindow();
+        await clientViewPage.loadPincodeForm();
 
         // Check expected messages
         const messages = [
@@ -42,7 +42,7 @@ test.describe("Pincode Visibility Tests", () => {
         const userId = getUserId('admin');
         await clientViewPage.gotoClientView(userId, 'hipanel_test_admin');
 
-        await clientViewPage.openPincodeSettingsWindow();
+        await clientViewPage.loadPincodeForm();
 
         // Check expected messages
         const messages = [
@@ -62,14 +62,14 @@ test.describe("Pincode Visibility Tests", () => {
 
         // Check UI elements
         const elements = [
-            ["text=Enter pincode", ".control-label"],
-            ["text=Choose question", ".control-label"],
-            ["text=Answer", ".control-label"],
-            ["text=Save", "button"],
-            ["text=Cancel", "button"]
+            ['label:has-text("Enter pincode")',],
+            ['label:has-text("Choose question")'],
+            ['label:has-text("Answer")'],
+            ['button:has-text("Save")'],
+            ['button:has-text("Cancel")']
         ];
-        for (const [text, selector] of elements) {
-            await expect(adminPage.locator(selector)).toContainText(text);
+        for (const [selector] of elements) {
+            await expect(adminPage.locator(selector)).toBeVisible();
         }
 
         // Check available security questions
@@ -87,5 +87,7 @@ test.describe("Pincode Visibility Tests", () => {
         }
 
         await adminPage.locator("text=Cancel").click();
+
+        await clientViewPage.disablePin(adminPage);
     });
 });
