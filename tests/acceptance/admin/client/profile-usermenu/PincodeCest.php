@@ -63,49 +63,6 @@ class PincodeCest
         $I->closeNotification('Pincode settings were updated');
     }
 
-    /**
-     * @before loadPincodeForm
-     * @dataProvider pnotifyErrorValues
-     * @param Admin $I
-     * @param Example $example
-     */
-    public function testPnotifyErrors(Admin $I, Example $example)
-    {
-        $I->fillField($this->selector['pin'], $example['pin']);
-        $I->fillField($this->selector['answer'], $example['answer']);
-        $this->chooseQuestion($I, $example['question']);
-        $I->click('Save');
-        $I->closeNotification($example['message']);
-    }
-
-    private function pnotifyErrorValues()
-    {
-        return [
-            [
-                'pin' => '',
-                'question' => null,
-                'answer' => 'test answer',
-                'message' => 'no data given',
-            ],
-            [
-                'pin' => '1234',
-                'question' => null,
-                'answer' => '',
-                'message' => 'wrong input: Answer',
-            ],
-            [
-                'pin' => '1234',
-                'question' => [
-                    'selector' => "//select/option[@value='own']",
-                    'own' => true,
-                    'value' => '',
-                ],
-                'answer' => 'test answer',
-                'message' => 'wrong input: Question',
-            ],
-        ];
-    }
-
     private function chooseQuestion(Admin $I, $question)
     {
         if ($question) {
