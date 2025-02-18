@@ -55,8 +55,26 @@ export default class ClientView {
         return this.detailMenuFunctionsLocator.locator(`:scope a:text("${item}")`);
     }
 
-    async openPincodeSettingsWindow() {
+    public async loadPincodeForm() {
         await this.detailMenuItem("Pincode settings").click();
         await this.page.waitForSelector("#pincode-settings-form");
+    }
+
+    public async disablePin(page: Page) {
+        this.loadPincodeForm();
+
+        // Click the "Disable Pincode" button inside the modal
+        const disableButton = page.getByRole('button', { name: 'Disable Pincode' });
+        await disableButton.click();
+
+        // Confirm the action if a confirmation popup appears
+        const confirmButton = page.getByRole('button', { name: 'OK' });
+        if (await confirmButton.isVisible()) {
+            await confirmButton.click();
+        }
+
+        // Verify that the Pincode has been disabled (adjust selector if needed)
+        const successMessage = page.locator('.alert-success', { hasText: 'Pincode disabled' });
+        await expect(successMessage).toBeVisible();
     }
 }
