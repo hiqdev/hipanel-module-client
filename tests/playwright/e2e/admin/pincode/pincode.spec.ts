@@ -33,17 +33,20 @@ test.describe('Pincode Settings', () => {
     });
 
     test('Test PIN input validation @hipanel-module-client @admin', async ({ page }) => {
-        await page.click('text=Pincode settings');
-
         const testCases = [
             { pin: '123', message: 'Enter pincode should contain at least 4 characters.' },
             { pin: '12345', message: 'Enter pincode should contain at most 4 characters.' },
         ];
 
         for (const { pin, message } of testCases) {
-            await page.fill("[name='Client[123][pincode]']", pin);
-            await page.click('text=Save');
-            await expect(page.locator(`text=${message}`)).toBeVisible();
+            await pincodeForm.loadPincodeForm();
+            await pincodeForm.fillPincode(pin);
+            await pincodeForm.clickSaveButton();
+            const errorMessage = pincodeForm.pincode()
+                .locator('xpath=ancestor::div[contains(@class, "has-error")]//p[contains(@class, "help-block-error")]');
+            await expect(errorMessage).toBeVisible();
+            await expect(errorMessage).toHaveText(message);
+            await pincodeForm.closePincodeForm();
         }
     });
 

@@ -32,7 +32,11 @@ export default class PincodeForm {
     }
 
     public async fillPincode(pincode: string) {
-        await this.page.getByLabel('Enter pincode').fill(pincode);
+        await this.pincode().fill(pincode);
+    }
+
+    public pincode(): Locator {
+        return this.page.getByLabel('Enter pincode');
     }
 
     public async chooseQuestion(question: string, answer: string) {
