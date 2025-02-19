@@ -12,7 +12,7 @@ test.describe('Pincode Settings', () => {
         pincodeForm = clientViewPage.getPincodeForm();
     });
 
-    test('Check Pnotify Errors @hipanel-module-client @admin', async ({ page }) => {
+    test('Check Pnotify Errors @hipanel-module-client @admin', async ({ adminPage }) => {
         const testCases = [
             { pin: '', answer: 'test answer', message: 'no data given', ownQuestion: null },
             { pin: '1234', answer: '', message: 'wrong input: Answer', ownQuestion: null },
@@ -32,7 +32,7 @@ test.describe('Pincode Settings', () => {
         }
     });
 
-    test('Test PIN input validation @hipanel-module-client @admin', async ({ page }) => {
+    test('Test PIN input validation @hipanel-module-client @admin', async ({ adminPage }) => {
         const testCases = [
             { pin: '123', message: 'Enter pincode should contain at least 4 characters.' },
             { pin: '12345', message: 'Enter pincode should contain at most 4 characters.' },
@@ -50,12 +50,29 @@ test.describe('Pincode Settings', () => {
         }
     });
 
-    test('Enable and disable PIN @hipanel-module-client @admin', async ({ page }) => {
-        await page.click('text=Pincode settings');
+    test('Disable PIN by pincode @hipanel-module-client @admin', async ({ adminPage }) => {
+        await pincodeForm.loadPincodeForm();
+        await pincodeForm.fillPincode('1234');
+        await pincodeForm.fillAnswer('test answer');
+        await pincodeForm.savePincodeFormSuccessfully();
+        await pincodeForm.disablePinUsingPincode('1234');
+    });
 
-        await page.fill("[name='Client[123][pincode]']", '1234');
-        await page.fill("[name='Client[123][answer]']", 'test answer');
-        await page.click('text=Save');
-        await expect(page.locator('text=Pincode settings were updated')).toBeVisible();
+    test('Disable PIN by question @hipanel-module-client @admin', async ({ adminPage }) => {
+        await pincodeForm.loadPincodeForm();
+        await pincodeForm.fillPincode('1234');
+        await pincodeForm.fillAnswer('test answer');
+        await pincodeForm.chooseQuestion('What is your grandmother’s maiden name?', 'test answer');
+        await pincodeForm.savePincodeFormSuccessfully();
+        await pincodeForm.disablePinUsingAnswer('What is your grandmother’s maiden name?', 'test answer');
+    });
+
+    test('Disable PIN by own question @hipanel-module-client @admin', async ({ adminPage }) => {
+        await pincodeForm.loadPincodeForm();
+        await pincodeForm.fillPincode('1234');
+        await pincodeForm.fillAnswer('test answer');
+        await pincodeForm.fillOwnQuestion('test question');
+        await pincodeForm.savePincodeFormSuccessfully();
+        await pincodeForm.disablePinUsingAnswer('test question', 'test answer');
     });
 });

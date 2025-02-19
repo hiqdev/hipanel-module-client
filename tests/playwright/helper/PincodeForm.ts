@@ -93,9 +93,10 @@ export default class PincodeForm {
         await notification.locator('.ui-pnotify-closer').click();
     }
 
-    public async disablePinUsingAnswer(answer: string){
+    public async disablePinUsingAnswer(question: string, answer: string){
         this.loadPincodeForm();
-        await this.fillAnswer(answer);
+        await this.page.getByRole('link', { name: 'Forgot pincode?' }).click();
+        await this.page.getByLabel(question).fill(answer);
         await this.savePincodeFormSuccessfully();
     }
 }
