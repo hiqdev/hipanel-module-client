@@ -89,8 +89,14 @@ export default class PincodeForm {
 
     public async closeNotification() {
         const notification = this.notification();
-        await notification.hover();
-        await notification.locator('.ui-pnotify-closer').click();
+        if (await notification.isVisible()) {
+            await notification.hover();
+
+            const closeButton = notification.locator('.ui-pnotify-closer');
+            if (await closeButton.isVisible()) {
+                await closeButton.click();
+            }
+        }
     }
 
     public async disablePinUsingAnswer(question: string, answer: string){
