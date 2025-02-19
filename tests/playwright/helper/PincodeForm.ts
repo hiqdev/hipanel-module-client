@@ -63,6 +63,7 @@ export default class PincodeForm {
 
     public async savePincodeFormWithMessage(message: string) {
         await this.clickSaveButton();
+        await this.getForm().isHidden();
         await this.hasNotification(message);
         await this.closeNotification();
     }
