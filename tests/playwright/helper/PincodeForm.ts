@@ -1,13 +1,16 @@
 import {expect, Locator, Page} from "@playwright/test";
 import ClientView from "@hipanel-module-client/page/ClientView";
+import Notification from "@hipanel-core/helper/Notification";
 
 export default class PincodeForm {
     private page: Page;
     private view: ClientView;
+    private notification: Notification;
 
     public constructor(page: Page, view: ClientView) {
         this.page = page;
         this.view = view;
+        this.notification = new Notification(page);
     }
 
     public async loadPincodeForm() {
@@ -79,25 +82,11 @@ export default class PincodeForm {
     }
 
     public async hasNotification(message: string) {
-        const notification = this.notification();
-        const successMessage = notification.locator('.alert', { hasText: message });
-        await expect(successMessage).toBeVisible();
-    }
-
-    notification(): Locator {
-        return this.page.locator('.ui-pnotify');
+        await this.notification.hasNotification(message);
     }
 
     public async closeNotification() {
-        const notification = this.notification();
-        if (await notification.isVisible()) {
-            await notification.hover();
-
-            const closeButton = notification.locator('.ui-pnotify-closer');
-            if (await closeButton.isVisible()) {
-                await closeButton.click();
-            }
-        }
+        await this.notification.closeNotification();
     }
 
     public async disablePinUsingAnswer(question: string, answer: string){
