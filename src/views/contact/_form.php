@@ -107,7 +107,6 @@ use yii\web\View;
             <fieldset id="fiz_domain">
                 <?= $form->field($model, 'birth_date')->widget(DatePicker::class, [
                     'options' => [
-                        'readonly' => 'readonly',
                         'class' => 'DateTimePicker',
                         'placeholder' => Yii::t('hipanel', 'Select date'),
                     ],
@@ -115,7 +114,6 @@ use yii\web\View;
                 <?= $form->field($model, 'passport_no'); ?>
                 <?= $form->field($model, 'passport_date')->widget(DatePicker::class, [
                     'options' => [
-                        'readonly' => 'readonly',
                         'class' => 'DateTimePicker',
                         'placeholder' => Yii::t('hipanel', 'Select date'),
                     ],
