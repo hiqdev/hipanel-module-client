@@ -35,7 +35,7 @@ use yii\web\View;
  * @var ClientSearch $model
  * @var array $types
  * @var array $states
- * @var array $debt_label
+ * @var array $debt_labels
  */
 
 FlagIconCssAsset::register($this);
@@ -59,7 +59,7 @@ $canCreateClients = !$this->context->module->userCreationIsDisabled && ($user->c
             'types' => $types,
             'states' => $states,
             'uiModel' => $uiModel,
-            'debt_label' => $debt_label,
+            'debt_labels' => $debt_labels,
     ]) ?>
 
     <?php if ($canCreateClients) : ?>

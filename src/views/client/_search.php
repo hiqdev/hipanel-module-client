@@ -16,6 +16,7 @@ use yii\web\View;
  * @var array $types
  * @var array $states
  * @var View $this
+ * @var array $debt_labels
  */
 
 ?>
@@ -90,7 +91,7 @@ use yii\web\View;
 <?php if (Yii::$app->user->can('client.read-financial-info')) : ?>
     <div class="col-md-4 col-sm-6 col-xs-12">
         <?= $search->field('debt_label')->widget(StaticCombo::class, [
-            'data' => $debt_label,
+            'data' => $debt_labels,
         ]) ?>
     </div>
 
