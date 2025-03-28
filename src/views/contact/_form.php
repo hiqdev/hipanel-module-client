@@ -6,7 +6,7 @@ use hipanel\modules\client\models\Contact;
 use hipanel\modules\client\widgets\BankDetailsFormWidget;
 use hipanel\modules\client\widgets\combo\ClientCombo;
 use hipanel\widgets\Box;
-use hipanel\widgets\DateTimePicker;
+use hipanel\widgets\DatePicker;
 use hiqdev\combo\StaticCombo;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
@@ -105,29 +105,15 @@ use yii\web\View;
                 ],
             ]) ?>
             <fieldset id="fiz_domain">
-                <?= $form->field($model, 'birth_date')->widget(DateTimePicker::class, [
-                    'clientOptions' => [
-                        'format' => 'yyyy-mm-dd', // TODO: get format from user settings
-                        'autoclose' => true,
-                        'clearBtn' => true,
-                        'minView' => 2,
-                    ],
+                <?= $form->field($model, 'birth_date')->widget(DatePicker::class, [
                     'options' => [
-                        'readonly' => 'readonly',
                         'class' => 'DateTimePicker',
                         'placeholder' => Yii::t('hipanel', 'Select date'),
                     ],
                 ]); ?>
                 <?= $form->field($model, 'passport_no'); ?>
-                <?= $form->field($model, 'passport_date')->widget(DateTimePicker::class, [
-                    'clientOptions' => [
-                        'format' => 'yyyy-mm-dd',  // TODO: get format from user settings
-                        'autoclose' => true,
-                        'clearBtn' => true,
-                        'minView' => 2,
-                    ],
+                <?= $form->field($model, 'passport_date')->widget(DatePicker::class, [
                     'options' => [
-                        'readonly' => 'readonly',
                         'class' => 'DateTimePicker',
                         'placeholder' => Yii::t('hipanel', 'Select date'),
                     ],
