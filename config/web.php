@@ -50,25 +50,6 @@ return [
     ],
     'container' => [
         'definitions' => [
-            \hipanel\modules\finance\helpers\ConsumptionConfigurator::class => [
-                'class' => \hipanel\modules\finance\helpers\ConsumptionConfigurator::class,
-                'configurations' => [
-                    'client' => [
-                        'label' => ['hipanel:finance', 'Client resources'],
-                        'columns' => [
-                            'referral',
-                            'support_time',
-                            'cloud_ip_anycast',
-                            'cloud_ip_public',
-                            'cloud_ip_anycast_max',
-                            'cloud_ip_public_max',
-                        ],
-                        'groups' => [],
-                        'model' => Client::class,
-                        'resourceModel' => ClientResource::class,
-                    ],
-                ]
-            ],
             \hipanel\modules\dashboard\menus\DashboardMenu::class => [
                 'add' => [
                     'client' => [
