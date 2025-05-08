@@ -324,7 +324,8 @@ return [
     'Delete by logins' => 'Массовое удаление по логину',
     'Logins' => 'Логины клиентов',
     'Delete clients' => 'Удалить клиентов',
-    'Hide system' => 'Скрыть системных',
+    'Hide internal' => 'Скрыть внутренних',
+    'Hide PRJ' => 'Скрыть PRJ',
     'Only with note' => 'Только с заметками',
     'You could not edit your account. Operation is not permitted' => 'Вы не можете редактировать свой аккаунт. Операция не разрешена',
 
