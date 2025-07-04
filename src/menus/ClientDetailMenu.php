@@ -14,6 +14,7 @@ use hipanel\helpers\FontIcon;
 use hipanel\modules\client\models\Client;
 use hipanel\widgets\AjaxModal;
 use hipanel\widgets\AjaxModalWithTemplatedButton;
+use hipanel\widgets\AuditButton;
 use hipanel\widgets\BlockModalButton;
 use hipanel\widgets\ImpersonateButton;
 use hipanel\widgets\SettingsModal;
@@ -273,6 +274,10 @@ class ClientDetailMenu extends \hipanel\menus\AbstractDetailMenu
                 ]),
                 'encode' => false,
                 'visible' => $user->can('client.update') && Yii::getAlias('@domain', false),
+            ],
+            [
+                'label' => AuditButton::widget(['model' => $this->model]),
+                'encode' => false,
             ],
         ], $actions);
 
