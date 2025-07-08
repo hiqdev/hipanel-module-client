@@ -14,6 +14,7 @@ use hipanel\helpers\Url;
 use hipanel\menus\AbstractDetailMenu;
 use hipanel\modules\client\models\Contact;
 use hipanel\widgets\AjaxModal;
+use hipanel\widgets\AuditButton;
 use Yii;
 use yii\bootstrap\Modal;
 use yii\helpers\Html;
@@ -60,6 +61,10 @@ class ContactDetailMenu extends AbstractDetailMenu
                 ]),
                 'encode' => false,
                 'visible' => $user->can('requisites.update'),
+            ],
+            [
+                'label' => AuditButton::widget(['model' => $this->model]),
+                'encode' => false,
             ],
         ]);
 
