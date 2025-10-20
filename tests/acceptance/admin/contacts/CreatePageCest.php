@@ -15,6 +15,7 @@ use Facebook\WebDriver\Exception\InvalidElementStateException;
 use hipanel\modules\client\tests\_support\Page\contact\Create;
 use hipanel\tests\_support\Step\Acceptance\Admin;
 use yii\helpers\Url;
+use Yii;
 
 class CreatePageCest
 {
@@ -27,6 +28,9 @@ class CreatePageCest
         $I->needPage(Url::to('@contact/create'));
         $I->see('Create contact', 'button');
         $I->executeJS('scroll(0,1000);');
+        if (Yii::$app->params['module.client.contact.ru-enabled'] !== true) {
+            return ;
+        }
         $createPage->fillFormData($data['passport']);
         $I->click('#legal-entity-box button.btn-box-tool');
         $I->expectThrowable(InvalidElementStateException::class, fn() => $createPage->fillFormData($data['entity']));
@@ -43,6 +47,9 @@ class CreatePageCest
         $I->see('Create contact', 'button');
         $I->executeJS('scroll(0,1000);');
         $createPage->fillFormData($data['organization']);
+        if (Yii::$app->params['module.client.contact.ru-enabled'] !== true) {
+            return ;
+        }
         $I->executeJS('scroll(0,2000);');
         $I->click('#legal-entity-box button.btn-box-tool');
         $createPage->fillFormData($data['entity']);
