@@ -80,10 +80,10 @@ class ContactsCest extends CommonContactActions
 
         $varData = [
             [
-                'voice_phone'       => '+7 (965) 449-99-99',
-                'phoneCountryCode'  => 'ru',
-                'postal_code'   => '123445',
-                'country'       => 'Russian Federation',
+                'voice_phone'       => '+38 (093) 123-34-56',
+                'phoneCountryCode'  => 'ua',
+                'postal_code'   => '01001',
+                'country'       => 'Ukraine',
             ],
             [
                 'voice_phone'       => '+38 093 000-1122',
