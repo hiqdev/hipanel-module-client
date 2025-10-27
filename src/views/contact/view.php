@@ -131,7 +131,7 @@ FlagIconCssAsset::register($this);
                             'boxed'   => false,
                             'model'   => $model,
                             'columns' => [
-                                'first_name', 'last_name', 'organization',
+                                'first_name', 'last_name', 'organization_with_warning',
                                 'street', 'city', 'province', 'postal_code', 'country',
                             ],
                         ]) ?>

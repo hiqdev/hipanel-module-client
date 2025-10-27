@@ -335,4 +335,5 @@ return [
     'Last purchase invoice number' => 'Последний номер инвоиса за товары',
     'Last service payment request number' => 'Последний номер запроса на оплату услуг',
     'Last purchase payment request number' => 'Последний номер запроса на оплату товаров',
+    'If you provide an organization name, it will be considered the domain holder and may be published in RDDS with your consent.' => 'Если вы укажете название организации, оно будет считаться владельцем домена и может быть опубликовано в RDDS с вашего согласия.',
 ];

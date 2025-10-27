@@ -39,7 +39,11 @@ use yii\web\View;
         <?= Html::activeHiddenInput($model, 'oldEmail', ['value' => $model->oldAttributes['email'] ?? $model->oldEmail]) ?>
 
         <?= $form->field($model, 'abuse_email'); ?>
-        <?= $form->field($model, 'organization'); ?>
+        <?php if ((Yii::$app->params['module.domain.contact.organization.notification'] ?? false) === true): ?>
+            <?= $form->field($model, 'organization')->hint(Yii::t('hipanel:client', 'If you provide an organization name, it will be considered the domain holder and may be published in RDDS with your consent.'), ['class' => 'text-warning', 'style' => 'display: inline-block']) ?>
+        <?php else: ?>
+            <?= $form->field($model, 'organization') ?>
+        <?php endif ?>
         <?= $form->field($model, 'street1'); ?>
         <?= $form->field($model, 'street2'); ?>
         <?= $form->field($model, 'street3'); ?>

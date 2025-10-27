@@ -42,6 +42,18 @@ class ContactGridView extends BoxedGridView
                     return Html::encode($model->name) . VerificationMark::widget(['model' => $model->getVerification('name')]);
                 },
             ],
+            'organization_with_warning' => [
+                'format' => 'raw',
+                'attribute' => 'organization',
+                'value' => function(Contact $model) {
+                    $result = $model->organization ?? '';
+                    if ($result || (Yii::$app->params['module.domain.contact.organization.notification'] ?? false) === false) {
+                        return $result;
+                    }
+
+                    return Html::tag('b', Yii::t('hipanel:client', 'If you provide an organization name, it will be considered the domain holder and may be published in RDDS with your consent.'), ['class' => 'text-warning']);
+                },
+            ],
             'kyc_status' => [
                 'class' => KycColumn::class,
                 'attribute' => 'kyc.state',

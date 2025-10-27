@@ -110,7 +110,7 @@ $this->registerCss('legend {font-size: 16px;}');
                     'boxed' => false,
                     'model' => $model->contact,
                     'columns' => array_filter([
-                        'name_with_verification', 'organization',
+                        'name_with_verification', 'organization_with_warning',
                         'email_with_verification', 'abuse_email', 'messengers', 'social_net',
                         'voice_phone', 'fax_phone',
                         (Yii::getAlias("@kyc", false) !== false ? 'kyc_status' : null),
