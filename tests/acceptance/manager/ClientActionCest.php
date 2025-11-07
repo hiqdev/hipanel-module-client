@@ -120,6 +120,7 @@ class ClientActionCest
 
         $I->pressButton('Delete clients');
         $I->waitForPageUpdate();
+        $I->wait(5);
 
         foreach ($client as $username) {
             $this->ensureClientsWasDeleted($I, $username);
@@ -132,7 +133,7 @@ class ClientActionCest
         $I->needPage(Url::to('@client'));
 
         $column = $index->getColumnNumber('Status');
-        $row = $index->getRowNumberInColumnByValue('Client', $login);
+        $row = $index->getRowNumberInColumnByValue('Login', $login);
         $I->see('Deleted', "//tbody/tr[$row]/td[$column]");
     }
 
@@ -144,9 +145,10 @@ class ClientActionCest
     protected function provideValidClientData(): iterable
     {
         foreach (['client', 'reseller', 'manager', 'admin', 'support'] as $type) {
+            $id = uniqid();
             yield [
-                'login'     => $usernames[] = 'test_login' . uniqid(),
-                'email'     => 'test_email@test.test' . uniqid(),
+                'login'     => $usernames[] = 'test_login' . $id,
+                'email'     => 'test_email@test.test' . $id,
                 'password'  => 'test_pass',
                 'type'      =>  $type,
                 'referer'   => null,
