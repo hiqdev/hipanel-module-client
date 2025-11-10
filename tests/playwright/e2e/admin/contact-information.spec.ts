@@ -22,8 +22,8 @@ const contactInfoAssumptions = [
 ];
 
 test("Test the admin contact information is correct @hipanel-module-client @admin", async ({ adminPage }) => {
-  // The `/site/profile` page redirects to `/client/client/view`, which is quite slow (taking more than 10 seconds to load),
-  // so the timeout has been increased. See HP-2797 issue for more details.
+  // The `/site/profile` page redirects to `/client/client/view`, which can take more than 10 seconds to load. Previously,
+  // this caused a timeout error after 10 seconds, so the timeout has been increased. See issue HP-2797 for more details.
   await adminPage.goto("/site/profile", {timeout: 30_000});
   await verifyContactInfo(adminPage, contactInfoAssumptions);
 });
