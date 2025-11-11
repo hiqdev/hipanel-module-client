@@ -3,7 +3,7 @@ import BlacklistHelper from "@hipanel-module-client/helper/Blacklist";
 import BlacklistCategory from "@hipanel-module-client/helper/category/BlacklistCategory";
 import Index from "@hipanel-core/page/Index";
 
-test("Blacklist export is works correctly @hipanel-module-client @admin", async ({ page }) => {
+test("Blacklist export works correctly @hipanel-module-client @admin", async ({ page }) => {
   await page.goto("/client/blacklist/index");
 
   const indexPage = new Index(page);
