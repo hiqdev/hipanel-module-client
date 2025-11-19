@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace hipanel\modules\client\tests\acceptance\seller;
 
