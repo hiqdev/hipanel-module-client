@@ -1,5 +1,5 @@
 import { test } from "@hipanel-core/fixtures";
-import {expect, Page} from "@playwright/test";
+import { expect, Page } from "@playwright/test";
 
 const contactInfoAssumptions = [
   { id: "name_with_verification", value: "Test Admin" },
@@ -24,7 +24,7 @@ const contactInfoAssumptions = [
 test("Test the admin contact information is correct @hipanel-module-client @admin", async ({ adminPage }) => {
   // The `/site/profile` page redirects to `/client/client/view`, which can take more than 10 seconds to load. Previously,
   // this caused a timeout error after 10 seconds, so the timeout has been increased. See issue HP-2797 for more details.
-  await adminPage.goto("/site/profile", {timeout: 100_000});
+  await adminPage.goto("/site/profile", { timeout: 100_000 });
   await verifyContactInfo(adminPage, contactInfoAssumptions);
 });
 
