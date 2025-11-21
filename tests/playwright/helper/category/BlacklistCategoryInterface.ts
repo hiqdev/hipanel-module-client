@@ -1,4 +1,5 @@
 interface BlacklistCategoryInterface {
-    getName(): string;
-    getLabel(): string;
+  getName(): string;
+
+  getLabel(): string;
 }
