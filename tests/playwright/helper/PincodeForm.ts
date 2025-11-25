@@ -27,7 +27,7 @@ export default class PincodeForm {
   }
 
   async enablePin(pincode: string, question: string, answer: string) {
-    this.loadPincodeForm();
+    await this.loadPincodeForm();
 
     await this.fillPincode(pincode);
     await this.chooseQuestion(question, answer);
@@ -35,11 +35,12 @@ export default class PincodeForm {
   }
 
   async fillPincode(pincode: string) {
+    await this.pincode().clear();
     await this.pincode().fill(pincode);
   }
 
   pincode(): Locator {
-    return this.page.getByLabel("Enter pincode");
+    return this.page.getByRole("textbox", { name: "Enter pincode" });
   }
 
   async chooseQuestion(question: string, answer: string) {
@@ -68,7 +69,6 @@ export default class PincodeForm {
     await this.clickSaveButton();
     await this.getForm().waitFor({ state: "hidden" });
     await this.hasNotification(message);
-    await this.closeNotification();
   }
 
   async clickSaveButton() {
@@ -83,10 +83,6 @@ export default class PincodeForm {
 
   async hasNotification(message: string) {
     await this.alert.hasText(message);
-  }
-
-  async closeNotification() {
-    await this.alert.close();
   }
 
   async disablePinUsingAnswer(question: string, answer: string) {

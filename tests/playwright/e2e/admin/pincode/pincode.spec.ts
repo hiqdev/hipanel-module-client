@@ -1,9 +1,9 @@
-import { getUserId, test } from "@hipanel-core/fixtures";
-import { expect } from "@playwright/test";
+import { expect, getUserId, test } from "@hipanel-core/fixtures";
 import ClientView from "@hipanel-module-client/page/ClientView";
+import PincodeForm from "@hipanel-module-client/helper/PincodeForm";
 
 test.describe("Pincode Settings", () => {
-  let pincodeForm;
+  let pincodeForm: PincodeForm;
 
   test.beforeEach(async ({ adminPage }) => {
     const clientViewPage = new ClientView(adminPage);
@@ -12,11 +12,11 @@ test.describe("Pincode Settings", () => {
     pincodeForm = clientViewPage.getPincodeForm();
   });
 
-  test("Check Pnotify Errors @hipanel-module-client @admin", async ({ adminPage }) => {
+  test("Pnotify Errors @hipanel-module-client @admin", async () => {
     const testCases = [
       { pin: "", answer: "test answer", message: "no data given", ownQuestion: null },
-      { pin: "1234", answer: "", message: "wrong input: Answer", ownQuestion: null },
-      { pin: "1234", answer: "test answer", message: "wrong input: Question", ownQuestion: "" },
+      { pin: "1234", answer: "", message: "wrong input: answer", ownQuestion: null },
+      { pin: "1234", answer: "test answer", message: "wrong input: question", ownQuestion: "" },
     ];
 
     for (const { pin, answer, message, ownQuestion } of testCases) {
@@ -27,12 +27,11 @@ test.describe("Pincode Settings", () => {
       if (ownQuestion !== null) {
         await pincodeForm.fillOwnQuestion(ownQuestion);
       }
-
       await pincodeForm.savePincodeFormWithMessage(message);
     }
   });
 
-  test("Test PIN input validation @hipanel-module-client @admin", async ({ adminPage }) => {
+  test("PIN input validation @hipanel-module-client @admin", async () => {
     const testCases = [
       { pin: "123", message: "Enter pincode should contain at least 4 characters." },
       { pin: "12345", message: "Enter pincode should contain at most 4 characters." },
