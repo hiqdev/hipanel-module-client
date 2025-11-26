@@ -4,10 +4,12 @@ use yii\bootstrap\ActiveForm;
 use yii\bootstrap\Tabs;
 use yii\helpers\Html;
 use yii\helpers\Url;
+use yii\web\View;
 
 /**
- * @var \yii\web\View
+ * @var View $this
  * @var array $questionList
+ * @var hipanel\modules\client\models\Client $model
  */
 ?>
 <?php $form = ActiveForm::begin([
