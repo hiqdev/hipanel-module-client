@@ -65,7 +65,7 @@ class ClientDetailMenu extends AbstractDetailMenu
                 'encode' => false,
                 'visible' => $user->is($this->model->id),
             ],
-            $this->show2faLink($user),
+            $this->get2faLink($user),
             [
                 'label' => SettingsModal::widget([
                     'model' => $this->model,
@@ -276,11 +276,12 @@ class ClientDetailMenu extends AbstractDetailMenu
         return $items;
     }
 
-    private function show2faLink(mixed $user): array
+    private function get2faLink(mixed $user): array
     {
         /** @var Module $module */
         $module = Yii::$app->getModule('client');
-        if (!$module->twoFactorAuth) {
+        $hiamSite = Yii::getAlias('@HIAM_SITE', false);
+        if (!$module->twoFactorAuth || !$hiamSite) {
             return [];
         }
 
@@ -291,10 +292,7 @@ class ClientDetailMenu extends AbstractDetailMenu
             ? Yii::t('hipanel:client', 'Disable two-factor authorization')
             : Yii::t('hipanel:client', 'Enable two-factor authorization');
 
-        $url = implode('', [
-            Yii::getAlias('@HIAM_SITE', false),
-            Url::to(['/mfa/totp/' . $action, 'back' => Url::to('', true)]),
-        ]);
+        $url = implode('', [$hiamSite, Url::to(['/mfa/totp/' . $action, 'back' => Url::to('', true)])]);
 
         return [
             'label' => $label,
