@@ -36,7 +36,7 @@ class ClientViewSkeletonCest
         $menu = array_filter([
             ['text' => 'You can change your avatar at Gravatar.com'],
             ['text' => 'Change password'],
-            $this->clientModule->towFactorAuth ? ['text' => 'Enable two-factor authorization'] : null,
+            $this->clientModule->twoFactorAuth ? ['text' => 'Enable two-factor authorization'] : null,
             ['text' => 'Pincode settings'],
             ['text' => 'IP address restrictions'],
             ['text' => 'Notification settings'],

@@ -25,7 +25,7 @@ return [
         'client' => [
             'class' => \hipanel\modules\client\Module::class,
             'userCreationIsDisabled' => $params['module.client.user.creation.disabled'] ?? false,
-            'towFactorAuth' => $params['module.client.twoFactorAuth'] ?? true,
+            'twoFactorAuth' => $params['module.client.twoFactorAuth'] ?? true,
         ],
         'language' => [
             'on ' . \hiqdev\yii2\language\events\LanguageWasChanged::EVENT_NAME =>

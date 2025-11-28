@@ -280,7 +280,7 @@ class ClientDetailMenu extends AbstractDetailMenu
     {
         /** @var Module $module */
         $module = Yii::$app->getModule('client');
-        if (!$module->towFactorAuth) {
+        if (!$module->twoFactorAuth) {
             return [];
         }
 

@@ -13,5 +13,5 @@ namespace hipanel\modules\client;
 class Module extends \hipanel\base\Module
 {
     public bool $userCreationIsDisabled = false;
-    public bool $towFactorAuth;
+    public bool $twoFactorAuth;
 }
