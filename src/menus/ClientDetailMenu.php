@@ -65,7 +65,7 @@ class ClientDetailMenu extends AbstractDetailMenu
                 'encode' => false,
                 'visible' => $user->is($this->model->id),
             ],
-            $this->get2faLink($user),
+            $this->get2faLink($user->is($this->model->id)),
             [
                 'label' => SettingsModal::widget([
                     'model' => $this->model,
@@ -276,7 +276,7 @@ class ClientDetailMenu extends AbstractDetailMenu
         return $items;
     }
 
-    private function get2faLink(mixed $user): array
+    private function get2faLink(bool $isCurrenUserProfile): array
     {
         /** @var Module $module */
         $module = Yii::$app->getModule('client');
@@ -298,7 +298,7 @@ class ClientDetailMenu extends AbstractDetailMenu
             'label' => $label,
             'icon' => 'fa-lock',
             'url' => $url,
-            'visible' => $user->is($this->model->id),
+            'visible' => $isCurrenUserProfile,
         ];
     }
 }
