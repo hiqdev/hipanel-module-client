@@ -19,6 +19,9 @@ use yii\web\View;
  * @var BankDetails[] $bankDetails
  * @var array $currencies
  */
+
+$preferredCountries = array_values(array_unique(array_filter([$model->country, 'us', 'ru', 'ua', 'gb'])));
+
 ?>
 
 <?= Html::hiddenInput('pincode', null, ['id' => 'contact-pincode']) ?>
@@ -56,13 +59,13 @@ use yii\web\View;
         <?= $form->field($model, 'postal_code'); ?>
         <?= $form->field($model, 'voice_phone')->widget(PhoneInput::class, [
             'jsOptions' => [
-                'preferredCountries' => array_values(array_unique(array_filter([$model->country, 'us', 'ru', 'ua', 'gb']))),
+                'preferredCountries' => $preferredCountries,
                 'initialCountry' => 'auto',
             ],
         ]) ?>
         <?= $form->field($model, 'fax_phone')->widget(PhoneInput::class, [
             'jsOptions' => [
-                'preferredCountries' => array_values(array_unique(array_filter([$model->country, 'us', 'ru', 'ua', 'gb']))),
+                'preferredCountries' => $preferredCountries,
                 'initialCountry' => 'auto',
             ],
         ]) ?>
@@ -164,44 +167,45 @@ use yii\web\View;
     </div>
 
 </div>
-<!-- /.row -->
 
 <?php
 
-$this->registerJs(<<<JS
+$this->registerJs(
+    <<<JS
+    jQuery('#contact-organization').on('change', function() {
+        var triggerInput = function(selector, disable) {
+            jQuery(selector + ' input').each(function(i, e) {
+                if (disable == true) {
+                    jQuery(this).prop('disabled', 'disabled');
+                } else {
+                    jQuery(this).prop('disabled', false);
+                }
+            });
 
-jQuery('#contact-organization').on('change', function() {
-    var triggerInput = function(selector, disable) {
-        jQuery(selector + ' input').each(function(i, e) {
             if (disable == true) {
-                jQuery(this).prop('disabled', 'disabled');
+                jQuery(selector).prop('disabled', disable);
             } else {
-                jQuery(this).prop('disabled', false);
+                jQuery(selector).prop('disabled', false);
             }
-        });
-
-        if (disable == true) {
-            jQuery(selector).prop('disabled', disable);
-        } else {
-            jQuery(selector).prop('disabled', false);
         }
-    }
 
-    if (!jQuery(this).val()) {
-        jQuery('#passport-data-box').removeClass('collapsed-box');
-        jQuery('#legal-entity-box').addClass('collapsed-box');
-        triggerInput('#fiz_domain', false);
-        triggerInput('#jur_domain', true);
-        return false;
-    }
+        if (!jQuery(this).val()) {
+            jQuery('#passport-data-box').removeClass('collapsed-box');
+            jQuery('#legal-entity-box').addClass('collapsed-box');
+            triggerInput('#fiz_domain', false);
+            triggerInput('#jur_domain', true);
+            return false;
+        }
 
-    jQuery('#passport-data-box').addClass('collapsed-box');
-    jQuery('#legal-entity-box').removeClass('collapsed-box');
-    triggerInput('#fiz_domain', true);
-    triggerInput('#jur_domain', false);
-});
+        jQuery('#passport-data-box').addClass('collapsed-box');
+        jQuery('#legal-entity-box').removeClass('collapsed-box');
+        triggerInput('#fiz_domain', true);
+        triggerInput('#jur_domain', false);
+    });
 
-jQuery('#contact-organization').trigger('change');
+    jQuery('#contact-organization').trigger('change');
 JS
-    , View::POS_READY);
+    ,
+    View::POS_READY
+);
 ?>

@@ -28,6 +28,7 @@ use yii\helpers\Html;
  * @property int|string $id
  * @property bool $gdpr_consent
  * @property bool $policy_consent
+ * @property string|null $country
  */
 class Contact extends \hipanel\base\Model implements TaggableInterface
 {
