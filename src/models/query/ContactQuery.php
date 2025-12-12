@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * Client module for HiPanel
  *
@@ -19,7 +19,8 @@ class ContactQuery extends ActiveQuery
         parent::init();
         $this->joinWith('bankDetails');
     }
-    public function withLocalizations()
+
+    public function withLocalizations(): static
     {
         $this->joinWith('localizations');
         $this->andWhere(['with_localizations' => true]);
@@ -27,7 +28,7 @@ class ContactQuery extends ActiveQuery
         return $this;
     }
 
-    public function withDocuments()
+    public function withDocuments(): static
     {
         $this->joinWith('documents');
         $this->andWhere(['with_documents' => true]);
@@ -35,10 +36,17 @@ class ContactQuery extends ActiveQuery
         return $this;
     }
 
-    public function withKyc(): self
+    public function withKyc(): static
     {
         $this->addSelect('kyc');
         $this->joinWith('kyc');
+
+        return $this;
+    }
+
+    public function withBalances(): static
+    {
+        $this->addSelect('balances');
 
         return $this;
     }
