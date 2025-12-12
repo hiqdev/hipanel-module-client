@@ -69,6 +69,7 @@ class ClientQuery extends ActiveQuery
 
     public function withContact(): self
     {
+        $this->addSelect('contact');
         $this->joinWith([
             'contact' => function ($query) {
                 if (Yii::getAlias('@document', false) && Yii::$app->user->can('document.read')) {
@@ -85,12 +86,20 @@ class ClientQuery extends ActiveQuery
         return $this;
     }
 
-    public function withPurses(): self
+    public function withDocuments(): self
     {
+        $this->addSelect('documents');
+
+        return $this;
+    }
+
+    public function withPurses(bool $withDocuments = false): self
+    {
+        $this->addSelect('purses');
         $this->joinWith([
-            'purses' => function ($query) {
+            'purses' => function ($query) use ($withDocuments) {
                 $query->joinWith('contact')->joinWith('requisite');
-                if (Yii::getAlias('@document', false) && Yii::$app->user->can('document.read')) {
+                if ($withDocuments && Yii::getAlias('@document', false) && Yii::$app->user->can('document.read')) {
                     $query->joinWith('documents');
                 }
             },
@@ -111,6 +120,7 @@ class ClientQuery extends ActiveQuery
      */
     public function withProfit(): self
     {
+        $this->addSelect('profit');
         $this->joinWith('profit');
         $this->andWhere(['with_profit' => true]);
 

@@ -99,10 +99,9 @@ class ClientController extends CrudController
                     /** @var ClientQuery $query */
                     $query = $action->getDataProvider()->query;
                     $representation = $action->controller->indexPageUiOptionsModel->representation;
-                    $query->addSelect(['contact'])->withContact();
 
                     if (in_array($representation, ['servers', 'documents'], true)) {
-                        $query->addSelect(['purses'])->withPurses();
+                        $query->withPurses();
                     }
 
                     switch ($representation) {
@@ -110,7 +109,7 @@ class ClientController extends CrudController
                             $query->addSelect(['accounts_count', Yii::getAlias('@server', false) ? 'servers_count' : null, 'targets_count']);
                             break;
                         case 'documents':
-                            $query->addSelect(['documents']);
+                            $query->withDocuments();
                             break;
                         case 'profit-report':
                             $query->withProfit();
