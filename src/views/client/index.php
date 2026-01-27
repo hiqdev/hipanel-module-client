@@ -19,7 +19,6 @@ use hipanel\modules\stock\helpers\ProfitColumns;
 use hipanel\widgets\AjaxModal;
 use hipanel\widgets\gridLegend\GridLegend;
 use hipanel\widgets\IndexPage;
-use hipanel\widgets\Pjax;
 use hipanel\helpers\Url;
 use hiqdev\assets\flagiconcss\FlagIconCssAsset;
 use yii\bootstrap\Dropdown;
@@ -190,9 +189,7 @@ $canCreateClients = !$this->context->module->userCreationIsDisabled && ($user->c
         <?php $page->beginBulkForm() ?>
             <?= ClientGridView::widget([
                 'boxed' => false,
-                'rowOptions' => function ($model) {
-                    return  GridLegend::create(new ClientGridLegend($model))->gridRowOptions();
-                },
+                'rowOptions' => fn($model) => GridLegend::create(new ClientGridLegend($model))->gridRowOptions(),
                 'dataProvider' => $dataProvider,
                 'filterModel'  => $model,
                 'showFooter' => $showFooter,

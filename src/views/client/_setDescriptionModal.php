@@ -8,11 +8,13 @@
  */
 
 /**
- * @var \hipanel\modules\client\models\Client $model
- * @var \yii\base\View $this
+ * @var Client $model
+ * @var View $this
  */
 
-use dosamigos\tinymce\TinyMce;
+use hipanel\modules\client\models\Client;
+use hipanel\widgets\TrumbowygInput;
+use yii\web\View;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -37,18 +39,9 @@ $form = ActiveForm::begin([
 
     <?= Html::activeHiddenInput($model, "[$model->id]id") ?>
 
-    <?= $form->field($model, "[$model->id]description")->widget(TinyMce::class, [
+    <?= $form->field($model, "[$model->id]description")->widget(TrumbowygInput::class, [
         'name' => 'content',
         'value' => $model->description,
-        'options' => ['rows' => 6],
-        'clientOptions' => [
-            'plugins' => [
-                "advlist autolink lists link charmap print preview anchor",
-                "searchreplace visualblocks code fullscreen",
-                "insertdatetime media table contextmenu paste"
-            ],
-            'toolbar' => "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
-        ],
     ])->label(false) ?>
 
     <hr>

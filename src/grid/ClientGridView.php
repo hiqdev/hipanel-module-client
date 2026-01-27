@@ -11,6 +11,8 @@
 namespace hipanel\modules\client\grid;
 
 use DateTime;
+use hipanel\assets\TrumbowygAsset;
+use hipanel\base\Controller;
 use hipanel\grid\BoxedGridView;
 use hipanel\grid\DataColumn;
 use hipanel\grid\MainColumn;
@@ -37,6 +39,16 @@ use yii\helpers\Inflector;
 
 class ClientGridView extends BoxedGridView
 {
+
+    public function init()
+    {
+        parent::init();
+        /** @var Controller $ctx */
+        $ctx = $this->view->context;
+        if ($ctx->indexPageUiOptionsModel->representation === null || $ctx->indexPageUiOptionsModel->representation === 'common') {
+            TrumbowygAsset::register($this->view);
+        }
+    }
     /**
      * @return array
      */
