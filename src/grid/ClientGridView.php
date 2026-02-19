@@ -45,9 +45,16 @@ class ClientGridView extends BoxedGridView
         parent::init();
         /** @var Controller $ctx */
         $ctx = $this->view->context;
-        if ($ctx->indexPageUiOptionsModel->representation === null || $ctx->indexPageUiOptionsModel->representation === 'common') {
+        if ($ctx && $this->shouldRegisterTrumbowyg($ctx)) {
             TrumbowygAsset::register($this->view);
         }
+    }
+
+    private function shouldRegisterTrumbowyg(Controller $ctx): bool
+    {
+        $representation = $ctx->indexPageUiOptionsModel->representation ?? null;
+
+        return $representation === null || $representation === 'common';
     }
     /**
      * @return array
