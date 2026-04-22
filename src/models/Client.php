@@ -30,6 +30,7 @@ use Yii;
  * @property Contact $contact the primary contact
  * @property Purse[] $purses
  * @property int $id
+ * @property-read ?array $count
  * @property-read string $balance
  * @property-read string $credit
  * @property-read string $currency
@@ -596,5 +597,28 @@ class Client extends \hipanel\base\Model implements TaggableInterface
             'acdn' => Yii::t('hipanel:client', 'aCDN'),
             'other_information_links' => Yii::t('hipanel:client', 'Other information/Links'),
         ];
+    }
+
+    /**
+     * @param string $relation
+     * @return int
+     */
+    public function getCountOf(string $relation): int
+    {
+        if (!in_array($relation, ['tickets', 'servers', 'contacts'], true)) {
+            throw new \InvalidArgumentException(sprintf('Unsupported relation: %s', $relation));
+        }
+
+        return (int)(($this->count ?? [])[$relation] ?? 0);
+    }
+
+    public function getServerCount(): int
+    {
+        return $this->getCountOf('servers');
+    }
+
+    public function hasServers(): bool
+    {
+        return $this->getServerCount() > 0;
     }
 }
