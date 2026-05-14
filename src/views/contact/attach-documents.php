@@ -9,14 +9,15 @@
  * @copyright Copyright (c) 2015-2016, HiQDev (http://hiqdev.com/)
  */
 
-use hipanel\modules\document\widgets\StackedDocumentsView;
+use hipanel\modules\client\models\Contact;
+use hipanel\modules\document\models\Document;
+use hipanel\modules\document\widgets\DocumentFormWidget;
 use hipanel\widgets\Box;
 use yii\helpers\Inflector;
-use hipanel\modules\document\widgets\DocumentFormWidget;
 
 /**
- * @var \hipanel\modules\client\models\Contact $contact
- * @var \hipanel\modules\document\models\Document $model
+ * @var Contact $contact
+ * @var Document $model
  */
 
 $label = $contact->name !== '' ? $contact->name : $contact->email;
@@ -29,13 +30,14 @@ $this->params['breadcrumbs'][] = [
 $this->params['breadcrumbs'][] = $this->title;
 
 ?>
+
 <div class="row">
     <div class="col-md-5">
         <?php Box::begin([
             'title' => Yii::t('hipanel:client', 'Attach new documents'),
         ]) ?>
 
-            <p>
+        <p>
                 <?= Yii::t('hipanel:client',
                     'You can upload copy of your documents in order to help us verify your identity') ?>
             </p>
@@ -49,26 +51,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 <li><?= Yii::t('hipanel:client', 'Valid: the expiry date is clearly visible') ?></li>
             </ul>
 
-            <?= DocumentFormWidget::widget([
-                'model' => $model,
-                'boxWidth' => 12,
-            ]) ?>
+        <?= DocumentFormWidget::widget([
+            'model' => $model,
+            'boxWidth' => 12,
+        ]) ?>
         <?php Box::end() ?>
     </div>
-    <div class="col-md-7">
-        <?php $box = Box::begin([
-            'renderBody' => false,
-        ]) ?>
-            <?php $box->beginHeader() ?>
-                <?= $box->renderTitle(Yii::t('hipanel:client', 'Documents')) ?>
-            <?php $box->endHeader() ?>
-            <?php $box->beginBody() ?>
-                <?= StackedDocumentsView::widget([
-                    'models' => $contact->documents,
-                    'thumbSize' => 64,
-                ]) ?>
-            <?php $box->endBody() ?>
-        <?php $box->end() ?>
-    </div>
 </div>
-

@@ -5,7 +5,8 @@ use hipanel\modules\client\grid\ContactGridView;
 use hipanel\modules\client\menus\ClientDetailMenu;
 use hipanel\modules\client\models\Client;
 use hipanel\modules\client\widgets\ClientSwitcher;
-use hipanel\modules\document\widgets\StackedDocumentsView;
+use hipanel\modules\finance\widgets\FinanceDocumentsBox;
+use hipanel\modules\finance\widgets\FinanceDocumentsBox\PursesDocumentsDataSource;
 use hipanel\widgets\Box;
 use hipanel\widgets\ClientSellerLink;
 use hiqdev\assets\flagiconcss\FlagIconCssAsset;
@@ -13,6 +14,9 @@ use yii\helpers\Html;
 
 /**
  * @var Client $model
+ * @var yii\web\View $this
+ * @var array $currencies
+ * @var array $documentTypes
  */
 
 FlagIconCssAsset::register($this);
@@ -102,33 +106,8 @@ $form = new EmployeeForm($model->contact, $scenario ?? EmployeeForm::DEFAULT_SCE
             <?php endforeach; ?>
         </div>
         <div class="row">
-            <div class="col-md-6">
-                <?php foreach ($model->sortedPurses as $purse) : ?>
-                    <?= $this->render('@vendor/hiqdev/hipanel-module-finance/src/views/purse/_client-view',
-                        ['model' => $purse]) ?>
-                <?php endforeach ?>
-            </div>
-            <div class="col-md-6">
-                <?php if (Yii::getAlias('@document', false) !== false && Yii::$app->user->can('document.read')) : ?>
-                    <?php $box = Box::begin(['renderBody' => false]) ?>
-                    <?php $box->beginHeader() ?>
-                    <?= $box->renderTitle(Yii::t('hipanel:client', 'Documents')) ?>
-                    <?php $box->beginTools() ?>
-                    <?= Html::a(Yii::t('hipanel', 'Details'),
-                        ['@contact/attach-documents', 'id' => $model->id],
-                        ['class' => 'btn btn-default btn-xs']) ?>
-                    <?= Html::a(Yii::t('hipanel', 'Upload'),
-                        ['@contact/attach-documents', 'id' => $model->id],
-                        ['class' => 'btn btn-default btn-xs']) ?>
-                    <?php $box->endTools() ?>
-                    <?php $box->endHeader() ?>
-                    <?php $box->beginBody() ?>
-                    <?= StackedDocumentsView::widget([
-                        'models' => $model->contact->documents,
-                    ]) ?>
-                    <?php $box->endBody() ?>
-                    <?php $box->end() ?>
-                <?php endif ?>
+            <div class="col-md-12">
+                <?= FinanceDocumentsBox::widget(['dataSource' => new PursesDocumentsDataSource(purses: $model->sortedPurses, client: $model, currencies: $currencies, documentTypes: $documentTypes)]) ?>
             </div>
         </div>
     </div>
