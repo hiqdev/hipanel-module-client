@@ -12,6 +12,9 @@ use hipanel\modules\client\models\Client;
 
 /**
  * @var Client $model
+ * @var yii\web\View $this
+ * @var array $currencies
+ * @var array $documentTypes
  */
 
 $this->title = $model->login;
@@ -21,8 +24,8 @@ if (Yii::$app->user->can('client.read')) {
 }
 $this->params['breadcrumbs'][] = $this->title;
 
-if ($model->type === Client::TYPE_EMPLOYEE) {
-    echo $this->render('view/employee', ['model' => $model]);
+if ($model->isEmployee()) {
+    echo $this->render('view/employee', ['model' => $model, 'currencies' => $currencies, 'documentTypes' => $documentTypes]);
 } else {
-    echo $this->render('view/client', ['model' => $model]);
+    echo $this->render('view/client', ['model' => $model, 'currencies' => $currencies, 'documentTypes' => $documentTypes]);
 }

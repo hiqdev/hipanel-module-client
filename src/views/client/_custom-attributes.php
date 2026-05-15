@@ -15,8 +15,7 @@ use hipanel\modules\client\models\Client;
             <?= Yii::t('hipanel:client', 'Additional information') ?>
         </h4>
     </div>
-    <div class="box-footer no-padding">
+    <div class="box-footer no-padding table-responsive">
         <?= CustomAttributesViewer::widget(['owner' => $model]) ?>
     </div>
 <?php endif ?>
-

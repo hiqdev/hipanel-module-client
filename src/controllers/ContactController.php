@@ -28,6 +28,7 @@ use hipanel\modules\client\helpers\HasPINCode;
 use hipanel\modules\client\logic\EmailConfirmer;
 use hipanel\modules\client\logic\PhoneConfirmationException;
 use hipanel\modules\client\logic\PhoneConfirmer;
+use hipanel\modules\client\models\Client;
 use hipanel\modules\client\models\Contact;
 use hipanel\modules\client\models\query\ContactQuery;
 use hipanel\modules\client\models\Verification;
@@ -104,6 +105,9 @@ class ContactController extends CrudController
             'view' => [
                 'class' => ViewAction::class,
                 'findOptions' => ['with_counters' => 1],
+                'data' => fn($action) => [
+                    'client' => Client::findOne($action->collection->first->client_id),
+                ],
                 'on beforePerform' => function ($event) {
                     /** @var ViewAction $action */
                     $action = $event->sender;

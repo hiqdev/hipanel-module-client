@@ -100,7 +100,7 @@ class ClientQuery extends ActiveQuery
             'purses' => function ($query) use ($withDocuments) {
                 $query->joinWith('contact')->joinWith('requisite');
                 if ($withDocuments && Yii::getAlias('@document', false) && Yii::$app->user->can('document.read')) {
-                    $query->joinWith('documents');
+                    $query->addSelect('documents')->joinWith('documents');
                 }
             },
         ]);

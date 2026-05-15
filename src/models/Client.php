@@ -36,6 +36,7 @@ use Yii;
  * @property-read string $currency
  * @property-read ClientWithProfit[] $profit
  * @property-read Assignment[] $assignments
+ * @property mixed|null $type
  */
 class Client extends \hipanel\base\Model implements TaggableInterface
 {
@@ -395,7 +396,7 @@ class Client extends \hipanel\base\Model implements TaggableInterface
             return null;
         }
 
-        return $this->hasMany(Purse::class, ['client_id' => 'id']);
+        return $this->hasMany(Purse::class, ['client_id' => 'id'])->joinWith('documents');
     }
 
     public function getPurseByCurrency(string $currency): ?Purse
@@ -473,7 +474,7 @@ class Client extends \hipanel\base\Model implements TaggableInterface
         $translation = [
             'q1' => Yii::t('hipanel:client', 'What was your nickname when you were a child?'),
             'q2' => Yii::t('hipanel:client', 'What was the name of your best childhood friend?'),
-            'q3' => Yii::t('hipanel:client', 'What is the month and the year of birth of your oldest relative? (e.g. January, 1900)'),
+            'q3' => Yii::t('hipanel:client', 'What are the month and the year of birth of your oldest relative? (e.g. January, 1900)'),
             'q4' => Yii::t('hipanel:client', 'What is your grandmother’s maiden name?'),
             'q5' => Yii::t('hipanel:client', 'What is the patronymic of your oldest relative?'),
         ];
@@ -528,7 +529,7 @@ class Client extends \hipanel\base\Model implements TaggableInterface
      *
      * @return array
      */
-    public function getSortedPurses()
+    public function getSortedPurses(): array
     {
         $purses = $this->purses;
         if (empty($purses)) {
@@ -569,7 +570,12 @@ class Client extends \hipanel\base\Model implements TaggableInterface
 
     public function notMyself(): bool
     {
-        return (string)$this->id !== (string)Yii::$app->user->identity->id;
+        return !$this->isSameAsIdentity();
+    }
+
+    public function isSameAsIdentity(): bool
+    {
+        return (string)$this->id === (string)Yii::$app->user->identity->id;
     }
 
     public function notMySeller(): bool
@@ -580,6 +586,11 @@ class Client extends \hipanel\base\Model implements TaggableInterface
     public function isAccountOwner(): bool
     {
         return (string) $this->id === (string) $this->account_owner_id;
+    }
+
+    public function isEmployee(): bool
+    {
+        return $this->type === self::TYPE_EMPLOYEE;
     }
 
     public function getCustomAttributesList()

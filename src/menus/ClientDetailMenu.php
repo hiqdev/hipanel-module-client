@@ -136,8 +136,7 @@ class ClientDetailMenu extends AbstractDetailMenu
                 'icon' => 'fa-edit fa-fw',
                 'url' => ['@client/update', 'id' => $this->model->id],
                 'encode' => false,
-                'visible' => $user->can('client.update') && !$this->model->isDeleted() && $this->model->notMyself(
-                    ) && $this->model->notMySeller(),
+                'visible' => $user->can('client.update') && !$this->model->isDeleted() && $this->model->notMyself() && $this->model->notMySeller(),
             ],
             [
                 'label' => SettingsModal::widget([
@@ -268,6 +267,15 @@ class ClientDetailMenu extends AbstractDetailMenu
             [
                 'label' => AuditButton::widget(['model' => $this->model]),
                 'encode' => false,
+            ],
+            [
+                'label' => Yii::t('hipanel:client', 'Documents'),
+                'icon' => 'fa-paperclip',
+                'url' => ['@contact/attach-documents', 'id' => $this->model->id],
+                'linkOptions' => [
+                    'target' => '_blank',
+                ],
+                'visible' => Yii::getAlias('@document', false) !== false && $user->can('document.read'),
             ],
         ], $actions);
 

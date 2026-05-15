@@ -34,8 +34,10 @@ use hipanel\modules\client\logic\IPConfirmer;
 use hipanel\modules\client\models\Client;
 use hipanel\modules\client\models\ClientSearch;
 use hipanel\modules\client\models\query\ClientQuery;
+use hipanel\modules\finance\widgets\FinanceDocumentsBox\PursesDocumentsDataSource;
 use hipanel\modules\ticket\models\Template;
 use hiqdev\hiart\Collection;
+use yii\web\Response;
 use yii\helpers\ArrayHelper;
 use RuntimeException;
 use Yii;
@@ -226,6 +228,7 @@ class ClientController extends CrudController
             ],
             'view' => [
                 'class' => ViewAction::class,
+                'data' => fn() => $this->getFinanceDocumentData(),
                 'on beforePerform' => function ($event) {
                     $action = $event->sender;
                     $action->getDataProvider()->query
@@ -477,5 +480,28 @@ class ClientController extends CrudController
         }
 
         return $this->redirect(['@client/view', 'id' => $id]);
+    }
+
+    public function getFinanceDocumentData(): array
+    {
+        return [
+           'documentTypes' => $this->getRefs('type,document', 'hipanel:document'),
+           'currencies' => $this->getRefs('type,currency'),
+        ];
+    }
+
+    public function actionGetFinanceDocumentState(string $client_id): Response
+    {
+        /** @var Client $client */
+        $client = Client::find()->where(['id' => $client_id])->withPurses(withDocuments: true)->withDocuments()->one();
+        $extra = $this->getFinanceDocumentData();
+        $state = new PursesDocumentsDataSource(
+            purses: $client->purses,
+            client: $client,
+            currencies: $extra['currencies'],
+            documentTypes: $extra['documentTypes'],
+        )->buildJsProps(true);
+
+        return $this->asJson($state);
     }
 }
