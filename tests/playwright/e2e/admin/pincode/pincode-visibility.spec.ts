@@ -84,7 +84,7 @@ test.describe("Pincode Visibility Tests", () => {
     const questions = [
       "What was your nickname when you were a child?",
       "What was the name of your best childhood friend?",
-      "What is the month and the year of birth of your oldest relative?",
+      "What are the month and the year of birth of your oldest relative? (e.g. January, 1900)",
       "What is your grandmother’s maiden name?",
       "What is the patronymic of your oldest relative?",
       "Own question",
