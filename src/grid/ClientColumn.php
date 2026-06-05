@@ -29,7 +29,7 @@ class ClientColumn extends DataColumn
 
     public $nameAttribute = 'client';
 
-    public $format = 'html';
+    public $format = 'raw';
 
     /**
      * @var string the combo type. Available: `client` or `seller`
