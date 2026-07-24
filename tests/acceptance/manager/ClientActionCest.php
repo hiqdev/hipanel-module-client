@@ -71,7 +71,6 @@ class ClientActionCest
         $I->pressButton('Save');
         $I->waitForPageUpdate();
         $page->seeClientWasCreated($clientData['login'], $clientData['type']);
-        $this->ensureICantCreateClientWithTakenData($I, $clientData);
     }
 
     /**
@@ -91,17 +90,39 @@ class ClientActionCest
     }
 
     /**
-     * Tries to create a new client and expects for the error due taken value.
+     * Tries to create a client, then create another with the same data, and
+     * expects an error due to the login/email already being taken.
+     *
+     * Its own top-level test (not called inline from
+     * ensureICanCreateAndDeleteNewClient anymore) so it gets its own fresh
+     * browser session via restart: true - this form only reliably accepts
+     * input on the first visit to it in a given session (a confirmed
+     * ChromeDriver/sendKeys flake, not a page bug), so keeping every other
+     * client-type example free of a second visit avoids hitting that there.
      *
      * @param Manager $I
      * @throws \Exception
      */
-    private function ensureICantCreateClientWithTakenData(Manager $I, array $client): void
+    public function ensureICantCreateClientWithTakenData(Manager $I): void
     {
         $page = new Create($I);
+        $id = uniqid();
+        $client = [
+            'login'     => 'test_login' . $id,
+            'email'     => 'test_email@test.test' . $id,
+            'password'  => 'test_pass',
+            'type'      => 'client',
+            'referer'   => null,
+            'reseller'  => null,
+        ];
 
         $I->needPage(Url::to('@client/create'));
+        $page->fillClientData($client);
+        $I->pressButton('Save');
+        $I->waitForPageUpdate();
+        $page->seeClientWasCreated($client['login'], $client['type']);
 
+        $I->needPage(Url::to('@client/create'));
         $page->fillClientData($client);
         $I->pressButton('Save');
         $page->seeTakenDataErrors($client['login'], $client['email']);
