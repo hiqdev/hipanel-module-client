@@ -16,6 +16,7 @@ class Update extends FormPage
 {
     public function sendPincode(AcceptanceTester $I, int $pincode): void
     {
+        $I->waitForElement('input[name=pincode-modal-input]', 10);
         (new Input($I, 'input[name=pincode-modal-input]'))->setValue($pincode);
         $I->pressButton('Send');
     }
