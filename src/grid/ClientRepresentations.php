@@ -51,7 +51,7 @@ class ClientRepresentations extends RepresentationCollection
                 ],
             ],
             'documents' => [
-                'visible' => $user->can('client.read-requisite') && $user->can('document.read'),
+                'visible' => $user->can('requisites.read') && $user->can('document.read'),
                 'label' => Yii::t('hipanel:client', 'Documents'),
                 'columns' => [
                     'checkbox', 'login',
