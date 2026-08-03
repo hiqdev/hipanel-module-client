@@ -102,6 +102,8 @@ class ClientController extends CrudController
                     $query = $action->getDataProvider()->query;
                     $representation = $action->controller->indexPageUiOptionsModel->representation;
 
+                    $query->withContact();
+
                     if (in_array($representation, ['servers', 'documents'], true)) {
                         $query->withPurses();
                     }
