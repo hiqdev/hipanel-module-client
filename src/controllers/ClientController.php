@@ -102,6 +102,10 @@ class ClientController extends CrudController
                     $query = $action->getDataProvider()->query;
                     $representation = $action->controller->indexPageUiOptionsModel->representation;
 
+                    if (Yii::getAlias("@kyc", false) !== false) {
+                        $query->withContact();
+                    }
+
                     if (in_array($representation, ['servers', 'documents'], true)) {
                         $query->withPurses();
                     }
