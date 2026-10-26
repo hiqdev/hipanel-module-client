@@ -69,7 +69,6 @@ $preferredCountries = array_values(array_unique(array_filter([$model->country, '
                 'initialCountry' => 'auto',
             ],
         ]) ?>
-        <?= $form->field($model, 'xxx_token') ?>
         <?= $form->field($model, 'ua_tm') ?>
 
         <?php Box::end() ?>
