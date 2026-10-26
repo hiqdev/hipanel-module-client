@@ -1,5 +1,6 @@
 <?php
 
+use hipanel\assets\MomentAsset;
 use hipanel\helpers\Url;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
@@ -65,6 +66,7 @@ $submitButton = Html::submitButton(Yii::t('hipanel', 'Confirm'), [
 <?php $form->end() ?>
 
 
+<?php MomentAsset::register($this) ?>
 <?php $this->registerJs(<<<JS
 (function () {
     var requestButton = $('#request-code');
