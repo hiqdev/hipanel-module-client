@@ -248,7 +248,6 @@ class ClientController extends CrudController
                             Yii::getAlias('@server', false) ? 'servers_count' : null,
                             Yii::getAlias('@server', false) ? 'servers_count' : null,
                             Yii::getAlias('@hosting', false) ? 'hosting_count' : null,
-                            Yii::getAlias('@server', false) && Yii::$app->user->can('resell') ? 'pre_ordered_servers_count' : null,
                             Yii::getAlias('@target', false) ? 'targets_count' : null,
                         ]))
                         ->joinWith(['blocking'])
