@@ -262,7 +262,7 @@ class ClientGridView extends BoxedGridView
                 'label' => Yii::t('hipanel', 'Tickets'),
                 'value' => function ($model) {
                     $num = $model->count['tickets'];
-                    $url = Url::toRoute(['@ticket/index', 'ThreadSearch' => ['recipient_id' => $model->id]]);
+                    $url = Url::toRoute(['@ticket/index', 'ThreadSearch' => ['recipient_or_staff_id' => $model->id, 'state' => 'opened']]);
 
                     return $num ? Html::a(Yii::t('hipanel', '{0, plural, one{# ticket} other{# tickets}}', $num), $url) : '';
                 },
