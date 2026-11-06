@@ -336,4 +336,10 @@ return [
     'Last service payment request number' => 'Последний номер запроса на оплату услуг',
     'Last purchase payment request number' => 'Последний номер запроса на оплату товаров',
     'If you provide an organization name, it will be considered the domain holder and may be published in RDDS with your consent.' => 'Если вы укажете название организации, оно будет считаться владельцем домена и может быть опубликовано в RDDS с вашего согласия.',
+    'Are you sure you want to restore client {name}?' => 'Вы уверены, что хотите восстановить клиента {name}?',
+    'Confirm client restoring' => 'Подтвердите восстановление клиента',
+    'Restore client' => 'Восстановить клиента',
+    'Restoring client' => 'Восстановление клиента',
+    'Client(s) were restored' => 'Клиент(ы) восстановлен(ы)',
+    'Failed to restore client(s)' => 'Не удалось восстановить клиента(ов)',
 ];
