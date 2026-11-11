@@ -59,6 +59,7 @@ class ClientController extends CrudController
                     'update,merchant-payment' => 'client.update',
                     'delete' => 'client.delete',
                     'delete-by-logins' => 'client.delete',
+                    'restore' => 'client.restore',
                     'create' => $createUserPermissions,
                     'enable-block' => 'client.block',
                     'disable-block' => 'client.unblock',
@@ -170,6 +171,11 @@ class ClientController extends CrudController
                 'class' => SmartDeleteAction::class,
                 'success' => Yii::t('hipanel:client', 'Client(s) were deleted'),
                 'error' => Yii::t('hipanel:client', 'Failed to delete client(s)'),
+            ],
+            'restore' => [
+                'class' => SmartPerformAction::class,
+                'success' => Yii::t('hipanel:client', 'Client(s) were restored'),
+                'error' => Yii::t('hipanel:client', 'Failed to restore client(s)'),
             ],
             'bulk-delete-modal' => [
                 'class' => PrepareBulkAction::class,

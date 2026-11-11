@@ -209,8 +209,8 @@ class Client extends \hipanel\base\Model implements TaggableInterface
                 'on' => ['change-password'],
             ],
 
-            // Delete
-            [['id'], 'integer', 'on' => ['delete', 'perform-billing']],
+            // Delete, restore
+            [['id'], 'integer', 'on' => ['delete', 'restore', 'perform-billing']],
 
             // Set temporary password
             [['id'], 'integer', 'on' => 'set-tmp-password'],
@@ -466,7 +466,7 @@ class Client extends \hipanel\base\Model implements TaggableInterface
 
     public function canBeRestored()
     {
-        return $this->isDeleted() && Yii::$app->user->can('client.restore');
+        return $this->state === self::STATE_DELETED && Yii::$app->user->can('client.restore');
     }
 
     public static function makeTranslateQuestionList(array $questionList)
